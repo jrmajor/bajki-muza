@@ -1,0 +1,37 @@
+@tailwind base;
+
+h2 {
+	@apply text-2xl;
+}
+
+h3 {
+	@apply font-bold;
+}
+
+a:hover {
+	@apply underline text-gray-100;
+}
+
+input {
+	@apply p-1 bg-gray-800 text-gray-300 rounded;
+}
+
+input:focus {
+	@apply outline-none bg-gray-700;
+}
+
+button {
+	@apply px-3 py-1 bg-gray-800 text-gray-300 rounded;
+}
+
+button:focus {
+	@apply outline-none bg-gray-700;
+}
+
+td {
+	@apply p-1;
+}
+
+@tailwind components;
+
+@tailwind utilities;
