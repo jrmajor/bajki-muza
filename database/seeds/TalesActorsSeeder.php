@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Artist;
 use App\Tale;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class TalesActorsSeeder extends Seeder
@@ -19,12 +19,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Piotruś Pan'
+                'credit_nr'  => 1,
+                'characters' => 'Piotruś Pan',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -33,12 +33,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Matka'
+                'credit_nr'  => 2,
+                'characters' => 'Matka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -47,12 +47,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Wanda'
+                'credit_nr'  => 3,
+                'characters' => 'Wanda',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -61,12 +61,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Janek'
+                'credit_nr'  => 4,
+                'characters' => 'Janek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -75,12 +75,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Michał'
+                'credit_nr'  => 5,
+                'characters' => 'Michał',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -89,12 +89,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Wróżka'
+                'credit_nr'  => 6,
+                'characters' => 'Wróżka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -103,12 +103,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Kapitan Hak'
+                'credit_nr'  => 7,
+                'characters' => 'Kapitan Hak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -117,12 +117,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Pirat I'
+                'credit_nr'  => 8,
+                'characters' => 'Pirat I',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -131,12 +131,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Pirat II'
+                'credit_nr'  => 9,
+                'characters' => 'Pirat II',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -145,12 +145,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Pirat III'
+                'credit_nr'  => 10,
+                'characters' => 'Pirat III',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -159,12 +159,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Krokodyl'
+                'credit_nr'  => 11,
+                'characters' => 'Krokodyl',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -173,12 +173,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Tygrysia Lilia'
+                'credit_nr'  => 12,
+                'characters' => 'Tygrysia Lilia',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -187,12 +187,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Wódz'
+                'credit_nr'  => 13,
+                'characters' => 'Wódz',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:03', '2019-08-23 06:08:03', $artist->id, $tale->id]
         );
 
@@ -201,12 +201,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Narrator-Ogrodnik'
+                'credit_nr'  => 1,
+                'characters' => 'Narrator-Ogrodnik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:37', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -215,12 +215,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Calineczka'
+                'credit_nr'  => 2,
+                'characters' => 'Calineczka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:37', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -229,12 +229,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Dziecko; Chrabąszczówna; Jaskółka'
+                'credit_nr'  => 3,
+                'characters' => 'Dziecko; Chrabąszczówna; Jaskółka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:37', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -243,12 +243,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Dziecko; Jaskółeczka'
+                'credit_nr'  => 4,
+                'characters' => 'Dziecko; Jaskółeczka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:37', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -257,12 +257,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Dziecko; Chrabąszczówna; Jaskółka'
+                'credit_nr'  => 5,
+                'characters' => 'Dziecko; Chrabąszczówna; Jaskółka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:37', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -271,12 +271,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Żaba'
+                'credit_nr'  => 6,
+                'characters' => 'Żaba',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:37', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -285,12 +285,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Bielinek'
+                'credit_nr'  => 7,
+                'characters' => 'Bielinek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:38', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -299,12 +299,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Chrabąszcz'
+                'credit_nr'  => 8,
+                'characters' => 'Chrabąszcz',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:38', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -313,12 +313,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Chrabąszczowa'
+                'credit_nr'  => 9,
+                'characters' => 'Chrabąszczowa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:38', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -327,12 +327,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Pająk'
+                'credit_nr'  => 10,
+                'characters' => 'Pająk',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:38', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -341,12 +341,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Mysz Polna; Jaskółka'
+                'credit_nr'  => 11,
+                'characters' => 'Mysz Polna; Jaskółka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:38', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -355,12 +355,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Kret'
+                'credit_nr'  => 12,
+                'characters' => 'Kret',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:38', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -369,12 +369,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Duszek Kwiatów'
+                'credit_nr'  => 13,
+                'characters' => 'Duszek Kwiatów',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:38', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -383,12 +383,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Doktor'
+                'credit_nr'  => 1,
+                'characters' => 'Doktor',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -397,12 +397,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Papuga Polly'
+                'credit_nr'  => 2,
+                'characters' => 'Papuga Polly',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -411,12 +411,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Klara'
+                'credit_nr'  => 3,
+                'characters' => 'Klara',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -425,12 +425,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Pies Bryś'
+                'credit_nr'  => 4,
+                'characters' => 'Pies Bryś',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -439,12 +439,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Świnka'
+                'credit_nr'  => 5,
+                'characters' => 'Świnka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -453,12 +453,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Małpka Czi-Czi'
+                'credit_nr'  => 6,
+                'characters' => 'Małpka Czi-Czi',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -467,12 +467,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Kaczka Taś-Taś'
+                'credit_nr'  => 7,
+                'characters' => 'Kaczka Taś-Taś',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -481,12 +481,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Krokodyl Filip'
+                'credit_nr'  => 8,
+                'characters' => 'Krokodyl Filip',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -495,12 +495,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Jaskółka'
+                'credit_nr'  => 9,
+                'characters' => 'Jaskółka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -509,12 +509,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Delfin'
+                'credit_nr'  => 10,
+                'characters' => 'Delfin',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -523,12 +523,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Delfin'
+                'credit_nr'  => 11,
+                'characters' => 'Delfin',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -537,12 +537,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Herszt'
+                'credit_nr'  => 12,
+                'characters' => 'Herszt',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -551,12 +551,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Comber'
+                'credit_nr'  => 13,
+                'characters' => 'Comber',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -565,12 +565,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 14,
-                'characters' => 'Lew'
+                'credit_nr'  => 14,
+                'characters' => 'Lew',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -579,12 +579,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 15,
-                'characters' => 'Słoń'
+                'credit_nr'  => 15,
+                'characters' => 'Słoń',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -593,12 +593,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 16,
-                'characters' => 'Bambuła'
+                'credit_nr'  => 16,
+                'characters' => 'Bambuła',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -607,12 +607,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 17,
-                'characters' => 'Szympans Lolo'
+                'credit_nr'  => 17,
+                'characters' => 'Szympans Lolo',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -621,12 +621,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 18,
-                'characters' => 'Małpa'
+                'credit_nr'  => 18,
+                'characters' => 'Małpa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -635,12 +635,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 19,
-                'characters' => 'Małpa'
+                'credit_nr'  => 19,
+                'characters' => 'Małpa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -649,12 +649,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 20,
-                'characters' => 'Chłopiec'
+                'credit_nr'  => 20,
+                'characters' => 'Chłopiec',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:26', '2019-08-25 04:45:37', $artist->id, $tale->id]
         );
 
@@ -667,7 +667,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:11', '2019-08-23 08:02:11', $artist->id, $tale->id]
         );
 
@@ -680,7 +680,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:11', '2019-08-23 08:02:11', $artist->id, $tale->id]
         );
 
@@ -693,7 +693,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:11', '2019-08-23 08:02:11', $artist->id, $tale->id]
         );
 
@@ -706,7 +706,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -719,7 +719,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -732,7 +732,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -745,7 +745,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -758,7 +758,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -771,7 +771,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -784,7 +784,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -797,7 +797,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -810,7 +810,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:12', '2019-08-23 08:02:12', $artist->id, $tale->id]
         );
 
@@ -823,7 +823,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -836,7 +836,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -849,7 +849,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -862,7 +862,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -875,7 +875,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -888,7 +888,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -901,7 +901,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -914,7 +914,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:27', $artist->id, $tale->id]
         );
 
@@ -927,7 +927,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:27', $artist->id, $tale->id]
         );
 
@@ -940,7 +940,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:27', $artist->id, $tale->id]
         );
 
@@ -953,7 +953,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:27', $artist->id, $tale->id]
         );
 
@@ -962,12 +962,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Narrator'
+                'credit_nr'  => 1,
+                'characters' => 'Narrator',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -976,12 +976,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Walenty'
+                'credit_nr'  => 2,
+                'characters' => 'Walenty',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -990,12 +990,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Walentowa'
+                'credit_nr'  => 3,
+                'characters' => 'Walentowa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1004,12 +1004,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Tomcio Paluch'
+                'credit_nr'  => 4,
+                'characters' => 'Tomcio Paluch',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1018,12 +1018,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Magik'
+                'credit_nr'  => 5,
+                'characters' => 'Magik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1032,12 +1032,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Zbój I'
+                'credit_nr'  => 6,
+                'characters' => 'Zbój I',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1046,12 +1046,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Zbój II'
+                'credit_nr'  => 7,
+                'characters' => 'Zbój II',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1060,12 +1060,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Wartownik'
+                'credit_nr'  => 8,
+                'characters' => 'Wartownik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1074,12 +1074,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Marszałek'
+                'credit_nr'  => 9,
+                'characters' => 'Marszałek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1088,12 +1088,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Oficer I'
+                'credit_nr'  => 10,
+                'characters' => 'Oficer I',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1102,12 +1102,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Oficer II'
+                'credit_nr'  => 11,
+                'characters' => 'Oficer II',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1116,12 +1116,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Tomasz Paluch; Porucznik'
+                'credit_nr'  => 12,
+                'characters' => 'Tomasz Paluch; Porucznik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1130,12 +1130,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Naczelnik'
+                'credit_nr'  => 13,
+                'characters' => 'Naczelnik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1144,12 +1144,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 14,
-                'characters' => 'Dorotka'
+                'credit_nr'  => 14,
+                'characters' => 'Dorotka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1158,12 +1158,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 15,
-                'characters' => 'Lokaj'
+                'credit_nr'  => 15,
+                'characters' => 'Lokaj',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -1172,12 +1172,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Król Bul'
+                'credit_nr'  => 1,
+                'characters' => 'Król Bul',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1186,12 +1186,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Błazen'
+                'credit_nr'  => 2,
+                'characters' => 'Błazen',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1200,12 +1200,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Król Teść'
+                'credit_nr'  => 3,
+                'characters' => 'Król Teść',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1214,12 +1214,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Królowa'
+                'credit_nr'  => 4,
+                'characters' => 'Królowa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1228,12 +1228,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Ochmistrzyni'
+                'credit_nr'  => 5,
+                'characters' => 'Ochmistrzyni',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1242,12 +1242,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Królewna'
+                'credit_nr'  => 6,
+                'characters' => 'Królewna',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1256,12 +1256,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Kucharz'
+                'credit_nr'  => 7,
+                'characters' => 'Kucharz',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1270,12 +1270,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Czarnoksiężnik'
+                'credit_nr'  => 8,
+                'characters' => 'Czarnoksiężnik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -1284,12 +1284,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Dama I'
+                'credit_nr'  => 9,
+                'characters' => 'Dama I',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1298,12 +1298,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Dama II'
+                'credit_nr'  => 10,
+                'characters' => 'Dama II',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1312,12 +1312,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Rycerz I'
+                'credit_nr'  => 11,
+                'characters' => 'Rycerz I',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1326,12 +1326,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Rycerz II'
+                'credit_nr'  => 12,
+                'characters' => 'Rycerz II',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1340,12 +1340,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Kot'
+                'credit_nr'  => 13,
+                'characters' => 'Kot',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1354,12 +1354,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 14,
-                'characters' => 'Strażnik I'
+                'credit_nr'  => 14,
+                'characters' => 'Strażnik I',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1368,12 +1368,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 15,
-                'characters' => 'Strażnik II'
+                'credit_nr'  => 15,
+                'characters' => 'Strażnik II',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1382,12 +1382,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 16,
-                'characters' => 'Dentysta'
+                'credit_nr'  => 16,
+                'characters' => 'Dentysta',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:30', '2019-08-25 01:47:31', $artist->id, $tale->id]
         );
 
@@ -1400,7 +1400,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:17:12', '2019-08-25 04:21:27', $artist->id, $tale->id]
         );
 
@@ -1409,12 +1409,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Jacek'
+                'credit_nr'  => 1,
+                'characters' => 'Jacek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1423,12 +1423,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Placek'
+                'credit_nr'  => 2,
+                'characters' => 'Placek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1437,12 +1437,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Matka; Kobieta u ognia'
+                'credit_nr'  => 3,
+                'characters' => 'Matka; Kobieta u ognia',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1451,12 +1451,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Sąsiadka I'
+                'credit_nr'  => 4,
+                'characters' => 'Sąsiadka I',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1465,12 +1465,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Sąsiadka II'
+                'credit_nr'  => 5,
+                'characters' => 'Sąsiadka II',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1479,12 +1479,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Osioł'
+                'credit_nr'  => 6,
+                'characters' => 'Osioł',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1493,12 +1493,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Pszczoła'
+                'credit_nr'  => 7,
+                'characters' => 'Pszczoła',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1507,12 +1507,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Bóbr'
+                'credit_nr'  => 8,
+                'characters' => 'Bóbr',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1521,12 +1521,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Pelikan'
+                'credit_nr'  => 9,
+                'characters' => 'Pelikan',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1535,12 +1535,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Złoty Pan'
+                'credit_nr'  => 10,
+                'characters' => 'Złoty Pan',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1549,12 +1549,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Nieborak'
+                'credit_nr'  => 11,
+                'characters' => 'Nieborak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1563,12 +1563,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Herszt'
+                'credit_nr'  => 12,
+                'characters' => 'Herszt',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -1577,12 +1577,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Tadek'
+                'credit_nr'  => 1,
+                'characters' => 'Tadek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:14', '2019-08-25 02:13:14', $artist->id, $tale->id]
         );
 
@@ -1591,12 +1591,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Dziadek'
+                'credit_nr'  => 2,
+                'characters' => 'Dziadek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:14', '2019-08-25 02:13:14', $artist->id, $tale->id]
         );
 
@@ -1605,12 +1605,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Babcia'
+                'credit_nr'  => 3,
+                'characters' => 'Babcia',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:14', '2019-08-25 02:13:14', $artist->id, $tale->id]
         );
 
@@ -1619,12 +1619,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Sprzedawczyni'
+                'credit_nr'  => 4,
+                'characters' => 'Sprzedawczyni',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:14', '2019-08-25 02:13:14', $artist->id, $tale->id]
         );
 
@@ -1633,12 +1633,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Komendant'
+                'credit_nr'  => 5,
+                'characters' => 'Komendant',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:14', '2019-08-25 02:13:14', $artist->id, $tale->id]
         );
 
@@ -1647,12 +1647,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Piekarz'
+                'credit_nr'  => 6,
+                'characters' => 'Piekarz',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:14', '2019-08-25 02:13:14', $artist->id, $tale->id]
         );
 
@@ -1661,12 +1661,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Żongler'
+                'credit_nr'  => 7,
+                'characters' => 'Żongler',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1675,12 +1675,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Sąsiadka'
+                'credit_nr'  => 8,
+                'characters' => 'Sąsiadka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1689,12 +1689,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Sąsiadka'
+                'credit_nr'  => 9,
+                'characters' => 'Sąsiadka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1703,12 +1703,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Sąsiadka'
+                'credit_nr'  => 10,
+                'characters' => 'Sąsiadka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1717,12 +1717,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Przechodzień'
+                'credit_nr'  => 11,
+                'characters' => 'Przechodzień',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1731,12 +1731,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Przechodzień'
+                'credit_nr'  => 12,
+                'characters' => 'Przechodzień',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1745,12 +1745,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Strażak'
+                'credit_nr'  => 13,
+                'characters' => 'Strażak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1759,12 +1759,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 14,
-                'characters' => 'Strażak'
+                'credit_nr'  => 14,
+                'characters' => 'Strażak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:15', '2019-08-25 02:13:15', $artist->id, $tale->id]
         );
 
@@ -1773,12 +1773,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Lis Sadełko'
+                'credit_nr'  => 2,
+                'characters' => 'Lis Sadełko',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1787,12 +1787,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Skrobek'
+                'credit_nr'  => 3,
+                'characters' => 'Skrobek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1801,12 +1801,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Królowa Tatra'
+                'credit_nr'  => 5,
+                'characters' => 'Królowa Tatra',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1815,12 +1815,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Król Błystek'
+                'credit_nr'  => 6,
+                'characters' => 'Król Błystek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1829,12 +1829,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Żagiewka'
+                'credit_nr'  => 7,
+                'characters' => 'Żagiewka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1843,12 +1843,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Koszałek'
+                'credit_nr'  => 8,
+                'characters' => 'Koszałek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1857,12 +1857,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Podziomek'
+                'credit_nr'  => 9,
+                'characters' => 'Podziomek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1871,12 +1871,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Kuba'
+                'credit_nr'  => 10,
+                'characters' => 'Kuba',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -1885,12 +1885,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Wojtuś'
+                'credit_nr'  => 11,
+                'characters' => 'Wojtuś',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:58', $artist->id, $tale->id]
         );
 
@@ -1903,7 +1903,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:58', $artist->id, $tale->id]
         );
 
@@ -1916,7 +1916,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:58', $artist->id, $tale->id]
         );
 
@@ -1929,7 +1929,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:58', $artist->id, $tale->id]
         );
 
@@ -1942,7 +1942,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:58', $artist->id, $tale->id]
         );
 
@@ -1955,7 +1955,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:58', $artist->id, $tale->id]
         );
 
@@ -1964,12 +1964,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Marysia'
+                'credit_nr'  => 4,
+                'characters' => 'Marysia',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:37:07', '2019-08-26 01:15:58', $artist->id, $tale->id]
         );
 
@@ -1978,12 +1978,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Alicja'
+                'credit_nr'  => 1,
+                'characters' => 'Alicja',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -1992,12 +1992,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Biały Królik'
+                'credit_nr'  => 2,
+                'characters' => 'Biały Królik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2006,12 +2006,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Mysz'
+                'credit_nr'  => 3,
+                'characters' => 'Mysz',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2020,12 +2020,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Bazyli'
+                'credit_nr'  => 4,
+                'characters' => 'Bazyli',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2034,12 +2034,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Biś'
+                'credit_nr'  => 5,
+                'characters' => 'Biś',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2048,12 +2048,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Pan Gąsienica'
+                'credit_nr'  => 6,
+                'characters' => 'Pan Gąsienica',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2062,12 +2062,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Księżna'
+                'credit_nr'  => 7,
+                'characters' => 'Księżna',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2076,12 +2076,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Kot-Dziwak'
+                'credit_nr'  => 8,
+                'characters' => 'Kot-Dziwak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2090,12 +2090,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Szarak bez Piątej Klepki'
+                'credit_nr'  => 9,
+                'characters' => 'Szarak bez Piątej Klepki',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2104,12 +2104,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Zwariowany Kapelusznik'
+                'credit_nr'  => 10,
+                'characters' => 'Zwariowany Kapelusznik',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2118,12 +2118,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Suseł'
+                'credit_nr'  => 11,
+                'characters' => 'Suseł',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2132,12 +2132,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Siódemka'
+                'credit_nr'  => 12,
+                'characters' => 'Siódemka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2146,12 +2146,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Piątka'
+                'credit_nr'  => 13,
+                'characters' => 'Piątka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2160,12 +2160,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 14,
-                'characters' => 'Król Kier'
+                'credit_nr'  => 14,
+                'characters' => 'Król Kier',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2174,12 +2174,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 15,
-                'characters' => 'Królowa Kier'
+                'credit_nr'  => 15,
+                'characters' => 'Królowa Kier',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2188,12 +2188,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 16,
-                'characters' => 'Walet Kier'
+                'credit_nr'  => 16,
+                'characters' => 'Walet Kier',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2202,12 +2202,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 17,
-                'characters' => 'Kat'
+                'credit_nr'  => 17,
+                'characters' => 'Kat',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2216,12 +2216,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 18,
-                'characters' => 'Smok'
+                'credit_nr'  => 18,
+                'characters' => 'Smok',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2230,12 +2230,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 19,
-                'characters' => 'Niby Żółw'
+                'credit_nr'  => 19,
+                'characters' => 'Niby Żółw',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -2244,12 +2244,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Ali Baba'
+                'credit_nr'  => 1,
+                'characters' => 'Ali Baba',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:32', $artist->id, $tale->id]
         );
 
@@ -2258,12 +2258,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Kasim'
+                'credit_nr'  => 2,
+                'characters' => 'Kasim',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:33', $artist->id, $tale->id]
         );
 
@@ -2272,12 +2272,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Zobeida'
+                'credit_nr'  => 3,
+                'characters' => 'Zobeida',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:33', $artist->id, $tale->id]
         );
 
@@ -2286,12 +2286,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Amina'
+                'credit_nr'  => 4,
+                'characters' => 'Amina',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:33', $artist->id, $tale->id]
         );
 
@@ -2300,12 +2300,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Herszt'
+                'credit_nr'  => 5,
+                'characters' => 'Herszt',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:33', $artist->id, $tale->id]
         );
 
@@ -2314,12 +2314,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Zbójca'
+                'credit_nr'  => 6,
+                'characters' => 'Zbójca',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:34', $artist->id, $tale->id]
         );
 
@@ -2328,12 +2328,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Zbójca'
+                'credit_nr'  => 7,
+                'characters' => 'Zbójca',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:34', $artist->id, $tale->id]
         );
 
@@ -2342,12 +2342,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Zbójca'
+                'credit_nr'  => 8,
+                'characters' => 'Zbójca',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:34', $artist->id, $tale->id]
         );
 
@@ -2356,12 +2356,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Zbójca'
+                'credit_nr'  => 9,
+                'characters' => 'Zbójca',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:35', $artist->id, $tale->id]
         );
 
@@ -2370,12 +2370,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Bartek'
+                'credit_nr'  => 2,
+                'characters' => 'Bartek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:15', $artist->id, $tale->id]
         );
 
@@ -2384,12 +2384,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Bartkowa'
+                'credit_nr'  => 3,
+                'characters' => 'Bartkowa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:15', $artist->id, $tale->id]
         );
 
@@ -2398,12 +2398,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Ludożerca'
+                'credit_nr'  => 4,
+                'characters' => 'Ludożerca',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:15', $artist->id, $tale->id]
         );
 
@@ -2412,12 +2412,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Krasnoludek'
+                'credit_nr'  => 5,
+                'characters' => 'Krasnoludek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:16', $artist->id, $tale->id]
         );
 
@@ -2426,12 +2426,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Krasnoludek'
+                'credit_nr'  => 6,
+                'characters' => 'Krasnoludek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:16', $artist->id, $tale->id]
         );
 
@@ -2440,12 +2440,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Krasnoludek'
+                'credit_nr'  => 7,
+                'characters' => 'Krasnoludek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:16', $artist->id, $tale->id]
         );
 
@@ -2458,7 +2458,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:16', $artist->id, $tale->id]
         );
 
@@ -2471,7 +2471,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:16', $artist->id, $tale->id]
         );
 
@@ -2480,12 +2480,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Twardowski'
+                'credit_nr'  => 1,
+                'characters' => 'Twardowski',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2494,12 +2494,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Narrator'
+                'credit_nr'  => 2,
+                'characters' => 'Narrator',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2508,12 +2508,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Boruta'
+                'credit_nr'  => 3,
+                'characters' => 'Boruta',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2522,12 +2522,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Kogut'
+                'credit_nr'  => 4,
+                'characters' => 'Kogut',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2536,12 +2536,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Lucyfer'
+                'credit_nr'  => 5,
+                'characters' => 'Lucyfer',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2550,12 +2550,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Zofia'
+                'credit_nr'  => 6,
+                'characters' => 'Zofia',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2564,12 +2564,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Wojewoda'
+                'credit_nr'  => 7,
+                'characters' => 'Wojewoda',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2578,12 +2578,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Maciek'
+                'credit_nr'  => 8,
+                'characters' => 'Maciek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2592,12 +2592,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Wojewodzina'
+                'credit_nr'  => 9,
+                'characters' => 'Wojewodzina',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2606,12 +2606,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Rokita'
+                'credit_nr'  => 10,
+                'characters' => 'Rokita',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2624,7 +2624,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2637,7 +2637,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2650,7 +2650,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -2663,7 +2663,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:48:34', '2019-08-25 04:48:34', $artist->id, $tale->id]
         );
 
@@ -2676,7 +2676,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:48:34', '2019-08-25 04:48:34', $artist->id, $tale->id]
         );
 
@@ -2689,7 +2689,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:48:34', '2019-08-25 04:48:34', $artist->id, $tale->id]
         );
 
@@ -2702,7 +2702,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:48:35', '2019-08-25 04:48:35', $artist->id, $tale->id]
         );
 
@@ -2715,7 +2715,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2728,7 +2728,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2741,7 +2741,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2754,7 +2754,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2767,7 +2767,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2780,7 +2780,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2793,7 +2793,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2806,7 +2806,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2819,7 +2819,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2832,7 +2832,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2845,7 +2845,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2858,7 +2858,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2871,7 +2871,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2884,7 +2884,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -2893,12 +2893,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Słoń'
+                'credit_nr'  => 1,
+                'characters' => 'Słoń',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -2907,12 +2907,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Pra-Pra-Słoń'
+                'credit_nr'  => 2,
+                'characters' => 'Pra-Pra-Słoń',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -2921,12 +2921,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Krokodyl'
+                'credit_nr'  => 3,
+                'characters' => 'Krokodyl',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -2935,12 +2935,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Wąż'
+                'credit_nr'  => 4,
+                'characters' => 'Wąż',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -2949,12 +2949,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Żyrafa'
+                'credit_nr'  => 5,
+                'characters' => 'Żyrafa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -2963,12 +2963,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Papuga'
+                'credit_nr'  => 6,
+                'characters' => 'Papuga',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -2977,12 +2977,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Papuga'
+                'credit_nr'  => 7,
+                'characters' => 'Papuga',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -2991,12 +2991,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Małpa'
+                'credit_nr'  => 8,
+                'characters' => 'Małpa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -3005,12 +3005,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Małpa'
+                'credit_nr'  => 9,
+                'characters' => 'Małpa',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -3019,12 +3019,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Chłopiec'
+                'credit_nr'  => 10,
+                'characters' => 'Chłopiec',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -3033,12 +3033,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Pra-Pra-Chłopiec'
+                'credit_nr'  => 11,
+                'characters' => 'Pra-Pra-Chłopiec',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:05', '2019-08-25 05:03:05', $artist->id, $tale->id]
         );
 
@@ -3047,12 +3047,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Pra-Pra-Chłopiec (śpiew)'
+                'credit_nr'  => 12,
+                'characters' => 'Pra-Pra-Chłopiec (śpiew)',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:05', '2019-08-25 05:03:05', $artist->id, $tale->id]
         );
 
@@ -3061,12 +3061,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Iza'
+                'credit_nr'  => 1,
+                'characters' => 'Iza',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3075,12 +3075,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Marek'
+                'credit_nr'  => 2,
+                'characters' => 'Marek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3089,12 +3089,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Mama'
+                'credit_nr'  => 3,
+                'characters' => 'Mama',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3103,12 +3103,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Tata'
+                'credit_nr'  => 4,
+                'characters' => 'Tata',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3117,12 +3117,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Pan Mikołaj'
+                'credit_nr'  => 5,
+                'characters' => 'Pan Mikołaj',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3131,12 +3131,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Mikołajek'
+                'credit_nr'  => 6,
+                'characters' => 'Mikołajek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3145,12 +3145,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Siostra'
+                'credit_nr'  => 7,
+                'characters' => 'Siostra',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3159,12 +3159,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Rybak'
+                'credit_nr'  => 10,
+                'characters' => 'Rybak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3173,12 +3173,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Rybak'
+                'credit_nr'  => 9,
+                'characters' => 'Rybak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3187,12 +3187,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Rybak'
+                'credit_nr'  => 10,
+                'characters' => 'Rybak',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3201,12 +3201,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 11,
-                'characters' => 'Rybaczka'
+                'credit_nr'  => 11,
+                'characters' => 'Rybaczka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3215,12 +3215,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => 'Łabędź'
+                'credit_nr'  => 12,
+                'characters' => 'Łabędź',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3229,12 +3229,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 13,
-                'characters' => 'Łabędź'
+                'credit_nr'  => 13,
+                'characters' => 'Łabędź',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:47', $artist->id, $tale->id]
         );
 
@@ -3243,12 +3243,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Narrator'
+                'credit_nr'  => 10,
+                'characters' => 'Narrator',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 01:15:35', '2019-08-26 01:15:35', $artist->id, $tale->id]
         );
 
@@ -3257,12 +3257,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Narrator'
+                'credit_nr'  => 1,
+                'characters' => 'Narrator',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 01:15:57', '2019-08-26 01:15:57', $artist->id, $tale->id]
         );
 
@@ -3271,12 +3271,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Narrator'
+                'credit_nr'  => 1,
+                'characters' => 'Narrator',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 01:16:15', '2019-08-26 01:16:15', $artist->id, $tale->id]
         );
 
@@ -3285,12 +3285,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 1,
-                'characters' => 'Narrator; ?'
+                'credit_nr'  => 1,
+                'characters' => 'Narrator; ?',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3299,12 +3299,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 2,
-                'characters' => 'Ania'
+                'credit_nr'  => 2,
+                'characters' => 'Ania',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3313,12 +3313,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 3,
-                'characters' => 'Piotruś'
+                'credit_nr'  => 3,
+                'characters' => 'Piotruś',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3327,12 +3327,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 4,
-                'characters' => 'Jesienna Dziewczynka'
+                'credit_nr'  => 4,
+                'characters' => 'Jesienna Dziewczynka',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3341,12 +3341,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 5,
-                'characters' => 'Gruby Felek'
+                'credit_nr'  => 5,
+                'characters' => 'Gruby Felek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3355,12 +3355,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 6,
-                'characters' => 'Chudy Maniek'
+                'credit_nr'  => 6,
+                'characters' => 'Chudy Maniek',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3369,12 +3369,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 7,
-                'characters' => 'Mały Teoś'
+                'credit_nr'  => 7,
+                'characters' => 'Mały Teoś',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3383,12 +3383,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 8,
-                'characters' => 'Zośka-Kłamczucha'
+                'credit_nr'  => 8,
+                'characters' => 'Zośka-Kłamczucha',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3397,12 +3397,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 9,
-                'characters' => 'Pies'
+                'credit_nr'  => 9,
+                'characters' => 'Pies',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3411,12 +3411,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 10,
-                'characters' => 'Pies'
+                'credit_nr'  => 10,
+                'characters' => 'Pies',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3429,7 +3429,7 @@ class TalesActorsSeeder extends Seeder
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
 
@@ -3438,12 +3438,12 @@ class TalesActorsSeeder extends Seeder
         $tale->actors()->attach(
             $artist->id,
             [
-                'credit_nr' => 12,
-                'characters' => '? (śpiew)'
+                'credit_nr'  => 12,
+                'characters' => '? (śpiew)',
             ]
         );
         DB::update(
-            "update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
     }

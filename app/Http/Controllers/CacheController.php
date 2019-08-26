@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Artist;
+use Illuminate\Http\Request;
 
 class CacheController extends Controller
 {
@@ -17,12 +17,14 @@ class CacheController extends Controller
         $this->middleware('auth');
     }
 
-    public function flush(Request $request) {
-        if ($request->input('type') == 'artist')
+    public function flush(Request $request)
+    {
+        if ($request->input('type') == 'artist') {
             Artist::findBySlugOrFail($request->input('id'))->flushCache();
-        else
+        } else {
             throw new Exception();
+        }
 
-        return redirect()->route($request->input('type') . 's.show', [$request->input('type') => $request->input('slug')]);
+        return redirect()->route($request->input('type').'s.show', [$request->input('type') => $request->input('slug')]);
     }
 }

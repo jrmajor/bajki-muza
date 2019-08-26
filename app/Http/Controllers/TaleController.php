@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Artist;
 use App\Tale;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TaleController extends Controller
 {
@@ -31,10 +31,10 @@ class TaleController extends Controller
     public function create()
     {
         $tale = [
-            'title' => '', 'year' => '', 'director' => '', 'cover' => '', 'nr' => '',
+            'title'     => '', 'year' => '', 'director' => '', 'cover' => '', 'nr' => '',
             'lyricists' => [['credit_nr' => '', 'artist' => '']],
             'composers' => [['credit_nr' => '', 'artist' => '']],
-            'actors' => [
+            'actors'    => [
                 ['credit_nr' => '1', 'artist' => '', 'characters' => ''],
                 ['credit_nr' => '2', 'artist' => '', 'characters' => ''],
                 ['credit_nr' => '3', 'artist' => '', 'characters' => ''],
@@ -54,12 +54,13 @@ class TaleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $tale = new Tale;
+        $tale = new Tale();
         $tale->slug = Str::slug($request->input('title'));
         $tale->title = $request->input('title');
         $tale->year = $request->input('year');
@@ -68,8 +69,7 @@ class TaleController extends Controller
         $tale->cover = $request->input('cover');
         $tale->save();
 
-        foreach($request->input('lyricists') as $lyricist)
-        {
+        foreach ($request->input('lyricists') as $lyricist) {
             $artist = Artist::findBySlugOrNew($lyricist['artist']);
             $tale->lyricists()->attach(
                 $artist->id,
@@ -77,8 +77,7 @@ class TaleController extends Controller
             );
         }
 
-        foreach($request->input('composers') as $composer)
-        {
+        foreach ($request->input('composers') as $composer) {
             $artist = Artist::findBySlugOrNew($composer['artist']);
             $tale->composers()->attach(
                 $artist->id,
@@ -86,14 +85,13 @@ class TaleController extends Controller
             );
         }
 
-        foreach($request->input('actors') as $actor)
-        {
+        foreach ($request->input('actors') as $actor) {
             $artist = Artist::findBySlugOrNew($actor['artist']);
             $tale->actors()->attach(
-                $artist->id, 
+                $artist->id,
                 [
-                    'credit_nr' => $actor['credit_nr'],
-                    'characters' => $actor['characters']
+                    'credit_nr'  => $actor['credit_nr'],
+                    'characters' => $actor['characters'],
                 ]
             );
         }
@@ -104,7 +102,8 @@ class TaleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $slug
+     * @param int $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
@@ -117,7 +116,8 @@ class TaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $slug
+     * @param int $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($slug)
@@ -130,8 +130,9 @@ class TaleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $slug
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $slug)
@@ -146,32 +147,29 @@ class TaleController extends Controller
         $tale->save();
 
         $lyricists = [];
-        foreach($request->input('lyricists') as $lyricist)
-        {
+        foreach ($request->input('lyricists') as $lyricist) {
             $artist = Artist::findBySlugOrNew($lyricist['artist']);
             $lyricists[$artist->id] = [
-                'credit_nr' => $lyricist['credit_nr']
+                'credit_nr' => $lyricist['credit_nr'],
             ];
         }
         $tale->lyricists()->sync($lyricists);
 
         $composers = [];
-        foreach($request->input('composers') as $composer)
-        {
+        foreach ($request->input('composers') as $composer) {
             $artist = Artist::findBySlugOrNew($composer['artist']);
             $composers[$artist->id] = [
-                'credit_nr' => $composer['credit_nr']
+                'credit_nr' => $composer['credit_nr'],
             ];
         }
         $tale->composers()->sync($composers);
 
         $actors = [];
-        foreach($request->input('actors') as $actor)
-        {
+        foreach ($request->input('actors') as $actor) {
             $artist = Artist::findBySlugOrNew($actor['artist']);
             $actors[$artist->id] = [
-                'credit_nr' => $actor['credit_nr'],
-                'characters' => $actor['characters']
+                'credit_nr'  => $actor['credit_nr'],
+                'characters' => $actor['characters'],
             ];
         }
         $tale->actors()->sync($actors);
@@ -182,7 +180,8 @@ class TaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $slug
+     * @param int $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($slug)
