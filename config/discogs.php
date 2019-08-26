@@ -2,9 +2,9 @@
 
 return [
 
-    'headers' => ['User-Agent' => 'bajki-grajki/0.1 +https://www.bajki-grajki.test'],
-    'oauth'   => [
-        'token' => 'gIsqaXcMvXopaanvxmXVsCPFqvImwMRDPGlSwLPG',
+    'headers' => [
+        'User-Agent' => env('DISCOGS_USER_AGENT'),
     ],
+    'token' => env('DISCOGS_TOKEN'),
 
 ];

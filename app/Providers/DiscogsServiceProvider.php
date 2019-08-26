@@ -19,7 +19,7 @@ class DiscogsServiceProvider extends ServiceProvider
                 'defaults' => [
                     'headers' => config('discogs.headers'),
                     'query'   => [
-                        'token' => config('discogs.oauth.token'),
+                        'token' => config('discogs.token'),
                     ],
                 ],
             ]);
