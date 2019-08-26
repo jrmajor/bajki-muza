@@ -10,7 +10,7 @@
                         <form id="flush-cache-form" method="post" action="{{ route('cache.flush') }}" class="hidden">
                             @csrf
                             <input type="text" name="type" value="artist">
-                            <input type="text" name="id" value="{{ $artist->slug }}">
+                            <input type="text" name="slug" value="{{ $artist->slug }}">
                         </form>
                     @endauth
                     <img src="{{ $artist->photo }}" class="h-40 object-cover"

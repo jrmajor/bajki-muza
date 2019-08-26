@@ -20,7 +20,7 @@ class CacheController extends Controller
     public function flush(Request $request)
     {
         if ($request->input('type') == 'artist') {
-            Artist::findBySlugOrFail($request->input('id'))->flushCache();
+            Artist::findBySlugOrFail($request->input('slug'))->flushCache();
         } else {
             throw new Exception();
         }
