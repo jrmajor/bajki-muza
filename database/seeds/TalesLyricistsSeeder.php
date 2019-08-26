@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Artist;
 use App\Tale;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class TalesLyricistsSeeder extends Seeder
@@ -21,7 +21,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:08:02', '2019-08-23 06:08:02', $artist->id, $tale->id]
         );
 
@@ -32,7 +32,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 06:30:37', '2019-08-25 01:44:58', $artist->id, $tale->id]
         );
 
@@ -43,7 +43,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 07:58:25', '2019-08-25 04:45:36', $artist->id, $tale->id]
         );
 
@@ -54,7 +54,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => 1]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:11', '2019-08-23 08:02:11', $artist->id, $tale->id]
         );
 
@@ -65,7 +65,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => 2]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:02:11', '2019-08-23 08:02:11', $artist->id, $tale->id]
         );
 
@@ -76,7 +76,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => 1]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -87,7 +87,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => 2]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 08:34:10', '2019-08-25 04:21:26', $artist->id, $tale->id]
         );
 
@@ -98,7 +98,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:49:43', '2019-08-25 01:46:28', $artist->id, $tale->id]
         );
 
@@ -109,7 +109,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-23 09:53:29', '2019-08-25 01:47:30', $artist->id, $tale->id]
         );
 
@@ -120,7 +120,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 01:55:33', '2019-08-25 01:55:33', $artist->id, $tale->id]
         );
 
@@ -131,7 +131,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:13:14', '2019-08-25 02:13:14', $artist->id, $tale->id]
         );
 
@@ -142,7 +142,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => 1]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:56', $artist->id, $tale->id]
         );
 
@@ -153,7 +153,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => 2]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 02:33:32', '2019-08-26 01:15:56', $artist->id, $tale->id]
         );
 
@@ -164,7 +164,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:28:27', '2019-08-25 05:04:32', $artist->id, $tale->id]
         );
 
@@ -175,7 +175,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 03:35:51', '2019-08-26 01:15:30', $artist->id, $tale->id]
         );
 
@@ -186,7 +186,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:28:56', '2019-08-26 01:16:15', $artist->id, $tale->id]
         );
 
@@ -197,7 +197,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => 1]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:42:20', '2019-08-25 04:42:20', $artist->id, $tale->id]
         );
 
@@ -208,7 +208,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:48:34', '2019-08-25 04:48:34', $artist->id, $tale->id]
         );
 
@@ -219,7 +219,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 04:54:34', '2019-08-25 04:54:34', $artist->id, $tale->id]
         );
 
@@ -230,7 +230,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 05:03:04', '2019-08-25 05:03:04', $artist->id, $tale->id]
         );
 
@@ -241,7 +241,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-25 22:15:41', '2019-08-26 04:02:46', $artist->id, $tale->id]
         );
 
@@ -252,7 +252,7 @@ class TalesLyricistsSeeder extends Seeder
             ['credit_nr' => null]
         );
         DB::update(
-            "update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?",
+            'update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?',
             ['2019-08-26 04:09:41', '2019-08-26 04:09:41', $artist->id, $tale->id]
         );
     }

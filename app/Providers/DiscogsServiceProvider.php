@@ -18,10 +18,10 @@ class DiscogsServiceProvider extends ServiceProvider
             return ClientFactory::factory([
                 'defaults' => [
                     'headers' => config('discogs.headers'),
-                    'query' => [
-                        'token' => config('discogs.oauth.token')
-                    ]
-                ]
+                    'query'   => [
+                        'token' => config('discogs.oauth.token'),
+                    ],
+                ],
             ]);
         });
     }

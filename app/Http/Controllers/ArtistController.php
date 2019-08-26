@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Artist;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
@@ -34,7 +33,8 @@ class ArtistController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,7 +45,8 @@ class ArtistController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $slug
+     * @param int $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
@@ -58,7 +59,8 @@ class ArtistController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $slug
+     * @param int $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($slug)
@@ -71,8 +73,9 @@ class ArtistController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $slug
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $slug)
@@ -93,7 +96,8 @@ class ArtistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $slug
+     * @param int $slug
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($slug)

@@ -34,59 +34,62 @@ Route::delete('/artysci/{artist}', 'ArtistController@destroy')->name('artists.de
 Route::post('/cache/flush', 'CacheController@flush')->name('cache.flush');
 
 Route::get('/db/artists', function () {
-    foreach(DB::select('select * from artists') as $artist) {
+    foreach (DB::select('select * from artists') as $artist) {
         echo '$artist = new Artist();';
         echo PHP_EOL;
-        echo '$artist->slug = \'' . $artist->id . "';";
+        echo '$artist->slug = \''.$artist->id."';";
         echo PHP_EOL;
-        echo '$artist->name = \'' . $artist->name . "';";
+        echo '$artist->name = \''.$artist->name."';";
         echo PHP_EOL;
-        if ($artist->discogs)
-            echo '$artist->discogs = ' . $artist->discogs . ";" . PHP_EOL;
-        if ($artist->imdb)
-            echo '$artist->imdb = \'' . $artist->imdb . '\';' . PHP_EOL;
-        if ($artist->wikipedia)
-            echo '$artist->wikipedia = \'' . $artist->wikipedia . '\';' . PHP_EOL;
+        if ($artist->discogs) {
+            echo '$artist->discogs = '.$artist->discogs.';'.PHP_EOL;
+        }
+        if ($artist->imdb) {
+            echo '$artist->imdb = \''.$artist->imdb.'\';'.PHP_EOL;
+        }
+        if ($artist->wikipedia) {
+            echo '$artist->wikipedia = \''.$artist->wikipedia.'\';'.PHP_EOL;
+        }
         echo '$artist->save();';
         echo PHP_EOL;
-        echo "DB::update(\n    \"update artists set created_at = ?, updated_at = ? where id = ?\",\n    ['" . $artist->created_at . "', '" . $artist->updated_at . '\', $artist->id]' . "\n);";
+        echo "DB::update(\n    \"update artists set created_at = ?, updated_at = ? where id = ?\",\n    ['".$artist->created_at."', '".$artist->updated_at.'\', $artist->id]'."\n);";
         echo PHP_EOL;
         echo PHP_EOL;
     }
 });
 
 Route::get('/db/tales', function () {
-    foreach(DB::select('select * from tales') as $tale) {
+    foreach (DB::select('select * from tales') as $tale) {
         echo '$tale = new Tale();';
         echo PHP_EOL;
-        echo '$tale->slug = \'' . $tale->id . "';";
+        echo '$tale->slug = \''.$tale->id."';";
         echo PHP_EOL;
-        echo '$tale->title = \'' . $tale->title . "';";
+        echo '$tale->title = \''.$tale->title."';";
         echo PHP_EOL;
-        echo '$tale->year = \'' . $tale->year . "';";
+        echo '$tale->year = \''.$tale->year."';";
         echo PHP_EOL;
-        echo '$director = Artist::where(\'slug\', \'' . $tale->director_id . '\')->get()->first();';
+        echo '$director = Artist::where(\'slug\', \''.$tale->director_id.'\')->get()->first();';
         echo PHP_EOL;
         echo '$tale->director_id = $director->id;';
         echo PHP_EOL;
-        echo '$tale->nr = \'' . $tale->nr . "';";
+        echo '$tale->nr = \''.$tale->nr."';";
         echo PHP_EOL;
-        echo '$tale->cover = \'' . $tale->cover . "';";
+        echo '$tale->cover = \''.$tale->cover."';";
         echo PHP_EOL;
         echo '$tale->save();';
         echo PHP_EOL;
-        echo "DB::update(\n    \"update tales set created_at = ?, updated_at = ? where id = ?\",\n    ['" . $tale->created_at . "', '" . $tale->updated_at . '\', $tale->id]' . "\n);";
+        echo "DB::update(\n    \"update tales set created_at = ?, updated_at = ? where id = ?\",\n    ['".$tale->created_at."', '".$tale->updated_at.'\', $tale->id]'."\n);";
         echo PHP_EOL;
         echo PHP_EOL;
     }
 });
 
 Route::get('/db/tales-actors', function () {
-    foreach(DB::select('select * from tales_actors') as $r) {
+    foreach (DB::select('select * from tales_actors') as $r) {
         //dd($r);
-        echo '$artist = Artist::where(\'slug\', \'' . $r->artist_id . '\')->get()->first();';
+        echo '$artist = Artist::where(\'slug\', \''.$r->artist_id.'\')->get()->first();';
         echo PHP_EOL;
-        echo '$tale = Tale::where(\'slug\', \'' . $r->tale_id . '\')->get()->first();';
+        echo '$tale = Tale::where(\'slug\', \''.$r->tale_id.'\')->get()->first();';
         echo PHP_EOL;
         echo '$tale->actors()->attach(';
         echo PHP_EOL;
@@ -94,55 +97,56 @@ Route::get('/db/tales-actors', function () {
         echo PHP_EOL;
         echo '    [';
         echo PHP_EOL;
-        echo '        \'credit_nr\' => ' . $r->credit_nr . ',';
+        echo '        \'credit_nr\' => '.$r->credit_nr.',';
         echo PHP_EOL;
-        if($r->characters)
-            echo '        \'characters\' => \'' . $r->characters . '\'' . PHP_EOL;
+        if ($r->characters) {
+            echo '        \'characters\' => \''.$r->characters.'\''.PHP_EOL;
+        }
         echo '    ]';
         echo PHP_EOL;
         echo ');';
         echo PHP_EOL;
-        echo "DB::update(\n    \"update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?\",\n    ['" . $r->created_at . "', '" . $r->updated_at . '\', $artist->id, $tale->id]' . "\n);";
+        echo "DB::update(\n    \"update tales_actors set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?\",\n    ['".$r->created_at."', '".$r->updated_at.'\', $artist->id, $tale->id]'."\n);";
         echo PHP_EOL;
         echo PHP_EOL;
     }
 });
 
 Route::get('/db/tales-lyricists', function () {
-    foreach(DB::select('select * from tales_lyricists') as $r) {
-        echo '$artist = Artist::where(\'slug\', \'' . $r->artist_id . '\')->get()->first();';
+    foreach (DB::select('select * from tales_lyricists') as $r) {
+        echo '$artist = Artist::where(\'slug\', \''.$r->artist_id.'\')->get()->first();';
         echo PHP_EOL;
-        echo '$tale = Tale::where(\'slug\', \'' . $r->tale_id . '\')->get()->first();';
+        echo '$tale = Tale::where(\'slug\', \''.$r->tale_id.'\')->get()->first();';
         echo PHP_EOL;
         echo '$tale->lyricists()->attach(';
         echo PHP_EOL;
         echo '    $artist->id,';
         echo PHP_EOL;
-        echo '    [\'credit_nr\' => ' . ($r->credit_nr ?? 'null') . ']';
+        echo '    [\'credit_nr\' => '.($r->credit_nr ?? 'null').']';
         echo PHP_EOL;
         echo ');';
         echo PHP_EOL;
-        echo "DB::update(\n    \"update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?\",\n    ['" . $r->created_at . "', '" . $r->updated_at . '\', $artist->id, $tale->id]' . "\n);";
+        echo "DB::update(\n    \"update tales_lyricists set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?\",\n    ['".$r->created_at."', '".$r->updated_at.'\', $artist->id, $tale->id]'."\n);";
         echo PHP_EOL;
         echo PHP_EOL;
     }
 });
 
 Route::get('/db/tales-composers', function () {
-    foreach(DB::select('select * from tales_composers') as $r) {
-        echo '$artist = Artist::where(\'slug\', \'' . $r->artist_id . '\')->get()->first();';
+    foreach (DB::select('select * from tales_composers') as $r) {
+        echo '$artist = Artist::where(\'slug\', \''.$r->artist_id.'\')->get()->first();';
         echo PHP_EOL;
-        echo '$tale = Tale::where(\'slug\', \'' . $r->tale_id . '\')->get()->first();';
+        echo '$tale = Tale::where(\'slug\', \''.$r->tale_id.'\')->get()->first();';
         echo PHP_EOL;
         echo '$tale->composers()->attach(';
         echo PHP_EOL;
         echo '    $artist->id,';
         echo PHP_EOL;
-        echo '    [\'credit_nr\' => ' . ($r->credit_nr ?? 'null') . ']';
+        echo '    [\'credit_nr\' => '.($r->credit_nr ?? 'null').']';
         echo PHP_EOL;
         echo ');';
         echo PHP_EOL;
-        echo "DB::update(\n    \"update tales_composers set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?\",\n    ['" . $r->created_at . "', '" . $r->updated_at . '\', $artist->id, $tale->id]' . "\n);";
+        echo "DB::update(\n    \"update tales_composers set created_at = ?, updated_at = ? where artist_id = ? and tale_id = ?\",\n    ['".$r->created_at."', '".$r->updated_at.'\', $artist->id, $tale->id]'."\n);";
         echo PHP_EOL;
         echo PHP_EOL;
     }
