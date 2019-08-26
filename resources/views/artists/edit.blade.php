@@ -2,7 +2,12 @@
 
 @section('content')
 
-    <h2 class="mb-2">Edycja: {{ $artist->name }}</h2>
+    <h2 class="mb-2">
+    	Edycja:
+    	<a href="{{ route('artists.show', ['artist' => $artist->slug]) }}" class="hover:no-underline">
+    		{{ $artist->name }}
+    	</a>
+    </h2>
 
     <form method="post" action="{{ route('artists.update', ['artist' => $artist->slug]) }}">
         @csrf

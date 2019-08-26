@@ -2,7 +2,12 @@
 
 @section('content')
 
-    <h2 class="mb-2">Edycja: {{ $tale->title }}</h2>
+    <h2 class="mb-2">
+    	Edycja:
+    	<a href="{{ route('tales.show', ['tale' => $tale->slug]) }}" class="hover:no-underline">
+    		{{ $tale->title }}
+    	</a>
+    </h2>
 
     <form method="post" action="{{ route('tales.update', ['tale' => $tale->slug]) }}">
         @csrf
