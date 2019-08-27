@@ -64,7 +64,9 @@ class TaleController extends Controller
         $tale->slug = Str::slug($request->input('title'));
         $tale->title = $request->input('title');
         $tale->year = $request->input('year');
-        $tale->director_id = Artist::findBySlugOrNew($request->input('director'))->id;
+        if($request->input('director')) {
+            $tale->director_id = Artist::findBySlugOrNew($request->input('director'))->id;
+        }
         $tale->nr = $request->input('nr');
         $tale->cover = $request->input('cover');
         $tale->save();
