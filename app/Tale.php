@@ -48,21 +48,21 @@ class Tale extends Model
         ];
 
         $i = 0;
-        foreach ($this->lyricists()->get() as $lyricist) {
+        foreach ($this->lyricists()->orderBy('credit_nr')->get() as $lyricist) {
             $data['lyricists'][$i]['credit_nr'] = $lyricist->pivot->credit_nr;
             $data['lyricists'][$i]['artist'] = $lyricist->name;
             $i++;
         }
 
         $i = 0;
-        foreach ($this->composers()->get() as $composer) {
+        foreach ($this->composers()->orderBy('credit_nr')->get() as $composer) {
             $data['composers'][$i]['credit_nr'] = $composer->pivot->credit_nr;
             $data['composers'][$i]['artist'] = $composer->name;
             $i++;
         }
 
         $i = 0;
-        foreach ($this->actors()->get() as $actor) {
+        foreach ($this->actors()->orderBy('credit_nr')->get() as $actor) {
             $data['actors'][$i]['credit_nr'] = $actor->pivot->credit_nr;
             $data['actors'][$i]['artist'] = $actor->name;
             $data['actors'][$i]['characters'] = $actor->pivot->characters;
