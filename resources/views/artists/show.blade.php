@@ -3,22 +3,20 @@
 @section('content')
 
     @if($artist->photo)
-        <div class="flex pb-5">
+        <div class="flex pb-2 sm:pb-5">
             <div class="flex-none h-40 bg-gray-800">
-                @if($artist->photo)
-                    @auth
-                        <form id="flush-cache-form" method="post" action="{{ route('cache.flush') }}" class="hidden">
-                            @csrf
-                            <input type="text" name="type" value="artist">
-                            <input type="text" name="slug" value="{{ $artist->slug }}">
-                        </form>
-                    @endauth
-                    <img src="{{ $artist->photo }}" class="h-40 object-cover"
-                    @auth
-                        onclick="document.getElementById('flush-cache-form').submit()"
-                    @endauth
-                        >
-                @endif
+                @auth
+                    <form id="flush-cache-form" method="post" action="{{ route('cache.flush') }}" class="hidden">
+                        @csrf
+                        <input type="text" name="type" value="artist">
+                        <input type="text" name="slug" value="{{ $artist->slug }}">
+                    </form>
+                @endauth
+                <img src="{{ $artist->photo }}" class="h-40 object-cover"
+                @auth
+                    onclick="document.getElementById('flush-cache-form').submit()"
+                @endauth
+                    >
             </div>
 
             <div class="px-5 py-2 flex-grow flex flex-col justify-between">
@@ -36,7 +34,7 @@
 
                 <div>
                     @if($artist->wikipedia)
-                        <div class="p-1 pt-0">
+                        <div class="p-1 pt-0 hidden sm:block">
                             {!! strip_tags($artist->wikipedia_extract) !!}
                         </div>
                     @endif
@@ -46,10 +44,12 @@
                                 <img src="https://img.icons8.com/ios-filled/32/edf2f7/music-record.png" class="inline h-5">
                                 <a href="{{ $artist->discogs_url }}" target="_blank" class="mr-5">Discogs</a>
                             @endif
+                            <br class="sm:hidden">
                             @if($artist->imdb)
                                 <img src="https://img.icons8.com/windows/32/edf2f7/imdb.png" class="inline h-5">
                                 <a href="{{ $artist->imdb_url }}" target="_blank" class="mr-5">imdb</a>
                             @endif
+                            <br class="sm:hidden">
                             @if($artist->wikipedia)
                                 <img src="https://img.icons8.com/windows/32/edf2f7/wikipedia.png" class="inline h-5">
                                 <a href="{{ $artist->wikipedia_url }}" target="_blank">Wikipedia</a>
@@ -59,6 +59,10 @@
                 </div>
             </div>
         </div>
+        <div class="p-1 pt-0 mb-3 sm:hidden">
+            {!! strip_tags($artist->wikipedia_extract) !!}
+        </div>
+
     @else
         <h2>
             @auth
