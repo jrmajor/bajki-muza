@@ -2,15 +2,31 @@
 
 @section('content')
 
-    <div class="flex pb-5">
-        <div class="flex-none w-40 h-40 bg-gray-800">
+    <div class="flex pb-5 flex-col sm:flex-row">
+
+        <div class="mb-2 sm:hidden flex-grow text-center">
+            <h2>
+                @auth
+                    <a href="{{ route('tales.edit', ['tale' => $tale->slug]) }}" class="hover:no-underline">
+                @endauth
+                {{ $tale->title }}
+                @auth
+                    </a>
+                @endauth
+                @if($tale->year)
+                    <small>({{ $tale->year }})</small>
+                @endif
+            </h2>
+        </div>
+
+        <div class="flex-none w-40 h-40 bg-gray-800 self-center">
             @if($tale->cover)
                 <img src="{{ $tale->cover('174s') }}">
             @endif
         </div>
 
-        <div class="px-5 py-2 flex-grow flex flex-col justify-between">
-            <div>
+        <div class="sm:px-5 py-2 flex-grow flex flex-col justify-between">
+            <div class="mb-2 hidden sm:block">
                 <h2>
                     @auth
                         <a href="{{ route('tales.edit', ['tale' => $tale->slug]) }}" class="hover:no-underline">
@@ -24,8 +40,6 @@
                     @endif
                 </h2>
             </div>
-
-            <br>
 
             <div>
                 <h3 class="inline">Reżyseria:</h3>
