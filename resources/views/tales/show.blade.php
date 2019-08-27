@@ -42,10 +42,12 @@
             </div>
 
             <div>
-                <h3 class="inline">Reżyseria:</h3>
-                <a href="{{ route('artists.show', ['actor' => $tale->director->slug]) }}">{{ $tale->director->name }}</a>
+                @if($tale->director)
+                    <h3 class="inline">Reżyseria:</h3>
+                    <a href="{{ route('artists.show', ['actor' => $tale->director->slug]) }}">{{ $tale->director->name }}</a>
 
-                <br>
+                    <br>
+                @endif
 
                 <h3 class="inline">Słowa:</h3>
                 @foreach($tale->lyricists()->orderBy('credit_nr')->get() as $lyricist)
