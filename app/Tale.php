@@ -39,13 +39,16 @@ class Tale extends Model
         $data = [
             'title'     => $this->title,
             'year'      => $this->year,
-            'director'  => $this->director->name,
             'nr'        => $this->nr,
             'cover'     => $this->cover,
             'lyricists' => [],
             'composers' => [],
             'actors'    => [],
         ];
+
+        if ($this->director) {
+            $data['director'] = $this->director->name;
+        }
 
         $i = 0;
         foreach ($this->lyricists()->orderBy('credit_nr')->get() as $lyricist) {
