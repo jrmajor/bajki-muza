@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @if($artist->photo)
+    @if ($artist->photo)
         <div class="flex pb-2 sm:pb-5">
             <div class="flex-none h-40 bg-gray-800">
                 @auth
@@ -33,24 +33,24 @@
                 </div>
 
                 <div>
-                    @if($artist->wikipedia)
+                    @if ($artist->wikipedia)
                         <div class="p-1 pt-0 hidden sm:block">
                             {!! strip_tags($artist->wikipedia_extract) !!}
                         </div>
                     @endif
-                    @if($artist->discogs || $artist->imdb || $artist->wikipedia)
+                    @if ($artist->discogs || $artist->imdb || $artist->wikipedia)
                         <div class="w-full ml-0">
-                            @if($artist->discogs)
+                            @if ($artist->discogs)
                                 <img src="https://img.icons8.com/ios-filled/32/edf2f7/music-record.png" class="inline h-5">
                                 <a href="{{ $artist->discogs_url }}" target="_blank" class="mr-5">Discogs</a>
                             @endif
                             <br class="sm:hidden">
-                            @if($artist->imdb)
+                            @if ($artist->imdb)
                                 <img src="https://img.icons8.com/windows/32/edf2f7/imdb.png" class="inline h-5">
                                 <a href="{{ $artist->imdb_url }}" target="_blank" class="mr-5">imdb</a>
                             @endif
                             <br class="sm:hidden">
-                            @if($artist->wikipedia)
+                            @if ($artist->wikipedia)
                                 <img src="https://img.icons8.com/windows/32/edf2f7/wikipedia.png" class="inline h-5">
                                 <a href="{{ $artist->wikipedia_url }}" target="_blank">Wikipedia</a>
                             @endif
@@ -75,23 +75,23 @@
         </h2>
 
         <div>
-            @if($artist->wikipedia)
+            @if ($artist->wikipedia)
                 <div class="p-1 pt-0">
                     {!! strip_tags($artist->wikipedia_extract) !!}
                 </div>
             @endif
         </div>
-        @if($artist->discogs || $artist->imdb || $artist->wikipedia)
+        @if ($artist->discogs || $artist->imdb || $artist->wikipedia)
             <div class="w-full mb-2 ml-0">
-                @if($artist->discogs)
+                @if ($artist->discogs)
                     <img src="https://img.icons8.com/ios-filled/32/edf2f7/music-record.png" class="inline h-5">
                     <a href="{{ $artist->discogs_url }}" target="_blank" class="mr-5">Discogs</a>
                 @endif
-                @if($artist->imdb)
+                @if ($artist->imdb)
                     <img src="https://img.icons8.com/windows/32/edf2f7/imdb.png" class="inline h-5">
                     <a href="{{ $artist->imdb_url }}" target="_blank" class="mr-5">imdb</a>
                 @endif
-                @if($artist->wikipedia)
+                @if ($artist->wikipedia)
                     <img src="https://img.icons8.com/windows/32/edf2f7/wikipedia.png" class="inline h-5">
                     <a href="{{ $artist->wikipedia_url }}" target="_blank">Wikipedia</a>
                 @endif
@@ -99,14 +99,14 @@
         @endif
     @endif
 
-    @if($artist->asDirector()->get()->count())
+    @if ($artist->asDirector()->get()->count())
         <h3>Reżyser:</h3>
         <table class="mb-1">
-            @foreach($artist->asDirector()->orderBy('year')->orderBy('title')->get() as $tale)
+            @foreach ($artist->asDirector()->orderBy('year')->orderBy('title')->get() as $tale)
                 <tr>
                     <td>
                         <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if($tale->cover)
+                        @if ($tale->cover)
                                 <img src="{{ $tale->cover('34s') }}" class="inset-0">
                         @else
                         <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
@@ -120,14 +120,14 @@
         <table>
     @endif
 
-    @if($artist->asLyricist()->get()->count())
+    @if ($artist->asLyricist()->get()->count())
         <h3>Autor:</h3>
         <table class="mb-1">
-            @foreach($artist->asLyricist()->orderBy('year')->orderBy('title')->get() as $tale)
+            @foreach ($artist->asLyricist()->orderBy('year')->orderBy('title')->get() as $tale)
                 <tr>
                     <td>
                         <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if($tale->cover)
+                        @if ($tale->cover)
                                 <img src="{{ $tale->cover('34s') }}" class="inset-0">
                         @else
                         <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
@@ -141,14 +141,14 @@
         <table>
     @endif
 
-    @if($artist->asComposer()->get()->count())
+    @if ($artist->asComposer()->get()->count())
         <h3>Kompozytor:</h3>
         <table class="mb-1">
-            @foreach($artist->asComposer()->orderBy('year')->orderBy('title')->get() as $tale)
+            @foreach ($artist->asComposer()->orderBy('year')->orderBy('title')->get() as $tale)
                 <tr>
                     <td>
                         <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if($tale->cover)
+                        @if ($tale->cover)
                                 <img src="{{ $tale->cover('34s') }}" class="inset-0">
                         @else
                         <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
@@ -162,14 +162,14 @@
         <table>
     @endif
 
-    @if($artist->asActor()->get()->count())
+    @if ($artist->asActor()->get()->count())
         <h3>Aktor:</h3>
         <table class="mb-1">
-            @foreach($artist->asActor()->orderBy('year')->orderBy('title')->get() as $tale)
+            @foreach ($artist->asActor()->orderBy('year')->orderBy('title')->get() as $tale)
                 <tr>
                     <td>
                         <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if($tale->cover)
+                        @if ($tale->cover)
                                 <img src="{{ $tale->cover('34s') }}" class="inset-0">
                         @else
                         <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
@@ -178,7 +178,7 @@
                     </td>
                     <td>{{ $tale->year }}</td>
                     <td><a href="{{ route('tales.show', ['tale' => $tale->slug]) }}">{{ $tale->title }}</a></td>
-                    @if($tale->pivot->characters)
+                    @if ($tale->pivot->characters)
                         <td><small>jako</small> {{ $tale->pivot->characters }}</td>
                     @endif
                 </tr>
@@ -186,7 +186,7 @@
         <table>
     @endif
 
-    @if($artist->countAppearances() == 0)
+    @if ($artist->countAppearances() == 0)
         <form method="post" action="{{ route('artists.destroy', ['artist' => $artist->slug]) }}">
             @csrf
             @method('DELETE')
