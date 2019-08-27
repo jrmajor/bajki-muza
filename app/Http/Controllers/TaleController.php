@@ -18,7 +18,7 @@ class TaleController extends Controller
     {
         $tales = Tale::orderBy('year')
                         ->orderBy('title')
-                        ->paginate(15);
+                        ->paginate(25);
 
         return view('tales.index', ['tales' => $tales]);
     }
