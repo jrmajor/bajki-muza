@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="flex pb-5 flex-col sm:flex-row">
+    <div class="flex sm:mb-5 flex-col sm:flex-row">
 
         <div class="mb-2 sm:hidden flex-grow text-center">
             <h2>
