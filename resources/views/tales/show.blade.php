@@ -7,7 +7,7 @@
         <div class="mb-2 sm:hidden flex-grow text-center">
             <h2>
                 @auth
-                    <a href="{{ route('tales.edit', ['tale' => $tale->slug]) }}" class="hover:no-underline">
+                    <a href="{{ route('tales.edit', $tale->slug) }}" class="hover:no-underline">
                 @endauth
                 {{ $tale->title }}
                 @auth
@@ -29,7 +29,7 @@
             <div class="mb-2 hidden sm:block">
                 <h2>
                     @auth
-                        <a href="{{ route('tales.edit', ['tale' => $tale->slug]) }}" class="hover:no-underline">
+                        <a href="{{ route('tales.edit', $tale->slug) }}" class="hover:no-underline">
                     @endauth
                     {{ $tale->title }}
                     @auth
@@ -44,21 +44,21 @@
             <div>
                 @if ($tale->director)
                     <h3 class="inline">Reżyseria:</h3>
-                    <a href="{{ route('artists.show', ['artist' => $tale->director->slug]) }}">{{ $tale->director->name }}</a>
+                    <a href="{{ route('artists.show', $tale->director->slug) }}">{{ $tale->director->name }}</a>
 
                     <br>
                 @endif
 
                 <h3 class="inline">Słowa:</h3>
                 @foreach ($tale->lyricists()->orderBy('credit_nr')->get() as $lyricist)
-                    <a href="{{ route('artists.show', ['artist' => $lyricist->slug]) }}">{{ $lyricist->name }}</a>@if (! $loop->last),@endif
+                    <a href="{{ route('artists.show', $lyricist->slug) }}">{{ $lyricist->name }}</a>@if (! $loop->last),@endif
                 @endforeach
 
                 <br>
 
                 <h3 class="inline">Muzyka:</h3>
                 @foreach ($tale->composers()->orderBy('credit_nr')->get() as $composer)
-                    <a href="{{ route('artists.show', ['artist' => $composer->slug]) }}">{{ $composer->name }}</a>@if (! $loop->last),@endif
+                    <a href="{{ route('artists.show', $composer->slug) }}">{{ $composer->name }}</a>@if (! $loop->last),@endif
                 @endforeach
             </div>
         </div>
@@ -69,7 +69,7 @@
         @foreach ($tale->actors()->orderBy('credit_nr')->get() as $actor)
             <tr>
                 <td>
-                    <a href="{{ route('artists.show', ['artist' => $actor->slug]) }}">{{ $actor->name }}</a>
+                    <a href="{{ route('artists.show', $actor->slug) }}">{{ $actor->name }}</a>
                     @if ($actor->asActor()->get()->count() > 1)
                         <small class="px-1 py-0 bg-gray-800 rounded-full">{{ $actor->asActor()->get()->count() }}</small>
                     @endif

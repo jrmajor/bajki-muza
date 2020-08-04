@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $artists = Artist::orderBy('name')
@@ -20,35 +15,16 @@ class ArtistController extends Controller
         return view('artists.index', ['artists' => $artists]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show($slug)
     {
         $artist = Artist::findBySlugOrFail($slug);
@@ -56,13 +32,6 @@ class ArtistController extends Controller
         return view('artists.show', ['artist' => $artist]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit($slug)
     {
         $artist = Artist::findBySlugOrFail($slug);
@@ -70,14 +39,6 @@ class ArtistController extends Controller
         return view('artists.edit', ['artist' => $artist]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $slug)
     {
         $artist = Artist::findBySlugOrFail($slug);
@@ -93,13 +54,6 @@ class ArtistController extends Controller
         return redirect()->route('artists.show', ['artist' => $artist->slug]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($slug)
     {
         $artist = Artist::findBySlugOrFail($slug);

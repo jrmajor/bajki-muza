@@ -17,7 +17,7 @@
                         </div>
                 </td>
                 <td>{{ $tale->year }}</td>
-                <td><a href="{{ route('tales.show', ['tale' => $tale->slug]) }}">{{ $tale->title }} <small class="hidden">{{ $tale->nr ? '[' . $tale->nr . ']' : '' }}</small></a></td>
+                <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }} <small class="hidden">{{ $tale->nr ? '[' . $tale->nr . ']' : '' }}</small></a></td>
             </tr>
         @endforeach
     </table>

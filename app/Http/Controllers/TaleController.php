@@ -9,11 +9,6 @@ use Illuminate\Support\Str;
 
 class TaleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $tales = Tale::orderBy('year')
@@ -23,11 +18,6 @@ class TaleController extends Controller
         return view('tales.index', ['tales' => $tales]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $tale = [
@@ -51,13 +41,6 @@ class TaleController extends Controller
         return view('tales.create', ['tale' => $tale]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $tale = new Tale();
@@ -101,13 +84,6 @@ class TaleController extends Controller
         return redirect()->route('tales.show', ['tale' => $tale->slug]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show($slug)
     {
         $tale = Tale::findBySlugOrFail($slug);
@@ -115,13 +91,6 @@ class TaleController extends Controller
         return view('tales.show', ['tale' => $tale]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit($slug)
     {
         $tale = Tale::findBySlugOrFail($slug);
@@ -129,14 +98,6 @@ class TaleController extends Controller
         return view('tales.edit', ['tale' => $tale]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $slug)
     {
         $tale = Tale::findBySlugOrFail($slug);
@@ -181,13 +142,6 @@ class TaleController extends Controller
         return redirect()->route('tales.show', ['tale' => $tale->slug]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $slug
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($slug)
     {
         //

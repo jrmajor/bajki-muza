@@ -7,11 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class TalesLyricistsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $artist = Artist::where('slug', 'krystyna-wodnicka')->get()->first();

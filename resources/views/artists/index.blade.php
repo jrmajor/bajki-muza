@@ -8,7 +8,7 @@
         @foreach ($artists as $artist)
             <tr>
                 <td class="p-0">
-                    <a href="{{ route('artists.show', ['artist' => $artist->slug]) }}">{{ $artist->name }}</a>
+                    <a href="{{ route('artists.show', $artist->slug) }}">{{ $artist->name }}</a>
                 <td>
                 <td>{{ $artist->countAppearances() }}</td>
                 <td class="pl-4 pr-1">

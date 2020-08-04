@@ -7,11 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class TalesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $tale = new Tale();

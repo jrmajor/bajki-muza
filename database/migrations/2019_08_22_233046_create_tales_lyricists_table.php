@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTalesLyricistsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('tales_lyricists', function (Blueprint $table) {
@@ -30,11 +25,6 @@ class CreateTalesLyricistsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('tales_lyricists');

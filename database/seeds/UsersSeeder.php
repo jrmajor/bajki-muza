@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $user = new User();

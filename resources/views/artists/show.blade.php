@@ -23,7 +23,7 @@
                 <div class="mb-2">
                     <h2>
                         @auth
-                            <a href="{{ route('artists.edit', ['artist' => $artist->slug]) }}" class="hover:no-underline">
+                            <a href="{{ route('artists.edit', $artist->slug) }}" class="hover:no-underline">
                         @endauth
                         {{ $artist->name }}
                         @auth
@@ -66,7 +66,7 @@
     @else
         <h2>
             @auth
-                <a href="{{ route('artists.edit', ['artist' => $artist->slug]) }}" class="hover:no-underline">
+                <a href="{{ route('artists.edit', $artist->slug) }}" class="hover:no-underline">
             @endauth
             {{ $artist->name }}
             @auth
@@ -114,7 +114,7 @@
                             </div>
                     </td>
                     <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', ['tale' => $tale->slug]) }}">{{ $tale->title }}</a></td>
+                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
                 </tr>
             @endforeach
         <table>
@@ -135,7 +135,7 @@
                             </div>
                     </td>
                     <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', ['tale' => $tale->slug]) }}">{{ $tale->title }}</a></td>
+                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
                 </tr>
             @endforeach
         <table>
@@ -156,7 +156,7 @@
                             </div>
                     </td>
                     <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', ['tale' => $tale->slug]) }}">{{ $tale->title }}</a></td>
+                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
                 </tr>
             @endforeach
         <table>
@@ -177,7 +177,7 @@
                             </div>
                     </td>
                     <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', ['tale' => $tale->slug]) }}">{{ $tale->title }}</a></td>
+                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
                     @if ($tale->pivot->characters)
                         <td><small>jako</small> {{ $tale->pivot->characters }}</td>
                     @endif
@@ -187,7 +187,7 @@
     @endif
 
     @if ($artist->countAppearances() == 0)
-        <form method="post" action="{{ route('artists.destroy', ['artist' => $artist->slug]) }}">
+        <form method="post" action="{{ route('artists.destroy', $artist->slug) }}">
             @csrf
             @method('DELETE')
             <button class="bg-red-700 text-red-100 focus:bg-red-600">usuń</button>

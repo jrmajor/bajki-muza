@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\DB;
 
 class ArtistsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $artist = new Artist();
