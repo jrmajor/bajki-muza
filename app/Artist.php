@@ -3,9 +3,12 @@
 namespace App;
 
 use App\Traits\FindsBySlug;
+use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class Artist extends Model
@@ -60,33 +63,34 @@ class Artist extends Model
 
     public function getWikipediaExtractAttribute()
     {
-        if (!$this->wikipedia) {
+        if (! $this->wikipedia) {
             return false;
         }
 
-        return Cache::remember("a-$this->id-wiki-extract", 604800, function () {
-            $ch = curl_init('https://pl.wikipedia.org/w/api.php');
-            curl_setopt($ch, CURLOPT_POSTFIELDS, 'action=query&prop=extracts&exintro=1&format=json&redirects=1&titles='.$this->wikipedia);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            $json = curl_exec($ch);
-            curl_close($ch);
+        return Cache::remember("artist-$this->id-wiki", CarbonInterval::week(), function () {
+            $response = Http::get('https://pl.wikipedia.org/w/api.php', [
+                'action' => 'query',
+                'prop' => 'extracts',
+                'exintro' => 1,
+                'format' => 'json',
+                'redirects' => 1,
+                'titles' => $this->wikipedia,
+            ]);
 
-            $data = json_decode($json, true);
-            $extract = array_values($data['query']['pages'])[0]['extract'];
-
-            return $extract;
+            return Arr::first($response['query']['pages'])['extract'];
         });
     }
 
     public function getPhotoAttribute()
     {
-        if (!$this->discogs) {
+        if (! $this->discogs) {
             return;
         }
 
-        return Cache::remember("a-$this->id-photo", 604800, function () {
-            $artist = app()->make('discogs')->getArtist(['id' => $this->discogs]);
+        return Cache::remember("a-$this->id-photo", CarbonInterval::week(), function () {
+            $artist = Http::withHeaders([
+                'Authorization' => 'Discogs token='.config('services.discogs.token'),
+            ])->get("https://api.discogs.com/artists/$this->discogs")->json();
 
             return $artist['images']['0']['uri'] ?? null;
         });
@@ -115,16 +119,16 @@ class Artist extends Model
     public function editData()
     {
         return [
-            'name'      => $this->name,
-            'discogs'   => $this->discogs,
-            'imdb'      => $this->imdb,
+            'name' => $this->name,
+            'discogs' => $this->discogs,
+            'imdb' => $this->imdb,
             'wikipedia' => $this->wikipedia,
         ];
     }
 
     public function flushCache()
     {
-        Cache::forget("a-$this->id-photo");
-        Cache::forget("a-$this->id-wiki-extract");
+        Cache::forget("artist-$this->id-photo");
+        Cache::forget("artist-$this->id-wiki");
     }
 }

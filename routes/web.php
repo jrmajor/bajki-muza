@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
 Route::redirect('/', '/bajki')->name('home');
@@ -8,7 +10,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/bajki/create', 'TaleController@create')->name('tales.create');
     Route::post('/bajki', 'TaleController@store')->name('tales.store');
     Route::get('/bajki/{tale}/edit', 'TaleController@edit')->name('tales.edit');
-    Route::match(['put', 'patch'], '/bajki/{photo}', 'TaleController@update')->name('tales.update');
+    Route::match(['put', 'patch'], '/bajki/{tale}', 'TaleController@update')->name('tales.update');
     // Route::delete('/bajki/{tale}', 'TaleController@destroy')->name('tales.destroy');
 
     // Route::get('/artysci/create', 'ArtistController@create')->name('artists.create');
