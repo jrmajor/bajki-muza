@@ -11,7 +11,7 @@ class Tale extends Model
 
     public function cover($size)
     {
-        return "https://lastfm-img2.akamaized.net/i/u/{$size}/$this->cover.webp";
+        return "https://lastfm.freetls.fastly.net/i/u/$size/$this->cover.webp";
     }
 
     public function director()
