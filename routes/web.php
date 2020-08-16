@@ -2,7 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
+Auth::routes([
+    'register' => false,
+    'reset' => false,
+    'confirm' => false,
+    'verify' => false,
+]);
 
 Route::redirect('/', '/bajki')->name('home');
 

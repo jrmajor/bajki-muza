@@ -51,7 +51,7 @@ class ArtistController extends Controller
 
         $artist->flushCache();
 
-        return redirect()->route('artists.show', ['artist' => $artist->slug]);
+        return redirect()->route('artists.show', $artist->slug);
     }
 
     public function destroy($slug)

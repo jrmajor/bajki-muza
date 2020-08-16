@@ -186,12 +186,12 @@
         <table>
     @endif
 
-    @if ($artist->countAppearances() == 0)
+    {{-- @if ($artist->countAppearances() == 0)
         <form method="post" action="{{ route('artists.destroy', $artist->slug) }}">
             @csrf
             @method('DELETE')
             <button class="bg-red-700 text-red-100 focus:bg-red-600">usuń</button>
         </form>
-    @endif
+    @endif --}}
 
 @endsection

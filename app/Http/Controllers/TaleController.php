@@ -53,8 +53,7 @@ class TaleController extends Controller
         $tale->nr = $request->input('nr');
         $tale->cover = $request->input('cover');
         $tale->save();
-
-        foreach ($request->input('lyricists') as $lyricist) {
+        foreach ($request->input('lyricists') ?? [] as $lyricist) {
             $artist = Artist::findBySlugOrNew($lyricist['artist']);
             $tale->lyricists()->attach(
                 $artist->id,
@@ -62,7 +61,7 @@ class TaleController extends Controller
             );
         }
 
-        foreach ($request->input('composers') as $composer) {
+        foreach ($request->input('composers') ?? [] as $composer) {
             $artist = Artist::findBySlugOrNew($composer['artist']);
             $tale->composers()->attach(
                 $artist->id,
@@ -70,7 +69,7 @@ class TaleController extends Controller
             );
         }
 
-        foreach ($request->input('actors') as $actor) {
+        foreach ($request->input('actors') ?? [] as $actor) {
             $artist = Artist::findBySlugOrNew($actor['artist']);
             $tale->actors()->attach(
                 $artist->id,
@@ -81,7 +80,7 @@ class TaleController extends Controller
             );
         }
 
-        return redirect()->route('tales.show', ['tale' => $tale->slug]);
+        return redirect()->route('tales.show', $tale->slug);
     }
 
     public function show($slug)
@@ -106,13 +105,15 @@ class TaleController extends Controller
         $tale->year = $request->input('year');
         if ($request->input('director')) {
             $tale->director_id = Artist::findBySlugOrNew($request->input('director'))->id;
+        } else {
+            $tale->director_id = null;
         }
         $tale->nr = $request->input('nr');
         $tale->cover = $request->input('cover');
         $tale->save();
 
         $lyricists = [];
-        foreach ($request->input('lyricists') as $lyricist) {
+        foreach ($request->input('lyricists') ?? [] as $lyricist) {
             $artist = Artist::findBySlugOrNew($lyricist['artist']);
             $lyricists[$artist->id] = [
                 'credit_nr' => $lyricist['credit_nr'],
@@ -121,7 +122,7 @@ class TaleController extends Controller
         $tale->lyricists()->sync($lyricists);
 
         $composers = [];
-        foreach ($request->input('composers') as $composer) {
+        foreach ($request->input('composers') ?? [] as $composer) {
             $artist = Artist::findBySlugOrNew($composer['artist']);
             $composers[$artist->id] = [
                 'credit_nr' => $composer['credit_nr'],
@@ -130,7 +131,7 @@ class TaleController extends Controller
         $tale->composers()->sync($composers);
 
         $actors = [];
-        foreach ($request->input('actors') as $actor) {
+        foreach ($request->input('actors') ?? [] as $actor) {
             $artist = Artist::findBySlugOrNew($actor['artist']);
             $actors[$artist->id] = [
                 'credit_nr'  => $actor['credit_nr'],
@@ -139,7 +140,7 @@ class TaleController extends Controller
         }
         $tale->actors()->sync($actors);
 
-        return redirect()->route('tales.show', ['tale' => $tale->slug]);
+        return redirect()->route('tales.show', $tale->slug);
     }
 
     public function destroy($slug)
