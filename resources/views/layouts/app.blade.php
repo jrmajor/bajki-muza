@@ -18,9 +18,9 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="bg-gray-200 text-gray-900">
-        <div id="app" class="container mx-auto my-8">
+        <div id="app" class="container mx-auto">
 
-            <div class="flex justify-center space-x-4">
+            <div class="my-8 flex justify-center space-x-4">
                 <a href="{{ route('tales.index') }}" alt="Bajki"
                     class="flex items-center px-4 py-2 bg-white shadow-lg rounded-full
                         text-gray-600 hover:text-gray-800 duration-500 uppercase font-semibold tracking-wide">
@@ -35,9 +35,28 @@
                 </a>
             </div>
 
-            <main class="mt-8 mx-5 md:mx-8">
+            <main class="mx-5 md:mx-8">
                 @yield('content')
             </main>
+
+            <footer class="my-8 px-3 text-center text-gray-500 text-sm">
+                {{-- &copy; --}} 2019<a href="{{ route('login') }}" class="cursor-text">-</a>{{ now()->year }} {{-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> --}}
+                @auth
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+                        @csrf
+                    </form>
+                    <br>
+                    <a href="{{ route('tales.create') }}"
+                        class="mr-1.5 text-xs uppercase tracking-wide">
+                        Dodaj bajkę
+                    </a>
+                    <a href="{{ route('logout') }}"
+                        class="ml-1.5 text-xs uppercase tracking-wide"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        Wyloguj
+                    </a>
+                @endauth
+            </footer>
         </div>
     </body>
 </html>
