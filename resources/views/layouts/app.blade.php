@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         <script src="{{ mix('js/app.js') }}" defer></script>
+        @stack('scripts')
     </head>
     <body class="bg-gray-200 text-gray-900">
         <div id="app" class="container mx-auto">

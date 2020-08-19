@@ -26,8 +26,8 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/artysci/{artist}', 'ArtistController@destroy')->name('artists.destroy');
 });
 
-Route::get('/bajki', 'TaleController@index')->name('tales.index');
+Route::livewire('/bajki', 'tales')->name('tales.index');
 Route::get('/bajki/{tale}', 'TaleController@show')->name('tales.show');
 
-Route::get('/artysci', 'ArtistController@index')->name('artists.index');
+Route::livewire('/artysci', 'artists')->name('artists.index');
 Route::get('/artysci/{artist}', 'ArtistController@show')->name('artists.show');

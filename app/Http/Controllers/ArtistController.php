@@ -7,13 +7,6 @@ use App\Http\Requests\StoreArtist;
 
 class ArtistController extends Controller
 {
-    public function index()
-    {
-        return view('artists.index', [
-            'artists' => Artist::orderBy('name')->paginate(30),
-        ]);
-    }
-
     public function create()
     {
         //

@@ -9,15 +9,6 @@ use Illuminate\Support\Str;
 
 class TaleController extends Controller
 {
-    public function index()
-    {
-        return view('tales.index', [
-            'tales' => Tale::orderBy('year')
-                            ->orderBy('title')
-                            ->paginate(25),
-        ]);
-    }
-
     public function create()
     {
         return view('tales.create');

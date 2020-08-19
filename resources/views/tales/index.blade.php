@@ -1,10 +1,15 @@
-@extends('layouts.app')
+@push('scripts')
+    <livewire:styles>
+    <livewire:scripts>
+@endpush
 
-@section('content')
-
+<div>
     <div class="space-y-5 mb-8 flex flex-col items-center">
+        <input type="search" wire:key="search" wire:model.debounce.500ms="search" autocomplete="off" autofocus
+            class="w-full lg:w-2/3 xl:1/2 px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-100 focus:outline-none">
+
         @foreach ($tales as $tale)
-            <a href="{{ route('tales.show', $tale) }}"
+            <a href="{{ route('tales.show', $tale) }}" wire:key="{{ $tale->id }}"
                 class="w-full lg:w-2/3 xl:1/2 flex rounded-lg shadow-lg overflow-hidden bg-gray-100">
                 <div>
                     <div class="relative bg-gray-700 bg-cover h-32 w-32"
@@ -27,5 +32,4 @@
     <div class="w-full flex flex-col items-center ">
         {{ $tales->links() }}
     </div>
-
-@endsection
+</div>
