@@ -4,12 +4,12 @@
 
     <h2 class="mb-2 text-2xl font-medium">
     	Edycja:
-    	<a href="{{ route('tales.show', $tale->slug) }}">
+    	<a href="{{ route('tales.show', $tale) }}">
     		{{ $tale->title }}
     	</a>
     </h2>
 
-    <form method="post" action="{{ route('tales.update', $tale->slug) }}">
+    <form method="post" action="{{ route('tales.update', $tale) }}">
         @csrf
         @method('PUT')
         <tale-form :tale-data="{{ json_encode($tale->editData()) }}"></tale-form>

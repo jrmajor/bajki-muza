@@ -14,7 +14,8 @@
         "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "^7.23",
         "laravel/tinker": "^2.4",
-        "laravel/ui": "^2.1"
+        "laravel/ui": "^2.1",
+        "spatie/laravel-sluggable": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.3",
@@ -23,7 +24,7 @@
         "nunomaduro/collision": "5.0.0-BETA2",
         "pestphp/pest": "0.2.2",
         "pestphp/pest-plugin-laravel": "^0.2.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "9.2.6"
     },
     "config": {
         "optimize-autoloader": true,

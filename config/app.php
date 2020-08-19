@@ -2,7 +2,7 @@
 
 return [
 
-    'name' => env('APP_NAME', 'Bajki Grajki'),
+    'name' => env('APP_NAME', 'Bajki Polskich Nagrań „Muza”'),
 
     'env' => env('APP_ENV', 'production'),
     'debug' => (bool) env('APP_DEBUG', false),

@@ -10,7 +10,6 @@ $factory->define(Artist::class, function (Faker $faker) {
     $name = $faker->name;
 
     return [
-        'slug' => Str::slug($name),
         'name' => $name,
         'discogs' => $faker->randomNumber(6),
         'imdb' => $faker->randomNumber(7),

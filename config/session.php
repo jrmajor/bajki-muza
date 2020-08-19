@@ -22,10 +22,7 @@ return [
 
     'lottery' => [2, 100],
 
-    'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'Bajki Grajki'), '_').'_session'
-    ),
+    'cookie' => env('SESSION_COOKIE', 'bajki_muza_session'),
 
     'path' => '/',
 

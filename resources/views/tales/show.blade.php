@@ -1,18 +1,16 @@
 @extends('layouts.app')
 
+@section('title', $tale->title)
+
 @section('content')
 
     <div class="flex flex-col sm:flex-row items-center mb-4">
 
         <div class="sm:hidden text-center">
             <h2 class="text-2xl font-medium">
-                @auth
-                    <a href="{{ route('tales.edit', $tale->slug) }}">
-                @endauth
+                @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
                     {{ $tale->title }}
-                @auth
-                    </a>
-                @endauth
+                @auth </a> @endauth
             </h2>
             @if ($tale->year)
                 {{ $tale->year }}
@@ -32,13 +30,9 @@
 
             <div class="hidden sm:block">
                 <h2 class="text-2xl font-medium">
-                    @auth
-                        <a href="{{ route('tales.edit', $tale->slug) }}">
-                    @endauth
+                    @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
                         {{ $tale->title }}
-                    @auth
-                        </a>
-                    @endauth
+                    @auth </a> @endauth
                 </h2>
                 @if ($tale->year)
                     {{ $tale->year }}
@@ -48,34 +42,36 @@
             <div>
                 @if ($tale->director)
                     <strong>Reżyseria:</strong>
-                    <a href="{{ route('artists.show', $tale->director->slug) }}">{{ $tale->director->name }}</a>
-
+                    <a href="{{ route('artists.show', $tale->director) }}">{{ $tale->director->name }}</a>
                     <br>
                 @endif
 
-                <strong>Słowa:</strong>
-                @foreach ($tale->lyricists()->orderBy('credit_nr')->get() as $lyricist)
-                    <a href="{{ route('artists.show', $lyricist->slug) }}">{{ $lyricist->name }}</a>@if (! $loop->last),@endif
-                @endforeach
+                @if ($tale->lyricists->count() > 0)
+                    <strong>Słowa:</strong>
+                    @foreach ($tale->lyricists as $lyricist)
+                        <a href="{{ route('artists.show', $lyricist) }}">{{ $lyricist->name }}</a>@if (! $loop->last),@endif
+                    @endforeach
+                    <br>
+                @endif
 
-                <br>
-
-                <strong>Muzyka:</strong>
-                @foreach ($tale->composers()->orderBy('credit_nr')->get() as $composer)
-                    <a href="{{ route('artists.show', $composer->slug) }}">{{ $composer->name }}</a>@if (! $loop->last),@endif
-                @endforeach
+                @if ($tale->composers->count() > 0)
+                    <strong>Muzyka:</strong>
+                    @foreach ($tale->composers as $composer)
+                        <a href="{{ route('artists.show', $composer) }}">{{ $composer->name }}</a>@if (! $loop->last),@endif
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>
 
     <h3 class="text-lg font-medium">Obsada:</h3>
     <table>
-        @foreach ($tale->actors()->orderBy('credit_nr')->get() as $actor)
+        @foreach ($tale->actors as $actor)
             <tr>
                 <td class="py-0.5">
                     <div class="flex items-center">
-                        <a href="{{ route('artists.show', $actor->slug) }}">{{ $actor->name }}</a>
-                        @if ($actor->asActor()->get()->count() > 1)
+                        <a href="{{ route('artists.show', $actor) }}">{{ $actor->name }}</a>
+                        @if ($actor->asActor()->count() > 1)
                             <small class="ml-1.5 h-4.5 w-4.5 text-xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">{{ $actor->asActor()->count() }}</small>
                         @endif
                     </div>

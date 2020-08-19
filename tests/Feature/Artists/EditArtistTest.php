@@ -15,6 +15,7 @@ beforeEach(function () {
     ];
 
     $this->newAttributes = [
+        'slug' => 'tadeusz-bartosik',
         'name' => 'Tadeusz Bartosik',
         'discogs' => 1023394,
         'imdb' => '0059302',
@@ -53,7 +54,7 @@ test('guests cannot edit artist', function () {
 test('users with permissions can edit artist', function () {
     asUser()
         ->put("artysci/{$this->artist->slug}", $this->newAttributes)
-        ->assertRedirect("artysci/{$this->oldAttributes['slug']}");
+        ->assertRedirect("artysci/{$this->newAttributes['slug']}");
 
     $artist = $this->artist->fresh();
 

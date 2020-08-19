@@ -1,29 +1,23 @@
 @extends('layouts.app')
 
+@section('title', $artist->name)
+
 @section('content')
 
     <div class="flex flex-col sm:flex-row items-center mb-4">
 
         <div class="sm:hidden">
             <h2 class="text-2xl font-medium">
-                @auth
-                    <a href="{{ route('artists.edit', $artist->slug) }}">
-                @endauth
+                @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
                     {{ $artist->name }}
-                @auth
-                    </a>
-                @endauth
+                @auth </a> @endauth
             </h2>
         </div>
 
-        @if($artist->photo())
+        @if ($artist->photo())
             <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 bg-gray-800 shadow-lg shadow-lg rounded-lg overflow-hidden">
                 @auth
-                    <form id="flush-cache-form" method="post" action="{{ route('cache.flush') }}" class="hidden">
-                        @csrf
-                        <input type="text" name="type" value="artist">
-                        <input type="text" name="slug" value="{{ $artist->slug }}">
-                    </form>
+                    <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
                 @endauth
 
                 <img src="{{ $artist->photo() }}" class="h-40"
@@ -32,17 +26,13 @@
             </div>
         @endif
 
-        <div class="@if($artist->photo()) sm:py-2 @endif flex-grow self-stretch flex flex-col justify-between space-y-3">
+        <div class="@if ($artist->photo()) sm:py-2 @endif flex-grow self-stretch flex flex-col justify-between space-y-3">
 
             <div class="hidden sm:block">
                 <h2 class="text-2xl font-medium">
-                    @auth
-                        <a href="{{ route('artists.edit', $artist->slug) }}">
-                    @endauth
+                    @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
                         {{ $artist->name }}
-                    @auth
-                        </a>
-                    @endauth
+                    @auth </a> @endauth
                 </h2>
             </div>
 
@@ -79,11 +69,11 @@
     </div>
 
     <div class="space-y-3">
-        @if ($artist->asDirector()->get()->count())
+        @if ($artist->asDirector->count())
             <div>
                 <h3 class="text-xl font-medium">Reżyser:</h3>
                 <table>
-                    @foreach ($artist->asDirector()->orderBy('year')->orderBy('title')->get() as $tale)
+                    @foreach ($artist->asDirector as $tale)
                         <tr>
                             <td class="py-1.5">
                                 <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
@@ -94,18 +84,18 @@
                                 </div>
                             </td>
                             <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
                         </tr>
                     @endforeach
                 </table>
             </div>
         @endif
 
-        @if ($artist->asLyricist()->get()->count())
+        @if ($artist->asLyricist->count())
             <div>
                 <h3 class="text-xl font-medium">Autor:</h3>
                 <table>
-                    @foreach ($artist->asLyricist()->orderBy('year')->orderBy('title')->get() as $tale)
+                    @foreach ($artist->asLyricist as $tale)
                         <tr>
                             <td class="py-1.5">
                                 <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
@@ -116,18 +106,18 @@
                                 </div>
                             </td>
                             <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
                         </tr>
                     @endforeach
                 </table>
             </div>
         @endif
 
-        @if ($artist->asComposer()->get()->count())
+        @if ($artist->asComposer->count())
             <div>
                 <h3 class="text-xl font-medium">Kompozytor:</h3>
                 <table>
-                    @foreach ($artist->asComposer()->orderBy('year')->orderBy('title')->get() as $tale)
+                    @foreach ($artist->asComposer as $tale)
                         <tr>
                             <td class="py-1.5">
                                 <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
@@ -138,18 +128,18 @@
                                 </div>
                             </td>
                             <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
                         </tr>
                     @endforeach
                 </table>
             </div>
         @endif
 
-        @if ($artist->asActor()->get()->count())
+        @if ($artist->asActor->count())
             <div>
                 <h3 class="text-xl font-medium">Aktor:</h3>
                 <table>
-                    @foreach ($artist->asActor()->orderBy('year')->orderBy('title')->get() as $tale)
+                    @foreach ($artist->asActor as $tale)
                         <tr>
                             <td class="py-1.5">
                                 <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
@@ -160,7 +150,7 @@
                                 </div>
                             </td>
                             <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
                             @if ($tale->pivot->characters)
                                 <td class="py-1.5 pl-1"><small>jako</small> {{ $tale->pivot->characters }}</td>
                             @endif
@@ -172,7 +162,7 @@
     </div>
 
     {{-- @if ($artist->countAppearances() == 0)
-        <form method="post" action="{{ route('artists.destroy', $artist->slug) }}">
+        <form method="post" action="{{ route('artists.destroy', $artist) }}">
             @csrf
             @method('DELETE')
             <button class="bg-red-700 text-red-100 focus:bg-red-600">usuń</button>

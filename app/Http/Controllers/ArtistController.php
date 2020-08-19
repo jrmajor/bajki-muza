@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Artist;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreArtist;
 
 class ArtistController extends Controller
 {
     public function index()
     {
-        $artists = Artist::orderBy('name')
-                        ->paginate(30);
-
-        return view('artists.index', ['artists' => $artists]);
+        return view('artists.index', [
+            'artists' => Artist::orderBy('name')->paginate(30),
+        ]);
     }
 
     public function create()
@@ -20,43 +19,39 @@ class ArtistController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(StoreArtist $request)
     {
         //
     }
 
-    public function show($slug)
+    public function show(Artist $artist)
     {
-        $artist = Artist::findBySlugOrFail($slug);
-
         return view('artists.show', ['artist' => $artist]);
     }
 
-    public function edit($slug)
+    public function edit(Artist $artist)
     {
-        $artist = Artist::findBySlugOrFail($slug);
-
         return view('artists.edit', ['artist' => $artist]);
     }
 
-    public function update(Request $request, $slug)
+    public function update(StoreArtist $request, Artist $artist)
     {
-        $artist = Artist::findBySlugOrFail($slug);
-
-        $artist->name = $request->input('name');
-        $artist->discogs = $request->input('discogs');
-        $artist->imdb = $request->input('imdb');
-        $artist->wikipedia = $request->input('wikipedia');
-        $artist->save();
+        $artist->fill($request->validated())->save();
 
         $artist->flushCache();
 
-        return redirect()->route('artists.show', $artist->slug);
+        return redirect()->route('artists.show', $artist);
     }
 
-    public function destroy($slug)
+    public function flushCache(Artist $artist)
     {
-        $artist = Artist::findBySlugOrFail($slug);
+        $artist->flushCache();
+
+        return redirect()->route('artists.show', $artist);
+    }
+
+    public function destroy(Artist $artist)
+    {
         $artist->delete();
 
         return redirect()->route('artists.index');

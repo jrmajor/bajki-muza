@@ -8,11 +8,8 @@ use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
 $factory->define(Tale::class, function (Faker $faker) {
-    $title = $faker->sentence;
-
     return [
-        'slug' => Str::slug($title),
-        'title' => $title,
+        'title' => $faker->sentence,
         'year' => $faker->numberBetween(1950, 1970),
         'director_id' => factory(Artist::class)->create()->id,
         'nr' => $faker->numberBetween(1, 250),

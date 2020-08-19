@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     // Route::post('/artysci', 'ArtistController@store')->name('artists.store');
     Route::get('/artysci/{artist}/edit', 'ArtistController@edit')->name('artists.edit');
     Route::match(['put', 'patch'], '/artysci/{artist}', 'ArtistController@update')->name('artists.update');
+    Route::post('/artysci/{artist}/flush-cache', 'ArtistController@flushCache')->name('artists.flushCache');
     // Route::delete('/artysci/{artist}', 'ArtistController@destroy')->name('artists.destroy');
 });
 
@@ -30,5 +31,3 @@ Route::get('/bajki/{tale}', 'TaleController@show')->name('tales.show');
 
 Route::get('/artysci', 'ArtistController@index')->name('artists.index');
 Route::get('/artysci/{artist}', 'ArtistController@show')->name('artists.show');
-
-Route::post('/cache/flush', 'CacheController@flush')->name('cache.flush');

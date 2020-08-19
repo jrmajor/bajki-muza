@@ -9,7 +9,6 @@ class ArtistsSeeder extends Seeder
     public function run()
     {
         $artist = new Artist();
-        $artist->slug = 'adam-markiewicz';
         $artist->name = 'Adam Markiewicz';
         $artist->save();
         DB::update(
@@ -18,7 +17,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'adam-skorupka';
         $artist->name = 'Adam Skorupka';
         $artist->save();
         DB::update(
@@ -27,7 +25,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'aleksander-dzwonkowski';
         $artist->name = 'Aleksander Dzwonkowski';
         $artist->save();
         DB::update(
@@ -36,7 +33,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'aleksander-gassowski';
         $artist->name = 'Aleksander Gąssowski';
         $artist->discogs = 588577;
         $artist->imdb = '0309372';
@@ -48,7 +44,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'aleksander-trabczynski';
         $artist->name = 'Aleksander Trąbczyński';
         $artist->save();
         DB::update(
@@ -57,7 +52,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'alicja-rojek';
         $artist->name = 'Alicja Rojek';
         $artist->discogs = 4796128;
         $artist->save();
@@ -67,7 +61,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'alina-afanasjew';
         $artist->name = 'Alina Afanasjew';
         $artist->save();
         DB::update(
@@ -76,7 +69,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'andrzej-bogucki';
         $artist->name = 'Andrzej Bogucki';
         $artist->save();
         DB::update(
@@ -85,7 +77,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'andrzej-pruski';
         $artist->name = 'Andrzej Pruski';
         $artist->save();
         DB::update(
@@ -94,7 +85,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'andrzej-stockinger';
         $artist->name = 'Andrzej Stockinger';
         $artist->discogs = 954391;
         $artist->imdb = '0830852';
@@ -106,7 +96,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'andrzej-tomecki';
         $artist->name = 'Andrzej Tomecki';
         $artist->discogs = 1024340;
         $artist->imdb = '0866605';
@@ -118,7 +107,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'andrzej-zaorski';
         $artist->name = 'Andrzej Zaorski';
         $artist->save();
         DB::update(
@@ -127,7 +115,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'anna-rojek';
         $artist->name = 'Anna Rojek';
         $artist->save();
         DB::update(
@@ -136,7 +123,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'anna-romantowska';
         $artist->name = 'Anna Romantowska';
         $artist->save();
         DB::update(
@@ -145,7 +131,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'anna-seniuk';
         $artist->name = 'Anna Seniuk';
         $artist->save();
         DB::update(
@@ -154,7 +139,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'anna-skaros';
         $artist->name = 'Anna Skaros';
         $artist->discogs = 518239;
         $artist->wikipedia = 'Anna_Skaros';
@@ -165,7 +149,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'antoni-marianowicz';
         $artist->name = 'Antoni Marianowicz';
         $artist->discogs = 588569;
         $artist->imdb = '1506453';
@@ -177,7 +160,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'artur-pontek';
         $artist->name = 'Artur Pontek';
         $artist->save();
         DB::update(
@@ -186,7 +168,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'barbara-bargielowska';
         $artist->name = 'Barbara Bargiełowska';
         $artist->discogs = 1023685;
         $artist->imdb = '0054569';
@@ -198,7 +179,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'barbara-drapinska';
         $artist->name = 'Barbara Drapińska';
         $artist->save();
         DB::update(
@@ -207,7 +187,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'barbara-krafftowna';
         $artist->name = 'Barbara Krafftówna';
         $artist->save();
         DB::update(
@@ -216,7 +195,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'barbara-stepniakowna';
         $artist->name = 'Barbara Stępniakówna';
         $artist->save();
         DB::update(
@@ -225,7 +203,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'barbara-winiarska';
         $artist->name = 'Barbara Winiarska';
         $artist->save();
         DB::update(
@@ -234,7 +211,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'bogdan-niewinowski';
         $artist->name = 'Bogdan Niewinowski';
         $artist->save();
         DB::update(
@@ -243,7 +219,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'bogusz-bilewski';
         $artist->name = 'Bogusz Bilewski';
         $artist->discogs = 588571;
         $artist->imdb = '0082200';
@@ -255,7 +230,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'bronislaw-pawlik';
         $artist->name = 'Bronisław Pawlik';
         $artist->save();
         DB::update(
@@ -264,7 +238,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'cezary-kwiecinski';
         $artist->name = 'Cezary Kwieciński';
         $artist->save();
         DB::update(
@@ -273,7 +246,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'czeslaw-mroczek';
         $artist->name = 'Czesław Mroczek';
         $artist->discogs = 4153396;
         $artist->imdb = '0610705';
@@ -285,7 +257,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'damian-damiecki';
         $artist->name = 'Damian Damięcki';
         $artist->save();
         DB::update(
@@ -294,7 +265,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'danuta-mancewicz';
         $artist->name = 'Danuta Mancewicz';
         $artist->discogs = 1023341;
         $artist->imdb = '1597219';
@@ -306,7 +276,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'danuta-przesmycka';
         $artist->name = 'Danuta Przesmycka';
         $artist->save();
         DB::update(
@@ -315,7 +284,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'danuta-rastawicka';
         $artist->name = 'Danuta Rastawicka';
         $artist->save();
         DB::update(
@@ -324,7 +292,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'danuta-wodynska';
         $artist->name = 'Danuta Wodyńska';
         $artist->save();
         DB::update(
@@ -333,7 +300,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'dorota-gellner';
         $artist->name = 'Dorota Gellner';
         $artist->save();
         DB::update(
@@ -342,7 +308,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'edmund-fidler';
         $artist->name = 'Edmund Fidler';
         $artist->discogs = 1030536;
         $artist->imdb = '9751195';
@@ -353,7 +318,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'elzbieta-bussold';
         $artist->name = 'Elżbieta Bussold';
         $artist->save();
         DB::update(
@@ -362,7 +326,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'elzbieta-gaertner';
         $artist->name = 'Elżbieta Gaertner';
         $artist->save();
         DB::update(
@@ -371,7 +334,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'elzbieta-kmiecinska';
         $artist->name = 'Elżbieta Kmiecińska';
         $artist->discogs = 1023687;
         $artist->save();
@@ -381,7 +343,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'elzbieta-nowacka';
         $artist->name = 'Elżbieta Nowacka';
         $artist->save();
         DB::update(
@@ -390,7 +351,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'emilian-kaminski';
         $artist->name = 'Emilian Kamiński';
         $artist->discogs = 1023690;
         $artist->imdb = '0436717';
@@ -402,7 +362,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'eugeniusz-robaczewski';
         $artist->name = 'Eugeniusz Robaczewski';
         $artist->discogs = 591949;
         $artist->imdb = '0730152';
@@ -414,7 +373,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ewa-konstanciak';
         $artist->name = 'Ewa Konstanciak';
         $artist->save();
         DB::update(
@@ -423,7 +381,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ewa-wisniewska';
         $artist->name = 'Ewa Wiśniewska';
         $artist->save();
         DB::update(
@@ -432,7 +389,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ewelina-jaslar';
         $artist->name = 'Ewelina Jaślar';
         $artist->save();
         DB::update(
@@ -441,7 +397,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'franciszek-pieczka';
         $artist->name = 'Franciszek Pieczka';
         $artist->discogs = 591955;
         $artist->imdb = '0669813';
@@ -453,7 +408,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'gustaw-lutkiewicz';
         $artist->name = 'Gustaw Lutkiewicz';
         $artist->discogs = 954395;
         $artist->imdb = '0527464';
@@ -465,7 +419,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'halina-michalska';
         $artist->name = 'Halina Michalska';
         $artist->save();
         DB::update(
@@ -474,7 +427,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'halina-rowicka';
         $artist->name = 'Halina Rowicka';
         $artist->save();
         DB::update(
@@ -483,7 +435,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'hanna-balinska';
         $artist->name = 'Hanna Balińska';
         $artist->discogs = 7337405;
         $artist->imdb = '1291023';
@@ -495,7 +446,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'hanna-giza';
         $artist->name = 'Hanna Giza';
         $artist->save();
         DB::update(
@@ -504,7 +454,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'hanna-skarzanka';
         $artist->name = 'Hanna Skarżanka';
         $artist->save();
         DB::update(
@@ -513,7 +462,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'henryk-machalica';
         $artist->name = 'Henryk Machalica';
         $artist->save();
         DB::update(
@@ -522,7 +470,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'iga-cembrzynska';
         $artist->name = 'Iga Cembrzyńska';
         $artist->save();
         DB::update(
@@ -531,7 +478,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'igor-smialowski';
         $artist->name = 'Igor Śmiałowski';
         $artist->save();
         DB::update(
@@ -540,7 +486,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ilona-kusmierska';
         $artist->name = 'Ilona Kuśmierska';
         $artist->discogs = 602488;
         $artist->imdb = '0476350';
@@ -552,7 +497,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'irena-kwiatkowska';
         $artist->name = 'Irena Kwiatkowska';
         $artist->discogs = 907253;
         $artist->imdb = '0477173';
@@ -564,7 +508,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jacek-podkomorzy';
         $artist->name = 'Jacek Podkomorzy';
         $artist->save();
         DB::update(
@@ -573,7 +516,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jadwiga-lubicz';
         $artist->name = 'Jadwiga Lubicz';
         $artist->discogs = 1029105;
         $artist->save();
@@ -583,7 +525,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jan-kobuszewski';
         $artist->name = 'Jan Kobuszewski';
         $artist->discogs = 831423;
         $artist->imdb = '0462204';
@@ -595,7 +536,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jan-kociniak';
         $artist->name = 'Jan Kociniak';
         $artist->save();
         DB::update(
@@ -604,7 +544,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jan-matyjaszkiewicz';
         $artist->name = 'Jan Matyjaszkiewicz';
         $artist->discogs = 588576;
         $artist->imdb = '0560651';
@@ -616,7 +555,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jan-zelnik';
         $artist->name = 'Jan Zelnik';
         $artist->save();
         DB::update(
@@ -625,7 +563,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'janina-gillowa';
         $artist->name = 'Janina Gillowa';
         $artist->save();
         DB::update(
@@ -634,7 +571,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'janina-traczykowna';
         $artist->name = 'Janina Traczykówna';
         $artist->save();
         DB::update(
@@ -643,7 +579,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'janusz-zakrzenski';
         $artist->name = 'Janusz Zakrzeński';
         $artist->discogs = 588582;
         $artist->imdb = '0952350';
@@ -655,7 +590,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-afanasjew';
         $artist->name = 'Jerzy Afanasjew';
         $artist->save();
         DB::update(
@@ -664,7 +598,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-dukay';
         $artist->name = 'Jerzy Dukay';
         $artist->save();
         DB::update(
@@ -673,7 +606,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-karaszkiewicz';
         $artist->name = 'Jerzy Karaszkiewicz';
         $artist->save();
         DB::update(
@@ -682,7 +614,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-kryszak';
         $artist->name = 'Jerzy Kryszak';
         $artist->save();
         DB::update(
@@ -691,7 +622,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-radwan';
         $artist->name = 'Jerzy Radwan';
         $artist->save();
         DB::update(
@@ -700,7 +630,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-rogowski';
         $artist->name = 'Jerzy Rogowski';
         $artist->discogs = 518241;
         $artist->imdb = '1150716';
@@ -712,7 +641,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-tkaczyk';
         $artist->name = 'Jerzy Tkaczyk';
         $artist->save();
         DB::update(
@@ -721,7 +649,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-wicik';
         $artist->name = 'Jerzy Wicik';
         $artist->save();
         DB::update(
@@ -730,7 +657,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jerzy-zlotnicki';
         $artist->name = 'Jerzy Złotnicki';
         $artist->save();
         DB::update(
@@ -739,7 +665,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'joanna-sobieska';
         $artist->name = 'Joanna Sobieska';
         $artist->discogs = 518243;
         $artist->imdb = '1490469';
@@ -751,7 +676,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'joanna-szczepkowska';
         $artist->name = 'Joanna Szczepkowska';
         $artist->save();
         DB::update(
@@ -760,7 +684,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jolanta-russek';
         $artist->name = 'Jolanta Russek';
         $artist->discogs = 3326039;
         $artist->imdb = '10377574';
@@ -771,7 +694,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jolanta-wollejko';
         $artist->name = 'Jolanta Wołłejko';
         $artist->save();
         DB::update(
@@ -780,7 +702,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jozef-nalberczak';
         $artist->name = 'Józef Nalberczak';
         $artist->discogs = 3986183;
         $artist->imdb = '0620505';
@@ -792,7 +713,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jozef-nowak';
         $artist->name = 'Józef Nowak';
         $artist->save();
         DB::update(
@@ -801,7 +721,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'jozef-talarczyk';
         $artist->name = 'Józef Talarczyk';
         $artist->save();
         DB::update(
@@ -810,7 +729,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'karol-stepkowski';
         $artist->name = 'Karol Stępkowski';
         $artist->save();
         DB::update(
@@ -819,7 +737,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'katarzyna-lengren';
         $artist->name = 'Katarzyna Lengren';
         $artist->save();
         DB::update(
@@ -828,7 +745,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'kazimiera-utrata';
         $artist->name = 'Kazimiera Utrata';
         $artist->save();
         DB::update(
@@ -837,7 +753,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'kazimierz-rogowski';
         $artist->name = 'Kazimierz Rogowski';
         $artist->save();
         DB::update(
@@ -846,7 +761,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krystyna-kamienska';
         $artist->name = 'Krystyna Kamieńska';
         $artist->save();
         DB::update(
@@ -855,7 +769,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krystyna-miecikowna';
         $artist->name = 'Krystyna Miecikówna';
         $artist->save();
         DB::update(
@@ -864,7 +777,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krystyna-wodnicka';
         $artist->name = 'Krystyna Wodnicka';
         $artist->discogs = 972373;
         $artist->imdb = '5688599';
@@ -875,7 +787,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krystyna-wolanska';
         $artist->name = 'Krystyna Wolańska';
         $artist->save();
         DB::update(
@@ -884,7 +795,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krzysztof-kolbasiuk';
         $artist->name = 'Krzysztof Kołbasiuk';
         $artist->save();
         DB::update(
@@ -893,7 +803,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krzysztof-kowalewski';
         $artist->name = 'Krzysztof Kowalewski';
         $artist->save();
         DB::update(
@@ -902,7 +811,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krzysztof-kumor';
         $artist->name = 'Krzysztof Kumor';
         $artist->save();
         DB::update(
@@ -911,7 +819,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krzysztof-orzechowski';
         $artist->name = 'Krzysztof Orzechowski';
         $artist->save();
         DB::update(
@@ -920,7 +827,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'krzysztof-wierzbianski';
         $artist->name = 'Krzysztof Wierzbiański';
         $artist->save();
         DB::update(
@@ -929,7 +835,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'lech-ordon';
         $artist->name = 'Lech Ordon';
         $artist->save();
         DB::update(
@@ -938,7 +843,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ludwik-rene';
         $artist->name = 'Ludwik René';
         $artist->save();
         DB::update(
@@ -947,7 +851,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'm-nanowska';
         $artist->name = 'M. Nanowska';
         $artist->save();
         DB::update(
@@ -956,7 +859,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'maciej-damiecki';
         $artist->name = 'Maciej Damięcki';
         $artist->save();
         DB::update(
@@ -965,7 +867,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'maciej-maciejewski';
         $artist->name = 'Maciej Maciejewski';
         $artist->save();
         DB::update(
@@ -974,7 +875,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'maciej-orlos';
         $artist->name = 'Maciej Orłoś';
         $artist->save();
         DB::update(
@@ -983,7 +883,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'magda-wollejko';
         $artist->name = 'Magda Wołłejko';
         $artist->save();
         DB::update(
@@ -992,7 +891,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'magda-zawadzka';
         $artist->name = 'Magda Zawadzka';
         $artist->discogs = 1603288;
         $artist->imdb = '0953843';
@@ -1004,7 +902,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'malgorzata-niemirska';
         $artist->name = 'Małgorzata Niemirska';
         $artist->save();
         DB::update(
@@ -1013,7 +910,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'marek-kulesza';
         $artist->name = 'Marek Kulesza';
         $artist->save();
         DB::update(
@@ -1022,7 +918,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'marek-obertyn';
         $artist->name = 'Marek Obertyn';
         $artist->save();
         DB::update(
@@ -1031,7 +926,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'maria-ciesielska';
         $artist->name = 'Maria Ciesielska';
         $artist->save();
         DB::update(
@@ -1040,7 +934,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'maria-janecka';
         $artist->name = 'Maria Janecka';
         $artist->discogs = 1029104;
         $artist->imdb = '1597120';
@@ -1051,7 +944,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'maria-winiarska';
         $artist->name = 'Maria Winiarska';
         $artist->save();
         DB::update(
@@ -1060,7 +952,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'marian-kawski';
         $artist->name = 'Marian Kawski';
         $artist->save();
         DB::update(
@@ -1069,7 +960,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'marian-kociniak';
         $artist->name = 'Marian Kociniak';
         $artist->discogs = 518236;
         $artist->imdb = '0462550';
@@ -1081,7 +971,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'marian-szalkowski';
         $artist->name = 'Marian Szałkowski';
         $artist->save();
         DB::update(
@@ -1090,7 +979,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'michal-breitenwald';
         $artist->name = 'Michał Breitenwald';
         $artist->save();
         DB::update(
@@ -1099,7 +987,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'michal-bukowski';
         $artist->name = 'Michał Bukowski';
         $artist->save();
         DB::update(
@@ -1108,7 +995,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'michal-muskat';
         $artist->name = 'Michał Muskat';
         $artist->save();
         DB::update(
@@ -1117,7 +1003,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'michal-styczynski';
         $artist->name = 'Michał Styczyński';
         $artist->save();
         DB::update(
@@ -1126,7 +1011,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'mieczyslaw-czechowicz';
         $artist->name = 'Mieczysław Czechowicz';
         $artist->discogs = 775429;
         $artist->imdb = '0194387';
@@ -1138,7 +1022,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'mieczyslaw-friedel';
         $artist->name = 'Mieczysław Friedel';
         $artist->save();
         DB::update(
@@ -1147,7 +1030,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'mieczyslaw-gajda';
         $artist->name = 'Mieczysław Gajda';
         $artist->discogs = 1023686;
         $artist->imdb = '0301468';
@@ -1159,7 +1041,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'mieczyslaw-hryniewicz';
         $artist->name = 'Mieczysław Hryniewicz';
         $artist->discogs = 1028300;
         $artist->imdb = '0398721';
@@ -1171,7 +1052,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'mieczyslaw-janicz';
         $artist->name = 'Mieczysław Janicz';
         $artist->discogs = 1017603;
         $artist->imdb = '10218466';
@@ -1182,7 +1062,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'miroslaw-konarowski';
         $artist->name = 'Mirosław Konarowski';
         $artist->save();
         DB::update(
@@ -1191,7 +1070,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'miroslaw-lebkowski';
         $artist->name = 'Mirosław Łebkowski';
         $artist->save();
         DB::update(
@@ -1200,7 +1078,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'miroslawa-krajewska';
         $artist->name = 'Mirosława Krajewska';
         $artist->save();
         DB::update(
@@ -1209,7 +1086,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'monika-gozdzik';
         $artist->name = 'Monika Goździk';
         $artist->save();
         DB::update(
@@ -1218,7 +1094,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ola-rojewska';
         $artist->name = 'Ola Rojewska';
         $artist->save();
         DB::update(
@@ -1227,7 +1102,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'olga-bielska';
         $artist->name = 'Olga Bielska';
         $artist->discogs = 602485;
         $artist->imdb = '0081458';
@@ -1239,7 +1113,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'piotr-fronczewski';
         $artist->name = 'Piotr Fronczewski';
         $artist->discogs = 602473;
         $artist->imdb = '0296389';
@@ -1251,7 +1124,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'piotr-pawlowski';
         $artist->name = 'Piotr Pawłowski';
         $artist->save();
         DB::update(
@@ -1260,7 +1132,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'renata-kossobudzka';
         $artist->name = 'Renata Kossobudzka';
         $artist->discogs = 1023691;
         $artist->imdb = '0467309';
@@ -1272,7 +1143,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'robert-golaszewski';
         $artist->name = 'Robert Gołaszewski';
         $artist->save();
         DB::update(
@@ -1281,7 +1151,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'rudolf-golebiowski';
         $artist->name = 'Rudolf Gołębiowski';
         $artist->discogs = 588581;
         $artist->imdb = '1588351';
@@ -1293,7 +1162,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ryszard-dembinski';
         $artist->name = 'Ryszard Dembiński';
         $artist->save();
         DB::update(
@@ -1302,7 +1170,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ryszard-dreger';
         $artist->name = 'Ryszard Dreger';
         $artist->save();
         DB::update(
@@ -1311,7 +1178,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'ryszard-sielicki';
         $artist->name = 'Ryszard Sielicki';
         $artist->discogs = 588568;
         $artist->imdb = '3356793';
@@ -1323,7 +1189,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'slawomir-pietrzykowski';
         $artist->name = 'Sławomir Pietrzykowski';
         $artist->save();
         DB::update(
@@ -1332,7 +1197,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'stanislaw-syrewicz';
         $artist->name = 'Stanisław Syrewicz';
         $artist->save();
         DB::update(
@@ -1341,7 +1205,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'stanislaw-werner';
         $artist->name = 'Stanisław Werner';
         $artist->save();
         DB::update(
@@ -1350,7 +1213,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'stanislaw-zatloka';
         $artist->name = 'Stanisław Zatłoka';
         $artist->save();
         DB::update(
@@ -1359,7 +1221,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'stanislawa-celinska';
         $artist->name = 'Stanisława Celińska';
         $artist->discogs = 602474;
         $artist->imdb = '0148077';
@@ -1371,7 +1232,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'stefan-majchrowski';
         $artist->name = 'Stefan Majchrowski';
         $artist->save();
         DB::update(
@@ -1380,7 +1240,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'stefan-witas';
         $artist->name = 'Stefan Witas';
         $artist->save();
         DB::update(
@@ -1389,7 +1248,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'stefania-iwinska';
         $artist->name = 'Stefania Iwińska';
         $artist->save();
         DB::update(
@@ -1398,7 +1256,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'tadeusz-bartosik';
         $artist->name = 'Tadeusz Bartosik';
         $artist->discogs = 1023394;
         $artist->imdb = '0059302';
@@ -1410,7 +1267,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'tadeusz-wludarski';
         $artist->name = 'Tadeusz Włudarski';
         $artist->discogs = 591951;
         $artist->imdb = '1466807';
@@ -1422,7 +1278,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'teresa-lipowska';
         $artist->name = 'Teresa Lipowska';
         $artist->discogs = 588567;
         $artist->imdb = '0513557';
@@ -1434,7 +1289,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'tomasz-marzecki';
         $artist->name = 'Tomasz Marzecki';
         $artist->save();
         DB::update(
@@ -1443,7 +1297,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'tomasz-zaliwski';
         $artist->name = 'Tomasz Zaliwski';
         $artist->save();
         DB::update(
@@ -1452,7 +1305,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'tomek-michnikowski';
         $artist->name = 'Tomek Michnikowski';
         $artist->save();
         DB::update(
@@ -1461,7 +1313,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wanda-chotomska';
         $artist->name = 'Wanda Chotomska';
         $artist->save();
         DB::update(
@@ -1470,7 +1321,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wanda-majerowna';
         $artist->name = 'Wanda Majerówna';
         $artist->discogs = 1029107;
         $artist->imdb = '1293565';
@@ -1482,7 +1332,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wienczyslaw-glinski';
         $artist->name = 'Wieńczysław Gliński';
         $artist->save();
         DB::update(
@@ -1491,7 +1340,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wieslaw-michnikowski';
         $artist->name = 'Wiesław Michnikowski';
         $artist->discogs = 1023338;
         $artist->imdb = '0585239';
@@ -1503,7 +1351,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wieslaw-opalek';
         $artist->name = 'Wiesław Opałek';
         $artist->discogs = 588574;
         $artist->save();
@@ -1513,7 +1360,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wiktor-nanowski';
         $artist->name = 'Wiktor Nanowski';
         $artist->save();
         DB::update(
@@ -1522,7 +1368,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wiktor-zborowski';
         $artist->name = 'Wiktor Zborowski';
         $artist->save();
         DB::update(
@@ -1531,7 +1376,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wilhelm-wichurski';
         $artist->name = 'Wilhelm Wichurski';
         $artist->save();
         DB::update(
@@ -1540,7 +1384,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'witold-kaluski';
         $artist->name = 'Witold Kałuski';
         $artist->discogs = 3324704;
         $artist->imdb = '0436265';
@@ -1552,7 +1395,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wladyslaw-hancza';
         $artist->name = 'Władysław Hańcza';
         $artist->save();
         DB::update(
@@ -1561,7 +1403,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wladyslaw-rzeczycki';
         $artist->name = 'Władysław Rzeczycki';
         $artist->save();
         DB::update(
@@ -1570,7 +1411,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wladyslaw-slowinski';
         $artist->name = 'Władysław Słowiński';
         $artist->save();
         DB::update(
@@ -1579,7 +1419,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wlodzimierz-bednarski';
         $artist->name = 'Włodzimierz Bednarski';
         $artist->save();
         DB::update(
@@ -1588,7 +1427,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wlodzimierz-nowakowski';
         $artist->name = 'Włodzimierz Nowakowski';
         $artist->save();
         DB::update(
@@ -1597,7 +1435,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wlodzimierz-panasiewicz';
         $artist->name = 'Włodzimierz Panasiewicz';
         $artist->save();
         DB::update(
@@ -1606,7 +1443,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wlodzimierz-twardowski';
         $artist->name = 'Włodzimierz Twardowski';
         $artist->discogs = 1023689;
         $artist->imdb = '0878508';
@@ -1617,7 +1453,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wojciech-maciejewski';
         $artist->name = 'Wojciech Maciejewski';
         $artist->save();
         DB::update(
@@ -1626,7 +1461,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wojciech-siemion';
         $artist->name = 'Wojciech Siemion';
         $artist->save();
         DB::update(
@@ -1635,7 +1469,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'wojciech-zagorski';
         $artist->name = 'Wojciech Zagórski';
         $artist->save();
         DB::update(
@@ -1644,7 +1477,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zbigniew-krynski';
         $artist->name = 'Zbigniew Kryński';
         $artist->discogs = 588573;
         $artist->wikipedia = 'Zbigniew_Kryński';
@@ -1655,7 +1487,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zbigniew-pawelec';
         $artist->name = 'Zbigniew Pawelec';
         $artist->save();
         DB::update(
@@ -1664,7 +1495,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zbigniew-turski';
         $artist->name = 'Zbigniew Turski';
         $artist->save();
         DB::update(
@@ -1673,7 +1503,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zdzislaw-salaburski';
         $artist->name = 'Zdzisław Salaburski';
         $artist->save();
         DB::update(
@@ -1682,7 +1511,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zdzislaw-slowinski';
         $artist->name = 'Zdzisław Słowiński';
         $artist->save();
         DB::update(
@@ -1691,7 +1519,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zofia-raciborska';
         $artist->name = 'Zofia Raciborska';
         $artist->save();
         DB::update(
@@ -1700,7 +1527,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zofia-rysiowna';
         $artist->name = 'Zofia Rysiówna';
         $artist->save();
         DB::update(
@@ -1709,7 +1535,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zygmunt-apostol';
         $artist->name = 'Zygmunt Apostoł';
         $artist->save();
         DB::update(
@@ -1718,7 +1543,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zygmunt-boncza-tomaszewski';
         $artist->name = 'Zygmunt Bończa-Tomaszewski';
         $artist->save();
         DB::update(
@@ -1727,7 +1551,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zygmunt-kestowicz';
         $artist->name = 'Zygmunt Kęstowicz';
         $artist->save();
         DB::update(
@@ -1736,7 +1559,6 @@ class ArtistsSeeder extends Seeder
         );
 
         $artist = new Artist();
-        $artist->slug = 'zygmunt-listkiewicz';
         $artist->name = 'Zygmunt Listkiewicz';
         $artist->save();
         DB::update(

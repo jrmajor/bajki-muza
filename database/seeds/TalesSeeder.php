@@ -10,7 +10,6 @@ class TalesSeeder extends Seeder
     public function run()
     {
         $tale = new Tale();
-        $tale->slug = 'ali-baba-i-czterdziestu-rozbojnikow';
         $tale->title = 'Ali Baba i czterdziestu rozbójników';
         $tale->year = '1969';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -24,7 +23,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'alicja-w-krainie-czarow';
         $tale->title = 'Alicja w krainie czarów';
         $tale->year = '1976';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -38,7 +36,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'calineczka';
         $tale->title = 'Calineczka';
         $tale->year = '1979';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -52,7 +49,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'czarodziejski-mlyn';
         $tale->title = 'Czarodziejski Młyn';
         $tale->year = '1973';
         $director = Artist::where('slug', 'ludwik-rene')->get()->first();
@@ -66,7 +62,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'deszczem-wyszywane';
         $tale->title = 'Deszczem wyszywane';
         $tale->year = '1989';
         $director = Artist::where('slug', 'slawomir-pietrzykowski')->get()->first();
@@ -80,7 +75,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'doktor-nieboli';
         $tale->title = 'Doktor Nieboli';
         $tale->year = '1987';
         $director = Artist::where('slug', 'wojciech-maciejewski')->get()->first();
@@ -94,7 +88,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'drzewko-aby-baby';
         $tale->title = 'Drzewko Aby Baby';
         $tale->year = '1986';
         $director = Artist::where('slug', 'krzysztof-wierzbianski')->get()->first();
@@ -108,7 +101,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'krol-bul';
         $tale->title = 'Król Bul';
         $tale->year = '1981';
         $director = Artist::where('slug', 'andrzej-pruski')->get()->first();
@@ -122,7 +114,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'lampa-aladyna';
         $tale->title = 'Lampa Aladyna';
         $tale->year = '1982';
         $director = Artist::where('slug', 'tadeusz-bartosik')->get()->first();
@@ -136,7 +127,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'legenda-o-sielawowym-krolu';
         $tale->title = 'Legenda o sielawowym królu';
         $tale->year = '1988';
         $director = Artist::where('slug', 'andrzej-pruski')->get()->first();
@@ -150,7 +140,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'o-dwoch-takich-co-ukradli-ksiezyc';
         $tale->title = 'O dwóch takich co ukradli księżyc';
         $tale->year = '1976';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -164,7 +153,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'o-krasnoludkach-i-sierotce-marysi';
         $tale->title = 'O krasnoludkach i sierotce Marysi';
         $tale->year = '1972';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -178,7 +166,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'o-tadku-niejadku-babci-i-dziadku';
         $tale->title = 'O Tadku-Niejadku, babci i dziadku';
         $tale->year = '1972';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -192,7 +179,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'opowiesc-o-pra-pra-sloniu';
         $tale->title = 'Opowieść o pra-pra-słoniu';
         $tale->year = '1987';
         $director = Artist::where('slug', 'jan-zelnik')->get()->first();
@@ -206,7 +192,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'pan-twardowski-na-kogucie';
         $tale->title = 'Pan Twardowski na kogucie';
         $tale->year = '1981';
         $director = Artist::where('slug', 'jan-zelnik')->get()->first();
@@ -220,7 +205,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'przygody-piotrusia-pana';
         $tale->title = 'Przygody Piotrusia Pana';
         $tale->year = '1978';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -234,7 +218,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'tanczace-krasnoludki';
         $tale->title = 'Tańczące krasnoludki';
         $tale->year = '1978';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -248,7 +231,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'tomcio-paluch';
         $tale->title = 'Tomcio Paluch';
         $tale->year = '1978';
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
@@ -262,7 +244,6 @@ class TalesSeeder extends Seeder
         );
 
         $tale = new Tale();
-        $tale->slug = 'wielka-niedzwiedzica';
         $tale->title = 'Wielka niedźwiedzica';
         $tale->year = '1985';
         $director = Artist::where('slug', 'marek-kulesza')->get()->first();
