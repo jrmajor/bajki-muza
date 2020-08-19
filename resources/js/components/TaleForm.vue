@@ -1,55 +1,156 @@
 <template>
-    <div>
-        <h3>Dane</h3>
-        <div class="ml-1">
-            Tytuł:
-            <input type="text" name="title" class="ml-3 mr-8 my-1" v-model="tale.title" size="40"></input>
-            Rok:
-            <input type="text" name="year" class="ml-3 mr-8 my-1" v-model="tale.year" size="3"></input>
-            №:
-            <input type="text" name="nr" class="ml-3 my-1" v-model="tale.nr" size="2"></input>
+    <div class="flex flex-col space-y-5">
+        <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
+            <div class="w-full sm:w-1/2 flex flex-col">
+                <label for="title" class="w-full font-medium pb-1 text-gray-700">Tytuł</label>
+                <input type="text" name="title" v-model="tale.title"
+                    class="w-full form-input">
+            </div>
+            <div class="w-full sm:w-1/2 flex space-x-5">
+                <div class="w-1/2 items-stretch flex flex-col">
+                    <label for="year" class="w-full font-medium pb-1 text-gray-700">Rok</label>
+                    <input type="text" name="year" v-model="tale.year"
+                        class="w-full form-input">
+                </div>
+                <div class="w-1/2 items-stretch flex flex-col">
+                    <label for="nr" class="w-full font-medium pb-1 text-gray-700">№</label>
+                    <input type="text" name="nr" v-model="tale.nr"
+                        class="w-full form-input">
+                </div>
+            </div>
         </div>
 
-        <br>
-
-        <h3>Okładka</h3>
-        <div class="ml-1">
-            LastFM image ID:
-            <input type="text" name="cover" class="ml-3 my-1" v-model="tale.cover" size="45"></input>
+        <div class="flex flex-col">
+            <label for="cover" class="w-full font-medium pb-1 text-gray-700">Okładka w LastFM</label>
+            <input type="text" name="cover" v-model="tale.cover"
+                class="w-full form-input">
         </div>
 
-        <br>
+        <div class="flex flex-col space-y-2">
+            <div class="flex flex-col">
+                <label for="director" class="w-full font-medium pb-1 text-gray-700">Reżyser</label>
+                <input type="text" name="director" v-model="tale.director"
+                    class="w-full form-input">
+            </div>
 
-        <h3>Reżyser</h3>
-        <div class="ml-1">
-            Reżyser:
-            <input type="text" name="director" class="ml-3 my-1" v-model="tale.director" size="45"></input>
-        </div>
+            <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-5">
+                <div class="w-full md:w-1/2 flex flex-col">
+                    <span class="w-full -mb-1.5 font-medium text-gray-700">Słowa</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></td>
+                                <td class="px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(lyricist, index) in tale.lyricists">
+                                <td class="pr-1">
+                                    <input type="text" :name="'lyricists[' + index + '][credit_nr]'" v-model="lyricist.credit_nr"
+                                        class="w-10 text-sm form-input">
+                                </td>
+                                <td class="px-1">
+                                    <input type="text" :name="'lyricists[' + index + '][artist]'" v-model="lyricist.artist"
+                                        class="w-full form-input">
+                                </td>
+                                <td class="pl-1">
+                                    <button
+                                        @click="removeLyricist(index, $event)"
+                                        class="relative mt-1 px-0 pb-0 w-5 bg-red-500 text-red-100 rounded-full focus:bg-red-700"
+                                        style="padding-top: 100%">
+                                        <div class="absolute inset-0" style="top: -0.1rem">-</div>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td class="pl-1">
+                                    <button
+                                        @click="addLyricist($event)"
+                                        class="relative mt-1 px-0 pb-0 w-5 bg-green-500 text-green-100 rounded-full focus:bg-green-700"
+                                        style="padding-top: 100%">
+                                        <div class="absolute inset-0" style="top: -0.2rem">+</div>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-        <br>
+                <div class="w-full md:w-1/2 flex flex-col">
+                    <span class="w-full -mb-1.5 font-medium text-gray-700">Muzyka</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></td>
+                                <td class="px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(composer, index) in tale.composers">
+                                <td class="pr-1">
+                                    <input type="text" :name="'composers[' + index + '][credit_nr]'" v-model="composer.credit_nr"
+                                        class="w-10 text-sm form-input">
+                                </td>
+                                <td class="px-1">
+                                    <input type="text" :name="'composers[' + index + '][artist]'" v-model="composer.artist"
+                                        class="w-full form-input">
+                                </td>
+                                <td class="pl-1">
+                                    <button
+                                        @click="removeComposer(index, $event)"
+                                        class="relative mt-1 px-0 pb-0 w-5 bg-red-500 text-red-100 rounded-full focus:bg-red-700"
+                                        style="padding-top: 100%">
+                                        <div class="absolute inset-0" style="top: -0.1rem">-</div>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td class="pl-1">
+                                    <button
+                                        @click="addComposer($event)"
+                                        class="relative mt-1 px-0 pb-0 w-5 bg-green-500 text-green-100 rounded-full focus:bg-green-700"
+                                        style="padding-top: 100%">
+                                        <div class="absolute inset-0" style="top: -0.2rem">+</div>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        <div class="flex">
-            <div class="mr-10">
-                <h3>Słowa</h3>
-                <table class="table">
+            <div class="flex flex-col">
+                <span class="w-full -mb-1.5 font-medium text-gray-700">Obsada</span>
+                <table>
                     <thead>
                         <tr>
-                            <td>№</td>
-                            <td>Artysta</td>
+                            <td class="px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></td>
+                            <td class="px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></td>
+                            <td class="px-1"><span class="w-full text-xs font-medium text-gray-700">Postaci</span></td>
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(lyricist, index) in tale.lyricists">
-                            <td>
-                                <input type="text" :name="'lyricists[' + index + '][credit_nr]'" v-model="lyricist.credit_nr" size="1">
+                        <tr v-for="(actor, index) in tale.actors">
+                            <td class="pr-1">
+                                <input type="text" :name="'actors[' + index + '][credit_nr]'" v-model="actor.credit_nr"
+                                    class="w-10 text-sm form-input">
                             </td>
-                            <td>
-                                <input type="text" :name="'lyricists[' + index + '][artist]'" v-model="lyricist.artist" size="35">
+                            <td class="px-1">
+                                <input type="text" :name="'actors[' + index + '][artist]'" v-model="actor.artist"
+                                    class="form-input">
                             </td>
-                            <td>
+                            <td class="px-1">
+                                <input type="text" :name="'actors[' + index + '][characters]'" v-model="actor.characters"
+                                    class="form-input">
+                            </td>
+                            <td class="pl-1">
                                 <button
-                                    @click="removeLyricist(index, $event)"
+                                    @click="removeActor(index, $event)"
                                     class="relative mt-1 px-0 pb-0 w-5 bg-red-500 text-red-100 rounded-full focus:bg-red-700"
                                     style="padding-top: 100%">
                                     <div class="absolute inset-0" style="top: -0.1rem">-</div>
@@ -57,10 +158,10 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
-                            <td>
+                            <td colspan="3"></td>
+                            <td class="pl-1">
                                 <button
-                                    @click="addLyricist($event)"
+                                    @click="addActor($event)"
                                     class="relative mt-1 px-0 pb-0 w-5 bg-green-500 text-green-100 rounded-full focus:bg-green-700"
                                     style="padding-top: 100%">
                                     <div class="absolute inset-0" style="top: -0.2rem">+</div>
@@ -70,94 +171,12 @@
                     </tbody>
                 </table>
             </div>
-
-            <div>
-                <h3>Muzyka</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td>№</td>
-                            <td>Artysta</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(composer, index) in tale.composers">
-                            <td>
-                                <input type="text" :name="'composers[' + index + '][credit_nr]'" v-model="composer.credit_nr" size="1">
-                            </td>
-                            <td>
-                                <input type="text" :name="'composers[' + index + '][artist]'" v-model="composer.artist" size="35">
-                            </td>
-                            <td>
-                                <button
-                                    @click="removeComposer(index, $event)"
-                                    class="relative mt-1 px-0 pb-0 w-5 bg-red-500 text-red-100 rounded-full focus:bg-red-700"
-                                    style="padding-top: 100%">
-                                    <div class="absolute inset-0" style="top: -0.1rem">-</div>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td>
-                                <button
-                                    @click="addComposer($event)"
-                                    class="relative mt-1 px-0 pb-0 w-5 bg-green-500 text-green-100 rounded-full focus:bg-green-700"
-                                    style="padding-top: 100%">
-                                    <div class="absolute inset-0" style="top: -0.2rem">+</div>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
 
-        <h3>Obsada</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>№</td>
-                    <td>Artysta</td>
-                    <td>Postaci</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(actor, index) in tale.actors">
-                    <td>
-                        <input type="text" :name="'actors[' + index + '][credit_nr]'" v-model="actor.credit_nr" size="2">
-                    </td>
-                    <td>
-                        <input type="text" :name="'actors[' + index + '][artist]'" v-model="actor.artist" size="30">
-                    </td>
-                    <td>
-                        <input type="text" :name="'actors[' + index + '][characters]'" v-model="actor.characters" size="35">
-                    </td>
-                    <td>
-                        <button
-                            @click="removeActor(index, $event)"
-                            class="relative mt-1 px-0 pb-0 w-5 bg-red-500 text-red-100 rounded-full focus:bg-red-700"
-                            style="padding-top: 100%">
-                            <div class="absolute inset-0" style="top: -0.1rem">-</div>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3"></td>
-                    <td>
-                        <button
-                            @click="addActor($event)"
-                            class="relative mt-1 px-0 pb-0 w-5 bg-green-500 text-green-100 rounded-full focus:bg-green-700"
-                            style="padding-top: 100%">
-                            <div class="absolute inset-0" style="top: -0.2rem">+</div>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <button type="submit">submit</button>
+        <button type="submit"
+            class="self-center px-4 py-2 bg-white text-sm font-medium rounded-full shadow-md">
+            Zapisz
+        </button>
     </div>
 </template>
 

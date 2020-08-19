@@ -6,15 +6,5 @@
   @apply hover:text-yellow-800 focus:text-yellow-800;
 }
 
-input {
-  @apply p-1 bg-gray-800 text-gray-300 rounded;
-  @apply focus:outline-none focus:bg-gray-700;
-}
-
-button {
-  @apply px-3 py-1 bg-gray-800 text-gray-300 rounded;
-  @apply focus:outline-none focus:bg-gray-700;
-}
-
 @tailwind components;
 @tailwind utilities;
