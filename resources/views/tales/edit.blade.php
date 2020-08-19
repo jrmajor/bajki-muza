@@ -2,9 +2,9 @@
 
 @section('content')
 
-    <h2 class="mb-2">
+    <h2 class="mb-2 text-2xl font-medium">
     	Edycja:
-    	<a href="{{ route('tales.show', $tale->slug) }}" class="hover:no-underline">
+    	<a href="{{ route('tales.show', $tale->slug) }}">
     		{{ $tale->title }}
     	</a>
     </h2>

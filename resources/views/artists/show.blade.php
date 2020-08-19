@@ -2,9 +2,22 @@
 
 @section('content')
 
-    @if ($artist->photo)
-        <div class="flex pb-2 sm:pb-5">
-            <div class="flex-none h-40 bg-gray-800">
+    <div class="flex flex-col sm:flex-row items-center mb-4">
+
+        <div class="sm:hidden">
+            <h2 class="text-2xl font-medium">
+                @auth
+                    <a href="{{ route('artists.edit', $artist->slug) }}">
+                @endauth
+                    {{ $artist->name }}
+                @auth
+                    </a>
+                @endauth
+            </h2>
+        </div>
+
+        @if($artist->photo())
+            <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 bg-gray-800 shadow-lg shadow-lg rounded-lg overflow-hidden">
                 @auth
                     <form id="flush-cache-form" method="post" action="{{ route('cache.flush') }}" class="hidden">
                         @csrf
@@ -12,179 +25,151 @@
                         <input type="text" name="slug" value="{{ $artist->slug }}">
                     </form>
                 @endauth
-                <img src="{{ $artist->photo }}" class="h-40 object-cover"
-                @auth
-                    onclick="document.getElementById('flush-cache-form').submit()"
-                @endauth
+
+                <img src="{{ $artist->photo() }}" class="h-40"
+                    @auth onclick="document.getElementById('flush-cache-form').submit()" @endauth
                     >
             </div>
+        @endif
 
-            <div class="px-5 py-2 flex-grow flex flex-col justify-between">
-                <div class="mb-2">
-                    <h2>
-                        @auth
-                            <a href="{{ route('artists.edit', $artist->slug) }}" class="hover:no-underline">
-                        @endauth
+        <div class="@if($artist->photo()) sm:py-2 @endif flex-grow self-stretch flex flex-col justify-between space-y-3">
+
+            <div class="hidden sm:block">
+                <h2 class="text-2xl font-medium">
+                    @auth
+                        <a href="{{ route('artists.edit', $artist->slug) }}">
+                    @endauth
                         {{ $artist->name }}
-                        @auth
-                            </a>
-                        @endauth
-                    </h2>
-                </div>
+                    @auth
+                        </a>
+                    @endauth
+                </h2>
+            </div>
 
-                <div>
+            @if ($artist->discogs || $artist->imdb || $artist->wikipedia)
+                <div class="self-stretch flex flex-col space-y-2">
                     @if ($artist->wikipedia)
-                        <div class="p-1 pt-0 hidden sm:block">
+                        <div>
                             {!! strip_tags($artist->wikipedia_extract) !!}
                         </div>
                     @endif
-                    @if ($artist->discogs || $artist->imdb || $artist->wikipedia)
-                        <div class="w-full ml-0">
-                            @if ($artist->discogs)
-                                <img src="https://img.icons8.com/ios-filled/32/edf2f7/music-record.png" class="inline h-5">
-                                <a href="{{ $artist->discogs_url }}" target="_blank" class="mr-5">Discogs</a>
-                            @endif
-                            <br class="sm:hidden">
-                            @if ($artist->imdb)
-                                <img src="https://img.icons8.com/windows/32/edf2f7/imdb.png" class="inline h-5">
-                                <a href="{{ $artist->imdb_url }}" target="_blank" class="mr-5">imdb</a>
-                            @endif
-                            <br class="sm:hidden">
-                            @if ($artist->wikipedia)
-                                <img src="https://img.icons8.com/windows/32/edf2f7/wikipedia.png" class="inline h-5">
-                                <a href="{{ $artist->wikipedia_url }}" target="_blank">Wikipedia</a>
-                            @endif
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-        <div class="p-1 pt-0 mb-3 sm:hidden">
-            {!! strip_tags($artist->wikipedia_extract) !!}
-        </div>
 
-    @else
-        <h2>
-            @auth
-                <a href="{{ route('artists.edit', $artist->slug) }}" class="hover:no-underline">
-            @endauth
-            {{ $artist->name }}
-            @auth
-                </a>
-            @endauth
-        </h2>
-
-        <div>
-            @if ($artist->wikipedia)
-                <div class="p-1 pt-0">
-                    {!! strip_tags($artist->wikipedia_extract) !!}
+                    <div class="self-center sm:self-start flex items-center space-x-5">
+                        @if ($artist->discogs)
+                            <a href="{{ $artist->discogs_url }}" target="_blank">
+                                <x-icons.discogs class="fill-current h-5"/>
+                            </a>
+                        @endif
+                        @if ($artist->imdb)
+                            <a href="{{ $artist->imdb_url }}" target="_blank">
+                                <x-icons.imdb class="fill-current h-5"/>
+                            </a>
+                        @endif
+                        @if ($artist->wikipedia)
+                            <a href="{{ $artist->wikipedia_url }}" target="_blank">
+                                <x-icons.wikipedia class="fill-current h-4"/>
+                            </a>
+                        @endif
+                    </div>
                 </div>
             @endif
+
         </div>
-        @if ($artist->discogs || $artist->imdb || $artist->wikipedia)
-            <div class="w-full mb-2 ml-0">
-                @if ($artist->discogs)
-                    <img src="https://img.icons8.com/ios-filled/32/edf2f7/music-record.png" class="inline h-5">
-                    <a href="{{ $artist->discogs_url }}" target="_blank" class="mr-5">Discogs</a>
-                @endif
-                @if ($artist->imdb)
-                    <img src="https://img.icons8.com/windows/32/edf2f7/imdb.png" class="inline h-5">
-                    <a href="{{ $artist->imdb_url }}" target="_blank" class="mr-5">imdb</a>
-                @endif
-                @if ($artist->wikipedia)
-                    <img src="https://img.icons8.com/windows/32/edf2f7/wikipedia.png" class="inline h-5">
-                    <a href="{{ $artist->wikipedia_url }}" target="_blank">Wikipedia</a>
-                @endif
+
+    </div>
+
+    <div class="space-y-3">
+        @if ($artist->asDirector()->get()->count())
+            <div>
+                <h3 class="text-xl font-medium">Reżyser:</h3>
+                <table>
+                    @foreach ($artist->asDirector()->orderBy('year')->orderBy('title')->get() as $tale)
+                        <tr>
+                            <td class="py-1.5">
+                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
+                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                    @if ($tale->cover)
+                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                        </tr>
+                    @endforeach
+                </table>
             </div>
         @endif
-    @endif
 
-    @if ($artist->asDirector()->get()->count())
-        <h3>Reżyser:</h3>
-        <table class="mb-1">
-            @foreach ($artist->asDirector()->orderBy('year')->orderBy('title')->get() as $tale)
-                <tr>
-                    <td>
-                        <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if ($tale->cover)
-                                <img src="{{ $tale->cover('34s') }}" class="inset-0">
-                        @else
-                        <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
-                        @endif
-                            </div>
-                    </td>
-                    <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
-                </tr>
-            @endforeach
-        <table>
-    @endif
+        @if ($artist->asLyricist()->get()->count())
+            <div>
+                <h3 class="text-xl font-medium">Autor:</h3>
+                <table>
+                    @foreach ($artist->asLyricist()->orderBy('year')->orderBy('title')->get() as $tale)
+                        <tr>
+                            <td class="py-1.5">
+                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
+                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                    @if ($tale->cover)
+                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        @endif
 
-    @if ($artist->asLyricist()->get()->count())
-        <h3>Autor:</h3>
-        <table class="mb-1">
-            @foreach ($artist->asLyricist()->orderBy('year')->orderBy('title')->get() as $tale)
-                <tr>
-                    <td>
-                        <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if ($tale->cover)
-                                <img src="{{ $tale->cover('34s') }}" class="inset-0">
-                        @else
-                        <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
-                        @endif
-                            </div>
-                    </td>
-                    <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
-                </tr>
-            @endforeach
-        <table>
-    @endif
+        @if ($artist->asComposer()->get()->count())
+            <div>
+                <h3 class="text-xl font-medium">Kompozytor:</h3>
+                <table>
+                    @foreach ($artist->asComposer()->orderBy('year')->orderBy('title')->get() as $tale)
+                        <tr>
+                            <td class="py-1.5">
+                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
+                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                    @if ($tale->cover)
+                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        @endif
 
-    @if ($artist->asComposer()->get()->count())
-        <h3>Kompozytor:</h3>
-        <table class="mb-1">
-            @foreach ($artist->asComposer()->orderBy('year')->orderBy('title')->get() as $tale)
-                <tr>
-                    <td>
-                        <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if ($tale->cover)
-                                <img src="{{ $tale->cover('34s') }}" class="inset-0">
-                        @else
-                        <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
-                        @endif
-                            </div>
-                    </td>
-                    <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
-                </tr>
-            @endforeach
-        <table>
-    @endif
-
-    @if ($artist->asActor()->get()->count())
-        <h3>Aktor:</h3>
-        <table class="mb-1">
-            @foreach ($artist->asActor()->orderBy('year')->orderBy('title')->get() as $tale)
-                <tr>
-                    <td>
-                        <div style="width: 34px; height: 34px;" class="relative bg-gray-800">
-                        @if ($tale->cover)
-                                <img src="{{ $tale->cover('34s') }}" class="inset-0">
-                        @else
-                        <img src="https://img.icons8.com/windows/32/4a5568/music-record.png" class="absolute" style="top: 1px; right: 1px; bottom: 1px; left: 1px">
-                        @endif
-                            </div>
-                    </td>
-                    <td>{{ $tale->year }}</td>
-                    <td><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
-                    @if ($tale->pivot->characters)
-                        <td><small>jako</small> {{ $tale->pivot->characters }}</td>
-                    @endif
-                </tr>
-            @endforeach
-        <table>
-    @endif
+        @if ($artist->asActor()->get()->count())
+            <div>
+                <h3 class="text-xl font-medium">Aktor:</h3>
+                <table>
+                    @foreach ($artist->asActor()->orderBy('year')->orderBy('title')->get() as $tale)
+                        <tr>
+                            <td class="py-1.5">
+                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
+                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                    @if ($tale->cover)
+                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                    @endif
+                                </div>
+                            </td>
+                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
+                            <td class="py-1.5"><a href="{{ route('tales.show', $tale->slug) }}">{{ $tale->title }}</a></td>
+                            @if ($tale->pivot->characters)
+                                <td class="py-1.5 pl-1"><small>jako</small> {{ $tale->pivot->characters }}</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        @endif
+    </div>
 
     {{-- @if ($artist->countAppearances() == 0)
         <form method="post" action="{{ route('artists.destroy', $artist->slug) }}">

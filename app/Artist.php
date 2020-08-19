@@ -92,8 +92,16 @@ class Artist extends Model
                 'Authorization' => 'Discogs token='.config('services.discogs.token'),
             ])->get("https://api.discogs.com/artists/$this->discogs")->json();
 
-            return $artist['images']['0']['uri'] ?? null;
+            return [
+                'normal' => $artist['images']['0']['uri'] ?? null,
+                '150' => $artist['images']['0']['uri150'] ?? null,
+            ];
         });
+    }
+
+    public function photo($type = 'normal')
+    {
+        return $this->photo[$type] ?? null;
     }
 
     public function asDirector()

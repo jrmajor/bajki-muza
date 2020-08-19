@@ -1,50 +1,43 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Bajki Grajki') }}</title>
+        @hasSection('title')
+            <title>@yield('title') - {{ config('app.name') }}</title>
+        @else
+            <title>{{ config('app.name') }}</title>
+        @endif
 
-    <script src="{{ mix('js/app.js') }}" defer></script>
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-</head>
-<body class="bg-gray-900 text-gray-200">
-    <div id="app" class="container my-4 flex flex-col sm:flex-row">
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-        <div class="flex-none h-12 w-full mb-4 sm:h-full sm:w-12 sm:mb-0 sm:mr-4">
-            <a href="{{ route('tales.index') }}" alt="Bajki Grajki">
-                <img src="https://img.icons8.com/windows/64/edf2f7/music-record.png" class="w-12 h-12 inline">
-            </a>
-            <a href="{{ route('artists.index') }}" alt="Artyści">
-                <img src="https://img.icons8.com/windows/64/edf2f7/person-male.png" class="w-12 h-12 inline">
-            </a>
-            @guest
-                <a href="{{ route('login') }}" alt="Login">
-                    <img src="https://img.icons8.com/windows/64/edf2f7/login-rounded-right.png" class="w-12 h-12 inline">
+        <script src="{{ mix('js/app.js') }}" defer></script>
+    </head>
+    <body class="bg-gray-200 text-gray-900">
+        <div id="app" class="container mx-auto my-8">
+
+            <div class="flex justify-center space-x-4">
+                <a href="{{ route('tales.index') }}" alt="Bajki"
+                    class="flex items-center px-4 py-2 bg-white shadow-lg rounded-full
+                        text-gray-600 hover:text-gray-800 duration-500 uppercase font-semibold tracking-wide">
+                    <img src="https://img.icons8.com/windows/64/ecc94b/music-record.png" class="w-8 h-8 mr-1">
+                    Bajki
                 </a>
-            @else
-                <a href="{{ route('tales.create') }}" alt="Nowa bajka">
-                    <img src="https://img.icons8.com/windows/64/edf2f7/add.png" class="w-12 h-12 inline">
+                <a href="{{ route('artists.index') }}" alt="Artyści"
+                    class="flex items-center px-4 py-2 bg-white shadow-lg rounded-full
+                        text-gray-600 hover:text-gray-800 duration-500 uppercase font-semibold tracking-wide">
+                    <img src="https://img.icons8.com/windows/64/ecc94b/person-male.png" class="w-8 h-8 mr-1">
+                    Artyści
                 </a>
-                <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();"
-                    alt="{{ Auth::user()->name }}">
-                    <img src="https://img.icons8.com/windows/64/edf2f7/logout-rounded-left.png" class="w-12 h-12 inline">
-                </a>
+            </div>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            @endguest
+            <main class="mt-8 mx-5 md:mx-8">
+                @yield('content')
+            </main>
         </div>
-
-        <main class="flex-1">
-            @yield('content')
-        </main>
-    </div>
-</body>
+    </body>
 </html>

@@ -1,37 +1,20 @@
 @tailwind base;
 
-h2 {
-	@apply text-2xl;
-}
-
-h3 {
-	@apply font-bold;
-}
-
-a:hover {
-	@apply underline text-gray-100;
+.a {
+  @apply text-orange-800;
+  @apply transition-colors duration-100 ease-out;
+  @apply hover:text-yellow-800 focus:text-yellow-800;
 }
 
 input {
-	@apply p-1 bg-gray-800 text-gray-300 rounded;
-}
-
-input:focus {
-	@apply outline-none bg-gray-700;
+  @apply p-1 bg-gray-800 text-gray-300 rounded;
+  @apply focus:outline-none focus:bg-gray-700;
 }
 
 button {
-	@apply px-3 py-1 bg-gray-800 text-gray-300 rounded;
-}
-
-button:focus {
-	@apply outline-none bg-gray-700;
-}
-
-td {
-	@apply p-1;
+  @apply px-3 py-1 bg-gray-800 text-gray-300 rounded;
+  @apply focus:outline-none focus:bg-gray-700;
 }
 
 @tailwind components;
-
 @tailwind utilities;

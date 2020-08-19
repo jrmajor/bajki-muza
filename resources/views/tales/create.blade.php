@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h2 class="mb-2">Nowa bajka</h2>
+    <h2 class="mb-2 text-2xl font-medium">Nowa bajka</h2>
 
     <form method="post" action="{{ route('tales.store') }}">
         @csrf

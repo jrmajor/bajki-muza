@@ -2,61 +2,65 @@
 
 @section('content')
 
-    <div class="flex sm:mb-5 flex-col sm:flex-row">
+    <div class="flex flex-col sm:flex-row items-center mb-4">
 
-        <div class="mb-2 sm:hidden flex-grow text-center">
-            <h2>
+        <div class="sm:hidden text-center">
+            <h2 class="text-2xl font-medium">
                 @auth
-                    <a href="{{ route('tales.edit', $tale->slug) }}" class="hover:no-underline">
+                    <a href="{{ route('tales.edit', $tale->slug) }}">
                 @endauth
-                {{ $tale->title }}
+                    {{ $tale->title }}
                 @auth
                     </a>
                 @endauth
-                @if ($tale->year)
-                    <small>({{ $tale->year }})</small>
-                @endif
             </h2>
-        </div>
-
-        <div class="flex-none w-40 h-40 bg-gray-800 self-center">
-            @if ($tale->cover)
-                <img src="{{ $tale->cover('174s') }}">
+            @if ($tale->year)
+                {{ $tale->year }}
             @endif
         </div>
 
-        <div class="sm:px-5 py-2 flex-grow flex flex-col justify-between">
-            <div class="mb-2 hidden sm:block">
-                <h2>
+        <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+            <div class="relative bg-gray-800 bg-cover h-40 w-40"
+                style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34.5c8.008 0 14.5-6.492 14.5-14.5S28.008 5.5 20 5.5 5.5 11.992 5.5 20 11.992 34.5 20 34.5zm0 1.5c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 1.5a6 6 0 100-12 6 6 0 000 12z M21.25 20a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z M11.345 30.061l4.1-4.746c-.27-.23-.52-.481-.751-.75L9.98 28.623c.418.513.875.994 1.365 1.44zM30.06 11.344a13.34 13.34 0 00-1.436-1.363l-4.048 4.722c.261.225.505.47.73.731l4.754-4.09z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                @if ($tale->cover)
+                    <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                @endif
+            </div>
+        </div>
+
+        <div class="sm:py-2 flex-grow self-center sm:self-stretch flex flex-col justify-between space-y-3">
+
+            <div class="hidden sm:block">
+                <h2 class="text-2xl font-medium">
                     @auth
-                        <a href="{{ route('tales.edit', $tale->slug) }}" class="hover:no-underline">
+                        <a href="{{ route('tales.edit', $tale->slug) }}">
                     @endauth
-                    {{ $tale->title }}
+                        {{ $tale->title }}
                     @auth
                         </a>
                     @endauth
-                    @if ($tale->year)
-                        <small>({{ $tale->year }})</small>
-                    @endif
                 </h2>
+                @if ($tale->year)
+                    {{ $tale->year }}
+                @endif
             </div>
 
             <div>
                 @if ($tale->director)
-                    <h3 class="inline">Reżyseria:</h3>
+                    <strong>Reżyseria:</strong>
                     <a href="{{ route('artists.show', $tale->director->slug) }}">{{ $tale->director->name }}</a>
 
                     <br>
                 @endif
 
-                <h3 class="inline">Słowa:</h3>
+                <strong>Słowa:</strong>
                 @foreach ($tale->lyricists()->orderBy('credit_nr')->get() as $lyricist)
                     <a href="{{ route('artists.show', $lyricist->slug) }}">{{ $lyricist->name }}</a>@if (! $loop->last),@endif
                 @endforeach
 
                 <br>
 
-                <h3 class="inline">Muzyka:</h3>
+                <strong>Muzyka:</strong>
                 @foreach ($tale->composers()->orderBy('credit_nr')->get() as $composer)
                     <a href="{{ route('artists.show', $composer->slug) }}">{{ $composer->name }}</a>@if (! $loop->last),@endif
                 @endforeach
@@ -64,27 +68,29 @@
         </div>
     </div>
 
-    <h3>Obsada:</h3>
+    <h3 class="text-lg font-medium">Obsada:</h3>
     <table>
         @foreach ($tale->actors()->orderBy('credit_nr')->get() as $actor)
             <tr>
-                <td>
-                    <a href="{{ route('artists.show', $actor->slug) }}">{{ $actor->name }}</a>
-                    @if ($actor->asActor()->get()->count() > 1)
-                        <small class="px-1 py-0 bg-gray-800 rounded-full">{{ $actor->asActor()->get()->count() }}</small>
-                    @endif
+                <td class="py-0.5">
+                    <div class="flex items-center">
+                        <a href="{{ route('artists.show', $actor->slug) }}">{{ $actor->name }}</a>
+                        @if ($actor->asActor()->get()->count() > 1)
+                            <small class="ml-1.5 h-4.5 w-4.5 text-xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">{{ $actor->asActor()->count() }}</small>
+                        @endif
+                    </div>
                 </td>
-                @if ($actor->pivot->characters)
-                    <td>
+                <td class="py-0.5 pl-2">
+                    @if ($actor->pivot->characters)
                         <small>jako</small>
                         @foreach (explode('; ', $actor->pivot->characters) as $character)
-                            @if (!$loop->first)
+                            @if (! $loop->first)
                                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             @endif
                             {{ $character }}
                         @endforeach
-                    </td>
-                @endif
+                    @endif
+                </td>
             </tr>
         @endforeach
     <table>

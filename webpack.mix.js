@@ -1,8 +1,13 @@
 const mix = require('laravel-mix');
-
-require('laravel-mix-tailwind');
+const tailwindcss = require('tailwindcss')
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .tailwind()
-    .version();
+    .options({
+      terser: { extractComments: false }
+    })
+
+mix.sass('resources/sass/app.scss', 'public/css')
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('tailwind.config.js') ],
+    }).version()
