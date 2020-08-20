@@ -83,7 +83,7 @@ class Artist extends Model
                 'titles' => $this->wikipedia,
             ]);
 
-            return Arr::first($response['query']['pages'])['extract'];
+            return Arr::first($response['query']['pages'])['extract'] ?? null;
         });
     }
 
