@@ -4,12 +4,14 @@
 
 @section('content')
 
-    <div class="flex flex-col sm:flex-row items-center mb-4">
+    <div class="flex flex-col sm:flex-row items-center mb-6">
 
-        <div class="sm:hidden">
-            <h2 class="text-2xl font-medium">
+        <div class="sm:hidden text-center">
+            <h2 class="text-2xl font-medium leading-7">
                 @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
-                    {{ $artist->name }}
+                    @foreach (explode(' ', $artist->name) as $word)
+                        <span class="shadow-title">{{ $word }} </span>
+                    @endforeach
                 @auth </a> @endauth
             </h2>
         </div>
@@ -28,10 +30,10 @@
 
         <div class="@if ($artist->photo()) sm:py-2 @endif flex-grow self-stretch flex flex-col justify-between space-y-3">
 
-            <div class="hidden sm:block">
-                <h2 class="text-2xl font-medium">
+            <div class="hidden sm:block self-start -ml-1.5">
+                <h2 class="text-2xl font-medium leading-7 shadow-title">
                     @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
-                        {{ $artist->name }}
+                        &nbsp;{{ $artist->name }}&nbsp;
                     @auth </a> @endauth
                 </h2>
             </div>
@@ -68,95 +70,117 @@
 
     </div>
 
-    <div class="space-y-3">
+    <div class="w-full space-y-6">
         @if ($artist->asDirector->count())
-            <div>
-                <h3 class="text-xl font-medium">Reżyser:</h3>
-                <table>
+            <div class="w-full flex flex-col items-center space-y-3">
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
+                    &nbsp;Reżyser&nbsp;
+                </h3>
+                <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asDirector as $tale)
-                        <tr>
-                            <td class="py-1.5">
-                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
-                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
-                                    @if ($tale->cover)
-                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
-                                    @endif
-                                </div>
-                            </td>
-                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
-                        </tr>
+                        <a href="{{ route('tales.show', $tale) }}"
+                            class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            <div class="flex-none relative bg-gray-700 bg-cover h-13 w-13"
+                                style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34.5c8.008 0 14.5-6.492 14.5-14.5S28.008 5.5 20 5.5 5.5 11.992 5.5 20 11.992 34.5 20 34.5zm0 1.5c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 1.5a6 6 0 100-12 6 6 0 000 12z M21.25 20a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z M11.345 30.061l4.1-4.746c-.27-.23-.52-.481-.751-.75L9.98 28.623c.418.513.875.994 1.365 1.44zM30.06 11.344a13.34 13.34 0 00-1.436-1.363l-4.048 4.722c.261.225.505.47.73.731l4.754-4.09z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                @if ($tale->cover)
+                                    <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                @endif
+                            </div>
+                            <div class="flex-grow p-2 pl-3 text-sm sm:text-base font-medium leading-tight">
+                                {{ $tale->title }}
+                            </div>
+                            <div class="pr-5">
+                                <small>{{ $tale->year }}</small>
+                            </div>
+                        </a>
                     @endforeach
-                </table>
+                </div>
             </div>
         @endif
 
         @if ($artist->asLyricist->count())
-            <div>
-                <h3 class="text-xl font-medium">Autor:</h3>
-                <table>
+            <div class="w-full flex flex-col items-center space-y-3">
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
+                    &nbsp;Autor&nbsp;
+                </h3>
+                <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asLyricist as $tale)
-                        <tr>
-                            <td class="py-1.5">
-                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
-                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
-                                    @if ($tale->cover)
-                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
-                                    @endif
-                                </div>
-                            </td>
-                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
-                        </tr>
+                        <a href="{{ route('tales.show', $tale) }}"
+                            class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            <div class="flex-none relative bg-gray-700 bg-cover h-13 w-13"
+                                style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34.5c8.008 0 14.5-6.492 14.5-14.5S28.008 5.5 20 5.5 5.5 11.992 5.5 20 11.992 34.5 20 34.5zm0 1.5c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 1.5a6 6 0 100-12 6 6 0 000 12z M21.25 20a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z M11.345 30.061l4.1-4.746c-.27-.23-.52-.481-.751-.75L9.98 28.623c.418.513.875.994 1.365 1.44zM30.06 11.344a13.34 13.34 0 00-1.436-1.363l-4.048 4.722c.261.225.505.47.73.731l4.754-4.09z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                @if ($tale->cover)
+                                    <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                @endif
+                            </div>
+                            <div class="flex-grow p-2 pl-3 text-sm sm:text-base font-medium leading-tight">
+                                {{ $tale->title }}
+                            </div>
+                            <div class="pr-5">
+                                <small>{{ $tale->year }}</small>
+                            </div>
+                        </a>
                     @endforeach
-                </table>
+                </div>
             </div>
         @endif
 
         @if ($artist->asComposer->count())
-            <div>
-                <h3 class="text-xl font-medium">Kompozytor:</h3>
-                <table>
+            <div class="w-full flex flex-col items-center space-y-3">
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
+                    &nbsp;Kompozytor&nbsp;
+                </h3>
+                <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asComposer as $tale)
-                        <tr>
-                            <td class="py-1.5">
-                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
-                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
-                                    @if ($tale->cover)
-                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
-                                    @endif
-                                </div>
-                            </td>
-                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
-                        </tr>
+                        <a href="{{ route('tales.show', $tale) }}"
+                            class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            <div class="flex-none relative bg-gray-700 bg-cover h-13 w-13"
+                                style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34.5c8.008 0 14.5-6.492 14.5-14.5S28.008 5.5 20 5.5 5.5 11.992 5.5 20 11.992 34.5 20 34.5zm0 1.5c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 1.5a6 6 0 100-12 6 6 0 000 12z M21.25 20a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z M11.345 30.061l4.1-4.746c-.27-.23-.52-.481-.751-.75L9.98 28.623c.418.513.875.994 1.365 1.44zM30.06 11.344a13.34 13.34 0 00-1.436-1.363l-4.048 4.722c.261.225.505.47.73.731l4.754-4.09z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                @if ($tale->cover)
+                                    <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                @endif
+                            </div>
+                            <div class="flex-grow p-2 pl-3 text-sm sm:text-base font-medium leading-tight">
+                                {{ $tale->title }}
+                            </div>
+                            <div class="pr-5">
+                                <small>{{ $tale->year }}</small>
+                            </div>
+                        </a>
                     @endforeach
-                </table>
+                </div>
             </div>
         @endif
 
         @if ($artist->asActor->count())
-            <div>
-                <h3 class="text-xl font-medium">Aktor:</h3>
-                <table>
+            <div class="w-full flex flex-col items-center space-y-3">
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
+                    &nbsp;Aktor&nbsp;
+                </h3>
+                <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asActor as $tale)
-                        <tr>
-                            <td class="py-1.5">
-                                <div class="relative bg-gray-800 bg-cover h-8 w-8 rounded overflow-hidden shadow-md"
-                                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34c7.732 0 14-6.268 14-14S27.732 6 20 6 6 12.268 6 20s6.268 14 14 14zm0 2c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24a4 4 0 100-8 4 4 0 000 8zm0 2a6 6 0 100-12 6 6 0 000 12z M21.5 20a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z M12.46 30.211l3.101-4.165a7.543 7.543 0 01-1.593-1.588l-4.26 3.15c.782.997 1.71 1.876 2.752 2.603zm17.748-17.756a12.823 12.823 0 00-2.596-2.744l-3.133 4.272c.59.441 1.114.966 1.553 1.559l4.176-3.087z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
-                                    @if ($tale->cover)
-                                        <img src="{{ $tale->cover('174s') }}" class="inset-0">
-                                    @endif
+                        <a href="{{ route('tales.show', $tale) }}"
+                            class="w-full h-15 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            <div class="flex-none relative bg-gray-700 bg-cover h-15 w-15"
+                                style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34.5c8.008 0 14.5-6.492 14.5-14.5S28.008 5.5 20 5.5 5.5 11.992 5.5 20 11.992 34.5 20 34.5zm0 1.5c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 1.5a6 6 0 100-12 6 6 0 000 12z M21.25 20a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z M11.345 30.061l4.1-4.746c-.27-.23-.52-.481-.751-.75L9.98 28.623c.418.513.875.994 1.365 1.44zM30.06 11.344a13.34 13.34 0 00-1.436-1.363l-4.048 4.722c.261.225.505.47.73.731l4.754-4.09z' fill='%234a5568'/%3E%3C/svg%3E&quot;)">
+                                @if ($tale->cover)
+                                    <img src="{{ $tale->cover('174s') }}" class="inset-0">
+                                @endif
+                            </div>
+                            <div class="flex-grow flex flex-col justify-between p-2 pl-3">
+                                <div class="text-sm sm:text-base font-medium leading-tight">
+                                    {{ $tale->title }}
                                 </div>
-                            </td>
-                            <td class="py-1.5 px-2"><small>{{ $tale->year }}</small></td>
-                            <td class="py-1.5"><a href="{{ route('tales.show', $tale) }}">{{ $tale->title }}</a></td>
-                            @if ($tale->pivot->characters)
-                                <td class="py-1.5 pl-1"><small>jako</small> {{ $tale->pivot->characters }}</td>
-                            @endif
-                        </tr>
+                                @if ($tale->pivot->characters)
+                                    <small>jako {{ $tale->pivot->characters }}</small>
+                                @endif
+                            </div>
+                            <div class="hidden sm:block flex-none pr-4">
+                                <small>{{ $tale->year }}</small>
+                            </div>
+                        </a>
                     @endforeach
-                </table>
+                </div>
             </div>
         @endif
     </div>

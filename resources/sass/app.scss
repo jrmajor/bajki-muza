@@ -6,5 +6,13 @@
   @apply hover:text-yellow-800 focus:text-yellow-800;
 }
 
+.shadow-title {
+  box-shadow: inset 0 -9px 0 theme('colors.yellow.kox');
+}
+
+.shadow-subtitle {
+  box-shadow: inset 0 -7px 0 theme('colors.yellow.ciul');
+}
+
 @tailwind components;
 @tailwind utilities;

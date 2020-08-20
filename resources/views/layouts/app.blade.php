@@ -23,22 +23,22 @@
 
             <div class="my-8 flex justify-center space-x-4">
                 <a href="{{ route('tales.index') }}" alt="Bajki"
-                    class="flex items-center px-4 py-2 bg-white shadow-lg rounded-full
-                        text-gray-600 hover:text-gray-800 duration-500 uppercase font-semibold tracking-wide">
-                    <img src="https://img.icons8.com/windows/64/ecc94b/music-record.png" class="w-8 h-8 mr-1">
+                    class="flex items-center px-5 py-2.5 bg-white shadow-lg rounded-full
+                        text-gray-900 hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
                     Bajki
                 </a>
                 <a href="{{ route('artists.index') }}" alt="Artyści"
-                    class="flex items-center px-4 py-2 bg-white shadow-lg rounded-full
-                        text-gray-600 hover:text-gray-800 duration-500 uppercase font-semibold tracking-wide">
-                    <img src="https://img.icons8.com/windows/64/ecc94b/person-male.png" class="w-8 h-8 mr-1">
+                    class="flex items-center px-5 py-2.5 bg-white shadow-lg rounded-full
+                        text-gray-900 hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
                     Artyści
                 </a>
             </div>
 
-            <main class="mx-5 md:mx-8">
-                @yield('content')
-            </main>
+            <div class="flex flex-col items-center">
+                <main class="px-5 md:px-8 w-full lg:w-3/4 xl:1/2 flex flex-col items-center">
+                    @yield('content')
+                </main>
+            </div>
 
             <footer class="my-8 px-3 text-center text-gray-500 text-sm">
                 {{-- &copy; --}} 2019<a href="{{ route('login') }}" class="cursor-text">-</a>{{ now()->year }} {{-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> --}}
