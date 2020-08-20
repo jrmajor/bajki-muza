@@ -93,7 +93,7 @@ class Artist extends Model
             return;
         }
 
-        return Cache::remember("a-$this->id-photo", CarbonInterval::week(), function () {
+        return Cache::remember("artist-$this->id-photo", CarbonInterval::week(), function () {
             $artist = Http::withHeaders([
                 'Authorization' => 'Discogs token='.config('services.discogs.token'),
             ])->get("https://api.discogs.com/artists/$this->discogs")->json();
@@ -156,8 +156,8 @@ class Artist extends Model
 
     public function flushCache()
     {
-        Cache::forget("artist-$this->id-photo");
-        Cache::forget("artist-$this->id-wiki");
+        return Cache::forget("artist-$this->id-photo")
+            && Cache::forget("artist-$this->id-wiki");
     }
 
     public function editData()
