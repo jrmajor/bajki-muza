@@ -97,8 +97,8 @@
                             @endif
                         </div>
                         <div class="flex-none pr-4">
-                            @if ($actor->asActor()->count() > 1)
-                                <small class="ml-1.5 h-6 w-6 text-xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">{{ $actor->asActor()->count() }}</small>
+                            @if ($actor->appearances > 1)
+                                <small class="ml-1.5 h-6 w-6 text-xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">{{ $actor->appearances }}</small>
                             @endif
                         </div>
                     </a>

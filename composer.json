@@ -19,6 +19,7 @@
         "spatie/laravel-sluggable": "^2.5"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.4",
         "facade/ignition": "^2.3",
         "fzaninotto/faker": "^1.9",
         "mockery/mockery": "^1.4",

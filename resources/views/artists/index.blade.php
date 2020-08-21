@@ -24,7 +24,7 @@
                     <small class="hidden sm:inline">{{
                         trans_choice(
                             'misc.wzmianka',
-                            $artist->countAppearances(),
+                            $artist->appearances,
                         )
                     }}</small>
                 </div>

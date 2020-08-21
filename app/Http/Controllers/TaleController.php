@@ -56,6 +56,13 @@ class TaleController extends Controller
 
     public function show(Tale $tale)
     {
+        $tale->load([
+            'director' => fn ($query) => $query->countAppearances(),
+            'lyricists' => fn ($query) => $query->countAppearances(),
+            'composers' => fn ($query) => $query->countAppearances(),
+            'actors' => fn ($query) => $query->countAppearances(),
+        ]);
+
         return view('tales.show', ['tale' => $tale]);
     }
 

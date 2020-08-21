@@ -136,22 +136,20 @@ class Artist extends Model
             ->orderBy('year')->orderBy('title');
     }
 
-    public function countAppearances()
+    public function scopeCountAppearances($query)
     {
-        $count = DB::select('
-            select count(*) as count
-            from (
-                select id from tales where director_id = ?
-                union all
-                select id from tales_lyricists where artist_id = ?
-                union all
-                select id from tales_composers where artist_id = ?
-                union all
-                select id from tales_actors where artist_id = ?
-            ) as relationships
-        ', [$this->id, $this->id, $this->id, $this->id]);
-
-        return $count[0]->count;
+        $query->addSelect(['appearances' => DB::table(
+                DB::table('tales')->select('id')
+                    ->whereColumn('director_id', 'artists.id')
+                ->unionAll(DB::table('tales_lyricists')->select('id')
+                    ->whereColumn('artist_id', 'artists.id')
+                )->unionAll(DB::table('tales_composers')->select('id')
+                    ->whereColumn('artist_id', 'artists.id')
+                )->unionAll(DB::table('tales_actors')->select('id')
+                    ->whereColumn('artist_id', 'artists.id')
+                )
+            )->select(DB::raw('count(*) as appearances'))
+        ]);
     }
 
     public function flushCache()

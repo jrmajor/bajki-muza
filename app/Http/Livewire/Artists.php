@@ -29,9 +29,9 @@ class Artists extends Component
     public function render()
     {
         $artists = blank($this->search)
-            ? Artist::orderBy('name')->paginate(30)
+            ? Artist::countAppearances()->orderBy('name')->paginate(30)
             : Artist::where('name', 'like', '%'.$this->search.'%')
-                ->orderBy('name')->paginate(30);
+                ->countAppearances()->orderBy('name')->paginate(30);
 
         return view('artists.index', ['artists' => $artists]);
     }
