@@ -31,13 +31,11 @@
         <div class="sm:py-2 flex-grow self-center sm:self-stretch flex flex-col justify-between space-y-3">
 
             <div class="hidden sm:block self-start">
-                <div class="-ml-1.5">
-                    <h2 class="text-2xl font-medium leading-7 shadow-title">
-                        @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
-                            &nbsp;{{ $tale->title }}&nbsp;
-                        @auth </a> @endauth
-                    </h2>
-                </div>
+                <h2 class="text-2xl font-medium leading-7 shadow-title px-1.5 -ml-1.5">
+                    @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
+                        {{ $tale->title }}
+                    @auth </a> @endauth
+                </h2>
                 @if ($tale->year)
                     {{ $tale->year }}
                 @endif
@@ -96,8 +94,8 @@
 
     @if ($tale->actors->count())
         <div class="w-full flex flex-col items-center space-y-3">
-            <h3 class="text-xl font-medium leading-6 shadow-subtitle">
-                &nbsp;Obsada&nbsp;
+            <h3 class="text-xl font-medium leading-6 shadow-subtitle px-1">
+                Obsada
             </h3>
             <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                 @foreach ($tale->actors as $actor)

@@ -30,10 +30,10 @@
 
         <div class="@if ($artist->photo()) sm:py-2 @endif flex-grow self-stretch flex flex-col justify-between space-y-3">
 
-            <div class="hidden sm:block self-start -ml-1.5">
-                <h2 class="text-2xl font-medium leading-7 shadow-title">
+            <div class="hidden sm:block self-start">
+                <h2 class="text-2xl font-medium leading-7 shadow-title px-1.5 -ml-1.5">
                     @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
-                        &nbsp;{{ $artist->name }}&nbsp;
+                        {{ $artist->name }}
                     @auth </a> @endauth
                 </h2>
             </div>
@@ -73,8 +73,8 @@
     <div class="w-full space-y-6">
         @if ($artist->asDirector->count())
             <div class="w-full flex flex-col items-center space-y-3">
-                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
-                    &nbsp;Reżyser&nbsp;
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle px-1">
+                    Reżyser
                 </h3>
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asDirector as $tale)
@@ -100,8 +100,8 @@
 
         @if ($artist->asLyricist->count())
             <div class="w-full flex flex-col items-center space-y-3">
-                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
-                    &nbsp;Autor&nbsp;
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle px-1">
+                    Autor
                 </h3>
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asLyricist as $tale)
@@ -127,8 +127,8 @@
 
         @if ($artist->asComposer->count())
             <div class="w-full flex flex-col items-center space-y-3">
-                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
-                    &nbsp;Kompozytor&nbsp;
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle px-1">
+                    Kompozytor
                 </h3>
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asComposer as $tale)
@@ -154,8 +154,8 @@
 
         @if ($artist->asActor->count())
             <div class="w-full flex flex-col items-center space-y-3">
-                <h3 class="text-xl font-medium leading-6 shadow-subtitle">
-                    &nbsp;Aktor&nbsp;
+                <h3 class="text-xl font-medium leading-6 shadow-subtitle px-1">
+                    Aktor
                 </h3>
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asActor as $tale)
