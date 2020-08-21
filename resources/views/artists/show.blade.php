@@ -28,7 +28,7 @@
             </div>
         @endif
 
-        <div class="@if ($artist->photo()) sm:py-2 @endif flex-grow self-stretch flex flex-col justify-between space-y-3">
+        <div class="@if ($artist->photo()) sm:py-2 @endif flex-grow @if ($artist->wikipedia) self-stretch @endif flex flex-col justify-between space-y-3">
 
             <div class="hidden sm:block self-start">
                 <h2 class="text-2xl font-medium leading-7 shadow-title px-1.5 -ml-1.5">
@@ -39,7 +39,7 @@
             </div>
 
             @if ($artist->discogs || $artist->imdb || $artist->wikipedia)
-                <div class="self-stretch flex flex-col space-y-2">
+                <div class="@if ($artist->photo() || $artist->wikipedia) self-stretch @else self-center @endif flex flex-col space-y-2">
                     @if ($artist->wikipedia)
                         <div>
                             {!! strip_tags($artist->wikipedia_extract) !!}

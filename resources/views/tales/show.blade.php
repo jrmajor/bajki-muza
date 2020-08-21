@@ -15,7 +15,7 @@
                 @auth </a> @endauth
             </h2>
             @if ($tale->year)
-                {{ $tale->year }}
+                <div class="mt-1.5">{{ $tale->year }}</div>
             @endif
         </div>
 
@@ -37,7 +37,7 @@
                     @auth </a> @endauth
                 </h2>
                 @if ($tale->year)
-                    {{ $tale->year }}
+                    <div class="mt-1">{{ $tale->year }}</div>
                 @endif
             </div>
 
