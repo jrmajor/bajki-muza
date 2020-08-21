@@ -46,14 +46,31 @@
             <div>
                 @if ($tale->director)
                     <strong>Reżyseria:</strong>
-                    <a href="{{ route('artists.show', $tale->director) }}">{{ $tale->director->name }}</a>
+                    <a href="{{ route('artists.show', $tale->director) }}"
+                        class="inline-flex items-center">
+                        {{ $tale->director->name }}
+                        @if ($tale->director->appearances > 1)
+                            <small class="ml-1.5 h-4.5 w-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">
+                                {{ $tale->director->appearances }}
+                            </small>
+                        @endif
+                    </a>
                     <br>
                 @endif
 
                 @if ($tale->lyricists->count() > 0)
                     <strong>Słowa:</strong>
                     @foreach ($tale->lyricists as $lyricist)
-                        <a href="{{ route('artists.show', $lyricist) }}">{{ $lyricist->name }}</a>@if (! $loop->last),@endif
+                        <a href="{{ route('artists.show', $lyricist) }}"
+                            class="inline-flex items-center">
+                            {{ $lyricist->name }}
+                            @if ($lyricist->appearances > 1)
+                                <small class="ml-1.5 h-4.5 w-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
+                                    {{ $lyricist->appearances }}
+                                </small>
+                            @endif
+                        </a>
+                        @if (! $loop->last),@endif
                     @endforeach
                     <br>
                 @endif
@@ -61,7 +78,16 @@
                 @if ($tale->composers->count() > 0)
                     <strong>Muzyka:</strong>
                     @foreach ($tale->composers as $composer)
-                        <a href="{{ route('artists.show', $composer) }}">{{ $composer->name }}</a>@if (! $loop->last),@endif
+                        <a href="{{ route('artists.show', $composer) }}"
+                            class="inline-flex items-center">
+                            {{ $composer->name }}
+                            @if ($composer->appearances > 1)
+                                <small class="ml-1.5 h-4.5 w-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
+                                    {{ $composer->appearances }}
+                                </small>
+                            @endif
+                        </a>
+                        @if (! $loop->last),@endif
                     @endforeach
                 @endif
             </div>
