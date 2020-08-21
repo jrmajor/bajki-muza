@@ -172,7 +172,12 @@
                                     {{ $tale->title }}
                                 </div>
                                 @if ($tale->pivot->characters)
-                                    <small>jako {{ $tale->pivot->characters }}</small>
+                                    <small>
+                                        jako
+                                        @foreach (explode('; ', $tale->pivot->characters) as $character)
+                                            {{ $character }}@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
+                                        @endforeach
+                                    </small>
                                 @endif
                             </div>
                             <div class="hidden sm:block flex-none pr-4">
