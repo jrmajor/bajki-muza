@@ -15,8 +15,8 @@
                         class="w-full form-input">
                 </div>
                 <div class="w-1/2 items-stretch flex flex-col">
-                    <label for="year" class="w-full font-medium pb-1 text-gray-700">imdb</label>
-                    <input type="text" name="imdb" v-model="artist.imdb" @input="parseImdb()"
+                    <label for="year" class="w-full font-medium pb-1 text-gray-700">Film Polski</label>
+                    <input type="text" name="filmpolski" v-model="artist.filmpolski" @input="parseFilmPolski()"
                         class="w-full form-input">
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 "artist": {
                     "name": "",
                     "discogs": "",
-                    "imdb": "",
+                    "filmpolski": "",
                     "wikipedia": "",
                 }
             }
@@ -57,11 +57,11 @@
                 if(res)
                     this.artist.discogs = res[1];
             },
-            parseImdb(event) {
-                let patt = /(?:https?:\/\/)(?:www\.)imdb\.com\/name\/nm([0-9]*)(?:.*)/i;
-                let res = patt.exec(this.artist.imdb);
+            parseFilmPolski(event) {
+                let patt = /(?:https?:\/\/)(?:www\.)filmpolski\.pl\/fp\/index.php\?osoba=([0-9]*)(?:.*)/i;
+                let res = patt.exec(this.artist.filmpolski);
                 if(res)
-                    this.artist.imdb = res[1];
+                    this.artist.filmpolski = res[1];
             },
             parseWikipedia(event) {
                 let patt = /(?:https?:\/\/)pl\.wikipedia\.org\/wiki\/([^\?\/]*)(?:.*)/i;

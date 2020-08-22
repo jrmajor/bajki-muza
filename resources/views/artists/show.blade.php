@@ -38,7 +38,7 @@
                 </h2>
             </div>
 
-            @if ($artist->discogs || $artist->imdb || $artist->wikipedia)
+            @if ($artist->discogs || $artist->filmpolski || $artist->wikipedia)
                 <div class="@if ($artist->photo() || $artist->wikipedia) self-stretch @else self-center @endif flex flex-col space-y-2">
                     @if ($artist->wikipedia)
                         <div>
@@ -52,9 +52,10 @@
                                 <x-icons.discogs class="fill-current h-5"/>
                             </a>
                         @endif
-                        @if ($artist->imdb)
-                            <a href="{{ $artist->imdb_url }}" target="_blank">
-                                <x-icons.imdb class="fill-current h-5"/>
+                        @if ($artist->filmpolski)
+                            <a href="{{ $artist->filmpolski_url }}" target="_blank"
+                                class="font-medium">
+                                <span style="color: #566ea1">FILM</span><span style="color: #010101">POLSKI</span><span style="color: #566ea1">.PL</span>
                             </a>
                         @endif
                         @if ($artist->wikipedia)

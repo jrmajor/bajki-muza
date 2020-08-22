@@ -12,7 +12,7 @@ $factory->define(Artist::class, function (Faker $faker) {
     return [
         'name' => $name,
         'discogs' => $faker->randomNumber(6),
-        'imdb' => $faker->randomNumber(7),
+        'filmpolski' => $faker->randomNumber(5),
         'wikipedia' => str_replace(' ', '_', $name),
     ];
 });

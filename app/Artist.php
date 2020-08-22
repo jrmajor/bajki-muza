@@ -17,7 +17,7 @@ class Artist extends Model
     use HasSlug;
 
     public $fillable = [
-        'name', 'discogs', 'imdb', 'wikipedia',
+        'name', 'discogs', 'filmpolski', 'wikipedia',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -57,9 +57,9 @@ class Artist extends Model
         return "https://www.discogs.com/artist/$this->discogs";
     }
 
-    public function getImdbUrlAttribute()
+    public function getFilmpolskiUrlAttribute()
     {
-        return "https://www.imdb.com/name/nm$this->imdb";
+        return "http://www.filmpolski.pl/fp/index.php?osoba=$this->filmpolski";
     }
 
     public function getWikipediaUrlAttribute()
@@ -163,7 +163,7 @@ class Artist extends Model
         return [
             'name' => $this->name,
             'discogs' => $this->discogs,
-            'imdb' => $this->imdb,
+            'filmpolski' => $this->filmpolski,
             'wikipedia' => $this->wikipedia,
         ];
     }

@@ -16,7 +16,7 @@ class StoreArtist extends FormRequest
         return [
             'name' => ['string', 'max:100'],
             'discogs' => ['integer', 'nullable'],
-            'imdb' => ['string', 'max:10', 'nullable'],
+            'filmpolski' => ['integer', 'nullable'],
             'wikipedia' => ['string', 'max:100', 'nullable'],
         ];
     }

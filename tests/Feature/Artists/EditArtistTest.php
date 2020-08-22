@@ -10,7 +10,7 @@ beforeEach(function () {
         'slug' => 'ilona-kusmierska',
         'name' => 'Ilona Kuśmierska',
         'discogs' => 602488,
-        'imdb' => '0476350',
+        'filmpolski' => 11623,
         'wikipedia' => 'Ilona_Kuśmierska',
     ];
 
@@ -18,7 +18,7 @@ beforeEach(function () {
         'slug' => 'tadeusz-bartosik',
         'name' => 'Tadeusz Bartosik',
         'discogs' => 1023394,
-        'imdb' => '0059302',
+        'filmpolski' => 116251,
         'wikipedia' => 'Tadeusz_Bartosik',
     ];
 
