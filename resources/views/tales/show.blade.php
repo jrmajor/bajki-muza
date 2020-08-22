@@ -61,14 +61,14 @@
                     @foreach ($tale->lyricists as $lyricist)
                         <a href="{{ route('artists.show', $lyricist) }}"
                             class="inline-flex items-center">
-                            {{ $lyricist->name }}
+                            {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
                             @if ($lyricist->appearances > 1)
                                 <small class="ml-1.5 h-4.5 w-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
                                     {{ $lyricist->appearances }}
                                 </small>
                             @endif
                         </a>
-                        @if (! $loop->last),@endif
+                        @if (! $loop->last && $lyricist->appearances > 1),@endif
                     @endforeach
                     <br>
                 @endif
@@ -78,14 +78,14 @@
                     @foreach ($tale->composers as $composer)
                         <a href="{{ route('artists.show', $composer) }}"
                             class="inline-flex items-center">
-                            {{ $composer->name }}
+                            {{ $composer->name }}@if (! $loop->last && $composer->appearances <= 1),@endif
                             @if ($composer->appearances > 1)
                                 <small class="ml-1.5 h-4.5 w-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
                                     {{ $composer->appearances }}
                                 </small>
                             @endif
                         </a>
-                        @if (! $loop->last),@endif
+                        @if (! $loop->last && $composer->appearances > 1),@endif
                     @endforeach
                 @endif
             </div>
