@@ -17,7 +17,7 @@
         </div>
 
         @if ($artist->photo())
-            <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 bg-gray-800 shadow-lg shadow-lg rounded-lg overflow-hidden">
+            <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 bg-gray-400 shadow-lg shadow-lg rounded-lg overflow-hidden">
                 @auth
                     <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
                 @endauth
