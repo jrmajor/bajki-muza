@@ -10,7 +10,7 @@ class UsersSeeder extends Seeder
     {
         $user = new User();
         $user->username = 'maksiuP';
-        $user->password = Hash::make('maksiuP');
+        $user->password = Hash::make('password');
         $user->save();
     }
 }

@@ -8,10 +8,6 @@
     	</a>
     </h2>
 
-    <form method="post" action="{{ route('tales.update', $tale) }}">
-        @csrf
-        @method('PUT')
-        <tale-form :tale-data="{{ json_encode($tale->editData()) }}"></tale-form>
-    </form>
+    @include('tales.form', ['tale' => $tale, 'action' => 'edit'])
 
 @endsection

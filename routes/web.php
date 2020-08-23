@@ -18,12 +18,16 @@ Route::middleware('auth')->group(function () {
     Route::match(['put', 'patch'], '/bajki/{tale}', 'TaleController@update')->name('tales.update');
     // Route::delete('/bajki/{tale}', 'TaleController@destroy')->name('tales.destroy');
 
-    // Route::get('/artysci/create', 'ArtistController@create')->name('artists.create');
-    // Route::post('/artysci', 'ArtistController@store')->name('artists.store');
     Route::get('/artysci/{artist}/edit', 'ArtistController@edit')->name('artists.edit');
     Route::match(['put', 'patch'], '/artysci/{artist}', 'ArtistController@update')->name('artists.update');
     Route::post('/artysci/{artist}/flush-cache', 'ArtistController@flushCache')->name('artists.flushCache');
     // Route::delete('/artysci/{artist}', 'ArtistController@destroy')->name('artists.destroy');
+
+    Route::get('/ajax/artists', 'AjaxController@artists')->name('ajax.artists');
+
+    Route::get('/ajax/discogs', 'AjaxController@discogs');
+    Route::get('/ajax/filmpolski', 'AjaxController@filmPolski');
+    Route::get('/ajax/wikipedia', 'AjaxController@wikipedia');
 });
 
 Route::livewire('/bajki', 'tales')->name('tales.index');

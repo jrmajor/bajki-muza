@@ -76,11 +76,11 @@ class Artist extends Model
         return Cache::remember("artist-$this->id-wiki", CarbonInterval::week(), function () {
             $response = Http::get('https://pl.wikipedia.org/w/api.php', [
                 'action' => 'query',
+                'titles' => $this->wikipedia,
                 'prop' => 'extracts',
                 'exintro' => 1,
-                'format' => 'json',
                 'redirects' => 1,
-                'titles' => $this->wikipedia,
+                'format' => 'json',
             ]);
 
             return Arr::first($response['query']['pages'])['extract'] ?? null;
@@ -156,15 +156,5 @@ class Artist extends Model
     {
         return Cache::forget("artist-$this->id-photo")
             && Cache::forget("artist-$this->id-wiki");
-    }
-
-    public function editData()
-    {
-        return [
-            'name' => $this->name,
-            'discogs' => $this->discogs,
-            'filmpolski' => $this->filmpolski,
-            'wikipedia' => $this->wikipedia,
-        ];
     }
 }
