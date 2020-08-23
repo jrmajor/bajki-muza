@@ -2,11 +2,15 @@
 
 @section('content')
 
-    <h2 class="mb-2 text-2xl font-medium">
-    	<a href="{{ route('artists.show', $artist) }}">
-    		{{ $artist->name }}
-    	</a>
-    </h2>
+    <div class="text-center">
+        <h2 class="text-2xl font-medium leading-7">
+            @auth <a href="{{ route('artists.show', $artist) }}"> @endauth
+                @foreach (explode(' ', $artist->name) as $word)
+                    <span class="shadow-title px-1.5 @if (! $loop->last) -mx-1.5 @else -ml-1.5 @endif">{{ $word }}</span>
+                @endforeach
+            @auth </a> @endauth
+        </h2>
+    </div>
 
     @php
 
@@ -122,6 +126,7 @@
             class="self-center px-4 py-2 bg-white text-sm font-medium rounded-full shadow-md">
             Zapisz
         </button>
+
     </form>
 
 @endsection

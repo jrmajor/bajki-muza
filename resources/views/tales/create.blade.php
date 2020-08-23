@@ -2,7 +2,11 @@
 
 @section('content')
 
-    <h2 class="mb-2 text-2xl font-medium">Nowa bajka</h2>
+    <div class="text-center">
+        <h2 class="text-2xl font-medium leading-7 shadow-title">
+            <span class="shadow-title px-1.5">Nowa bajka</span>
+        </h2>
+    </div>
 
     @include('tales.form', ['tale' => (new App\Tale)->fill(['cover' => null]), 'action' => 'create'])
 
