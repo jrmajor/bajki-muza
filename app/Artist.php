@@ -152,6 +152,21 @@ class Artist extends Model
         ]);
     }
 
+    public function appearances()
+    {
+        return DB::table(
+                DB::table('tales')->select('id')
+                    ->where('director_id', $this->id)
+                ->unionAll(DB::table('tales_lyricists')->select('id')
+                    ->where('artist_id', $this->id)
+                )->unionAll(DB::table('tales_composers')->select('id')
+                    ->where('artist_id', $this->id)
+                )->unionAll(DB::table('tales_actors')->select('id')
+                    ->where('artist_id', $this->id)
+                )
+            )->count();
+    }
+
     public function flushCache()
     {
         return Cache::forget("artist-$this->id-photo")

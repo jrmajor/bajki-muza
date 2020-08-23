@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/artysci/{artist}/edit', 'ArtistController@edit')->name('artists.edit');
     Route::match(['put', 'patch'], '/artysci/{artist}', 'ArtistController@update')->name('artists.update');
     Route::post('/artysci/{artist}/flush-cache', 'ArtistController@flushCache')->name('artists.flushCache');
-    // Route::delete('/artysci/{artist}', 'ArtistController@destroy')->name('artists.destroy');
+    Route::delete('/artysci/{artist}', 'ArtistController@destroy')->name('artists.destroy');
 
     Route::get('/ajax/artists', 'AjaxController@artists')->name('ajax.artists');
 

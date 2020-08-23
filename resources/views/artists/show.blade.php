@@ -191,12 +191,17 @@
         @endif
     </div>
 
-    {{-- @if ($artist->countAppearances() == 0)
-        <form method="post" action="{{ route('artists.destroy', $artist) }}">
-            @csrf
-            @method('DELETE')
-            <button class="bg-red-700 text-red-100 focus:bg-red-600">usuń</button>
-        </form>
-    @endif --}}
+    @auth
+        @if ($artist->appearances() == 0)
+            <form method="post" action="{{ route('artists.destroy', $artist) }}">
+                @csrf
+                @method('delete')
+                <button class="px-3 py-1.5 bg-red-700 text-red-100 text-sm tracking-wide font-medium uppercase shadow-lg rounded-full
+                        hover:bg-red-600 active:bg-red-800 transition-colors duration-150 ease out">
+                    Usuń
+                </button>
+            </form>
+        @endif
+    @endauth
 
 @endsection
