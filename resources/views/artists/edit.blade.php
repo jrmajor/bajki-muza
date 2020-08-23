@@ -41,7 +41,7 @@
                         <input
                             type="text" name="discogs" value="{{ old('discogs', $artist->discogs) }}"
                             class="w-full form-input" autocomplete="off"
-                            x-model="discogs.value" x-on:focus="discogs.isOpen = true" x-on:input="findPeople('discogs')">
+                            x-model="discogs.value" x-on:focus="discogs.isOpen = true" x-on:input.debounce="findPeople('discogs')">
                         <template x-if="discogs.isOpen && discogs.value.length >= 5">
                             <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
                                 <template x-if="discogs.people.length == 0">
@@ -68,7 +68,7 @@
                         <input
                             type="text" name="filmpolski" value="{{ old('filmpolski', $artist->filmpolski) }}"
                             class="w-full form-input" autocomplete="off"
-                            x-model="filmPolski.value" x-on:focus="filmPolski.isOpen = true" x-on:input="findPeople('filmPolski')">
+                            x-model="filmPolski.value" x-on:focus="filmPolski.isOpen = true" x-on:input.debounce="findPeople('filmPolski')">
                         <template x-if="filmPolski.isOpen && filmPolski.value.length >= 5">
                             <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
                                 <template x-if="filmPolski.people.length == 0">
@@ -96,7 +96,7 @@
                         <input
                             type="text" name="wikipedia" value="{{ old('wikipedia', $artist->wikipedia) }}"
                             class="w-full form-input" autocomplete="off"
-                            x-model="wikipedia.value" x-on:focus="wikipedia.isOpen = true" x-on:input="findPeople('wikipedia')">
+                            x-model="wikipedia.value" x-on:focus="wikipedia.isOpen = true" x-on:input.debounce="findPeople('wikipedia')">
                         <template x-if="wikipedia.isOpen && wikipedia.value.length >= 5">
                             <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
                                 <template x-if="wikipedia.people.length == 0">

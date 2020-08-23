@@ -56,16 +56,16 @@ class AjaxController extends Controller
 
             $max = $crawler->count() <= 10 ? $crawler->count() : 10;
 
-            $people = [];
+            $people = collect();
 
             for ($i = 0; $i < $max; $i++) {
-                $people[] = [
+                $people->push([
                     'id' => Str::afterLast($crawler->eq($i)->children()->filter('a')->last()->attr('href'), '/'),
                     'name' => $crawler->eq($i)->children()->filter('a')->last()->text(),
-                ];
+                ]);
             }
 
-            return response()->json($people);
+            return response()->json($people->unique('id'));
 
         } catch (InvalidArgumentException $e) {
             return response()->json([]);

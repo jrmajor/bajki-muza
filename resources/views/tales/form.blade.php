@@ -65,7 +65,7 @@
                     <input
                         type="text" name="director"
                         class="w-full form-input" autocomplete="off"
-                        x-model="director.artist" x-on:focus="director.isOpen = true" x-on:input="findDirector()">
+                        x-model="director.artist" x-on:focus="director.isOpen = true" x-on:input.debounce="findDirector()">
                     <template x-if="director.isOpen && director.artist.length >= 2">
                         <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
                             <template x-if="director.people.length == 0">
@@ -110,7 +110,7 @@
                                             <input
                                                 type="text" :name="'lyricists[' + index + '][artist]'"
                                                 class="w-full form-input" autocomplete="off"
-                                                x-model="lyricist.artist" x-on:focus="lyricist.isOpen = true" x-on:input="findArtists(lyricist)">
+                                                x-model="lyricist.artist" x-on:focus="lyricist.isOpen = true" x-on:input.debounce="findArtists(lyricist)">
                                             <template x-if="lyricist.isOpen && lyricist.artist.length >= 2">
                                                 <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
                                                     <template x-if="lyricist.people.length == 0">
@@ -180,7 +180,7 @@
                                             <input
                                                 type="text" :name="'composers[' + index + '][artist]'"
                                                 class="w-full form-input" autocomplete="off"
-                                                x-model="composer.artist" x-on:focus="composer.isOpen = true" x-on:input="findArtists(composer)">
+                                                x-model="composer.artist" x-on:focus="composer.isOpen = true" x-on:input.debounce="findArtists(composer)">
                                             <template x-if="composer.isOpen && composer.artist.length >= 2">
                                                 <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
                                                     <template x-if="composer.people.length == 0">
@@ -252,7 +252,7 @@
                                         <input
                                             type="text" :name="'actors[' + index + '][artist]'"
                                             class="w-full form-input" autocomplete="off"
-                                            x-model="actor.artist" x-on:focus="actor.isOpen = true" x-on:input="findArtists(actor)">
+                                            x-model="actor.artist" x-on:focus="actor.isOpen = true" x-on:input.debounce="findArtists(actor)">
                                         <template x-if="actor.isOpen && actor.artist.length >= 2">
                                             <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
                                                 <template x-if="actor.people.length == 0">
