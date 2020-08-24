@@ -30,16 +30,16 @@ window.taleFormData = function (data) {
     },
 
 
-    addArtist(event, type) {
-      event.preventDefault()
+    addArtist(type) {
       this[type].push({
         credit_nr: this[type].length + 1,
-        artist: ''
+        artist: '',
+        isOpen: false,
+        people: [],
       })
     },
 
-    removeArtist(event, type, index) {
-      event.preventDefault()
+    removeArtist(type, index) {
       this[type].splice(index, 1)
     },
 

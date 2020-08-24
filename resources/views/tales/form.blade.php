@@ -133,7 +133,7 @@
                                 <td class="pl-1 py-1">
                                     <div class="w-full flex items-center">
                                         <button
-                                            x-on:click="removeArtist($event, 'lyricists', index)"
+                                            x-on:click.prevent="removeArtist('lyricists', index)"
                                             class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
                                             <span>-</span>
                                         </button>
@@ -146,7 +146,7 @@
                             <td class="pl-1 py-1">
                                 <div class="w-full flex items-center">
                                     <button
-                                        x-on:click="addArtist($event, 'lyricists')"
+                                        x-on:click.prevent="addArtist('lyricists')"
                                         class="mt-1 w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
                                         <span>+</span>
                                     </button>
@@ -203,7 +203,7 @@
                                 <td class="pl-1 py-1">
                                     <div class="w-full flex items-center">
                                         <button
-                                            x-on:click="removeArtist($event, 'composers', index)"
+                                            x-on:click.prevent="removeArtist('composers', index)"
                                             class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
                                             <span>-</span>
                                         </button>
@@ -216,7 +216,7 @@
                             <td class="pl-1 py-1">
                                 <div class="w-full flex items-center">
                                     <button
-                                        x-on:click="addArtist($event, 'composers')"
+                                        x-on:click.prevent="addArtist('composers')"
                                         class="mt-1 w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
                                         <span>+</span>
                                     </button>
@@ -279,7 +279,7 @@
                             <td class="pl-1 py-1">
                                 <div class="w-full flex items-center">
                                     <button
-                                        x-on:click="removeArtist($event, 'actors', index)"
+                                        x-on:click.prevent="removeArtist('actors', index)"
                                         class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
                                         <span>-</span>
                                     </button>
@@ -292,7 +292,7 @@
                         <td class="pl-1 py-1">
                             <div class="w-full flex items-center">
                                 <button
-                                    x-on:click="addArtist($event, 'actors')"
+                                    x-on:click.prevent="addArtist('actors')"
                                     class="mt-1 w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
                                     <span>+</span>
                                 </button>
