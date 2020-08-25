@@ -12,7 +12,6 @@ beforeEach(function () {
         'title' => 'Drzewko Aby Baby',
         'year' => 1986,
         'nr' => '58',
-        'cover' => '3019cfd0454e8c057e6af28b7b19e074',
     ];
 
     $this->newAttributes = [
@@ -20,7 +19,6 @@ beforeEach(function () {
         'title' => 'O dwóch takich co ukradli księżyc',
         'year' => 1976,
         'nr' => '28',
-        'cover' => '7681e9ebb8bc22bfaa2dad3f947ddb8c',
     ];
 
     $this->tale = factory(Tale::class)->create($this->oldAttributes);

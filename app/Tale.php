@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\FindsBySlug;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -12,7 +13,7 @@ class Tale extends Model
     use HasSlug;
 
     public $fillable = [
-        'title', 'year', 'director_id', 'nr', 'cover',
+        'title', 'year', 'director_id', 'nr',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -28,9 +29,17 @@ class Tale extends Model
         return 'slug';
     }
 
-    public function cover($size)
+    public function cover($size = null)
     {
-        return "https://lastfm.freetls.fastly.net/i/u/$size/$this->cover.webp";
+        if (optional($this->attributes)['cover'] == null) {
+            return;
+        }
+
+        if ($size == null) {
+            return $this->cover;
+        }
+
+        return Storage::cloud()->url("covers/$size/$this->cover", 's3');
     }
 
     public function director()

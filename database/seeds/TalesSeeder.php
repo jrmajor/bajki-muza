@@ -15,7 +15,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '10';
-        $tale->cover = 'c88e2f5e64d806adfaab6986bd8aec90';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -28,7 +27,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '2';
-        $tale->cover = '5836f196f72d4d69cdd19364bf50900f';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -41,7 +39,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '27';
-        $tale->cover = '63418332e1112c2c334ca7fdf5d59622';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -54,7 +51,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'ludwik-rene')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '41';
-        $tale->cover = '5f553001aaee338faba5c96a956650f4';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -67,7 +63,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'slawomir-pietrzykowski')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '85';
-        $tale->cover = '63aa620414ea24730cff56754c05c6e7';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -80,7 +75,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wojciech-maciejewski')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '38';
-        $tale->cover = '487160f3e291efe763e5720ef117e971';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -93,7 +87,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'krzysztof-wierzbianski')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '58';
-        $tale->cover = '3019cfd0454e8c057e6af28b7b19e074';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -106,7 +99,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'andrzej-pruski')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '';
-        $tale->cover = 'fa10a83ce933b6fbfb539d9e037bf40a';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -119,7 +111,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'tadeusz-bartosik')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '73';
-        $tale->cover = 'cf35ed2a2da84f5ee58484852fbe283f';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -132,7 +123,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'andrzej-pruski')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '34b';
-        $tale->cover = '04e9327a11961a173ad03cc6bb42ee0c';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -145,7 +135,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '28';
-        $tale->cover = '7681e9ebb8bc22bfaa2dad3f947ddb8c';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -158,7 +147,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '26';
-        $tale->cover = 'c4fde6e42c164433c4477730c06ffcef';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -171,7 +159,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '11';
-        $tale->cover = '3b8846ef9d3d0f1807edde1da2027aa0';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -184,7 +171,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'jan-zelnik')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '12';
-        $tale->cover = '438c47652d01e11289d4a3959a566132';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -197,7 +183,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'jan-zelnik')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '36';
-        $tale->cover = '3bbf98604fa0200ad10114f86b2cb8ca';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -210,7 +195,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '8';
-        $tale->cover = '490437831b2fc678f6a740080ca348e2';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -223,7 +207,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '31';
-        $tale->cover = '71b017dded52f62e53cdc9d6431de0b7';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -236,7 +219,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'wieslaw-opalek')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '19';
-        $tale->cover = '2e3d4cfa3f48c1669c5d463896049010';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',
@@ -249,7 +231,6 @@ class TalesSeeder extends Seeder
         $director = Artist::where('slug', 'marek-kulesza')->get()->first();
         $tale->director_id = $director->id;
         $tale->nr = '54';
-        $tale->cover = '21a38c2d3e4aecf9121d6f7e9df8e1d2';
         $tale->save();
         DB::update(
             'update tales set created_at = ?, updated_at = ? where id = ?',

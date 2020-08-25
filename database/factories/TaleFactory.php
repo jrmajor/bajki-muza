@@ -13,7 +13,6 @@ $factory->define(Tale::class, function (Faker $faker) {
         'year' => $faker->numberBetween(1950, 1970),
         'director_id' => factory(Artist::class)->create()->id,
         'nr' => $faker->numberBetween(1, 250),
-        'cover' => $faker->md5,
     ];
 });
 

@@ -12,7 +12,6 @@ beforeEach(function () {
         'title' => 'O dwóch takich co ukradli księżyc',
         'year' => 1976,
         'nr' => '28',
-        'cover' => '7681e9ebb8bc22bfaa2dad3f947ddb8c',
     ];
 });
 

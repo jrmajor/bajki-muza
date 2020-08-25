@@ -26,10 +26,26 @@
 <form
     method="post"
     action="{{ $action == 'create' ? route('tales.store') : route('tales.update', $tale) }}"
+    enctype="multipart/form-data"
     class="flex flex-col space-y-5"
-    x-data="taleFormData(@encodedjson($data))" x-init="init()">
+    x-data="taleFormData(@encodedjson($data))"
+    x-init="
+        init();
+        $watch('cover.file', value => {
+            setCoverPreview($refs.cover.files)
+            value != '' ? cover.remove = 0 : ''
+        })
+    ">
     @method($action == 'create' ? 'post' : 'put')
     @csrf
+
+    @if ($errors->any())
+        <ul class="text-red-700">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 
     <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
         <div class="w-full sm:w-1/2 flex flex-col">
@@ -52,9 +68,55 @@
     </div>
 
     <div class="flex flex-col">
-        <label for="cover" class="w-full font-medium pb-1 text-gray-700">Okładka w LastFM</label>
-        <input type="text" name="cover" value="{{ old('cover', $tale->cover) }}"
-            class="w-full form-input">
+        <span for="cover" class="w-full font-medium pb-1 text-gray-700">Okładka w LastFM</span>
+        <input type="hidden" name="remove_cover" x-model="cover.remove">
+        <div class="flex space-x-5">
+            <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer">
+                <div class="flex-none bg-gray-400 h-10 w-10"
+                    style="background-image: url(&quot;data:image/svg+xml;utf8,%3Csvg viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M20 34.5c8.008 0 14.5-6.492 14.5-14.5S28.008 5.5 20 5.5 5.5 11.992 5.5 20 11.992 34.5 20 34.5zm0 1.5c8.837 0 16-7.163 16-16S28.837 4 20 4 4 11.163 4 20s7.163 16 16 16z M20 24.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm0 1.5a6 6 0 100-12 6 6 0 000 12z M21.25 20a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0z M11.345 30.061l4.1-4.746c-.27-.23-.52-.481-.751-.75L9.98 28.623c.418.513.875.994 1.365 1.44zM30.06 11.344a13.34 13.34 0 00-1.436-1.363l-4.048 4.722c.261.225.505.47.73.731l4.754-4.09z' fill='%23858c99'/%3E%3C/svg%3E&quot;)">
+                    @if ($tale->cover())
+                        <img src="{{ $tale->cover('128') }}" class="w-10 h-10 object-cover bg-cover"
+                            style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)"
+                            x-show="cover.file == '' && cover.remove == 0">
+                    @endif
+                    <template x-if="cover.file != ''">
+                        <img :src="cover.preview" class="w-10 h-10 object-cover">
+                    </template>
+                </div>
+                <span class="px-3 py-2">
+                    <span
+                        x-text="cover.file != '' ? $refs.cover.files[0].name : 'Wybierz plik'">
+                        Wybierz plik
+                    </span>
+                    <small class="pl-1 text-xs font-medium"
+                        x-text="cover.file != '' ? fileSize($refs.cover.files[0].size) : ''"></small>
+                </span>
+                <template x-if="cover.file != ''">
+                    <button x-on:click.prevent="cover.file = ''" class="flex-none"></button>
+                </template>
+                <input type="file" name="cover" class="hidden"
+                    x-ref="cover" x-model="cover.file">
+            </label>
+            @if ($tale->exists)
+                <template x-if="! cover.remove">
+                    <button x-on:click.prevent="cover.remove = 1; cover.file = ''"
+                            class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
+                            hover:bg-red-100 hover:border-red-200 hover:text-red-700
+                            active:bg-red-600 active:cover-red-600 active:text-red-100
+                            transition-colors duration-150">
+                        Remove cover
+                    </button>
+                </template>
+                <template x-if="cover.remove">
+                    <button x-on:click.prevent="cover.remove = 0"
+                            class="flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
+                            hover:bg-red-500 hover:border-red-500 hover:text-white
+                            active:bg-white active:text-black transition-colors duration-150">
+                        Don't remove cover
+                    </button>
+                </template>
+            @endif
+        </div>
     </div>
 
     <div class="flex flex-col space-y-2">

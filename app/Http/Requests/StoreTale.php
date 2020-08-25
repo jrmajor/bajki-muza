@@ -18,7 +18,8 @@ class StoreTale extends FormRequest
             'year' => ['digits:4', 'nullable'],
             'director' => ['string', 'max:100', 'nullable'],
             'nr' => ['string', 'max:4', 'nullable'],
-            'cover' => ['string', 'max:100', 'nullable'],
+            'cover' => ['file', 'mimes:jpeg,png', 'nullable'],
+            'remove_cover' => ['boolean', 'nullable'],
 
             'lyricists.*.artist' => ['string', 'max:100'],
             'lyricists.*.credit_nr' => ['integer'],
