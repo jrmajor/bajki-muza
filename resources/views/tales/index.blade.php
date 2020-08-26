@@ -11,7 +11,7 @@
         @foreach ($tales as $tale)
             <a href="{{ route('tales.show', $tale) }}" wire:key="{{ $tale->id }}"
                 class="w-full h-32 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-            <div class="flex-none relative bg-gray-400 bg-cover w-32 h-32"
+            <div class="flex-none bg-gray-400 bg-cover w-32 h-32"
                     style="background-image: url(
                         @if ($tale->cover)
                             &quot;{{ $tale->cover_placeholder }}&quot;
@@ -25,7 +25,8 @@
                                 {{ $tale->cover('128') }} 1x,
                                 {{ $tale->cover('192') }} 1.5x,
                                 {{ $tale->cover('256') }} 2x"
-                            class="h-32 w-32 object-cover">
+                            loading="lazy"
+                            class="w-32 h-32 object-cover transition-opacity duration-300 opacity-0">
                     @endif
                 </div>
                 <div class="flex-grow self-stretch flex flex-col justify-between p-4 sm:p-5 sm:pl-6">

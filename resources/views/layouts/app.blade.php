@@ -24,12 +24,12 @@
 
             <div class="my-8 flex justify-center space-x-4">
                 <a href="{{ route('tales.index') }}" alt="Bajki"
-                    class="flex items-center px-5 py-2.5 bg-white shadow-lg rounded-full
+                    class="px-5 py-2.5 bg-white shadow-lg rounded-full
                         text-gray-900 hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
                     Bajki
                 </a>
                 <a href="{{ route('artists.index') }}" alt="Artyści"
-                    class="flex items-center px-5 py-2.5 bg-white shadow-lg rounded-full
+                    class="px-5 py-2.5 bg-white shadow-lg rounded-full
                         text-gray-900 hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
                     Artyści
                 </a>

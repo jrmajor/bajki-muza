@@ -17,7 +17,7 @@
         </div>
 
         @if ($artist->photo())
-            <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 bg-gray-400 shadow-lg shadow-lg rounded-lg overflow-hidden">
+            <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg shadow-lg rounded-lg overflow-hidden">
                 @auth
                     <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
                 @endauth
@@ -81,7 +81,7 @@
                     @foreach ($artist->asDirector as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
                             class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-                            <div class="flex-none relative bg-gray-400 bg-cover h-13 w-13"
+                            <div class="flex-none bg-gray-400 bg-cover w-13 h-13"
                                 style="background-image: url(
                                     @if ($tale->cover)
                                         &quot;{{ $tale->cover_placeholder }}&quot;
@@ -95,7 +95,8 @@
                                             {{ $tale->cover('60') }} 1x,
                                             {{ $tale->cover('90') }} 1.5x,
                                             {{ $tale->cover('120') }} 2x"
-                                        class="h-15 w-15 object-cover">
+                                        loading="lazy"
+                                        class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">
                                 @endif
                             </div>
                             <div class="flex-grow p-2 pl-3 text-sm sm:text-base font-medium leading-tight">
@@ -119,7 +120,7 @@
                     @foreach ($artist->asLyricist as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
                             class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-                            <div class="flex-none relative bg-gray-400 bg-cover h-13 w-13"
+                            <div class="flex-none bg-gray-400 bg-cover w-13 h-13"
                                 style="background-image: url(
                                     @if ($tale->cover)
                                         &quot;{{ $tale->cover_placeholder }}&quot;
@@ -133,7 +134,8 @@
                                             {{ $tale->cover('60') }} 1x,
                                             {{ $tale->cover('90') }} 1.5x,
                                             {{ $tale->cover('120') }} 2x"
-                                        class="h-15 w-15 object-cover">
+                                        loading="lazy"
+                                        class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">
                                 @endif
                             </div>
                             <div class="flex-grow p-2 pl-3 text-sm sm:text-base font-medium leading-tight">
@@ -157,7 +159,7 @@
                     @foreach ($artist->asComposer as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
                             class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-                            <div class="flex-none relative bg-gray-400 bg-cover h-13 w-13"
+                            <div class="flex-none bg-gray-400 bg-cover w-13 h-13"
                                 style="background-image: url(
                                     @if ($tale->cover)
                                         &quot;{{ $tale->cover_placeholder }}&quot;
@@ -171,7 +173,8 @@
                                             {{ $tale->cover('60') }} 1x,
                                             {{ $tale->cover('90') }} 1.5x,
                                             {{ $tale->cover('120') }} 2x"
-                                        class="h-15 w-15 object-cover">
+                                        loading="lazy"
+                                        class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">
                                 @endif
                             </div>
                             <div class="flex-grow p-2 pl-3 text-sm sm:text-base font-medium leading-tight">
@@ -195,7 +198,7 @@
                     @foreach ($artist->asActor as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
                             class="w-full h-15 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-                            <div class="flex-none relative bg-gray-400 bg-cover h-15 w-15"
+                            <div class="flex-none bg-gray-400 bg-cover w-15 h-15"
                                 style="background-image: url(
                                     @if ($tale->cover)
                                         &quot;{{ $tale->cover_placeholder }}&quot;
@@ -209,7 +212,8 @@
                                             {{ $tale->cover('60') }} 1x,
                                             {{ $tale->cover('90') }} 1.5x,
                                             {{ $tale->cover('120') }} 2x"
-                                        class="h-15 w-15 object-cover">
+                                        loading="lazy"
+                                        class="w-15 h-15 object-cover transition-opacity duration-300 opacity-0">
                                 @endif
                             </div>
                             <div class="flex-grow flex flex-col justify-between p-2 pl-3">
