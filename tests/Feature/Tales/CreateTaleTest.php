@@ -16,21 +16,21 @@ beforeEach(function () {
 });
 
 test('guests are asked to log in when attempting to view create tale form', function () {
-    get("bajki/create")
+    get('bajki/create')
         ->assertRedirect('login');
 });
 
 test('users can view create tale form', function () {
     asUser()
-        ->get("bajki/create")
+        ->get('bajki/create')
         ->assertOk();
 });
 
 test('guests cannot create tale', function () {
-    post("bajki", $this->attributes)
+    post('bajki', $this->attributes)
         ->assertRedirect('login');
 
-    assertEquals(0, Tale::count());
+    expect(Tale::count())->toBe(0);
 });
 
 test('users with permissions can create tale', function () {
@@ -72,40 +72,40 @@ test('users with permissions can create tale', function () {
     );
 
     asUser()
-        ->post("bajki", $attributes)
+        ->post('bajki', $attributes)
         ->assertRedirect("bajki/{$this->attributes['slug']}");
 
     $tale = Tale::first();
 
     foreach ($this->attributes as $key => $attribute) {
-        assertEquals($attribute, $tale->$key);
+        expect($tale->$key)->toBe($attribute);
     }
 
-    assertEquals($tale->director->id, $director->id);
+    expect($director->id)->toBe($tale->director->id);
 
-    assertCount(2, $tale->lyricists);
+    expect($tale->lyricists)->toHaveCount(2);
 
-    assertEquals($lyricists[0]->id, $tale->lyricists[0]->id);
-    assertEquals(1, $tale->lyricists[0]->pivot->credit_nr);
+    expect($tale->lyricists[0]->id)->toBe($lyricists[0]->id)
+        ->and($tale->lyricists[0]->pivot->credit_nr)->toBe('1');
 
-    assertEquals($lyricists[1]->id, $tale->lyricists[1]->id);
-    assertEquals(2, $tale->lyricists[1]->pivot->credit_nr);
+    expect($tale->lyricists[1]->id)->toBe($lyricists[1]->id)
+        ->and($tale->lyricists[1]->pivot->credit_nr)->toBe('2');
 
-    assertCount(2, $tale->composers);
+    expect($tale->composers)->toHaveCount(2);
 
-    assertEquals($composers[0]->id, $tale->composers[0]->id);
-    assertEquals(1, $tale->composers[0]->pivot->credit_nr);
+    expect($tale->composers[0]->id)->toBe($composers[0]->id)
+        ->and($tale->composers[0]->pivot->credit_nr)->toBe('1');
 
-    assertEquals($composers[1]->id, $tale->composers[1]->id);
-    assertEquals(2, $tale->composers[1]->pivot->credit_nr);
+    expect($tale->composers[1]->id)->toBe($composers[1]->id)
+        ->and($tale->composers[1]->pivot->credit_nr)->toBe('2');
 
-    assertCount(2, $tale->actors);
+    expect($tale->actors)->toHaveCount(2);
 
-    assertEquals($actors[0]->id, $tale->actors[0]->id);
-    assertEquals('Zbójca 1', $tale->actors[0]->pivot->characters);
-    assertEquals(1, $tale->actors[0]->pivot->credit_nr);
+    expect($tale->actors[0]->id)->toBe($actors[0]->id)
+        ->and($tale->actors[0]->pivot->characters)->toBe('Zbójca 1')
+        ->and($tale->actors[0]->pivot->credit_nr)->toBe('1');
 
-    assertEquals($actors[1]->id, $tale->actors[1]->id);
-    assertEquals('Zbójca 2', $tale->actors[1]->pivot->characters);
-    assertEquals(2, $tale->actors[1]->pivot->credit_nr);
+    expect($tale->actors[1]->id)->toBe($actors[1]->id)
+        ->and($tale->actors[1]->pivot->characters)->toBe('Zbójca 2')
+        ->and($tale->actors[1]->pivot->credit_nr)->toBe('2');
 });

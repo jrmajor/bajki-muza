@@ -20,6 +20,11 @@ class Artist extends Model
         'name', 'discogs', 'filmpolski', 'wikipedia',
     ];
 
+    protected $casts = [
+        'discogs' => 'int',
+        'filmpolski' => 'int',
+    ];
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

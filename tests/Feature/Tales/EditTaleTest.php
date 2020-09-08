@@ -46,7 +46,7 @@ test('guests cannot edit tale attributes', function () {
     $tale = $this->tale->fresh();
 
     foreach ($this->oldAttributes as $key => $attribute) {
-        assertEquals($attribute, $tale->$key);
+        expect($tale->$key)->toBe($attribute);
     }
 });
 
@@ -58,7 +58,7 @@ test('users with permissions can edit tale attributes', function () {
     $tale = $this->tale->fresh();
 
     foreach ($this->newAttributes as $key => $attribute) {
-        assertEquals($attribute, $tale->$key);
+        expect($tale->$key)->toBe($attribute);
     }
 });
 
@@ -76,7 +76,7 @@ test('users with permissions can add tale director', function () {
 
     $tale = $this->tale->fresh();
 
-    assertEquals($tale->director->id, $director->id);
+    expect($director->id)->toBe($tale->director->id);
 });
 
 test('users with permissions can add tale lyricists', function () {
@@ -102,13 +102,13 @@ test('users with permissions can add tale lyricists', function () {
 
     $tale = $this->tale->fresh();
 
-    assertCount(2, $tale->lyricists);
+    expect($tale->lyricists)->toHaveCount(2);
 
-    assertEquals($lyricists[0]->id, $tale->lyricists[0]->id);
-    assertEquals(1, $tale->lyricists[0]->pivot->credit_nr);
+    expect($tale->lyricists[0]->id)->toBe($lyricists[0]->id);
+    expect($tale->lyricists[0]->pivot->credit_nr)->toBe('1');
 
-    assertEquals($lyricists[1]->id, $tale->lyricists[1]->id);
-    assertEquals(2, $tale->lyricists[1]->pivot->credit_nr);
+    expect($tale->lyricists[1]->id)->toBe($lyricists[1]->id);
+    expect($tale->lyricists[1]->pivot->credit_nr)->toBe('2');
 });
 
 test('users with permissions can add tale composers', function () {
@@ -134,13 +134,13 @@ test('users with permissions can add tale composers', function () {
 
     $tale = $this->tale->fresh();
 
-    assertCount(2, $tale->composers);
+    expect($tale->composers)->toHaveCount(2);
 
-    assertEquals($composers[0]->id, $tale->composers[0]->id);
-    assertEquals(1, $tale->composers[0]->pivot->credit_nr);
+    expect($tale->composers[0]->id)->toBe($composers[0]->id);
+    expect($tale->composers[0]->pivot->credit_nr)->toBe('1');
 
-    assertEquals($composers[1]->id, $tale->composers[1]->id);
-    assertEquals(2, $tale->composers[1]->pivot->credit_nr);
+    expect($tale->composers[1]->id)->toBe($composers[1]->id);
+    expect($tale->composers[1]->pivot->credit_nr)->toBe('2');
 });
 
 test('users with permissions can add tale actors', function () {
@@ -167,15 +167,15 @@ test('users with permissions can add tale actors', function () {
 
     $tale = $this->tale->fresh();
 
-    assertCount(2, $tale->actors);
+    expect($tale->actors)->toHaveCount(2);
 
-    assertEquals($actors[0]->id, $tale->actors[0]->id);
-    assertEquals('Zbójca 1', $tale->actors[0]->pivot->characters);
-    assertEquals(1, $tale->actors[0]->pivot->credit_nr);
+    expect($tale->actors[0]->id)->toBe($actors[0]->id);
+    expect($tale->actors[0]->pivot->characters)->toBe('Zbójca 1');
+    expect($tale->actors[0]->pivot->credit_nr)->toBe('1');
 
-    assertEquals($actors[1]->id, $tale->actors[1]->id);
-    assertEquals('Zbójca 2', $tale->actors[1]->pivot->characters);
-    assertEquals(2, $tale->actors[1]->pivot->credit_nr);
+    expect($tale->actors[1]->id)->toBe($actors[1]->id);
+    expect($tale->actors[1]->pivot->characters)->toBe('Zbójca 2');
+    expect($tale->actors[1]->pivot->credit_nr)->toBe('2');
 });
 
 test('users with permissions can remove tale relations', function () {
@@ -185,8 +185,8 @@ test('users with permissions can remove tale relations', function () {
 
     $tale = $this->tale->fresh();
 
-    assertNull($tale->director);
-    assertCount(0, $tale->lyricists);
-    assertCount(0, $tale->composers);
-    assertCount(0, $tale->actors);
+    expect($tale->director)->toBeNull();
+    expect($tale->lyricists)->toHaveCount(0);
+    expect($tale->composers)->toHaveCount(0);
+    expect($tale->actors)->toHaveCount(0);
 });

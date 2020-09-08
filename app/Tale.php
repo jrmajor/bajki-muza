@@ -16,6 +16,10 @@ class Tale extends Model
         'title', 'year', 'director_id', 'nr',
     ];
 
+    protected $casts = [
+        'year' => 'int',
+    ];
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

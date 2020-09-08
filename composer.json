@@ -29,10 +29,10 @@
         "facade/ignition": "^2.3",
         "fzaninotto/faker": "^1.9",
         "mockery/mockery": "^1.4",
-        "nunomaduro/collision": "5.0.0-BETA2",
-        "pestphp/pest": "0.2.2",
-        "pestphp/pest-plugin-laravel": "^0.2.0",
-        "phpunit/phpunit": "9.2.6"
+        "nunomaduro/collision": "^5.0",
+        "pestphp/pest": "0.3.1",
+        "pestphp/pest-plugin-laravel": "^0.3.0",
+        "phpunit/phpunit": "9.3.8"
     },
     "config": {
         "optimize-autoloader": true,

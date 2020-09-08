@@ -1,5 +1,6 @@
 <?php
 
-it('redirects from / to /bajki')
-    ->get('/')
-    ->assertRedirect('/bajki');
+use function Pest\Laravel\get;
+
+get('/')
+    ->assertRedirect('bajki');

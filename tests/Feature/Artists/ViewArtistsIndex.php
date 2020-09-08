@@ -2,5 +2,5 @@
 
 use function Pest\Laravel\get;
 
-get('/artysci')
+get('artysci')
     ->assertOk();

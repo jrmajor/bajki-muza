@@ -47,7 +47,7 @@ test('guests cannot edit artist', function () {
     $artist = $this->artist->fresh();
 
     foreach ($this->oldAttributes as $key => $attribute) {
-        assertEquals($attribute, $artist->$key);
+        expect($artist->$key)->toBe($attribute);
     }
 });
 
@@ -59,6 +59,6 @@ test('users with permissions can edit artist', function () {
     $artist = $this->artist->fresh();
 
     foreach ($this->newAttributes as $key => $attribute) {
-        assertEquals($attribute, $artist->$key);
+        expect($artist->$key)->toBe($attribute);
     }
 });

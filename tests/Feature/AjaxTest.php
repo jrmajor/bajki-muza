@@ -2,31 +2,31 @@
 
 use function Pest\Laravel\get;
 
-get('/ajax/artists')
+get('ajax/artists')
     ->assertRedirect('login');
 
 test()->asUser()
-    ->get('/ajax/artists')
+    ->get('ajax/artists')
     ->assertOk();
 
-get('/ajax/discogs')
+get('ajax/discogs')
     ->assertRedirect('login');
 
 test()->asUser()
-    ->get('/ajax/discogs')
+    ->get('ajax/discogs')
     ->assertOk();
 
-get('/ajax/filmpolski')
+get('ajax/filmpolski')
     ->assertRedirect('login');
 
 test()->asUser()
-    ->get('/ajax/filmpolski')
+    ->get('ajax/filmpolski')
     ->assertOk();
 
-get('/ajax/wikipedia')
+get('ajax/wikipedia')
     ->assertRedirect('login');
 
 test()->asUser()
-    ->get('/ajax/wikipedia')
+    ->get('ajax/wikipedia')
     ->assertOk();
 

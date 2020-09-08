@@ -7,18 +7,18 @@ use function Tests\asUser;
 
 it('logs user out', function () {
     asUser()
-        ->post('/logout');
+        ->post('logout');
 
     assertGuest();
 });
 
 it('redirects to welcome page after logging out')
     ->asUser()
-    ->post('/logout')
+    ->post('logout')
     ->assertStatus(302)
     ->assertRedirect('/');
 
 it('redirects to welcome page if no user is authenticated')
-    ->post('/logout')
+    ->post('logout')
     ->assertStatus(302)
     ->assertRedirect('/');

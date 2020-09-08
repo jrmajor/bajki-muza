@@ -12,5 +12,5 @@ it('works', function () {
 });
 
 it('returns 404 when attempting to view nonexistent tale')
-    ->get("bajki/nonexistent-tale")
+    ->get('bajki/nonexistent-tale')
     ->assertStatus(404);
