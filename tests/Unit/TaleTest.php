@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 it('casts discogs and filmpolski ids to integers', function () {
-    $tale = factory(Tale::class)->create([
+    $tale = Tale::factory()->create([
         'year' => '1973',
     ]);
 
@@ -46,7 +46,7 @@ it('regenerates slug when updated', function () {
 });
 
 it('can get its cover', function () {
-    $tale = factory(Tale::class)
+    $tale = Tale::factory()
         ->create(['cover' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png']);
 
     expect($tale->cover())->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
@@ -60,14 +60,14 @@ it('can get its cover', function () {
 });
 
 it('can get its director', function () {
-    $tale = factory(Tale::class)
+    $tale = Tale::factory()
         ->create(['director_id' => null]);
 
     expect($tale->director())->toBeInstanceOf(BelongsTo::class);
 
     expect($tale->director)->toBeNull();
 
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     $tale->director_id = $artist->id;
 
@@ -80,16 +80,16 @@ it('can get its director', function () {
 });
 
 it('can get its lyricist', function () {
-    $tale = factory(Tale::class)->create();
+    $tale = Tale::factory()->create();
 
     expect($tale->lyricists())->toBeInstanceOf(BelongsToMany::class);
 
     $tale->lyricists()->detach();
 
     $tale->lyricists()->attach($artists = [
-        factory(Artist::class)->create()->id => ['credit_nr' => 3],
-        factory(Artist::class)->create()->id => ['credit_nr' => 1],
-        factory(Artist::class)->create()->id => ['credit_nr' => 2],
+        Artist::factory()->create()->id => ['credit_nr' => 3],
+        Artist::factory()->create()->id => ['credit_nr' => 1],
+        Artist::factory()->create()->id => ['credit_nr' => 2],
     ]);
 
     expect($tale->lyricists)->toHaveCount(3);
@@ -102,16 +102,16 @@ it('can get its lyricist', function () {
 });
 
 it('can get its composer', function () {
-    $tale = factory(Tale::class)->create();
+    $tale = Tale::factory()->create();
 
     expect($tale->composers())->toBeInstanceOf(BelongsToMany::class);
 
     $tale->composers()->detach();
 
     $tale->composers()->attach($artists = [
-        factory(Artist::class)->create()->id => ['credit_nr' => 3],
-        factory(Artist::class)->create()->id => ['credit_nr' => 1],
-        factory(Artist::class)->create()->id => ['credit_nr' => 2],
+        Artist::factory()->create()->id => ['credit_nr' => 3],
+        Artist::factory()->create()->id => ['credit_nr' => 1],
+        Artist::factory()->create()->id => ['credit_nr' => 2],
     ]);
 
     expect($tale->composers)->toHaveCount(3);
@@ -124,22 +124,22 @@ it('can get its composer', function () {
 });
 
 it('can get its actor', function () {
-    $tale = factory(Tale::class)->create();
+    $tale = Tale::factory()->create();
 
     expect($tale->actors())->toBeInstanceOf(BelongsToMany::class);
 
     $tale->actors()->detach();
 
     $tale->actors()->attach($artists = [
-        factory(Artist::class)->create()->id => [
+        Artist::factory()->create()->id => [
             'characters' => 'Wróżka Bzów',
             'credit_nr' => 3,
         ],
-        factory(Artist::class)->create()->id => [
+        Artist::factory()->create()->id => [
             'characters' => 'Ośla Skórka',
             'credit_nr' => 1,
         ],
-        factory(Artist::class)->create()->id => [
+        Artist::factory()->create()->id => [
             'characters' => null,
             'credit_nr' => 2,
         ],

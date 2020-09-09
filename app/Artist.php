@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\CarbonInterval;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -14,7 +15,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Artist extends Model
 {
-    use HasSlug;
+    use HasSlug, HasFactory;
 
     public $fillable = [
         'name', 'discogs', 'filmpolski', 'wikipedia',

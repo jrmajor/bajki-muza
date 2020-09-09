@@ -6,7 +6,7 @@ use function Pest\Laravel\delete;
 use function Tests\asUser;
 
 test('guests can not delete artist', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     delete("artysci/$artist->slug")
         ->assertRedirect('login');
@@ -16,7 +16,7 @@ test('guests can not delete artist', function () {
 });
 
 test('users can delete artist', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     asUser()
         ->delete("artysci/$artist->slug")

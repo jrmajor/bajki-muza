@@ -52,7 +52,7 @@ it('checks if user exists', function () {
 });
 
 it('checks password', function () {
-    $user = factory(User::class)->create([
+    $user = User::factory()->create([
         'username' => 'gracjan',
     ]);
 
@@ -69,7 +69,7 @@ it('checks password', function () {
 });
 
 test('user can log in with correct credentials', function () {
-    $user = factory(User::class)->create([
+    $user = User::factory()->create([
         'username' => 'gracjan',
         'password' => Hash::make($password = 'secret'),
     ]);

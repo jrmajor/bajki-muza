@@ -1,18 +1,23 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Artist;
-use Faker\Generator as Faker;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Artist::class, function (Faker $faker) {
-    $name = $faker->name;
+class ArtistFactory extends Factory
+{
+    protected $model = Artist::class;
 
-    return [
-        'name' => $name,
-        'discogs' => $faker->randomNumber(6),
-        'filmpolski' => $faker->randomNumber(5),
-        'wikipedia' => str_replace(' ', '_', $name),
-    ];
-});
+    public function definition()
+    {
+        $name = $this->faker->name;
+
+        return [
+            'name' => $name,
+            'discogs' => $this->faker->randomNumber(6),
+            'filmpolski' => $this->faker->randomNumber(5),
+            'wikipedia' => str_replace(' ', '_', $name),
+        ];
+    }
+}

@@ -21,7 +21,7 @@ beforeEach(function () {
         'nr' => '28',
     ];
 
-    $this->tale = factory(Tale::class)->create($this->oldAttributes);
+    $this->tale = Tale::factory()->create($this->oldAttributes);
 });
 
 test('guests are asked to log in when attempting to view edit tale form', function () {
@@ -63,7 +63,7 @@ test('users with permissions can edit tale attributes', function () {
 });
 
 test('users with permissions can add tale director', function () {
-    $director = factory(Artist::class)->create();
+    $director = Artist::factory()->create();
 
     asUser()
         ->put(
@@ -80,7 +80,7 @@ test('users with permissions can add tale director', function () {
 });
 
 test('users with permissions can add tale lyricists', function () {
-    $lyricists = factory(Artist::class, 2)->create();
+    $lyricists = Artist::factory()->count(2)->create();
 
     asUser()
         ->put(
@@ -112,7 +112,7 @@ test('users with permissions can add tale lyricists', function () {
 });
 
 test('users with permissions can add tale composers', function () {
-    $composers = factory(Artist::class, 2)->create();
+    $composers = Artist::factory()->count(2)->create();
 
     asUser()
         ->put(
@@ -144,7 +144,7 @@ test('users with permissions can add tale composers', function () {
 });
 
 test('users with permissions can add tale actors', function () {
-    $actors = factory(Artist::class, 2)->create();
+    $actors = Artist::factory()->count(2)->create();
 
     asUser()
         ->put(

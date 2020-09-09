@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 it('casts discogs and filmpolski ids to integers', function () {
-    $artist = factory(Artist::class)->create([
+    $artist = Artist::factory()->create([
         'discogs' => '1023394',
         'filmpolski' => '116251',
     ]);
@@ -52,46 +52,46 @@ it('regenerates slug when updated', function () {
 });
 
 it('can generate discogs url', function () {
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->make(['discogs' => 518243]);
 
     expect($artist->discogs_url)
         ->toBe('https://www.discogs.com/artist/518243');
 
-    $artist = factory(Artist::class)->make();
+    $artist = Artist::factory()->make();
 
     expect($artist->discogs_url)
         ->toBe("https://www.discogs.com/artist/$artist->discogs");
 });
 
 it('can generate filmpolski url', function () {
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->make(['filmpolski' => 112891]);
 
     expect($artist->filmpolski_url)
         ->toBe('http://www.filmpolski.pl/fp/index.php?osoba=112891');
 
-    $artist = factory(Artist::class)->make();
+    $artist = Artist::factory()->make();
 
     expect($artist->filmpolski_url)
         ->toBe("http://www.filmpolski.pl/fp/index.php?osoba=$artist->filmpolski");
 });
 
 it('can generate wikipedia url', function () {
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->make(['wikipedia' => 'Joanna_Sobieska']);
 
     expect($artist->wikipedia_url)
         ->toBe('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
 
-    $artist = factory(Artist::class)->make();
+    $artist = Artist::factory()->make();
 
     expect($artist->wikipedia_url)
         ->toBe("https://pl.wikipedia.org/wiki/$artist->wikipedia");
 });
 
 it('does not generate nonexistent urls', function () {
-    $artist = factory(Artist::class)->make([
+    $artist = Artist::factory()->make([
         'discogs' => null,
         'filmpolski' => null,
         'wikipedia' => null,
@@ -105,7 +105,7 @@ it('does not generate nonexistent urls', function () {
 it('can get extract from wikipedia', function () {
     $extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor.\n</p>";
 
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['wikipedia' => 'Piotr_Fronczewski']);
 
     Http::fake([
@@ -126,7 +126,7 @@ it('caches wikipedia extract', function () {
 
     $extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor.\n</p>";
 
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['wikipedia' => 'Piotr_Fronczewski']);
 
     Cache::shouldReceive('remember')
@@ -143,7 +143,7 @@ it('caches wikipedia extract', function () {
 });
 
 it('does not query wikipedia when no id is set', function () {
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['wikipedia' => null]);
 
     expect($artist->wikipedia_extract)->toBeNull();
@@ -179,7 +179,7 @@ it('can get photos from discogs', function () {
         ],
     ];
 
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['discogs' => '602473']);
 
     config()->set('services.discogs.token', '4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR');
@@ -219,7 +219,7 @@ it('caches discogs photos', function () {
         ],
     ];
 
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['discogs' => '602473']);
 
     Cache::shouldReceive('remember')
@@ -242,7 +242,7 @@ it('caches discogs photos', function () {
 });
 
 it('does not query discogs when no id is set', function () {
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['discogs' => null]);
 
     expect($artist->photots)->toBeNull();
@@ -253,7 +253,7 @@ it('can get photo from discogs', function () {
 
     $uri150 = 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg';
 
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['discogs' => '602473']);
 
     Cache::shouldReceive('remember')
@@ -272,11 +272,11 @@ it('can get photo from discogs', function () {
 });
 
 it('can get its appearances as director', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     expect($artist->asDirector())->toBeInstanceOf(HasMany::class);
 
-    factory(Tale::class, 5)->create(['director_id' => $artist->id]);
+    Tale::factory()->count(5)->create(['director_id' => $artist->id]);
 
     expect($artist->asDirector)->toHaveCount(5);
 
@@ -285,14 +285,14 @@ it('can get its appearances as director', function () {
 });
 
 it('can get its appearances as lyricist', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     expect($artist->asLyricist())->toBeInstanceOf(BelongsToMany::class);
 
     $artist->asLyricist()->attach($tales = [
-        factory(Tale::class)->create(['year' => 1978])->id,
-        factory(Tale::class)->create(['year' => 1969, 'title' => 'b'])->id,
-        factory(Tale::class)->create(['year' => 1969, 'title' => 'a'])->id,
+        Tale::factory()->create(['year' => 1978])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
     ]);
 
     expect($artist->asLyricist)->toHaveCount(3);
@@ -303,14 +303,14 @@ it('can get its appearances as lyricist', function () {
 });
 
 it('can get its appearances as composer', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     expect($artist->asComposer())->toBeInstanceOf(BelongsToMany::class);
 
     $artist->asComposer()->attach($tales = [
-        factory(Tale::class)->create(['year' => 1978])->id,
-        factory(Tale::class)->create(['year' => 1969, 'title' => 'b'])->id,
-        factory(Tale::class)->create(['year' => 1969, 'title' => 'a'])->id,
+        Tale::factory()->create(['year' => 1978])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
     ]);
 
     expect($artist->asComposer)->toHaveCount(3);
@@ -321,14 +321,14 @@ it('can get its appearances as composer', function () {
 });
 
 it('can get its appearances as actor', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     expect($artist->asActor())->toBeInstanceOf(BelongsToMany::class);
 
     $artist->asActor()->attach($tales = [
-        factory(Tale::class)->create(['year' => 1978])->id,
-        factory(Tale::class)->create(['year' => 1969, 'title' => 'b'])->id,
-        factory(Tale::class)->create(['year' => 1969, 'title' => 'a'])->id,
+        Tale::factory()->create(['year' => 1978])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
     ]);
 
     expect($artist->asActor)->toHaveCount(3);
@@ -339,42 +339,42 @@ it('can get its appearances as actor', function () {
 });
 
 test('countAppearances scope works', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
-    factory(Tale::class)->create(['director_id' => $artist->id]);
-    factory(Tale::class)->create(['director_id' => $artist->id]);
+    Tale::factory()->create(['director_id' => $artist->id]);
+    Tale::factory()->create(['director_id' => $artist->id]);
 
     $artist->asLyricist()->attach(
-        factory(Tale::class, 4)->create()->map->id,
+        Tale::factory()->count(4)->create()->map->id,
     );
 
     $artist->asComposer()->attach(
-        factory(Tale::class, 1)->create()->map->id,
+        Tale::factory()->count(1)->create()->map->id,
     );
 
     $artist->asActor()->attach(
-        factory(Tale::class, 6)->create()->map->id,
+        Tale::factory()->count(6)->create()->map->id,
     );
 
     expect(Artist::countAppearances()->find($artist->id)->appearances)->toBe(13);
 });
 
 test('appearances method works', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
-    factory(Tale::class)->create(['director_id' => $artist->id]);
-    factory(Tale::class)->create(['director_id' => $artist->id]);
+    Tale::factory()->create(['director_id' => $artist->id]);
+    Tale::factory()->create(['director_id' => $artist->id]);
 
     $artist->asLyricist()->attach(
-        factory(Tale::class, 4)->create()->map->id,
+        Tale::factory()->count(4)->create()->map->id,
     );
 
     $artist->asComposer()->attach(
-        factory(Tale::class, 1)->create()->map->id,
+        Tale::factory()->count(1)->create()->map->id,
     );
 
     $artist->asActor()->attach(
-        factory(Tale::class, 6)->create()->map->id,
+        Tale::factory()->count(6)->create()->map->id,
     );
 
     expect($artist->appearances())->toBe(13);
@@ -403,7 +403,7 @@ it('can flush cached wikipedia extract and discogs photos', function () {
         'uri150' => $newUri150,
     ]]];
 
-    $artist = factory(Artist::class)->create([
+    $artist = Artist::factory()->create([
         'wikipedia' => 'Piotr_Fronczewski',
         'discogs' => '602473',
     ]);
@@ -452,7 +452,7 @@ it('can flush cached wikipedia extract and discogs photos', function () {
 test('findBySlug method works', function () {
     expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
 
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['name' => 'Jan Matyjaszkiewicz']);
 
     expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
@@ -463,7 +463,7 @@ test('findBySlug method works', function () {
 });
 
 test('findBySlugOrNew method works', function () {
-    $artist = factory(Artist::class)
+    $artist = Artist::factory()
         ->create(['name' => 'Jan Matyjaszkiewicz']);
 
     expect(Artist::count())->toBe(1);

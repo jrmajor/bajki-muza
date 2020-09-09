@@ -5,7 +5,7 @@ use App\Tale;
 use function Pest\Laravel\get;
 
 it('works', function () {
-    $tale = factory(Tale::class)->create();
+    $tale = Tale::factory()->create();
 
     get("bajki/$tale->slug")
         ->assertOk();

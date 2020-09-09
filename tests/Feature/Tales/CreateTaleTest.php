@@ -34,10 +34,10 @@ test('guests cannot create tale', function () {
 });
 
 test('users with permissions can create tale', function () {
-    $director = factory(Artist::class)->create();
-    $lyricists = factory(Artist::class, 2)->create();
-    $composers = factory(Artist::class, 2)->create();
-    $actors = factory(Artist::class, 2)->create();
+    $director = Artist::factory()->create();
+    $lyricists = Artist::factory()->count(2)->create();
+    $composers = Artist::factory()->count(2)->create();
+    $actors = Artist::factory()->count(2)->create();
 
     $attributes = array_merge(
         $this->attributes,

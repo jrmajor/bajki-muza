@@ -22,7 +22,7 @@ beforeEach(function () {
         'wikipedia' => 'Tadeusz_Bartosik',
     ];
 
-    $this->artist = factory(Artist::class)->create($this->oldAttributes);
+    $this->artist = Artist::factory()->create($this->oldAttributes);
 });
 
 test('guests are asked to log in when attempting to view edit artist form', function () {

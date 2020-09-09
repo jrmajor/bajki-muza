@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Cache;
 use function Pest\Laravel\get;
 
 it('works', function () {
-    $artist = factory(Artist::class)->create();
+    $artist = Artist::factory()->create();
 
     Cache::shouldReceive('remember')
         ->times(4)
