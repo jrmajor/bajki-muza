@@ -189,7 +189,7 @@ it('can get photos from discogs', function () {
     ]);
 
     expect($artist->photos())->toBe([
-        'original' => $uri,
+        'normal' => $uri,
         '150' => $uri150,
     ]);
 
@@ -229,12 +229,12 @@ it('caches discogs photos', function () {
             Carbon\CarbonInterval::class,
             \Closure::class
         )->andReturn([
-            'original' => $uri,
+            'normal' => $uri,
             '150' => $uri150,
         ]);
 
     expect($artist->photos())->toBe([
-        'original' => $uri,
+        'normal' => $uri,
         '150' => $uri150,
     ]);
 
@@ -263,11 +263,11 @@ it('can get photo from discogs', function () {
             Carbon\CarbonInterval::class,
             \Closure::class
         )->andReturn([
-            'original' => $uri,
+            'normal' => $uri,
             '150' => $uri150,
         ]);
 
-    expect($artist->photo('original'))->toBe($uri)
+    expect($artist->photo('normal'))->toBe($uri)
         ->and($artist->photo('150'))->toBe($uri150);
 });
 
@@ -419,7 +419,7 @@ it('can flush cached wikipedia extract and discogs photos', function () {
     expect($artist->wikipedia_extract)->toBe($extract);
 
     expect($artist->photos())->toBe([
-        'original' => $uri,
+        'normal' => $uri,
         '150' => $uri150,
     ]);
 
@@ -435,7 +435,7 @@ it('can flush cached wikipedia extract and discogs photos', function () {
     expect($artist->wikipedia_extract)->toBe($extract);
 
     expect($artist->photos())->toBe([
-        'original' => $uri,
+        'normal' => $uri,
         '150' => $uri150,
     ]);
 
@@ -444,7 +444,7 @@ it('can flush cached wikipedia extract and discogs photos', function () {
     expect($artist->wikipedia_extract)->toBe($newExtract);
 
     expect($artist->photos())->toBe([
-        'original' => $newUri,
+        'normal' => $newUri,
         '150' => $newUri150,
     ]);
 });

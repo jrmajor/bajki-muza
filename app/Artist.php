@@ -60,23 +60,23 @@ class Artist extends Model
 
     public function getDiscogsUrlAttribute()
     {
-        return "https://www.discogs.com/artist/$this->discogs";
+        return $this->discogs ? "https://www.discogs.com/artist/$this->discogs" : null;
     }
 
     public function getFilmpolskiUrlAttribute()
     {
-        return "http://www.filmpolski.pl/fp/index.php?osoba=$this->filmpolski";
+        return $this->filmpolski ? "http://www.filmpolski.pl/fp/index.php?osoba=$this->filmpolski" : null;
     }
 
     public function getWikipediaUrlAttribute()
     {
-        return "https://pl.wikipedia.org/wiki/$this->wikipedia";
+        return $this->filmpolski ? "https://pl.wikipedia.org/wiki/$this->wikipedia" : null;
     }
 
     public function getWikipediaExtractAttribute()
     {
         if (! $this->wikipedia) {
-            return false;
+            return null;
         }
 
         return Cache::remember("artist-$this->id-wiki", CarbonInterval::week(), function () {
@@ -155,7 +155,7 @@ class Artist extends Model
                     ->whereColumn('artist_id', 'artists.id')
                 )
             )->select(DB::raw('count(*) as appearances'))
-        ]);
+        ])->withCasts(['appearances' => 'int']);
     }
 
     public function appearances()
