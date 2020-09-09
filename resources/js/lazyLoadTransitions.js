@@ -11,7 +11,7 @@ window.transitionLazyLoadedImages = function () {
 window.transitionLazyLoadedImages()
 
 document.addEventListener('livewire:load', (event) => {
-  window.livewire.hook('afterDomUpdate', () => {
+  window.livewire.hook('message.processed', () => {
     window.transitionLazyLoadedImages()
   });
 });

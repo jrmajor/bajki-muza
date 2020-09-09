@@ -12,18 +12,13 @@ class Tales extends Component
 
     public $search;
 
-    protected $updatesQueryString = [
+    protected $queryString = [
         'search' => ['except' => ''],
     ];
 
     public function updatingSearch()
     {
         $this->resetPage();
-    }
-
-    public function mount()
-    {
-        $this->search = request()->query('search');
     }
 
     public function render()
@@ -35,7 +30,8 @@ class Tales extends Component
                 ->orderBy('year')->orderBy('title')
                 ->paginate(20);
 
-        return view('tales.index', ['tales' => $tales]);
+        return view('tales.index', ['tales' => $tales])
+            ->extends('layouts.app');
     }
 
     public function paginationView()

@@ -3,6 +3,8 @@
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\TaleController;
+use App\Http\Livewire\Artists;
+use App\Http\Livewire\Tales;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes([
@@ -33,8 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/ajax/wikipedia', [AjaxController::class, 'wikipedia']);
 });
 
-Route::livewire('/bajki', 'tales')->name('tales.index');
+Route::get('/bajki', Tales::class)->name('tales.index');
 Route::get('/bajki/{tale}', [TaleController::class, 'show'])->name('tales.show');
 
-Route::livewire('/artysci', 'artists')->name('artists.index');
+Route::get('/artysci', Artists::class)->name('artists.index');
 Route::get('/artysci/{artist}', [ArtistController::class, 'show'])->name('artists.show');

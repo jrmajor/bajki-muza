@@ -12,18 +12,13 @@ class Artists extends Component
 
     public $search;
 
-    protected $updatesQueryString = [
+    protected $queryString = [
         'search' => ['except' => ''],
     ];
 
     public function updatingSearch()
     {
         $this->resetPage();
-    }
-
-    public function mount()
-    {
-        $this->search = request()->query('search');
     }
 
     public function render()
@@ -33,7 +28,8 @@ class Artists extends Component
             : Artist::where('name', 'like', '%'.$this->search.'%')
                 ->countAppearances()->orderBy('name')->paginate(30);
 
-        return view('artists.index', ['artists' => $artists]);
+        return view('artists.index', ['artists' => $artists])
+            ->extends('layouts.app');
     }
 
     public function paginationView()
