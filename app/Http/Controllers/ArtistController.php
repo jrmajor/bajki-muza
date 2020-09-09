@@ -2,21 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Artist;
 use App\Http\Requests\StoreArtist;
+use App\Models\Artist;
 
 class ArtistController extends Controller
 {
-    public function create()
-    {
-        //
-    }
-
-    public function store(StoreArtist $request)
-    {
-        //
-    }
-
     public function show(Artist $artist)
     {
         return view('artists.show', ['artist' => $artist]);

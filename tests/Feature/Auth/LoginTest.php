@@ -1,6 +1,6 @@
 <?php
 
-use App\User;
+use App\Models\User;
 
 use function Pest\Laravel\{assertAuthenticated, assertAuthenticatedAs, assertGuest, from, get, post};
 use function Tests\asUser;

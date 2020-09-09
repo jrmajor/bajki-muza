@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Artist;
+use App\Models\Artist;
 use Livewire\Component;
 use Livewire\WithPagination;
 

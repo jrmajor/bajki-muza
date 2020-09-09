@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Tale;
+use App\Models\Tale;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Contracts\Queue\ShouldQueue;

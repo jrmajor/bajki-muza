@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Tale;
+use App\Models\Tale;
 use Livewire\Component;
 use Livewire\WithPagination;
 

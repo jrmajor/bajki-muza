@@ -1,7 +1,7 @@
 <?php
 
-use App\Artist;
-use App\Tale;
+use App\Models\Artist;
+use App\Models\Tale;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;

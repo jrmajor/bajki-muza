@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -119,26 +119,26 @@ class Artist extends Model
 
     public function asDirector()
     {
-        return $this->hasMany('App\Tale', 'director_id');
+        return $this->hasMany('App\Models\Tale', 'director_id');
     }
 
     public function asLyricist()
     {
-        return $this->belongsToMany('App\Tale', 'tales_lyricists')
+        return $this->belongsToMany('App\Models\Tale', 'tales_lyricists')
             ->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }
 
     public function asComposer()
     {
-        return $this->belongsToMany('App\Tale', 'tales_composers')
+        return $this->belongsToMany('App\Models\Tale', 'tales_composers')
             ->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }
 
     public function asActor()
     {
-        return $this->belongsToMany('App\Tale', 'tales_actors')
+        return $this->belongsToMany('App\Models\Tale', 'tales_actors')
             ->withPivot('characters')->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Artist;
+use App\Models\Artist;
 
 use function Pest\Laravel\{get, put};
 use function Tests\asUser;

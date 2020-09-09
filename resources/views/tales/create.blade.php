@@ -8,6 +8,6 @@
         </h2>
     </div>
 
-    @include('tales.form', ['tale' => (new App\Tale)->fill(['cover' => null]), 'action' => 'create'])
+    @include('tales.form', ['tale' => (new App\Models\Tale)->fill(['cover' => null]), 'action' => 'create'])
 
 @endsection

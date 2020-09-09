@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Artist;
+use App\Models\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;

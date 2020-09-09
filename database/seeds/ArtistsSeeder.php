@@ -1,6 +1,6 @@
 <?php
 
-use App\Artist;
+use App\Models\Artist;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 

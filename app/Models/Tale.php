@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Traits\FindsBySlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -49,26 +48,26 @@ class Tale extends Model
 
     public function director()
     {
-        return $this->belongsTo('App\Artist', 'director_id');
+        return $this->belongsTo('App\Models\Artist', 'director_id');
     }
 
     public function lyricists()
     {
-        return $this->belongsToMany('App\Artist', 'tales_lyricists')
+        return $this->belongsToMany('App\Models\Artist', 'tales_lyricists')
             ->withPivot('credit_nr')->withTimestamps()
             ->orderBy('tales_lyricists.credit_nr');
     }
 
     public function composers()
     {
-        return $this->belongsToMany('App\Artist', 'tales_composers')
+        return $this->belongsToMany('App\Models\Artist', 'tales_composers')
             ->withPivot('credit_nr')->withTimestamps()
             ->orderBy('tales_composers.credit_nr');
     }
 
     public function actors()
     {
-        return $this->belongsToMany('App\Artist', 'tales_actors')
+        return $this->belongsToMany('App\Models\Artist', 'tales_actors')
             ->withPivot('credit_nr', 'characters')->withTimestamps()
             ->orderBy('tales_actors.credit_nr');
     }

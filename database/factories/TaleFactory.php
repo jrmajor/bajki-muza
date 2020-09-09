@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Artist;
-use App\Tale;
+use App\Models\Artist;
+use App\Models\Tale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TaleFactory extends Factory

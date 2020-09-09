@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Artist;
 use App\Http\Requests\StoreTale;
 use App\Jobs\ProcessTaleCover;
-use App\Tale;
+use App\Models\Artist;
+use App\Models\Tale;
 use Illuminate\Support\Str;
 
 class TaleController extends Controller
