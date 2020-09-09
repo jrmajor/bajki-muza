@@ -48,6 +48,7 @@ class Artist extends Model
     public static function findBySlugOrNew($name)
     {
         $artist = self::findBySlug(Str::slug($name));
+
         if ($artist == null) {
             $artist = new self();
             $artist->name = $name;
