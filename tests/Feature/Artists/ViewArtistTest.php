@@ -2,7 +2,6 @@
 
 use App\Models\Artist;
 use Illuminate\Support\Facades\Cache;
-
 use function Pest\Laravel\get;
 
 it('works', function () {

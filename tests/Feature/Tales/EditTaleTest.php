@@ -2,7 +2,6 @@
 
 use App\Models\Artist;
 use App\Models\Tale;
-
 use function Pest\Laravel\{get, put};
 use function Tests\asUser;
 

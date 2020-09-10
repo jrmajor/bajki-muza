@@ -1,8 +1,7 @@
 <?php
 
 use App\Models\User;
-
-use function Pest\Laravel\{assertAuthenticated, assertAuthenticatedAs, assertGuest, from, get, post};
+use function Pest\Laravel\{assertAuthenticated, assertAuthenticatedAs, assertGuest, from, post};
 use function Tests\asUser;
 
 test('authenticated users are redirected when trying to log in', function () {

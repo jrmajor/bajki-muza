@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Tale;
-
 use function Pest\Laravel\get;
 
 it('works', function () {
