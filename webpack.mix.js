@@ -6,8 +6,7 @@ mix.js('resources/js/app.js', 'public/js')
     terser: { extractComments: false }
   })
 
-mix.postCss('resources/sass/app.css', 'public/css')
+mix.postCss('resources/css/app.css', 'public/css')
   .options({
-    // processCssUrls: false,
     postCss: [ tailwindcss('tailwind.config.js') ],
   }).version()
