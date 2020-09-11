@@ -4,22 +4,22 @@ namespace App\Jobs;
 
 use App\Models\Tale;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Spatie\Image\Image;
-use Spatie\Image\Manipulations;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Illuminate\Support\Facades\Storage;
 
 class ProcessTaleCover implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $tale;
 
-    protected $sizes = [
+    protected $filename;
+
+    public static $sizes = [
         60, // 3.75rem
         90, // 3.75rem * 1.5
         120, // 3.75rem * 2
@@ -34,115 +34,33 @@ class ProcessTaleCover implements ShouldQueue
     public function __construct(Tale $tale)
     {
         $this->tale = $tale;
+
+        $this->filename = $this->tale->cover;
     }
 
-    public function handle(Storage $storage): void
+    public function handle(): void
     {
-        $this->storage = $storage;
-
         $temporaryDirectory = (new TemporaryDirectory)->create();
 
         $sourceFile = "covers/original/{$this->tale->cover}";
 
-        $baseImagePath = $this->copyToTemporaryDirectory($sourceFile, $temporaryDirectory);
+        $sourceStream = Storage::cloud()->readStream($sourceFile);
 
-        $this->tale->cover_placeholder = $this->generateTinyJpg($baseImagePath, $temporaryDirectory);
+        $baseImagePath = $this->copyToTemporaryDirectory($sourceStream, $temporaryDirectory, $this->filename);
 
-        $this->tale->save();
+        $this->tale->forceFill([
+            'cover_placeholder' => $this->generateTinyJpg($baseImagePath, $temporaryDirectory),
+        ])->save();
 
-        foreach ($this->sizes as $size) {
-            $this->generateResponsiveImage($baseImagePath, $size, $temporaryDirectory);
+        foreach (self::$sizes as $size) {
+            $responsiveImagePath = $this->generateResponsiveImage($baseImagePath, $size, 'fit', $temporaryDirectory);
+
+            $file = fopen($responsiveImagePath, 'r');
+
+            Storage::cloud()
+                ->put("covers/{$size}/{$this->tale->cover}", $file, 'public');
         }
 
         $temporaryDirectory->delete();
-    }
-
-    public function copyToTemporaryDirectory($source, $temporaryDirectory): string
-    {
-        $targetFile = $temporaryDirectory->path($this->tale->cover);
-
-        touch($targetFile);
-
-        $stream = $this->storage->cloud()->readStream($source);
-
-        $targetFileStream = fopen($targetFile, 'a');
-
-        while (! feof($stream)) {
-            $chunk = fgets($stream, 1024);
-            fwrite($targetFileStream, $chunk);
-        }
-
-        fclose($stream);
-
-        fclose($targetFileStream);
-
-        return $targetFile;
-    }
-
-    public function generateTinyJpg(
-        string $baseImagePath,
-        TemporaryDirectory $temporaryDirectory
-    ): string {
-        $responsiveImageName = $this->appendToFileName(
-            $this->tale->cover,
-            "_tiny"
-        );
-
-        $tempDestination = $temporaryDirectory->path($responsiveImageName);
-
-        Image::load($baseImagePath)
-            ->fit(Manipulations::FIT_CROP, 32, 32)
-            ->blur(5)
-            ->save($tempDestination);
-
-        $tinyImageDataBase64 = base64_encode(file_get_contents($tempDestination));
-
-        $tinyImageBase64 = 'data:image/jpeg;base64,'.$tinyImageDataBase64;
-
-        // $originalImage = Image::load($baseImagePath);
-
-        $originalImageWidth = 32;
-
-        $originalImageHeight = 32;
-
-        $svg = view(
-            'components.placeholderSvg',
-            compact('originalImageWidth', 'originalImageHeight', 'tinyImageBase64')
-        );
-
-        return 'data:image/svg+xml;base64,'.base64_encode($svg);
-
-    }
-
-    public function generateResponsiveImage(
-        string $baseImagePath,
-        int $targetSize,
-        TemporaryDirectory $temporaryDirectory
-    ): void {
-        $responsiveImageName = $this->appendToFileName(
-            $this->tale->cover,
-            "_{$targetSize}"
-        );
-
-        $responsiveImagePath = $temporaryDirectory->path($responsiveImageName);
-
-        Image::load($baseImagePath)
-            ->optimize()
-            ->fit(Manipulations::FIT_CROP, $targetSize, $targetSize)
-            ->save($responsiveImagePath);
-
-        $file = fopen($responsiveImagePath, 'r');
-
-        $this->storage->cloud()
-            ->put("covers/{$targetSize}/{$this->tale->cover}", $file, 'public');
-    }
-
-    protected function appendToFileName(string $filePath, string $suffix): string
-    {
-        $baseName = pathinfo($filePath, PATHINFO_FILENAME);
-
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
-
-        return "{$baseName}{$suffix}.{$extension}";
     }
 }
