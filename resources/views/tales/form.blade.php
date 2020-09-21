@@ -63,7 +63,7 @@
     </div>
 
     <div class="flex flex-col">
-        <span for="cover" class="w-full font-medium pb-1 text-gray-700">Okładka w LastFM</span>
+        <span for="cover" class="w-full font-medium pb-1 text-gray-700">Okładka</span>
         <input type="hidden" name="remove_cover" x-model="cover.remove">
         <div class="flex space-x-5">
             <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer">
