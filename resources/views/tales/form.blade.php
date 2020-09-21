@@ -1,20 +1,14 @@
 @php
 
     $data = [
-        'lyricists' => collect($tale->lyricists)
-            ->map(fn ($lyricist) => ['artist' => $lyricist->name, 'credit_nr' => $lyricist->pivot->credit_nr]),
-
-        'composers' => collect($tale->composers)
-            ->map(fn ($composer) => ['artist' => $composer->name, 'credit_nr' => $composer->pivot->credit_nr]),
-
-        'actors' => collect($tale->actors)
-            ->map(function ($actor) {
-                return [
-                    'artist' => $actor->name,
-                    'credit_nr' => $actor->pivot->credit_nr,
-                    'characters' => $actor->pivot->characters,
-                ];
-            }),
+        'lyricists' => $tale->lyricists->map->name,
+        'composers' => $tale->composers->map->name,
+        'actors' => $tale->actors->map(function ($actor) {
+            return [
+                'artist' => $actor->name,
+                'characters' => $actor->pivot->characters,
+            ];
+        }),
     ];
 
 @endphp
@@ -29,7 +23,17 @@
         $watch('cover.file', value => {
             setCoverPreview($refs.cover.files)
             value != '' ? cover.remove = 0 : ''
-        })
+        });
+
+        $watch('lyricists', value => {
+            $nextTick(() => $dispatch('artists-indexes-updated'));
+        });
+        $watch('composers', value => {
+            $nextTick(() => $dispatch('artists-indexes-updated'));
+        });
+        $watch('actors', value => {
+            $nextTick(() => $dispatch('artists-indexes-updated'));
+        });
     ">
     @method($action == 'create' ? 'post' : 'put')
     @csrf
@@ -137,11 +141,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <template x-for="(lyricist, index) in lyricists" :key="index">
+                        <template x-for="(lyricist, index) in lyricists" :key="lyricist.key">
                             <tr>
                                 <td class="pr-1 py-1">
-                                    <input type="text" :name="'lyricists[' + index + '][credit_nr]'" x-model="lyricist.credit_nr"
-                                        class="w-10 text-sm form-input">
+                                    <input type="hidden" :name="'lyricists[' + index + '][credit_nr]'" :value="index + 1">
+                                    <span class="text-sm font-bold text-gray-800" x-text="index + 1"></span>
                                 </td>
                                 <td class="p-1" :data-picker-name="'lyricists[' + index + '][artist]'" :data-picker-value="lyricist.artist">
                                     <x-artist-picker/>
@@ -182,11 +186,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <template x-for="(composer, index) in composers" :key="index">
+                        <template x-for="(composer, index) in composers" :key="composer.key">
                             <tr>
                                 <td class="pr-1 py-1">
-                                    <input type="text" :name="'composers[' + index + '][credit_nr]'" x-model="composer.credit_nr"
-                                        class="w-10 text-sm form-input">
+                                    <input type="hidden" :name="'composers[' + index + '][credit_nr]'" :value="index + 1">
+                                    <span class="text-sm font-bold text-gray-800" x-text="index + 1"></span>
                                 </td>
                                 <td class="p-1" :data-picker-name="'composers[' + index + '][artist]'" :data-picker-value="composer.artist">
                                     <x-artist-picker/>
@@ -229,11 +233,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template x-for="(actor, index) in actors" :key="index">
+                    <template x-for="(actor, index) in actors" :key="actor.key">
                         <tr>
                             <td class="pr-1 py-1">
-                                <input type="text" :name="'actors[' + index + '][credit_nr]'" x-model="actor.credit_nr"
-                                    class="w-10 text-sm form-input">
+                                <input type="hidden" :name="'actors[' + index + '][credit_nr]'" :value="index + 1">
+                                <span class="text-sm font-bold text-gray-800" x-text="index + 1"></span>
                             </td>
                                 <td class="p-1" :data-picker-name="'actors[' + index + '][artist]'" :data-picker-value="actor.artist">
                                     <x-artist-picker/>

@@ -8,9 +8,18 @@ window.taleFormData = function (data) {
       file: '',
       remove: 0,
     },
-    lyricists: data.lyricists,
-    composers: data.composers,
-    actors: data.actors,
+    lyricists: data.lyricists.map(lyricist => ({
+      artist: lyricist,
+      key: Math.random().toString(20).substr(2),
+    })),
+    composers: data.composers.map(composer => ({
+      artist: composer,
+      key: Math.random().toString(20).substr(2),
+    })),
+    actors: data.actors.map(actor => {
+      actor.key = Math.random().toString(20).substr(2)
+      return actor
+    }),
 
     setCoverPreview(files) {
       if (files.length == 0) {
@@ -32,8 +41,8 @@ window.taleFormData = function (data) {
 
     addArtist(type) {
       this[type].push({
-        credit_nr: this[type].length + 1,
         artist: '',
+        key: Math.random().toString(20).substr(2),
       })
     },
 

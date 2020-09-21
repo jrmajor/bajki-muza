@@ -3,6 +3,9 @@
     x-init="
         name = $el.parentElement.getAttribute('data-picker-name');
         value = $el.parentElement.getAttribute('data-picker-value');
+    "
+    x-on:artists-indexes-updated.window="
+        name = $el.parentElement.getAttribute('data-picker-name');
     ">
     <input
         type="text" class="w-full form-input" autocomplete="off"
