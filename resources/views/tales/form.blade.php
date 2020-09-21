@@ -1,10 +1,6 @@
 @php
 
     $data = [
-        'route' => route('ajax.artists'),
-
-        'director' => old('director', optional($tale->director)->name),
-
         'lyricists' => collect($tale->lyricists)
             ->map(fn ($lyricist) => ['artist' => $lyricist->name, 'credit_nr' => $lyricist->pivot->credit_nr]),
 
@@ -30,7 +26,6 @@
     class="flex flex-col space-y-5"
     x-data="taleFormData(@encodedjson($data))"
     x-init="
-        init();
         $watch('cover.file', value => {
             setCoverPreview($refs.cover.files)
             value != '' ? cover.remove = 0 : ''
@@ -95,14 +90,14 @@
                         x-text="cover.file != '' ? fileSize($refs.cover.files[0].size) : ''"></small>
                 </span>
                 <template x-if="cover.file != ''">
-                    <button x-on:click.prevent="cover.file = ''" class="flex-none"></button>
+                    <button type="button" x-on:click="cover.file = ''" class="flex-none"></button>
                 </template>
                 <input type="file" name="cover" class="hidden"
                     x-ref="cover" x-model="cover.file">
             </label>
             @if ($tale->exists)
                 <template x-if="! cover.remove">
-                    <button x-on:click.prevent="cover.remove = 1; cover.file = ''"
+                    <button type="button" x-on:click="cover.remove = 1; cover.file = ''"
                             class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
                             hover:bg-red-100 hover:border-red-200 hover:text-red-700
                             active:bg-red-600 active:cover-red-600 active:text-red-100
@@ -111,7 +106,7 @@
                     </button>
                 </template>
                 <template x-if="cover.remove">
-                    <button x-on:click.prevent="cover.remove = 0"
+                    <button type="button" x-on:click="cover.remove = 0"
                             class="flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
                             hover:bg-red-500 hover:border-red-500 hover:text-white
                             active:bg-white active:text-black transition-colors duration-150">
@@ -125,29 +120,8 @@
     <div class="flex flex-col space-y-2">
         <div class="flex flex-col">
             <label for="director" class="w-full font-medium pb-1 text-gray-700">Reżyser</label>
-            <div class="relative w-full"
-                x-on:mousedown.away="director.isOpen = false">
-                <input
-                    type="text" name="director"
-                    class="w-full form-input" autocomplete="off"
-                    x-model="director.artist" x-on:focus="director.isOpen = true" x-on:input.debounce="findDirector()">
-                <template x-if="director.isOpen && director.artist.length >= 2">
-                    <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                        <template x-if="director.people.length == 0">
-                            <div class="w-full px-3 py-1 text-gray-600">
-                                Brak wyników
-                            </div>
-                        </template>
-                        <template x-for="person in director.people" x-key="person">
-                            <button
-                                x-on:click.prevent="director.artist = person; director.isOpen = false"
-                                class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
-                                <span x-text="person"></span>
-                                <span class="text-gray-400" x-text="director.artist == person ? '✓ ' : ''"></span>
-                            </button>
-                        </template>
-                    </div>
-                </template>
+            <div data-picker-name="director" data-picker-value="{{ old('director', optional($tale->director)->name) }}">
+                <x-artist-picker/>
             </div>
         </div>
 
@@ -169,36 +143,12 @@
                                     <input type="text" :name="'lyricists[' + index + '][credit_nr]'" x-model="lyricist.credit_nr"
                                         class="w-10 text-sm form-input">
                                 </td>
-                                <td class="p-1">
-                                    <div class="relative w-full"
-                                        x-on:mousedown.away="lyricist.isOpen = false">
-                                        <input
-                                            type="text" :name="'lyricists[' + index + '][artist]'"
-                                            class="w-full form-input" autocomplete="off"
-                                            x-model="lyricist.artist" x-on:focus="lyricist.isOpen = true" x-on:input.debounce="findArtists(lyricist)">
-                                        <template x-if="lyricist.isOpen && lyricist.artist.length >= 2">
-                                            <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                                                <template x-if="lyricist.people.length == 0">
-                                                    <div class="w-full px-3 py-1 text-gray-600">
-                                                        Brak wyników
-                                                    </div>
-                                                </template>
-                                                <template x-for="person in lyricist.people" x-key="person">
-                                                    <button
-                                                        x-on:click.prevent="lyricist.artist = person; lyricist.isOpen = false"
-                                                        class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
-                                                        <span x-text="person"></span>
-                                                        <span class="text-gray-400" x-text="lyricist.artist == person ? '✓ ' : ''"></span>
-                                                    </button>
-                                                </template>
-                                            </div>
-                                        </template>
-                                    </div>
+                                <td class="p-1" :data-picker-name="'lyricists[' + index + '][artist]'" :data-picker-value="lyricist.artist">
+                                    <x-artist-picker/>
                                 </td>
                                 <td class="pl-1 py-1">
                                     <div class="w-full flex items-center">
-                                        <button
-                                            x-on:click.prevent="removeArtist('lyricists', index)"
+                                        <button type="button" x-on:click="removeArtist('lyricists', index)"
                                             class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
                                             <span>-</span>
                                         </button>
@@ -210,8 +160,7 @@
                             <td colspan="2"></td>
                             <td class="pl-1 py-1">
                                 <div class="w-full flex items-center">
-                                    <button
-                                        x-on:click.prevent="addArtist('lyricists')"
+                                    <button type="button" x-on:click="addArtist('lyricists')"
                                         class="mt-1 w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
                                         <span>+</span>
                                     </button>
@@ -239,36 +188,12 @@
                                     <input type="text" :name="'composers[' + index + '][credit_nr]'" x-model="composer.credit_nr"
                                         class="w-10 text-sm form-input">
                                 </td>
-                                <td class="p-1">
-                                    <div class="relative w-full"
-                                        x-on:mousedown.away="composer.isOpen = false">
-                                        <input
-                                            type="text" :name="'composers[' + index + '][artist]'"
-                                            class="w-full form-input" autocomplete="off"
-                                            x-model="composer.artist" x-on:focus="composer.isOpen = true" x-on:input.debounce="findArtists(composer)">
-                                        <template x-if="composer.isOpen && composer.artist.length >= 2">
-                                            <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                                                <template x-if="composer.people.length == 0">
-                                                    <div class="w-full px-3 py-1 text-gray-600">
-                                                        Brak wyników
-                                                    </div>
-                                                </template>
-                                                <template x-for="person in composer.people" x-key="person">
-                                                    <button
-                                                        x-on:click.prevent="composer.artist = person; composer.isOpen = false"
-                                                        class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
-                                                        <span x-text="person"></span>
-                                                        <span class="text-gray-400" x-text="composer.artist == person ? '✓ ' : ''"></span>
-                                                    </button>
-                                                </template>
-                                            </div>
-                                        </template>
-                                    </div>
+                                <td class="p-1" :data-picker-name="'composers[' + index + '][artist]'" :data-picker-value="composer.artist">
+                                    <x-artist-picker/>
                                 </td>
                                 <td class="pl-1 py-1">
                                     <div class="w-full flex items-center">
-                                        <button
-                                            x-on:click.prevent="removeArtist('composers', index)"
+                                        <button type="button" x-on:click="removeArtist('composers', index)"
                                             class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
                                             <span>-</span>
                                         </button>
@@ -280,8 +205,7 @@
                             <td colspan="2"></td>
                             <td class="pl-1 py-1">
                                 <div class="w-full flex items-center">
-                                    <button
-                                        x-on:click.prevent="addArtist('composers')"
+                                    <button type="button" x-on:click="addArtist('composers')"
                                         class="mt-1 w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
                                         <span>+</span>
                                     </button>
@@ -311,40 +235,16 @@
                                 <input type="text" :name="'actors[' + index + '][credit_nr]'" x-model="actor.credit_nr"
                                     class="w-10 text-sm form-input">
                             </td>
-                            <td class="p-1">
-                                <div class="relative w-full"
-                                    x-on:mousedown.away="actor.isOpen = false">
-                                    <input
-                                        type="text" :name="'actors[' + index + '][artist]'"
-                                        class="w-full form-input" autocomplete="off"
-                                        x-model="actor.artist" x-on:focus="actor.isOpen = true" x-on:input.debounce="findArtists(actor)">
-                                    <template x-if="actor.isOpen && actor.artist.length >= 2">
-                                        <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                                            <template x-if="actor.people.length == 0">
-                                                <div class="w-full px-3 py-1 text-gray-600">
-                                                    Brak wyników
-                                                </div>
-                                            </template>
-                                            <template x-for="person in actor.people" x-key="person">
-                                                <button
-                                                    x-on:click.prevent="actor.artist = person; actor.isOpen = false"
-                                                    class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
-                                                    <span x-text="person"></span>
-                                                    <span class="text-gray-400" x-text="actor.artist == person ? '✓ ' : ''"></span>
-                                                </button>
-                                            </template>
-                                        </div>
-                                    </template>
-                                </div>
-                            </td>
+                                <td class="p-1" :data-picker-name="'actors[' + index + '][artist]'" :data-picker-value="actor.artist">
+                                    <x-artist-picker/>
+                                </td>
                             <td class="p-1">
                                 <input type="text" :name="'actors[' + index + '][characters]'" x-model="actor.characters"
                                     class="form-input">
                             </td>
                             <td class="pl-1 py-1">
                                 <div class="w-full flex items-center">
-                                    <button
-                                        x-on:click.prevent="removeArtist('actors', index)"
+                                    <button type="button" x-on:click="removeArtist('actors', index)"
                                         class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
                                         <span>-</span>
                                     </button>
@@ -356,8 +256,7 @@
                         <td colspan="3"></td>
                         <td class="pl-1 py-1">
                             <div class="w-full flex items-center">
-                                <button
-                                    x-on:click.prevent="addArtist('actors')"
+                                <button type="button" x-on:click="addArtist('actors')"
                                     class="mt-1 w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
                                     <span>+</span>
                                 </button>
