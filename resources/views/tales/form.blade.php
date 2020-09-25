@@ -142,7 +142,11 @@
                     </thead>
                     <tbody>
                         <template x-for="(lyricist, index) in lyricists" :key="lyricist.key">
-                            <tr>
+                            <tr draggable="true" class="transition-opacity duration-150"
+                                :class="{ 'opacity-25': lyricist.isDragged }"
+                                x-on:dragstart="onDragStart($event, 'lyricists', index)" x-on:dragend="onDragEnd(lyricist)"
+                                x-on:dragover="onDragOver($event, 'lyricists')"
+                                x-on:drop="onDrop($event, 'lyricists', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
                                 <td class="pr-1 py-1">
                                     <input type="hidden" :name="'lyricists[' + index + '][credit_nr]'" :value="index + 1">
                                     <span class="text-sm font-bold text-gray-800" x-text="index + 1"></span>
@@ -187,7 +191,11 @@
                     </thead>
                     <tbody>
                         <template x-for="(composer, index) in composers" :key="composer.key">
-                            <tr>
+                            <tr draggable="true" class="transition-opacity duration-150"
+                                :class="{ 'opacity-25': composer.isDragged }"
+                                x-on:dragstart="onDragStart($event, 'composers', index)" x-on:dragend="onDragEnd(composer)"
+                                x-on:dragover="onDragOver($event, 'composers')"
+                                x-on:drop="onDrop($event, 'composers', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
                                 <td class="pr-1 py-1">
                                     <input type="hidden" :name="'composers[' + index + '][credit_nr]'" :value="index + 1">
                                     <span class="text-sm font-bold text-gray-800" x-text="index + 1"></span>
@@ -234,14 +242,18 @@
                 </thead>
                 <tbody>
                     <template x-for="(actor, index) in actors" :key="actor.key">
-                        <tr>
+                        <tr draggable="true" class="transition-opacity duration-150"
+                            :class="{ 'opacity-25': actor.isDragged }"
+                            x-on:dragstart="onDragStart($event, 'actors', index)" x-on:dragend="onDragEnd(actor)"
+                            x-on:dragover="onDragOver($event, 'actors')"
+                            x-on:drop="onDrop($event, 'actors', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
                             <td class="pr-1 py-1">
                                 <input type="hidden" :name="'actors[' + index + '][credit_nr]'" :value="index + 1">
-                                <span class="text-sm font-bold text-gray-800" x-text="index + 1"></span>
+                                <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
                             </td>
-                                <td class="p-1" :data-picker-name="'actors[' + index + '][artist]'" :data-picker-value="actor.artist">
-                                    <x-artist-picker/>
-                                </td>
+                            <td class="p-1" :data-picker-name="'actors[' + index + '][artist]'" :data-picker-value="actor.artist">
+                                <x-artist-picker/>
+                            </td>
                             <td class="p-1">
                                 <input type="text" :name="'actors[' + index + '][characters]'" x-model="actor.characters"
                                     class="form-input">

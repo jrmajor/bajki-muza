@@ -39,15 +39,51 @@ window.taleFormData = function (data) {
       }
     },
 
-    addArtist(type) {
-      this[type].push({
+    addArtist(list) {
+      this[list].push({
         artist: '',
         key: Math.random().toString(20).substr(2),
+        isDragged: false,
       })
     },
 
-    removeArtist(type, index) {
-      this[type].splice(index, 1)
+    removeArtist(list, index) {
+      this[list].splice(index, 1)
+    },
+
+    onDragStart(event, list, index) {
+      event.dataTransfer.setData('index', index)
+      event.dataTransfer.setData('list', list)
+      this[list][index].isDragged = true
+    },
+
+    onDragEnd(artist) { artist.isDragged = false },
+
+    onDragOver(event, targetList) {
+      const list = event.dataTransfer.getData('list')
+
+      if (list === targetList || list === '') event.preventDefault()
+    },
+
+    onDrop(event, list, destination) {
+      if (event.dataTransfer.getData('list') != list) return
+
+      let currentIndex = parseInt(event.dataTransfer.getData('index'))
+
+      if (currentIndex < destination) destination += 1
+
+      const dragged = this[list][currentIndex]
+
+      const copy = {
+        characters: dragged.characters,
+        key: dragged.key,
+      }
+
+      this[list].splice(destination, 0, copy);
+
+      if (currentIndex > destination) currentIndex += 1
+
+      this[list].splice(currentIndex, 1)
     },
   }
 }
