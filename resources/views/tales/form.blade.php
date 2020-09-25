@@ -121,15 +121,17 @@
         </div>
     </div>
 
-    <div class="flex flex-col space-y-2">
-        <div class="flex flex-col">
-            <label for="director" class="w-full font-medium pb-1 text-gray-700">Reżyser</label>
-            <div data-picker-name="director" data-picker-value="{{ old('director', optional($tale->director)->name) }}">
-                <x-artist-picker/>
-            </div>
+    <div class="flex flex-col">
+        <label for="director" class="w-full font-medium pb-1 text-gray-700">Reżyser</label>
+        <div data-picker-name="director" data-picker-value="{{ old('director', optional($tale->director)->name) }}">
+            <x-artist-picker/>
         </div>
+    </div>
 
-        <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-5">
+    <div class="flex flex-col">
+
+        <div class="flex flex-col md:flex-row md:space-x-8">
+
             <div class="w-full md:w-1/2 flex flex-col">
                 <span class="w-full -mb-1.5 font-medium text-gray-700">Słowa</span>
                 <div class="w-full flex flex-wrap justify-end space-y-1.5">
@@ -203,6 +205,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="flex flex-col">
@@ -247,6 +250,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <button type="submit"
