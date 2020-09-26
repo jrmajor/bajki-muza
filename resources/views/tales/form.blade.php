@@ -128,129 +128,125 @@
         </div>
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col space-y-5 md:flex-row md:space-y-0 md:space-x-8">
 
-        <div class="flex flex-col md:flex-row md:space-x-8">
-
-            <div class="w-full md:w-1/2 flex flex-col">
-                <span class="w-full -mb-1.5 font-medium text-gray-700">Słowa</span>
-                <div class="w-full flex flex-wrap justify-end space-y-1.5">
-                    <div class="w-full flex space-x-2 mt-0.5 -mb-1">
-                        <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
-                        <div class="flex-grow px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
-                    </div>
-                    <template x-for="(lyricist, index) in lyricists" :key="lyricist.key">
-                        <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
-                            :class="{ 'opacity-25': lyricist.isDragged }" draggable="true"
-                            x-on:dragstart="onDragStart($event, 'lyricists', index)" x-on:dragend="onDragEnd(lyricist)"
-                            x-on:dragover="onDragOver($event, 'lyricists')"
-                            x-on:drop="onDrop($event, 'lyricists', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
-                            <div class="w-6 flex-0 self-stretch flex items-center justify-center">
-                                <input type="hidden" :name="'lyricists[' + index + '][credit_nr]'" :value="index + 1">
-                                <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
-                            </div>
-                            <div class="flex-grow" :data-picker-name="'lyricists[' + index + '][artist]'" :data-picker-value="lyricist.artist">
-                                <x-artist-picker/>
-                            </div>
-                            <div class="">
-                                <button type="button" x-on:click="removeArtist('lyricists', index)"
-                                    class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
-                                    <span>-</span>
-                                </button>
-                            </div>
-                        </div>
-                    </template>
-                    <div class="pt-1">
-                        <button type="button" x-on:click="addArtist('lyricists')"
-                            class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
-                            <span>+</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full md:w-1/2 flex flex-col">
-                <span class="w-full -mb-1.5 font-medium text-gray-700">Muzyka</span>
-                <div class="w-full flex flex-wrap justify-end space-y-1.5">
-                    <div class="w-full flex space-x-2 mt-0.5 -mb-1">
-                        <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
-                        <div class="flex-grow px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
-                    </div>
-                    <template x-for="(composer, index) in composers" :key="composer.key">
-                        <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
-                            :class="{ 'opacity-25': composer.isDragged }" draggable="true"
-                            x-on:dragstart="onDragStart($event, 'composers', index)" x-on:dragend="onDragEnd(composer)"
-                            x-on:dragover="onDragOver($event, 'composers')"
-                            x-on:drop="onDrop($event, 'composers', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
-                            <div class="w-6 flex-0 self-stretch flex items-center justify-center">
-                                <input type="hidden" :name="'composers[' + index + '][credit_nr]'" :value="index + 1">
-                                <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
-                            </div>
-                            <div class="flex-grow" :data-picker-name="'composers[' + index + '][artist]'" :data-picker-value="composer.artist">
-                                <x-artist-picker/>
-                            </div>
-                            <div class="">
-                                <button type="button" x-on:click="removeArtist('composers', index)"
-                                    class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
-                                    <span>-</span>
-                                </button>
-                            </div>
-                        </div>
-                    </template>
-                    <div class="pt-1">
-                        <button type="button" x-on:click="addArtist('composers')"
-                            class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
-                            <span>+</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="flex flex-col">
-            <span class="w-full -mb-1.5 font-medium text-gray-700">Obsada</span>
-            <div class="w-full flex flex-wrap justify-end space-y-1.5">
-                <div class="w-full flex space-x-2 mt-0.5 -mb-1">
+        <div class="w-full md:w-1/2 flex flex-col">
+            <div class="relative -space-y-1 mb-0.5">
+                <span class="w-full font-medium text-gray-700">Słowa</span>
+                <div class="w-full flex items-center space-x-2">
                     <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
-                    <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
-                    <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700">Postaci</span></div>
-                    <div class="w-5"></div>
+                    <div class="px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
                 </div>
-                <template x-for="(actor, index) in actors" :key="actor.key">
-                    <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
-                        :class="{ 'opacity-25': actor.isDragged }" draggable="true"
-                        x-on:dragstart="onDragStart($event, 'actors', index)" x-on:dragend="onDragEnd(actor)"
-                        x-on:dragover="onDragOver($event, 'actors')"
-                        x-on:drop="onDrop($event, 'actors', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
-                        <div class="w-6 flex-0 self-stretch flex items-center justify-center">
-                            <input type="hidden" :name="'actors[' + index + '][credit_nr]'" :value="index + 1">
-                            <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
-                        </div>
-                        <div class="w-1/2" :data-picker-name="'actors[' + index + '][artist]'" :data-picker-value="actor.artist">
-                            <x-artist-picker/>
-                        </div>
-                        <div class="w-1/2">
-                            <input type="text" :name="'actors[' + index + '][characters]'" x-model="actor.characters"
-                                class="w-full form-input">
-                        </div>
-                        <div class="">
-                            <button type="button" x-on:click="removeArtist('actors', index)"
-                                class="mt-1 w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
-                                <span>-</span>
-                            </button>
-                        </div>
-                    </div>
-                </template>
-                <div class="pt-1">
-                    <button type="button" x-on:click="addArtist('actors')"
+                <div class="absolute right-0 top-0 h-full flex items-center">
+                    <button type="button" x-on:click="addArtist('lyricists')"
                         class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
                         <span>+</span>
                     </button>
                 </div>
             </div>
+            <div class="w-full flex flex-wrap space-y-1.5">
+                <template x-for="(lyricist, index) in lyricists" :key="lyricist.key">
+                    <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
+                        :class="{ 'opacity-25': lyricist.isDragged }" draggable="true"
+                        x-on:dragstart="onDragStart($event, 'lyricists', index)" x-on:dragend="onDragEnd(lyricist)"
+                        x-on:dragover="onDragOver($event, 'lyricists')"
+                        x-on:drop="onDrop($event, 'lyricists', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
+                        <div class="w-6 flex-0 self-stretch flex items-center justify-center">
+                            <input type="hidden" :name="'lyricists[' + index + '][credit_nr]'" :value="index + 1">
+                            <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
+                        </div>
+                        <div class="flex-grow" :data-picker-name="'lyricists[' + index + '][artist]'" :data-picker-value="lyricist.artist">
+                            <x-artist-picker/>
+                        </div>
+                        <button type="button" x-on:click="removeArtist('lyricists', index)"
+                            class="flex-none w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
+                            <span>-</span>
+                        </button>
+                    </div>
+                </template>
+            </div>
         </div>
 
+        <div class="w-full md:w-1/2 flex flex-col">
+            <div class="relative -space-y-1 mb-0.5">
+                <span class="w-full font-medium text-gray-700">Muzyka</span>
+                <div class="w-full flex items-center space-x-2">
+                    <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
+                    <div class="px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
+                </div>
+                <div class="absolute right-0 top-0 h-full flex items-center">
+                    <button type="button" x-on:click="addArtist('composers')"
+                        class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
+                        <span>+</span>
+                    </button>
+                </div>
+            </div>
+            <div class="w-full flex flex-wrap space-y-1.5">
+                <template x-for="(composer, index) in composers" :key="composer.key">
+                    <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
+                        :class="{ 'opacity-25': composer.isDragged }" draggable="true"
+                        x-on:dragstart="onDragStart($event, 'composers', index)" x-on:dragend="onDragEnd(composer)"
+                        x-on:dragover="onDragOver($event, 'composers')"
+                        x-on:drop="onDrop($event, 'composers', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
+                        <div class="w-6 flex-0 self-stretch flex items-center justify-center">
+                            <input type="hidden" :name="'composers[' + index + '][credit_nr]'" :value="index + 1">
+                            <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
+                        </div>
+                        <div class="flex-grow" :data-picker-name="'composers[' + index + '][artist]'" :data-picker-value="composer.artist">
+                            <x-artist-picker/>
+                        </div>
+                        <button type="button" x-on:click="removeArtist('composers', index)"
+                            class="flex-none w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
+                            <span>-</span>
+                        </button>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="flex flex-col">
+        <div class="relative -space-y-1 mb-0.5">
+            <span class="w-full font-medium text-gray-700">Obsada</span>
+            <div class="w-full flex items-center space-x-2">
+                <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
+                <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
+                <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700">Postaci</span></div>
+                <div class="w-5"></div>
+            </div>
+            <div class="absolute right-0 top-0 h-full flex items-center">
+                <button type="button" x-on:click="addArtist('actors')"
+                    class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
+                    <span>+</span>
+                </button>
+            </div>
+        </div>
+        <div class="w-full flex flex-wrap space-y-1.5">
+            <template x-for="(actor, index) in actors" :key="actor.key">
+                <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
+                    :class="{ 'opacity-25': actor.isDragged }" draggable="true"
+                    x-on:dragstart="onDragStart($event, 'actors', index)" x-on:dragend="onDragEnd(actor)"
+                    x-on:dragover="onDragOver($event, 'actors')"
+                    x-on:drop="onDrop($event, 'actors', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
+                    <div class="w-6 flex-0 self-stretch flex items-center justify-center">
+                        <input type="hidden" :name="'actors[' + index + '][credit_nr]'" :value="index + 1">
+                        <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
+                    </div>
+                    <div class="w-1/2" :data-picker-name="'actors[' + index + '][artist]'" :data-picker-value="actor.artist">
+                        <x-artist-picker/>
+                    </div>
+                    <div class="w-1/2">
+                        <input type="text" :name="'actors[' + index + '][characters]'" x-model="actor.characters"
+                            class="w-full form-input">
+                    </div>
+                    <button type="button" x-on:click="removeArtist('actors', index)"
+                        class="flex-none w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
+                        <span>-</span>
+                    </button>
+                </div>
+            </template>
+        </div>
     </div>
 
     <button type="submit"
