@@ -30,7 +30,7 @@ window.taleFormData = function (data) {
     },
 
     fileSize(size) {
-      if(size < 1024) {
+      if (size < 1024) {
         return size + 'bytes';
       } else if(size >= 1024 && size < 1048576) {
         return (size/1024).toFixed(1) + 'KB';
@@ -54,36 +54,88 @@ window.taleFormData = function (data) {
     onDragStart(event, list, index) {
       event.dataTransfer.setData('index', index)
       event.dataTransfer.setData('list', list)
+
       this[list][index].isDragged = true
     },
 
     onDragEnd(artist) { artist.isDragged = false },
 
-    onDragOver(event, targetList) {
+    onDragOver(event, targetList, destination) {
       const list = event.dataTransfer.getData('list')
 
       if (list === targetList || list === '') event.preventDefault()
+
+      const currentIndex = parseInt(event.dataTransfer.getData('index'))
+
+      if (list !== targetList || isNaN(currentIndex)) return
+
+      if (currentIndex === destination) return
+
+      if (currentIndex < destination) {
+        this[list][destination].isDraggedOver = 'fromAbove'
+      } else {
+        this[list][destination].isDraggedOver = 'fromBelow'
+      }
+    },
+
+    onDragLeave(artist) {
+      artist.isDraggedOver = false
     },
 
     onDrop(event, list, destination) {
       if (event.dataTransfer.getData('list') != list) return
 
-      let currentIndex = parseInt(event.dataTransfer.getData('index'))
+      const currentIndex = parseInt(event.dataTransfer.getData('index'))
 
-      if (currentIndex < destination) destination += 1
+      if (currentIndex === destination) return
+
+      const priorDestinationElement = this[list][destination]
+
+      priorDestinationElement.noTransitions = true
+      priorDestinationElement.isDraggedOver = false
 
       const dragged = this[list][currentIndex]
 
-      const copy = {
+      // dragged is alpine proxy
+      const draggedClone = {
         characters: dragged.characters,
         key: dragged.key,
       }
 
-      this[list].splice(destination, 0, copy);
+      // if the element is dragged from above, insert it below
+      // if the element is dragged from below, insert it above
+      if (currentIndex < destination) destination += 1
 
-      if (currentIndex > destination) currentIndex += 1
+      this[list].splice(destination, 0, draggedClone);
 
-      this[list].splice(currentIndex, 1)
+      // if element was inserted above original location,
+      // its index increased by one
+      const indexToDelete = destination < currentIndex
+                            ? currentIndex + 1
+                            : currentIndex
+
+      this[list].splice(indexToDelete, 1)
+
+      // this element will be used to imitate place after moved element
+      // by adding padding, which will then be transitioned back to normal
+      const elementNearDeleted = this[list][currentIndex]
+
+      elementNearDeleted.noTransitions = true
+
+      if (currentIndex < destination) {
+        elementNearDeleted.hasDeletedElement = 'above'
+      } else {
+        elementNearDeleted.hasDeletedElement = 'below'
+      }
+
+      this.$nextTick(() => {
+        elementNearDeleted.noTransitions = false
+        elementNearDeleted.hasDeletedElement = false
+
+        priorDestinationElement.noTransitions = false
+      })
+
+      this[list].forEach((artist) => { artist.isDraggedOver = false })
     },
   }
 }

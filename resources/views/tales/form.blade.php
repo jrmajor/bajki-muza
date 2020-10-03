@@ -146,11 +146,20 @@
             </div>
             <div class="w-full flex flex-wrap space-y-1.5">
                 <template x-for="(lyricist, index) in lyricists" :key="lyricist.key">
-                    <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
-                        :class="{ 'opacity-25': lyricist.isDragged }" draggable="true"
+                    <div class="w-full flex items-center space-x-2"
+                        :class="{
+                            'opacity-0': lyricist.isDragged,
+                            'pt-12': lyricist.isDraggedOver === 'fromBelow' || lyricist.hasDeletedElement === 'above',
+                            'pb-12': lyricist.isDraggedOver === 'fromAbove' || lyricist.hasDeletedElement === 'below',
+                            'transition-all duration-300': ! lyricist.noTransitions,
+                        }"
+                        draggable="true"
                         x-on:dragstart="onDragStart($event, 'lyricists', index)" x-on:dragend="onDragEnd(lyricist)"
-                        x-on:dragover="onDragOver($event, 'lyricists')"
-                        x-on:drop="onDrop($event, 'lyricists', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
+                        x-on:dragover="onDragOver($event, 'lyricists', index)" x-on:dragleave="onDragLeave(lyricist)"
+                        x-on:drop="
+                            callback = onDrop($event, 'lyricists', index);
+                            $nextTick(() => $dispatch('artists-indexes-updated'));
+                        ">
                         <div class="w-6 flex-0 self-stretch flex items-center justify-center">
                             <input type="hidden" :name="'lyricists[' + index + '][credit_nr]'" :value="index + 1">
                             <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
@@ -183,11 +192,20 @@
             </div>
             <div class="w-full flex flex-wrap space-y-1.5">
                 <template x-for="(composer, index) in composers" :key="composer.key">
-                    <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
-                        :class="{ 'opacity-25': composer.isDragged }" draggable="true"
+                    <div class="w-full flex items-center space-x-2"
+                        :class="{
+                            'opacity-0': composer.isDragged,
+                            'pt-12': composer.isDraggedOver === 'fromBelow' || composer.hasDeletedElement === 'above',
+                            'pb-12': composer.isDraggedOver === 'fromAbove' || composer.hasDeletedElement === 'below',
+                            'transition-all duration-300': ! composer.noTransitions,
+                        }"
+                        draggable="true"
                         x-on:dragstart="onDragStart($event, 'composers', index)" x-on:dragend="onDragEnd(composer)"
-                        x-on:dragover="onDragOver($event, 'composers')"
-                        x-on:drop="onDrop($event, 'composers', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
+                        x-on:dragover="onDragOver($event, 'composers', index)" x-on:dragleave="onDragLeave(composer)"
+                        x-on:drop="
+                            callback = onDrop($event, 'composers', index);
+                            $nextTick(() => $dispatch('artists-indexes-updated'));
+                        ">
                         <div class="w-6 flex-0 self-stretch flex items-center justify-center">
                             <input type="hidden" :name="'composers[' + index + '][credit_nr]'" :value="index + 1">
                             <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
@@ -224,11 +242,20 @@
         </div>
         <div class="w-full flex flex-wrap space-y-1.5">
             <template x-for="(actor, index) in actors" :key="actor.key">
-                <div class="w-full flex items-center space-x-2 transition-opacity duration-150"
-                    :class="{ 'opacity-25': actor.isDragged }" draggable="true"
+                <div class="w-full flex items-center space-x-2"
+                    :class="{
+                        'opacity-0': actor.isDragged,
+                        'pt-12': actor.isDraggedOver === 'fromBelow' || actor.hasDeletedElement === 'above',
+                        'pb-12': actor.isDraggedOver === 'fromAbove' || actor.hasDeletedElement === 'below',
+                        'transition-all duration-300': ! actor.noTransitions,
+                    }"
+                    draggable="true"
                     x-on:dragstart="onDragStart($event, 'actors', index)" x-on:dragend="onDragEnd(actor)"
-                    x-on:dragover="onDragOver($event, 'actors')"
-                    x-on:drop="onDrop($event, 'actors', index); $nextTick(() => $dispatch('artists-indexes-updated'));">
+                    x-on:dragover="onDragOver($event, 'actors', index);" x-on:dragleave="onDragLeave(actor)"
+                    x-on:drop="
+                        callback = onDrop($event, 'actors', index);
+                        $nextTick(() => $dispatch('artists-indexes-updated'));
+                    ">
                     <div class="w-6 flex-0 self-stretch flex items-center justify-center">
                         <input type="hidden" :name="'actors[' + index + '][credit_nr]'" :value="index + 1">
                         <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
