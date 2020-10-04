@@ -3,4 +3,5 @@
 use function Pest\Laravel\get;
 
 get('bajki')
-    ->assertOk();
+    ->assertOk()
+    ->assertSeeLivewire('tales');

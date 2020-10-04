@@ -3,4 +3,5 @@
 use function Pest\Laravel\get;
 
 get('artysci')
-    ->assertOk();
+    ->assertOk()
+    ->assertSeeLivewire('artists');
