@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Services\Discogs;
 use App\Services\Wikipedia;
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -87,27 +87,24 @@ class Artist extends Model
         );
     }
 
-    public function photos()
+    public function discogsPhotos(): array
     {
         if (! $this->discogs) {
-            return;
+            return [];
         }
 
-        return Cache::remember("artist-$this->id-photo", CarbonInterval::week(), function () {
-            $artist = Http::withHeaders([
-                'Authorization' => 'Discogs token='.config('services.discogs.token'),
-            ])->get("https://api.discogs.com/artists/$this->discogs")->json();
-
-            return [
-                'normal' => $artist['images']['0']['uri'] ?? null,
-                '150' => $artist['images']['0']['uri150'] ?? null,
-            ];
-        });
+        return Cache::remember(
+            "artist-$this->id-discogs-photos",
+            CarbonInterval::week(),
+            fn () => Discogs::photos($this->discogs)
+        );
     }
 
-    public function photo($type = 'normal')
+    public function photo($type = 'normal'): ?string
     {
-        return $this->photos()[$type] ?? null;
+        $type = $type == '150' ? 'uri150' : 'uri';
+
+        return $this->discogsPhotos()['0'][$type] ?? null;
     }
 
     public function asDirector()
@@ -170,6 +167,6 @@ class Artist extends Model
     public function flushCache()
     {
         return Cache::forget("artist-$this->id-wikipedia-extract")
-            && Cache::forget("artist-$this->id-photo");
+            && Cache::forget("artist-$this->id-discogs-photos");
     }
 }

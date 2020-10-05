@@ -150,10 +150,6 @@ it('does not query wikipedia when no id is set', function () {
 });
 
 it('can get photos from discogs', function () {
-    $uri = 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg';
-
-    $uri150 = 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg';
-
     $response = [
         'name' => 'Piotr Fronczewski',
         'id' => 602473,
@@ -162,9 +158,9 @@ it('can get photos from discogs', function () {
         'images' => [
             [
                 'type' => 'primary',
-                'uri' => $uri,
+                'uri' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
                 'resource_url' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
-                'uri150' => $uri150,
+                'uri150' => 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
                 'width' => 561,
                 'height' => 800,
             ],
@@ -188,10 +184,7 @@ it('can get photos from discogs', function () {
         'api.discogs.com/*' => Http::response($response, 200),
     ]);
 
-    expect($artist->photos())->toBe([
-        'normal' => $uri,
-        '150' => $uri150,
-    ]);
+    expect($artist->discogsPhotos())->toBe($response['images']);
 
     Http::assertSent(function ($request) {
         return $request->url() === 'https://api.discogs.com/artists/602473'
@@ -202,19 +195,27 @@ it('can get photos from discogs', function () {
 it('caches discogs photos', function () {
     Http::fake();
 
-    $uri = 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg';
-
-    $uri150 = 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg';
-
     $response = [
+        'name' => 'Piotr Fronczewski',
+        'id' => 602473,
+        'resource_url' => 'https://api.discogs.com/artists/602473',
+        'uri' => 'https://www.discogs.com/artist/602473-Piotr-Fronczewski',
         'images' => [
             [
                 'type' => 'primary',
-                'uri' => $uri,
+                'uri' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
                 'resource_url' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
-                'uri150' => $uri150,
+                'uri150' => 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
                 'width' => 561,
                 'height' => 800,
+            ],
+            [
+                'type' => 'secondary',
+                'uri' => 'https://img.discogs.com/6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1187353511.jpeg.jpg',
+                'resource_url' => 'https://img.discogs.com/6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1187353511.jpeg.jpg',
+                'uri150' => 'https://img.discogs.com/BpnX0ilhXYwsudiWfG_heikTqW0=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1187353511.jpeg.jpg',
+                'width' => 500,
+                'height' => 332,
             ],
         ],
     ];
@@ -225,18 +226,12 @@ it('caches discogs photos', function () {
     Cache::shouldReceive('remember')
         ->once()
         ->with(
-            "artist-$artist->id-photo",
+            "artist-$artist->id-discogs-photos",
             Carbon\CarbonInterval::class,
             \Closure::class
-        )->andReturn([
-            'normal' => $uri,
-            '150' => $uri150,
-        ]);
+        )->andReturn($response['images']);
 
-    expect($artist->photos())->toBe([
-        'normal' => $uri,
-        '150' => $uri150,
-    ]);
+    expect($artist->discogsPhotos())->toBe($response['images']);
 
     Http::assertSentCount(0);
 });
@@ -245,7 +240,7 @@ it('does not query discogs when no id is set', function () {
     $artist = Artist::factory()
         ->create(['discogs' => null]);
 
-    expect($artist->photots)->toBeNull();
+    expect($artist->discogsPhotos())->toBe([]);
 });
 
 it('can get photo from discogs', function () {
@@ -253,21 +248,43 @@ it('can get photo from discogs', function () {
 
     $uri150 = 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg';
 
+    $response = [
+        'name' => 'Piotr Fronczewski',
+        'id' => 602473,
+        'resource_url' => 'https://api.discogs.com/artists/602473',
+        'uri' => 'https://www.discogs.com/artist/602473-Piotr-Fronczewski',
+        'images' => [
+            [
+                'type' => 'primary',
+                'uri' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
+                'resource_url' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
+                'uri150' => 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
+                'width' => 561,
+                'height' => 800,
+            ],
+            [
+                'type' => 'secondary',
+                'uri' => 'https://img.discogs.com/6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1187353511.jpeg.jpg',
+                'resource_url' => 'https://img.discogs.com/6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1187353511.jpeg.jpg',
+                'uri150' => 'https://img.discogs.com/BpnX0ilhXYwsudiWfG_heikTqW0=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1187353511.jpeg.jpg',
+                'width' => 500,
+                'height' => 332,
+            ],
+        ],
+    ];
+
     $artist = Artist::factory()
         ->create(['discogs' => '602473']);
 
     Cache::shouldReceive('remember')
         ->times(2)
         ->with(
-            "artist-$artist->id-photo",
+            "artist-$artist->id-discogs-photos",
             Carbon\CarbonInterval::class,
             \Closure::class
-        )->andReturn([
-            'normal' => $uri,
-            '150' => $uri150,
-        ]);
+        )->andReturn($response['images']);
 
-    expect($artist->photo('normal'))->toBe($uri)
+    expect($artist->photo())->toBe($uri)
         ->and($artist->photo('150'))->toBe($uri150);
 });
 
@@ -393,15 +410,31 @@ it('can flush cached wikipedia extract and discogs photos', function () {
 
     $newUri150 = 'https://img.discogs.com/BpnX0ilhXYwsudiWfG_heikTqW0=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1187353511.jpeg.jpg';
 
-    $response = ['images' => [[
-        'uri' => $uri,
-        'uri150' => $uri150,
-    ]]];
+    $response = [
+        'images' => [
+            [
+                'type' => 'primary',
+                'uri' => $uri,
+                'resource_url' => $uri,
+                'uri150' => $uri150,
+                'width' => 561,
+                'height' => 800,
+            ],
+        ],
+    ];
 
-    $newResponse = ['images' => [[
-        'uri' => $newUri,
-        'uri150' => $newUri150,
-    ]]];
+    $newResponse = [
+        'images' => [
+            [
+                'type' => 'primary',
+                'uri' => $newUri,
+                'resource_url' => $newUri,
+                'uri150' => $newUri150,
+                'width' => 561,
+                'height' => 800,
+            ],
+        ],
+    ];
 
     $artist = Artist::factory()->create([
         'wikipedia' => 'Piotr_Fronczewski',
@@ -418,10 +451,7 @@ it('can flush cached wikipedia extract and discogs photos', function () {
 
     expect($artist->wikipedia_extract)->toBe($extract);
 
-    expect($artist->photos())->toBe([
-        'normal' => $uri,
-        '150' => $uri150,
-    ]);
+    expect($artist->discogsPhotos())->toBe($response['images']);
 
     Http::clearResolvedInstances();
 
@@ -434,19 +464,13 @@ it('can flush cached wikipedia extract and discogs photos', function () {
 
     expect($artist->wikipedia_extract)->toBe($extract);
 
-    expect($artist->photos())->toBe([
-        'normal' => $uri,
-        '150' => $uri150,
-    ]);
+    expect($artist->discogsPhotos())->toBe($response['images']);
 
     expect($artist->flushCache())->toBeTrue();
 
     expect($artist->wikipedia_extract)->toBe($newExtract);
 
-    expect($artist->photos())->toBe([
-        'normal' => $newUri,
-        '150' => $newUri150,
-    ]);
+    expect($artist->discogsPhotos())->toBe($newResponse['images']);
 });
 
 test('findBySlug method works', function () {
