@@ -1,5 +1,4 @@
 import './artistPicker'
-import axios from 'axios'
 
 window.taleFormData = function (data) {
   return {

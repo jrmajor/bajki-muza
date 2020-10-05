@@ -12,7 +12,6 @@
     "dependencies": {
         "@tailwindcss/ui": "^0.3.1",
         "alpinejs": "^2.7.0",
-        "axios": "^0.19.2",
         "tailwindcss": "^1.8.6"
     },
     "devDependencies": {

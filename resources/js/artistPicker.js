@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 window.artistPickerData = function (data) {
   return {
     route: data.route,
@@ -15,18 +13,12 @@ window.artistPickerData = function (data) {
       if (this.value.length < 2) {
         this.artists = []
       } else {
-        axios.get(this.route, {
-          params: {
-            search: this.value
-          }
-        })
-        .then(response => {
-          this.artists = response.data
-          if (this.hovered > this.artists.length - 1) this.hovered = null
-        })
-        .catch(response => {
-          console.log(response)
-        })
+        fetch(this.route + `?search=${encodeURIComponent(this.value)}`)
+          .then(response => response.json())
+          .then(data => {
+            this.artists = data
+            if (this.hovered > this.artists.length - 1) this.hovered = null
+          })
       }
     },
 

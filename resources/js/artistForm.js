@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 window.artistFormData = function (data) {
   return {
     route: data.route,
@@ -23,17 +21,15 @@ window.artistFormData = function (data) {
       if (this[type].value.length < 5) {
         this[type].people = []
       } else {
-        axios.get(this.route + '/' + (type == 'filmPolski' ? 'filmpolski' : type), {
-          params: {
-            search: this[type].value
-          }
-        })
-        .then(response => {
-          this[type].people = response.data
-        })
-        .catch(response => {
-          console.log(response)
-        })
+        fetch(
+          this.route + '/'
+            + (type == 'filmPolski' ? 'filmpolski' : type)
+            + `?search=${encodeURIComponent(this[type].value)}`
+        )
+          .then(response => response.json())
+          .then(data => {
+            this[type].people = data
+          })
       }
     },
   }
