@@ -80,7 +80,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asDirector as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-13 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-gray-400 bg-cover w-13 h-13"
                                 style="background-image: url(
                                     @if ($tale->cover)
@@ -119,7 +119,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asLyricist as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-13 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-gray-400 bg-cover w-13 h-13"
                                 style="background-image: url(
                                     @if ($tale->cover)
@@ -158,7 +158,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asComposer as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-13 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-13 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-gray-400 bg-cover w-13 h-13"
                                 style="background-image: url(
                                     @if ($tale->cover)
@@ -197,7 +197,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asActor as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-15 flex items-center bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-15 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-gray-400 bg-cover w-15 h-15"
                                 style="background-image: url(
                                     @if ($tale->cover)
