@@ -48,7 +48,7 @@ class AjaxController extends Controller
             $crawler = (new Crawler($source))
                 ->filter('.wynikiszukania');
 
-            if ($crawler->count() == 0) {
+            if ($crawler->count() === 0) {
                 return response()->json([]);
             }
 

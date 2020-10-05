@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Services\Wikipedia;
 use Carbon\CarbonInterval;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -71,27 +71,20 @@ class Artist extends Model
 
     public function getWikipediaUrlAttribute()
     {
-        return $this->filmpolski ? "https://pl.wikipedia.org/wiki/$this->wikipedia" : null;
+        return $this->wikipedia ? "https://pl.wikipedia.org/wiki/$this->wikipedia" : null;
     }
 
-    public function getWikipediaExtractAttribute()
+    public function getWikipediaExtractAttribute(): ?string
     {
         if (! $this->wikipedia) {
             return null;
         }
 
-        return Cache::remember("artist-$this->id-wiki", CarbonInterval::week(), function () {
-            $response = Http::get('https://pl.wikipedia.org/w/api.php', [
-                'action' => 'query',
-                'titles' => $this->wikipedia,
-                'prop' => 'extracts',
-                'exintro' => 1,
-                'redirects' => 1,
-                'format' => 'json',
-            ]);
-
-            return Arr::first($response['query']['pages'])['extract'] ?? null;
-        });
+        return Cache::remember(
+            "artist-$this->id-wikipedia-extract",
+            CarbonInterval::week(),
+            fn () => Wikipedia::extract($this->wikipedia)
+        );
     }
 
     public function photos()
@@ -176,7 +169,7 @@ class Artist extends Model
 
     public function flushCache()
     {
-        return Cache::forget("artist-$this->id-photo")
-            && Cache::forget("artist-$this->id-wiki");
+        return Cache::forget("artist-$this->id-wikipedia-extract")
+            && Cache::forget("artist-$this->id-photo");
     }
 }

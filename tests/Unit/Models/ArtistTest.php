@@ -132,7 +132,7 @@ it('caches wikipedia extract', function () {
     Cache::shouldReceive('remember')
         ->once()
         ->with(
-            "artist-$artist->id-wiki",
+            "artist-$artist->id-wikipedia-extract",
             Carbon\CarbonInterval::class,
             \Closure::class
         )->andReturn($extract);
