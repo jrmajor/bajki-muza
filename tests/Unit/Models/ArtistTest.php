@@ -3,6 +3,7 @@
 use App\Models\Artist;
 use App\Models\Tale;
 use Facades\App\Services\Discogs;
+use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -66,13 +67,11 @@ it('can generate filmpolski url', function () {
     $artist = Artist::factory()
         ->make(['filmpolski' => 112891]);
 
+    FilmPolski::shouldReceive('url')
+        ->andReturn('http://www.filmpolski.pl/fp/index.php?osoba=112891');
+
     expect($artist->filmpolski_url)
         ->toBe('http://www.filmpolski.pl/fp/index.php?osoba=112891');
-
-    $artist = Artist::factory()->make();
-
-    expect($artist->filmpolski_url)
-        ->toBe("http://www.filmpolski.pl/fp/index.php?osoba=$artist->filmpolski");
 });
 
 it('can generate wikipedia url', function () {

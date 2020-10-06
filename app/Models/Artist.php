@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Facades\App\Services\Discogs;
+use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,7 +65,7 @@ class Artist extends Model
 
     public function getFilmpolskiUrlAttribute()
     {
-        return $this->filmpolski ? "http://www.filmpolski.pl/fp/index.php?osoba=$this->filmpolski" : null;
+        return $this->filmpolski ? FilmPolski::url($this->filmpolski) : null;
     }
 
     public function getWikipediaUrlAttribute()
