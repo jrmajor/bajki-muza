@@ -3,6 +3,7 @@
 use App\Models\Artist;
 use App\Models\Tale;
 use Facades\App\Services\Discogs;
+use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
@@ -109,43 +110,19 @@ it('can get extract from wikipedia', function () {
     $artist = Artist::factory()
         ->create(['wikipedia' => 'Piotr_Fronczewski']);
 
-    Http::fake([
-        'pl.wikipedia.org/*' => Http::response([
-            'query' => ['pages' => [3462 => ['extract' => $extract]]]
-        ], 200),
-    ]);
+    Wikipedia::shouldReceive('extract')
+        ->with('Piotr_Fronczewski')
+        ->andReturn($extract);
 
     expect($artist->wikipedia_extract)->toBe($extract);
-
-    Http::assertSent(
-        fn ($request) => $request->url() === 'https://pl.wikipedia.org/w/api.php?action=query&titles=Piotr_Fronczewski&prop=extracts&exintro=1&redirects=1&format=json'
-    );
-});
-
-it('caches wikipedia extract', function () {
-    Http::fake();
-
-    $extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor.\n</p>";
-
-    $artist = Artist::factory()
-        ->create(['wikipedia' => 'Piotr_Fronczewski']);
-
-    Cache::shouldReceive('remember')
-        ->once()
-        ->with(
-            "artist-$artist->id-wikipedia-extract",
-            Carbon\CarbonInterval::class,
-            \Closure::class
-        )->andReturn($extract);
-
-    expect($artist->wikipedia_extract)->toBe($extract);
-
-    Http::assertSentCount(0);
 });
 
 it('does not query wikipedia when no id is set', function () {
     $artist = Artist::factory()
         ->create(['wikipedia' => null]);
+
+    Wikipedia::spy()
+        ->shouldNotReceive('extract');
 
     expect($artist->wikipedia_extract)->toBeNull();
 });
@@ -175,6 +152,9 @@ it('can get photos from discogs', function () {
 it('does not query discogs when no id is set', function () {
     $artist = Artist::factory()
         ->create(['discogs' => null]);
+
+    Discogs::spy()
+        ->shouldNotReceive('photos');
 
     expect($artist->discogsPhotos())->toBe([]);
 });
@@ -312,40 +292,20 @@ test('appearances method works', function () {
 });
 
 it('can flush cached data', function () {
-    $extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor.\n</p>";
-
-    $newExtract = "<p><b>Franek Kimono</b> (ur. 8 czerwca 1946 w Łodzi) – polski muzyk.\n</p>";
-
     $artist = Artist::factory()->create([
         'wikipedia' => 'Piotr_Fronczewski',
         'discogs' => 602473,
     ]);
 
-    Http::fake([
-        'pl.wikipedia.org/*' => Http::response([
-            'query' => ['pages' => [3462 => ['extract' => $extract]]]
-        ], 200),
-    ]);
-
-    expect($artist->wikipedia_extract)->toBe($extract);
-
-    Http::clearResolvedInstances();
-
-    Http::fake([
-        'pl.wikipedia.org/*' => Http::response([
-            'query' => ['pages' => [3462 => ['extract' => $newExtract]]]
-        ], 200),
-    ]);
-
-    expect($artist->wikipedia_extract)->toBe($extract);
+    Wikipedia::shouldReceive('forget')
+        ->with('Piotr_Fronczewski')
+        ->andReturn(true);
 
     Discogs::shouldReceive('forget')
         ->with(602473)
         ->andReturn(true);
 
     expect($artist->flushCache())->toBeTrue();
-
-    expect($artist->wikipedia_extract)->toBe($newExtract);
 });
 
 test('findBySlug method works', function () {
