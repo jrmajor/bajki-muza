@@ -34,6 +34,11 @@ beforeEach(function () {
     ];
 });
 
+it('can create page url', function () {
+    expect(Wikipedia::url('Joanna_Sobieska'))
+        ->toBe('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
+});
+
 it('can get extract from wikipedia', function () {
     Http::fake([
         'pl.wikipedia.org/*' => Http::response($this->response, 200),

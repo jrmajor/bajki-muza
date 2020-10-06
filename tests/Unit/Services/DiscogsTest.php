@@ -32,6 +32,11 @@ beforeEach(function () {
     ];
 });
 
+it('can create artist url', function () {
+    expect(Discogs::url('518243'))
+        ->toBe('https://www.discogs.com/artist/518243');
+});
+
 it('can get photos from discogs', function () {
     config()->set('services.discogs.token', '4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR');
 

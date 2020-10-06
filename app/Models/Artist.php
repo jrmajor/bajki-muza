@@ -59,7 +59,7 @@ class Artist extends Model
 
     public function getDiscogsUrlAttribute()
     {
-        return $this->discogs ? "https://www.discogs.com/artist/$this->discogs" : null;
+        return $this->discogs ? Discogs::url($this->discogs) : null;
     }
 
     public function getFilmpolskiUrlAttribute()
@@ -69,7 +69,7 @@ class Artist extends Model
 
     public function getWikipediaUrlAttribute()
     {
-        return $this->wikipedia ? "https://pl.wikipedia.org/wiki/$this->wikipedia" : null;
+        return $this->wikipedia ? Wikipedia::url($this->wikipedia) : null;
     }
 
     public function getWikipediaExtractAttribute(): ?string

@@ -8,10 +8,12 @@ use function Pest\Laravel\get;
 it('works', function () {
     $artist = Artist::factory()->create();
 
-    Wikipedia::shouldReceive('extract')
+    Wikipedia::partialMock()
+        ->shouldReceive('extract')
         ->andReturn('test');
 
-    Discogs::shouldReceive('photos')
+    Discogs::partialMock()
+        ->shouldReceive('photos')
         ->andReturn([]);
 
     get("artysci/$artist->slug")

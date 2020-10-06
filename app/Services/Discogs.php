@@ -21,6 +21,11 @@ class Discogs
         ]);
     }
 
+    public function url(int $id): string
+    {
+        return "https://www.discogs.com/artist/$id";
+    }
+
     public function photos(int $id): array
     {
         return Cache::remember(

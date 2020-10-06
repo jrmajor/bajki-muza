@@ -55,13 +55,11 @@ it('can generate discogs url', function () {
     $artist = Artist::factory()
         ->make(['discogs' => 518243]);
 
+    Discogs::shouldReceive('url')
+        ->andReturn('https://www.discogs.com/artist/518243');
+
     expect($artist->discogs_url)
         ->toBe('https://www.discogs.com/artist/518243');
-
-    $artist = Artist::factory()->make();
-
-    expect($artist->discogs_url)
-        ->toBe("https://www.discogs.com/artist/$artist->discogs");
 });
 
 it('can generate filmpolski url', function () {
@@ -81,13 +79,11 @@ it('can generate wikipedia url', function () {
     $artist = Artist::factory()
         ->make(['wikipedia' => 'Joanna_Sobieska']);
 
+    Wikipedia::shouldReceive('url')
+        ->andReturn('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
+
     expect($artist->wikipedia_url)
         ->toBe('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
-
-    $artist = Artist::factory()->make();
-
-    expect($artist->wikipedia_url)
-        ->toBe("https://pl.wikipedia.org/wiki/$artist->wikipedia");
 });
 
 it('does not generate nonexistent urls', function () {
