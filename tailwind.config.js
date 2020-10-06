@@ -94,7 +94,9 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    opacity: ({ after }) => after(['group-hover']),
+  },
   plugins: [
     require('@tailwindcss/ui'),
   ],
