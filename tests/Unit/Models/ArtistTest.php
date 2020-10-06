@@ -133,7 +133,7 @@ it('can get photos from discogs', function () {
     ];
 
     $artist = Artist::factory()
-        ->create(['discogs' => '602473']);
+        ->create(['discogs' => 602473]);
 
     Discogs::shouldReceive('photos')
         ->with(602473)
@@ -152,6 +152,36 @@ it('does not query discogs when no id is set', function () {
     expect($artist->discogsPhotos())->toBe([]);
 });
 
+it('can get photos from filmpolski', function () {
+    $images = [
+        'main' => [
+            'year' => null,
+            'photos' => [
+                'test',
+            ],
+        ],
+    ];
+
+    $artist = Artist::factory()
+        ->create(['filmpolski' => 112891]);
+
+    FilmPolski::shouldReceive('photos')
+        ->with(112891)
+        ->andReturn($images);
+
+    expect($artist->filmPolskiPhotos())->toBe($images);
+});
+
+it('does not query filmpolski when no id is set', function () {
+    $artist = Artist::factory()
+        ->create(['filmpolski' => null]);
+
+    FilmPolski::spy()
+        ->shouldNotReceive('photos');
+
+    expect($artist->filmPolskiPhotos())->toBe([]);
+});
+
 it('can get photo from discogs', function () {
     $images = [
         [
@@ -165,7 +195,7 @@ it('can get photo from discogs', function () {
     ];
 
     $artist = Artist::factory()
-        ->create(['discogs' => '602473']);
+        ->create(['discogs' => 602473]);
 
     Discogs::shouldReceive('photos')
         ->with(602473)

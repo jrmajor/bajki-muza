@@ -91,6 +91,15 @@ class Artist extends Model
         return Discogs::photos($this->discogs);
     }
 
+    public function filmPolskiPhotos(): array
+    {
+        if (! $this->filmpolski) {
+            return [];
+        }
+
+        return FilmPolski::photos($this->filmpolski);
+    }
+
     public function photo($type = 'normal'): ?string
     {
         $type = $type == '150' ? 'uri150' : 'uri';
