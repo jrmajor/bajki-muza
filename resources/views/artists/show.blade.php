@@ -6,15 +6,13 @@
 
     <div class="flex flex-col sm:flex-row items-center mb-6">
 
-        <div class="sm:hidden text-center">
-            <h2 class="text-2xl font-medium leading-7">
-                @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
-                    @foreach (explode(' ', $artist->name) as $word)
-                        <span class="shadow-title px-1.5 @if (! $loop->last) -mx-1.5 @else -ml-1.5 @endif">{{ $word }}</span>
-                    @endforeach
-                @auth </a> @endauth
-            </h2>
-        </div>
+        <h2 class="sm:hidden text-2xl font-medium leading-7">
+            @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
+                @foreach (explode(' ', $artist->name) as $word)
+                    <span class="shadow-title px-1.5 @if (! $loop->last) -mx-1.5 @else -ml-1.5 @endif">{{ $word }}</span>
+                @endforeach
+            @auth </a> @endauth
+        </h2>
 
         @if ($artist->photo())
             <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg shadow-lg rounded-lg overflow-hidden">
