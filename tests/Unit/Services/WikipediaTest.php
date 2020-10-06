@@ -9,25 +9,25 @@ beforeEach(function () {
     $this->extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor teatralny, filmowy i dubbingowy, piosenkarz, satyryk, reżyser teatralny oraz pedagog. \n</p><p>Ma w swoim dorobku artystycznym blisko 120 ról filmowych w serialach telewizyjnych i filmach fabularnych. Jeden z najwybitniejszych i najwszechstronniejszych aktorów w historii polskiej kinematografii. Przez Gustawa Holoubka, Tadeusza Łomnickiego i Zbigniewa Zapasiewicza został w 1990 uznany za jednego z trzech największych polskich aktorów dramatycznych po 1965 (obok Wojciecha Pszoniaka i Andrzeja Seweryna).\n</p>";
 
     $this->response = [
-        "batchcomplete" => "",
-        "warnings" => [
-            "extracts" => [
-                "*" => "HTML may be malformed and/or unbalanced and may omit inline images. Use at your own risk. Known problems are listed at https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TextExtracts#Caveats.",
+        'batchcomplete' => '',
+        'warnings' => [
+            'extracts' => [
+                '*' => 'HTML may be malformed and/or unbalanced and may omit inline images. Use at your own risk. Known problems are listed at https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:TextExtracts#Caveats.',
             ],
         ],
-        "query" => [
-            "normalized" => [
+        'query' => [
+            'normalized' => [
                 [
-                    "from" => "Piotr_Fronczewski",
-                    "to" => "Piotr Fronczewski",
+                    'from' => 'Piotr_Fronczewski',
+                    'to' => 'Piotr Fronczewski',
                 ],
             ],
-            "pages" => [
+            'pages' => [
                 117656 => [
-                    "pageid" => 117656,
-                    "ns" => 0,
-                    "title" => "Piotr Fronczewski",
-                    "extract" => $this->extract,
+                    'pageid' => 117656,
+                    'ns' => 0,
+                    'title' => 'Piotr Fronczewski',
+                    'extract' => $this->extract,
                 ],
             ],
         ],
@@ -52,7 +52,7 @@ it('caches wikipedia extract', function () {
     Cache::shouldReceive('remember')
         ->once()
         ->with(
-            "wikipedia-c562333d77f2c81b6f75acd8bd7c7871-extract",
+            'wikipedia-c562333d77f2c81b6f75acd8bd7c7871-extract',
             CarbonInterval::class,
             Closure::class
         )->andReturn($this->extract);
@@ -64,14 +64,14 @@ it('caches wikipedia extract', function () {
 
 it('can flush cached data', function () {
     $newResponse = [
-        "query" => [
-            "pages" => [
+        'query' => [
+            'pages' => [
                 117656 => [
-                    "extract" => 'test',
+                    'extract' => 'test',
                 ],
             ],
         ],
-    ];;
+    ];
 
     Http::fake([
         'pl.wikipedia.org/*' => Http::response($this->response, 200),

@@ -13,7 +13,7 @@ class ServicesServiceProvider extends ServiceProvider
         $this->app->singleton(Wikipedia::class);
 
         $this->app->singleton(Discogs::class, function ($app) {
-           return new Discogs($app->config->get('services.discogs.token'));
+            return new Discogs($app->config->get('services.discogs.token'));
         });
     }
 }

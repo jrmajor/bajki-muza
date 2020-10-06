@@ -2,7 +2,8 @@
 
 use App\Models\Artist;
 use App\Models\Tale;
-use function Pest\Laravel\{get, put};
+use function Pest\Laravel\get;
+use function Pest\Laravel\put;
 use function Tests\asUser;
 
 beforeEach(function () {
@@ -94,7 +95,7 @@ test('users with permissions can add tale lyricists', function () {
                                 'credit_nr' => $credit_nr + 1,
                             ];
                         }
-                    )->all()
+                    )->all(),
                 ]
             )
         )->assertRedirect("bajki/{$this->tale->slug}");
@@ -126,7 +127,7 @@ test('users with permissions can add tale composers', function () {
                                 'credit_nr' => $credit_nr + 1,
                             ];
                         }
-                    )->all()
+                    )->all(),
                 ]
             )
         )->assertRedirect("bajki/{$this->tale->slug}");
@@ -155,11 +156,11 @@ test('users with permissions can add tale actors', function () {
                         function ($composer, $credit_nr) {
                             return [
                                 'artist' => $composer->slug,
-                                'characters' => 'Zbójca ' . ($credit_nr + 1),
+                                'characters' => 'Zbójca '.($credit_nr + 1),
                                 'credit_nr' => $credit_nr + 1,
                             ];
                         }
-                    )->all()
+                    )->all(),
                 ]
             )
         )->assertRedirect("bajki/{$this->tale->slug}");

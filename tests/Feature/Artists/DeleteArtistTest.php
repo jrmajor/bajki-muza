@@ -11,7 +11,6 @@ test('guests can not delete artist', function () {
         ->assertRedirect('login');
 
     expect($artist->fresh())->not->toBeNull();
-
 });
 
 test('users can delete artist', function () {
@@ -22,5 +21,4 @@ test('users can delete artist', function () {
         ->assertRedirect('artysci');
 
     expect($artist->fresh())->toBeNull();
-
 });

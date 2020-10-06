@@ -6,8 +6,6 @@ use Facades\App\Services\Discogs;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 
 it('casts discogs and filmpolski ids to integers', function () {
     $artist = Artist::factory()->create([
@@ -48,7 +46,7 @@ it('regenerates slug when updated', function () {
 
     expect($artist->slug)->toBe('zofia-rysiowna');
 
-    $artist->fill(['name' => 'Andrzej Stockinger'])->save() ;
+    $artist->fill(['name' => 'Andrzej Stockinger'])->save();
 
     expect($artist->slug)->toBe('andrzej-stockinger');
 });

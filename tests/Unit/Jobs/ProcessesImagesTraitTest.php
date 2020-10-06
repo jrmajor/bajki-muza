@@ -1,8 +1,8 @@
 <?php
 
 use App\Jobs\ProcessesImages;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Illuminate\Support\Str;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 it('can copy image to temporary directory', function () {
     $temporaryDirectory = (new TemporaryDirectory)->create();
@@ -33,7 +33,6 @@ it('generates placeholder', function () {
 
     $temporaryDirectory->delete();
 });
-
 
 it('can generate responsive images', function () {
     $temporaryDirectory = (new TemporaryDirectory)->create();

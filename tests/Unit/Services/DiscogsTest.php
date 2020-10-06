@@ -1,7 +1,7 @@
 <?php
 
-use Facades\App\Services\Discogs;
 use Carbon\CarbonInterval;
+use Facades\App\Services\Discogs;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -53,7 +53,7 @@ it('caches discogs photos', function () {
     Cache::shouldReceive('remember')
         ->once()
         ->with(
-            "discogs-602473-photos",
+            'discogs-602473-photos',
             CarbonInterval::class,
             Closure::class
         )->andReturn($this->response['images']);

@@ -25,9 +25,9 @@ it('works', function () {
         ->toBe(file_get_contents(__DIR__.'/cover_128.jpg'));
 
     Storage::cloud()->delete("covers/original/$this->filename");
-    rmdir(storage_path("testing/covers/original"));
+    rmdir(storage_path('testing/covers/original'));
 
-    foreach(ProcessTaleCover::$sizes as $size) {
+    foreach (ProcessTaleCover::$sizes as $size) {
         Storage::cloud()->delete("covers/$size/$this->filename");
         rmdir(storage_path("testing/covers/$size"));
     }

@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Artist;
-use Illuminate\Support\Facades\Cache;
 use function Pest\Laravel\get;
 
 it('works', function () {
@@ -12,5 +11,5 @@ it('works', function () {
 });
 
 it('returns 404 when attempting to view nonexistent artist')
-    ->get("artysci/nonexistent-artist")
+    ->get('artysci/nonexistent-artist')
     ->assertStatus(404);

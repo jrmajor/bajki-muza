@@ -13,5 +13,4 @@ abstract class TestCase extends BaseTestCase
     {
         return $this->actingAs($user ?? User::factory()->create(), $driver);
     }
-
 }

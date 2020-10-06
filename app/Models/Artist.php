@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Carbon\CarbonInterval;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
@@ -137,7 +135,7 @@ class Artist extends Model
                 )->unionAll(DB::table('tales_actors')->select('id')
                     ->whereColumn('artist_id', 'artists.id')
                 )
-            )->select(DB::raw('count(*) as appearances'))
+            )->select(DB::raw('count(*) as appearances')),
         ])->withCasts(['appearances' => 'int']);
     }
 

@@ -8,8 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Illuminate\Support\Facades\Storage;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class ProcessTaleCover implements ShouldQueue
 {

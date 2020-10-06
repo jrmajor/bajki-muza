@@ -29,4 +29,3 @@ get('ajax/wikipedia')
 test()->asUser()
     ->get('ajax/wikipedia')
     ->assertOk();
-

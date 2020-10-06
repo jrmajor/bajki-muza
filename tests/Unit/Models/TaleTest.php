@@ -40,7 +40,7 @@ it('regenerates slug when updated', function () {
 
     expect($tale->slug)->toBe('ali-baba-i-czterdziestu-rozbojnikow');
 
-    $tale->fill(['title' => 'Jak Janek i Marianek szczęścia szukali'])->save() ;
+    $tale->fill(['title' => 'Jak Janek i Marianek szczęścia szukali'])->save();
 
     expect($tale->slug)->toBe('jak-janek-i-marianek-szczescia-szukali');
 });

@@ -1,7 +1,8 @@
 <?php
 
 use App\Models\Artist;
-use function Pest\Laravel\{get, put};
+use function Pest\Laravel\get;
+use function Pest\Laravel\put;
 use function Tests\asUser;
 
 beforeEach(function () {

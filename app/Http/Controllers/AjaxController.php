@@ -66,7 +66,6 @@ class AjaxController extends Controller
             }
 
             return response()->json($people->unique('id'));
-
         } catch (InvalidArgumentException $e) {
             return response()->json([]);
         }
