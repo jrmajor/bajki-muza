@@ -3,6 +3,7 @@
 use App\Jobs\ProcessesImages;
 use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use function Tests\fixture;
 
 it('can copy image to temporary directory', function () {
     $temporaryDirectory = (new TemporaryDirectory)->create();
@@ -10,7 +11,7 @@ it('can copy image to temporary directory', function () {
     $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
 
     $copiedFilePath = $imagesProcessor->copyToTemporaryDirectory(
-        fopen(__DIR__.'/cover.jpg', 'r'),
+        fopen(fixture('Images/cover.jpg'), 'r'),
         $temporaryDirectory, 'desiredFilename.jpg'
     );
 
@@ -18,7 +19,7 @@ it('can copy image to temporary directory', function () {
         ->and(Str::endsWith($copiedFilePath, 'desiredFilename.jpg'))->toBeTrue();
 
     expect(file_get_contents($temporaryDirectory->path('desiredFilename.jpg')))
-        ->toBe(file_get_contents(__DIR__.'/cover.jpg'));
+        ->toBe(file_get_contents(fixture('Images/cover.jpg')));
 
     $temporaryDirectory->delete();
 });
@@ -28,8 +29,8 @@ it('generates placeholder', function () {
 
     $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
 
-    expect($imagesProcessor->generateTinyJpg(__DIR__.'/cover.jpg', $temporaryDirectory))
-        ->toBe(file_get_contents(__DIR__.'/placeholder.b64'));
+    expect($imagesProcessor->generateTinyJpg(fixture('Images/cover.jpg'), $temporaryDirectory))
+        ->toBe(file_get_contents(fixture('Images/cover_placeholder.b64')));
 
     $temporaryDirectory->delete();
 });
@@ -40,7 +41,7 @@ it('can generate responsive images', function () {
     $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
 
     $responsiveImagePath = $imagesProcessor->generateResponsiveImage(
-        __DIR__.'/cover.jpg',
+        fixture('Images/cover.jpg'),
         128, 'fit',
         $temporaryDirectory
     );
@@ -48,7 +49,7 @@ it('can generate responsive images', function () {
     expect($responsiveImagePath)->toBe($temporaryDirectory->path('cover_128.jpg'));
 
     expect(file_get_contents($responsiveImagePath))
-        ->toBe(file_get_contents(__DIR__.'/cover_128.jpg'));
+        ->toBe(file_get_contents(fixture('Images/cover_128.jpg')));
 
     $temporaryDirectory->delete();
 });

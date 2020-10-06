@@ -4,31 +4,32 @@ use App\Jobs\ProcessTaleCover;
 use App\Models\Tale;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function Tests\fixture;
 
 it('works', function () {
-    $this->filename = Str::random('10').'.jpg';
+    $filename = Str::random('10').'.jpg';
 
     // Photo by David Grandmougin on Unsplash
-    $file = fopen(__DIR__.'/cover.jpg', 'r');
+    $file = fopen(fixture('Images/cover.jpg'), 'r');
 
-    Storage::cloud()->put("covers/original/$this->filename", $file, 'public');
+    Storage::cloud()->put("covers/original/$filename", $file, 'public');
 
-    $this->tale = Tale::factory()
-        ->create(['cover' => $this->filename]);
+    $tale = Tale::factory()
+        ->create(['cover' => $filename]);
 
-    ProcessTaleCover::dispatchSync($this->tale);
+    ProcessTaleCover::dispatchSync($tale);
 
-    expect($this->tale->fresh()->cover_placeholder)
-        ->toBe(file_get_contents(__DIR__.'/placeholder.b64'));
+    expect($tale->fresh()->cover_placeholder)
+        ->toBe(file_get_contents(fixture('Images/cover_placeholder.b64')));
 
-    expect(file_get_contents(storage_path("testing/covers/128/$this->filename")))
-        ->toBe(file_get_contents(__DIR__.'/cover_128.jpg'));
+    expect(file_get_contents(storage_path("testing/covers/128/$filename")))
+        ->toBe(file_get_contents(fixture('Images/cover_128.jpg')));
 
-    Storage::cloud()->delete("covers/original/$this->filename");
+    Storage::cloud()->delete("covers/original/$filename");
     rmdir(storage_path('testing/covers/original'));
 
     foreach (ProcessTaleCover::$sizes as $size) {
-        Storage::cloud()->delete("covers/$size/$this->filename");
+        Storage::cloud()->delete("covers/$size/$filename");
         rmdir(storage_path("testing/covers/$size"));
     }
 });
