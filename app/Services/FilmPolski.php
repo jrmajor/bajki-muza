@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Spatie\Regex\Regex;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
@@ -129,6 +130,8 @@ class FilmPolski
                 $photo = $nodeCrawler
                     ->children()->children()
                     ->attr('src');
+
+                $photo = Regex::replace('/\/([0-9]+)i\//', '/$1z/', $photo)->result();
 
                 $photos[$title]['photos'][] = $photo;
             } catch (InvalidArgumentException $e) {

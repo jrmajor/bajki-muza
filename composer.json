@@ -20,6 +20,7 @@
         "livewire/livewire": "^2.1",
         "spatie/image": "^1.7",
         "spatie/laravel-sluggable": "^2.5.1",
+        "spatie/regex": "^1.4",
         "spatie/temporary-directory": "^1.2",
         "symfony/css-selector": "^5.1",
         "symfony/dom-crawler": "^5.1"
