@@ -316,16 +316,21 @@ test('appearances method works', function () {
 
 it('can flush cached data', function () {
     $artist = Artist::factory()->create([
-        'wikipedia' => 'Piotr_Fronczewski',
         'discogs' => 602473,
+        'filmpolski' => 112891,
+        'wikipedia' => 'Piotr_Fronczewski',
     ]);
-
-    Wikipedia::shouldReceive('forget')
-        ->with('Piotr_Fronczewski')
-        ->andReturn(true);
 
     Discogs::shouldReceive('forget')
         ->with(602473)
+        ->andReturn(true);
+
+    FilmPolski::shouldReceive('forget')
+        ->with(112891)
+        ->andReturn(true);
+
+    Wikipedia::shouldReceive('forget')
+        ->with('Piotr_Fronczewski')
         ->andReturn(true);
 
     expect($artist->flushCache())->toBeTrue();

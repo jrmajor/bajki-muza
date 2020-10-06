@@ -166,7 +166,8 @@ class Artist extends Model
 
     public function flushCache()
     {
-        return ($this->wikipedia ? Wikipedia::forget($this->wikipedia) : true)
-            && ($this->discogs ? Discogs::forget($this->discogs) : true);
+        return ($this->discogs ? Discogs::forget($this->discogs) : true)
+            && ($this->filmpolski ? FilmPolski::forget($this->filmpolski) : true)
+            && ($this->wikipedia ? Wikipedia::forget($this->wikipedia) : true);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Carbon\CarbonInterval;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
@@ -16,30 +18,36 @@ class FilmPolski
 
     public function photos(int $id): array
     {
-        $photos = [];
+        return Cache::remember(
+            "filmpolski-$id-photos",
+            CarbonInterval::week(),
+            function () use ($id) {
+                $photos = [];
 
-        $source = $this->getPersonSource($id);
+                $source = $this->getPersonSource($id);
 
-        $mainPhoto = $this->getMainPhoto($source);
+                $mainPhoto = $this->getMainPhoto($source);
 
-        if ($mainPhoto !== null) {
-            $photos = [
-                'main' => [
-                    'year' => null,
-                    'photos' => [$mainPhoto],
-                ],
-            ];
-        }
+                if ($mainPhoto !== null) {
+                    $photos = [
+                        'main' => [
+                            'year' => null,
+                            'photos' => [$mainPhoto],
+                        ],
+                    ];
+                }
 
-        $galleryId = $this->getGalleryId($source);
+                $galleryId = $this->getGalleryId($source);
 
-        if ($galleryId === null) {
-            return $photos;
-        }
+                if ($galleryId === null) {
+                    return $photos;
+                }
 
-        $gallerySource = $this->getGallerySource($galleryId);
+                $gallerySource = $this->getGallerySource($galleryId);
 
-        return array_merge($photos, $this->getPhotosFromGallery($gallerySource));
+                return array_merge($photos, $this->getPhotosFromGallery($gallerySource));
+            }
+        );
     }
 
     protected function getPersonSource(int $id): string
@@ -129,5 +137,10 @@ class FilmPolski
         }
 
         return $photos;
+    }
+
+    public function forget(int $id): bool
+    {
+        return Cache::forget("filmpolski-$id-photos");
     }
 }
