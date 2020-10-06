@@ -1,0 +1,1221 @@
+
+
+<!DOCTYPE html>
+<html lang="pl" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta charset="UTF-8" />
+<title>FilmPolski.pl - Bogusz Bilewski</title>	<meta name="description"  content="Baza filmu polskiego" />
+	<meta name="keywords" content="" />
+	<link href="css/main.css?v=1.0.1" type="text/css" rel="stylesheet" media="all" />
+    <meta name=viewport content="width=device-width">
+
+<!--[if lt IE 7]><style type="text/css">@import "css/ie.css";</style><![endif]-->
+<!--[if IE 5]><style type="text/css">@import "css/ie5.css";</style><![endif]-->
+  
+    <link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+
+<link rel="image_src" href="https://www.filmpolski.pl/fp/img1/logofilmpolski.png" />
+<meta property="og:title" content="FilmPolski.pl" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.filmpolski.pl/fp/index.php" />
+<meta property="og:image" content="https://www.filmpolski.pl/fp/img1/logofilmpolski.png" />
+<meta property="og:site_name" content="FilmPolski" />
+<meta property="og:description" content="Baza filmu polskiego" />
+<meta property="fb:admins" content="1732470877" />
+
+<!--[if lt IE 9]>
+	<script>
+	var e = ("abbr,article,aside,audio,canvas,datalist,details," +
+	"figure,footer,header,hgroup,mark,menu,meter,nav,output," +
+	"progress,section,time,video").split(',');
+	for (var i = 0; i < e.length; i++) {
+	document.createElement(e[i]);
+	}
+	</script>
+<![endif]-->
+
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/fp/js/kryt.js"></script>
+<script type="text/javascript" src="/fp/js/pokzdj.js"></script>
+
+<link rel="search" type="application/opensearchdescription+xml" href="/fp/filmpolski.xml" title="filmpolski.pl" />
+
+<br>
+
+<![if !IE]>
+<script type="text/javascript">
+window.onscroll = scroll;
+
+function scroll () {
+	if (window.pageYOffset >1000)
+	{
+		document.getElementById('dogory_lewe').classList.remove('hidden');
+		document.getElementById('dogory_prawe').classList.remove('hidden');
+	}
+	else	
+	{
+		document.getElementById('dogory_lewe').classList.add('hidden');
+		document.getElementById('dogory_prawe').classList.add('hidden');
+	}
+}
+</script>
+<![endif]>
+  
+</head>
+<body id="poczatek">
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div id="kontener">
+
+<div id="naglowek">
+
+<style type="text/css">
+
+#szuktip {
+	display:none;
+	border:black 1px solid;
+	position:absolute;
+	top:110px;
+	left:550px;
+	width:390px;
+	z-index:1000;
+	background-color:#DDDDDB;
+	padding:0 5px;
+	border-radius:0 0 10px 0;
+	moz-border-radius:0 0 10px 0;
+	webkit-border-radius:0 0 10px 0;
+	font-size:12px;
+	cursor: pointer;
+}
+
+#szuktip h1 {
+	font-weight:bold;
+	margin-bottom:12px;
+	margin-left:-5px;
+	width:385px;
+	color:white;
+	text-shadow: black 0.1em 0.1em 0.2em;
+	padding:1px 0 0 15px;
+	background-color:#566da1;
+}
+
+#szuktip strong {
+	color:#0B3273;
+}
+
+#szuktip p {
+	margin-bottom:4px;
+	text-indent:10px;
+}
+
+#szuktip h1 .x {
+	float:right;
+	cursor:pointer;
+	padding:0 8px;
+	border-left:#FFFFFF 1px solid;
+	background-color:#660000;
+}
+
+#szuktipico {
+	position:absolute;
+	top:43px;
+	left:660px;
+	cursor:help;
+}
+
+
+</style>
+
+
+<script>
+
+function pokaz_tip(id)
+{
+	var element = document.getElementById(id);
+	element.style.display = 'block';
+}
+
+function schowaj_tip(id)
+{
+	var element = document.getElementById(id);
+	element.style.display = 'none';
+}
+
+</script>
+
+<div id="szuktip" onclick="schowaj_tip('szuktip')">
+<h1>Wyszukiwanie<span class="x" title="zamknij podpowiedź">x</span></h1>
+<p>Proszę wpisać poszukiwane słowo lub jego fragment.</p>
+<p>Opcja <strong>fragment</strong> pozwala wyszukać każde wystąpienie poszukiwanego wyrażenia.</p>
+<p>Opcja <strong>początek</strong> pozwala wyszukać wszystkie tytuły i&nbsp;nazwiska rozpoczynające się od wyszukiwanego wyrażenia.<p>
+<p>Opcja <strong>dokładnie</strong> wyszukuje tylko te filmy i osoby, których tytuły, imiona i/lub nazwiska są takie same jak wyszukiwane wyrażenie.</p>
+<p><strong>WAŻNE!</strong> Proszę pamiętać, że każda osoba wpisana jest do bazy w formie „nazwisko, imię”. Wyszukując osoby w opcji <strong>początek</strong> należy wpisać jej nazwisko lub jego początkowy fragment, w opcji <strong>dokładnie</strong> należy wpisać np. Kowalski, Jan (nie Jan Kowalski). W tej opcji wpisanie przecinka i spacji <strong>JEST KONIECZNE</strong>.</p>
+
+
+</div>
+
+<img id="szuktipico" src="img1/tip.png" onClick="pokaz_tip('szuktip')" title="objaśnienia">
+
+<a href="index.php"><img id="logo" src="img1/logo-oryginal.png" alt="Strona główna"/></a>
+<div class="fb-like" data-href="https://www.facebook.com/filmpolski.IBFP/" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+
+<script type="text/javascript" src="js/szukanie.js"></script>
+
+<div id="search-etykieta">Szukaj w bazie</div>
+<form id="search-form" action="index.php" method="get">
+	
+	<fieldset id="wyszukiwarka" > 
+		<input type="search" id="search-text" name="szukaj" placeholder="nazwisko osoby lub tytuł filmu" required x-webkit-speech />
+        <select id="search-select" name="rodzaj" onChange="zapiszRodzajSzukania(this);">
+<option value="1" selected>fragment</option><option value="2">początek</option><option value="3">dokładnie</option>			
+        </select>
+		<input type="submit" id="search-submit" value="" />
+
+	</fieldset>
+    
+</form>
+
+
+</div>
+
+
+
+<div id="menu1">
+
+<ol id="menu2">
+
+<li class="menuitem1"><a href="index.php"><img src="img1/home.png"></a></li>
+<li class="menuitem"><a href="index.php?kalendarium=10.06">Kalendarium</a></li>
+<li class="menuitem"><a href="index.php?filmy_z_roku=2020&typ=2">Filmy z roku</a></li>
+<li class="menuitem"><a href="index.php?kino=1">Filmoteka</a></li>
+<li class="menuitem"><a href="/rec/index.php/slowo">Film w prasie polskiej</a></li>
+
+</ol>
+
+</div>
+<div id="content">
+<div id="sidebar">
+
+<div class="br kontener"><h1>SERWIS TWORZY</h1><div class="notatka_boczna"><a href="http://www.filmschool.lodz.pl" target="_blank"><img class="logoszkoly" src="img1/logo.png"></a></div></div><div class="br kontener"><h1>OSTATNIE PREMIERY</h1><div class="notatka_boczna"><h2>Październik</h2>
+<ol>
+<li class="w1"><div class="dzien">2</div> <strong><a class="tytul" href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></strong></li>
+<li class="w1"><div class="dzien">2</div> <strong><a class="tytul" href="index.php/1252558">SKANDAL. EWENEMENT MOLESTY (film dokumentalny)</a></strong></li>
+<li class="w1"><div class="dzien">3</div> <a class="tytul" href="index.php/1254424">MAYDAY (serial tv; Polsat)</a></li>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1254841">BRZYDULA 2 (serial tv; TVN 7)</a></li>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1254758">HALO, HALO, TU MÓWI WARSZAWA (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">6</div> <strong><a class="tytul" href="index.php/1254860">CHYŁKA. REWIZJA (serial tv; Player)</a></strong></li>
+</ol>
+<h2>Wrzesień</h2>
+<ol>
+<li class="w1"><div class="dzien">1</div> <a class="tytul" href="index.php/1219811">BARWY SZCZĘŚCIA (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">1</div> <a class="tytul" href="index.php/1211953">NA WSPÓLNEJ (sezon 2020/2021; TVN)</a></li>
+<li class="w1"><div class="dzien">1</div> <a class="tytul" href="index.php/1247860">ZAKOCHANI PO USZY (seria 4; TVN 7)</a></li>
+<li class="w1"><div class="dzien">3</div> <a class="tytul" href="index.php/1229961">PRZYJACIÓŁKI (seria 16; Polsat)</a></li>
+<li class="w1"><div class="dzien">4</div> <a class="tytul" href="index.php/1254380">PĘTLA</a></li>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/1225007">USTA USTA (seria 4; TVN)</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/1245011">LEŚNICZÓWKA (sezon 2020/2021; TVP 1)</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/129215">M JAK MIŁOŚĆ (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/128104">NA DOBRE I NA ZŁE (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">10</div> <a class="tytul" href="index.php/1222272">OJCIEC MATEUSZ (seria 24; TVP 1)</a></li>
+<li class="w1"><div class="dzien">12</div> <a class="tytul" href="index.php/1228177">KOMISARZ ALEX (seria 15; TVP 1)</a></li>
+<li class="w1"><div class="dzien">13</div> <a class="tytul" href="index.php/1249485">LUDZIE I BOGOWIE (serial tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">13</div> <a class="tytul" href="index.php/1254503">MELDUJĘ TOBIE POLSKO. ROTMISTRZ PILECKI (Teatr tv; TVP Polonia)</a></li>
+<li class="w1"><div class="dzien">14</div> <a class="tytul" href="index.php/1235639">O MNIE SIĘ NIE MARTW (dokończenie serii 12; TVP 2)</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/1254631">ZAPISKI OFICERA ARMII CZERWONEJ (Teatr tv; TVP Polonia)</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1251945">25 LAT NIEWINNOŚCI. SPRAWA TOMKA KOMENDY</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1246992">ADWOKAT</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1250897">INTERIOR</a></li>
+<li class="w1"><div class="dzien">21</div> <a class="tytul" href="index.php/1254504">TRÓJKĄT BERMUDZKI (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1234315">NA SYGNALE (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">25</div> <a class="tytul" href="index.php/1254221">JAK NAJDALEJ STĄD</a></li>
+<li class="w1"><div class="dzien">25</div> <a class="tytul" href="index.php/1251916">TARAPATY 2</a></li>
+<li class="w1"><div class="dzien">30</div> <a class="tytul" href="index.php/1249735">TONY HALIK (film dokumentalny)</a></li>
+</ol>
+<h2>Sierpień</h2>
+<ol>
+<li class="w1"><div class="dzien">21</div> <a class="tytul" href="index.php/1240751">DOLINA BOGÓW</a></li>
+<li class="w1"><div class="dzien">28</div> <a class="tytul" href="index.php/1249647">ZIEJA</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/127130">KLAN (sezon 2020/2021; TVP 1)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1243681">KORONA KRÓLÓW (sezon 2020/2021; TVP 1)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1214188">PIERWSZA MIŁOŚĆ (sezon 2020/2021; Polsat)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1252870">ŚWIĘTY (seria 2; TV 4)</a></li>
+</ol></div></div><div class="br kontener"><h1>6 października</h1><div class="notatka_boczna"><h2>Urodzili się:</h2><ol><li><span class="rok">1943</span> <a href="index.php/112234">Elżbieta Starostecka</a></li><li><span class="rok">1979</span> <a href="index.php/1144153">Kamilla Baar</a></li></ol><h2>Zmarli:</h2><ol><li><span class="rok">1990</span> <a href="index.php/11116085">Henryk Vogelfänger</a></li></ol><h2>Premiery:</h2><ol><li><span class="rok">1991</span> <a href="index.php/123227">LA DOUBLE VIE DE VERONIQUE</a></li></ol><br /><div class="wiecej"><a href="index.php?kalendarium=10.06">więcej...</a></div></div></div><div class="br kontener"><h1>PLANOWANE PREMIERY</h1><div class="notatka_boczna"><h2>Październik</h2>
+<ol>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/1251316">SZARLATAN</a></li>
+<li class="w1"><div class="dzien">16</div> <a class="tytul" href="index.php/1253352">BANKSTERZY</a></li>
+<li class="w1"><div class="dzien">16</div> <a class="tytul" href="index.php/1247320">RAZ JESZCZE RAZ</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/1254423">BAD BOY (serial tv; Polsat)</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1254028">KRÓLESTWO KOBIET (serial tv; TVN)</a></li>
+<li class="w1"><div class="dzien">19</div> <a class="tytul" href="index.php/1254759">CUD BIEDNYCH LUDZI (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1254791">CZYŚCIEC</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1250969">POLOT</a></li>
+<li class="w1"><div class="dzien">27</div> <a class="tytul" href="index.php/1254775">NIE LUBIĘ PANA, PANIE FELLINI (Teatr tv; TVP Kultura)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1254531">BEZ SKRUPUŁÓW (serial tv; Polsat)</a></li>
+</ol>
+<h2>Listopad</h2>
+<ol>
+<li class="w1"><div class="dzien">4</div> <a class="tytul" href="index.php/1254747">LISTY DO M. 4</a></li>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/1249664">KRÓL (serial tv; Canal+)</a></li>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/1254760">NI Z TEGO, NI Z OWEGO (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">13</div> <a class="tytul" href="index.php/1248305">FISHEYE</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1250703">MAGNEZJA</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1252706">ZABIJ TO I WYJEDŹ Z TEGO MIASTA</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1254761">BADYLE (Teatr tv; TVP 1)</a></li>
+</ol>
+<h2>Grudzień</h2>
+<ol>
+<li class="w1"><div class="dzien">4</div> SMALL WORLD</li>
+<li class="w1"><div class="dzien">14</div> <a class="tytul" href="index.php/1254762">CENA WŁADZY (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">25</div> NA DWA GŁOSY</li>
+<li class="w1"><div class="dzien">25</div> <a class="tytul" href="index.php/1254173">SZCZĘŚCIA CHODZĄ PARAMI</a></li>
+</ol>
+<h2>Styczeń 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/1247463">BROAD PEAK</a></li>
+<li class="w1"><div class="dzien">8</div> KONIEC ŚWIATA CZYLI KOGEL MOGEL 4</li>
+<li class="w1"><div class="dzien">11</div> KOKOLOBOLO, CZYLI OPOWIEŚĆ O PRZYPADKACH ŚLEPEGO MAKSA I SZAI MAGNATA (Teatr tv; TVP 1)</li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/1250627">NAJMRO. KOCHA, KRADNIE, SZANUJE</a></li>
+<li class="w1"><div class="dzien">22</div> <a class="tytul" href="index.php/1254241">DZIEWCZYNY Z DUBAJU</a></li>
+<li class="w1"><div class="dzien">29</div> 8 RZECZY, KTÓRYCH NIE WIECIE O FACETACH</li>
+<li class="w1"><div class="dzien">29</div> MIŁOSNE TURBULENCJE</li>
+<li class="w1"><div class="dzien">29</div> ROLLING TO YOU</li>
+</ol>
+<h2>Luty 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">5</div> WARSAW LOVERS</li>
+<li class="w1"><div class="dzien">12</div> <a class="tytul" href="index.php/1253305">MIŁOŚĆ NA MARSIE</a></li>
+<li class="w1"><div class="dzien">19</div> PORADY NA ZDRADY 2</li>
+<li class="w1"><div class="dzien">26</div> <a class="tytul" href="index.php/1252665">BO WE MNIE JEST SEKS</a></li>
+</ol>
+<h2>Marzec 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1251900">MISTRZ</a></li>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1254574">ZUPA NIC</a></li>
+</ol>
+<h2>Kwiecień 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">16</div> NA PEŁNEJ PETARDZIE. HISTORIA KS. JANA KACZKOWSKIEGO</li>
+</ol>
+<h2>Październik 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">8</div> ŻEBY NIE BYŁO ŚLADÓW</li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/1254220">GIEREK</a></li>
+</ol>
+<h2>Listopad 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1252974">KRIME STORY. LOVE STORY</a></li>
+<li class="w1"><div class="dzien">11</div> PITBULL. KRÓLOWA CHULIGANÓW</li>
+</ol>
+<h2>Styczeń 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">7</div> JAK POKOCHAŁAM GANGSTERA</li>
+<li class="w1"><div class="dzien">28</div> MIŁOSNE TURBULENCJE 2</li>
+</ol>
+<h2>Luty 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">4</div> WARSAW LOVERS 2</li>
+<li class="w1"><div class="dzien">11</div> 365 DNI 3</li>
+<li class="w1"><div class="dzien">25</div> AUTOBIOGRAFIA</li>
+</ol>
+<h2>Październik 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">7</div> <a class="tytul" href="index.php/1254261">CHŁOPI</a></li>
+</ol>
+<h2>Listopad 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">11</div> NARKOTYK</li>
+</ol>
+<h2>Luty 2023</h2>
+<ol>
+<li class="w1"><div class="dzien">3</div> WARSAW LOVERS 3</li>
+</ol>
+<h2>Luty 2024</h2>
+<ol>
+<li class="w1"><div class="dzien">9</div> RADŹ SOBIE SAM</li>
+</ol></div></div><div class="br kontener"><h1>ZMARLI</h1><div class="notatka_boczna"><h2>Październik</h2>
+<ol>
+<li class="w1"><div class="dzien">2</div> <strong><a class="tytul" href="index.php/1116334">Dorota Kawęcka</a></strong></li>
+<li class="w1"><div class="dzien">4</div> <strong><a class="tytul" href="index.php/116011">Henryk Boukołowski</a></strong></li>
+</ol>
+<h2>Wrzesień</h2>
+<ol>
+<li class="w1"><div class="dzien">3</div> <a class="tytul" href="index.php/1142974">Krystyna Świderska</a></li>
+<li class="w1"><div class="dzien">4</div> <a class="tytul" href="index.php/11244">Andrzej Gawroński</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/11156056">Aleksandra Janczyk</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/11101331">Edward Mikołajczyk</a></li>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/1172166">Gienek Loska</a></li>
+<li class="w1"><div class="dzien">10</div> <a class="tytul" href="index.php/1119469">Witold Zapała</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/118018">Wojciech Królikiewicz</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/11672">Henryk Łapiński</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/1117276">Michał Nekanda-Trepka</a></li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/1111837">Jan Krenz</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/115047">Wacław Wiszniowski</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/11117978">Ryszard Wolański</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1180387">Ewa Berberyusz</a></li>
+<li class="w1"><div class="dzien">28</div> <strong><a class="tytul" href="index.php/114203">Jan Bógdoł</a></strong></li>
+<li class="w1"><div class="dzien">29</div> <strong><a class="tytul" href="index.php/1114532">Joanna Cortes</a></strong></li>
+</ol>
+<h2>Sierpień</h2>
+<ol>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/1137657">Piotr Morawski</a></li>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/11102418">Jacek Mydlarski</a></li>
+<li class="w1"><div class="dzien">10</div> <a class="tytul" href="index.php/1159004">Dariusz Baliszewski</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/1111475">Maria Kościałkowska</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/11109470">Piotr Samojlik</a></li>
+<li class="w1"><div class="dzien">12</div> <a class="tytul" href="index.php/11142666">Agnieszka Kossakowska</a></li>
+<li class="w1"><div class="dzien">14</div> <a class="tytul" href="index.php/117973">Ewa Demarczyk</a></li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/116375">Mirosław Dobek</a></li>
+<li class="w1"><div class="dzien">19</div> <a class="tytul" href="index.php/111805">Jacek Korcelli</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1110767">Piotr Szczepanik</a></li>
+<li class="w1"><div class="dzien">22</div> <a class="tytul" href="index.php/116398">Jerzy Fedak</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1191130">Maria 
+Janion</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/11107354">Leonard Pulchny</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1147753">Krzysztof Węglarz</a></li>
+</ol></div></div><div class="br kontener"><h1>NAJNOWSZE AKTUALIZACJE W BAZIE</h1><div class="notatka_boczna"><h2>Filmy</h2><ul><li><a href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></li><li><a href="index.php/1254747">LISTY DO M 4</a></li><li><a href="index.php/1253778">SWEAT</a></li><li><a href="index.php/1254718">TAK MA BYĆ</a></li></ul><h2>Zdjęcia</h2><ul><li><a href="index.php/1254133">GORZKO, GORZKO!</a></li><li><a href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></li><li><a href="index.php/1254747">LISTY DO M 4</a></li></ul><h2>Zwiastuny</h2><ul><li><a href="index.php/1253352">BANKSTERZY</a></li><li><a href="index.php/1252975">EFEKT MOTYLKA</a></li><li><a href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></li><li><a href="index.php/1249664">KRÓL</a></li><li><a href="index.php/1254747">LISTY DO M 4</a></li><li><a href="index.php/1250703">MAGNEZJA</a></li><li><a href="index.php/1250627">NAJMRO. KOCHA, KRADNIE, SZANUJE</a></li><li><a href="index.php/1247320">RAZ JESZCZE RAZ</a></li><li><a href="index.php/1253778">SWEAT</a></li><li><a href="index.php/1252706">ZABIJ TO I WYJEDŹ Z TEGO MIASTA</a></li><li><a href="index.php/1251316">ŠARLATÁN</a></li><li><a href="index.php/1254198">ŚNIEGU JUŻ NIGDY NIE BĘDZIE</a></li></ul></div></div><div class="br kontener"><h1>REDAKCJA</h1><div class="notatka_boczna">Jarosław Czembrowski (red. nacz.)<br />Agata Chróścicka<br />Monika Sarwińska<br />Wojciech Krupa (oprogramowanie)<br />Aleksandra Bednarz (oprawa graficzna)<br />Katarzyna Mąka-Malatyńska (filmoteka)<br /><br />Biblioteka PWSFTviT<br />ul. Targowa 61/63<br />90-323 Łódź<br />Tel.: 42 6345875<br />Faks: 42 6748139<br />e-mail: <a href="mailto:filmpolski@filmschool.lodz.pl">filmpolski@filmschool.lodz.pl</a><br /></div></div><div class="br kontener"><h1>WSPIERA NAS</h1><div class="notatka_boczna"><a href="http://www.pisf.pl" target="_blank"><img class="logo" src="img1/pisf.png"></a></div></div>
+</div>  <!-- sidebar -->
+
+<div id="tresc">
+
+
+<script type="text/javascript" src="js/chowaj.js"></script>
+<script type="text/javascript" src="js/osoba_sterowanie.js"></script>
+
+
+<article id="osoba">
+
+<h1>Bogusz Bilewski</h1><div class="koniecnaglowka"></div>
+<dl style="width: 233px;" class="zdjecie"><dt><a oncontextmenu="return false" href="index.php/14232" title="Bogusz Bilewski - galeria" class="img"><img src="/z1/32o/232_1.jpg" alt="Bogusz Bilewski - galeria" /></a></dt></dl><div class="galeria_mala"><a href="index.php?fotos=164403_12&galeria=14232"><img class="bezcienia" src="../z1/03i/4403_12.jpg" height="60"></a><a href="index.php?fotos=164403_11&galeria=14232"><img class="bezcienia" src="../z1/03i/4403_11.jpg" height="60"></a><a href="index.php?fotos=164403_10&galeria=14232"><img class="bezcienia" src="../z1/03i/4403_10.jpg" height="60"></a><a href="index.php?fotos=162330_8&galeria=14232"><img class="bezcienia" src="../z1/30i/2330_8.jpg" height="60"></a><a href="index.php?fotos=162367_3&galeria=14232"><img class="bezcienia" src="../z1/67i/2367_3.jpg" height="60"></a><a href="index.php?fotos=164403_7&galeria=14232"><img class="bezcienia" src="../z1/03i/4403_7.jpg" height="60"></a><a href="index.php?fotos=164403_4&galeria=14232"><img class="bezcienia" src="../z1/03i/4403_4.jpg" height="60"></a><a href="index.php/14232"><img class="bezcienia" src="img1/do_galerii.png"></a></div>
+<h2>&nbsp;<div class="sterowanie"><span id="osoba_daty_schowaj" class="jslink" onclick="pzz_daty('osoba_daty_ur','osoba_daty','osoba_daty_schowaj')">zwiń</span></div></h2>
+<ul id="osoba_daty" style="display: block;">
+<li><div class="data">1930. 09. 25</div><div class="dataopis">Data urodzenia <div class="dataopisszczeg"> Starachowice</div></div></li>
+<li><div class="data">1954</div><div class="dataopis">Debiut teatralny <div class="dataopisszczeg"> Teatr "Wybrzeże" w Gdańsku</div></div></li>
+<li><div class="data">1954</div><div class="dataopis">Wykształcenie - rok ukończenia studiów <div class="dataopisszczeg"> Państwowa Wyższa Szkoła Aktorska w Krakowie</div></div></li>
+<li><div class="data">1974</div><div class="dataopis">Odznaczenie <div class="dataopisszczeg"> Srebrny Krzyż Zasługi</div></div></li>
+<li><div class="data">1995. 09. 14</div><div class="dataopis">Data śmierci <div class="dataopisszczeg"> Wrocław; pochowany na Starych Powązkach w Warszawie (kwatera 157 – 3 – 18)</div></div></li>
+</ul>
+
+<ul id="osoba_daty_ur" style="display: none;">
+<li><div class="data">1930. 09. 25</div><div class="dataopis">Data urodzenia <div class="dataopisszczeg"> Starachowice</div></div></li>
+<li><div class="data">1995. 09. 14</div><div class="dataopis">Data śmierci <div class="dataopisszczeg"> Wrocław; pochowany na Starych Powązkach w Warszawie (kwatera 157 – 3 – 18)</div></div></li>
+</ul>
+
+<p class="opis">Aktor teatrów: Wybrzeże w Gdańsku (1954/55), oraz warszawskich: Dramatycznego (1955-61), Powszechnego (1961/62), Ateneum (1962-77), Polskiego (1977-85), Narodowego (1985-87). Jego ostatnią rolą był Sędzia w przedstawieniu "Przygody Tomka Sawyera" prezentowanym na scenie Teatru na Woli.<br /><br />
+Ojciec muzyka <a href="index.php/1132419">Bogusza Bilewskiego juniora</a>.</p>
+
+<h2>Filmografia<div class="sterowanie"><span id="fsbut1" class="jslink" onclick="pokazChronologicznieNowe(this);">chronologicznie &darr;&nbsp;</span><span id="fsbut2" class="jslink" onclick="pokazChronologicznieStare(this);")">&nbsp;&uarr;&nbsp;</span> | <span id="fsbut3" class="jslink" onclick="pokazWgRodzajow(this);">wg rodzajów</span> | <span id="fsbut4" style="font-weight:bold;" class="jslink" onclick="pokazWgFunkcji(this);">wg funkcji</span> | <span id="filmografia_schowaj" class="jslink" onclick="zwinFilmografie();">zwiń</span></div></h2><div id="filmografia" style="display: block;">
+<ul id="filmografia_chronologicznie_nowe" class="hidden">
+<li><div class="data">1996</div><div class="tytul"><a href="index.php/521430">PODRÓŻ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1994</div><div class="tytul"><a href="index.php/521258">SERCE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kowal) </div></li>
+<li><div class="data">1993 - 1994</div><div class="tytul"><a href="index.php/126042">BANK NIE Z TEJ ZIEMI</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (bezdomy "Marlboro") </div></li>
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/125583">PRZYPADEK PEKOSIŃSKIEGO</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pracownik PGR-u) </div></li>
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/521555">ŚMIERĆ TAREŁKINA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (wierzyciel) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/123224">KRAMARZ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Antoni, sprzedawca łańcuszków) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/1210541">LEŚMIAN</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Franc Fiszer) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/522076">WIELKA KSIĘŻNA I CHŁOPIEC HOTELOWY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (W.Ks.Paweł) </div></li>
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/123055">POWRÓT WABISZCZURA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bliźniak) </div></li>
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/124603">SCENY NOCNE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (bogacz) </div></li>
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/127255">LES POSSÉDÉS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (komendant policji) </div></li>
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/122690">PRZEPRAWA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Feliks Mazurek "Bruzda") </div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122730">CO TO KONIA OBCHODZI?</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Alojzy "Kochaś") </div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122721">RZEKA KŁAMSTWA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wuj Ksawery Gołębiowski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">2, 3</div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122572">ŚMIERĆ JOHNA L.</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (okularnik pod Wawelem) </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123490">BIAŁA WIZYTÓWKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (Heinberg; rola Rolfa Hoppe; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">, ZARZĄD PRZYMUSOWY (6)</div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123785">KOLEGA PANA BOGA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/121786">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Brodacz Pancerny) </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123810">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123854">ZMIENNICY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kolekcjoner starej broni) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ANTYCYPACJA (11)</div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/521723">ŻEGLARZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Jakub) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/522737">MYSZKIN</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ferdyszczenko) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122713">OKO PROROKA CZYLI HANUSZ BYSTRY I JEGO PRZYGODY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola Tadeusza Szanieckiego; nie  występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PRZEKLĘTY DIAMENT (3), PRZYJACIELE (5)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121441">PODRÓŻE PANA KLEKSA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (sternik Talens) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121375">PORWANIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (Kapitan Angełow) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122564">PRZYŁBICE I KAPTURY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu ("Dzieweczka"; rola <a href="index.php/112979">Władysława Komara</a>; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA TROPIE ZDRADY (2), POŻOGA (3), PRZERWANE OGNIWO (4), A WĘŻOWI BIADA (8), JUTRO BITWA (9)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/521661">TAJEMNICA JEZIORA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Patton) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122722">URWISY Z DOLINY MŁYNÓW</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska ("Kapitan Groźny") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">KAPITAN GROŹNY (4), KONRAD (11), LEKCJA PŁYWANIA (12), PIERWSZY ŚNIEG (16), KIEDY ZWIERZĘTA MÓWIĄ (17), GDZIE JEST GROŹNY (19), NUMER Z KOTEM (22)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/523236">ZAPIS OJCA HERMANNA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Skarbimir) </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/123950">5 DNI Z ŻYCIA EMERYTA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz rosyjski strzelający do Stanisława  Bzowskiego; twarz aktora pojawia się także  na jednym ze zdjęć członków rodziny  Bzowskich w odcinku 2) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">WSPOMNIEŃ RODZINNYCH CIĄG DALSZY (4)</div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/521765">ELŻBIETA, KRÓLOWA ANGLII</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Suffolk) </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/121345">PRZEMYTNICY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Żywica") </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/523306">THERMIDOR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Barere) </div></li>
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12662">KARTKA Z PODRÓŻY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (restaurator Alojzy Moczko) </div></li>
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12823">TAJEMNICA STAREGO OGRODU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bosman Henryk Reja) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/124065">LATAWIEC</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kowal) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12453">NA TROPACH BARTKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12386">OKO PROROKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola <a href="index.php/111968">Tadeusza Szanieckiego</a>; nie występuje w napisach) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/123853">POPIELEC</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (znachor Pyza) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PÓŁPANEK (2), DZICYZNA (3), DYMY (4), HEROD (5)</div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12315">SŁONA RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (malarz Hrusa) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124059">BIAŁE TANGO</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (dyrektor PGR-u) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA PÓŁ ETATU (2)</div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/522989">JUDASZ Z KARIOTHU</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/12179">KARABINY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bimbrownik) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/1247">KLEJNOT WOLNEGO SUMIENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (nie występuje w napisach; powieszony  szlachcic) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, były rządca w majątku  Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NOWA BROŃ SZWOLEŻERÓW (3)</div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/523751">WIEJSKI SHERLOCK HOLMES</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Fiodor Aniskin) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124048">YOKOHAMA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jaś, przyjaciel pisarza) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/521149">ANTYGONA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (strażnik) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522425">DOKTOR NAZAROW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Łukin) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12984">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522452">GŁÓD</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/122855">KARIERA NIKODEMA DYZMY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wiceminister Jan Ulanicki) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">1, 3, 4, 5, 7</div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/124068">KŁUSOWNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/1243710">PIERŚCIEŃ I RÓŻA, CZYLI HISTORIA LULEJKI I BULBY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Cyklop" Bieńkowski) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521767">BAL MANEKINÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Delegat) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521985">CZAROWNICE Z SALEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harrick) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/124684">DETEKTYWI NA WAKACJACH</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (milicjant "Brodacz") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">OBCY (2), ZASADZKA (3), WIELKIE ODKRYCIE (4), NA TROPIE (5)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/523865">ERYK XIV</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Peder Welamson) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12928">NA WŁASNĄ PROŚBĘ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (dziennikarz) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, rządca w majątku Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PUŁKOWNIK CESARZA (1)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12531">OJCIEC KRÓLOWEJ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szlachcic, gość weselny) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/522438">PŁASZCZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Stójkowy) </div></li>
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/124136">KOTY TO DRANIE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (wędkarz) </div></li>
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/12609">PEJZAŻ HORYZONTALNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chuligan) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/124128">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">DOCHODZENIE (4), TOMEK I TOSIA (6)</div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/523993">LAS</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Wosmibratow) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/521714">LĘKI PORANNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kola Brynion) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12474">MILIONER</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (majster murarski Bil) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12583">WSZYSCY I NIKT</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (organista) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524223">CZTERDZIEŚCI KARATÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pan Charbonier) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124254">HASŁO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Snopek, szef Kopery) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524167">HOTEL POD POLEGŁYM ALPINISTĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Olaf Andvarafors) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521774">ŁOKIETEK CZYLI MAZUREK DĄBROWSKIEGO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Koniuszy) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521140">TRZECI MAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Zabijaka) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124277">ZNAKI SZCZEGÓLNE</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (pracownik stacji benzynowej) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ROZBITEK (2)</div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/124319">BENIAMISZEK</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jacek Żegota) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/524073">CIEŃ ARCHANIOŁA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (pułkownik Gonczar) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/123572">DOMY Z DESZCZU. IMPRESJA Z KONSTANTEGO PAUSTOWSKIEGO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kapitan) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/12184">GRZECH ANTONIEGO GRUDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Ruryk) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/524055">CORAZ WIĘKSZY SPOKÓJ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ostatko) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/1266">GODZINA ZA GODZINĄ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (milicjant kontrolujący samochód Tadeusza) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/129">JANOSIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/523613">LIPCOWE TARAPATY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Bob Watson) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12150">URODZINY MATYLDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jaworski, mąż matki Basi) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12152">WIECZNE PRETENSJE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Rysio) </div></li>
+<li><div class="data">1973 - 1974</div><div class="tytul"><a href="index.php/1252">POTOP</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Kulwiec - Hippocentaurus) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/124403">JANOSIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PIERWSZE NAUKI (1), ZBÓJNICKIE PRAWA (2), W OBCEJ SKÓRZE (3), PORWANIE (4), TAŃCOWALI ZBÓJNICY (5), WOREK TALARÓW (6), BECZKA OKOWITY (7), DOBRA CENA (8), POBÓR (9), WSZYSCY ZA JEDNEGO (10), TRUDNO - MIŁOŚĆ (11), POBILI SIĘ DWAJ GÓRALE (12), ZDRADA (13)</div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/1245053">KOMUNA PARYSKA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Lissagaray) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/126">NAGRODY I ODZNACZENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chorąży Ryszard Dunajczyk, intendent  szpitala) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/123191">WIELKA MIŁOŚĆ BALZAKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (major Carraud) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">CUDZOZIEMKA (2), CONTESSA (3)</div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/522231">ZA KURTYNĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan Flannery) </div></li>
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/12309">KOPERNIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div></li>
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/124449">KOPERNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ZIEMIA (2)</div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524769">FOTOGRAFIA W GAZECIE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121311">KARDIOGRAM</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Roman, komendant MO) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121328">NIE LUBIĘ PONIEDZIAŁKU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kierowca) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524744">PÓŹNE ŻYCZENIA NOWOROCZNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/124468">SYSTEM</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (pacjent; nie występuje w napisach) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121358">ZABIJCIE CZARNĄ OWCĘ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szuler) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121372">ZARAZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Władek, kierowca sanitarki) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121139">ALBUM POLSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bandyta) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121067">LOKIS. RĘKOPIS PROFESORA WITTEMBACHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (posłaniec hrabiego z listem dla profesora  Wittembacha; nie występuje w napisach) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121229">PIERŚCIEŃ KSIĘŻNEJ ANNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Hlawa) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/524613">PIERWSZY INTERESANT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/524478">MAZEPA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Chrząstka, dworzanin Wojewody) </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/12443">PAN WOŁODYJOWSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pułkownik) </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/123546">PRZYGODY PANA MICHAŁA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Muszalski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">BRAT JERZY (1), KOMENDANT STANICY (6), TAJEMNICA AZJI (7), AZJA, SYN TUHAJ - BEJA (8), SMAK ZEMSTY (10), BUŁAT I SZABLA (11), DYMY NAD TWIERDZĄ (12), HEKTOR KAMIENIECKI (13)</div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121657">HASŁO KORN</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (inżynier Witold Bracki) </div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/524444">POWRÓT DO ITAKI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pasterz) </div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121634">WILCZE ECHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (chorąży Piotr Słotwina) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/129137">DIE GEFRORENEN BLITZE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (lekarz) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/524266">MARTWA KRÓLOWA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Infant) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/12192">WESTERPLATTE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapitan Mieczysław Słaby, lekarz) </div></li>
+<li><div class="data">1966</div><div class="tytul"><a href="index.php/1211525">THE NIGHT OF THE GENERALS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz niemiecki; nie występuje w napisach) </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/126993">PERŁY I DUKATY</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (inspektor MO) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly"><a href="index.php/122718">MARKIZA DE POMPADOUR</a></div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/124611">PODZIEMNY FRONT</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (gość w knajpie; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">POSTE RESTANTE (2)</div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/523854">POWRÓT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/521904">SZÓSTY LIPCA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Gorbunow) </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/121794">WYSTRZAŁ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (oficer) </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523571">FRAJER</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Policjant) </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523728">LUBOW JAROWAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/121835">RĘKOPIS ZNALEZIONY W SARAGOSSIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Cygan) </div></li>
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/1254225">MUROWANE ALIBI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/522840">PIERWSZY DZIEŃ WOLNOŚCI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Paweł) </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122144">GŁOS Z TAMTEGO ŚWIATA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (tancerz w masce żaby na balu maskowym) </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/523364">HOMER I ORCHIDEA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122030">WIELKA, WIĘKSZA I NAJWIĘKSZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jean, drugi pilot samolotu "Tajfun 125") </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/521890">CUD Z CHLEBEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122234">DECYZJA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Michał Jurewicz) </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/523068">JUTRO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harry) </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122220">OSTROŻNIE YETI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (gangster) </div></li>
+<li><div class="data">1959</div><div class="tytul"><a href="index.php/1239017">PASTYLKI NA KATAR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122330">DWOJE Z WIELKIEJ RZEKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Janek Kujawa, syn "Wiślaka") </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122367">HISTORIA JEDNEGO MYŚLIWCA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (porucznik Stefan Zaremba, pilot Dywizjonu  306) </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122324">RANCHO TEXAS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jacek) </div></li>
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122369">KRÓL MACIUŚ I</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (U-mun-tu, wysłannik króla Bum-druma) </div></li>
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122405">SPOTKANIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pilot Janusz) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">4</div></li>
+<li><div class="data">1956</div><div class="tytul"><a href="index.php/122421">ZIMOWY ZMIERZCH</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Józek Rumsza, syn Michała) </div></li>
+<li><div class="data">1955</div><div class="tytul"><a href="index.php/122451">GODZINY NADZIEI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapral Sumski; nie występuje w napisach) </div></li>
+</ul>
+
+<ul id="filmografia_chronologicznie_stare" class="hidden">
+<li><div class="data">1955</div><div class="tytul"><a href="index.php/122451">GODZINY NADZIEI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapral Sumski; nie występuje w napisach) </div></li>
+<li><div class="data">1956</div><div class="tytul"><a href="index.php/122421">ZIMOWY ZMIERZCH</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Józek Rumsza, syn Michała) </div></li>
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122405">SPOTKANIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pilot Janusz) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">4</div></li>
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122369">KRÓL MACIUŚ I</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (U-mun-tu, wysłannik króla Bum-druma) </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122324">RANCHO TEXAS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jacek) </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122367">HISTORIA JEDNEGO MYŚLIWCA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (porucznik Stefan Zaremba, pilot Dywizjonu  306) </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122330">DWOJE Z WIELKIEJ RZEKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Janek Kujawa, syn "Wiślaka") </div></li>
+<li><div class="data">1959</div><div class="tytul"><a href="index.php/1239017">PASTYLKI NA KATAR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122220">OSTROŻNIE YETI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (gangster) </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/523068">JUTRO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harry) </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122234">DECYZJA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Michał Jurewicz) </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/521890">CUD Z CHLEBEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122030">WIELKA, WIĘKSZA I NAJWIĘKSZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jean, drugi pilot samolotu "Tajfun 125") </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/523364">HOMER I ORCHIDEA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122144">GŁOS Z TAMTEGO ŚWIATA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (tancerz w masce żaby na balu maskowym) </div></li>
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/522840">PIERWSZY DZIEŃ WOLNOŚCI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Paweł) </div></li>
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/1254225">MUROWANE ALIBI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/121835">RĘKOPIS ZNALEZIONY W SARAGOSSIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Cygan) </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523728">LUBOW JAROWAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523571">FRAJER</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Policjant) </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/121794">WYSTRZAŁ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (oficer) </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/521904">SZÓSTY LIPCA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Gorbunow) </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/523854">POWRÓT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/124611">PODZIEMNY FRONT</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (gość w knajpie; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">POSTE RESTANTE (2)</div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/126993">PERŁY I DUKATY</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (inspektor MO) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly"><a href="index.php/122718">MARKIZA DE POMPADOUR</a></div></li>
+<li><div class="data">1966</div><div class="tytul"><a href="index.php/1211525">THE NIGHT OF THE GENERALS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz niemiecki; nie występuje w napisach) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/12192">WESTERPLATTE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapitan Mieczysław Słaby, lekarz) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/524266">MARTWA KRÓLOWA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Infant) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/129137">DIE GEFRORENEN BLITZE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (lekarz) </div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121634">WILCZE ECHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (chorąży Piotr Słotwina) </div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/524444">POWRÓT DO ITAKI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pasterz) </div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121657">HASŁO KORN</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (inżynier Witold Bracki) </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/123546">PRZYGODY PANA MICHAŁA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Muszalski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">BRAT JERZY (1), KOMENDANT STANICY (6), TAJEMNICA AZJI (7), AZJA, SYN TUHAJ - BEJA (8), SMAK ZEMSTY (10), BUŁAT I SZABLA (11), DYMY NAD TWIERDZĄ (12), HEKTOR KAMIENIECKI (13)</div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/12443">PAN WOŁODYJOWSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pułkownik) </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/524478">MAZEPA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Chrząstka, dworzanin Wojewody) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/524613">PIERWSZY INTERESANT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121229">PIERŚCIEŃ KSIĘŻNEJ ANNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Hlawa) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121067">LOKIS. RĘKOPIS PROFESORA WITTEMBACHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (posłaniec hrabiego z listem dla profesora  Wittembacha; nie występuje w napisach) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121139">ALBUM POLSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bandyta) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121372">ZARAZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Władek, kierowca sanitarki) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121358">ZABIJCIE CZARNĄ OWCĘ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szuler) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/124468">SYSTEM</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (pacjent; nie występuje w napisach) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524744">PÓŹNE ŻYCZENIA NOWOROCZNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121328">NIE LUBIĘ PONIEDZIAŁKU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kierowca) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121311">KARDIOGRAM</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Roman, komendant MO) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524769">FOTOGRAFIA W GAZECIE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/124449">KOPERNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ZIEMIA (2)</div></li>
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/12309">KOPERNIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/522231">ZA KURTYNĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan Flannery) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/123191">WIELKA MIŁOŚĆ BALZAKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (major Carraud) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">CUDZOZIEMKA (2), CONTESSA (3)</div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/126">NAGRODY I ODZNACZENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chorąży Ryszard Dunajczyk, intendent  szpitala) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/1245053">KOMUNA PARYSKA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Lissagaray) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/124403">JANOSIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PIERWSZE NAUKI (1), ZBÓJNICKIE PRAWA (2), W OBCEJ SKÓRZE (3), PORWANIE (4), TAŃCOWALI ZBÓJNICY (5), WOREK TALARÓW (6), BECZKA OKOWITY (7), DOBRA CENA (8), POBÓR (9), WSZYSCY ZA JEDNEGO (10), TRUDNO - MIŁOŚĆ (11), POBILI SIĘ DWAJ GÓRALE (12), ZDRADA (13)</div></li>
+<li><div class="data">1973 - 1974</div><div class="tytul"><a href="index.php/1252">POTOP</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Kulwiec - Hippocentaurus) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12152">WIECZNE PRETENSJE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Rysio) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12150">URODZINY MATYLDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jaworski, mąż matki Basi) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/523613">LIPCOWE TARAPATY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Bob Watson) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/129">JANOSIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/1266">GODZINA ZA GODZINĄ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (milicjant kontrolujący samochód Tadeusza) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/524055">CORAZ WIĘKSZY SPOKÓJ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ostatko) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/12184">GRZECH ANTONIEGO GRUDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Ruryk) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/123572">DOMY Z DESZCZU. IMPRESJA Z KONSTANTEGO PAUSTOWSKIEGO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kapitan) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/524073">CIEŃ ARCHANIOŁA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (pułkownik Gonczar) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/124319">BENIAMISZEK</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jacek Żegota) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124277">ZNAKI SZCZEGÓLNE</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (pracownik stacji benzynowej) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ROZBITEK (2)</div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521140">TRZECI MAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Zabijaka) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521774">ŁOKIETEK CZYLI MAZUREK DĄBROWSKIEGO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Koniuszy) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524167">HOTEL POD POLEGŁYM ALPINISTĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Olaf Andvarafors) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124254">HASŁO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Snopek, szef Kopery) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524223">CZTERDZIEŚCI KARATÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pan Charbonier) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12583">WSZYSCY I NIKT</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (organista) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12474">MILIONER</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (majster murarski Bil) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/521714">LĘKI PORANNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kola Brynion) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/523993">LAS</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Wosmibratow) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/124128">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">DOCHODZENIE (4), TOMEK I TOSIA (6)</div></li>
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/12609">PEJZAŻ HORYZONTALNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chuligan) </div></li>
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/124136">KOTY TO DRANIE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (wędkarz) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/522438">PŁASZCZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Stójkowy) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12531">OJCIEC KRÓLOWEJ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szlachcic, gość weselny) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, rządca w majątku Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PUŁKOWNIK CESARZA (1)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12928">NA WŁASNĄ PROŚBĘ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (dziennikarz) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/523865">ERYK XIV</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Peder Welamson) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/124684">DETEKTYWI NA WAKACJACH</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (milicjant "Brodacz") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">OBCY (2), ZASADZKA (3), WIELKIE ODKRYCIE (4), NA TROPIE (5)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521985">CZAROWNICE Z SALEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harrick) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521767">BAL MANEKINÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Delegat) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Cyklop" Bieńkowski) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/1243710">PIERŚCIEŃ I RÓŻA, CZYLI HISTORIA LULEJKI I BULBY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/124068">KŁUSOWNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/122855">KARIERA NIKODEMA DYZMY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wiceminister Jan Ulanicki) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">1, 3, 4, 5, 7</div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522452">GŁÓD</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12984">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522425">DOKTOR NAZAROW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Łukin) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/521149">ANTYGONA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (strażnik) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124048">YOKOHAMA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jaś, przyjaciel pisarza) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/523751">WIEJSKI SHERLOCK HOLMES</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Fiodor Aniskin) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, były rządca w majątku  Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NOWA BROŃ SZWOLEŻERÓW (3)</div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/1247">KLEJNOT WOLNEGO SUMIENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (nie występuje w napisach; powieszony  szlachcic) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/12179">KARABINY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bimbrownik) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/522989">JUDASZ Z KARIOTHU</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124059">BIAŁE TANGO</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (dyrektor PGR-u) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA PÓŁ ETATU (2)</div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12315">SŁONA RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (malarz Hrusa) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/123853">POPIELEC</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (znachor Pyza) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PÓŁPANEK (2), DZICYZNA (3), DYMY (4), HEROD (5)</div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12386">OKO PROROKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola <a href="index.php/111968">Tadeusza Szanieckiego</a>; nie występuje w napisach) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12453">NA TROPACH BARTKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/124065">LATAWIEC</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kowal) </div></li>
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12823">TAJEMNICA STAREGO OGRODU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bosman Henryk Reja) </div></li>
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12662">KARTKA Z PODRÓŻY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (restaurator Alojzy Moczko) </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/523306">THERMIDOR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Barere) </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/121345">PRZEMYTNICY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Żywica") </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/521765">ELŻBIETA, KRÓLOWA ANGLII</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Suffolk) </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/123950">5 DNI Z ŻYCIA EMERYTA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz rosyjski strzelający do Stanisława  Bzowskiego; twarz aktora pojawia się także  na jednym ze zdjęć członków rodziny  Bzowskich w odcinku 2) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">WSPOMNIEŃ RODZINNYCH CIĄG DALSZY (4)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/523236">ZAPIS OJCA HERMANNA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Skarbimir) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122722">URWISY Z DOLINY MŁYNÓW</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska ("Kapitan Groźny") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">KAPITAN GROŹNY (4), KONRAD (11), LEKCJA PŁYWANIA (12), PIERWSZY ŚNIEG (16), KIEDY ZWIERZĘTA MÓWIĄ (17), GDZIE JEST GROŹNY (19), NUMER Z KOTEM (22)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/521661">TAJEMNICA JEZIORA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Patton) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122564">PRZYŁBICE I KAPTURY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu ("Dzieweczka"; rola <a href="index.php/112979">Władysława Komara</a>; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA TROPIE ZDRADY (2), POŻOGA (3), PRZERWANE OGNIWO (4), A WĘŻOWI BIADA (8), JUTRO BITWA (9)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121375">PORWANIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (Kapitan Angełow) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121441">PODRÓŻE PANA KLEKSA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (sternik Talens) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122713">OKO PROROKA CZYLI HANUSZ BYSTRY I JEGO PRZYGODY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola Tadeusza Szanieckiego; nie  występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PRZEKLĘTY DIAMENT (3), PRZYJACIELE (5)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/522737">MYSZKIN</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ferdyszczenko) </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/521723">ŻEGLARZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Jakub) </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123854">ZMIENNICY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kolekcjoner starej broni) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ANTYCYPACJA (11)</div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123810">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/121786">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Brodacz Pancerny) </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123785">KOLEGA PANA BOGA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123490">BIAŁA WIZYTÓWKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (Heinberg; rola Rolfa Hoppe; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">, ZARZĄD PRZYMUSOWY (6)</div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122572">ŚMIERĆ JOHNA L.</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (okularnik pod Wawelem) </div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122721">RZEKA KŁAMSTWA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wuj Ksawery Gołębiowski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">2, 3</div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122730">CO TO KONIA OBCHODZI?</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Alojzy "Kochaś") </div></li>
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/122690">PRZEPRAWA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Feliks Mazurek "Bruzda") </div></li>
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/127255">LES POSSÉDÉS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (komendant policji) </div></li>
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/124603">SCENY NOCNE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (bogacz) </div></li>
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/123055">POWRÓT WABISZCZURA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bliźniak) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/522076">WIELKA KSIĘŻNA I CHŁOPIEC HOTELOWY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (W.Ks.Paweł) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/1210541">LEŚMIAN</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Franc Fiszer) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/123224">KRAMARZ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Antoni, sprzedawca łańcuszków) </div></li>
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/521555">ŚMIERĆ TAREŁKINA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (wierzyciel) </div></li>
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/125583">PRZYPADEK PEKOSIŃSKIEGO</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pracownik PGR-u) </div></li>
+<li><div class="data">1993 - 1994</div><div class="tytul"><a href="index.php/126042">BANK NIE Z TEJ ZIEMI</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (bezdomy "Marlboro") </div></li>
+<li><div class="data">1994</div><div class="tytul"><a href="index.php/521258">SERCE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kowal) </div></li>
+<li><div class="data">1996</div><div class="tytul"><a href="index.php/521430">PODRÓŻ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+</ul>
+
+<ul id="filmografia_wg_rodzajow" class="hidden">
+<h3 id="rodzaj1">Film fabularny<div class="sterowanie"><span id="frodzaj1_schowaj" class="jslink" onclick="pzz('frodzaj1','frodzaj1_schowaj')">schowaj</span></div></h3>
+<div id="frodzaj1" style="display: block;">
+
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/125583">PRZYPADEK PEKOSIŃSKIEGO</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pracownik PGR-u) </div></li>
+
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/123224">KRAMARZ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Antoni, sprzedawca łańcuszków) </div></li>
+
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/123055">POWRÓT WABISZCZURA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bliźniak) </div></li>
+
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/127255">LES POSSÉDÉS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (komendant policji) </div></li>
+
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/122690">PRZEPRAWA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Feliks Mazurek "Bruzda") </div></li>
+
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122572">ŚMIERĆ JOHNA L.</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (okularnik pod Wawelem) </div></li>
+
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/121786">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Brodacz Pancerny) </div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121441">PODRÓŻE PANA KLEKSA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (sternik Talens) </div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121375">PORWANIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (Kapitan Angełow) </div></li>
+
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/121345">PRZEMYTNICY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Żywica") </div></li>
+
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12662">KARTKA Z PODRÓŻY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (restaurator Alojzy Moczko) </div></li>
+
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12823">TAJEMNICA STAREGO OGRODU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bosman Henryk Reja) </div></li>
+
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12453">NA TROPACH BARTKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12386">OKO PROROKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola <a href="index.php/111968">Tadeusza Szanieckiego</a>; nie występuje w napisach) </div></li>
+
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12315">SŁONA RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (malarz Hrusa) </div></li>
+
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/12179">KARABINY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bimbrownik) </div></li>
+
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/1247">KLEJNOT WOLNEGO SUMIENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (nie występuje w napisach; powieszony  szlachcic) </div></li>
+
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12984">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Cyklop" Bieńkowski) </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12531">OJCIEC KRÓLOWEJ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szlachcic, gość weselny) </div></li>
+
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/12609">PEJZAŻ HORYZONTALNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chuligan) </div></li>
+
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12474">MILIONER</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (majster murarski Bil) </div></li>
+
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12583">WSZYSCY I NIKT</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (organista) </div></li>
+
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/12184">GRZECH ANTONIEGO GRUDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Ruryk) </div></li>
+
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/1266">GODZINA ZA GODZINĄ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (milicjant kontrolujący samochód Tadeusza) </div></li>
+
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/129">JANOSIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div></li>
+
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12150">URODZINY MATYLDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jaworski, mąż matki Basi) </div></li>
+
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12152">WIECZNE PRETENSJE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Rysio) </div></li>
+
+<li><div class="data">1973 - 1974</div><div class="tytul"><a href="index.php/1252">POTOP</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Kulwiec - Hippocentaurus) </div></li>
+
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/126">NAGRODY I ODZNACZENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chorąży Ryszard Dunajczyk, intendent  szpitala) </div></li>
+
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/12309">KOPERNIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div></li>
+
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121311">KARDIOGRAM</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Roman, komendant MO) </div></li>
+
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121328">NIE LUBIĘ PONIEDZIAŁKU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kierowca) </div></li>
+
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121358">ZABIJCIE CZARNĄ OWCĘ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szuler) </div></li>
+
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121372">ZARAZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Władek, kierowca sanitarki) </div></li>
+
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121139">ALBUM POLSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bandyta) </div></li>
+
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121067">LOKIS. RĘKOPIS PROFESORA WITTEMBACHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (posłaniec hrabiego z listem dla profesora  Wittembacha; nie występuje w napisach) </div></li>
+
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121229">PIERŚCIEŃ KSIĘŻNEJ ANNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Hlawa) </div></li>
+
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/12443">PAN WOŁODYJOWSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pułkownik) </div></li>
+
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121657">HASŁO KORN</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (inżynier Witold Bracki) </div></li>
+
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121634">WILCZE ECHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (chorąży Piotr Słotwina) </div></li>
+
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/129137">DIE GEFRORENEN BLITZE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (lekarz) </div></li>
+
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/12192">WESTERPLATTE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapitan Mieczysław Słaby, lekarz) </div></li>
+
+<li><div class="data">1966</div><div class="tytul"><a href="index.php/1211525">THE NIGHT OF THE GENERALS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz niemiecki; nie występuje w napisach) </div></li>
+
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/121835">RĘKOPIS ZNALEZIONY W SARAGOSSIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Cygan) </div></li>
+
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122144">GŁOS Z TAMTEGO ŚWIATA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (tancerz w masce żaby na balu maskowym) </div></li>
+
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122030">WIELKA, WIĘKSZA I NAJWIĘKSZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jean, drugi pilot samolotu "Tajfun 125") </div></li>
+
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122234">DECYZJA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Michał Jurewicz) </div></li>
+
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122220">OSTROŻNIE YETI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (gangster) </div></li>
+
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122330">DWOJE Z WIELKIEJ RZEKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Janek Kujawa, syn "Wiślaka") </div></li>
+
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122367">HISTORIA JEDNEGO MYŚLIWCA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (porucznik Stefan Zaremba, pilot Dywizjonu  306) </div></li>
+
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122324">RANCHO TEXAS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jacek) </div></li>
+
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122369">KRÓL MACIUŚ I</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (U-mun-tu, wysłannik króla Bum-druma) </div></li>
+
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122405">SPOTKANIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pilot Janusz) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">4</div></li>
+
+<li><div class="data">1956</div><div class="tytul"><a href="index.php/122421">ZIMOWY ZMIERZCH</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Józek Rumsza, syn Michała) </div></li>
+
+<li><div class="data">1955</div><div class="tytul"><a href="index.php/122451">GODZINY NADZIEI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapral Sumski; nie występuje w napisach) </div></li>
+</div>
+<h3 id="rodzaj2">Film fabularny - telewizyjny<div class="sterowanie"><span id="frodzaj2_schowaj" class="jslink" onclick="pzz('frodzaj2','frodzaj2_schowaj')">schowaj</span></div></h3>
+<div id="frodzaj2" style="display: block;">
+
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/1210541">LEŚMIAN</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Franc Fiszer) </div></li>
+
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/124603">SCENY NOCNE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (bogacz) </div></li>
+
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122730">CO TO KONIA OBCHODZI?</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Alojzy "Kochaś") </div></li>
+
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123785">KOLEGA PANA BOGA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/124065">LATAWIEC</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kowal) </div></li>
+
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124048">YOKOHAMA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jaś, przyjaciel pisarza) </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12928">NA WŁASNĄ PROŚBĘ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (dziennikarz) </div></li>
+
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/124136">KOTY TO DRANIE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (wędkarz) </div></li>
+
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124254">HASŁO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Snopek, szef Kopery) </div></li>
+
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/124319">BENIAMISZEK</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jacek Żegota) </div></li>
+
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/123572">DOMY Z DESZCZU. IMPRESJA Z KONSTANTEGO PAUSTOWSKIEGO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kapitan) </div></li>
+
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/124468">SYSTEM</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (pacjent; nie występuje w napisach) </div></li>
+
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/126993">PERŁY I DUKATY</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (inspektor MO) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly"><a href="index.php/122718">MARKIZA DE POMPADOUR</a></div></li>
+
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/121794">WYSTRZAŁ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (oficer) </div></li>
+</div>
+<h3 id="rodzaj3">Serial fabularny<div class="sterowanie"><span id="frodzaj3_schowaj" class="jslink" onclick="pzz('frodzaj3','frodzaj3_schowaj')">schowaj</span></div></h3>
+<div id="frodzaj3" style="display: block;">
+
+<li><div class="data">1993 - 1994</div><div class="tytul"><a href="index.php/126042">BANK NIE Z TEJ ZIEMI</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (bezdomy "Marlboro") </div></li>
+
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122721">RZEKA KŁAMSTWA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wuj Ksawery Gołębiowski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">2, 3</div></li>
+
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123490">BIAŁA WIZYTÓWKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (Heinberg; rola Rolfa Hoppe; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">, ZARZĄD PRZYMUSOWY (6)</div></li>
+
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123810">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123854">ZMIENNICY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kolekcjoner starej broni) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ANTYCYPACJA (11)</div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122713">OKO PROROKA CZYLI HANUSZ BYSTRY I JEGO PRZYGODY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola Tadeusza Szanieckiego; nie  występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PRZEKLĘTY DIAMENT (3), PRZYJACIELE (5)</div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122564">PRZYŁBICE I KAPTURY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu ("Dzieweczka"; rola <a href="index.php/112979">Władysława Komara</a>; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA TROPIE ZDRADY (2), POŻOGA (3), PRZERWANE OGNIWO (4), A WĘŻOWI BIADA (8), JUTRO BITWA (9)</div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122722">URWISY Z DOLINY MŁYNÓW</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska ("Kapitan Groźny") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">KAPITAN GROŹNY (4), KONRAD (11), LEKCJA PŁYWANIA (12), PIERWSZY ŚNIEG (16), KIEDY ZWIERZĘTA MÓWIĄ (17), GDZIE JEST GROŹNY (19), NUMER Z KOTEM (22)</div></li>
+
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/123950">5 DNI Z ŻYCIA EMERYTA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz rosyjski strzelający do Stanisława  Bzowskiego; twarz aktora pojawia się także  na jednym ze zdjęć członków rodziny  Bzowskich w odcinku 2) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">WSPOMNIEŃ RODZINNYCH CIĄG DALSZY (4)</div></li>
+
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/123853">POPIELEC</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (znachor Pyza) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PÓŁPANEK (2), DZICYZNA (3), DYMY (4), HEROD (5)</div></li>
+
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124059">BIAŁE TANGO</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (dyrektor PGR-u) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA PÓŁ ETATU (2)</div></li>
+
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, były rządca w majątku  Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NOWA BROŃ SZWOLEŻERÓW (3)</div></li>
+
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/122855">KARIERA NIKODEMA DYZMY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wiceminister Jan Ulanicki) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">1, 3, 4, 5, 7</div></li>
+
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/124068">KŁUSOWNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/124684">DETEKTYWI NA WAKACJACH</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (milicjant "Brodacz") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">OBCY (2), ZASADZKA (3), WIELKIE ODKRYCIE (4), NA TROPIE (5)</div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, rządca w majątku Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PUŁKOWNIK CESARZA (1)</div></li>
+
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/124128">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">DOCHODZENIE (4), TOMEK I TOSIA (6)</div></li>
+
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124277">ZNAKI SZCZEGÓLNE</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (pracownik stacji benzynowej) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ROZBITEK (2)</div></li>
+
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/124403">JANOSIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PIERWSZE NAUKI (1), ZBÓJNICKIE PRAWA (2), W OBCEJ SKÓRZE (3), PORWANIE (4), TAŃCOWALI ZBÓJNICY (5), WOREK TALARÓW (6), BECZKA OKOWITY (7), DOBRA CENA (8), POBÓR (9), WSZYSCY ZA JEDNEGO (10), TRUDNO - MIŁOŚĆ (11), POBILI SIĘ DWAJ GÓRALE (12), ZDRADA (13)</div></li>
+
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/123191">WIELKA MIŁOŚĆ BALZAKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (major Carraud) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">CUDZOZIEMKA (2), CONTESSA (3)</div></li>
+
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/124449">KOPERNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ZIEMIA (2)</div></li>
+
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/123546">PRZYGODY PANA MICHAŁA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Muszalski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">BRAT JERZY (1), KOMENDANT STANICY (6), TAJEMNICA AZJI (7), AZJA, SYN TUHAJ - BEJA (8), SMAK ZEMSTY (10), BUŁAT I SZABLA (11), DYMY NAD TWIERDZĄ (12), HEKTOR KAMIENIECKI (13)</div></li>
+
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/124611">PODZIEMNY FRONT</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (gość w knajpie; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">POSTE RESTANTE (2)</div></li>
+</div>
+<h3 id="rodzaj4">Spektakl telewizyjny<div class="sterowanie"><span id="frodzaj4_schowaj" class="jslink" onclick="pzz('frodzaj4','frodzaj4_schowaj')">schowaj</span></div></h3>
+<div id="frodzaj4" style="display: block;">
+
+<li><div class="data">1996</div><div class="tytul"><a href="index.php/521430">PODRÓŻ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1994</div><div class="tytul"><a href="index.php/521258">SERCE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kowal) </div></li>
+
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/521555">ŚMIERĆ TAREŁKINA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (wierzyciel) </div></li>
+
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/522076">WIELKA KSIĘŻNA I CHŁOPIEC HOTELOWY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (W.Ks.Paweł) </div></li>
+
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/521723">ŻEGLARZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Jakub) </div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/522737">MYSZKIN</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ferdyszczenko) </div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/521661">TAJEMNICA JEZIORA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Patton) </div></li>
+
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/523236">ZAPIS OJCA HERMANNA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Skarbimir) </div></li>
+
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/521765">ELŻBIETA, KRÓLOWA ANGLII</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Suffolk) </div></li>
+
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/523306">THERMIDOR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Barere) </div></li>
+
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/522989">JUDASZ Z KARIOTHU</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/523751">WIEJSKI SHERLOCK HOLMES</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Fiodor Aniskin) </div></li>
+
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/521149">ANTYGONA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (strażnik) </div></li>
+
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522425">DOKTOR NAZAROW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Łukin) </div></li>
+
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522452">GŁÓD</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan) </div></li>
+
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/1243710">PIERŚCIEŃ I RÓŻA, CZYLI HISTORIA LULEJKI I BULBY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521767">BAL MANEKINÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Delegat) </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521985">CZAROWNICE Z SALEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harrick) </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/523865">ERYK XIV</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Peder Welamson) </div></li>
+
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/522438">PŁASZCZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Stójkowy) </div></li>
+
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/523993">LAS</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Wosmibratow) </div></li>
+
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/521714">LĘKI PORANNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kola Brynion) </div></li>
+
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524223">CZTERDZIEŚCI KARATÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pan Charbonier) </div></li>
+
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524167">HOTEL POD POLEGŁYM ALPINISTĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Olaf Andvarafors) </div></li>
+
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521774">ŁOKIETEK CZYLI MAZUREK DĄBROWSKIEGO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Koniuszy) </div></li>
+
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521140">TRZECI MAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Zabijaka) </div></li>
+
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/524073">CIEŃ ARCHANIOŁA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (pułkownik Gonczar) </div></li>
+
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/524055">CORAZ WIĘKSZY SPOKÓJ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ostatko) </div></li>
+
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/523613">LIPCOWE TARAPATY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Bob Watson) </div></li>
+
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/1245053">KOMUNA PARYSKA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Lissagaray) </div></li>
+
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/522231">ZA KURTYNĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan Flannery) </div></li>
+
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524769">FOTOGRAFIA W GAZECIE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524744">PÓŹNE ŻYCZENIA NOWOROCZNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/524613">PIERWSZY INTERESANT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/524478">MAZEPA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Chrząstka, dworzanin Wojewody) </div></li>
+
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/524444">POWRÓT DO ITAKI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pasterz) </div></li>
+
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/524266">MARTWA KRÓLOWA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Infant) </div></li>
+
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/523854">POWRÓT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/521904">SZÓSTY LIPCA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Gorbunow) </div></li>
+
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523571">FRAJER</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Policjant) </div></li>
+
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523728">LUBOW JAROWAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/1254225">MUROWANE ALIBI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/522840">PIERWSZY DZIEŃ WOLNOŚCI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Paweł) </div></li>
+
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/523364">HOMER I ORCHIDEA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/521890">CUD Z CHLEBEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/523068">JUTRO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harry) </div></li>
+
+<li><div class="data">1959</div><div class="tytul"><a href="index.php/1239017">PASTYLKI NA KATAR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+</div>
+</ul>
+
+<ul id="filmografia_wg_funkcji">
+<h3 id="funkcja1">Obsada aktorska<div class="sterowanie"><span id="ffunkcja1_schowaj" class="jslink" onclick="pzz('ffunkcja1','ffunkcja1_schowaj')">schowaj</span></div></h3>
+<div id="ffunkcja1" style="display: block;">
+<li><div class="data">1996</div><div class="tytul"><a href="index.php/521430">PODRÓŻ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1994</div><div class="tytul"><a href="index.php/521258">SERCE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kowal) </div></li>
+<li><div class="data">1993 - 1994</div><div class="tytul"><a href="index.php/126042">BANK NIE Z TEJ ZIEMI</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (bezdomy "Marlboro") </div></li>
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/125583">PRZYPADEK PEKOSIŃSKIEGO</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pracownik PGR-u) </div></li>
+<li><div class="data">1993</div><div class="tytul"><a href="index.php/521555">ŚMIERĆ TAREŁKINA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (wierzyciel) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/123224">KRAMARZ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Antoni, sprzedawca łańcuszków) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/1210541">LEŚMIAN</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Franc Fiszer) </div></li>
+<li><div class="data">1990</div><div class="tytul"><a href="index.php/522076">WIELKA KSIĘŻNA I CHŁOPIEC HOTELOWY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (W.Ks.Paweł) </div></li>
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/123055">POWRÓT WABISZCZURA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bliźniak) </div></li>
+<li><div class="data">1989</div><div class="tytul"><a href="index.php/124603">SCENY NOCNE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (bogacz) </div></li>
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/127255">LES POSSÉDÉS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (komendant policji) </div></li>
+<li><div class="data">1988</div><div class="tytul"><a href="index.php/122690">PRZEPRAWA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Feliks Mazurek "Bruzda") </div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122730">CO TO KONIA OBCHODZI?</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Alojzy "Kochaś") </div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122721">RZEKA KŁAMSTWA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wuj Ksawery Gołębiowski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">2, 3</div></li>
+<li><div class="data">1987</div><div class="tytul"><a href="index.php/122572">ŚMIERĆ JOHNA L.</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (okularnik pod Wawelem) </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123785">KOLEGA PANA BOGA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/121786">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Brodacz Pancerny) </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123810">PIERŚCIEŃ I RÓŻA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123854">ZMIENNICY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kolekcjoner starej broni) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ANTYCYPACJA (11)</div></li>
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/521723">ŻEGLARZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Jakub) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/522737">MYSZKIN</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ferdyszczenko) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121441">PODRÓŻE PANA KLEKSA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (sternik Talens) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/521661">TAJEMNICA JEZIORA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Patton) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122722">URWISY Z DOLINY MŁYNÓW</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska ("Kapitan Groźny") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">KAPITAN GROŹNY (4), KONRAD (11), LEKCJA PŁYWANIA (12), PIERWSZY ŚNIEG (16), KIEDY ZWIERZĘTA MÓWIĄ (17), GDZIE JEST GROŹNY (19), NUMER Z KOTEM (22)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/523236">ZAPIS OJCA HERMANNA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Skarbimir) </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/123950">5 DNI Z ŻYCIA EMERYTA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz rosyjski strzelający do Stanisława  Bzowskiego; twarz aktora pojawia się także  na jednym ze zdjęć członków rodziny  Bzowskich w odcinku 2) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">WSPOMNIEŃ RODZINNYCH CIĄG DALSZY (4)</div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/521765">ELŻBIETA, KRÓLOWA ANGLII</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Suffolk) </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/121345">PRZEMYTNICY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Żywica") </div></li>
+<li><div class="data">1984</div><div class="tytul"><a href="index.php/523306">THERMIDOR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Barere) </div></li>
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12662">KARTKA Z PODRÓŻY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (restaurator Alojzy Moczko) </div></li>
+<li><div class="data">1983</div><div class="tytul"><a href="index.php/12823">TAJEMNICA STAREGO OGRODU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bosman Henryk Reja) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/124065">LATAWIEC</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kowal) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12453">NA TROPACH BARTKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/123853">POPIELEC</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (znachor Pyza) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PÓŁPANEK (2), DZICYZNA (3), DYMY (4), HEROD (5)</div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12315">SŁONA RÓŻA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (malarz Hrusa) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124059">BIAŁE TANGO</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (dyrektor PGR-u) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA PÓŁ ETATU (2)</div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/522989">JUDASZ Z KARIOTHU</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/12179">KARABINY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bimbrownik) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/1247">KLEJNOT WOLNEGO SUMIENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (nie występuje w napisach; powieszony  szlachcic) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, były rządca w majątku  Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NOWA BROŃ SZWOLEŻERÓW (3)</div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/523751">WIEJSKI SHERLOCK HOLMES</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Fiodor Aniskin) </div></li>
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124048">YOKOHAMA</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jaś, przyjaciel pisarza) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/521149">ANTYGONA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (strażnik) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522425">DOKTOR NAZAROW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Łukin) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12984">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/522452">GŁÓD</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/122855">KARIERA NIKODEMA DYZMY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (wiceminister Jan Ulanicki) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">1, 3, 4, 5, 7</div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/124068">KŁUSOWNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (fotografik Lech Kiczyłło) </div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/1243710">PIERŚCIEŃ I RÓŻA, CZYLI HISTORIA LULEJKI I BULBY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska ("Cyklop" Bieńkowski) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521767">BAL MANEKINÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Delegat) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/521985">CZAROWNICE Z SALEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harrick) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/124684">DETEKTYWI NA WAKACJACH</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (milicjant "Brodacz") </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">OBCY (2), ZASADZKA (3), WIELKIE ODKRYCIE (4), NA TROPIE (5)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/523865">ERYK XIV</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Peder Welamson) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12928">NA WŁASNĄ PROŚBĘ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (dziennikarz) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/123487">NAJDŁUŻSZA WOJNA NOWOCZESNEJ EUROPY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Wargosz, rządca w majątku Chłapowskich) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PUŁKOWNIK CESARZA (1)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12531">OJCIEC KRÓLOWEJ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szlachcic, gość weselny) </div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/522438">PŁASZCZ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Stójkowy) </div></li>
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/124136">KOTY TO DRANIE</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (wędkarz) </div></li>
+<li><div class="data">1978</div><div class="tytul"><a href="index.php/12609">PEJZAŻ HORYZONTALNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chuligan) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/124128">DZIEWCZYNA I CHŁOPAK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (kłusownik Wilczak) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">DOCHODZENIE (4), TOMEK I TOSIA (6)</div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/523993">LAS</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Wosmibratow) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/521714">LĘKI PORANNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kola Brynion) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12474">MILIONER</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (majster murarski Bil) </div></li>
+<li><div class="data">1977</div><div class="tytul"><a href="index.php/12583">WSZYSCY I NIKT</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (organista) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524223">CZTERDZIEŚCI KARATÓW</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pan Charbonier) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124254">HASŁO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Snopek, szef Kopery) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/524167">HOTEL POD POLEGŁYM ALPINISTĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Olaf Andvarafors) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521774">ŁOKIETEK CZYLI MAZUREK DĄBROWSKIEGO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Koniuszy) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/521140">TRZECI MAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Zabijaka) </div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124277">ZNAKI SZCZEGÓLNE</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (pracownik stacji benzynowej) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ROZBITEK (2)</div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/124319">BENIAMISZEK</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (Jacek Żegota) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/524073">CIEŃ ARCHANIOŁA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (pułkownik Gonczar) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/123572">DOMY Z DESZCZU. IMPRESJA Z KONSTANTEGO PAUSTOWSKIEGO</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (kapitan) </div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/12184">GRZECH ANTONIEGO GRUDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Ruryk) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/524055">CORAZ WIĘKSZY SPOKÓJ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Ostatko) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/1266">GODZINA ZA GODZINĄ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (milicjant kontrolujący samochód Tadeusza) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/129">JANOSIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/523613">LIPCOWE TARAPATY</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Bob Watson) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12150">URODZINY MATYLDY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jaworski, mąż matki Basi) </div></li>
+<li><div class="data">1974</div><div class="tytul"><a href="index.php/12152">WIECZNE PRETENSJE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Rysio) </div></li>
+<li><div class="data">1973 - 1974</div><div class="tytul"><a href="index.php/1252">POTOP</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Kulwiec - Hippocentaurus) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/124403">JANOSIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Waluś Kwiczoł) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PIERWSZE NAUKI (1), ZBÓJNICKIE PRAWA (2), W OBCEJ SKÓRZE (3), PORWANIE (4), TAŃCOWALI ZBÓJNICY (5), WOREK TALARÓW (6), BECZKA OKOWITY (7), DOBRA CENA (8), POBÓR (9), WSZYSCY ZA JEDNEGO (10), TRUDNO - MIŁOŚĆ (11), POBILI SIĘ DWAJ GÓRALE (12), ZDRADA (13)</div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/1245053">KOMUNA PARYSKA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Lissagaray) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/126">NAGRODY I ODZNACZENIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (chorąży Ryszard Dunajczyk, intendent  szpitala) </div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/123191">WIELKA MIŁOŚĆ BALZAKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (major Carraud) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">CUDZOZIEMKA (2), CONTESSA (3)</div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/522231">ZA KURTYNĄ</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Kapitan Flannery) </div></li>
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/12309">KOPERNIK</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div></li>
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/124449">KOPERNIK</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (burgrabia lidzbarski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">ZIEMIA (2)</div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524769">FOTOGRAFIA W GAZECIE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121311">KARDIOGRAM</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Roman, komendant MO) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121328">NIE LUBIĘ PONIEDZIAŁKU</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kierowca) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/524744">PÓŹNE ŻYCZENIA NOWOROCZNE</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/124468">SYSTEM</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (pacjent; nie występuje w napisach) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121358">ZABIJCIE CZARNĄ OWCĘ</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (szuler) </div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121372">ZARAZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Władek, kierowca sanitarki) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121139">ALBUM POLSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (bandyta) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121067">LOKIS. RĘKOPIS PROFESORA WITTEMBACHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (posłaniec hrabiego z listem dla profesora  Wittembacha; nie występuje w napisach) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/121229">PIERŚCIEŃ KSIĘŻNEJ ANNY</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Hlawa) </div></li>
+<li><div class="data">1970</div><div class="tytul"><a href="index.php/524613">PIERWSZY INTERESANT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/524478">MAZEPA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Chrząstka, dworzanin Wojewody) </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/12443">PAN WOŁODYJOWSKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pułkownik) </div></li>
+<li><div class="data">1969</div><div class="tytul"><a href="index.php/123546">PRZYGODY PANA MICHAŁA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (Muszalski) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">BRAT JERZY (1), KOMENDANT STANICY (6), TAJEMNICA AZJI (7), AZJA, SYN TUHAJ - BEJA (8), SMAK ZEMSTY (10), BUŁAT I SZABLA (11), DYMY NAD TWIERDZĄ (12), HEKTOR KAMIENIECKI (13)</div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121657">HASŁO KORN</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (inżynier Witold Bracki) </div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/524444">POWRÓT DO ITAKI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Pasterz) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/129137">DIE GEFRORENEN BLITZE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (lekarz) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/524266">MARTWA KRÓLOWA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Infant) </div></li>
+<li><div class="data">1967</div><div class="tytul"><a href="index.php/12192">WESTERPLATTE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapitan Mieczysław Słaby, lekarz) </div></li>
+<li><div class="data">1966</div><div class="tytul"><a href="index.php/1211525">THE NIGHT OF THE GENERALS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (żołnierz niemiecki; nie występuje w napisach) </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/126993">PERŁY I DUKATY</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (inspektor MO) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly"><a href="index.php/122718">MARKIZA DE POMPADOUR</a></div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/124611">PODZIEMNY FRONT</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada aktorska (gość w knajpie; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">POSTE RESTANTE (2)</div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/523854">POWRÓT</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/521904">SZÓSTY LIPCA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Gorbunow) </div></li>
+<li><div class="data">1965</div><div class="tytul"><a href="index.php/121794">WYSTRZAŁ</a></div><div class="rodzajfilmu">Film fabularny - telewizyjny</div> <div class="funkcja">Obsada aktorska (oficer) </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523571">FRAJER</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Policjant) </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/523728">LUBOW JAROWAJA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1964</div><div class="tytul"><a href="index.php/121835">RĘKOPIS ZNALEZIONY W SARAGOSSIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Cygan) </div></li>
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/1254225">MUROWANE ALIBI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1963</div><div class="tytul"><a href="index.php/522840">PIERWSZY DZIEŃ WOLNOŚCI</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Paweł) </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122144">GŁOS Z TAMTEGO ŚWIATA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (tancerz w masce żaby na balu maskowym) </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/523364">HOMER I ORCHIDEA</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1962</div><div class="tytul"><a href="index.php/122030">WIELKA, WIĘKSZA I NAJWIĘKSZA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jean, drugi pilot samolotu "Tajfun 125") </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/521890">CUD Z CHLEBEM</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122234">DECYZJA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Michał Jurewicz) </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/523068">JUTRO</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska (Harry) </div></li>
+<li><div class="data">1960</div><div class="tytul"><a href="index.php/122220">OSTROŻNIE YETI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (gangster) </div></li>
+<li><div class="data">1959</div><div class="tytul"><a href="index.php/1239017">PASTYLKI NA KATAR</a></div><div class="rodzajfilmu">Spektakl telewizyjny</div> <div class="funkcja">Obsada aktorska </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122330">DWOJE Z WIELKIEJ RZEKI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Janek Kujawa, syn "Wiślaka") </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122367">HISTORIA JEDNEGO MYŚLIWCA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (porucznik Stefan Zaremba, pilot Dywizjonu  306) </div></li>
+<li><div class="data">1958</div><div class="tytul"><a href="index.php/122324">RANCHO TEXAS</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Jacek) </div></li>
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122369">KRÓL MACIUŚ I</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (U-mun-tu, wysłannik króla Bum-druma) </div></li>
+<li><div class="data">1957</div><div class="tytul"><a href="index.php/122405">SPOTKANIA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (pilot Janusz) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">4</div></li>
+<li><div class="data">1956</div><div class="tytul"><a href="index.php/122421">ZIMOWY ZMIERZCH</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (Józek Rumsza, syn Michała) </div></li>
+<li><div class="data">1955</div><div class="tytul"><a href="index.php/122451">GODZINY NADZIEI</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada aktorska (kapral Sumski; nie występuje w napisach) </div></li>
+</div>
+<h3 id="funkcja2">Obsada dubbingu<div class="sterowanie"><span id="ffunkcja2_schowaj" class="jslink" onclick="pzz('ffunkcja2','ffunkcja2_schowaj')">schowaj</span></div></h3>
+<div id="ffunkcja2" style="display: block;">
+<li><div class="data">1986</div><div class="tytul"><a href="index.php/123490">BIAŁA WIZYTÓWKA</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (Heinberg; rola Rolfa Hoppe; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">, ZARZĄD PRZYMUSOWY (6)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122713">OKO PROROKA CZYLI HANUSZ BYSTRY I JEGO PRZYGODY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola Tadeusza Szanieckiego; nie  występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">PRZEKLĘTY DIAMENT (3), PRZYJACIELE (5)</div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/121375">PORWANIE</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (Kapitan Angełow) </div></li>
+<li><div class="data">1985</div><div class="tytul"><a href="index.php/122564">PRZYŁBICE I KAPTURY</a></div><div class="rodzajfilmu">Serial fabularny</div> <div class="funkcja">Obsada dubbingu ("Dzieweczka"; rola <a href="index.php/112979">Władysława Komara</a>; nie występuje w napisach) </div><div class="odcinki">odcinki:</div><div class="odcinkitytuly">NA TROPIE ZDRADY (2), POŻOGA (3), PRZERWANE OGNIWO (4), A WĘŻOWI BIADA (8), JUTRO BITWA (9)</div></li>
+<li><div class="data">1982</div><div class="tytul"><a href="index.php/12386">OKO PROROKA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (starosta; rola <a href="index.php/111968">Tadeusza Szanieckiego</a>; nie występuje w napisach) </div></li>
+<li><div class="data">1968</div><div class="tytul"><a href="index.php/121634">WILCZE ECHA</a></div><div class="rodzajfilmu">Film fabularny</div> <div class="funkcja">Obsada dubbingu (chorąży Piotr Słotwina) </div></li>
+</div>
+</ul>
+</div>
+<h2>Inne nagrody dla ważniejszych filmów<div class="sterowanie"><span id="osoba_nagrody_inne_schowaj" class="jslink" onclick="pzz('osoba_nagrody_inne','osoba_nagrody_inne_schowaj')">pokaż</span></div></h2>
+<ul id="osoba_nagrody_inne" style="display: none;">
+<li><div class="data">1981</div><div class="tytul"><a href="index.php/124068">KŁUSOWNIK</a></div><div class="nagroda">Poznań (Międzynarodowy Festiwal Filmów Młodego Widza "Ale Kino!") Poznańskie Koziołki dla najlepszego filmu aktorskiego <em>Brązowe; 7 Ogólnopolski Festiwal Filmów dla Dzieci i Młodzieży (3-6.07)</em></div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">San Remo (MFF Autorskich) nagroda za debiut reżyserski, nagrodę otrzymał/a <a href=index.php/112593>Filip Bajon</a></div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">San Sebastian (MFF) wyróżnienie w sekcji nowych realizatorów</div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">Nagroda im. Zbyszka Cybulskiego, nagrodę otrzymał/a <a href=index.php/111398>Krzysztof Majchrzak</a></div></li>
+<li><div class="data">1980</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">Don Kichot (Nagroda PF DKF)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">Samowar, Nagroda Entuzjastów Kina (przyznawana przez DKF w Świebodzinie)</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">Koszalin (Koszaliński Festiwal Debiutów Filmowych "Młodzi i Film") Nagroda Dziennikarzy <em>za najlepszy debiut reżyserski w polskim przeglądzie debiutów</em></div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">Koszalin (Koszaliński Festiwal Debiutów Filmowych "Młodzi i Film") Nagroda za film fabularny</div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">Gdańsk (Festiwal Polskich Filmów Fabularnych) Nagroda za debiut reżyserski, nagrodę otrzymał/a <a href=index.php/112593>Filip Bajon</a></div></li>
+<li><div class="data">1979</div><div class="tytul"><a href="index.php/12744">ARIA DLA ATLETY</a></div><div class="nagroda">Gdańsk (Festiwal Polskich Filmów Fabularnych) Nagroda za zdjęcia, nagrodę otrzymał/a <a href=index.php/112597>Jerzy Zieliński</a></div></li>
+<li><div class="data">1976</div><div class="tytul"><a href="index.php/124319">BENIAMISZEK</a></div><div class="nagroda">Gdańsk (Festiwal Polskich Filmów Fabularnych) Nagroda za zdjęcia, nagrodę otrzymał/a <a href=index.php/112188>Stanisław Loth</a></div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/12152">WIECZNE PRETENSJE</a></div><div class="nagroda">Gdańsk (Festiwal Polskich Filmów Fabularnych) Nagroda Dziennikarzy</div></li>
+<li><div class="data">1975</div><div class="tytul"><a href="index.php/12152">WIECZNE PRETENSJE</a></div><div class="nagroda">Gdańsk (Festiwal Polskich Filmów Fabularnych) Nagroda za zdjęcia, nagrodę otrzymał/a <a href=index.php/111859>Bogdan Dziworski</a></div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/121358">ZABIJCIE CZARNĄ OWCĘ</a></div><div class="nagroda">Koszalin (Koszaliński Festiwal Debiutów Filmowych "Młodzi i Film") Nagroda za rolę męską <em>nazwa festiwalu: I Międzynarodowe Spotkania Filmowe "Młodzież  na ekranie"</em>, nagrodę otrzymał/a <a href=index.php/11579>Marek Frąckowiak</a></div></li>
+<li><div class="data">1973</div><div class="tytul"><a href="index.php/121358">ZABIJCIE CZARNĄ OWCĘ</a></div><div class="nagroda">Koszalin (Koszaliński Festiwal Debiutów Filmowych "Młodzi i Film") Wyróżnienie <em>za podjęcie tematu resocjalizacji młodzieży; nazwa festiwalu: I Międzynarodowe  Spotkania Filmowe "Młodzież na ekranie"</em></div></li>
+<li><div class="data">1972</div><div class="tytul"><a href="index.php/121358">ZABIJCIE CZARNĄ OWCĘ</a></div><div class="nagroda">San Sebastian (MFF) nagroda OCIC (Międzynarodowa Organizacja Katolicka d/s Filmu), nagrodę otrzymał/a <a href=index.php/11249>Jerzy Passendorfer</a></div></li>
+<li><div class="data">1971</div><div class="tytul"><a href="index.php/121311">KARDIOGRAM</a></div><div class="nagroda">Łagów (Lubuskie Lato Filmowe) Nagroda za drugoplanową rolę męską, nagrodę otrzymał/a <a href=index.php/11156>Bolesław Płotnicki</a></div></li>
+<li><div class="data">1966</div><div class="tytul"><a href="index.php/121794">WYSTRZAŁ</a></div><div class="nagroda">Kair (MFF Telewizyjnych) "Brązowy Ramzes"</div></li>
+</ul>
+<div id="czasgen">2020.10.02 01:10:36</div>
+</article>
+</div>   <!-- tresc -->
+
+</div>   <!-- content -->
+
+<div style="clear:both"></div>
+
+<div id="stopka">
+<strong>&copy; 1998-2019 Państwowa Wyższa Szkoła Filmowa, Telewizyjna i Teatralna im. Leona Schillera w Łodzi.</strong><br />
+Internetowa Baza Filmu Polskiego <a href="https://filmpolski.pl">filmpolski.pl</a> jest bazą danych chronioną przepisami 
+Ustawy z dnia 27 lipca 2001 r. o ochronie baz danych 
+(<a href="http://isap.sejm.gov.pl/DetailsServlet?id=WDU20011281402" target="_blank">Dz.  U. 2001 nr 128 poz. 1402</a>).
+Kopiowanie treści zawartych w serwisie bez zgody redakcji zabronione. 
+Kopiowanie i wykorzystywanie fotosów oraz materiałów audiowizualnych zamieszczonych w serwisie bezwzględnie zabronione, z zastrzeżeniem wyjątków 
+przewidzianych przez prawo.
+Cytowanie fragmentów treści zawartych w serwisie wymaga zgody redakcji. W każdym przypadku konieczne jest podanie źródła w podpisie 
+pod cytowanym fragmentem. 
+W przypadku portali internetowych żródło musi być linkiem do serwisu <a href="https://filmpolski.pl">filmpolski.pl</a>.<br />
+Internetowa Baza Filmu Polskiego <a href="https://filmpolski.pl">filmpolski.pl</a> działa na podstawie art. 2 Ustawy z dnia 10 maja 2018 r. o ochronie danych osobowych (Dz.U. 2018 poz. 1000).<br />
+Internetowa Baza Filmu Polskiego <a href="https://filmpolski.pl">filmpolski.pl</a> współpracuje z TVN w zakresie publikacji promocyjnych materiałów audiowizualnych. <a href="http://s.tvn.pl/pdf/polityka_prywatnosci.pdf" 
+target="_blank">Administratorem danych pozyskanych w związku z emisją tych materiałów jest TVN</a>.<br />
+Ta strona używa plików cookie. Zapisywanie plików cookies można zablokować, zmieniając ustawienia przeglądarki.
+</div>
+<div id="r1">
+
+<div class="r2"><a href="http://www.kinomuzeum.pl/" target="_blank"><img class="r3" src="imgreklamy/8.jpg" alt="Muzeum Kinematografii"></a><a href="http://www.makufly.com/" target="_blank"><img class="r3" src="imgreklamy/10.jpg" alt="MakuFly Marcin Makowski"></a><a href="http://www.wellman.pl/" target="_blank"><img class="r3" src="imgreklamy/24.jpg" alt="Krzysztof Wellman"></a><a href="http://www.krzysztof.wiktor.eu/" target="_blank"><img class="r3" src="imgreklamy/14.jpg" alt="Krzysztof Wiktor"></a></div>
+</div>
+
+
+<div id="dogory_lewe" class="hidden"><a href="#poczatek"><img src="img1/dogory.png" alt="powrót na początek strony" title="powrót na początek strony"/></a></div>
+<div id="dogory_prawe" class="hidden"><a href="#poczatek"><img src="img1/dogory.png" alt="powrót na początek strony" title="powrót na początek strony"/></a></div>
+
+</div>  <!-- kontener -->
+
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-895912-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+
+
+
+
+</body>
+</html>

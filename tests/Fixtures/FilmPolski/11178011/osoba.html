@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+<html lang="pl" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta charset="UTF-8" />
+<title>FilmPolski.pl - Kalina Cyz</title>	<meta name="description"  content="Baza filmu polskiego" />
+	<meta name="keywords" content="" />
+	<link href="css/main.css?v=1.0.1" type="text/css" rel="stylesheet" media="all" />
+    <meta name=viewport content="width=device-width">
+
+<!--[if lt IE 7]><style type="text/css">@import "css/ie.css";</style><![endif]-->
+<!--[if IE 5]><style type="text/css">@import "css/ie5.css";</style><![endif]-->
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+
+<link rel="image_src" href="https://www.filmpolski.pl/fp/img1/logofilmpolski.png" />
+<meta property="og:title" content="FilmPolski.pl" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.filmpolski.pl/fp/index.php" />
+<meta property="og:image" content="https://www.filmpolski.pl/fp/img1/logofilmpolski.png" />
+<meta property="og:site_name" content="FilmPolski" />
+<meta property="og:description" content="Baza filmu polskiego" />
+<meta property="fb:admins" content="1732470877" />
+
+<!--[if lt IE 9]>
+	<script>
+	var e = ("abbr,article,aside,audio,canvas,datalist,details," +
+	"figure,footer,header,hgroup,mark,menu,meter,nav,output," +
+	"progress,section,time,video").split(',');
+	for (var i = 0; i < e.length; i++) {
+	document.createElement(e[i]);
+	}
+	</script>
+<![endif]-->
+
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="/fp/js/kryt.js"></script>
+<script type="text/javascript" src="/fp/js/pokzdj.js"></script>
+
+<link rel="search" type="application/opensearchdescription+xml" href="/fp/filmpolski.xml" title="filmpolski.pl" />
+
+<br>
+
+<![if !IE]>
+<script type="text/javascript">
+window.onscroll = scroll;
+
+function scroll () {
+	if (window.pageYOffset >1000)
+	{
+		document.getElementById('dogory_lewe').classList.remove('hidden');
+		document.getElementById('dogory_prawe').classList.remove('hidden');
+	}
+	else
+	{
+		document.getElementById('dogory_lewe').classList.add('hidden');
+		document.getElementById('dogory_prawe').classList.add('hidden');
+	}
+}
+</script>
+<![endif]>
+
+</head>
+<body id="poczatek">
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div id="kontener">
+
+<div id="naglowek">
+
+<style type="text/css">
+
+#szuktip {
+	display:none;
+	border:black 1px solid;
+	position:absolute;
+	top:110px;
+	left:550px;
+	width:390px;
+	z-index:1000;
+	background-color:#DDDDDB;
+	padding:0 5px;
+	border-radius:0 0 10px 0;
+	moz-border-radius:0 0 10px 0;
+	webkit-border-radius:0 0 10px 0;
+	font-size:12px;
+	cursor: pointer;
+}
+
+#szuktip h1 {
+	font-weight:bold;
+	margin-bottom:12px;
+	margin-left:-5px;
+	width:385px;
+	color:white;
+	text-shadow: black 0.1em 0.1em 0.2em;
+	padding:1px 0 0 15px;
+	background-color:#566da1;
+}
+
+#szuktip strong {
+	color:#0B3273;
+}
+
+#szuktip p {
+	margin-bottom:4px;
+	text-indent:10px;
+}
+
+#szuktip h1 .x {
+	float:right;
+	cursor:pointer;
+	padding:0 8px;
+	border-left:#FFFFFF 1px solid;
+	background-color:#660000;
+}
+
+#szuktipico {
+	position:absolute;
+	top:43px;
+	left:660px;
+	cursor:help;
+}
+
+
+</style>
+
+
+<script>
+
+function pokaz_tip(id)
+{
+	var element = document.getElementById(id);
+	element.style.display = 'block';
+}
+
+function schowaj_tip(id)
+{
+	var element = document.getElementById(id);
+	element.style.display = 'none';
+}
+
+</script>
+
+<div id="szuktip" onclick="schowaj_tip('szuktip')">
+<h1>Wyszukiwanie<span class="x" title="zamknij podpowiedź">x</span></h1>
+<p>Proszę wpisać poszukiwane słowo lub jego fragment.</p>
+<p>Opcja <strong>fragment</strong> pozwala wyszukać każde wystąpienie poszukiwanego wyrażenia.</p>
+<p>Opcja <strong>początek</strong> pozwala wyszukać wszystkie tytuły i&nbsp;nazwiska rozpoczynające się od wyszukiwanego wyrażenia.<p>
+<p>Opcja <strong>dokładnie</strong> wyszukuje tylko te filmy i osoby, których tytuły, imiona i/lub nazwiska są takie same jak wyszukiwane wyrażenie.</p>
+<p><strong>WAŻNE!</strong> Proszę pamiętać, że każda osoba wpisana jest do bazy w formie „nazwisko, imię”. Wyszukując osoby w opcji <strong>początek</strong> należy wpisać jej nazwisko lub jego początkowy fragment, w opcji <strong>dokładnie</strong> należy wpisać np. Kowalski, Jan (nie Jan Kowalski). W tej opcji wpisanie przecinka i spacji <strong>JEST KONIECZNE</strong>.</p>
+
+
+</div>
+
+<img id="szuktipico" src="img1/tip.png" onClick="pokaz_tip('szuktip')" title="objaśnienia">
+
+<a href="index.php"><img id="logo" src="img1/logo-oryginal.png" alt="Strona główna"/></a>
+<div class="fb-like" data-href="https://www.facebook.com/filmpolski.IBFP/" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+
+<script type="text/javascript" src="js/szukanie.js"></script>
+
+<div id="search-etykieta">Szukaj w bazie</div>
+<form id="search-form" action="index.php" method="get">
+
+	<fieldset id="wyszukiwarka" >
+		<input type="search" id="search-text" name="szukaj" placeholder="nazwisko osoby lub tytuł filmu" required x-webkit-speech />
+        <select id="search-select" name="rodzaj" onChange="zapiszRodzajSzukania(this);">
+<option value="1" selected>fragment</option><option value="2">początek</option><option value="3">dokładnie</option>
+        </select>
+		<input type="submit" id="search-submit" value="" />
+
+	</fieldset>
+
+</form>
+
+
+</div>
+
+
+
+<div id="menu1">
+
+<ol id="menu2">
+
+<li class="menuitem1"><a href="index.php"><img src="img1/home.png"></a></li>
+<li class="menuitem"><a href="index.php?kalendarium=10.06">Kalendarium</a></li>
+<li class="menuitem"><a href="index.php?filmy_z_roku=2020&typ=2">Filmy z roku</a></li>
+<li class="menuitem"><a href="index.php?kino=1">Filmoteka</a></li>
+<li class="menuitem"><a href="/rec/index.php/slowo">Film w prasie polskiej</a></li>
+
+</ol>
+
+</div>
+<div id="content">
+<div id="sidebar">
+
+<div class="br kontener"><h1>SERWIS TWORZY</h1><div class="notatka_boczna"><a href="http://www.filmschool.lodz.pl" target="_blank"><img class="logoszkoly" src="img1/logo.png"></a></div></div><div class="br kontener"><h1>OSTATNIE PREMIERY</h1><div class="notatka_boczna"><h2>Październik</h2>
+<ol>
+<li class="w1"><div class="dzien">2</div> <strong><a class="tytul" href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></strong></li>
+<li class="w1"><div class="dzien">2</div> <strong><a class="tytul" href="index.php/1252558">SKANDAL. EWENEMENT MOLESTY (film dokumentalny)</a></strong></li>
+<li class="w1"><div class="dzien">3</div> <a class="tytul" href="index.php/1254424">MAYDAY (serial tv; Polsat)</a></li>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1254841">BRZYDULA 2 (serial tv; TVN 7)</a></li>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1254758">HALO, HALO, TU MÓWI WARSZAWA (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">6</div> <strong><a class="tytul" href="index.php/1254860">CHYŁKA. REWIZJA (serial tv; Player)</a></strong></li>
+</ol>
+<h2>Wrzesień</h2>
+<ol>
+<li class="w1"><div class="dzien">1</div> <a class="tytul" href="index.php/1219811">BARWY SZCZĘŚCIA (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">1</div> <a class="tytul" href="index.php/1211953">NA WSPÓLNEJ (sezon 2020/2021; TVN)</a></li>
+<li class="w1"><div class="dzien">1</div> <a class="tytul" href="index.php/1247860">ZAKOCHANI PO USZY (seria 4; TVN 7)</a></li>
+<li class="w1"><div class="dzien">3</div> <a class="tytul" href="index.php/1229961">PRZYJACIÓŁKI (seria 16; Polsat)</a></li>
+<li class="w1"><div class="dzien">4</div> <a class="tytul" href="index.php/1254380">PĘTLA</a></li>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/1225007">USTA USTA (seria 4; TVN)</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/1245011">LEŚNICZÓWKA (sezon 2020/2021; TVP 1)</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/129215">M JAK MIŁOŚĆ (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/128104">NA DOBRE I NA ZŁE (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">10</div> <a class="tytul" href="index.php/1222272">OJCIEC MATEUSZ (seria 24; TVP 1)</a></li>
+<li class="w1"><div class="dzien">12</div> <a class="tytul" href="index.php/1228177">KOMISARZ ALEX (seria 15; TVP 1)</a></li>
+<li class="w1"><div class="dzien">13</div> <a class="tytul" href="index.php/1249485">LUDZIE I BOGOWIE (serial tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">13</div> <a class="tytul" href="index.php/1254503">MELDUJĘ TOBIE POLSKO. ROTMISTRZ PILECKI (Teatr tv; TVP Polonia)</a></li>
+<li class="w1"><div class="dzien">14</div> <a class="tytul" href="index.php/1235639">O MNIE SIĘ NIE MARTW (dokończenie serii 12; TVP 2)</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/1254631">ZAPISKI OFICERA ARMII CZERWONEJ (Teatr tv; TVP Polonia)</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1251945">25 LAT NIEWINNOŚCI. SPRAWA TOMKA KOMENDY</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1246992">ADWOKAT</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1250897">INTERIOR</a></li>
+<li class="w1"><div class="dzien">21</div> <a class="tytul" href="index.php/1254504">TRÓJKĄT BERMUDZKI (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1234315">NA SYGNALE (sezon 2020/2021; TVP 2)</a></li>
+<li class="w1"><div class="dzien">25</div> <a class="tytul" href="index.php/1254221">JAK NAJDALEJ STĄD</a></li>
+<li class="w1"><div class="dzien">25</div> <a class="tytul" href="index.php/1251916">TARAPATY 2</a></li>
+<li class="w1"><div class="dzien">30</div> <a class="tytul" href="index.php/1249735">TONY HALIK (film dokumentalny)</a></li>
+</ol>
+<h2>Sierpień</h2>
+<ol>
+<li class="w1"><div class="dzien">21</div> <a class="tytul" href="index.php/1240751">DOLINA BOGÓW</a></li>
+<li class="w1"><div class="dzien">28</div> <a class="tytul" href="index.php/1249647">ZIEJA</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/127130">KLAN (sezon 2020/2021; TVP 1)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1243681">KORONA KRÓLÓW (sezon 2020/2021; TVP 1)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1214188">PIERWSZA MIŁOŚĆ (sezon 2020/2021; Polsat)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1252870">ŚWIĘTY (seria 2; TV 4)</a></li>
+</ol></div></div><div class="br kontener"><h1>6 października</h1><div class="notatka_boczna"><h2>Urodzili się:</h2><ol><li><span class="rok">1943</span> <a href="index.php/112234">Elżbieta Starostecka</a></li><li><span class="rok">1979</span> <a href="index.php/1144153">Kamilla Baar</a></li></ol><h2>Zmarli:</h2><ol><li><span class="rok">1990</span> <a href="index.php/11116085">Henryk Vogelfänger</a></li></ol><h2>Premiery:</h2><ol><li><span class="rok">1991</span> <a href="index.php/123227">LA DOUBLE VIE DE VERONIQUE</a></li></ol><br /><div class="wiecej"><a href="index.php?kalendarium=10.06">więcej...</a></div></div></div><div class="br kontener"><h1>PLANOWANE PREMIERY</h1><div class="notatka_boczna"><h2>Październik</h2>
+<ol>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/1251316">SZARLATAN</a></li>
+<li class="w1"><div class="dzien">16</div> <a class="tytul" href="index.php/1253352">BANKSTERZY</a></li>
+<li class="w1"><div class="dzien">16</div> <a class="tytul" href="index.php/1247320">RAZ JESZCZE RAZ</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/1254423">BAD BOY (serial tv; Polsat)</a></li>
+<li class="w1"><div class="dzien">18</div> <a class="tytul" href="index.php/1254028">KRÓLESTWO KOBIET (serial tv; TVN)</a></li>
+<li class="w1"><div class="dzien">19</div> <a class="tytul" href="index.php/1254759">CUD BIEDNYCH LUDZI (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1254791">CZYŚCIEC</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1250969">POLOT</a></li>
+<li class="w1"><div class="dzien">27</div> <a class="tytul" href="index.php/1254775">NIE LUBIĘ PANA, PANIE FELLINI (Teatr tv; TVP Kultura)</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1254531">BEZ SKRUPUŁÓW (serial tv; Polsat)</a></li>
+</ol>
+<h2>Listopad</h2>
+<ol>
+<li class="w1"><div class="dzien">4</div> <a class="tytul" href="index.php/1254747">LISTY DO M. 4</a></li>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/1249664">KRÓL (serial tv; Canal+)</a></li>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/1254760">NI Z TEGO, NI Z OWEGO (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">13</div> <a class="tytul" href="index.php/1248305">FISHEYE</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1250703">MAGNEZJA</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1252706">ZABIJ TO I WYJEDŹ Z TEGO MIASTA</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1254761">BADYLE (Teatr tv; TVP 1)</a></li>
+</ol>
+<h2>Grudzień</h2>
+<ol>
+<li class="w1"><div class="dzien">4</div> SMALL WORLD</li>
+<li class="w1"><div class="dzien">14</div> <a class="tytul" href="index.php/1254762">CENA WŁADZY (Teatr tv; TVP 1)</a></li>
+<li class="w1"><div class="dzien">25</div> NA DWA GŁOSY</li>
+<li class="w1"><div class="dzien">25</div> <a class="tytul" href="index.php/1254173">SZCZĘŚCIA CHODZĄ PARAMI</a></li>
+</ol>
+<h2>Styczeń 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/1247463">BROAD PEAK</a></li>
+<li class="w1"><div class="dzien">8</div> KONIEC ŚWIATA CZYLI KOGEL MOGEL 4</li>
+<li class="w1"><div class="dzien">11</div> KOKOLOBOLO, CZYLI OPOWIEŚĆ O PRZYPADKACH ŚLEPEGO MAKSA I SZAI MAGNATA (Teatr tv; TVP 1)</li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/1250627">NAJMRO. KOCHA, KRADNIE, SZANUJE</a></li>
+<li class="w1"><div class="dzien">22</div> <a class="tytul" href="index.php/1254241">DZIEWCZYNY Z DUBAJU</a></li>
+<li class="w1"><div class="dzien">29</div> 8 RZECZY, KTÓRYCH NIE WIECIE O FACETACH</li>
+<li class="w1"><div class="dzien">29</div> MIŁOSNE TURBULENCJE</li>
+<li class="w1"><div class="dzien">29</div> ROLLING TO YOU</li>
+</ol>
+<h2>Luty 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">5</div> WARSAW LOVERS</li>
+<li class="w1"><div class="dzien">12</div> <a class="tytul" href="index.php/1253305">MIŁOŚĆ NA MARSIE</a></li>
+<li class="w1"><div class="dzien">19</div> PORADY NA ZDRADY 2</li>
+<li class="w1"><div class="dzien">26</div> <a class="tytul" href="index.php/1252665">BO WE MNIE JEST SEKS</a></li>
+</ol>
+<h2>Marzec 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1251900">MISTRZ</a></li>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1254574">ZUPA NIC</a></li>
+</ol>
+<h2>Kwiecień 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">16</div> NA PEŁNEJ PETARDZIE. HISTORIA KS. JANA KACZKOWSKIEGO</li>
+</ol>
+<h2>Październik 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">8</div> ŻEBY NIE BYŁO ŚLADÓW</li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/1254220">GIEREK</a></li>
+</ol>
+<h2>Listopad 2021</h2>
+<ol>
+<li class="w1"><div class="dzien">5</div> <a class="tytul" href="index.php/1252974">KRIME STORY. LOVE STORY</a></li>
+<li class="w1"><div class="dzien">11</div> PITBULL. KRÓLOWA CHULIGANÓW</li>
+</ol>
+<h2>Styczeń 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">7</div> JAK POKOCHAŁAM GANGSTERA</li>
+<li class="w1"><div class="dzien">28</div> MIŁOSNE TURBULENCJE 2</li>
+</ol>
+<h2>Luty 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">4</div> WARSAW LOVERS 2</li>
+<li class="w1"><div class="dzien">11</div> 365 DNI 3</li>
+<li class="w1"><div class="dzien">25</div> AUTOBIOGRAFIA</li>
+</ol>
+<h2>Październik 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">7</div> <a class="tytul" href="index.php/1254261">CHŁOPI</a></li>
+</ol>
+<h2>Listopad 2022</h2>
+<ol>
+<li class="w1"><div class="dzien">11</div> NARKOTYK</li>
+</ol>
+<h2>Luty 2023</h2>
+<ol>
+<li class="w1"><div class="dzien">3</div> WARSAW LOVERS 3</li>
+</ol>
+<h2>Luty 2024</h2>
+<ol>
+<li class="w1"><div class="dzien">9</div> RADŹ SOBIE SAM</li>
+</ol></div></div><div class="br kontener"><h1>ZMARLI</h1><div class="notatka_boczna"><h2>Październik</h2>
+<ol>
+<li class="w1"><div class="dzien">2</div> <strong><a class="tytul" href="index.php/1116334">Dorota Kawęcka</a></strong></li>
+<li class="w1"><div class="dzien">4</div> <strong><a class="tytul" href="index.php/116011">Henryk Boukołowski</a></strong></li>
+</ol>
+<h2>Wrzesień</h2>
+<ol>
+<li class="w1"><div class="dzien">3</div> <a class="tytul" href="index.php/1142974">Krystyna Świderska</a></li>
+<li class="w1"><div class="dzien">4</div> <a class="tytul" href="index.php/11244">Andrzej Gawroński</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/11156056">Aleksandra Janczyk</a></li>
+<li class="w1"><div class="dzien">8</div> <a class="tytul" href="index.php/11101331">Edward Mikołajczyk</a></li>
+<li class="w1"><div class="dzien">9</div> <a class="tytul" href="index.php/1172166">Gienek Loska</a></li>
+<li class="w1"><div class="dzien">10</div> <a class="tytul" href="index.php/1119469">Witold Zapała</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/118018">Wojciech Królikiewicz</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/11672">Henryk Łapiński</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/1117276">Michał Nekanda-Trepka</a></li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/1111837">Jan Krenz</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/115047">Wacław Wiszniowski</a></li>
+<li class="w1"><div class="dzien">17</div> <a class="tytul" href="index.php/11117978">Ryszard Wolański</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1180387">Ewa Berberyusz</a></li>
+<li class="w1"><div class="dzien">28</div> <strong><a class="tytul" href="index.php/114203">Jan Bógdoł</a></strong></li>
+<li class="w1"><div class="dzien">29</div> <strong><a class="tytul" href="index.php/1114532">Joanna Cortes</a></strong></li>
+</ol>
+<h2>Sierpień</h2>
+<ol>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/1137657">Piotr Morawski</a></li>
+<li class="w1"><div class="dzien">6</div> <a class="tytul" href="index.php/11102418">Jacek Mydlarski</a></li>
+<li class="w1"><div class="dzien">10</div> <a class="tytul" href="index.php/1159004">Dariusz Baliszewski</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/1111475">Maria Kościałkowska</a></li>
+<li class="w1"><div class="dzien">11</div> <a class="tytul" href="index.php/11109470">Piotr Samojlik</a></li>
+<li class="w1"><div class="dzien">12</div> <a class="tytul" href="index.php/11142666">Agnieszka Kossakowska</a></li>
+<li class="w1"><div class="dzien">14</div> <a class="tytul" href="index.php/117973">Ewa Demarczyk</a></li>
+<li class="w1"><div class="dzien">15</div> <a class="tytul" href="index.php/116375">Mirosław Dobek</a></li>
+<li class="w1"><div class="dzien">19</div> <a class="tytul" href="index.php/111805">Jacek Korcelli</a></li>
+<li class="w1"><div class="dzien">20</div> <a class="tytul" href="index.php/1110767">Piotr Szczepanik</a></li>
+<li class="w1"><div class="dzien">22</div> <a class="tytul" href="index.php/116398">Jerzy Fedak</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/1191130">Maria
+Janion</a></li>
+<li class="w1"><div class="dzien">23</div> <a class="tytul" href="index.php/11107354">Leonard Pulchny</a></li>
+<li class="w1"><div class="dzien">31</div> <a class="tytul" href="index.php/1147753">Krzysztof Węglarz</a></li>
+</ol></div></div><div class="br kontener"><h1>NAJNOWSZE AKTUALIZACJE W BAZIE</h1><div class="notatka_boczna"><h2>Filmy</h2><ul><li><a href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></li><li><a href="index.php/1254747">LISTY DO M 4</a></li><li><a href="index.php/1253778">SWEAT</a></li><li><a href="index.php/1254718">TAK MA BYĆ</a></li></ul><h2>Zdjęcia</h2><ul><li><a href="index.php/1254133">GORZKO, GORZKO!</a></li><li><a href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></li><li><a href="index.php/1254747">LISTY DO M 4</a></li></ul><h2>Zwiastuny</h2><ul><li><a href="index.php/1253352">BANKSTERZY</a></li><li><a href="index.php/1252975">EFEKT MOTYLKA</a></li><li><a href="index.php/1251414">JAK ZOSTAĆ GWIAZDĄ</a></li><li><a href="index.php/1249664">KRÓL</a></li><li><a href="index.php/1254747">LISTY DO M 4</a></li><li><a href="index.php/1250703">MAGNEZJA</a></li><li><a href="index.php/1250627">NAJMRO. KOCHA, KRADNIE, SZANUJE</a></li><li><a href="index.php/1247320">RAZ JESZCZE RAZ</a></li><li><a href="index.php/1253778">SWEAT</a></li><li><a href="index.php/1252706">ZABIJ TO I WYJEDŹ Z TEGO MIASTA</a></li><li><a href="index.php/1251316">ŠARLATÁN</a></li><li><a href="index.php/1254198">ŚNIEGU JUŻ NIGDY NIE BĘDZIE</a></li></ul></div></div><div class="br kontener"><h1>REDAKCJA</h1><div class="notatka_boczna">Jarosław Czembrowski (red. nacz.)<br />Agata Chróścicka<br />Monika Sarwińska<br />Wojciech Krupa (oprogramowanie)<br />Aleksandra Bednarz (oprawa graficzna)<br />Katarzyna Mąka-Malatyńska (filmoteka)<br /><br />Biblioteka PWSFTviT<br />ul. Targowa 61/63<br />90-323 Łódź<br />Tel.: 42 6345875<br />Faks: 42 6748139<br />e-mail: <a href="mailto:filmpolski@filmschool.lodz.pl">filmpolski@filmschool.lodz.pl</a><br /></div></div><div class="br kontener"><h1>WSPIERA NAS</h1><div class="notatka_boczna"><a href="http://www.pisf.pl" target="_blank"><img class="logo" src="img1/pisf.png"></a></div></div>
+</div>  <!-- sidebar -->
+
+<div id="tresc">
+
+
+<script type="text/javascript" src="js/chowaj.js"></script>
+<script type="text/javascript" src="js/osoba_sterowanie.js"></script>
+
+
+<article id="osoba">
+
+<h1>Kalina Cyz</h1><div class="koniecnaglowka"></div>
+<h2>Filmografia<div class="sterowanie"><span id="fsbut1" class="jslink" onclick="pokazChronologicznieNowe(this);">chronologicznie &darr;&nbsp;</span><span id="fsbut2" class="jslink" onclick="pokazChronologicznieStare(this);")">&nbsp;&uarr;&nbsp;</span> | <span id="fsbut3" class="jslink" onclick="pokazWgRodzajow(this);">wg rodzajów</span> | <span id="fsbut4" style="font-weight:bold;" class="jslink" onclick="pokazWgFunkcji(this);">wg funkcji</span> | <span id="filmografia_schowaj" class="jslink" onclick="zwinFilmografie();">zwiń</span></div></h2><div id="filmografia" style="display: block;">
+<ul id="filmografia_chronologicznie_nowe" class="hidden">
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1252061">OPERACJA OPERA</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP) </div></li>
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1251701">PRZERWANA PODRÓŻ</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP Kultura) </div></li>
+<li><div class="data">2018</div><div class="tytul"><a href="index.php/1250463">PO ŚLADACH</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja </div></li>
+</ul>
+
+<ul id="filmografia_chronologicznie_stare" class="hidden">
+<li><div class="data">2018</div><div class="tytul"><a href="index.php/1250463">PO ŚLADACH</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja </div></li>
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1251701">PRZERWANA PODRÓŻ</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP Kultura) </div></li>
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1252061">OPERACJA OPERA</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP) </div></li>
+</ul>
+
+<ul id="filmografia_wg_rodzajow" class="hidden">
+<h3 id="rodzaj1">Film dokumentalny<div class="sterowanie"><span id="frodzaj1_schowaj" class="jslink" onclick="pzz('frodzaj1','frodzaj1_schowaj')">schowaj</span></div></h3>
+<div id="frodzaj1" style="display: block;">
+
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1252061">OPERACJA OPERA</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP) </div></li>
+
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1251701">PRZERWANA PODRÓŻ</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP Kultura) </div></li>
+
+<li><div class="data">2018</div><div class="tytul"><a href="index.php/1250463">PO ŚLADACH</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja </div></li>
+</div>
+</ul>
+
+<ul id="filmografia_wg_funkcji">
+<h3 id="funkcja1">Redakcja<div class="sterowanie"><span id="ffunkcja1_schowaj" class="jslink" onclick="pzz('ffunkcja1','ffunkcja1_schowaj')">schowaj</span></div></h3>
+<div id="ffunkcja1" style="display: block;">
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1252061">OPERACJA OPERA</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP) </div></li>
+<li><div class="data">2019</div><div class="tytul"><a href="index.php/1251701">PRZERWANA PODRÓŻ</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja (TVP Kultura) </div></li>
+<li><div class="data">2018</div><div class="tytul"><a href="index.php/1250463">PO ŚLADACH</a></div><div class="rodzajfilmu">Film dokumentalny</div> <div class="funkcja">Redakcja </div></li>
+</div>
+</ul>
+</div><div id="czasgen">2019.12.17 03:56:14</div>
+</article>
+</div>   <!-- tresc -->
+
+</div>   <!-- content -->
+
+<div style="clear:both"></div>
+
+<div id="stopka">
+<strong>&copy; 1998-2019 Państwowa Wyższa Szkoła Filmowa, Telewizyjna i Teatralna im. Leona Schillera w Łodzi.</strong><br />
+Internetowa Baza Filmu Polskiego <a href="https://filmpolski.pl">filmpolski.pl</a> jest bazą danych chronioną przepisami
+Ustawy z dnia 27 lipca 2001 r. o ochronie baz danych
+(<a href="http://isap.sejm.gov.pl/DetailsServlet?id=WDU20011281402" target="_blank">Dz.  U. 2001 nr 128 poz. 1402</a>).
+Kopiowanie treści zawartych w serwisie bez zgody redakcji zabronione.
+Kopiowanie i wykorzystywanie fotosów oraz materiałów audiowizualnych zamieszczonych w serwisie bezwzględnie zabronione, z zastrzeżeniem wyjątków
+przewidzianych przez prawo.
+Cytowanie fragmentów treści zawartych w serwisie wymaga zgody redakcji. W każdym przypadku konieczne jest podanie źródła w podpisie
+pod cytowanym fragmentem.
+W przypadku portali internetowych żródło musi być linkiem do serwisu <a href="https://filmpolski.pl">filmpolski.pl</a>.<br />
+Internetowa Baza Filmu Polskiego <a href="https://filmpolski.pl">filmpolski.pl</a> działa na podstawie art. 2 Ustawy z dnia 10 maja 2018 r. o ochronie danych osobowych (Dz.U. 2018 poz. 1000).<br />
+Internetowa Baza Filmu Polskiego <a href="https://filmpolski.pl">filmpolski.pl</a> współpracuje z TVN w zakresie publikacji promocyjnych materiałów audiowizualnych. <a href="http://s.tvn.pl/pdf/polityka_prywatnosci.pdf"
+target="_blank">Administratorem danych pozyskanych w związku z emisją tych materiałów jest TVN</a>.<br />
+Ta strona używa plików cookie. Zapisywanie plików cookies można zablokować, zmieniając ustawienia przeglądarki.
+</div>
+<div id="r1">
+
+<div class="r2"><a href="http://www.robertpalka.com/" target="_blank"><img class="r3" src="imgreklamy/4.jpg" alt="Fotos-Art Robert Pa�ka"></a><a href="http://www.piotrlitwic.com/" target="_blank"><img class="r3" src="imgreklamy/6.jpg" alt="Piotr Litwic"></a><a href="http://www.kinomuzeum.pl/" target="_blank"><img class="r3" src="imgreklamy/8.jpg" alt="Muzeum Kinematografii"></a><a href="http://www.makufly.com/" target="_blank"><img class="r3" src="imgreklamy/10.jpg" alt="MakuFly Marcin Makowski"></a></div>
+</div>
+
+
+<div id="dogory_lewe" class="hidden"><a href="#poczatek"><img src="img1/dogory.png" alt="powrót na początek strony" title="powrót na początek strony"/></a></div>
+<div id="dogory_prawe" class="hidden"><a href="#poczatek"><img src="img1/dogory.png" alt="powrót na początek strony" title="powrót na początek strony"/></a></div>
+
+</div>  <!-- kontener -->
+
+<script type="text/javascript">
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-895912-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+
+
+
+
+</body>
+</html>
