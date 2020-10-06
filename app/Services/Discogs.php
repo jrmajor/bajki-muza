@@ -2,16 +2,41 @@
 
 namespace App\Services;
 
+use Carbon\CarbonInterval;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class Discogs
 {
-    public static function photos(int $id): array
+    public function __construct(string $token)
     {
-        $artist = Http::withHeaders([
-            'Authorization' => 'Discogs token='.config('services.discogs.token'),
-        ])->get("https://api.discogs.com/artists/$id")->json();
+        $this->token = $token;
+    }
 
-        return $artist['images'] ?? [];
+    protected function request(): PendingRequest
+    {
+        return Http::withHeaders([
+            'Authorization' => "Discogs token={$this->token}",
+        ]);
+    }
+
+    public function photos(int $id): array
+    {
+        return Cache::remember(
+            "discogs-$id-photos",
+            CarbonInterval::week(),
+            function () use ($id) {
+                $artist = $this->request()
+                    ->get("https://api.discogs.com/artists/$id")->json();
+
+                return $artist['images'] ?? [];
+            }
+        );
+    }
+
+    public function forget(int $id): bool
+    {
+        return Cache::forget("discogs-$id-photos");
     }
 }

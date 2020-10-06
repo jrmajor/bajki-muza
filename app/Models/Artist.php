@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Services\Discogs;
 use App\Services\Wikipedia;
 use Carbon\CarbonInterval;
+use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
@@ -93,11 +93,7 @@ class Artist extends Model
             return [];
         }
 
-        return Cache::remember(
-            "artist-$this->id-discogs-photos",
-            CarbonInterval::week(),
-            fn () => Discogs::photos($this->discogs)
-        );
+        return Discogs::photos($this->discogs);
     }
 
     public function photo($type = 'normal'): ?string
@@ -167,6 +163,6 @@ class Artist extends Model
     public function flushCache()
     {
         return Cache::forget("artist-$this->id-wikipedia-extract")
-            && Cache::forget("artist-$this->id-discogs-photos");
+            && $this->discogs ? Discogs::forget($this->discogs) : true;
     }
 }
