@@ -42,7 +42,7 @@ class ProcessTaleCover implements ShouldQueue
     {
         $temporaryDirectory = (new TemporaryDirectory)->create();
 
-        $sourceFile = "covers/original/{$this->tale->cover}";
+        $sourceFile = "covers/original/{$this->filename}";
 
         $sourceStream = Storage::cloud()->readStream($sourceFile);
 
@@ -58,7 +58,7 @@ class ProcessTaleCover implements ShouldQueue
             $file = fopen($responsiveImagePath, 'r');
 
             Storage::cloud()
-                ->put("covers/{$size}/{$this->tale->cover}", $file, 'public');
+                ->put("covers/{$size}/{$this->filename}", $file, 'public');
         }
 
         $temporaryDirectory->delete();
