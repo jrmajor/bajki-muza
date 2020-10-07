@@ -49,11 +49,11 @@ class ProcessTaleCover implements ShouldQueue
         $baseImagePath = $this->copyToTemporaryDirectory($sourceStream, $temporaryDirectory, $this->filename);
 
         $this->tale->forceFill([
-            'cover_placeholder' => $this->generateTinyJpg($baseImagePath, $temporaryDirectory),
+            'cover_placeholder' => $this->generateTinyJpg($baseImagePath, 'square', $temporaryDirectory),
         ])->save();
 
         foreach (self::$sizes as $size) {
-            $responsiveImagePath = $this->generateResponsiveImage($baseImagePath, $size, 'fit', $temporaryDirectory);
+            $responsiveImagePath = $this->generateResponsiveImage($baseImagePath, $size, 'square', $temporaryDirectory);
 
             $file = fopen($responsiveImagePath, 'r');
 

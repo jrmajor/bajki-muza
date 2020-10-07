@@ -24,25 +24,44 @@ it('can copy image to temporary directory', function () {
     $temporaryDirectory->delete();
 });
 
-it('generates placeholder', function () {
+it('can generate placeholders cropped to square', function () {
     $temporaryDirectory = (new TemporaryDirectory)->create();
 
     $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
 
-    expect($imagesProcessor->generateTinyJpg(fixture('Images/cover.jpg'), $temporaryDirectory))
+    $tinyJpg = $imagesProcessor->generateTinyJpg(
+        fixture('Images/cover.jpg'), 'square', $temporaryDirectory
+    );
+
+    expect($tinyJpg)
         ->toBe(file_get_contents(fixture('Images/cover_placeholder.b64')));
 
     $temporaryDirectory->delete();
 });
 
-it('can generate responsive images', function () {
+it('can generate placeholder preserving aspect ratio', function () {
+    $temporaryDirectory = (new TemporaryDirectory)->create();
+
+    $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
+
+    $tinyJpg = $imagesProcessor->generateTinyJpg(
+        fixture('Images/photo.jpg'), 'height', $temporaryDirectory
+    );
+
+    expect($tinyJpg)
+        ->toBe(file_get_contents(fixture('Images/photo_placeholder.b64')));
+
+    $temporaryDirectory->delete();
+});
+
+it('can generate responsive images cropped to square', function () {
     $temporaryDirectory = (new TemporaryDirectory)->create();
 
     $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
 
     $responsiveImagePath = $imagesProcessor->generateResponsiveImage(
         fixture('Images/cover.jpg'),
-        128, 'fit',
+        128, 'square',
         $temporaryDirectory
     );
 
@@ -50,6 +69,25 @@ it('can generate responsive images', function () {
 
     expect(file_get_contents($responsiveImagePath))
         ->toBe(file_get_contents(fixture('Images/cover_128.jpg')));
+
+    $temporaryDirectory->delete();
+});
+
+it('can generate responsive images preserving aspect ratio', function () {
+    $temporaryDirectory = (new TemporaryDirectory)->create();
+
+    $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
+
+    $responsiveImagePath = $imagesProcessor->generateResponsiveImage(
+        fixture('Images/photo.jpg'),
+        128, 'height',
+        $temporaryDirectory
+    );
+
+    expect($responsiveImagePath)->toBe($temporaryDirectory->path('photo_128.jpg'));
+
+    expect(file_get_contents($responsiveImagePath))
+        ->toBe(file_get_contents(fixture('Images/photo_128.jpg')));
 
     $temporaryDirectory->delete();
 });

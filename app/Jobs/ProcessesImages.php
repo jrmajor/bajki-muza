@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use InvalidArgumentException;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
@@ -33,26 +34,35 @@ trait ProcessesImages
 
     public function generateTinyJpg(
         string $baseImagePath,
+        string $fit,
         TemporaryDirectory $temporaryDirectory
     ): string {
         $responsiveImageName = $this->appendToFileName($baseImagePath, '_tiny');
 
         $temporaryDestination = $temporaryDirectory->path($responsiveImageName);
 
-        Image::load($baseImagePath)
-            ->fit(Manipulations::FIT_CROP, 32, 32)
-            ->blur(5)
-            ->save($temporaryDestination);
+        $image = Image::load($baseImagePath);
+
+        if ($fit == 'square') {
+            $originalImageWidth = $originalImageHeight = 32;
+
+            $image->fit(Manipulations::FIT_CROP, 32, 32);
+        } elseif ($fit == 'height') {
+            $originalImageWidth = (int) round($image->getWidth() / $image->getHeight() * 32);
+
+            $originalImageHeight = 32;
+
+            $image->height(32);
+        } else {
+            throw new InvalidArgumentException();
+        }
+
+        $image->blur(5)
+                ->save($temporaryDestination);
 
         $tinyImageDataBase64 = base64_encode(file_get_contents($temporaryDestination));
 
         $tinyImageBase64 = 'data:image/jpeg;base64,'.$tinyImageDataBase64;
-
-        // $originalImage = Image::load($baseImagePath);
-
-        $originalImageWidth = 32;
-
-        $originalImageHeight = 32;
 
         $svg = view(
             'components.placeholderSvg',
@@ -65,24 +75,25 @@ trait ProcessesImages
     public function generateResponsiveImage(
         string $baseImagePath,
         int $targetSize,
-        string $targetFit,
+        string $fit,
         TemporaryDirectory $temporaryDirectory
     ): string {
         $responsiveImageName = $this->appendToFileName($baseImagePath, "_$targetSize");
 
         $responsiveImagePath = $temporaryDirectory->path($responsiveImageName);
 
-        if ($targetFit == 'fit') {
-            Image::load($baseImagePath)
-                ->optimize()
-                ->fit(Manipulations::FIT_CROP, $targetSize, $targetSize)
-                ->save($responsiveImagePath);
-        } elseif ($target == 'height') {
-            Image::load($baseImagePath)
-                ->optimize()
-                ->height($targetSize)
-                ->save($responsiveImagePath);
+        $image = Image::load($baseImagePath)
+                    ->optimize();
+
+        if ($fit == 'square') {
+            $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize);
+        } elseif ($fit == 'height') {
+            $image->height($targetSize);
+        } else {
+            throw new InvalidArgumentException();
         }
+
+        $image->save($responsiveImagePath);
 
         return $responsiveImagePath;
     }
