@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTale;
 use App\Jobs\ProcessTaleCover;
 use App\Models\Artist;
 use App\Models\Tale;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class TaleController extends Controller
@@ -26,7 +27,8 @@ class TaleController extends Controller
         }
 
         if ($request->file('cover')) {
-            $path = $request->file('cover')->storePublicly('covers/original', 's3');
+            $path = Storage::cloud()
+                ->putFile('covers/original', $request->file('cover'), 'public');
 
             $tale->cover = Str::afterLast($path, '/');
 
@@ -69,13 +71,14 @@ class TaleController extends Controller
             $tale->director_id = null;
         }
 
-        if ($request->input('remove_cover')) {
+        if ($request->boolean('remove_cover')) {
             $tale->cover = null;
             $tale->cover_placeholder = null;
 
             $tale->save();
         } elseif ($request->file('cover')) {
-            $path = $request->file('cover')->storePublicly('covers/original', 's3');
+            $path = Storage::cloud()
+                ->putFile('covers/original', $request->file('cover'), 'public');
 
             $tale->cover = Str::afterLast($path, '/');
 
