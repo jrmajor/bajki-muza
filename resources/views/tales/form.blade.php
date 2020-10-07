@@ -22,7 +22,7 @@
     x-init="
         $watch('cover.file', value => {
             setCoverPreview($refs.cover.files)
-            value != '' ? cover.remove = 0 : ''
+            value !== '' ? cover.remove = false : ''
         });
 
         $watch('lyricists', value => {
@@ -78,43 +78,43 @@
                             loading="lazy"
                             class="w-10 h-10 object-cover bg-cover"
                             style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)"
-                            x-show="cover.file == '' && cover.remove == 0">
+                            x-show="cover.file === '' && cover.remove == false">
                     @endif
-                    <template x-if="cover.file != ''">
+                    <template x-if="cover.file !== ''">
                         <img :src="cover.preview"
                             class="w-10 h-10 object-cover">
                     </template>
                 </div>
                 <span class="px-3 py-2">
                     <span
-                        x-text="cover.file != '' ? $refs.cover.files[0].name : 'Wybierz plik'">
+                        x-text="cover.file !== '' ? $refs.cover.files[0].name : 'Wybierz plik'">
                         Wybierz plik
                     </span>
                     <small class="pl-1 text-xs font-medium"
-                        x-text="cover.file != '' ? fileSize($refs.cover.files[0].size) : ''"></small>
+                        x-text="cover.file !== '' ? fileSize($refs.cover.files[0].size) : ''"></small>
                 </span>
-                <template x-if="cover.file != ''">
+                <template x-if="cover.file !== ''">
                     <button type="button" x-on:click="cover.file = ''" class="flex-none"></button>
                 </template>
                 <input type="file" name="cover" class="hidden"
                     x-ref="cover" x-model="cover.file">
             </label>
             @if ($tale->exists)
-                <template x-if="! cover.remove">
-                    <button type="button" x-on:click="cover.remove = 1; cover.file = ''"
+                <template x-if="!cover.remove">
+                    <button type="button" x-on:click="cover.remove = true; cover.file = ''"
                             class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
                             hover:bg-red-100 hover:border-red-200 hover:text-red-700
                             active:bg-red-600 active:cover-red-600 active:text-red-100
                             transition-colors duration-150">
-                        Remove cover
+                        Usuń
                     </button>
                 </template>
                 <template x-if="cover.remove">
-                    <button type="button" x-on:click="cover.remove = 0"
+                    <button type="button" x-on:click="cover.remove = false"
                             class="flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
                             hover:bg-red-500 hover:border-red-500 hover:text-white
                             active:bg-white active:text-black transition-colors duration-150">
-                        Don't remove cover
+                        Nie usuwaj
                     </button>
                 </template>
             @endif
@@ -151,7 +151,7 @@
                             'opacity-0': lyricist.isDragged,
                             'pt-12': lyricist.isDraggedOver === 'fromBelow' || lyricist.hasDeletedElement === 'above',
                             'pb-12': lyricist.isDraggedOver === 'fromAbove' || lyricist.hasDeletedElement === 'below',
-                            'transition-all duration-300': ! lyricist.noTransitions,
+                            'transition-all duration-300': !lyricist.noTransitions,
                         }"
                         draggable="true"
                         x-on:dragstart="onDragStart($event, 'lyricists', index)" x-on:dragend="onDragEnd(lyricist)"
@@ -197,7 +197,7 @@
                             'opacity-0': composer.isDragged,
                             'pt-12': composer.isDraggedOver === 'fromBelow' || composer.hasDeletedElement === 'above',
                             'pb-12': composer.isDraggedOver === 'fromAbove' || composer.hasDeletedElement === 'below',
-                            'transition-all duration-300': ! composer.noTransitions,
+                            'transition-all duration-300': !composer.noTransitions,
                         }"
                         draggable="true"
                         x-on:dragstart="onDragStart($event, 'composers', index)" x-on:dragend="onDragEnd(composer)"
@@ -247,7 +247,7 @@
                         'opacity-0': actor.isDragged,
                         'pt-12': actor.isDraggedOver === 'fromBelow' || actor.hasDeletedElement === 'above',
                         'pb-12': actor.isDraggedOver === 'fromAbove' || actor.hasDeletedElement === 'below',
-                        'transition-all duration-300': ! actor.noTransitions,
+                        'transition-all duration-300': !actor.noTransitions,
                     }"
                     draggable="true"
                     x-on:dragstart="onDragStart($event, 'actors', index)" x-on:dragend="onDragEnd(actor)"

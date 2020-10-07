@@ -63,6 +63,7 @@
                         </template>
                     </div>
                 </div>
+
                 <div class="w-1/2 items-stretch flex flex-col">
                     <label for="year" class="w-full font-medium pb-1 text-gray-700">Film Polski</label>
                     <div class="relative w-full"
@@ -91,30 +92,34 @@
                     </div>
                 </div>
             </div>
+
             <div class="w-full sm:w-1/2 flex flex-col">
                 <label for="title" class="w-full font-medium pb-1 text-gray-700">Wikipedia</label>
-                    <div class="relative w-full"
-                        x-on:mousedown.away="wikipedia.isOpen = false">
-                        <input
-                            type="text" name="wikipedia" value="{{ old('wikipedia', $artist->wikipedia) }}"
-                            class="w-full form-input" autocomplete="off"
-                            x-model="wikipedia.value" x-on:focus="wikipedia.isOpen = true" x-on:input.debounce="findPeople('wikipedia')">
-                        <template x-if="wikipedia.isOpen && wikipedia.value.length >= 5">
-                            <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                                <template x-if="wikipedia.people.length == 0">
-                                    <div class="w-full px-3 py-1 text-gray-600">
-                                        Brak wyników
-                                    </div>
-                                </template>
-                                <template x-for="person in wikipedia.people" x-key="person.id">
-                                    <button
-                                        x-on:click.prevent="wikipedia.value = person.id; wikipedia.isOpen = false"
-                                        class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
-                                        <span x-text="person.name"></span>
-                                        <span class="text-gray-400" x-text="wikipedia.value == person.id ? '✓ ' : ''"></span>
-                                    </button>
-                                </template>
-                            </div>
+                <div class="relative w-full"
+                    x-on:mousedown.away="wikipedia.isOpen = false">
+                    <input
+                        type="text" name="wikipedia" value="{{ old('wikipedia', $artist->wikipedia) }}"
+                        class="w-full form-input" autocomplete="off"
+                        x-model="wikipedia.value" x-on:focus="wikipedia.isOpen = true" x-on:input.debounce="findPeople('wikipedia')">
+                    <template x-if="wikipedia.isOpen && wikipedia.value.length >= 5">
+                        <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
+                            <template x-if="wikipedia.people.length == 0">
+                                <div class="w-full px-3 py-1 text-gray-600">
+                                    Brak wyników
+                                </div>
+                            </template>
+                            <template x-for="person in wikipedia.people" x-key="person.id">
+                                <button
+                                    x-on:click.prevent="wikipedia.value = person.id; wikipedia.isOpen = false"
+                                    class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
+                                    <span x-text="person.name"></span>
+                                    <span class="text-gray-400" x-text="wikipedia.value == person.id ? '✓ ' : ''"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
                         </template>
                     </div>
             </div>
