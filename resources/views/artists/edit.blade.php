@@ -197,52 +197,21 @@
             Zapisz
         </button>
 
-    </form>
+        <div class="space-y-3 flex flex-col items-center" x-data="{ dimensions: {} }">
+            <a href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
+                class="mt-2 text-sm font-medium leading-4 shadow-link px-1">
+                Wyszukiwanie obrazów →
+            </a>
 
-    <div class="mt-6 space-y-3 flex flex-col items-center" x-data="{ dimensions: {} }">
-        <h3 class="text-xl font-medium leading-6 shadow-subtitle px-1">
-            Zdjęcia
-        </h3>
-
-        <div class="w-full flex flex-wrap justify-around">
-            @foreach ($artist->discogsPhotos() as $photo)
-                @php $ref = 'discogs_'.$loop->iteration @endphp
-                <div class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden">
-                    <img class="h-40" src="{{ $photo['uri'] }}" x-ref="{{ $ref }}"
-                        x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
-                    <div class="absolute top-0 right-0 pl-8 pb-2
-                        opacity-0 group-hover:opacity-100 transition-all duration-300"
-                        style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);">
-                        <span class="text-2xs text-white px-2"
-                            x-text="$refs.{{ $ref }}.complete
-                                        ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
-                                        : dimensions.{{ $ref }}">
-                        </span>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <div class="w-full flex flex-wrap justify-around">
-            @foreach ($artist->filmPolskiPhotos() as $title => $movie)
-                @foreach ($movie['photos'] as $photo)
-                    @php $ref = 'filmpolski_'.$loop->parent->iteration.'_'.$loop->iteration @endphp
+            <div class="w-full flex flex-wrap justify-around">
+                @foreach ($artist->discogsPhotos() as $photo)
+                    @php $ref = 'discogs_'.$loop->iteration @endphp
                     <div class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden">
-                        <img class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
+                        <img class="h-40" src="{{ $photo['uri'] }}" x-ref="{{ $ref }}"
                             x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
-                        @if ($title !== 'main' && $title !== '')
-                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent
-                                opacity-0 group-hover:opacity-75 transition-all duration-300"></div>
-                        @endif
-                        <div class="absolute bottom-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="flex flex-col p-2 text-white">
-                                <small class="text-xs">{{ $movie['year'] }}</small>
-                                <span class="text-sm font-medium leading-tight">{{ $title !== 'main' ? Str::title($title) : '' }}</span>
-                            </div>
-                        </div>
                         <div class="absolute top-0 right-0 pl-8 pb-2
                             opacity-0 group-hover:opacity-100 transition-all duration-300"
-                            style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0,0,0,.4), transparent);">
+                            style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);">
                             <span class="text-2xs text-white px-2"
                                 x-text="$refs.{{ $ref }}.complete
                                             ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
@@ -251,8 +220,40 @@
                         </div>
                     </div>
                 @endforeach
-            @endforeach
+            </div>
+
+            <div class="w-full flex flex-wrap justify-around">
+                @foreach ($artist->filmPolskiPhotos() as $title => $movie)
+                    @foreach ($movie['photos'] as $photo)
+                        @php $ref = 'filmpolski_'.$loop->parent->iteration.'_'.$loop->iteration @endphp
+                        <div class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden">
+                            <img class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
+                                x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
+                            @if ($title !== 'main' && $title !== '')
+                                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent
+                                    opacity-0 group-hover:opacity-75 transition-all duration-300"></div>
+                            @endif
+                            <div class="absolute bottom-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="flex flex-col p-2 text-white">
+                                    <small class="text-xs">{{ $movie['year'] }}</small>
+                                    <span class="text-sm font-medium leading-tight">{{ $title !== 'main' ? Str::title($title) : '' }}</span>
+                                </div>
+                            </div>
+                            <div class="absolute top-0 right-0 pl-8 pb-2
+                                opacity-0 group-hover:opacity-100 transition-all duration-300"
+                                style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0,0,0,.4), transparent);">
+                                <span class="text-2xs text-white px-2"
+                                    x-text="$refs.{{ $ref }}.complete
+                                                ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
+                                                : dimensions.{{ $ref }}">
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
+
+    </form>
 
 @endsection
