@@ -1,7 +1,7 @@
 module.exports = {
   purge: [
     './resources/views/**/*.blade.php',
-    './resources/js/**/*.vue',
+    './resources/js/**/*.vue'
   ],
   theme: {
     colors: {
@@ -20,7 +20,7 @@ module.exports = {
         600: '#4b5563',
         700: '#374151',
         800: '#252f3f',
-        900: '#161e2e',
+        900: '#161e2e'
       },
       'cool-gray': {
         50: '#fbfdfe',
@@ -32,7 +32,7 @@ module.exports = {
         600: '#475569',
         700: '#364152',
         800: '#27303f',
-        900: '#1a202e',
+        900: '#1a202e'
       },
       red: {
         50: '#fdf2f2',
@@ -44,7 +44,7 @@ module.exports = {
         600: '#e02424',
         700: '#c81e1e',
         800: '#9b1c1c',
-        900: '#771d1d',
+        900: '#771d1d'
       },
       yellow: {
         kox: '#ffcc00',
@@ -58,7 +58,7 @@ module.exports = {
         600: '#9f580a',
         700: '#8e4b10',
         800: '#723b13',
-        900: '#633112',
+        900: '#633112'
       },
       green: {
         50: '#f3faf7',
@@ -70,7 +70,7 @@ module.exports = {
         600: '#057a55',
         700: '#046c4e',
         800: '#03543f',
-        900: '#014737',
+        900: '#014737'
       },
       blue: {
         50: '#ebf5ff',
@@ -82,23 +82,19 @@ module.exports = {
         600: '#1c64f2',
         700: '#1a56db',
         800: '#1e429f',
-        900: '#233876',
-      },
+        900: '#233876'
+      }
     },
     extend: {
-      fontSize: {
-        '2xs': '0.7rem',
-      },
-      spacing: {
-        4.5: '1.125rem',
-      },
-    },
+      fontSize: { '2xs': '0.7rem' },
+      spacing: { 4.5: '1.125rem' }
+    }
   },
   variants: {
-    opacity: ({ after }) => after(['group-hover']),
+    opacity: ({ after }) => after(['group-hover'])
   },
   plugins: [
-    require('@tailwindcss/ui'),
+    require('@tailwindcss/ui')
   ],
   experimental: {
     applyComplexClasses: true,
@@ -106,10 +102,10 @@ module.exports = {
     defaultLineHeights: true,
     extendedFontSizeScale: true,
     extendedSpacingScale: true,
-    uniformColorPalette: false,
+    uniformColorPalette: false
   },
   future: {
     removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
+    purgeLayersByDefault: true
+  }
 }
