@@ -87,7 +87,8 @@ module.exports = {
     },
     extend: {
       fontSize: { '2xs': '0.7rem' },
-      spacing: { 4.5: '1.125rem' }
+      spacing: { 4.5: '1.125rem' },
+      inset: { '-px': '-1px' }
     }
   },
   variants: {

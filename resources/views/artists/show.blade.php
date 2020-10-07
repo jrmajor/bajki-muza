@@ -14,7 +14,25 @@
             @auth </a> @endauth
         </h2>
 
-        @if ($artist->discogsPhoto())
+        @if ($artist->photo())
+            <div style="width: {{ ($artist->photo_width / $artist->photo_height) * 10 }}rem"
+                class="relative mt-5 mb-2 sm:my-0 sm:mr-6 -p-px flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
+                @auth
+                    <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
+                @endauth
+                <div class="bg-gray-400 bg-center bg-cover absolute -inset-px"
+                    style="background-image: url(&quot;{{ $artist->photo_placeholder }}&quot;)">
+                    <img src="{{ $artist->photo('320') }}"
+                        srcset="
+                            {{ $artist->photo('160') }} 1x,
+                            {{ $artist->photo('240') }} 1.5x,
+                            {{ $artist->photo('320') }} 2x"
+                        @auth onclick="document.getElementById('flush-cache-form').submit()" @endauth
+                        loading="eager"
+                        class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
+                </div>
+            </div>
+        @elseif ($artist->discogsPhoto())
             <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
                 @auth
                     <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
@@ -26,7 +44,7 @@
             </div>
         @endif
 
-        <div class="@if ($artist->discogsPhoto()) sm:py-2 @endif flex-grow @if ($artist->wikipedia) self-stretch @endif flex flex-col justify-between space-y-3">
+        <div class="@if ($artist->photo() || $artist->discogsPhoto()) sm:py-2 @endif flex-grow @if ($artist->wikipedia) self-stretch @endif flex flex-col justify-between space-y-3">
 
             <div class="hidden sm:block self-start">
                 <h2 class="text-2xl font-medium leading-7 shadow-title px-1.5 -ml-1.5">
@@ -37,7 +55,7 @@
             </div>
 
             @if ($artist->discogs || $artist->filmpolski || $artist->wikipedia)
-                <div class="@if ($artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif flex flex-col space-y-2">
+                <div class="@if ($artist->photo() || $artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif flex flex-col space-y-2">
                     @if ($artist->wikipedia)
                         <div>
                             {!! strip_tags($artist->wikipedia_extract) !!}

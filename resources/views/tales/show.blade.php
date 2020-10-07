@@ -20,7 +20,7 @@
         </div>
 
         <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center shadow-lg rounded-lg overflow-hidden">
-            <div class="bg-gray-400 bg-cover w-40 h-40"
+            <div class="bg-gray-400 bg-center bg-cover w-40 h-40"
                 style="background-image: url(
                     @if ($tale->cover)
                         &quot;{{ $tale->cover_placeholder }}&quot;
@@ -35,7 +35,7 @@
                             {{ $tale->cover('240') }} 1.5x,
                             {{ $tale->cover('320') }} 2x"
                         loading="eager"
-                        class="w-40 h-40 object-cover transition-opacity duration-300 opacity-0">
+                        class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
                 @endif
             </div>
         </div>
