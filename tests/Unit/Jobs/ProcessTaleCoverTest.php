@@ -29,7 +29,7 @@ it('works', function () {
     rmdir(storage_path('testing/covers/original'));
 
     foreach (ProcessTaleCover::$sizes as $size) {
-        Storage::cloud()->delete("covers/$size/$filename");
+        expect(Storage::cloud()->delete("covers/$size/$filename"))->toBeTrue();
         rmdir(storage_path("testing/covers/$size"));
     }
 });
