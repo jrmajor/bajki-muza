@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArtist;
+use App\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ArtistController extends Controller
 {
@@ -20,6 +23,22 @@ class ArtistController extends Controller
     public function update(StoreArtist $request, Artist $artist)
     {
         $artist->fill($request->validated())->save();
+
+        if ($request->boolean('remove_photo')) {
+            $artist->photo = null;
+            $artist->photo_placeholder = null;
+
+            $artist->save();
+        } elseif ($request->file('photo')) {
+            $path = Storage::cloud()
+                ->putFile('photos/original', $request->file('photo'), 'public');
+
+            $artist->photo = Str::afterLast($path, '/');
+
+            $artist->save();
+
+            ProcessArtistPhoto::dispatch($artist);
+        }
 
         $artist->flushCache();
 
