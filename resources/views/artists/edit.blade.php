@@ -28,6 +28,14 @@
         @method('put')
         @csrf
 
+        @if ($errors->any())
+            <ul class="text-red-700">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+
         <div class="flex flex-col">
             <label for="name" class="w-full font-medium pb-1 text-gray-700">Imię i nazwisko</label>
             <input type="text" name="name" value="{{ old('name', $artist->name) }}"
@@ -35,7 +43,9 @@
         </div>
 
         <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
+
             <div class="w-full sm:w-1/2 flex space-x-5">
+
                 <div class="w-1/2 items-stretch flex flex-col">
                     <label for="year" class="w-full font-medium pb-1 text-gray-700">Discogs</label>
                     <div class="relative w-full"
@@ -91,6 +101,7 @@
                         </template>
                     </div>
                 </div>
+
             </div>
 
             <div class="w-full sm:w-1/2 flex flex-col">

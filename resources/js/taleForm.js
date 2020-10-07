@@ -5,7 +5,7 @@ window.taleFormData = function (data) {
     cover: {
       preview: '',
       file: '',
-      remove: 0
+      remove: false
     },
     lyricists: data.lyricists.map(lyricist => ({
       artist: lyricist,

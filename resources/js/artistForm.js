@@ -3,16 +3,19 @@
 window.artistFormData = function (data) {
   return {
     route: data.route,
+
     discogs: {
       isOpen: false,
       value: data.discogs,
       people: []
     },
+
     filmPolski: {
       isOpen: false,
       value: data.filmpolski,
       people: []
     },
+
     wikipedia: {
       isOpen: false,
       value: data.wikipedia,
