@@ -142,7 +142,7 @@
                         opacity-0 group-hover:opacity-100 transition-all duration-300"
                         style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);">
                         <span class="text-2xs text-white px-2"
-                            x-text="$refs.{{ $ref }}.loaded
+                            x-text="$refs.{{ $ref }}.complete
                                         ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
                                         : dimensions.{{ $ref }}">
                         </span>
@@ -172,7 +172,7 @@
                             opacity-0 group-hover:opacity-100 transition-all duration-300"
                             style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0,0,0,.4), transparent);">
                             <span class="text-2xs text-white px-2"
-                                x-text="$refs.{{ $ref }}.loaded
+                                x-text="$refs.{{ $ref }}.complete
                                             ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
                                             : dimensions.{{ $ref }}">
                             </span>
