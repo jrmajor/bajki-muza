@@ -8,6 +8,7 @@ use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -73,6 +74,19 @@ class Artist extends Model
     public function getWikipediaUrlAttribute()
     {
         return $this->wikipedia ? Wikipedia::url($this->wikipedia) : null;
+    }
+
+    public function photo($size = null)
+    {
+        if (optional($this->attributes)['photo'] == null) {
+            return;
+        }
+
+        if ($size == null) {
+            return $this->photo;
+        }
+
+        return Storage::cloud()->url("photos/$size/$this->photo", 's3');
     }
 
     public function getWikipediaExtractAttribute(): ?string
