@@ -26,8 +26,7 @@
                         </div>
                     @elseif ($artist->discogsPhoto())
                         <img src="{{ $artist->discogsPhoto('150') }}"
-                            loading="lazy"
-                            class="w-12 h-12 sm:w-14 sm:h-14 object-cover transition-opacity duration-300 opacity-0">
+                            class="w-12 h-12 sm:w-14 sm:h-14 object-cover">
                     @endif
                 </div>
                 <div class="flex-grow p-2 pl-3">
