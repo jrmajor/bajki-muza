@@ -12,6 +12,8 @@ it('casts discogs and filmpolski ids to integers', function () {
     $artist = Artist::factory()->create([
         'discogs' => '1023394',
         'filmpolski' => '116251',
+        'photo_width' => '640',
+        'photo_height' => '964',
     ]);
 
     expect($artist->discogs)->toBe(1023394)
@@ -19,6 +21,12 @@ it('casts discogs and filmpolski ids to integers', function () {
 
     expect($artist->filmpolski)->toBe(116251)
         ->and($artist->filmpolski)->not->toBe('116251');
+
+    expect($artist->photo_width)->toBe(640)
+        ->and($artist->photo_width)->not->toBe('640');
+
+    expect($artist->photo_height)->toBe(964)
+        ->and($artist->photo_height)->not->toBe('964');
 });
 
 it('generates slug when created', function () {

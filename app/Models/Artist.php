@@ -23,6 +23,8 @@ class Artist extends Model
     protected $casts = [
         'discogs' => 'int',
         'filmpolski' => 'int',
+        'photo_width' => 'int',
+        'photo_height' => 'int',
     ];
 
     public function getSlugOptions(): SlugOptions
