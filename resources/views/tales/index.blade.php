@@ -11,7 +11,7 @@
         @foreach ($tales as $tale)
             <a href="{{ route('tales.show', $tale) }}" wire:key="{{ $tale->id }}"
                 class="w-full h-32 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
-            <div class="flex-none bg-gray-400 bg-cover w-32 h-32"
+                <div class="flex-none bg-gray-400 bg-cover w-32 h-32"
                     style="background-image: url(
                         @if ($tale->cover)
                             &quot;{{ $tale->cover_placeholder }}&quot;
