@@ -100,7 +100,7 @@ class Artist extends Model
         return FilmPolski::photos($this->filmpolski);
     }
 
-    public function photo($type = 'normal'): ?string
+    public function discogsPhoto($type = 'normal'): ?string
     {
         $type = $type == '150' ? 'uri150' : 'uri';
 

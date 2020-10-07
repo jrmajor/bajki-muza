@@ -14,19 +14,19 @@
             @auth </a> @endauth
         </h2>
 
-        @if ($artist->photo())
+        @if ($artist->discogsPhoto())
             <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
                 @auth
                     <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
                 @endauth
 
-                <img src="{{ $artist->photo() }}" class="h-40"
+                <img src="{{ $artist->discogsPhoto() }}" class="h-40"
                     @auth onclick="document.getElementById('flush-cache-form').submit()" @endauth
                     >
             </div>
         @endif
 
-        <div class="@if ($artist->photo()) sm:py-2 @endif flex-grow @if ($artist->wikipedia) self-stretch @endif flex flex-col justify-between space-y-3">
+        <div class="@if ($artist->discogsPhoto()) sm:py-2 @endif flex-grow @if ($artist->wikipedia) self-stretch @endif flex flex-col justify-between space-y-3">
 
             <div class="hidden sm:block self-start">
                 <h2 class="text-2xl font-medium leading-7 shadow-title px-1.5 -ml-1.5">
@@ -37,7 +37,7 @@
             </div>
 
             @if ($artist->discogs || $artist->filmpolski || $artist->wikipedia)
-                <div class="@if ($artist->photo() || $artist->wikipedia) self-stretch @else self-center @endif flex flex-col space-y-2">
+                <div class="@if ($artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif flex flex-col space-y-2">
                     @if ($artist->wikipedia)
                         <div>
                             {!! strip_tags($artist->wikipedia_extract) !!}

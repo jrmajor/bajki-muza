@@ -201,8 +201,8 @@ it('can get photo from discogs', function () {
         ->with(602473)
         ->andReturn($images);
 
-    expect($artist->photo())->toBe('test')
-        ->and($artist->photo('150'))->toBe('test150');
+    expect($artist->discogsPhoto())->toBe('test')
+        ->and($artist->discogsPhoto('150'))->toBe('test150');
 });
 
 it('can get its appearances as director', function () {
