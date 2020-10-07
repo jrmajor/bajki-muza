@@ -13,5 +13,5 @@ window.transitionLazyLoadedImages()
 document.addEventListener('livewire:load', (event) => {
   window.livewire.hook('message.processed', () => {
     window.transitionLazyLoadedImages()
-  });
-});
+  })
+})

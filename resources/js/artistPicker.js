@@ -1,3 +1,5 @@
+/* global fetch */
+
 window.artistPickerData = function (data) {
   return {
     route: data.route,
@@ -9,7 +11,7 @@ window.artistPickerData = function (data) {
     search: '',
     artists: [],
 
-    findArtists(event) {
+    findArtists (event) {
       if (this.value.length < 2) {
         this.artists = []
       } else {
@@ -22,25 +24,29 @@ window.artistPickerData = function (data) {
       }
     },
 
-    arrow(direction) {
-      if (this.artists.length == 0) return
+    arrow (direction) {
+      if (this.artists.length === 0) return
 
-      if (this.hovered == null) {
-        return this.hovered = direction == 'up' ? this.artists.length - 1 : 0
+      if (this.hovered === null) {
+        this.hovered = direction === 'up' ? this.artists.length - 1 : 0
+        return
       }
 
-      this.hovered = direction == 'up' ? this.hovered - 1 : this.hovered + 1
+      this.hovered = direction === 'up' ? this.hovered - 1 : this.hovered + 1
 
       if (this.hovered < 0) this.hovered = this.artists.length - 1
       if (this.hovered > this.artists.length - 1) this.hovered = 0
     },
 
-    enter() {
-      if (this.hovered != null) this.select(this.artists[this.hovered])
+    enter () {
+      if (this.hovered !== null) this.select(this.artists[this.hovered])
     },
 
-    closeDropdown() {
-      if (! this.shouldCloseOnBlur) return this.shouldCloseOnBlur = true
+    closeDropdown () {
+      if (!this.shouldCloseOnBlur) {
+        this.shouldCloseOnBlur = true
+        return
+      }
 
       this.isOpen = false
 
@@ -48,9 +54,9 @@ window.artistPickerData = function (data) {
       this.shouldCloseOnBlur = true
     },
 
-    select(artist) {
+    select (artist) {
       this.value = artist
       this.isOpen = false
-    },
+    }
   }
 }
