@@ -136,12 +136,16 @@
             @foreach ($artist->discogsPhotos() as $photo)
                 @php $ref = 'discogs_'.$loop->iteration @endphp
                 <div class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden">
-                    <img class="h-40" src="{{ $photo['uri'] }}"
+                    <img class="h-40" src="{{ $photo['uri'] }}" x-ref="{{ $ref }}"
                         x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
                     <div class="absolute top-0 right-0 pl-8 pb-2
                         opacity-0 group-hover:opacity-100 transition-all duration-300"
                         style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);">
-                        <span class="text-2xs text-white px-2" x-text="dimensions.{{ $ref }}"></span>
+                        <span class="text-2xs text-white px-2"
+                            x-text="$refs.{{ $ref }}.loaded
+                                        ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
+                                        : dimensions.{{ $ref }}">
+                        </span>
                     </div>
                 </div>
             @endforeach
@@ -152,7 +156,7 @@
                 @foreach ($movie['photos'] as $photo)
                     @php $ref = 'filmpolski_'.$loop->parent->iteration.'_'.$loop->iteration @endphp
                     <div class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden">
-                        <img class="h-40" src="https://filmpolski.pl{{ $photo }}"
+                        <img class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
                             x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
                         @if ($title !== 'main' && $title !== '')
                             <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent
@@ -167,7 +171,11 @@
                         <div class="absolute top-0 right-0 pl-8 pb-2
                             opacity-0 group-hover:opacity-100 transition-all duration-300"
                             style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0,0,0,.4), transparent);">
-                            <span class="text-2xs text-white px-2" x-text="dimensions.{{ $ref }}"></span>
+                            <span class="text-2xs text-white px-2"
+                                x-text="$refs.{{ $ref }}.loaded
+                                            ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
+                                            : dimensions.{{ $ref }}">
+                            </span>
                         </div>
                     </div>
                 @endforeach
