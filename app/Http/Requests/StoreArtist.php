@@ -15,9 +15,13 @@ class StoreArtist extends FormRequest
     {
         return [
             'name' => ['string', 'max:100'],
+
             'discogs' => ['integer', 'nullable'],
             'filmpolski' => ['integer', 'nullable'],
             'wikipedia' => ['string', 'max:100', 'nullable'],
+
+            'photo' => ['file', 'mimes:jpeg,png', 'nullable'],
+            'remove_photo' => ['boolean', 'nullable'],
         ];
     }
 }

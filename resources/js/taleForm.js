@@ -7,14 +7,17 @@ window.taleFormData = function (data) {
       file: '',
       remove: false
     },
+
     lyricists: data.lyricists.map(lyricist => ({
       artist: lyricist,
       key: Math.random().toString(20).substr(2)
     })),
+
     composers: data.composers.map(composer => ({
       artist: composer,
       key: Math.random().toString(20).substr(2)
     })),
+
     actors: data.actors.map(actor => {
       actor.key = Math.random().toString(20).substr(2)
       return actor

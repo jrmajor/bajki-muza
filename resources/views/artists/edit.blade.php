@@ -143,7 +143,7 @@
 
         <div class="flex flex-col">
             <span for="photo" class="w-full font-medium pb-1 text-gray-700">Zdjęcie</span>
-            <input type="hidden" name="remove_photo" x-model="photo.remove">
+            <input type="hidden" name="remove_photo" :value="photo.remove ? 1 : 0">
             <div class="flex space-x-5">
                 <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer">
                     <div class="flex-none bg-gray-400 w-10 h-10"
