@@ -80,14 +80,14 @@ it('can generate responsive images preserving aspect ratio', function () {
 
     $responsiveImagePath = $imagesProcessor->generateResponsiveImage(
         fixture('Images/photo.jpg'),
-        128, 'height',
+        112, 'height',
         $temporaryDirectory
     );
 
-    expect($responsiveImagePath)->toBe($temporaryDirectory->path('photo_128.jpg'));
+    expect($responsiveImagePath)->toBe($temporaryDirectory->path('photo_112.jpg'));
 
     expect(file_get_contents($responsiveImagePath))
-        ->toBe(file_get_contents(fixture('Images/photo_128.jpg')));
+        ->toBe(file_get_contents(fixture('Images/photo_112.jpg')));
 
     $temporaryDirectory->delete();
 });
