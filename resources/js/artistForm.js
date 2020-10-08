@@ -5,19 +5,19 @@ window.artistFormData = function (data) {
   return {
     discogs: {
       isOpen: false,
-      value: data.discogs,
+      value: data.discogs ?? '',
       people: []
     },
 
     filmPolski: {
       isOpen: false,
-      value: data.filmpolski,
+      value: data.filmpolski ?? '',
       people: []
     },
 
     wikipedia: {
       isOpen: false,
-      value: data.wikipedia,
+      value: data.wikipedia ?? '',
       people: []
     },
 
