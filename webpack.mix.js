@@ -6,7 +6,7 @@ require('laravel-mix-bundle-analyzer')
 
 mix.js('resources/js/app.js', 'public/js')
 
-mix.postCss('resources/css/app.css', 'public/css')
+mix.postCss('resources/css/style.css', 'public/css')
   .options({
     postCss: [tailwindcss('tailwind.config.js')]
   }).version()
