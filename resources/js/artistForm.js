@@ -1,9 +1,8 @@
 /* global fetch */
+import route from 'ziggy'
 
 window.artistFormData = function (data) {
   return {
-    route: data.route,
-
     discogs: {
       isOpen: false,
       value: data.discogs,
@@ -66,9 +65,9 @@ window.artistFormData = function (data) {
         this[type].people = []
       } else {
         fetch(
-          this.route + '/' +
-            (type === 'filmPolski' ? 'filmpolski' : type) +
-            `?search=${encodeURIComponent(this[type].value)}`
+          route('ajax.' + type, {
+            search: this[type].value
+          })
         )
           .then(response => response.json())
           .then(data => {

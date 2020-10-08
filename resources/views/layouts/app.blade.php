@@ -15,9 +15,9 @@
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+        @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
         @stack('scripts')
-        <script data-ad-client="ca-pub-8045564980733646" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
     <body class="bg-gray-200 text-gray-900">
         <div id="app" class="container mx-auto">

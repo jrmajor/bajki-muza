@@ -1,5 +1,5 @@
 <div class="relative w-full"
-    x-data="artistPickerData({ 'route': '{{ route('ajax.artists') }}' })"
+    x-data="artistPickerData()"
     x-init="
         name = $el.parentElement.getAttribute('data-picker-name');
         value = $el.parentElement.getAttribute('data-picker-value');

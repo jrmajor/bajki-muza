@@ -1,8 +1,8 @@
 /* global fetch */
+import route from 'ziggy'
 
-window.artistPickerData = function (data) {
+window.artistPickerData = function () {
   return {
-    route: data.route,
     name: undefined,
     value: undefined,
     hovered: null,
@@ -15,7 +15,11 @@ window.artistPickerData = function (data) {
       if (this.value.length < 2) {
         this.artists = []
       } else {
-        fetch(this.route + `?search=${encodeURIComponent(this.value)}`)
+        fetch(
+          route('ajax.artists', {
+            search: this.value
+          })
+        )
           .then(response => response.json())
           .then(data => {
             this.artists = data

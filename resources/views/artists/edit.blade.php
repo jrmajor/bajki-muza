@@ -13,7 +13,6 @@
     @php
 
         $data = [
-            'route' => url('ajax'),
             'discogs' => old('discogs', $artist->discogs),
             'filmpolski' => old('filmpolski', $artist->filmpolski),
             'wikipedia' => old('wikipedia', $artist->wikipedia),
@@ -129,8 +128,8 @@
                                 </div>
                             </template>
                             <template x-for="person in wikipedia.people" x-key="person.id">
-                                <button
-                                    x-on:click.prevent="wikipedia.value = person.id; wikipedia.isOpen = false"
+                                <button type="button"
+                                    x-on:click="wikipedia.value = person.id; wikipedia.isOpen = false"
                                     class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
                                     <span x-text="person.name"></span>
                                     <span class="text-gray-400" x-text="wikipedia.value == person.id ? '✓ ' : ''"></span>

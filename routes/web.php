@@ -30,9 +30,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/ajax/artists', [AjaxController::class, 'artists'])->name('ajax.artists');
 
-    Route::get('/ajax/discogs', [AjaxController::class, 'discogs']);
-    Route::get('/ajax/filmpolski', [AjaxController::class, 'filmPolski']);
-    Route::get('/ajax/wikipedia', [AjaxController::class, 'wikipedia']);
+    Route::get('/ajax/discogs', [AjaxController::class, 'discogs'])->name('ajax.discogs');
+    Route::get('/ajax/filmpolski', [AjaxController::class, 'filmPolski'])->name('ajax.filmPolski');
+    Route::get('/ajax/wikipedia', [AjaxController::class, 'wikipedia'])->name('ajax.wikipedia');
 });
 
 Route::get('/bajki', Tales::class)->name('tales.index');
