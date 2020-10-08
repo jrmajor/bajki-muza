@@ -200,10 +200,19 @@
         </button>
 
         <div class="space-y-3 flex flex-col items-center">
-            <a href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
-                class="mt-2 text-sm font-medium leading-4 shadow-link px-1">
-                Wyszukiwanie obrazów →
-            </a>
+
+            <div class="py-3 flex items-center flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5">
+                <a href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
+                    class="text-sm font-medium leading-4 shadow-link px-1">
+                    Google →
+                </a>
+                <a href="http://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?key={{
+                            urlencode(Str::afterLast($artist->name, ' ').' '.Str::beforeLast($artist->name, ' '))
+                        }}&search_type_in=osoba" target="_blank"
+                    class="text-sm font-medium leading-4 shadow-link px-1">
+                    Fototeka →
+                </a>
+            </div>
 
             <div class="w-full flex flex-wrap justify-around">
                 @foreach ($artist->discogsPhotos() as $photo)
