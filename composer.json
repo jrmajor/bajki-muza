@@ -23,8 +23,7 @@
         "spatie/regex": "^1.4",
         "spatie/temporary-directory": "^1.2",
         "symfony/css-selector": "^5.1",
-        "symfony/dom-crawler": "^5.1",
-        "tightenco/ziggy": "^0.9.4"
+        "symfony/dom-crawler": "^5.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
