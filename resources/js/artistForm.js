@@ -25,6 +25,8 @@ window.artistFormData = function (data) {
       preview: '',
       file: '',
       uri: '',
+      initialSource: data.photoSource,
+      source: data.photoSource,
       remove: false
     },
 
@@ -55,9 +57,17 @@ window.artistFormData = function (data) {
     },
 
     setPhotoUri (uri) {
-      this.photo.uri = this.photo.uri !== uri ? uri : ''
+      if (this.photo.uri === uri) {
+        this.photo.uri = ''
+        this.photo.source = this.photo.initialSource
+        this.photo.remove = false
+        return
+      }
+
+      this.photo.uri = uri
       this.photo.file = ''
       this.photo.remove = false
+      this.photo.source = uri.indexOf('discogs') > 0 ? 'dicsogs' : 'filmpolski'
     },
 
     findPeople (type) {
