@@ -28,8 +28,10 @@
         x-data="artistFormData(@encodedjson($data))"
         x-init="
             $watch('photo.file', value => {
-                setPhotoPreview($refs.photo.files)
-                value !== '' ? photo.remove = false : ''
+                setPhotoPreview($refs.photo.files);
+                if (value === '') return;
+                photo.uri = '';
+                photo.remove = false;
             });
         ">
         @method('put')
@@ -69,8 +71,8 @@
                                     </div>
                                 </template>
                                 <template x-for="person in discogs.people" x-key="person.id">
-                                    <button
-                                        x-on:click.prevent="discogs.value = person.id; discogs.isOpen = false"
+                                    <button type="button"
+                                        x-on:click="discogs.value = person.id; discogs.isOpen = false"
                                         class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
                                         <span x-text="person.name"></span>
                                         <span class="text-gray-400" x-text="discogs.value == person.id ? '✓ ' : ''"></span>
@@ -97,8 +99,8 @@
                                     </div>
                                 </template>
                                 <template x-for="person in filmPolski.people" x-key="person.id">
-                                    <button
-                                        x-on:click.prevent="filmPolski.value = person.id; filmPolski.isOpen = false"
+                                    <button type="button"
+                                        x-on:click="filmPolski.value = person.id; filmPolski.isOpen = false"
                                         class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
                                         <span x-text="person.name"></span>
                                         <span class="text-gray-400" x-text="filmPolski.value == person.id ? '✓ ' : ''"></span>
@@ -144,6 +146,7 @@
         <div class="flex flex-col">
             <span for="photo" class="w-full font-medium pb-1 text-gray-700">Zdjęcie</span>
             <input type="hidden" name="remove_photo" :value="photo.remove ? 1 : 0">
+            <input type="hidden" name="photo_uri" :value="photo.uri">
             <div class="flex space-x-5">
                 <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer">
                     <div class="flex-none bg-gray-400 w-10 h-10"
@@ -151,7 +154,7 @@
                         @if ($artist->photo())
                             <img src="{{ $artist->photo('84') }}"
                                 class="w-10 h-10 object-cover"
-                                x-show="photo.file === '' && photo.remove == false">
+                                x-show="photo.file === '' && photo.uri === '' && photo.remove == false">
                         @endif
                         <template x-if="photo.file !== ''">
                             <img :src="photo.preview"
@@ -160,7 +163,7 @@
                     </div>
                     <span class="px-3 py-2">
                         <span
-                            x-text="photo.file !== '' ? $refs.photo.files[0].name : 'Wybierz plik'">
+                            x-text="photoLabelText()">
                             Wybierz plik
                         </span>
                         <small class="pl-1 text-xs font-medium"
@@ -173,7 +176,7 @@
                         x-ref="photo" x-model="photo.file">
                 </label>
                 <template x-if="!photo.remove">
-                    <button type="button" x-on:click="photo.remove = true; photo.file = ''"
+                    <button type="button" x-on:click="photo.remove = true; photo.file = ''; photo.uri = ''"
                             class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
                             hover:bg-red-100 hover:border-red-200 hover:text-red-700
                             active:bg-red-600 active:cover-red-600 active:text-red-100
@@ -197,7 +200,7 @@
             Zapisz
         </button>
 
-        <div class="space-y-3 flex flex-col items-center" x-data="{ dimensions: {} }">
+        <div class="space-y-3 flex flex-col items-center">
             <a href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
                 class="mt-2 text-sm font-medium leading-4 shadow-link px-1">
                 Wyszukiwanie obrazów →
@@ -206,7 +209,8 @@
             <div class="w-full flex flex-wrap justify-around">
                 @foreach ($artist->discogsPhotos() as $photo)
                     @php $ref = 'discogs_'.$loop->iteration @endphp
-                    <div class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden">
+                    <button class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
+                        type="button" x-on:click="setPhotoUri('{{ $photo['uri'] }}')">
                         <img class="h-40" src="{{ $photo['uri'] }}" x-ref="{{ $ref }}"
                             x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
                         <div class="absolute top-0 right-0 pl-8 pb-2
@@ -218,7 +222,11 @@
                                             : dimensions.{{ $ref }}">
                             </span>
                         </div>
-                    </div>
+                        <div class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
+                            transition-all duration-300"
+                            :class="{ 'inset-shadow-hard opacity-100': photo.uri === '{{ $photo['uri'] }}' }">
+                        </div>
+                    </button>
                 @endforeach
             </div>
 
@@ -226,7 +234,8 @@
                 @foreach ($artist->filmPolskiPhotos() as $title => $movie)
                     @foreach ($movie['photos'] as $photo)
                         @php $ref = 'filmpolski_'.$loop->parent->iteration.'_'.$loop->iteration @endphp
-                        <div class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden">
+                        <button class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
+                            type="button" x-on:click="setPhotoUri('https://filmpolski.pl{{ $photo }}')">
                             <img class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
                                 x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
                             @if ($title !== 'main' && $title !== '')
@@ -248,7 +257,11 @@
                                                 : dimensions.{{ $ref }}">
                                 </span>
                             </div>
-                        </div>
+                            <div class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
+                                transition-all duration-300"
+                                :class="{ 'inset-shadow-hard opacity-100': photo.uri === 'https://filmpolski.pl{{ $photo }}' }">
+                            </div>
+                        </button>
                     @endforeach
                 @endforeach
             </div>

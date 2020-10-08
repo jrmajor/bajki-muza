@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArtist;
 use App\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -34,6 +35,18 @@ class ArtistController extends Controller
                 ->putFile('photos/original', $request->file('photo'), 'public');
 
             $artist->photo = Str::afterLast($path, '/');
+
+            $artist->save();
+
+            ProcessArtistPhoto::dispatch($artist);
+        } elseif ($request->input('photo_uri')) {
+            $photo = Http::get($request->input('photo_uri'));
+
+            $filename = Str::random(40).'.jpeg';
+
+            Storage::cloud()->put('photos/original/'.$filename, $photo->body(), 'public');
+
+            $artist->photo = $filename;
 
             $artist->save();
 

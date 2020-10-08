@@ -25,8 +25,11 @@ window.artistFormData = function (data) {
     photo: {
       preview: '',
       file: '',
+      uri: '',
       remove: false
     },
+
+    dimensions: { },
 
     setPhotoPreview (files) {
       if (files.length === 0) {
@@ -44,6 +47,18 @@ window.artistFormData = function (data) {
       } else if (size >= 1048576) {
         return (size / 1048576).toFixed(1) + 'MB'
       }
+    },
+
+    photoLabelText () {
+      if (this.photo.file !== '') return this.$refs.photo.files[0].name
+      else if (this.photo.uri !== '') return 'Wybrane z galerii'
+      return 'Wybierz plik'
+    },
+
+    setPhotoUri (uri) {
+      this.photo.uri = this.photo.uri !== uri ? uri : ''
+      this.photo.file = ''
+      this.photo.remove = false
     },
 
     findPeople (type) {
