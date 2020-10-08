@@ -59,56 +59,64 @@
 
                 <div class="w-1/2 items-stretch flex flex-col">
                     <label for="year" class="w-full font-medium pb-1 text-gray-700">Discogs</label>
-                    <div class="relative w-full"
-                        x-on:mousedown.away="discogs.isOpen = false">
+                    <div class="relative w-full">
                         <input
-                            type="text" name="discogs" value="{{ old('discogs', $artist->discogs) }}"
-                            class="w-full form-input" autocomplete="off"
-                            x-model="discogs.value" x-on:focus="discogs.isOpen = true" x-on:input.debounce="findPeople('discogs')">
+                            type="text" class="w-full form-input" autocomplete="off"
+                            x-model="discogs.value" name="discogs"
+                            value="{{ old('discogs', $artist->discogs) }}"
+                            x-on:keydown.arrow-up="arrow('discogs', 'up')" x-on:keydown.arrow-down="arrow('discogs', 'down')"
+                            x-on:keydown.enter.prevent="enter('discogs')" x-on:input.debounce="findPeople('discogs')"
+                            x-on:focus="discogs.isOpen = discogs.shouldCloseOnBlur = true" x-on:blur="closeDropdown('discogs')">
                         <template x-if="discogs.isOpen && discogs.value.length >= 5">
-                            <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                                <template x-if="discogs.people.length == 0">
-                                    <div class="w-full px-3 py-1 text-gray-600">
+                            <ul class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300"
+                                x-on:mousedown="discogs.shouldCloseOnBlur = false">
+                                <template x-if="discogs.people.length === 0">
+                                    <li class="w-full px-3 py-1 text-gray-600">
                                         Brak wyników
-                                    </div>
+                                    </li>
                                 </template>
-                                <template x-for="person in discogs.people" x-key="person.id">
-                                    <button type="button"
-                                        x-on:click="discogs.value = person.id; discogs.isOpen = false"
-                                        class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
+                                <template x-for="(person, index) in discogs.people" x-key="person.id">
+                                    <li
+                                        x-on:mouseover="discogs.hovered = index" x-on:click="select('discogs', person)"
+                                        class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
+                                        :class="{ 'bg-cool-gray-100': discogs.hovered === index }">
                                         <span x-text="person.name"></span>
-                                        <span class="text-gray-400" x-text="discogs.value == person.id ? '✓ ' : ''"></span>
-                                    </button>
+                                        <span class="text-gray-400" x-text="discogs.value === person.id ? '✓ ' : ''"></span>
+                                    </li>
                                 </template>
-                            </div>
+                            </ul>
                         </template>
                     </div>
                 </div>
 
                 <div class="w-1/2 items-stretch flex flex-col">
                     <label for="year" class="w-full font-medium pb-1 text-gray-700">Film Polski</label>
-                    <div class="relative w-full"
-                        x-on:mousedown.away="filmPolski.isOpen = false">
+                    <div class="relative w-full">
                         <input
-                            type="text" name="filmpolski" value="{{ old('filmpolski', $artist->filmpolski) }}"
-                            class="w-full form-input" autocomplete="off"
-                            x-model="filmPolski.value" x-on:focus="filmPolski.isOpen = true" x-on:input.debounce="findPeople('filmPolski')">
+                            type="text" class="w-full form-input" autocomplete="off"
+                            x-model="filmPolski.value" name="filmpolski"
+                            value="{{ old('filmpolski', $artist->filmpolski) }}"
+                            x-on:keydown.arrow-up="arrow('filmPolski', 'up')" x-on:keydown.arrow-down="arrow('filmPolski', 'down')"
+                            x-on:keydown.enter.prevent="enter('filmPolski')" x-on:input.debounce="findPeople('filmPolski')"
+                            x-on:focus="filmPolski.isOpen = filmPolski.shouldCloseOnBlur = true" x-on:blur="closeDropdown('filmPolski')">
                         <template x-if="filmPolski.isOpen && filmPolski.value.length >= 5">
-                            <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                                <template x-if="filmPolski.people.length == 0">
-                                    <div class="w-full px-3 py-1 text-gray-600">
+                            <ul class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300"
+                                x-on:mousedown="filmPolski.shouldCloseOnBlur = false">
+                                <template x-if="filmPolski.people.length === 0">
+                                    <li class="w-full px-3 py-1 text-gray-600">
                                         Brak wyników
-                                    </div>
+                                    </li>
                                 </template>
-                                <template x-for="person in filmPolski.people" x-key="person.id">
-                                    <button type="button"
-                                        x-on:click="filmPolski.value = person.id; filmPolski.isOpen = false"
-                                        class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
+                                <template x-for="(person, index) in filmPolski.people" x-key="person.id">
+                                    <li
+                                        x-on:mouseover="filmPolski.hovered = index" x-on:click="select('filmPolski', person)"
+                                        class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
+                                        :class="{ 'bg-cool-gray-100': filmPolski.hovered === index }">
                                         <span x-text="person.name"></span>
-                                        <span class="text-gray-400" x-text="filmPolski.value == person.id ? '✓ ' : ''"></span>
-                                    </button>
+                                        <span class="text-gray-400" x-text="filmPolski.value === person.id ? '✓ ' : ''"></span>
+                                    </li>
                                 </template>
-                            </div>
+                            </ul>
                         </template>
                     </div>
                 </div>
@@ -117,28 +125,32 @@
 
             <div class="w-full sm:w-1/2 flex flex-col">
                 <label for="title" class="w-full font-medium pb-1 text-gray-700">Wikipedia</label>
-                <div class="relative w-full"
-                    x-on:mousedown.away="wikipedia.isOpen = false">
+                <div class="relative w-full">
                     <input
-                        type="text" name="wikipedia" value="{{ old('wikipedia', $artist->wikipedia) }}"
-                        class="w-full form-input" autocomplete="off"
-                        x-model="wikipedia.value" x-on:focus="wikipedia.isOpen = true" x-on:input.debounce="findPeople('wikipedia')">
+                        type="text" class="w-full form-input" autocomplete="off"
+                        x-model="wikipedia.value" name="wikipedia"
+                        value="{{ old('wikipedia', $artist->wikipedia) }}"
+                        x-on:keydown.arrow-up="arrow('wikipedia', 'up')" x-on:keydown.arrow-down="arrow('wikipedia', 'down')"
+                        x-on:keydown.enter.prevent="enter('wikipedia')" x-on:input.debounce="findPeople('wikipedia')"
+                        x-on:focus="wikipedia.isOpen = wikipedia.shouldCloseOnBlur = true" x-on:blur="closeDropdown('wikipedia')">
                     <template x-if="wikipedia.isOpen && wikipedia.value.length >= 5">
-                        <div class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300">
-                            <template x-if="wikipedia.people.length == 0">
-                                <div class="w-full px-3 py-1 text-gray-600">
+                        <ul class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300"
+                            x-on:mousedown="wikipedia.shouldCloseOnBlur = false">
+                            <template x-if="wikipedia.people.length === 0">
+                                <li class="w-full px-3 py-1 text-gray-600">
                                     Brak wyników
-                                </div>
+                                </li>
                             </template>
-                            <template x-for="person in wikipedia.people" x-key="person.id">
-                                <button type="button"
-                                    x-on:click="wikipedia.value = person.id; wikipedia.isOpen = false"
-                                    class="flex w-full px-3 py-1 text-gray-800 text-left justify-between hover:bg-cool-gray-100">
+                            <template x-for="(person, index) in wikipedia.people" x-key="person.id">
+                                <li
+                                    x-on:mouseover="wikipedia.hovered = index" x-on:click="select('wikipedia', person)"
+                                    class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
+                                    :class="{ 'bg-cool-gray-100': wikipedia.hovered === index }">
                                     <span x-text="person.name"></span>
-                                    <span class="text-gray-400" x-text="wikipedia.value == person.id ? '✓ ' : ''"></span>
-                                </button>
+                                    <span class="text-gray-400" x-text="wikipedia.value === person.id ? '✓ ' : ''"></span>
+                                </li>
                             </template>
-                        </div>
+                        </ul>
                     </template>
                 </div>
             </div>

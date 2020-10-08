@@ -15,6 +15,8 @@ window.artistPickerData = function () {
       if (this.value.length < 2) {
         this.artists = []
       } else {
+        this.isOpen = true
+
         fetch(
           route('ajax.artists', {
             search: this.value
@@ -60,7 +62,7 @@ window.artistPickerData = function () {
 
     select (artist) {
       this.value = artist
-      this.isOpen = false
+      this.closeDropdown()
     }
   }
 }
