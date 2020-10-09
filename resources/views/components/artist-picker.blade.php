@@ -27,7 +27,7 @@
                     class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
                     :class="{ 'bg-cool-gray-100': hovered === index }">
                     <span x-text="artist"></span>
-                    <span class="text-gray-400" x-text="value === artist ? '✓ ' : ''"></span>
+                    <span class="text-gray-800" x-text="value === artist ? '✓ ' : ''"></span>
                 </li>
             </template>
         </ul>
