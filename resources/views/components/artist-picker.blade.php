@@ -15,7 +15,7 @@
         x-on:focus="isOpen = shouldCloseOnBlur = true" x-on:blur="closeDropdown">
     <template x-if="isOpen && ! (search.length > 1 && artists.length === 0)">
         <ul class="absolute mt-2 z-50 py-1 w-full text-gray-800 bg-white rounded-md shadow-md border border-gray-300"
-            x-ref="dropdown" x-on:mousedown="shouldCloseOnBlur = false">
+            x-on:mousedown="shouldCloseOnBlur = false">
             <template x-if="artists.length === 0">
                 <li class="w-full px-3 py-1 text-gray-600">
                     Brak wyników

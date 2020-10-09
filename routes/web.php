@@ -21,7 +21,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/bajki', [TaleController::class, 'store'])->name('tales.store');
     Route::get('/bajki/{tale}/edit', [TaleController::class, 'edit'])->name('tales.edit');
     Route::match(['put', 'patch'], '/bajki/{tale}', [TaleController::class, 'update'])->name('tales.update');
-    // Route::delete('/bajki/{tale}', [TaleController::class, 'destroy'])->name('tales.destroy');
 
     Route::get('/artysci/{artist}/edit', [ArtistController::class, 'edit'])->name('artists.edit');
     Route::match(['put', 'patch'], '/artysci/{artist}', [ArtistController::class, 'update'])->name('artists.update');

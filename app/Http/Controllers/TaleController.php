@@ -94,11 +94,6 @@ class TaleController extends Controller
         return redirect()->route('tales.show', $tale);
     }
 
-    public function destroy(Tale $tale)
-    {
-        //
-    }
-
     private function saveRelationships(Tale $tale, StoreTale $request)
     {
         $lyricists = [];

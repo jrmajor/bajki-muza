@@ -24,8 +24,7 @@
     },
     "standard": {
         "ignore": [
-            "public/",
-            "resources/js/ziggy.js"
+            "public/"
         ]
     }
 }
