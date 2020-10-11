@@ -17,7 +17,7 @@ class ReprocessCovers extends Command
     {
         if ($this->option('tale') !== null) {
             return $this->handleSingleTale();
-        } elseif($this->confirm('Do you want to reprocess all covers?', true)) {
+        } elseif ($this->confirm('Do you want to reprocess all covers?', true)) {
             return $this->handleAllTales();
         } else {
             return 1;
@@ -30,11 +30,13 @@ class ReprocessCovers extends Command
 
         if (! $tale) {
             $this->error('Tale doesn\'t exist.');
+
             return 1;
         }
 
         if ($tale->cover === null) {
             $this->error('Tale doesn\'t have a cover.');
+
             return 1;
         }
 
@@ -51,6 +53,7 @@ class ReprocessCovers extends Command
             ->map(function ($tale, $index) use ($total) {
                 $index++;
                 $this->info("Processing tale {$index} of {$total}: {$tale->title} ({$tale->cover})");
+
                 return $this->reprocessTale($tale);
             })
             ->contains(1) ? 1 : 0;
@@ -60,6 +63,7 @@ class ReprocessCovers extends Command
     {
         if (Storage::cloud()->missing("covers/original/{$tale->cover}")) {
             $this->error("The original cover doesn't exist.");
+
             return 1;
         }
 
