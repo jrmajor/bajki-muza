@@ -35,6 +35,8 @@ test('guests are asked to log in when attempting to view edit form for nonexiste
     ->assertRedirect('login');
 
 test('users can view edit artist form', function () {
+    Http::fake();
+
     asUser()
         ->get("artysci/{$this->artist->slug}/edit")
         ->assertOk();
