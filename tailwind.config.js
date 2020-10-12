@@ -1,8 +1,4 @@
 module.exports = {
-  purge: [
-    './resources/views/**/*.blade.php',
-    './resources/js/**/*.vue'
-  ],
   theme: {
     colors: {
       transparent: 'transparent',
@@ -91,22 +87,29 @@ module.exports = {
       inset: { '-px': '-1px' }
     }
   },
+  dark: false,
   variants: {
     opacity: ({ after }) => after(['group-hover'])
   },
   plugins: [
     require('@tailwindcss/ui')
   ],
+  purge: [
+    './resources/views/**/*.blade.php',
+    './resources/js/**/*.vue'
+  ],
   experimental: {
+    additionalBreakpoint: true,
     applyComplexClasses: true,
-    darkModeVariant: false,
-    defaultLineHeights: true,
+    darkModeVariant: true,
     extendedFontSizeScale: true,
     extendedSpacingScale: true,
     uniformColorPalette: false
   },
   future: {
+    defaultLineHeights: true,
+    purgeLayersByDefault: true,
     removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true
+    standardFontWeights: true
   }
 }
