@@ -6,9 +6,7 @@ return [
 
     'project_key' => env('LB_PROJECT_KEY', 'LB_PROJECT_KEY'),
 
-    'environments' => [
-        'production'
-    ],
+    'environments' => ['production'],
 
     'lines_count' => 12,
 
