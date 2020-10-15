@@ -7,10 +7,10 @@
     <div class="flex flex-col sm:flex-row items-center mb-6">
 
         <div class="sm:hidden text-center">
-            <h2 class="text-2xl font-medium leading-7">
+            <h2 class="text-2xl font-medium">
                 @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
                     @foreach (explode(' ', $tale->title) as $word)
-                        <span class="shadow-title px-1.5 @if (! $loop->last) -mx-1.5 @else -ml-1.5 @endif">{{ $word }}</span>
+                        <span class="shadow-title">{{ $word }}</span>
                     @endforeach
                 @auth </a> @endauth
             </h2>
@@ -43,9 +43,9 @@
         <div class="sm:py-2 flex-grow self-center sm:self-stretch flex flex-col justify-between space-y-3">
 
             <div class="hidden sm:block self-start">
-                <h2 class="text-2xl font-medium leading-7 shadow-title px-1.5 -ml-1.5">
+                <h2 class="text-2xl font-medium">
                     @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
-                        {{ $tale->title }}
+                        <span class="shadow-title">{{ $tale->title }}</span>
                     @auth </a> @endauth
                 </h2>
                 @if ($tale->year)
@@ -106,7 +106,7 @@
 
     @if ($tale->actors->count())
         <div class="w-full flex flex-col items-center space-y-3">
-            <h3 class="text-xl font-medium leading-6 shadow-subtitle px-1">
+            <h3 class="text-xl font-medium shadow-subtitle">
                 Obsada
             </h3>
             <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">

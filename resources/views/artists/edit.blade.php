@@ -2,13 +2,15 @@
 
 @section('content')
 
-    <h2 class="text-2xl font-medium leading-7">
-        <a href="{{ route('artists.show', $artist) }}">
-            @foreach (explode(' ', $artist->name) as $word)
-                <span class="shadow-title px-1.5 @if (! $loop->last) -mx-1.5 @else -ml-1.5 @endif">{{ $word }}</span>
-            @endforeach
-        </a>
-    </h2>
+    <div class="text-center">
+        <h2 class="text-2xl font-medium">
+            <a href="{{ route('artists.show', $artist) }}">
+                @foreach (explode(' ', $artist->name) as $word)
+                    <span class="shadow-title">{{ $word }}</span>
+                @endforeach
+            </a>
+        </h2>
+    </div>
 
     @php
 
@@ -229,14 +231,14 @@
 
             <div class="py-3 flex items-center flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5">
                 <a href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
-                    class="text-sm font-medium leading-4 shadow-link px-1">
-                    Google →
+                    class="text-sm font-medium">
+                    <span class="shadow-link">Google</span> →
                 </a>
                 <a href="http://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?key={{
                             urlencode(Str::afterLast($artist->name, ' ').' '.Str::beforeLast($artist->name, ' '))
                         }}&search_type_in=osoba&filter[charakter][]=portret" target="_blank"
-                    class="text-sm font-medium leading-4 shadow-link px-1">
-                    Fototeka →
+                    class="text-sm font-medium">
+                    <span class="shadow-link">Fototeka</span> →
                 </a>
             </div>
 
