@@ -30,7 +30,7 @@ class TaleController extends Controller
 
         if ($request->file('cover')) {
             $path = Storage::cloud()
-                ->putFile('covers/original', $request->file('cover'), 'public');
+                ->putFile('covers/original', $request->file('cover'), 'private');
 
             ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
         }
@@ -72,7 +72,7 @@ class TaleController extends Controller
             $tale->cover_placeholder = null;
         } elseif ($request->file('cover')) {
             $path = Storage::cloud()
-                ->putFile('covers/original', $request->file('cover'), 'public');
+                ->putFile('covers/original', $request->file('cover'), 'private');
 
             ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
         }

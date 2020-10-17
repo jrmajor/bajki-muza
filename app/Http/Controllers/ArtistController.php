@@ -30,7 +30,7 @@ class ArtistController extends Controller
             $artist->photo_placeholder = null;
         } elseif ($request->file('photo')) {
             $path = Storage::cloud()
-                ->putFile('photos/original', $request->file('photo'), 'public');
+                ->putFile('photos/original', $request->file('photo'), 'private');
 
             ProcessArtistPhoto::dispatch($artist, Str::afterLast($path, '/'));
         } elseif ($request->input('photo_uri')) {
@@ -38,7 +38,7 @@ class ArtistController extends Controller
 
             $filename = Str::random(40).'.jpeg';
 
-            Storage::cloud()->put('photos/original/'.$filename, $photo->body(), 'public');
+            Storage::cloud()->put('photos/original/'.$filename, $photo->body(), 'private');
 
             ProcessArtistPhoto::dispatch($artist, $filename);
         }

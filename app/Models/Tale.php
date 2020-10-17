@@ -43,7 +43,7 @@ class Tale extends Model
             return $this->cover;
         }
 
-        return Storage::cloud()->url("covers/$size/$this->cover", 's3');
+        return Storage::cloud()->url("covers/$size/$this->cover");
     }
 
     public function director()

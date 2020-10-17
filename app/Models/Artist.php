@@ -86,7 +86,7 @@ class Artist extends Model
             return $this->photo;
         }
 
-        return Storage::cloud()->url("photos/$size/$this->photo", 's3');
+        return Storage::cloud()->url("photos/$size/$this->photo");
     }
 
     public function getWikipediaExtractAttribute(): ?string
