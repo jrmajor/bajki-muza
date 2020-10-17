@@ -23,6 +23,8 @@ it('throws error when artist doesn\'t have a photo', function () {
 });
 
 it('works with single artist', function () {
+    Storage::fake('testing');
+
     Artist::factory()->create([
         'name' => 'Test Artist',
         'photo' => 'test.jpg',
@@ -39,8 +41,6 @@ it('works with single artist', function () {
         ->assertExitCode(0);
 
     Bus::assertDispatched(ProcessArtistPhoto::class);
-
-    Storage::cloud()->delete('photos/original/test.jpg');
 });
 
 it('asks for confirmation when processing all photos')

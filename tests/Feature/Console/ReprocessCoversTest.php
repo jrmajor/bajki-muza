@@ -23,6 +23,8 @@ it('throws error when tale doesn\'t have a cover', function () {
 });
 
 it('works with single tale', function () {
+    Storage::fake('testing');
+
     Tale::factory()->create([
         'title' => 'Test tale',
         'cover' => 'test.jpg',
@@ -39,8 +41,6 @@ it('works with single tale', function () {
         ->assertExitCode(0);
 
     Bus::assertDispatched(ProcessTaleCover::class);
-
-    Storage::cloud()->delete('covers/original/test.jpg');
 });
 
 it('asks for confirmation when processing all covers')

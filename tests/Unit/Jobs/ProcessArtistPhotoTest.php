@@ -12,6 +12,8 @@ it('works', function () {
     // Photo by Alberto Bigoni on Unsplash
     $file = fopen(fixture('Images/photo.jpg'), 'r');
 
+    Storage::fake('testing');
+
     Storage::cloud()->put("photos/original/$filename", $file, 'public');
 
     $artist = Artist::factory()
@@ -29,14 +31,6 @@ it('works', function () {
     expect($artist->photo_width)->toBe(640)
         ->and($artist->photo_height)->toBe(964);
 
-    expect(file_get_contents(storage_path("testing/photos/112/$filename")))
+    expect(Storage::cloud()->get("photos/112/$filename"))
         ->toBe(file_get_contents(fixture('Images/photo_112.jpg')));
-
-    Storage::cloud()->delete("photos/original/$filename");
-    rmdir(storage_path('testing/photos/original'));
-
-    foreach (ProcessArtistPhoto::$sizes as $size) {
-        expect(Storage::cloud()->delete("photos/$size/$filename"))->toBeTrue();
-        rmdir(storage_path("testing/photos/$size"));
-    }
 });
