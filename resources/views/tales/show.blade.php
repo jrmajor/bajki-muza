@@ -107,10 +107,10 @@
             <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                 @foreach ($tale->actors as $actor)
                     <a href="{{ route('artists.show', $actor) }}"
-                        class="w-full h-14 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+                        class="w-full h-14 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                         <div class="relative flex-none bg-placeholder-artist w-14 h-14">
                             @if ($actor->photo())
-                                <div class="bg-gray-400 bg-center bg-cover absolute -inset-px"
+                                <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
                                     style="background-image: url(&quot;{{ $actor->photo_placeholder }}&quot;)">
                                     <img src="{{ $actor->photo('112') }}"
                                         srcset="

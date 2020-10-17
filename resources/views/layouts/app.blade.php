@@ -19,18 +19,18 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
         @stack('scripts')
     </head>
-    <body class="bg-gray-200 text-gray-900">
+    <body class="bg-gray-200 text-gray-900 dark:bg-gray-950 dark:text-gray-200">
         <div id="app" class="container mx-auto">
 
             <div class="my-8 flex justify-center space-x-4">
                 <a href="{{ route('tales.index') }}" alt="Bajki"
-                    class="px-5 py-2.5 bg-white shadow-lg rounded-full
-                        text-gray-900 hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
+                    class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
+                        text-gray-900 dark:text-white hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
                     Bajki
                 </a>
                 <a href="{{ route('artists.index') }}" alt="Artyści"
-                    class="px-5 py-2.5 bg-white shadow-lg rounded-full
-                        text-gray-900 hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
+                    class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
+                        text-gray-900 dark:text-white hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
                     Artyści
                 </a>
             </div>
@@ -41,7 +41,7 @@
                 </main>
             </div>
 
-            <footer class="my-8 px-3 text-center text-gray-500 text-sm">
+            <footer class="my-8 px-3 text-center text-gray-500 dark:text-gray-600 text-sm">
                 {{-- &copy; --}} 2019<a href="{{ route('login') }}" class="cursor-text">-</a>{{ now()->year }} {{-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> --}}
                 @auth
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">

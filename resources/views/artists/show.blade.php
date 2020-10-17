@@ -22,7 +22,7 @@
                 @auth
                     <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
                 @endauth
-                <div class="bg-gray-400 bg-center bg-cover absolute -inset-px"
+                <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
                     style="background-image: url(&quot;{{ $artist->photo_placeholder }}&quot;)">
                     <img src="{{ $artist->photo('320') }}"
                         srcset="
@@ -73,7 +73,7 @@
                         @if ($artist->filmpolski)
                             <a href="{{ $artist->filmpolski_url }}" target="_blank"
                                 class="font-medium">
-                                <span style="color: #566ea1">FILM</span><span style="color: #010101">POLSKI</span><span style="color: #566ea1">.PL</span>
+                                <span class="text-filmpolski-blue dark:text-filmpolski-blue-lighter">FILM</span><span class="text-filmpolski-gray dark:text-filmpolski-gray-inverted">POLSKI</span><span class="text-filmpolski-blue dark:text-filmpolski-blue-lighter">.PL</span>
                             </a>
                         @endif
                         @if ($artist->wikipedia)
@@ -98,7 +98,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asDirector as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-13 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-placeholder-cover w-13 h-13"
                                 @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                                 >
@@ -132,7 +132,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asLyricist as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-13 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-placeholder-cover w-13 h-13"
                                 @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                                 >
@@ -166,7 +166,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asComposer as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-13 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-placeholder-cover w-13 h-13"
                                 @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                                 >
@@ -200,7 +200,7 @@
                 <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
                     @foreach ($artist->asActor as $tale)
                         <a href="{{ route('tales.show', $tale) }}"
-                            class="w-full h-15 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+                            class="w-full h-15 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                             <div class="flex-none bg-placeholder-cover w-15 h-15"
                                 @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                                 >

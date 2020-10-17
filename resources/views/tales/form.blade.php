@@ -48,18 +48,18 @@
 
     <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
         <div class="w-full sm:w-1/2 flex flex-col">
-            <label for="title" class="w-full font-medium pb-1 text-gray-700">Tytuł</label>
+            <label for="title" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Tytuł</label>
             <input type="text" name="title" value="{{ old('title', $tale->title) }}"
                 class="w-full form-input">
         </div>
         <div class="w-full sm:w-1/2 flex space-x-5">
             <div class="w-1/2 items-stretch flex flex-col">
-                <label for="year" class="w-full font-medium pb-1 text-gray-700">Rok</label>
+                <label for="year" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Rok</label>
                 <input type="text" name="year" value="{{ old('year', $tale->year) }}"
                     class="w-full form-input">
             </div>
             <div class="w-1/2 items-stretch flex flex-col">
-                <label for="nr" class="w-full font-medium pb-1 text-gray-700">№</label>
+                <label for="nr" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">№</label>
                 <input type="text" name="nr" value="{{ old('nr', $tale->nr) }}"
                     class="w-full form-input">
             </div>
@@ -67,10 +67,10 @@
     </div>
 
     <div class="flex flex-col">
-        <span for="cover" class="w-full font-medium pb-1 text-gray-700">Okładka</span>
+        <span for="cover" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Okładka</span>
         <input type="hidden" name="remove_cover" :value="cover.remove ? 1 : 0">
         <div class="flex space-x-5">
-            <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer">
+            <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer dark:border-gray-900 dark:bg-gray-800">
                 <div class="flex-none bg-placeholder-cover w-10 h-10">
                     @if ($tale->cover())
                         <img src="{{ $tale->cover('128') }}"
@@ -101,17 +101,21 @@
                 <template x-if="!cover.remove">
                     <button type="button" x-on:click="cover.remove = true; cover.file = ''"
                             class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
-                            hover:bg-red-100 hover:border-red-200 hover:text-red-700
-                            active:bg-red-600 active:cover-red-600 active:text-red-100
-                            transition-colors duration-150">
+                                hover:bg-red-100 hover:text-red-700
+                                active:bg-red-600 active:cover-red-600 active:text-red-100
+                                dark:bg-gray-800 dark:text-gray-100 dark:border-gray-900
+                                dark:hover:bg-red-800 dark:hover:text-red-100
+                                transition-colors duration-150">
                         Usuń
                     </button>
                 </template>
                 <template x-if="cover.remove">
                     <button type="button" x-on:click="cover.remove = false"
                             class="flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
-                            hover:bg-red-500 hover:border-red-500 hover:text-white
-                            active:bg-white active:text-black transition-colors duration-150">
+                                hover:bg-red-500 hover:border-red-500 hover:text-white
+                                active:bg-white active:text-black
+                                dark:active:bg-gray-800 dark:active:text-gray-100 dark:border-gray-900
+                                transition-colors duration-150">
                         Nie usuwaj
                     </button>
                 </template>
@@ -120,7 +124,7 @@
     </div>
 
     <div class="flex flex-col">
-        <label for="director" class="w-full font-medium pb-1 text-gray-700">Reżyser</label>
+        <label for="director" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Reżyser</label>
         <div data-picker-name="director" data-picker-value="{{ old('director', optional($tale->director)->name) }}">
             <x-artist-picker/>
         </div>
@@ -130,14 +134,14 @@
 
         <div class="w-full md:w-1/2 flex flex-col">
             <div class="relative -space-y-1 mb-0.5">
-                <span class="w-full font-medium text-gray-700">Słowa</span>
+                <span class="w-full font-medium text-gray-700 dark:text-gray-400">Słowa</span>
                 <div class="w-full flex items-center space-x-2">
-                    <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
-                    <div class="px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
+                    <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
+                    <div class="px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
                 </div>
                 <div class="absolute right-0 top-0 h-full flex items-center">
                     <button type="button" x-on:click="addArtist('lyricists')"
-                        class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
+                        class="w-5 h-5 flex items-center justify-center rounded-full bg-green-500 dark:bg-green-600 text-green-100 focus:bg-green-700">
                         <span>+</span>
                     </button>
                 </div>
@@ -166,7 +170,7 @@
                             <x-artist-picker/>
                         </div>
                         <button type="button" x-on:click="removeArtist('lyricists', index)"
-                            class="flex-none w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
+                            class="flex-none w-5 h-5 flex items-center justify-center rounded-full bg-red-500 dark:bg-red-600 text-red-100 focus:bg-red-700">
                             <span>-</span>
                         </button>
                     </div>
@@ -176,14 +180,14 @@
 
         <div class="w-full md:w-1/2 flex flex-col">
             <div class="relative -space-y-1 mb-0.5">
-                <span class="w-full font-medium text-gray-700">Muzyka</span>
+                <span class="w-full font-medium text-gray-700 dark:text-gray-400">Muzyka</span>
                 <div class="w-full flex items-center space-x-2">
-                    <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
-                    <div class="px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
+                    <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
+                    <div class="px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
                 </div>
                 <div class="absolute right-0 top-0 h-full flex items-center">
                     <button type="button" x-on:click="addArtist('composers')"
-                        class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
+                        class="w-5 h-5 flex items-center justify-center rounded-full bg-green-500 dark:bg-green-600 text-green-100 focus:bg-green-700">
                         <span>+</span>
                     </button>
                 </div>
@@ -212,7 +216,7 @@
                             <x-artist-picker/>
                         </div>
                         <button type="button" x-on:click="removeArtist('composers', index)"
-                            class="flex-none w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
+                            class="flex-none w-5 h-5 flex items-center justify-center rounded-full bg-red-500 dark:bg-red-600 text-red-100 focus:bg-red-700">
                             <span>-</span>
                         </button>
                     </div>
@@ -224,16 +228,16 @@
 
     <div class="flex flex-col">
         <div class="relative -space-y-1 mb-0.5">
-            <span class="w-full font-medium text-gray-700">Obsada</span>
+            <span class="w-full font-medium text-gray-700 dark:text-gray-400">Obsada</span>
             <div class="w-full flex items-center space-x-2">
-                <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700">№</span></div>
-                <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700">Artysta</span></div>
-                <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700">Postaci</span></div>
+                <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
+                <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
+                <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Postaci</span></div>
                 <div class="w-5"></div>
             </div>
             <div class="absolute right-0 top-0 h-full flex items-center">
                 <button type="button" x-on:click="addArtist('actors')"
-                    class="w-5 h-5 flex items-center justify-center bg-green-500 text-green-100 rounded-full focus:bg-green-700">
+                    class="w-5 h-5 flex items-center justify-center rounded-full bg-green-500 dark:bg-green-600 text-green-100 focus:bg-green-700">
                     <span>+</span>
                 </button>
             </div>
@@ -266,7 +270,7 @@
                             class="w-full form-input">
                     </div>
                     <button type="button" x-on:click="removeArtist('actors', index)"
-                        class="flex-none w-5 h-5 flex items-center justify-center bg-red-500 text-red-100 rounded-full focus:bg-red-700">
+                        class="flex-none w-5 h-5 flex items-center justify-center rounded-full bg-red-500 dark:bg-red-600 text-red-100 focus:bg-red-700">
                         <span>-</span>
                     </button>
                 </div>
@@ -275,7 +279,7 @@
     </div>
 
     <button type="submit"
-        class="self-center px-4 py-2 bg-white text-sm font-medium rounded-full shadow-md">
+        class="self-center px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium rounded-full shadow-md">
         Zapisz
     </button>
 

@@ -1,4 +1,5 @@
 module.exports = {
+  purge: ['./resources/views/**/*.blade.php'],
   theme: {
     colors: {
       transparent: 'transparent',
@@ -44,6 +45,8 @@ module.exports = {
       yellow: {
         kox: '#ffcc00',
         ciul: '#f6e05e',
+        'kox-dark': '#896f09',
+        'ciul-dark': '#847938',
         50: '#fdfdea',
         100: '#fdf6b2',
         200: '#fce96a',
@@ -78,7 +81,13 @@ module.exports = {
         700: '#1a56db',
         800: '#1e429f',
         900: '#233876'
-      }
+      },
+      filmpolski: {
+        blue: '#566ea1',
+        'blue-lighter': '#7393d9',
+        gray: '#010101',
+        'gray-inverted': '#eeeeee'
+      },
     },
     extend: {
       fontSize: { '2xs': '0.7rem' },
@@ -86,9 +95,12 @@ module.exports = {
       inset: { '-px': '-1px' }
     }
   },
-  dark: false,
+  dark: 'media',
   variants: {
-    opacity: ({ after }) => after(['group-hover'])
+    backgroundColor: ({ after }) => after(['dark']),
+    borderColor: ({ after }) => after(['dark']),
+    opacity: ({ after }) => after(['group-hover']),
+    textColor: ({ after }) => after(['dark'])
   },
   plugins: [
     require('@tailwindcss/ui')

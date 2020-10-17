@@ -50,7 +50,7 @@
         @endif
 
         <div class="flex flex-col">
-            <label for="name" class="w-full font-medium pb-1 text-gray-700">Imię i nazwisko</label>
+            <label for="name" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Imię i nazwisko</label>
             <input type="text" name="name" value="{{ old('name', $artist->name) }}"
                 class="w-full form-input">
         </div>
@@ -60,7 +60,7 @@
             <div class="w-full sm:w-1/2 flex space-x-5">
 
                 <div class="w-1/2 items-stretch flex flex-col">
-                    <label for="year" class="w-full font-medium pb-1 text-gray-700">Discogs</label>
+                    <label for="year" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Discogs</label>
                     <div class="relative w-full">
                         <input
                             type="text" class="w-full form-input" autocomplete="off"
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="w-1/2 items-stretch flex flex-col">
-                    <label for="year" class="w-full font-medium pb-1 text-gray-700">Film Polski</label>
+                    <label for="year" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Film Polski</label>
                     <div class="relative w-full">
                         <input
                             type="text" class="w-full form-input" autocomplete="off"
@@ -126,7 +126,7 @@
             </div>
 
             <div class="w-full sm:w-1/2 flex flex-col">
-                <label for="title" class="w-full font-medium pb-1 text-gray-700">Wikipedia</label>
+                <label for="title" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Wikipedia</label>
                 <div class="relative w-full">
                     <input
                         type="text" class="w-full form-input" autocomplete="off"
@@ -162,11 +162,11 @@
         <div class="flex flex-col space-y-3">
 
             <div class="flex flex-col">
-                <span for="photo" class="w-full font-medium pb-1 text-gray-700">Zdjęcie</span>
+                <span for="photo" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Zdjęcie</span>
                 <input type="hidden" name="remove_photo" :value="photo.remove ? 1 : 0">
                 <input type="hidden" name="photo_uri" :value="photo.uri">
                 <div class="flex space-x-5">
-                    <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer">
+                    <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer dark:border-gray-900 dark:bg-gray-800">
                         <div class="flex-none bg-placeholder-artist w-10 h-10">
                             @if ($artist->photo())
                                 <img src="{{ $artist->photo('84') }}"
@@ -195,8 +195,10 @@
                     <template x-if="!photo.remove">
                         <button type="button" x-on:click="photo.remove = true; photo.file = photo.uri = photo.source = ''"
                                 class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
-                                hover:bg-red-100 hover:border-red-200 hover:text-red-700
+                                hover:bg-red-100 hover:text-red-700
                                 active:bg-red-600 active:cover-red-600 active:text-red-100
+                                dark:bg-gray-800 dark:text-gray-100 dark:border-gray-900
+                                dark:hover:bg-red-800 dark:hover:text-red-100
                                 transition-colors duration-150">
                             Usuń
                         </button>
@@ -205,7 +207,9 @@
                         <button type="button" x-on:click="photo.remove = false; photo.source = photo.initialSource"
                                 class="flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
                                 hover:bg-red-500 hover:border-red-500 hover:text-white
-                                active:bg-white active:text-black transition-colors duration-150">
+                                active:bg-white active:text-black
+                                dark:active:bg-gray-800 dark:active:text-gray-100 dark:border-gray-900
+                                transition-colors duration-150">
                             Nie usuwaj
                         </button>
                     </template>
@@ -213,7 +217,7 @@
             </div>
 
             <div class="flex flex-row items-center space-x-3">
-                <label for="photo_source" class="flex-none text-sm font-medium text-gray-700">Źródło</label>
+                <label for="photo_source" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Źródło</label>
                 <input type="text" value="{{ old('photo_source', $artist->photo_source) }}"
                     name="photo_source" x-model="photo.source"
                     class="w-full text-sm px-2 py-1 form-input">
@@ -222,7 +226,7 @@
         </div>
 
         <button type="submit"
-            class="self-center px-4 py-2 bg-white text-sm font-medium rounded-full shadow-md">
+            class="self-center px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium rounded-full shadow-md">
             Zapisz
         </button>
 

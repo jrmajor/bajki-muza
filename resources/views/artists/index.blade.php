@@ -6,14 +6,14 @@
 <div class="w-full">
     <div class="space-y-3 mb-8 flex flex-col items-center">
         <input type="search" wire:key="search" wire:model.debounce.100ms="search" autocomplete="off" autofocus
-            class="w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 focus:outline-none">
+            class="w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900 focus:outline-none">
 
         @foreach ($artists as $artist)
             <a href="{{ route('artists.show', $artist) }}" wire:key="{{ $artist->id }}"
-                class="w-full h-12 sm:h-14 flex items-center bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+                class="w-full h-12 sm:h-14 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
                 <div class="relative flex-none bg-placeholder-artist w-12 h-12 sm:w-14 sm:h-14 overflow-hidden">
                     @if ($artist->photo())
-                        <div class="bg-gray-400 bg-center bg-cover absolute -inset-px"
+                        <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
                             style="background-image: url(&quot;{{ $artist->photo_placeholder }}&quot;)">
                             <img src="{{ $artist->photo('112') }}"
                                 srcset="
