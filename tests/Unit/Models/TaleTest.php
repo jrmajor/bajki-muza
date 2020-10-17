@@ -46,6 +46,8 @@ it('regenerates slug when updated', function () {
 });
 
 it('can get its cover', function () {
+    Storage::fake('testing');
+
     $tale = Tale::factory()
         ->create(['cover' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png']);
 
