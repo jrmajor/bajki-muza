@@ -28,17 +28,11 @@ class ArtistController extends Controller
         if ($request->boolean('remove_photo')) {
             $artist->photo = null;
             $artist->photo_placeholder = null;
-
-            $artist->save();
         } elseif ($request->file('photo')) {
             $path = Storage::cloud()
                 ->putFile('photos/original', $request->file('photo'), 'public');
 
-            $artist->photo = Str::afterLast($path, '/');
-
-            $artist->save();
-
-            ProcessArtistPhoto::dispatch($artist);
+            ProcessArtistPhoto::dispatch($artist, Str::afterLast($path, '/'));
         } elseif ($request->input('photo_uri')) {
             $photo = Http::get($request->input('photo_uri'));
 
@@ -46,12 +40,10 @@ class ArtistController extends Controller
 
             Storage::cloud()->put('photos/original/'.$filename, $photo->body(), 'public');
 
-            $artist->photo = $filename;
-
-            $artist->save();
-
-            ProcessArtistPhoto::dispatch($artist);
+            ProcessArtistPhoto::dispatch($artist, $filename);
         }
+
+        $artist->save();
 
         $artist->flushCache();
 

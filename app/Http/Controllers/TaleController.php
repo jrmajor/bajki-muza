@@ -26,17 +26,13 @@ class TaleController extends Controller
             $tale->director_id = Artist::findBySlugOrNew($request->input('director'))->id;
         }
 
+        $tale->save();
+
         if ($request->file('cover')) {
             $path = Storage::cloud()
                 ->putFile('covers/original', $request->file('cover'), 'public');
 
-            $tale->cover = Str::afterLast($path, '/');
-
-            $tale->save();
-
-            ProcessTaleCover::dispatch($tale);
-        } else {
-            $tale->save();
+            ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
         }
 
         $this->saveRelationships($tale, $request);
@@ -74,20 +70,14 @@ class TaleController extends Controller
         if ($request->boolean('remove_cover')) {
             $tale->cover = null;
             $tale->cover_placeholder = null;
-
-            $tale->save();
         } elseif ($request->file('cover')) {
             $path = Storage::cloud()
                 ->putFile('covers/original', $request->file('cover'), 'public');
 
-            $tale->cover = Str::afterLast($path, '/');
-
-            $tale->save();
-
-            ProcessTaleCover::dispatch($tale);
-        } else {
-            $tale->save();
+            ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
         }
+
+        $tale->save();
 
         $this->saveRelationships($tale, $request);
 

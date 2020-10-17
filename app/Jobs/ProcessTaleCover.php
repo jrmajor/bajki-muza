@@ -31,11 +31,11 @@ class ProcessTaleCover implements ShouldQueue
         320, // 10rem * 2
     ];
 
-    public function __construct(Tale $tale)
+    public function __construct(Tale $tale, string $filename)
     {
         $this->tale = $tale;
 
-        $this->filename = $this->tale->cover;
+        $this->filename = $filename;
     }
 
     public function handle(): void
@@ -49,6 +49,7 @@ class ProcessTaleCover implements ShouldQueue
         $baseImagePath = $this->copyToTemporaryDirectory($sourceStream, $temporaryDirectory, $this->filename);
 
         $this->tale->forceFill([
+            'cover' => $this->filename,
             'cover_placeholder' => $this->generateTinyJpg($baseImagePath, 'square', $temporaryDirectory),
         ])->save();
 

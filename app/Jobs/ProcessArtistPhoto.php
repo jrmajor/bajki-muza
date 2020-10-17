@@ -29,11 +29,11 @@ class ProcessArtistPhoto implements ShouldQueue
         320, // 10rem * 2
     ];
 
-    public function __construct(Artist $artist)
+    public function __construct(Artist $artist, $filename)
     {
         $this->artist = $artist;
 
-        $this->filename = $this->artist->photo;
+        $this->filename = $filename;
     }
 
     public function handle(): void
@@ -49,6 +49,7 @@ class ProcessArtistPhoto implements ShouldQueue
         $image = Image::load($baseImagePath);
 
         $this->artist->forceFill([
+            'photo' => $this->filename,
             'photo_width' => $image->getWidth(),
             'photo_height' => $image->getHeight(),
             'photo_placeholder' => $this->generateTinyJpg($baseImagePath, 'height', $temporaryDirectory),

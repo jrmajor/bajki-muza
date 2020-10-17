@@ -71,7 +71,7 @@ class ReprocessCovers extends Command
             $this->warn('Some of responsive images were missing. Fixing that!');
         }
 
-        ProcessTaleCover::dispatchSync($tale);
+        ProcessTaleCover::dispatchSync($tale, $tale->cover);
 
         return 0;
     }

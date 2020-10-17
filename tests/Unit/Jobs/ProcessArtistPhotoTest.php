@@ -15,11 +15,13 @@ it('works', function () {
     Storage::cloud()->put("photos/original/$filename", $file, 'public');
 
     $artist = Artist::factory()
-        ->create(['photo' => $filename]);
+        ->create(['photo' => null]);
 
-    ProcessArtistPhoto::dispatchSync($artist);
+    ProcessArtistPhoto::dispatchSync($artist, $filename);
 
     $artist->refresh();
+
+    expect($artist->photo)->toBe($filename);
 
     expect($artist->photo_placeholder)
         ->toBe(file_get_contents(fixture('Images/photo_placeholder.b64')));
