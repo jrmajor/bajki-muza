@@ -223,7 +223,7 @@ it('can get its appearances as director', function () {
     expect($artist->asDirector)->toHaveCount(5);
 
     expect($artist->asDirector->first())->toBeInstanceOf(Tale::class)
-        ->and($artist->is($artist->asDirector->first()->director))->toBeTrue();
+        ->and($artist->asDirector()->first()->director()->is($artist))->toBeTrue();
 });
 
 it('can get its appearances as lyricist', function () {
@@ -353,7 +353,7 @@ test('findBySlug method works', function () {
     expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
 
     expect(
-        $artist->is(Artist::findBySlug('jan-matyjaszkiewicz'))
+        Artist::findBySlug('jan-matyjaszkiewicz')->is($artist)
     )->toBeTrue();
 });
 
@@ -364,7 +364,7 @@ test('findBySlugOrNew method works', function () {
     expect(Artist::count())->toBe(1);
 
     expect(
-        $artist->is(Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ'))
+        Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ')->is($artist)
     )->toBeTrue();
 
     expect(Artist::count())->toBe(1);

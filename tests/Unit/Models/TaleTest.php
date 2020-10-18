@@ -78,7 +78,7 @@ it('can get its director', function () {
     $tale = $tale->fresh();
 
     expect($tale->director)->toBeInstanceOf(Artist::class)
-        ->and($artist->is($tale->director))->toBeTrue();
+        ->and($tale->director()->is($artist))->toBeTrue();
 });
 
 it('can get its lyricist', function () {

@@ -7,12 +7,12 @@ use Illuminate\Support\Str;
 use function Tests\fixture;
 
 it('works', function () {
+    Storage::fake('testing');
+
     $filename = Str::random('10').'.jpg';
 
     // Photo by Alberto Bigoni on Unsplash
     $file = fopen(fixture('Images/photo.jpg'), 'r');
-
-    Storage::fake('testing');
 
     Storage::cloud()->put("photos/original/$filename", $file, 'public');
 
