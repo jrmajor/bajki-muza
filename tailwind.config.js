@@ -1,5 +1,4 @@
 module.exports = {
-  purge: ['./resources/views/**/*.blade.php'],
   theme: {
     colors: {
       transparent: 'transparent',
@@ -87,7 +86,7 @@ module.exports = {
         'blue-lighter': '#7393d9',
         gray: '#010101',
         'gray-inverted': '#eeeeee'
-      },
+      }
     },
     extend: {
       fontSize: { '2xs': '0.7rem' },
@@ -105,10 +104,7 @@ module.exports = {
   plugins: [
     require('@tailwindcss/ui')
   ],
-  purge: [
-    './resources/views/**/*.blade.php',
-    './resources/js/**/*.vue'
-  ],
+  purge: ['./resources/views/**/*.blade.php'],
   experimental: {
     additionalBreakpoint: true,
     applyComplexClasses: true,

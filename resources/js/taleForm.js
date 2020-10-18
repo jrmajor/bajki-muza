@@ -23,6 +23,25 @@ window.taleFormData = function (data) {
       return actor
     }),
 
+    init ($dispatch) {
+      this.$watch('cover.file', value => {
+        this.setCoverPreview(this.$refs.cover.files)
+        if (value !== '') this.cover.remove = false
+      })
+
+      this.$watch('lyricists', value => {
+        this.$nextTick(() => $dispatch('artists-indexes-updated'))
+      })
+
+      this.$watch('composers', value => {
+        this.$nextTick(() => $dispatch('artists-indexes-updated'))
+      })
+
+      this.$watch('actors', value => {
+        this.$nextTick(() => $dispatch('artists-indexes-updated'))
+      })
+    },
+
     setCoverPreview (files) {
       if (files.length === 0) {
         this.cover.preview = ''

@@ -28,16 +28,7 @@
         method="post" action="{{ route('artists.update', $artist) }}"
         enctype="multipart/form-data"
         class="flex flex-col space-y-5"
-        x-data="artistFormData(@encodedjson($data))"
-        x-init="
-            $watch('photo.file', value => {
-                setPhotoPreview($refs.photo.files);
-                if (value === '') return;
-                photo.uri = '';
-                photo.remove = false;
-                photo.source = '';
-            });
-        ">
+        x-data="artistFormData(@encodedjson($data))" x-init="init">
         @method('put')
         @csrf
 

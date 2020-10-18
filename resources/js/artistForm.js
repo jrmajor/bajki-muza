@@ -38,6 +38,17 @@ window.artistFormData = function (data) {
 
     dimensions: { },
 
+    init () {
+      this.$watch('photo.file', value => {
+        this.setPhotoPreview(this.$refs.photo.files)
+
+        if (value === '') return
+
+        this.photo.uri = this.photo.source = ''
+        this.photo.remove = false
+      })
+    },
+
     setPhotoPreview (files) {
       if (files.length === 0) {
         this.photo.preview = ''

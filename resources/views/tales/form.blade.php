@@ -18,23 +18,7 @@
     action="{{ $action == 'create' ? route('tales.store') : route('tales.update', $tale) }}"
     enctype="multipart/form-data"
     class="flex flex-col space-y-5"
-    x-data="taleFormData(@encodedjson($data))"
-    x-init="
-        $watch('cover.file', value => {
-            setCoverPreview($refs.cover.files)
-            value !== '' ? cover.remove = false : ''
-        });
-
-        $watch('lyricists', value => {
-            $nextTick(() => $dispatch('artists-indexes-updated'));
-        });
-        $watch('composers', value => {
-            $nextTick(() => $dispatch('artists-indexes-updated'));
-        });
-        $watch('actors', value => {
-            $nextTick(() => $dispatch('artists-indexes-updated'));
-        });
-    ">
+    x-data="taleFormData(@encodedjson($data))" x-init="init($dispatch)">
     @method($action == 'create' ? 'post' : 'put')
     @csrf
 

@@ -1,12 +1,6 @@
 <div class="relative w-full"
-    x-data="artistPickerData()"
-    x-init="
-        name = $el.parentElement.getAttribute('data-picker-name');
-        value = $el.parentElement.getAttribute('data-picker-value');
-    "
-    x-on:artists-indexes-updated.window="
-        name = $el.parentElement.getAttribute('data-picker-name');
-    ">
+    x-data="artistPickerData()" x-init="init"
+    x-on:artists-indexes-updated.window="updateIndexes">
     <input
         type="text" class="w-full form-input" autocomplete="off"
         x-model="value" :name="name"

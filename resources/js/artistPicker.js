@@ -11,6 +11,15 @@ window.artistPickerData = function () {
     search: '',
     artists: [],
 
+    init () {
+      this.name = this.$el.parentElement.getAttribute('data-picker-name')
+      this.value = this.$el.parentElement.getAttribute('data-picker-value')
+    },
+
+    updateIndexes () {
+      this.name = this.$el.parentElement.getAttribute('data-picker-name')
+    },
+
     findArtists (event) {
       if (this.value.length < 2) {
         this.artists = []
