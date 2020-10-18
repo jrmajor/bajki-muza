@@ -1,4 +1,5 @@
 /* global fetch */
+import prettyBytes from 'pretty-bytes'
 import route from 'ziggy'
 
 window.artistFormData = function (data) {
@@ -38,6 +39,8 @@ window.artistFormData = function (data) {
 
     dimensions: { },
 
+    prettyBytes,
+
     init () {
       this.$watch('photo.file', value => {
         this.setPhotoPreview(this.$refs.photo.files)
@@ -54,16 +57,6 @@ window.artistFormData = function (data) {
         this.photo.preview = ''
       } else {
         this.photo.preview = URL.createObjectURL(files[0])
-      }
-    },
-
-    fileSize (size) {
-      if (size < 1024) {
-        return size + 'bytes'
-      } else if (size >= 1024 && size < 1048576) {
-        return (size / 1024).toFixed(1) + 'KB'
-      } else if (size >= 1048576) {
-        return (size / 1048576).toFixed(1) + 'MB'
       }
     },
 

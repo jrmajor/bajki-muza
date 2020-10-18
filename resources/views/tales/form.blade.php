@@ -73,7 +73,7 @@
                         Wybierz plik
                     </span>
                     <small class="pl-1 text-xs font-medium"
-                        x-text="cover.file !== '' ? fileSize($refs.cover.files[0].size) : ''"></small>
+                        x-text="cover.file !== '' ? prettyBytes($refs.cover.files[0].size) : ''"></small>
                 </span>
                 <template x-if="cover.file !== ''">
                     <button type="button" x-on:click="cover.file = ''" class="flex-none"></button>

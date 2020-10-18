@@ -175,7 +175,7 @@
                                 Wybierz plik
                             </span>
                             <small class="pl-1 text-xs font-medium"
-                                x-text="photo.file !== '' ? fileSize($refs.photo.files[0].size) : ''"></small>
+                                x-text="photo.file !== '' ? prettyBytes($refs.photo.files[0].size) : ''"></small>
                         </span>
                         <template x-if="photo.file !== ''">
                             <button type="button" x-on:click="photo.file = ''" class="flex-none"></button>
