@@ -1,9 +1,11 @@
 /* global fetch */
-import prettyBytes from 'pretty-bytes'
 import route from 'ziggy'
+import artistPhotoPicker from './artistPhotoPicker'
 
 window.artistFormData = function (data) {
   return {
+    photo: artistPhotoPicker(data),
+
     discogs: {
       value: data.discogs ?? '',
       hovered: null,
@@ -28,56 +30,12 @@ window.artistFormData = function (data) {
       people: []
     },
 
-    photo: {
-      preview: '',
-      file: '',
-      uri: '',
-      initialSource: data.photoSource,
-      source: data.photoSource,
-      remove: false
-    },
-
     dimensions: { },
 
-    prettyBytes,
-
     init () {
-      this.$watch('photo.file', value => {
-        this.setPhotoPreview(this.$refs.photo.files)
-
-        if (value === '') return
-
-        this.photo.uri = this.photo.source = ''
-        this.photo.remove = false
-      })
-    },
-
-    setPhotoPreview (files) {
-      if (files.length === 0) {
-        this.photo.preview = ''
-      } else {
-        this.photo.preview = URL.createObjectURL(files[0])
-      }
-    },
-
-    photoLabelText () {
-      if (this.photo.file !== '') return this.$refs.photo.files[0].name
-      else if (this.photo.uri !== '') return 'Wybrane z galerii'
-      return 'Wybierz plik'
-    },
-
-    setPhotoUri (uri) {
-      if (this.photo.uri === uri) {
-        this.photo.uri = ''
-        this.photo.source = this.photo.initialSource
-        this.photo.remove = false
-        return
-      }
-
-      this.photo.uri = uri
-      this.photo.file = ''
-      this.photo.remove = false
-      this.photo.source = uri.indexOf('discogs') > 0 ? 'dicsogs' : 'filmpolski'
+      this.$watch('photo.pickers.upload.file', value =>
+        this.photo.fileSelected(this.$refs.photo.files, value)
+      )
     },
 
     findPeople (type) {

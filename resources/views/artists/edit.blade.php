@@ -19,7 +19,10 @@
       'filmpolski' => old('filmpolski', $artist->filmpolski),
       'wikipedia' => old('wikipedia', $artist->wikipedia),
 
-      'photoSource' => old('photo_source', $artist->photo_source),
+      'photo' => [
+        'uri' => $artist->photo(320),
+        'source' => old('photo_source', $artist->photo_source),
+      ],
     ];
 
   @endphp
@@ -154,37 +157,24 @@
 
       <div class="flex flex-col">
         <span for="photo" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Zdjęcie</span>
-        <input type="hidden" name="remove_photo" :value="photo.remove ? 1 : 0">
-        <input type="hidden" name="photo_uri" :value="photo.uri">
+        <input type="hidden" name="remove_photo" :value="photo.picker === 'remove' ? 1 : 0">
+        <input type="hidden" name="photo_uri" :value="photo.picker === 'uri' ? photo.pickers.uri.uri : ''">
         <div class="flex space-x-5">
           <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer dark:border-gray-900 dark:bg-gray-800">
             <div class="flex-none bg-placeholder-artist w-10 h-10">
-              @if ($artist->photo())
-                <img src="{{ $artist->photo('84') }}"
-                  class="w-10 h-10 object-cover"
-                  x-show="photo.file === '' && photo.uri === '' && photo.remove == false">
-              @endif
-              <template x-if="photo.file !== ''">
-                <img :src="photo.preview"
-                  class="w-10 h-10 object-cover">
+              <template x-if="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== ''">
+                <img :src="photo.pickers[photo.picker].uri" class="w-10 h-10 object-cover">
               </template>
             </div>
             <span class="px-3 py-2">
-              <span
-                x-text="photoLabelText()">
-                Wybierz plik
-              </span>
-              <small class="pl-1 text-xs font-medium"
-                x-text="photo.file !== '' ? prettyBytes($refs.photo.files[0].size) : ''"></small>
+              <span x-text="photo.labelText($refs.photo.files)">Wybierz plik</span>
+              <small x-text="photo.size($refs.photo.files)" class="pl-1 text-xs font-medium"></small>
             </span>
-            <template x-if="photo.file !== ''">
-              <button type="button" x-on:click="photo.file = ''" class="flex-none"></button>
-            </template>
             <input type="file" name="photo" class="hidden"
-              x-ref="photo" x-model="photo.file">
+              x-ref="photo" x-model="photo.pickers.upload.file">
           </label>
-          <template x-if="!photo.remove">
-            <button type="button" x-on:click="photo.remove = true; photo.file = photo.uri = photo.source = ''"
+          <template x-if="photo.picker !== 'remove'">
+            <button type="button" x-on:click="photo.removePhoto()"
                 class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
                 hover:bg-red-100 hover:text-red-700
                 active:bg-red-600 active:cover-red-600 active:text-red-100
@@ -194,8 +184,8 @@
               Usuń
             </button>
           </template>
-          <template x-if="photo.remove">
-            <button type="button" x-on:click="photo.remove = false; photo.source = photo.initialSource"
+          <template x-if="photo.picker === 'remove'">
+            <button type="button" x-on:click="photo.resetPickerToCurrent()"
                 class="flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
                 hover:bg-red-500 hover:border-red-500 hover:text-white
                 active:bg-white active:text-black
@@ -240,7 +230,7 @@
         @foreach ($artist->discogsPhotos() as $photo)
           @php $ref = 'discogs_'.$loop->iteration @endphp
           <button class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
-            type="button" x-on:click="setPhotoUri('{{ $photo['uri'] }}')">
+            type="button" x-on:click="photo.setPhotoUri('{{ $photo['uri'] }}', 'discogs')">
             <img class="h-40" src="{{ $photo['uri'] }}" x-ref="{{ $ref }}"
               x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
             <div class="absolute top-0 right-0 pl-8 pb-2
@@ -254,7 +244,7 @@
             </div>
             <div class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
               transition-all duration-300"
-              :class="{ 'inset-shadow-hard opacity-100': photo.uri === '{{ $photo['uri'] }}' }">
+              :class="{ 'inset-shadow-hard opacity-100': photo.picker === 'uri' && photo.pickers.uri.uri === '{{ $photo['uri'] }}' }">
             </div>
           </button>
         @endforeach
@@ -265,7 +255,7 @@
           @foreach ($movie['photos'] as $photo)
             @php $ref = 'filmpolski_'.$loop->parent->iteration.'_'.$loop->iteration @endphp
             <button class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
-              type="button" x-on:click="setPhotoUri('https://filmpolski.pl{{ $photo }}')">
+              type="button" x-on:click="photo.setPhotoUri('https://filmpolski.pl{{ $photo }}', 'filmpolski')">
               <img class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
                 x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
               @if ($title !== 'main' && $title !== '')
@@ -289,7 +279,7 @@
               </div>
               <div class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
                 transition-all duration-300"
-                :class="{ 'inset-shadow-hard opacity-100': photo.uri === 'https://filmpolski.pl{{ $photo }}' }">
+                :class="{ 'inset-shadow-hard opacity-100': photo.picker === 'uri' && photo.pickers.uri.uri === 'https://filmpolski.pl{{ $photo }}' }">
               </div>
             </button>
           @endforeach
