@@ -78,12 +78,19 @@ class Artist extends Model
 
     public function photo($size = null)
     {
-        if (optional($this->attributes)['photo'] == null) {
+        if (optional($this->attributes)['photo'] === null) {
             return;
         }
 
-        if ($size == null) {
+        if ($size === null) {
             return $this->photo;
+        }
+
+        if ($size === 'original') {
+            return Storage::cloud()->temporaryUrl(
+                "photos/original/$this->photo",
+                now()->addMinutes(15)
+            );
         }
 
         return Storage::cloud()->url("photos/$size/$this->photo");

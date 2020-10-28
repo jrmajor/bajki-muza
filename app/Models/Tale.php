@@ -35,12 +35,19 @@ class Tale extends Model
 
     public function cover($size = null)
     {
-        if (optional($this->attributes)['cover'] == null) {
+        if (optional($this->attributes)['cover'] === null) {
             return;
         }
 
-        if ($size == null) {
+        if ($size === null) {
             return $this->cover;
+        }
+
+        if ($size === 'original') {
+            return Storage::cloud()->temporaryUrl(
+                "covers/original/$this->cover",
+                now()->addMinutes(15)
+            );
         }
 
         return Storage::cloud()->url("covers/$size/$this->cover");
