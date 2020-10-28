@@ -21,6 +21,10 @@ class StoreArtist extends FormRequest
             'wikipedia' => ['string', 'max:100', 'nullable'],
 
             'photo' => ['file', 'mimes:jpeg,png', 'nullable'],
+            'photo_crop.x' => ['integer'],
+            'photo_crop.y' => ['integer'],
+            'photo_crop.width' => ['integer'],
+            'photo_crop.height' => ['integer'],
             'photo_source' => ['string', 'max:128', 'nullable'],
             'photo_uri' => ['string', 'ends_with:.jpg', 'nullable'],
             'remove_photo' => ['boolean', 'nullable'],

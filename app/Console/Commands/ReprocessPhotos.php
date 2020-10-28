@@ -71,7 +71,7 @@ class ReprocessPhotos extends Command
             $this->warn('Some of responsive images were missing. Fixing that!');
         }
 
-        ProcessArtistPhoto::dispatchSync($artist, $artist->photo);
+        ProcessArtistPhoto::dispatchSync($artist, $artist->photo, $artist->photo_crop);
 
         return 0;
     }

@@ -91,7 +91,8 @@ module.exports = {
     extend: {
       fontSize: { '2xs': '0.7rem' },
       spacing: { 4.5: '1.125rem' },
-      inset: { '-px': '-1px' }
+      inset: { '-px': '-1px' },
+      maxWidth: { '1/2': '50%' },
     }
   },
   dark: 'media',

@@ -36,6 +36,8 @@ window.artistFormData = function (data) {
       this.$watch('photo.pickers.upload.file', value =>
         this.photo.fileSelected(this.$refs.photo.files, value)
       )
+
+      this.photo.init()
     },
 
     findPeople (type) {

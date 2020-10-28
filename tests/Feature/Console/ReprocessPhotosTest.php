@@ -25,10 +25,19 @@ it('throws error when artist doesn\'t have a photo', function () {
 it('works with single artist', function () {
     Storage::fake('testing');
 
-    Artist::factory()->create([
+    $artist = Artist::factory()->create([
         'name' => 'Test Artist',
         'photo' => 'test.jpg',
     ]);
+
+    $artist->photo_crop = [
+        'x' => 79,
+        'y' => 247,
+        'width' => 529,
+        'height' => 352,
+    ];
+
+    $artist->save();
 
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/photo.jpg'), 'r');

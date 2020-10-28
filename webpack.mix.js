@@ -9,6 +9,8 @@ mix.postCss('resources/css/style.css', 'public/css')
     postCss: [tailwindcss('tailwind.config.js')]
   }).version()
 
+mix.postCss('node_modules/croppr/src/css/croppr.css', 'public/css')
+
 mix.webpackConfig({
   resolve: {
     alias: {

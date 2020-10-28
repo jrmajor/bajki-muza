@@ -20,6 +20,8 @@ class ProcessArtistPhoto implements ShouldQueue
 
     protected string $filename;
 
+    protected array $crop;
+
     public static $sizes = [
         56, // 3.5rem
         84, // 3.5rem * 1.5
@@ -29,11 +31,13 @@ class ProcessArtistPhoto implements ShouldQueue
         320, // 10rem * 2
     ];
 
-    public function __construct(Artist $artist, string $filename)
+    public function __construct(Artist $artist, string $filename, array $crop)
     {
         $this->artist = $artist;
 
         $this->filename = $filename;
+
+        $this->crop = $crop;
     }
 
     public function handle(): void
@@ -46,17 +50,36 @@ class ProcessArtistPhoto implements ShouldQueue
 
         $baseImagePath = $this->copyToTemporaryDirectory($sourceStream, $temporaryDirectory, $this->filename);
 
-        $image = Image::load($baseImagePath);
+        $croppedImageName = $this->appendToFileName($baseImagePath, "_cropped");
+
+        $croppedImagePath = $temporaryDirectory->path($croppedImageName);
+
+        $image = Image::load($baseImagePath)
+                    ->manualCrop(
+                        $this->crop['width'],
+                        $this->crop['height'],
+                        $this->crop['x'],
+                        $this->crop['y'],
+                    )
+                    ->save($croppedImagePath);
+
+        $croppedImage = Image::load($croppedImagePath);
 
         $this->artist->forceFill([
             'photo' => $this->filename,
-            'photo_width' => $image->getWidth(),
-            'photo_height' => $image->getHeight(),
-            'photo_placeholder' => $this->generateTinyJpg($baseImagePath, 'height', $temporaryDirectory),
+            'photo_width' => $croppedImage->getWidth(),
+            'photo_height' => $croppedImage->getHeight(),
+            'photo_crop' => $this->crop,
+            'photo_placeholder' => $this->generateTinyJpg($croppedImagePath, 'height', $temporaryDirectory),
         ])->save();
 
         foreach (self::$sizes as $size) {
-            $responsiveImagePath = $this->generateResponsiveImage($baseImagePath, $size, 'height', $temporaryDirectory);
+            $responsiveImagePath = $this->generateResponsiveImage(
+                                            $croppedImagePath,
+                                            $size,
+                                            'height',
+                                            $temporaryDirectory,
+                                        );
 
             $file = fopen($responsiveImagePath, 'r');
 

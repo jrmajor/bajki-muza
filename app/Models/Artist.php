@@ -26,6 +26,7 @@ class Artist extends Model
         'filmpolski' => 'int',
         'photo_width' => 'int',
         'photo_height' => 'int',
+        'photo_crop' => 'json',
     ];
 
     public function getSlugOptions(): SlugOptions

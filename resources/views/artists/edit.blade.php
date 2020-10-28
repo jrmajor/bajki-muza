@@ -1,3 +1,7 @@
+@push('scripts')
+  <link rel="stylesheet" href="{{ mix('css/croppr.css') }}">
+@endpush
+
 @extends('layouts.app')
 
 @section('content')
@@ -20,8 +24,9 @@
       'wikipedia' => old('wikipedia', $artist->wikipedia),
 
       'photo' => [
-        'uri' => $artist->photo(320),
+        'uri' => $artist->photo('original'),
         'source' => old('photo_source', $artist->photo_source),
+        'crop' => old('photo_crop', $artist->photo_crop),
       ],
     ];
 
@@ -162,7 +167,7 @@
         <div class="flex space-x-5">
           <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer dark:border-gray-900 dark:bg-gray-800">
             <div class="flex-none bg-placeholder-artist w-10 h-10">
-              <template x-if="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== ''">
+              <template x-if="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null">
                 <img :src="photo.pickers[photo.picker].uri" class="w-10 h-10 object-cover">
               </template>
             </div>
@@ -202,6 +207,37 @@
         <input type="text" value="{{ old('photo_source', $artist->photo_source) }}"
           name="photo_source" x-model="photo.source"
           class="w-full text-sm px-2 py-1 form-input">
+      </div>
+
+      <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
+        class="flex items-center justify-center space-x-5">
+        <div class="max-w-1/2 flex justify-end">
+          <img id="artist-photo-croppr">
+        </div>
+        <table>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">x:</td>
+            <td x-text="photo.crop.x" class="px-1"></td>
+          </tr>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">y:</td>
+            <td x-text="photo.crop.y" class="px-1"></td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">width:</td>
+            <td x-text="photo.crop.width" class="px-1"></td>
+          </tr>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">height:</td>
+            <td x-text="photo.crop.height" class="px-1"></td>
+          </tr>
+          <input type="hidden" name="photo_crop[x]" :value="photo.crop.x">
+          <input type="hidden" name="photo_crop[y]" :value="photo.crop.y">
+          <input type="hidden" name="photo_crop[width]" :value="photo.crop.width">
+          <input type="hidden" name="photo_crop[height]" :value="photo.crop.height">
+        </table>
       </div>
 
     </div>

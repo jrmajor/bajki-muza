@@ -23,24 +23,44 @@ class ArtistController extends Controller
 
     public function update(StoreArtist $request, Artist $artist)
     {
-        $artist->fill($request->validated())->save();
+        $data = $request->validated();
+
+        $artist->fill($data)->save();
 
         if ($request->boolean('remove_photo')) {
             $artist->photo = null;
+            $artist->photo_source = null;
+            $artist->photo_width = null;
+            $artist->photo_height = null;
+            $artist->photo_crop = null;
             $artist->photo_placeholder = null;
         } elseif ($request->file('photo')) {
             $path = Storage::cloud()
                 ->putFile('photos/original', $request->file('photo'), 'private');
 
-            ProcessArtistPhoto::dispatch($artist, Str::afterLast($path, '/'));
-        } elseif ($request->input('photo_uri')) {
-            $photo = Http::get($request->input('photo_uri'));
+            ProcessArtistPhoto::dispatch(
+                $artist,
+                Str::afterLast($path, '/'),
+                $data['photo_crop']
+            );
+        } elseif ($data['photo_uri'] ?? null) {
+            $photo = Http::get($data['photo_uri']);
 
             $filename = Str::random(40).'.jpeg';
 
             Storage::cloud()->put('photos/original/'.$filename, $photo->body(), 'private');
 
-            ProcessArtistPhoto::dispatch($artist, $filename);
+            ProcessArtistPhoto::dispatch(
+                $artist,
+                $filename,
+                $data['photo_crop']
+            );
+        } elseif ($artist->photo && ($data['photo_crop'] ?? null) != $artist->photo_crop) {
+            ProcessArtistPhoto::dispatch(
+                $artist,
+                $artist->photo,
+                $data['photo_crop']
+            );
         }
 
         $artist->save();
