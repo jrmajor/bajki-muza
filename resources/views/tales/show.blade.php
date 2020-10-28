@@ -120,7 +120,7 @@
                     loading="lazy"
                     class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
                 </div>
-              @elseif ($actor->discogsPhoto())
+              @elseif ($actor->discogsPhoto() && Auth::guest())
                 <img src="{{ $actor->discogsPhoto('150') }}"
                   class="w-14 h-14 object-cover">
               @endif

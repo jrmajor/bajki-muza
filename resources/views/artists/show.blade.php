@@ -34,7 +34,7 @@
             class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
         </div>
       </div>
-    @elseif ($artist->discogsPhoto())
+    @elseif ($artist->discogsPhoto() && Auth::guest())
       <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
         @auth
           <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>

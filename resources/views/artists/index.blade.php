@@ -23,7 +23,7 @@
                 loading="lazy"
                 class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
             </div>
-          @elseif ($artist->discogsPhoto())
+          @elseif ($artist->discogsPhoto() && Auth::guest())
             <img src="{{ $artist->discogsPhoto('150') }}"
               class="w-12 h-12 sm:w-14 sm:h-14 object-cover">
           @endif
