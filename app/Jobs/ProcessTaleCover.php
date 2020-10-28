@@ -15,9 +15,9 @@ class ProcessTaleCover implements ShouldQueue
 {
     use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $tale;
+    protected Tale $tale;
 
-    protected $filename;
+    protected string $filename;
 
     public static $sizes = [
         60, // 3.75rem

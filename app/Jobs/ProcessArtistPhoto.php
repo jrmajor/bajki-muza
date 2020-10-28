@@ -16,9 +16,9 @@ class ProcessArtistPhoto implements ShouldQueue
 {
     use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $artist;
+    protected Artist $artist;
 
-    protected $filename;
+    protected string $filename;
 
     public static $sizes = [
         56, // 3.5rem
@@ -29,7 +29,7 @@ class ProcessArtistPhoto implements ShouldQueue
         320, // 10rem * 2
     ];
 
-    public function __construct(Artist $artist, $filename)
+    public function __construct(Artist $artist, string $filename)
     {
         $this->artist = $artist;
 
