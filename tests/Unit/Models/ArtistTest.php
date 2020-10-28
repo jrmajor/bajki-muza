@@ -5,6 +5,7 @@ use App\Models\Tale;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -218,12 +219,21 @@ it('can get its appearances as director', function () {
 
     expect($artist->asDirector())->toBeInstanceOf(HasMany::class);
 
-    Tale::factory()->count(5)->create(['director_id' => $artist->id]);
+    $tales = Tale::factory()
+        ->count(3)
+        ->state(new Sequence(
+            ['year' => 1978],
+            ['year' => 1969, 'title' => 'b'],
+            ['year' => 1969, 'title' => 'a']
+        ))
+        ->create(['director_id' => $artist->id]);
 
-    expect($artist->asDirector)->toHaveCount(5);
 
-    expect($artist->asDirector->first())->toBeInstanceOf(Tale::class)
-        ->and($artist->asDirector()->first()->director()->is($artist))->toBeTrue();
+    expect($artist->asDirector)->toHaveCount(3);
+
+    expect($artist->asDirector->get(2)->is($tales[0]))->toBe(true);
+    expect($artist->asDirector->get(1)->is($tales[1]))->toBe(true);
+    expect($artist->asDirector->get(0)->is($tales[2]))->toBe(true);
 });
 
 it('can get its appearances as lyricist', function () {

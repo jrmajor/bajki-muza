@@ -133,7 +133,8 @@ class Artist extends Model
 
     public function asDirector()
     {
-        return $this->hasMany('App\Models\Tale', 'director_id');
+        return $this->hasMany('App\Models\Tale', 'director_id')
+            ->orderBy('year')->orderBy('title');
     }
 
     public function asLyricist()
