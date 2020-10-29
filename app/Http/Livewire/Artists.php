@@ -12,8 +12,14 @@ class Artists extends Component
 
     public $search;
 
+    public $min;
+
+    public $max;
+
     protected $queryString = [
         'search' => ['except' => ''],
+        'min' => ['except' => ''],
+        'max' => ['except' => ''],
     ];
 
     public function updatingSearch()
@@ -23,12 +29,20 @@ class Artists extends Component
 
     public function render()
     {
-        $artists = blank($this->search)
-            ? Artist::countAppearances()->orderBy('name')->paginate(30)
-            : Artist::where('name', 'like', '%'.$this->search.'%')
-                ->countAppearances()->orderBy('name')->paginate(30);
+        $artists = Artist::countAppearances()
+            ->unless(blank($this->search), function ($query) {
+                $query->where('name', 'like', '%'.$this->search.'%');
+            })
+            ->unless(blank($this->min), function ($query) {
+                $query->having('appearances', '>=', (int) $this->min);
+            })
+            ->unless(blank($this->max), function ($query) {
+                $query->having('appearances', '<=', (int) $this->max);
+            })
+            ->orderBy('name')->paginate(30);
 
-        return view('artists.index', ['artists' => $artists])
+        return view('artists.index')
+            ->with('artists', $artists)
             ->extends('layouts.app');
     }
 
