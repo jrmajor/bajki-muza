@@ -38,9 +38,11 @@ class CleanupPhotos extends Command
             return 0;
         }
 
-        if (! $this->confirm("Delete {$path}?", true)) {
+        if (! $this->confirm("Delete {$filename}? (unused)", true)) {
             return 0;
         }
+
+        $this->info("Removing (unused): {$filename}");
 
         return $this->removeResponsivePhotos($filename);
     }
@@ -51,9 +53,11 @@ class CleanupPhotos extends Command
             return 0;
         }
 
-        if (! $this->confirm("Delete {$filename}?", true)) {
+        if (! $this->confirm("Delete {$filename}? (no original)", true)) {
             return 0;
         }
+
+        $this->info("Removing (no original): {$filename}");
 
         return $this->removeResponsivePhotos($filename);
     }
