@@ -228,7 +228,6 @@ it('can get its appearances as director', function () {
         ))
         ->create(['director_id' => $artist->id]);
 
-
     expect($artist->asDirector)->toHaveCount(3);
 
     expect($artist->asDirector->get(2)->is($tales[0]))->toBe(true);

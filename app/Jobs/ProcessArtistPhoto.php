@@ -50,7 +50,7 @@ class ProcessArtistPhoto implements ShouldQueue
 
         $baseImagePath = $this->copyToTemporaryDirectory($sourceStream, $temporaryDirectory, $this->filename);
 
-        $croppedImageName = $this->appendToFileName($baseImagePath, "_cropped");
+        $croppedImageName = $this->appendToFileName($baseImagePath, '_cropped');
 
         $croppedImagePath = $temporaryDirectory->path($croppedImageName);
 
