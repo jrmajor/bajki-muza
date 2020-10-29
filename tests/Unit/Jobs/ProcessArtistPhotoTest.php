@@ -20,10 +20,17 @@ it('works', function () {
         ->create(['photo' => null]);
 
     $crop = [
-        'x' => 79,
-        'y' => 247,
-        'width' => 529,
-        'height' => 352,
+        'face' => [
+            'x' => 181,
+            'y' => 246,
+            'size' => 189,
+        ],
+        'image'=> [
+            'x' => 79,
+            'y' => 247,
+            'width' => 529,
+            'height' => 352,
+        ],
     ];
 
     ProcessArtistPhoto::dispatchSync($artist, $filename, $crop);
@@ -32,6 +39,9 @@ it('works', function () {
 
     expect($artist->photo)->toBe($filename);
 
+    expect($artist->photo_face_placeholder)
+        ->toBe(file_get_contents(fixture('Images/photo_face_placeholder.b64')));
+
     expect($artist->photo_placeholder)
         ->toBe(file_get_contents(fixture('Images/photo_cropped_placeholder.b64')));
 
@@ -39,5 +49,8 @@ it('works', function () {
         ->and($artist->photo_height)->toBe(352);
 
     expect(Storage::cloud()->get("photos/112/$filename"))
-        ->toBe(file_get_contents(fixture('Images/photo_cropped_112.jpg')));
+        ->toBe(file_get_contents(fixture('Images/photo_face_112.jpg')));
+
+    expect(Storage::cloud()->get("photos/160/$filename"))
+        ->toBe(file_get_contents(fixture('Images/photo_cropped_160.jpg')));
 });
