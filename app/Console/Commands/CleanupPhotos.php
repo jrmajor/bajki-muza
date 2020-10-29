@@ -76,6 +76,7 @@ class CleanupPhotos extends Command
 
     protected function getResponsiveSizes(): Collection
     {
-        return collect(ProcessArtistPhoto::$sizes);
+        return collect(ProcessArtistPhoto::$faceSizes)
+            ->concat(ProcessArtistPhoto::$imageSizes);
     }
 }

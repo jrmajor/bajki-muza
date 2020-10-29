@@ -33,6 +33,7 @@ class ArtistController extends Controller
             $artist->photo_width = null;
             $artist->photo_height = null;
             $artist->photo_crop = null;
+            $artist->photo_face_placeholder = null;
             $artist->photo_placeholder = null;
         } elseif ($request->file('photo')) {
             $path = Storage::cloud()

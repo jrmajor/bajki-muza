@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class ReprocessPhotos extends Command
@@ -79,14 +80,15 @@ class ReprocessPhotos extends Command
     protected function deleteResponsiveVariants(Artist $artist): bool
     {
         return Storage::cloud()->delete(
-            collect($this->getResponsiveSizes())
+            $this->getResponsiveSizes()
             ->map(fn ($size) => "photos/{$size}/{$artist->photo}")
             ->all()
         );
     }
 
-    protected function getResponsiveSizes(): array
+    protected function getResponsiveSizes(): Collection
     {
-        return ProcessArtistPhoto::$sizes;
+        return collect(ProcessArtistPhoto::$faceSizes)
+            ->concat(ProcessArtistPhoto::$imageSizes);
     }
 }

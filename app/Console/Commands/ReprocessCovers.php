@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\ProcessTaleCover;
 use App\Models\Tale;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class ReprocessCovers extends Command
@@ -79,14 +80,14 @@ class ReprocessCovers extends Command
     protected function deleteResponsiveVariants(Tale $tale): bool
     {
         return Storage::cloud()->delete(
-            collect($this->getResponsiveSizes())
+            $this->getResponsiveSizes()
             ->map(fn ($size) => "covers/{$size}/{$tale->cover}")
             ->all()
         );
     }
 
-    protected function getResponsiveSizes(): array
+    protected function getResponsiveSizes(): Collection
     {
-        return ProcessTaleCover::$sizes;
+        return collect(ProcessTaleCover::$sizes);
     }
 }

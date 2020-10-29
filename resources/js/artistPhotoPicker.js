@@ -8,10 +8,18 @@ export default function (data) {
     source: data.photo.source,
 
     crop: {
-      x: 0,
-      y: 0,
-      width: 0,
-      height: 0
+      face: {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+      },
+      image: {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+      },
     },
 
     pickers: {
@@ -91,19 +99,34 @@ export default function (data) {
       return prettyBytes(files[0].size)
     },
 
-    initCroppr (src, startSize, onInitialize) {
+    initCroppr (src, startSize, onFaceInitialize, onInitialize) {
+      if (typeof window.artistFacePhotoCroppr !== 'undefined') {
+        window.artistFacePhotoCroppr.destroy()
+      }
+
       if (typeof window.artistPhotoCroppr !== 'undefined') {
         window.artistPhotoCroppr.destroy()
       }
 
-      const el = document.getElementById('artist-photo-croppr')
+      const el1 = document.getElementById('artist-face-photo-croppr')
+      const el2 = document.getElementById('artist-photo-croppr')
 
-      el.setAttribute('src', src)
+      el1.setAttribute('src', src)
+      el2.setAttribute('src', src)
 
-      const onCropEnd = (crop) => this.crop = crop
+      const onFaceCropEnd = (crop) => this.crop.face = crop
+      const onCropEnd = (crop) => this.crop.image = crop
 
-      window.artistPhotoCroppr = new Croppr(el, {
-        minSize: [100, 100, 'px'],
+      window.artistFacePhotoCroppr = new Croppr(el1, {
+        aspectRatio: 1,
+        minSize: [50, 50, 'px'],
+        startSize,
+        onInitialize: onFaceInitialize,
+        onCropEnd: onFaceCropEnd
+      })
+
+      window.artistPhotoCroppr = new Croppr(el2, {
+        minSize: [50, 50, 'px'],
         startSize,
         onInitialize,
         onCropEnd
@@ -115,9 +138,34 @@ export default function (data) {
 
       if (uri === null) return
 
-      let onInitialize;
+      let onFaceInitialize, onInitialize;
 
       if (this.picker === 'current') {
+        onFaceInitialize = instance => {
+          const el = instance.imageEl
+
+          const actualWidth = el.naturalWidth;
+          const actualHeight = el.naturalHeight;
+
+          const { width: elementWidth, height: elementHeight } = el.getBoundingClientRect();
+
+          const factorX = actualWidth / elementWidth;
+          const factorY = actualHeight / elementHeight;
+
+          const actualCrop = {
+            x: Math.round(this.pickers.current.crop.face.x / factorX),
+            y: Math.round(this.pickers.current.crop.face.y / factorY),
+            width: Math.round(this.pickers.current.crop.face.size / factorX),
+            height: Math.round(this.pickers.current.crop.face.size / factorY)
+          }
+
+          instance
+            .resizeTo(actualCrop.width, actualCrop.height)
+            .moveTo(actualCrop.x, actualCrop.y)
+
+          this.updateCrop()
+        }
+
         onInitialize = instance => {
           const el = instance.imageEl
 
@@ -130,10 +178,10 @@ export default function (data) {
           const factorY = actualHeight / elementHeight;
 
           const actualCrop = {
-            x: Math.round(this.pickers.current.crop.x / factorX),
-            y: Math.round(this.pickers.current.crop.y / factorY),
-            width: Math.round(this.pickers.current.crop.width / factorX),
-            height: Math.round(this.pickers.current.crop.height / factorY)
+            x: Math.round(this.pickers.current.crop.image.x / factorX),
+            y: Math.round(this.pickers.current.crop.image.y / factorY),
+            width: Math.round(this.pickers.current.crop.image.width / factorX),
+            height: Math.round(this.pickers.current.crop.image.height / factorY)
           }
 
           instance
@@ -142,13 +190,17 @@ export default function (data) {
 
           this.updateCrop()
         }
-      } else onInitialize = instance => instance
+      } else {
+        onFaceInitialize = instance => instance
+        onInitialize = instance => instance
+      }
 
-      this.initCroppr(uri, [100, 100, '%'], onInitialize)
+      this.initCroppr(uri, [100, 100, '%'], onFaceInitialize, onInitialize)
     },
 
     updateCrop () {
-      this.crop = window.artistPhotoCroppr.getValue()
+      this.crop.face = window.artistFacePhotoCroppr.getValue()
+      this.crop.image = window.artistPhotoCroppr.getValue()
     }
   }
 }

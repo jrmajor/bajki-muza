@@ -14,7 +14,7 @@
         <div class="relative flex-none bg-placeholder-artist w-12 h-12 sm:w-14 sm:h-14 overflow-hidden">
           @if ($artist->photo())
             <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
-              style="background-image: url(&quot;{{ $artist->photo_placeholder }}&quot;)">
+              style="background-image: url(&quot;{{ $artist->photo_face_placeholder }}&quot;)">
               <img src="{{ $artist->photo('112') }}"
                 srcset="
                   {{ $artist->photo('56') }} 1x,

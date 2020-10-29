@@ -212,31 +212,61 @@
       <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
         class="flex items-center justify-center space-x-5">
         <div class="max-w-1/2 flex justify-end">
-          <img id="artist-photo-croppr">
+          <img id="artist-face-photo-croppr">
         </div>
         <table>
           <tr>
             <td class="text-sm font-medium text-right px-1">x:</td>
-            <td x-text="photo.crop.x" class="px-1"></td>
+            <td x-text="photo.crop.face.x" class="px-1"></td>
           </tr>
           <tr>
             <td class="text-sm font-medium text-right px-1">y:</td>
-            <td x-text="photo.crop.y" class="px-1"></td>
+            <td x-text="photo.crop.face.y" class="px-1"></td>
           </tr>
         </table>
         <table>
           <tr>
             <td class="text-sm font-medium text-right px-1">width:</td>
-            <td x-text="photo.crop.width" class="px-1"></td>
+            <td x-text="photo.crop.face.width" class="px-1"></td>
           </tr>
           <tr>
             <td class="text-sm font-medium text-right px-1">height:</td>
-            <td x-text="photo.crop.height" class="px-1"></td>
+            <td x-text="photo.crop.face.height" class="px-1"></td>
           </tr>
-          <input type="hidden" name="photo_crop[x]" :value="photo.crop.x">
-          <input type="hidden" name="photo_crop[y]" :value="photo.crop.y">
-          <input type="hidden" name="photo_crop[width]" :value="photo.crop.width">
-          <input type="hidden" name="photo_crop[height]" :value="photo.crop.height">
+          <input type="hidden" name="photo_crop[face][x]" :value="photo.crop.face.x">
+          <input type="hidden" name="photo_crop[face][y]" :value="photo.crop.face.y">
+          <input type="hidden" name="photo_crop[face][size]" :value="photo.crop.face.width">
+        </table>
+      </div>
+
+      <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
+        class="flex items-center justify-center space-x-5">
+        <div class="max-w-1/2 flex justify-end">
+          <img id="artist-photo-croppr">
+        </div>
+        <table>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">x:</td>
+            <td x-text="photo.crop.image.x" class="px-1"></td>
+          </tr>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">y:</td>
+            <td x-text="photo.crop.image.y" class="px-1"></td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">width:</td>
+            <td x-text="photo.crop.image.width" class="px-1"></td>
+          </tr>
+          <tr>
+            <td class="text-sm font-medium text-right px-1">height:</td>
+            <td x-text="photo.crop.image.height" class="px-1"></td>
+          </tr>
+          <input type="hidden" name="photo_crop[image][x]" :value="photo.crop.image.x">
+          <input type="hidden" name="photo_crop[image][y]" :value="photo.crop.image.y">
+          <input type="hidden" name="photo_crop[image][width]" :value="photo.crop.image.width">
+          <input type="hidden" name="photo_crop[image][height]" :value="photo.crop.image.height">
         </table>
       </div>
 
