@@ -19,14 +19,14 @@ export default function (data) {
         y: 0,
         width: 0,
         height: 0
-      },
+      }
     },
 
     pickers: {
       current: {
         uri: data.photo.uri,
         source: data.photo.source,
-        crop: data.photo.crop,
+        crop: data.photo.crop
       },
 
       upload: {
@@ -138,19 +138,19 @@ export default function (data) {
 
       if (uri === null) return
 
-      let onFaceInitialize, onInitialize;
+      let onFaceInitialize, onInitialize
 
       if (this.picker === 'current') {
         onFaceInitialize = instance => {
           const el = instance.imageEl
 
-          const actualWidth = el.naturalWidth;
-          const actualHeight = el.naturalHeight;
+          const actualWidth = el.naturalWidth
+          const actualHeight = el.naturalHeight
 
-          const { width: elementWidth, height: elementHeight } = el.getBoundingClientRect();
+          const { width: elementWidth, height: elementHeight } = el.getBoundingClientRect()
 
-          const factorX = actualWidth / elementWidth;
-          const factorY = actualHeight / elementHeight;
+          const factorX = actualWidth / elementWidth
+          const factorY = actualHeight / elementHeight
 
           const actualCrop = {
             x: Math.round(this.pickers.current.crop.face.x / factorX),
@@ -169,13 +169,13 @@ export default function (data) {
         onInitialize = instance => {
           const el = instance.imageEl
 
-          const actualWidth = el.naturalWidth;
-          const actualHeight = el.naturalHeight;
+          const actualWidth = el.naturalWidth
+          const actualHeight = el.naturalHeight
 
-          const { width: elementWidth, height: elementHeight } = el.getBoundingClientRect();
+          const { width: elementWidth, height: elementHeight } = el.getBoundingClientRect()
 
-          const factorX = actualWidth / elementWidth;
-          const factorY = actualHeight / elementHeight;
+          const factorX = actualWidth / elementWidth
+          const factorY = actualHeight / elementHeight
 
           const actualCrop = {
             x: Math.round(this.pickers.current.crop.image.x / factorX),
