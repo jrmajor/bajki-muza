@@ -64,10 +64,8 @@ class ProcessArtistPhoto implements ShouldQueue
             'photo_width' => $croppedImage->getWidth(),
             'photo_height' => $croppedImage->getHeight(),
             'photo_crop' => $this->crop,
-            'photo_face_placeholder' =>
-                $this->generateTinyJpg($croppedFacePath, 'square', $temporaryDirectory),
-            'photo_placeholder' =>
-                $this->generateTinyJpg($croppedImagePath, 'height', $temporaryDirectory),
+            'photo_face_placeholder' => $this->generateTinyJpg($croppedFacePath, 'square', $temporaryDirectory),
+            'photo_placeholder' => $this->generateTinyJpg($croppedImagePath, 'height', $temporaryDirectory),
         ])->save();
 
         foreach (self::$faceSizes as $size) {
