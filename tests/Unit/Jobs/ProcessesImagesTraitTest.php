@@ -1,7 +1,6 @@
 <?php
 
 use App\Jobs\ProcessesImages;
-use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use function Tests\fixture;
 
