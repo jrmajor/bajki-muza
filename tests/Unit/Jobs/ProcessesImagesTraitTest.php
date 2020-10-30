@@ -16,7 +16,7 @@ it('can copy image to temporary directory', function () {
     );
 
     expect($copiedFilePath)->toBe($temporaryDirectory->path('desiredFilename.jpg'))
-        ->and(Str::endsWith($copiedFilePath, 'desiredFilename.jpg'))->toBeTrue();
+        ->and($copiedFilePath)->toEndWith('desiredFilename.jpg');
 
     expect(file_get_contents($temporaryDirectory->path('desiredFilename.jpg')))
         ->toBe(file_get_contents(fixture('Images/cover.jpg')));
