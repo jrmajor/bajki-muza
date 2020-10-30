@@ -24,11 +24,10 @@ class ProcessTaleCover implements ShouldQueue
         90, // 3.75rem * 1.5
         120, // 3.75rem * 2
         128, // 8rem
-        160, // 10rem
-        192, // 8rem * 1.5
-        240, // 10rem * 1.5
+        192, // 12rem, 8rem * 1.5
+        288, // 12rem * 1.5
         256, // 8rem * 2
-        320, // 10rem * 2
+        384, // 12rem * 2
     ];
 
     public function __construct(Tale $tale, string $filename)

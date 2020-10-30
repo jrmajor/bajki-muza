@@ -53,8 +53,8 @@ it('can get its cover', function () {
 
     expect($tale->cover())->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
 
-    expect($tale->cover('256'))
-        ->toContain('/covers/256/tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
+    expect($tale->cover('288'))
+        ->toContain('/covers/288/tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
 
     $tale->cover = null;
 

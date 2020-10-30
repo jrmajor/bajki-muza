@@ -20,15 +20,15 @@
     </div>
 
     <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center shadow-lg rounded-lg overflow-hidden">
-      <div class="bg-placeholder-cover w-40 h-40"
+      <div class="bg-placeholder-cover w-48 h-48"
         @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
         >
         @if ($tale->cover)
-          <img src="{{ $tale->cover('320') }}"
+          <img src="{{ $tale->cover('384') }}"
             srcset="
-              {{ $tale->cover('160') }} 1x,
-              {{ $tale->cover('240') }} 1.5x,
-              {{ $tale->cover('320') }} 2x"
+              {{ $tale->cover('192') }} 1x,
+              {{ $tale->cover('288') }} 1.5x,
+              {{ $tale->cover('384') }} 2x"
             loading="eager"
             class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
         @endif
