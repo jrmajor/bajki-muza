@@ -21,9 +21,9 @@
 
     <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center shadow-lg rounded-lg overflow-hidden">
       <div class="bg-placeholder-cover w-48 h-48"
-        @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+        @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
         >
-        @if ($tale->cover)
+        @if ($tale->cover())
           <img src="{{ $tale->cover('384') }}"
             srcset="
               {{ $tale->cover('192') }} 1x,
@@ -108,18 +108,17 @@
         @foreach ($tale->actors as $actor)
           <a href="{{ route('artists.show', $actor) }}"
             class="w-full h-14 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
-            <div class="relative flex-none bg-placeholder-artist w-14 h-14">
+            <div class="flex-none bg-placeholder-artist w-14 h-14"
+              @if ($actor->photo()) style="background-image: url(&quot;{{ $actor->photo_face_placeholder }}&quot;)" @endif
+              >
               @if ($actor->photo())
-                <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
-                  style="background-image: url(&quot;{{ $actor->photo_face_placeholder }}&quot;)">
-                  <img src="{{ $actor->photo('112') }}"
-                    srcset="
-                      {{ $actor->photo('56') }} 1x,
-                      {{ $actor->photo('84') }} 1.5x,
-                      {{ $actor->photo('112') }} 2x"
-                    loading="lazy"
-                    class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
-                </div>
+                <img src="{{ $actor->photo('112') }}"
+                  srcset="
+                    {{ $actor->photo('56') }} 1x,
+                    {{ $actor->photo('84') }} 1.5x,
+                    {{ $actor->photo('112') }} 2x"
+                  loading="lazy"
+                  class="w-14 h-14 object-cover transition-opacity duration-300 opacity-0">
               @elseif ($actor->discogsPhoto() && Auth::guest())
                 <img src="{{ $actor->discogsPhoto('150') }}"
                   class="w-14 h-14 object-cover">

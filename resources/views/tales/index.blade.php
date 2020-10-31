@@ -12,9 +12,9 @@
       <a href="{{ route('tales.show', $tale) }}" wire:key="{{ $tale->id }}"
         class="w-full h-32 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
         <div class="flex-none bg-placeholder-cover w-32 h-32"
-          @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+          @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
           >
-          @if ($tale->cover)
+          @if ($tale->cover())
             <img src="{{ $tale->cover('256') }}"
               srcset="
                 {{ $tale->cover('128') }} 1x,

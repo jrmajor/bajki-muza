@@ -100,9 +100,9 @@
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"
-                @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+                @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                 >
-                @if ($tale->cover)
+                @if ($tale->cover())
                   <img src="{{ $tale->cover('120') }}"
                     srcset="
                       {{ $tale->cover('60') }} 1x,
@@ -134,9 +134,9 @@
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"
-                @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+                @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                 >
-                @if ($tale->cover)
+                @if ($tale->cover())
                   <img src="{{ $tale->cover('120') }}"
                     srcset="
                       {{ $tale->cover('60') }} 1x,
@@ -168,9 +168,9 @@
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"
-                @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+                @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                 >
-                @if ($tale->cover)
+                @if ($tale->cover())
                   <img src="{{ $tale->cover('120') }}"
                     srcset="
                       {{ $tale->cover('60') }} 1x,
@@ -202,9 +202,9 @@
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-15 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-15 h-15"
-                @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+                @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
                 >
-                @if ($tale->cover)
+                @if ($tale->cover())
                   <img src="{{ $tale->cover('120') }}"
                     srcset="
                       {{ $tale->cover('60') }} 1x,
