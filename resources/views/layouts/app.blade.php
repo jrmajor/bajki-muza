@@ -20,25 +20,27 @@
     @stack('scripts')
   </head>
   <body class="bg-gray-200 text-gray-900 dark:bg-gray-950 dark:text-gray-200">
-    <div id="app" class="container mx-auto">
+    <div id="app" class="container mx-auto min-h-screen flex flex-col justify-between">
 
-      <div class="my-8 flex justify-center space-x-4">
-        <a href="{{ route('tales.index') }}" alt="Bajki"
-          class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
-            text-gray-900 dark:text-white hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
-          Bajki
-        </a>
-        <a href="{{ route('artists.index') }}" alt="Artyści"
-          class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
-            text-gray-900 dark:text-white hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
-          Artyści
-        </a>
-      </div>
+      <div>
+        <nav class="my-8 flex justify-center space-x-4">
+          <a href="{{ route('tales.index') }}" alt="Bajki"
+            class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
+              text-gray-900 dark:text-white hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
+            Bajki
+          </a>
+          <a href="{{ route('artists.index') }}" alt="Artyści"
+            class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
+              text-gray-900 dark:text-white hover:text-yellow-kox duration-200 uppercase font-semibold tracking-wide">
+            Artyści
+          </a>
+        </nav>
 
-      <div class="flex flex-col items-center">
-        <main class="px-5 md:px-8 w-full lg:w-3/4 xl:1/2 flex flex-col items-center">
-          @yield('content')
-        </main>
+        <div class="flex flex-col items-center">
+          <main class="px-5 md:px-8 w-full lg:w-3/4 xl:1/2 flex flex-col items-center">
+            @yield('content')
+          </main>
+        </div>
       </div>
 
       <footer class="my-8 px-3 text-center text-gray-500 dark:text-gray-600 text-sm">
