@@ -4,11 +4,11 @@
 @endpush
 
 <div class="w-full">
-  <div class="space-y-3 mb-8 flex flex-col items-center">
+  <div class="space-y-3 flex flex-col items-center">
     <input type="search" wire:key="search" wire:model.debounce.100ms="search" autocomplete="off" autofocus
       class="w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900 focus:outline-none">
 
-    @foreach ($artists as $artist)
+    @forelse ($artists as $artist)
       <a href="{{ route('artists.show', $artist) }}" wire:key="{{ $artist->id }}"
         class="w-full h-12 sm:h-14 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
         <div class="flex-none bg-placeholder-artist w-12 h-12 sm:w-14 sm:h-14"
@@ -38,10 +38,14 @@
           @endif
         </div>
       </a>
-    @endforeach
+    @empty
+      <div class="pt-6 text-lg font-medium leading-tight text-gray-700">Nie ma takich zwierząt.</div>
+    @endforelse
   </div>
 
-  <div class="w-full flex flex-col items-center ">
-    {{ $artists->links() }}
-  </div>
+  @if ($artists->hasMorePages())
+    <div class="w-full flex flex-col items-center mt-8">
+      {{ $artists->links() }}
+    </div>
+  @endif
 </div>

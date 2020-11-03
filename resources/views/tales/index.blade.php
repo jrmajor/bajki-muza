@@ -4,11 +4,11 @@
 @endpush
 
 <div class="w-full">
-  <div class="space-y-5 mb-8 flex flex-col items-center">
+  <div class="space-y-5 flex flex-col items-center">
     <input type="search" wire:key="search" wire:model.debounce.500ms="search" autocomplete="off" autofocus
       class="w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900 focus:outline-none">
 
-    @foreach ($tales as $tale)
+    @forelse ($tales as $tale)
       <a href="{{ route('tales.show', $tale) }}" wire:key="{{ $tale->id }}"
         class="w-full h-32 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
         <div class="flex-none bg-placeholder-cover w-32 h-32"
@@ -31,10 +31,14 @@
           <small>{{ $tale->year }}</small>
         </div>
       </a>
-    @endforeach
+    @empty
+      <div class="pt-6 text-lg font-medium leading-tight text-gray-700">Nie ma takich zwierząt.</div>
+    @endforelse
   </div>
 
-  <div class="w-full flex flex-col items-center ">
-    {{ $tales->links() }}
-  </div>
+  @if ($tales->hasMorePages())
+    <div class="w-full flex flex-col items-center mt-8">
+      {{ $tales->links() }}
+    </div>
+  @endif
 </div>
