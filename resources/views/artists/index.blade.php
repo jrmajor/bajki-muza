@@ -43,7 +43,7 @@
     @endforelse
   </div>
 
-  @if ($artists->hasMorePages())
+  @if ($artists->hasPages())
     <div class="w-full flex flex-col items-center mt-8">
       {{ $artists->links() }}
     </div>

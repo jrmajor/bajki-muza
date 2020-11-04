@@ -36,7 +36,7 @@
     @endforelse
   </div>
 
-  @if ($tales->hasMorePages())
+  @if ($tales->hasPages())
     <div class="w-full flex flex-col items-center mt-8">
       {{ $tales->links() }}
     </div>
