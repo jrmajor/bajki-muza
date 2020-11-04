@@ -8,11 +8,15 @@
 
     <div class="sm:hidden text-center">
       <h2 class="text-2xl font-medium">
-        @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
-          @foreach (explode(' ', $artist->name) as $word)
-            <span class="shadow-title">{{ $word }}</span>
-          @endforeach
-        @auth </a> @endauth
+        @auth
+          <a href="{{ route('artists.edit', $artist) }}">
+        @endauth
+        @foreach (explode(' ', $artist->name) as $word)
+          <span class="shadow-title">{{ $word }}</span>
+        @endforeach
+        @auth
+          </a>
+        @endauth
       </h2>
     </div>
 
@@ -46,9 +50,15 @@
       </div>
     @endif
 
-    <div class="@if ($artist->photo() || $artist->discogsPhoto()) sm:py-2 @endif flex-grow @if ($artist->wikipedia) self-stretch @endif flex flex-col justify-between space-y-3">
+    <div class="
+      flex flex-col flex-grow justify-between space-y-3
+      @if ($artist->photo() || $artist->discogsPhoto()) sm:py-2 @endif
+      @if ($artist->wikipedia) self-stretch @endif
+    ">
 
-      <div class="hidden sm:block self-start">
+      <div class="
+        hidden sm:block
+        @if ($artist->photo() || $artist->wikipedia) self-start @else self-center @endif">
         <h2 class="text-2xl font-medium">
           @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
             <span class="shadow-title">{{ $artist->name }}</span>
@@ -57,7 +67,10 @@
       </div>
 
       @if ($artist->discogs || $artist->filmpolski || $artist->wikipedia)
-        <div class="@if ($artist->photo() || $artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif flex flex-col space-y-2">
+        <div class="
+          flex flex-col space-y-2
+          @if ($artist->photo() || $artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif
+        ">
           @if ($artist->wikipedia)
             <div>
               {!! strip_tags($artist->wikipedia_extract) !!}
