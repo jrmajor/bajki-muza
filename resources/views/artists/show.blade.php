@@ -122,6 +122,7 @@
                       {{ $tale->cover('90') }} 1.5x,
                       {{ $tale->cover('120') }} 2x"
                     loading="lazy"
+                    alt="Okładka bajki {{ $tale->title }}"
                     class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">
                 @endif
               </div>
@@ -156,6 +157,7 @@
                       {{ $tale->cover('90') }} 1.5x,
                       {{ $tale->cover('120') }} 2x"
                     loading="lazy"
+                    alt="Okładka bajki {{ $tale->title }}"
                     class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">
                 @endif
               </div>
@@ -190,6 +192,7 @@
                       {{ $tale->cover('90') }} 1.5x,
                       {{ $tale->cover('120') }} 2x"
                     loading="lazy"
+                    alt="Okładka bajki {{ $tale->title }}"
                     class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">
                 @endif
               </div>
@@ -224,6 +227,7 @@
                       {{ $tale->cover('90') }} 1.5x,
                       {{ $tale->cover('120') }} 2x"
                     loading="lazy"
+                    alt="Okładka bajki {{ $tale->title }}"
                     class="w-15 h-15 object-cover transition-opacity duration-300 opacity-0">
                 @endif
               </div>

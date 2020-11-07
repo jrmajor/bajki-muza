@@ -30,6 +30,7 @@
               {{ $tale->cover('288') }} 1.5x,
               {{ $tale->cover('384') }} 2x"
             loading="eager"
+            alt="Okładka bajki {{ $tale->title }}"
             class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
         @endif
       </div>
