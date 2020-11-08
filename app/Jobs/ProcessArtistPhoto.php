@@ -16,11 +16,11 @@ class ProcessArtistPhoto implements ShouldQueue
 {
     use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected Artist $artist;
+    public Artist $artist;
 
-    protected string $filename;
+    public string $filename;
 
-    protected array $crop;
+    public array $crop;
 
     public static $faceSizes = [
         56, // 3.5rem
