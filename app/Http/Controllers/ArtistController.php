@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArtist;
 use App\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
+use App\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -23,9 +24,13 @@ class ArtistController extends Controller
 
     public function update(StoreArtist $request, Artist $artist)
     {
-        $data = $request->validated();
+        $artist
+            ->fill($data = $request->validated())
+            ->save();
 
-        $artist->fill($data)->save();
+        $photoCrop = $data['photo_crop'] ?? null !== null
+            ? ArtistPhotoCrop::fromStrings($data['photo_crop'])
+            : null;
 
         if ($request->boolean('remove_photo')) {
             $artist->photo = null;
@@ -42,7 +47,7 @@ class ArtistController extends Controller
             ProcessArtistPhoto::dispatch(
                 $artist,
                 Str::afterLast($path, '/'),
-                $data['photo_crop']
+                $photoCrop
             );
         } elseif ($data['photo_uri'] ?? null) {
             $photo = Http::get($data['photo_uri']);
@@ -54,13 +59,16 @@ class ArtistController extends Controller
             ProcessArtistPhoto::dispatch(
                 $artist,
                 $filename,
-                $data['photo_crop']
+                $photoCrop
             );
-        } elseif ($artist->photo && ($data['photo_crop'] ?? null) != $artist->photo_crop) {
+        } elseif (
+            $artist->photo
+            && optional($photoCrop)->toArray() != optional($artist->photo_crop)->toArray()
+        ) {
             ProcessArtistPhoto::dispatch(
                 $artist,
                 $artist->photo,
-                $data['photo_crop']
+                $photoCrop
             );
         }
 

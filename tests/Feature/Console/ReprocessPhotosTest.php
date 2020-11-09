@@ -2,6 +2,7 @@
 
 use App\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
+use App\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Bus;
 use function Pest\Laravel\artisan;
 use function Tests\fixture;
@@ -28,16 +29,20 @@ it('works with single artist', function () {
     $artist = Artist::factory()->create([
         'name' => 'Test Artist',
         'photo' => 'test.jpg',
+        'photo_crop' => new ArtistPhotoCrop([
+            'face' => [
+                'x' => 181,
+                'y' => 246,
+                'size' => 189,
+            ],
+            'image' => [
+                'x' => 79,
+                'y' => 247,
+                'width' => 529,
+                'height' => 352,
+            ],
+        ]),
     ]);
-
-    $artist->photo_crop = [
-        'x' => 79,
-        'y' => 247,
-        'width' => 529,
-        'height' => 352,
-    ];
-
-    $artist->save();
 
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/photo.jpg'), 'r');

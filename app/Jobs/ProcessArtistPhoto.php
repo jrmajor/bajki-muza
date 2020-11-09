@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Artist;
+use App\Values\ArtistPhotoCrop;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -20,7 +21,7 @@ class ProcessArtistPhoto implements ShouldQueue
 
     public string $filename;
 
-    public array $crop;
+    public ArtistPhotoCrop $crop;
 
     public static $faceSizes = [
         56, // 3.5rem
@@ -34,7 +35,7 @@ class ProcessArtistPhoto implements ShouldQueue
         320, // 10rem * 2
     ];
 
-    public function __construct(Artist $artist, string $filename, array $crop)
+    public function __construct(Artist $artist, string $filename, ArtistPhotoCrop $crop)
     {
         $this->artist = $artist;
 
@@ -109,10 +110,10 @@ class ProcessArtistPhoto implements ShouldQueue
 
         Image::load($baseImagePath)
             ->manualCrop(
-                $this->crop['face']['size'],
-                $this->crop['face']['size'],
-                $this->crop['face']['x'],
-                $this->crop['face']['y'],
+                $this->crop->face->size,
+                $this->crop->face->size,
+                $this->crop->face->x,
+                $this->crop->face->y,
             )
             ->save($croppedFacePath);
 
@@ -129,10 +130,10 @@ class ProcessArtistPhoto implements ShouldQueue
 
         Image::load($baseImagePath)
             ->manualCrop(
-                $this->crop['image']['width'],
-                $this->crop['image']['height'],
-                $this->crop['image']['x'],
-                $this->crop['image']['y'],
+                $this->crop->image->width,
+                $this->crop->image->height,
+                $this->crop->image->x,
+                $this->crop->image->y,
             )
             ->save($croppedImagePath);
 

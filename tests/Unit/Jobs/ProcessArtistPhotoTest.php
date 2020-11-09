@@ -2,6 +2,7 @@
 
 use App\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
+use App\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function Tests\fixture;
@@ -19,7 +20,7 @@ it('works', function () {
     $artist = Artist::factory()
         ->create(['photo' => null]);
 
-    $crop = [
+    $crop = new ArtistPhotoCrop([
         'face' => [
             'x' => 181,
             'y' => 246,
@@ -31,7 +32,7 @@ it('works', function () {
             'width' => 529,
             'height' => 352,
         ],
-    ];
+    ]);
 
     ProcessArtistPhoto::dispatchSync($artist, $filename, $crop);
 

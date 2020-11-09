@@ -2,6 +2,7 @@
 
 use App\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
+use App\Values\ArtistPhotoCrop;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use function Pest\Laravel\put;
@@ -17,7 +18,7 @@ beforeEach(function () {
         'wikipedia' => 'Ilona_Kuśmierska',
     ];
 
-    $this->crop = [
+    $this->rawCrop = [
         'face' => [
             'x' => '181',
             'y' => '246',
@@ -31,6 +32,8 @@ beforeEach(function () {
         ],
     ];
 
+    $this->crop = ArtistPhotoCrop::fromStrings($this->rawCrop);
+
     $this->artist = Artist::factory()->create($this->attributes);
 });
 
@@ -40,7 +43,7 @@ test('photo can be deleted', function () {
         'photo_source' => 'test',
         'photo_width' => 21,
         'photo_height' => 37,
-        'photo_crop' => '{}',
+        'photo_crop' => $this->crop,
         'photo_face_placeholder' => 'test',
         'photo_placeholder' => 'test',
     ]);
@@ -75,7 +78,7 @@ test('photo can be uploaded', function () {
             "artysci/{$this->artist->slug}",
             array_merge($this->attributes, [
                 'photo' => UploadedFile::fake()->image('test.jpg'),
-                'photo_crop' => $this->crop,
+                'photo_crop' => $this->rawCrop,
             ])
         )
         ->assertRedirect("artysci/{$this->artist->slug}");
@@ -84,7 +87,7 @@ test('photo can be uploaded', function () {
 
     Bus::assertDispatched(ProcessArtistPhoto::class, function ($command) {
         expect($this->artist->is($command->artist))->toBeTrue();
-        expect($command->crop)->toBe($this->crop);
+        expect($command->crop->toArray())->toBe($this->crop->toArray());
         return true;
     });
 });
@@ -105,7 +108,7 @@ test('photo can be downloaded from specified uri', function () {
             "artysci/{$this->artist->slug}",
             array_merge($this->attributes, [
                 'photo_uri' => $uri = 'https://filmpolski.pl/z1/31z/2431_3.jpg',
-                'photo_crop' => $this->crop,
+                'photo_crop' => $this->rawCrop,
             ])
         )
         ->assertRedirect("artysci/{$this->artist->slug}");
@@ -120,7 +123,7 @@ test('photo can be downloaded from specified uri', function () {
     Bus::assertDispatched(ProcessArtistPhoto::class, function ($command) use ($files) {
         expect($this->artist->is($command->artist))->toBeTrue();
         expect($command->filename)->toBe(Str::afterLast($files[0], '/'));
-        expect($command->crop)->toBe($this->crop);
+        expect($command->crop->toArray())->toBe($this->crop->toArray());
         return true;
     });
 });
@@ -134,7 +137,7 @@ test('crop can be updated without changing photo', function () {
         ->put(
             "artysci/{$this->artist->slug}",
             array_merge($this->attributes, [
-                'photo_crop' => $this->crop,
+                'photo_crop' => $this->rawCrop,
             ])
         )
         ->assertRedirect("artysci/{$this->artist->slug}");
@@ -142,7 +145,7 @@ test('crop can be updated without changing photo', function () {
     Bus::assertDispatched(ProcessArtistPhoto::class, function ($command) {
         expect($this->artist->is($command->artist))->toBeTrue();
         expect($command->filename)->toBe('test.jpg');
-        expect($command->crop)->toBe($this->crop);
+        expect($command->crop->toArray())->toBe($this->crop->toArray());
         return true;
     });
 });

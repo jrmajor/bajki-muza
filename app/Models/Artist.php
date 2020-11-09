@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Values\ArtistPhotoCrop;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
@@ -26,7 +27,7 @@ class Artist extends Model
         'filmpolski' => 'int',
         'photo_width' => 'int',
         'photo_height' => 'int',
-        'photo_crop' => 'json',
+        'photo_crop' => ArtistPhotoCrop::class,
     ];
 
     public function getSlugOptions(): SlugOptions
