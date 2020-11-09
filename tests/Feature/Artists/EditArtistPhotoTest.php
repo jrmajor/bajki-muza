@@ -5,7 +5,6 @@ use App\Models\Artist;
 use App\Values\ArtistPhotoCrop;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
-use function Pest\Laravel\put;
 use function Tests\asUser;
 use function Tests\fixture;
 
@@ -88,6 +87,7 @@ test('photo can be uploaded', function () {
     Bus::assertDispatched(ProcessArtistPhoto::class, function ($command) {
         expect($this->artist->is($command->artist))->toBeTrue();
         expect($command->crop->toArray())->toBe($this->crop->toArray());
+
         return true;
     });
 });
@@ -124,6 +124,7 @@ test('photo can be downloaded from specified uri', function () {
         expect($this->artist->is($command->artist))->toBeTrue();
         expect($command->filename)->toBe(Str::afterLast($files[0], '/'));
         expect($command->crop->toArray())->toBe($this->crop->toArray());
+
         return true;
     });
 });
@@ -146,6 +147,7 @@ test('crop can be updated without changing photo', function () {
         expect($this->artist->is($command->artist))->toBeTrue();
         expect($command->filename)->toBe('test.jpg');
         expect($command->crop->toArray())->toBe($this->crop->toArray());
+
         return true;
     });
 });
