@@ -209,4 +209,9 @@ class Artist extends Model
             && ($this->filmpolski ? FilmPolski::forget($this->filmpolski) : true)
             && ($this->wikipedia ? Wikipedia::forget($this->wikipedia) : true);
     }
+
+    public function getRawPhotoCrop()
+    {
+        return $this->attributes['photo_crop'];
+    }
 }
