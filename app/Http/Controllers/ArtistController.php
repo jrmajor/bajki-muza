@@ -33,22 +33,12 @@ class ArtistController extends Controller
             : null;
 
         if ($request->boolean('remove_photo')) {
-            $artist->photo = null;
-            $artist->photo_source = null;
-            $artist->photo_width = null;
-            $artist->photo_height = null;
-            $artist->photo_crop = null;
-            $artist->photo_face_placeholder = null;
-            $artist->photo_placeholder = null;
+            $artist->removePhoto();
         } elseif ($request->file('photo')) {
             $path = Storage::cloud()
                 ->putFile('photos/original', $request->file('photo'), 'private');
 
-            ProcessArtistPhoto::dispatch(
-                $artist,
-                Str::afterLast($path, '/'),
-                $photoCrop
-            );
+            ProcessArtistPhoto::dispatch($artist, Str::afterLast($path, '/'), $photoCrop);
         } elseif ($data['photo_uri'] ?? null) {
             $photo = Http::get($data['photo_uri']);
 
@@ -56,20 +46,12 @@ class ArtistController extends Controller
 
             Storage::cloud()->put('photos/original/'.$filename, $photo->body(), 'private');
 
-            ProcessArtistPhoto::dispatch(
-                $artist,
-                $filename,
-                $photoCrop
-            );
+            ProcessArtistPhoto::dispatch($artist, $filename, $photoCrop);
         } elseif (
             $artist->photo
             && optional($photoCrop)->toArray() != optional($artist->photo_crop)->toArray()
         ) {
-            ProcessArtistPhoto::dispatch(
-                $artist,
-                $artist->photo,
-                $photoCrop
-            );
+            ProcessArtistPhoto::dispatch($artist, $artist->photo, $photoCrop);
         }
 
         $artist->save();

@@ -98,6 +98,19 @@ class Artist extends Model
         return Storage::cloud()->url("photos/$size/$this->photo");
     }
 
+    public function removePhoto(): bool
+    {
+        return $this->forceFill([
+            'photo' => null,
+            'photo_source' => null,
+            'photo_width' => null,
+            'photo_height' => null,
+            'photo_crop' => null,
+            'photo_face_placeholder' => null,
+            'photo_placeholder' => null,
+        ])->save();
+    }
+
     public function getWikipediaExtractAttribute(): ?string
     {
         if (! $this->wikipedia) {
