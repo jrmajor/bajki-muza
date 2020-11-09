@@ -6,6 +6,9 @@ use App\Values\ArtistPhotoCrop;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -38,19 +41,19 @@ class Artist extends Model
             ->slugsShouldBeNoLongerThan(100);
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    public static function findBySlug($id, $columns = ['*'])
+    public static function findBySlug(string $slug, array $columns = ['*']): ?self
     {
-        $query = self::where('slug', '=', $id);
+        $query = self::where('slug', '=', $slug);
 
         return $query->first($columns);
     }
 
-    public static function findBySlugOrNew($name)
+    public static function findBySlugOrNew(string $name): self
     {
         $artist = self::findBySlug(Str::slug($name));
 
@@ -63,25 +66,25 @@ class Artist extends Model
         return $artist;
     }
 
-    public function getDiscogsUrlAttribute()
+    public function getDiscogsUrlAttribute(): ?string
     {
         return $this->discogs ? Discogs::url($this->discogs) : null;
     }
 
-    public function getFilmpolskiUrlAttribute()
+    public function getFilmpolskiUrlAttribute(): ?string
     {
         return $this->filmpolski ? FilmPolski::url($this->filmpolski) : null;
     }
 
-    public function getWikipediaUrlAttribute()
+    public function getWikipediaUrlAttribute(): ?string
     {
         return $this->wikipedia ? Wikipedia::url($this->wikipedia) : null;
     }
 
-    public function photo($size = null)
+    public function photo($size = null): ?string
     {
         if (optional($this->attributes)['photo'] === null) {
-            return;
+            return null;
         }
 
         if ($size === null) {
@@ -138,41 +141,41 @@ class Artist extends Model
         return FilmPolski::photos($this->filmpolski);
     }
 
-    public function discogsPhoto($type = 'normal'): ?string
+    public function discogsPhoto(string $type = 'normal'): ?string
     {
         $type = $type == '150' ? 'uri150' : 'uri';
 
         return $this->discogsPhotos()['0'][$type] ?? null;
     }
 
-    public function asDirector()
+    public function asDirector(): HasMany
     {
         return $this->hasMany('App\Models\Tale', 'director_id')
             ->orderBy('year')->orderBy('title');
     }
 
-    public function asLyricist()
+    public function asLyricist(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Tale', 'tales_lyricists')
             ->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }
 
-    public function asComposer()
+    public function asComposer(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Tale', 'tales_composers')
             ->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }
 
-    public function asActor()
+    public function asActor(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Tale', 'tales_actors')
             ->withPivot('characters')->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }
 
-    public function scopeCountAppearances($query)
+    public function scopeCountAppearances(Builder $query): void
     {
         $query->addSelect(['appearances' => DB::table(
                 DB::table('tales')->select('id')
@@ -188,7 +191,7 @@ class Artist extends Model
         ])->withCasts(['appearances' => 'int']);
     }
 
-    public function appearances()
+    public function appearances(): int
     {
         return DB::table(
                 DB::table('tales')->select('id')
@@ -203,7 +206,7 @@ class Artist extends Model
             )->count();
     }
 
-    public function flushCache()
+    public function flushCache(): bool
     {
         return ($this->discogs ? Discogs::forget($this->discogs) : true)
             && ($this->filmpolski ? FilmPolski::forget($this->filmpolski) : true)

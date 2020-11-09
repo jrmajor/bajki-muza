@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -28,15 +30,15 @@ class Tale extends Model
             ->slugsShouldBeNoLongerThan(100);
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    public function cover($size = null)
+    public function cover($size = null): ?string
     {
         if (optional($this->attributes)['cover'] === null) {
-            return;
+            return null;
         }
 
         if ($size === null) {
@@ -53,26 +55,26 @@ class Tale extends Model
         return Storage::cloud()->url("covers/$size/$this->cover");
     }
 
-    public function director()
+    public function director(): BelongsTo
     {
         return $this->belongsTo('App\Models\Artist', 'director_id');
     }
 
-    public function lyricists()
+    public function lyricists(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Artist', 'tales_lyricists')
             ->withPivot('credit_nr')->withTimestamps()
             ->orderBy('tales_lyricists.credit_nr');
     }
 
-    public function composers()
+    public function composers(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Artist', 'tales_composers')
             ->withPivot('credit_nr')->withTimestamps()
             ->orderBy('tales_composers.credit_nr');
     }
 
-    public function actors()
+    public function actors(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Artist', 'tales_actors')
             ->withPivot('credit_nr', 'characters')->withTimestamps()
