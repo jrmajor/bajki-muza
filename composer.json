@@ -1,10 +1,10 @@
 {
-    "name": "maksiu-p/bajki-grajki",
+    "name": "maksiu-p/bajki-muza",
     "type": "project",
     "description": "",
     "keywords": [
         "bajki",
-        "grajki"
+        "polskie nagrania muza"
     ],
     "license": "MIT",
     "require": {
