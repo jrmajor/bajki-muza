@@ -14,12 +14,12 @@ class AjaxController extends Controller
     public function artists(Request $request)
     {
         return response()->json(
-                Artist::where('name', 'like', '%'.$request->input('search').'%')
-                    ->orderBy('name')
-                    ->take(10)
-                    ->get()
-                    ->map(fn ($artist) => $artist->name)
-            );
+            Artist::where('name', 'like', '%'.$request->input('search').'%')
+                ->orderBy('name')
+                ->take(10)
+                ->get()
+                ->map(fn ($artist) => $artist->name)
+        );
     }
 
     public function discogs(Request $request)
