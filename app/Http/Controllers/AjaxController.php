@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
-use Symfony\Component\DomCrawler\Crawler;
 use Facades\App\Services\Discogs;
+use Facades\App\Services\FilmPolski;
 
 class AjaxController extends Controller
 {
@@ -36,35 +34,13 @@ class AjaxController extends Controller
 
     public function filmPolski(Request $request)
     {
-        $source = Http::get('http://www.filmpolski.pl/fp/index.php', [
-            'szukaj' => $request->input('search'),
-        ])->body();
-
-        try {
-            $crawler = (new Crawler($source))
-                ->filter('.wynikiszukania');
-
-            if ($crawler->count() === 0) {
-                return response()->json([]);
-            }
-
-            $crawler = $crawler->first()->children();
-
-            $max = $crawler->count() <= 10 ? $crawler->count() : 10;
-
-            $people = collect();
-
-            for ($i = 0; $i < $max; $i++) {
-                $people->push([
-                    'id' => Str::afterLast($crawler->eq($i)->children()->filter('a')->last()->attr('href'), '/'),
-                    'name' => $crawler->eq($i)->children()->filter('a')->last()->text(),
-                ]);
-            }
-
-            return response()->json($people->unique('id'));
-        } catch (InvalidArgumentException $e) {
+        if (blank($request->input('search'))) {
             return response()->json([]);
         }
+
+        return response()->json(
+            FilmPolski::search($request->input('search'))->toArray()
+        );
     }
 
     public function wikipedia(Request $request)

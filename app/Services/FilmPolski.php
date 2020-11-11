@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Values\FilmPolski\ArtistCollection;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -12,6 +13,41 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
 {
+    public function search(string $search): ArtistCollection
+    {
+        $source = Http::get('http://www.filmpolski.pl/fp/index.php', [
+            'szukaj' => $search,
+        ])->body();
+
+        try {
+            $crawler = (new Crawler($source))
+                ->filter('.wynikiszukania');
+
+            if ($crawler->count() === 0) {
+                new ArtistCollection();
+            }
+
+            $crawler = $crawler->first()->children();
+
+            $max = $crawler->count() <= 10 ? $crawler->count() : 10;
+
+            $people = collect();
+
+            for ($i = 0; $i < $max; $i++) {
+                $people->push([
+                    'id' => Str::afterLast($crawler->eq($i)->children()->filter('a')->last()->attr('href'), '/'),
+                    'name' => $crawler->eq($i)->children()->filter('a')->last()->text(),
+                ]);
+            }
+
+            return ArtistCollection::fromArray(
+                $people->unique('id')->all()
+            );
+        } catch (InvalidArgumentException $e) {
+            return new ArtistCollection();
+        }
+    }
+
     public function url(int $id): string
     {
         return "http://www.filmpolski.pl/fp/index.php?osoba=$id";
