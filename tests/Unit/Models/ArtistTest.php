@@ -2,6 +2,7 @@
 
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
@@ -130,7 +131,7 @@ it('does not query wikipedia when no id is set', function () {
 });
 
 it('can get photos from discogs', function () {
-    $images = [
+    $images = DiscogsPhotoCollection::fromArray([
         [
             'type' => 'primary',
             'uri' => 'test',
@@ -139,7 +140,7 @@ it('can get photos from discogs', function () {
             'width' => 561,
             'height' => 800,
         ],
-    ];
+    ]);
 
     $artist = Artist::factory()
         ->create(['discogs' => 602473]);
@@ -158,7 +159,7 @@ it('does not query discogs when no id is set', function () {
     Discogs::spy()
         ->shouldNotReceive('photos');
 
-    expect($artist->discogsPhotos())->toBe([]);
+    expect($artist->discogsPhotos()->toArray())->toBe([]);
 });
 
 it('can get photos from filmpolski', function () {
@@ -192,7 +193,7 @@ it('does not query filmpolski when no id is set', function () {
 });
 
 it('can get photo from discogs', function () {
-    $images = [
+    $images = DiscogsPhotoCollection::fromArray([
         [
             'type' => 'primary',
             'uri' => 'test',
@@ -201,7 +202,7 @@ it('can get photo from discogs', function () {
             'width' => 561,
             'height' => 800,
         ],
-    ];
+    ]);
 
     $artist = Artist::factory()
         ->create(['discogs' => 602473]);

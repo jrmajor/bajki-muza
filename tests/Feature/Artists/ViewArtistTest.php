@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Artist;
+use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\Wikipedia;
 use function Pest\Laravel\get;
@@ -14,7 +15,7 @@ it('works', function () {
 
     Discogs::partialMock()
         ->shouldReceive('photos')
-        ->andReturn([]);
+        ->andReturn(new DiscogsPhotoCollection());
 
     get("artysci/$artist->slug")
         ->assertOk();

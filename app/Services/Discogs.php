@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Values\Discogs\PhotoCollection;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Client\PendingRequest;
 use App\Values\Discogs\ArtistCollection;
@@ -40,18 +41,16 @@ class Discogs
         return "https://www.discogs.com/artist/$id";
     }
 
-    public function photos(int $id): array
+    public function photos(int $id): PhotoCollection
     {
-        return Cache::remember(
+        $response = Cache::remember(
             "discogs-$id-photos",
             CarbonInterval::week(),
-            function () use ($id) {
-                $artist = $this->request()
-                    ->get("https://api.discogs.com/artists/$id")->json();
-
-                return $artist['images'] ?? [];
-            }
+            fn () => $this->request()
+                ->get("https://api.discogs.com/artists/$id")->json()
         );
+
+        return PhotoCollection::fromArray($response['images'] ?? []);
     }
 
     public function forget(int $id): bool

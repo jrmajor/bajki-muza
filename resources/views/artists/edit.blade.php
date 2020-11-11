@@ -296,8 +296,8 @@
         @foreach ($artist->discogsPhotos() as $photo)
           @php $ref = 'discogs_'.$loop->iteration @endphp
           <button class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
-            type="button" x-on:click="photo.setPhotoUri('{{ $photo['uri'] }}', 'discogs')">
-            <img class="h-40" src="{{ $photo['uri'] }}" x-ref="{{ $ref }}"
+            type="button" x-on:click="photo.setPhotoUri('{{ $photo->uri }}', 'discogs')">
+            <img class="h-40" src="{{ $photo->uri }}" x-ref="{{ $ref }}"
               x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
             <div class="absolute top-0 right-0 pl-8 pb-2
               opacity-0 group-hover:opacity-100 transition-all duration-300"
@@ -310,7 +310,7 @@
             </div>
             <div class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
               transition-all duration-300"
-              :class="{ 'inset-shadow-hard opacity-100': photo.picker === 'uri' && photo.pickers.uri.uri === '{{ $photo['uri'] }}' }">
+              :class="{ 'inset-shadow-hard opacity-100': photo.picker === 'uri' && photo.pickers.uri.uri === '{{ $photo->uri }}' }">
             </div>
           </button>
         @endforeach

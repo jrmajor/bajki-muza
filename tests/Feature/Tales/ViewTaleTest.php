@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Tale;
+use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\Wikipedia;
 use function Pest\Laravel\get;
@@ -12,7 +13,7 @@ it('works', function () {
         ->andReturn('test');
 
     Discogs::shouldReceive('photos')
-        ->andReturn([]);
+        ->andReturn(new DiscogsPhotoCollection());
 
     get("bajki/$tale->slug")
         ->assertOk();

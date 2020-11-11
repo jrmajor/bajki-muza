@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Values\ArtistPhotoCrop;
+use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
+use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -123,10 +125,10 @@ class Artist extends Model
         return Wikipedia::extract($this->wikipedia);
     }
 
-    public function discogsPhotos(): array
+    public function discogsPhotos(): DiscogsPhotoCollection
     {
         if (! $this->discogs) {
-            return [];
+            return new DiscogsPhotoCollection();
         }
 
         return Discogs::photos($this->discogs);
@@ -143,9 +145,15 @@ class Artist extends Model
 
     public function discogsPhoto(string $type = 'normal'): ?string
     {
-        $type = $type == '150' ? 'uri150' : 'uri';
+        if ($type === 'normal') {
+            return optional($this->discogsPhotos()->primary())->uri;
+        }
 
-        return $this->discogsPhotos()['0'][$type] ?? null;
+        if ($type === '150') {
+            return optional($this->discogsPhotos()->primary())->uri150;
+        }
+
+        throw new InvalidArgumentException();
     }
 
     public function asDirector(): HasMany
