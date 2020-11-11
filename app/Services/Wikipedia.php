@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Values\Wikipedia\ArtistCollection;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
@@ -9,6 +10,24 @@ use Illuminate\Support\Facades\Http;
 
 class Wikipedia
 {
+    public function search(string $search): ArtistCollection
+    {
+        $response = Http::get('https://pl.wikipedia.org/w/api.php', [
+            'action' => 'opensearch',
+            'search' => $search,
+            'limit' => 10,
+            'redirects' => 'resolve',
+        ])->json();
+
+        $artists = collect($response[3])
+            ->map(fn ($uri, $key) => [
+                'uri' => $uri,
+                'name' => $response[1][$key],
+            ])->all();
+
+        return ArtistCollection::fromArray($artists);
+    }
+
     public function url(string $title): string
     {
         return "https://pl.wikipedia.org/wiki/$title";

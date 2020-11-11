@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
+use Facades\App\Services\Wikipedia;
 
 class AjaxController extends Controller
 {
@@ -45,16 +45,12 @@ class AjaxController extends Controller
 
     public function wikipedia(Request $request)
     {
-        $search = Http::get('https://pl.wikipedia.org/w/api.php', [
-            'action' => 'opensearch',
-            'search' => $request->input('search'),
-            'limit' => 10,
-            'redirects' => 'resolve',
-        ])->json();
+        if (blank($request->input('search'))) {
+            return response()->json([]);
+        }
 
         return response()->json(
-            collect($search[1] ?? [])
-                ->map(fn ($title) => ['id' => str_replace(' ', '_', $title), 'name' => $title])
+            Wikipedia::search($request->input('search'))->toArray()
         );
     }
 }
