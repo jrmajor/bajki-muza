@@ -12,6 +12,10 @@ class AjaxController extends Controller
 {
     public function artists(Request $request)
     {
+        if (blank($request->input('search'))) {
+            return response()->json([]);
+        }
+
         return response()->json(
             Artist::where('name', 'like', '%'.$request->input('search').'%')
                 ->orderBy('name')
