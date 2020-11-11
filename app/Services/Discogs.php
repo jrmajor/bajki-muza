@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Carbon\CarbonInterval;
 use Illuminate\Http\Client\PendingRequest;
+use App\Values\Discogs\ArtistCollection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -19,6 +20,19 @@ class Discogs
         return Http::withHeaders([
             'Authorization' => "Discogs token={$this->token}",
         ]);
+    }
+
+    public function search(string $search): ArtistCollection
+    {
+        $response = $this->request()
+            ->get('https://api.discogs.com/database/search', [
+                'query' => $search,
+                'type' => 'artist',
+                'per_page' => 10,
+            ])
+            ->json();
+
+        return ArtistCollection::fromArray($response['results'] ?? []);
     }
 
     public function url(int $id): string

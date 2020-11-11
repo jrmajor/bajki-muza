@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Symfony\Component\DomCrawler\Crawler;
+use Facades\App\Services\Discogs;
 
 class AjaxController extends Controller
 {
@@ -24,17 +25,12 @@ class AjaxController extends Controller
 
     public function discogs(Request $request)
     {
-        $search = Http::withHeaders([
-            'Authorization' => 'Discogs token='.config('services.discogs.token'),
-        ])->get('https://api.discogs.com/database/search', [
-            'query' => $request->input('search'),
-            'type' => 'artist',
-        ])->json();
+        if (blank($request->input('search'))) {
+            return response()->json([]);
+        }
 
         return response()->json(
-            collect($search['results'])
-                ->take(10)
-                ->map(fn ($artist) => ['id' => $artist['id'], 'name' => $artist['title']])
+            Discogs::search($request->input('search'))->toArray()
         );
     }
 
