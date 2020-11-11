@@ -18,7 +18,7 @@ class AjaxController extends Controller
                 ->orderBy('name')
                 ->take(10)
                 ->get()
-                ->map(fn ($artist) => $artist->name)
+                ->map->name
         );
     }
 
