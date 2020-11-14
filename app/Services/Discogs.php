@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Values\Discogs\ArtistCollection;
 use App\Values\Discogs\PhotoCollection;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Client\PendingRequest;
-use App\Values\Discogs\ArtistCollection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
-use Illuminate\Http\Request;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
+use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
