@@ -2,6 +2,8 @@
 
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Values\CreditType;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -59,6 +61,97 @@ it('can get its cover', function () {
     $tale->cover = null;
 
     expect($tale->cover('original'))->toBeNull();
+});
+
+it('can get credits', function () {
+    $tale = Tale::factory()->create();
+
+    expect($tale->credits())->toBeInstanceOf(BelongsToMany::class);
+
+    $tale->credits()->attach($artists = [
+        Artist::factory()->create()->id => [
+            'type' => CreditType::lyricist(),
+            'nr' => 2,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::lyricist(),
+            'nr' => 1,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::lyricist(),
+            'nr' => 0,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::composer(),
+            'nr' => 1,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::composer(),
+            'nr' => 0,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::composer(),
+            'nr' => 2,
+        ],
+    ]);
+
+    $credits = $tale->credits;
+
+    expect($credits)->toHaveCount(6);
+
+    $ids = array_keys($artists);
+
+    expect($credits->get(0)->id)->toBe($ids[2]);
+    expect($credits->get(1)->id)->toBe($ids[4]);
+    expect($credits->get(2)->id)->toBe($ids[1]);
+    expect($credits->get(3)->id)->toBe($ids[3]);
+    expect($credits->get(4)->id)->toBe($ids[0]);
+    expect($credits->get(5)->id)->toBe($ids[5]);
+});
+
+it('can get credits of given type', function () {
+    /** @var App\Models\Tale $tale */
+    $tale = Tale::factory()->create();
+
+    $tale->credits()->attach($artists = [
+        Artist::factory()->create()->id => [
+            'type' => CreditType::lyricist(),
+            'nr' => 2,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::lyricist(),
+            'nr' => 1,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::composer(),
+            'nr' => 1,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::composer(),
+            'nr' => 0,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::lyricist(),
+            'nr' => 0,
+        ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::composer(),
+            'nr' => 2,
+        ],
+    ]);
+
+
+    $composers = $tale->creditsFor(CreditType::composer());
+
+    expect($composers)
+        ->toBeInstanceOf(EloquentCollection::class)
+        ->toHaveCount(3);
+
+    $ids = array_keys($artists);
+
+    expect($composers->get(0)->id)->toBe($ids[3]);
+    expect($composers->get(1)->id)->toBe($ids[2]);
+    expect($composers->get(2)->id)->toBe($ids[5]);
 });
 
 it('can get its director', function () {

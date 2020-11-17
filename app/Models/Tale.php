@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Values\CreditType;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -53,6 +55,21 @@ class Tale extends Model
         }
 
         return Storage::cloud()->url("covers/$size/$this->cover");
+    }
+
+    public function credits(): BelongsToMany
+    {
+        return $this->belongsToMany(Artist::class, 'credits')
+            ->using(Credit::class)->as('credit')
+            ->withPivot('type', 'nr')->withTimestamps()
+            ->orderBy('credits.nr');
+    }
+
+    public function creditsFor(CreditType $type): Collection
+    {
+        return $this->credits
+                    ->filter(fn ($credit) => $credit->credit->ofType($type))
+                    ->values();
     }
 
     public function director(): BelongsTo

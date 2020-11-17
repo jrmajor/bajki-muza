@@ -2,10 +2,12 @@
 
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Values\CreditType;
 use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -213,6 +215,90 @@ it('can get photo from discogs', function () {
 
     expect($artist->discogsPhoto())->toBe('test')
         ->and($artist->discogsPhoto('150'))->toBe('test150');
+});
+
+it('can get credits', function () {
+    $artist = Artist::factory()->create();
+
+    expect($artist->credits())->toBeInstanceOf(BelongsToMany::class);
+
+    $lyricist = ['type' => CreditType::lyricist(), 'nr' => 0];
+    $composer = ['type' => CreditType::composer(), 'nr' => 0];
+
+    $artist->credits()->attach($tales = [
+        Tale::factory()->create([
+            'year' => 1979,
+        ])->id => $lyricist,
+        Tale::factory()->create([
+            'year' => 1969,
+            'title' => 'b',
+        ])->id => $lyricist,
+        Tale::factory()->create([
+            'year' => 1969,
+            'title' => 'a',
+        ])->id => $lyricist,
+        Tale::factory()->create([
+            'year' => 1978,
+        ])->id => $composer,
+        Tale::factory()->create([
+            'year' => 1969,
+            'title' => 'c',
+        ])->id => $composer,
+        Tale::factory()->create([
+            'year' => 1969,
+            'title' => 'd',
+        ])->id => $composer,
+    ]);
+
+    $credits = $artist->credits;
+
+    expect($credits)->toHaveCount(6);
+
+    $ids = array_keys($tales);
+
+    expect($credits->get(0)->id)->toBe($ids[2]);
+    expect($credits->get(1)->id)->toBe($ids[1]);
+    expect($credits->get(2)->id)->toBe($ids[4]);
+    expect($credits->get(3)->id)->toBe($ids[5]);
+    expect($credits->get(4)->id)->toBe($ids[3]);
+    expect($credits->get(5)->id)->toBe($ids[0]);
+});
+
+it('can get credits of given type', function () {
+    /** @var App\Models\Artist $artist */
+    $artist = Artist::factory()->create();
+
+    $lyricist = ['type' => CreditType::lyricist(), 'nr' => 0];
+    $composer = ['type' => CreditType::composer(), 'nr' => 0];
+
+    $artist->credits()->attach($tales = [
+        Tale::factory()->create([
+            'year' => 1978,
+        ])->id => $lyricist,
+        Tale::factory()->create([
+            'year' => 1969,
+            'title' => 'b',
+        ])->id => $lyricist,
+        Tale::factory()->create([
+            'year' => 1978,
+        ])->id => $composer,
+        Tale::factory()->create([
+            'year' => 1969,
+            'title' => 'a',
+        ])->id => $lyricist,
+    ]);
+
+    $asLyricist = $artist->creditsAs(CreditType::lyricist());
+
+    expect($asLyricist)
+        ->toBeInstanceOf(EloquentCollection::class)
+        ->toHaveCount(3);
+
+    $ids = array_keys($tales);
+
+    expect($asLyricist->get(0)->id)->toBe($ids[3]);
+    expect($asLyricist->get(1)->id)->toBe($ids[1]);
+    expect($asLyricist->get(2)->id)->toBe($ids[0]);
 });
 
 it('can get its appearances as director', function () {

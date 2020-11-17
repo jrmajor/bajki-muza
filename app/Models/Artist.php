@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Values\ArtistPhotoCrop;
+use App\Values\CreditType;
 use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -154,6 +156,21 @@ class Artist extends Model
         }
 
         throw new InvalidArgumentException();
+    }
+
+    public function credits(): BelongsToMany
+    {
+        return $this->belongsToMany(Tale::class, 'credits')
+            ->using(Credit::class)->as('credit')
+            ->withPivot('type', 'nr')->withTimestamps()
+            ->orderBy('year')->orderBy('title');
+    }
+
+    public function creditsAs(CreditType $type): Collection
+    {
+        return $this->credits
+                    ->filter(fn ($credit) => $credit->credit->ofType($type))
+                    ->values();
     }
 
     public function asDirector(): HasMany
