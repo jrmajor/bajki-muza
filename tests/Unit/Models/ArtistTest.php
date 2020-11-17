@@ -8,9 +8,7 @@ use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 it('casts discogs and filmpolski ids to integers', function () {
     $artist = Artist::factory()->create([
