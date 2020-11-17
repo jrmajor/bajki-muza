@@ -52,17 +52,20 @@
       </div>
 
       <div>
-        @if ($tale->director)
+        @unless ($tale->creditsFor(CreditType::director())->isEmpty())
           <strong>Reżyseria:</strong>
-          <a href="{{ route('artists.show', $tale->director) }}"
-            class="inline-flex items-center">
-            {{ $tale->director->name }}
-            @if ($tale->director->appearances > 1)
-              <small class="ml-1.5 w-4.5 h-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">
-                {{ $tale->director->appearances }}
-              </small>
-            @endif
-          </a>
+          @foreach ($tale->creditsFor(CreditType::director()) as $director)
+            <a href="{{ route('artists.show', $director) }}"
+              class="inline-flex items-center">
+              {{ $director->name }}@if (! $loop->last && $director->appearances <= 1),@endif
+              @if ($director->appearances > 1)
+                <small class="ml-1.5 w-4.5 h-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
+                  {{ $director->appearances }}
+                </small>
+              @endif
+            </a>
+            @if (! $loop->last && $lyricist->appearances > 1),@endif
+          @endforeach
           <br>
         @endif
 

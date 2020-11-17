@@ -265,7 +265,6 @@ it('can get credits', function () {
 });
 
 it('can get credits of given type', function () {
-    /** @var App\Models\Artist $artist */
     $artist = Artist::factory()->create();
 
     $lyricist = ['type' => CreditType::lyricist(), 'nr' => 0];
@@ -301,27 +300,6 @@ it('can get credits of given type', function () {
     expect($asLyricist->get(2)->id)->toBe($ids[0]);
 });
 
-it('can get its appearances as director', function () {
-    $artist = Artist::factory()->create();
-
-    expect($artist->asDirector())->toBeInstanceOf(HasMany::class);
-
-    $tales = Tale::factory()
-        ->count(3)
-        ->state(new Sequence(
-            ['year' => 1978],
-            ['year' => 1969, 'title' => 'b'],
-            ['year' => 1969, 'title' => 'a']
-        ))
-        ->create(['director_id' => $artist->id]);
-
-    expect($artist->asDirector)->toHaveCount(3);
-
-    expect($artist->asDirector->get(2)->is($tales[0]))->toBe(true);
-    expect($artist->asDirector->get(1)->is($tales[1]))->toBe(true);
-    expect($artist->asDirector->get(0)->is($tales[2]))->toBe(true);
-});
-
 it('can get its appearances as actor', function () {
     $artist = Artist::factory()->create();
 
@@ -343,9 +321,6 @@ it('can get its appearances as actor', function () {
 test('countAppearances scope works', function () {
     $artist = Artist::factory()->create();
 
-    Tale::factory()->count(3)
-        ->create(['director_id' => $artist->id]);
-
     $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
         ['type' => CreditType::composer(), 'nr' => 0]
@@ -355,15 +330,12 @@ test('countAppearances scope works', function () {
         Tale::factory()->count(6)->create()->map->id,
     );
 
-    expect(Artist::countAppearances()->find($artist->id)->appearances)->toBe(13);
+    expect(Artist::countAppearances()->find($artist->id)->appearances)->toBe(10);
 });
 
 test('appearances method works', function () {
     $artist = Artist::factory()->create();
 
-    Tale::factory()->count(3)
-        ->create(['director_id' => $artist->id]);
-
     $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
         ['type' => CreditType::composer(), 'nr' => 0]
@@ -373,7 +345,7 @@ test('appearances method works', function () {
         Tale::factory()->count(6)->create()->map->id,
     );
 
-    expect($artist->appearances())->toBe(13);
+    expect($artist->appearances())->toBe(10);
 });
 
 it('can flush cached data', function () {

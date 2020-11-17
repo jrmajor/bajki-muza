@@ -173,26 +173,6 @@ class Artist extends Model
                     ->values();
     }
 
-    public function asDirector(): HasMany
-    {
-        return $this->hasMany('App\Models\Tale', 'director_id')
-            ->orderBy('year')->orderBy('title');
-    }
-
-    public function asLyricist(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\Tale', 'tales_lyricists')
-            ->withTimestamps()
-            ->orderBy('year')->orderBy('title');
-    }
-
-    public function asComposer(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\Tale', 'tales_composers')
-            ->withTimestamps()
-            ->orderBy('year')->orderBy('title');
-    }
-
     public function asActor(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Tale', 'tales_actors')
@@ -203,11 +183,9 @@ class Artist extends Model
     public function scopeCountAppearances(Builder $query): void
     {
         $query->addSelect(['appearances' => DB::table(
-                DB::table('tales')->select('id')
-                    ->whereColumn('director_id', 'artists.id')
-                ->unionAll(DB::table('credits')->select('id')
+                DB::table('credits')->select('id')
                     ->whereColumn('artist_id', 'artists.id')
-                )->unionAll(DB::table('tales_actors')->select('id')
+                ->unionAll(DB::table('tales_actors')->select('id')
                     ->whereColumn('artist_id', 'artists.id')
                 )
             )->select(DB::raw('count(*) as appearances')),
@@ -217,11 +195,9 @@ class Artist extends Model
     public function appearances(): int
     {
         return DB::table(
-                DB::table('tales')->select('id')
-                    ->where('director_id', $this->id)
-                ->unionAll(DB::table('credits')->select('id')
+                DB::table('credits')->select('id')
                     ->where('artist_id', $this->id)
-                )->unionAll(DB::table('tales_actors')->select('id')
+                ->unionAll(DB::table('tales_actors')->select('id')
                     ->where('artist_id', $this->id)
                 )
             )->count();

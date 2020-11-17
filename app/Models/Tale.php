@@ -6,7 +6,6 @@ use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
@@ -17,7 +16,7 @@ class Tale extends Model
     use HasSlug, HasFactory;
 
     public $fillable = [
-        'title', 'year', 'director_id', 'nr',
+        'title', 'year', 'nr',
     ];
 
     protected $casts = [
@@ -70,25 +69,6 @@ class Tale extends Model
         return $this->credits
                     ->filter(fn ($credit) => $credit->credit->ofType($type))
                     ->values();
-    }
-
-    public function director(): BelongsTo
-    {
-        return $this->belongsTo('App\Models\Artist', 'director_id');
-    }
-
-    public function lyricists(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\Artist', 'tales_lyricists')
-            ->withPivot('credit_nr')->withTimestamps()
-            ->orderBy('tales_lyricists.credit_nr');
-    }
-
-    public function composers(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\Artist', 'tales_composers')
-            ->withPivot('credit_nr')->withTimestamps()
-            ->orderBy('tales_composers.credit_nr');
     }
 
     public function actors(): BelongsToMany

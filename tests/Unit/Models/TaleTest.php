@@ -64,7 +64,7 @@ it('can get its cover', function () {
 });
 
 it('can get credits', function () {
-    $tale = Tale::factory()->create();
+    $tale = Tale::factory()->withoutRelations()->create();
 
     expect($tale->credits())->toBeInstanceOf(BelongsToMany::class);
 
@@ -110,8 +110,7 @@ it('can get credits', function () {
 });
 
 it('can get credits of given type', function () {
-    /** @var App\Models\Tale $tale */
-    $tale = Tale::factory()->create();
+    $tale = Tale::factory()->withoutRelations()->create();
 
     $tale->credits()->attach($artists = [
         Artist::factory()->create()->id => [
@@ -138,6 +137,10 @@ it('can get credits of given type', function () {
             'type' => CreditType::composer(),
             'nr' => 2,
         ],
+        Artist::factory()->create()->id => [
+            'type' => CreditType::director(),
+            'nr' => 0,
+        ],
     ]);
 
     $composers = $tale->creditsFor(CreditType::composer());
@@ -151,26 +154,6 @@ it('can get credits of given type', function () {
     expect($composers->get(0)->id)->toBe($ids[3]);
     expect($composers->get(1)->id)->toBe($ids[2]);
     expect($composers->get(2)->id)->toBe($ids[5]);
-});
-
-it('can get its director', function () {
-    $tale = Tale::factory()
-        ->create(['director_id' => null]);
-
-    expect($tale->director())->toBeInstanceOf(BelongsTo::class);
-
-    expect($tale->director)->toBeNull();
-
-    $artist = Artist::factory()->create();
-
-    $tale->director_id = $artist->id;
-
-    $tale->save();
-
-    $tale = $tale->fresh();
-
-    expect($tale->director)->toBeInstanceOf(Artist::class)
-        ->and($tale->director()->is($artist))->toBeTrue();
 });
 
 it('can get its actors', function () {

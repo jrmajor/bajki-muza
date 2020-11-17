@@ -16,7 +16,6 @@ class TaleFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'year' => $this->faker->numberBetween(1950, 1970),
-            'director_id' => Artist::factory(),
             'nr' => $this->faker->numberBetween(1, 250),
         ];
     }
@@ -24,6 +23,11 @@ class TaleFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Tale $tale) {
+            $tale->credits()->attach(
+                Artist::factory()->create()->id,
+                ['type' => CreditType::director(), 'nr' => 0]
+            );
+
             for ($i = 1; $i <= 2; $i++) {
                 $tale->credits()->attach(
                     Artist::factory()->create()->id,
@@ -65,7 +69,7 @@ class TaleFactory extends Factory
 
     public function withoutRelations()
     {
-        $this->afterCreating(function (Tale $tale) {
+        return $this->afterCreating(function (Tale $tale) {
             $tale->credits()->detach();
             $tale->actors()->detach();
         });
