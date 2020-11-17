@@ -173,7 +173,7 @@ it('can get its director', function () {
         ->and($tale->director()->is($artist))->toBeTrue();
 });
 
-it('can get its actor', function () {
+it('can get its actors', function () {
     $tale = Tale::factory()->create();
 
     expect($tale->actors())->toBeInstanceOf(BelongsToMany::class);
