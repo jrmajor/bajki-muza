@@ -1,8 +1,10 @@
+<?php /** @var App\Models\Tale $tale */ ?>
+
 @php
 
   $data = [
-    'lyricists' => $tale->lyricists->map->name,
-    'composers' => $tale->composers->map->name,
+    'lyricists' => $tale->creditsFor(CreditType::lyricist())->map->name,
+    'composers' => $tale->creditsFor(CreditType::composer())->map->name,
     'actors' => $tale->actors->map(function ($actor) {
       return [
         'artist' => $actor->name,
