@@ -64,16 +64,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.161.1",
+            "version": "3.161.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4c1852e9efaef18e15f2a6c914d8dc41fda2a052"
+                "reference": "2703896142f292058ce9d6c9026a9329a89778e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4c1852e9efaef18e15f2a6c914d8dc41fda2a052",
-                "reference": "4c1852e9efaef18e15f2a6c914d8dc41fda2a052",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2703896142f292058ce9d6c9026a9329a89778e0",
+                "reference": "2703896142f292058ce9d6c9026a9329a89778e0",
                 "shasum": ""
             },
             "require": {
@@ -148,9 +148,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.161.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.161.2"
             },
-            "time": "2020-11-13T19:17:55+00:00"
+            "time": "2020-11-16T19:11:59+00:00"
         },
         {
             "name": "brick/math",
@@ -7151,16 +7151,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "3b3403f18bbdc0aeadf1ffaddf11a1588b12ec7a"
+                "reference": "08668034beb185fa2ac6f09b1034eaa440952ace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/3b3403f18bbdc0aeadf1ffaddf11a1588b12ec7a",
-                "reference": "3b3403f18bbdc0aeadf1ffaddf11a1588b12ec7a",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/08668034beb185fa2ac6f09b1034eaa440952ace",
+                "reference": "08668034beb185fa2ac6f09b1034eaa440952ace",
                 "shasum": ""
             },
             "require": {
@@ -7224,7 +7224,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2020-11-13T13:36:24+00:00"
+            "time": "2020-11-17T09:18:51+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -7281,16 +7281,16 @@
         },
         {
             "name": "fakerphp/faker",
-            "version": "v1.10.1",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "f2713a5016faaf6ffc60e9d456dedb5ebf0efcae"
+                "reference": "f228dc5112bafc14c77d40a2acc0c48058e184b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/f2713a5016faaf6ffc60e9d456dedb5ebf0efcae",
-                "reference": "f2713a5016faaf6ffc60e9d456dedb5ebf0efcae",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/f228dc5112bafc14c77d40a2acc0c48058e184b0",
+                "reference": "f228dc5112bafc14c77d40a2acc0c48058e184b0",
                 "shasum": ""
             },
             "require": {
@@ -7300,6 +7300,7 @@
                 "fzaninotto/faker": "*"
             },
             "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
                 "ext-intl": "*",
                 "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.4.2"
             },
@@ -7326,9 +7327,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.10.1"
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.11.0"
             },
-            "time": "2020-10-28T09:32:46+00:00"
+            "time": "2020-11-15T20:27:00+00:00"
         },
         {
             "name": "filp/whoops",
