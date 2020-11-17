@@ -1,3 +1,5 @@
+<?php /** @var App\Models\Tale $tale */ ?>
+
 @extends('layouts.app')
 
 @section('title', $tale->title)
@@ -64,9 +66,9 @@
           <br>
         @endif
 
-        @if ($tale->lyricists->count() > 0)
+        @unless ($tale->creditsFor(CreditType::lyricist())->isEmpty())
           <strong>Słowa:</strong>
-          @foreach ($tale->lyricists as $lyricist)
+          @foreach ($tale->creditsFor(CreditType::lyricist()) as $lyricist)
             <a href="{{ route('artists.show', $lyricist) }}"
               class="inline-flex items-center">
               {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
@@ -81,9 +83,9 @@
           <br>
         @endif
 
-        @if ($tale->composers->count() > 0)
+        @unless ($tale->creditsFor(CreditType::composer())->isEmpty())
           <strong>Muzyka:</strong>
-          @foreach ($tale->composers as $composer)
+          @foreach ($tale->creditsFor(CreditType::composer()) as $composer)
             <a href="{{ route('artists.show', $composer) }}"
               class="inline-flex items-center">
               {{ $composer->name }}@if (! $loop->last && $composer->appearances <= 1),@endif

@@ -322,42 +322,6 @@ it('can get its appearances as director', function () {
     expect($artist->asDirector->get(0)->is($tales[2]))->toBe(true);
 });
 
-it('can get its appearances as lyricist', function () {
-    $artist = Artist::factory()->create();
-
-    expect($artist->asLyricist())->toBeInstanceOf(BelongsToMany::class);
-
-    $artist->asLyricist()->attach($tales = [
-        Tale::factory()->create(['year' => 1978])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
-    ]);
-
-    expect($artist->asLyricist)->toHaveCount(3);
-
-    expect($artist->asLyricist->get(2)->id)->toBe($tales[0]);
-    expect($artist->asLyricist->get(1)->id)->toBe($tales[1]);
-    expect($artist->asLyricist->get(0)->id)->toBe($tales[2]);
-});
-
-it('can get its appearances as composer', function () {
-    $artist = Artist::factory()->create();
-
-    expect($artist->asComposer())->toBeInstanceOf(BelongsToMany::class);
-
-    $artist->asComposer()->attach($tales = [
-        Tale::factory()->create(['year' => 1978])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
-    ]);
-
-    expect($artist->asComposer)->toHaveCount(3);
-
-    expect($artist->asComposer->get(2)->id)->toBe($tales[0]);
-    expect($artist->asComposer->get(1)->id)->toBe($tales[1]);
-    expect($artist->asComposer->get(0)->id)->toBe($tales[2]);
-});
-
 it('can get its appearances as actor', function () {
     $artist = Artist::factory()->create();
 
@@ -379,15 +343,12 @@ it('can get its appearances as actor', function () {
 test('countAppearances scope works', function () {
     $artist = Artist::factory()->create();
 
-    Tale::factory()->create(['director_id' => $artist->id]);
-    Tale::factory()->create(['director_id' => $artist->id]);
+    Tale::factory()->count(3)
+        ->create(['director_id' => $artist->id]);
 
-    $artist->asLyricist()->attach(
+    $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
-    );
-
-    $artist->asComposer()->attach(
-        Tale::factory()->count(1)->create()->map->id,
+        ['type' => CreditType::composer(), 'nr' => 0]
     );
 
     $artist->asActor()->attach(
@@ -400,15 +361,12 @@ test('countAppearances scope works', function () {
 test('appearances method works', function () {
     $artist = Artist::factory()->create();
 
-    Tale::factory()->create(['director_id' => $artist->id]);
-    Tale::factory()->create(['director_id' => $artist->id]);
+    Tale::factory()->count(3)
+        ->create(['director_id' => $artist->id]);
 
-    $artist->asLyricist()->attach(
+    $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
-    );
-
-    $artist->asComposer()->attach(
-        Tale::factory()->count(1)->create()->map->id,
+        ['type' => CreditType::composer(), 'nr' => 0]
     );
 
     $artist->asActor()->attach(

@@ -1,3 +1,5 @@
+<?php /** @var App\Models\Artist $artist */ ?>
+
 @extends('layouts.app')
 
 @section('title', $artist->name)
@@ -138,13 +140,13 @@
       </div>
     @endif
 
-    @if ($artist->asLyricist->count())
+    @unless ($artist->creditsAs(CreditType::lyricist())->isEmpty())
       <div class="w-full flex flex-col items-center space-y-3">
         <h3 class="text-xl font-medium shadow-subtitle">
           Autor
         </h3>
         <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
-          @foreach ($artist->asLyricist as $tale)
+          @foreach ($artist->creditsAs(CreditType::lyricist()) as $tale)
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"
@@ -173,13 +175,13 @@
       </div>
     @endif
 
-    @if ($artist->asComposer->count())
+    @unless ($artist->creditsAs(CreditType::composer())->isEmpty())
       <div class="w-full flex flex-col items-center space-y-3">
         <h3 class="text-xl font-medium shadow-subtitle">
           Kompozytor
         </h3>
         <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
-          @foreach ($artist->asComposer as $tale)
+          @foreach ($artist->creditsAs(CreditType::composer()) as $tale)
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"

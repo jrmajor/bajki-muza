@@ -44,8 +44,7 @@ class TaleController extends Controller
     {
         $tale->load([
             'director' => fn ($query) => $query->countAppearances(),
-            'lyricists' => fn ($query) => $query->countAppearances(),
-            'composers' => fn ($query) => $query->countAppearances(),
+            'credits' => fn ($query) => $query->countAppearances(),
             'actors' => fn ($query) => $query->countAppearances(),
         ]);
 

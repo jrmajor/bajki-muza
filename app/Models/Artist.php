@@ -205,9 +205,7 @@ class Artist extends Model
         $query->addSelect(['appearances' => DB::table(
                 DB::table('tales')->select('id')
                     ->whereColumn('director_id', 'artists.id')
-                ->unionAll(DB::table('tales_lyricists')->select('id')
-                    ->whereColumn('artist_id', 'artists.id')
-                )->unionAll(DB::table('tales_composers')->select('id')
+                ->unionAll(DB::table('credits')->select('id')
                     ->whereColumn('artist_id', 'artists.id')
                 )->unionAll(DB::table('tales_actors')->select('id')
                     ->whereColumn('artist_id', 'artists.id')
@@ -221,9 +219,7 @@ class Artist extends Model
         return DB::table(
                 DB::table('tales')->select('id')
                     ->where('director_id', $this->id)
-                ->unionAll(DB::table('tales_lyricists')->select('id')
-                    ->where('artist_id', $this->id)
-                )->unionAll(DB::table('tales_composers')->select('id')
+                ->unionAll(DB::table('credits')->select('id')
                     ->where('artist_id', $this->id)
                 )->unionAll(DB::table('tales_actors')->select('id')
                     ->where('artist_id', $this->id)
