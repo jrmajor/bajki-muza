@@ -32,8 +32,4 @@ class MigrateDataToCreditsTable extends Migration
 
         DB::table('credits')->insert($composers);
     }
-
-    public function down()
-    {
-    }
 }
