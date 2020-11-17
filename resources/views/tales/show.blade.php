@@ -64,7 +64,7 @@
                 </small>
               @endif
             </a>
-            @if (! $loop->last && $lyricist->appearances > 1),@endif
+            @if (! $loop->last && $director->appearances > 1),@endif
           @endforeach
           <br>
         @endif
