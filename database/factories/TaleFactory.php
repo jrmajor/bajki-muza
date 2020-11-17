@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TaleFactory extends Factory
@@ -24,16 +25,16 @@ class TaleFactory extends Factory
     {
         return $this->afterCreating(function (Tale $tale) {
             for ($i = 1; $i <= 2; $i++) {
-                $tale->lyricists()->attach(
+                $tale->credits()->attach(
                     Artist::factory()->create()->id,
-                    ['credit_nr'  => $i]
+                    ['type' => CreditType::lyricist(), 'nr' => $i]
                 );
             }
 
             for ($i = 1; $i <= 2; $i++) {
-                $tale->composers()->attach(
+                $tale->credits()->attach(
                     Artist::factory()->create()->id,
-                    ['credit_nr'  => $i]
+                    ['type' => CreditType::composer(), 'nr' => $i]
                 );
             }
 
@@ -65,8 +66,7 @@ class TaleFactory extends Factory
     public function withoutRelations()
     {
         $this->afterCreating(function (Tale $tale) {
-            $tale->lyricists()->detach();
-            $tale->composers()->detach();
+            $tale->credits()->detach();
             $tale->actors()->detach();
         });
     }
