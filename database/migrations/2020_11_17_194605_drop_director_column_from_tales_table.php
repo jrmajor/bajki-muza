@@ -8,9 +8,11 @@ class DropDirectorColumnFromTalesTable extends Migration
 {
     public function up()
     {
-        Schema::table('tales', function (Blueprint $table) {
-            $table->dropForeign('tales_director_id_foreign');
-            $table->dropColumn('director_id');
-        });
+        if (! app()->runningUnitTests()) {
+            Schema::table('tales', function (Blueprint $table) {
+                $table->dropForeign('tales_director_id_foreign');
+                $table->dropColumn('director_id');
+            });
+        }
     }
 }
