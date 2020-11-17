@@ -330,7 +330,7 @@ test('countAppearances scope works', function () {
 
     $duplicate = Tale::factory()->create();
 
-     $artist->credits()->attach(
+    $artist->credits()->attach(
          $duplicate,
          ['type' => CreditType::director(), 'nr' => 0]
     );
