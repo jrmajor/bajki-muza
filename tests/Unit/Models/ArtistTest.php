@@ -328,7 +328,16 @@ test('countAppearances scope works', function () {
         Tale::factory()->count(6)->create()->map->id,
     );
 
-    expect(Artist::countAppearances()->find($artist->id)->appearances)->toBe(10);
+    $duplicate = Tale::factory()->create();
+
+     $artist->credits()->attach(
+         $duplicate,
+         ['type' => CreditType::director(), 'nr' => 0]
+    );
+
+    $artist->asActor()->attach($duplicate);
+
+    expect(Artist::countAppearances()->find($artist->id)->appearances)->toBe(11);
 });
 
 test('appearances method works', function () {
@@ -343,7 +352,16 @@ test('appearances method works', function () {
         Tale::factory()->count(6)->create()->map->id,
     );
 
-    expect($artist->appearances())->toBe(10);
+    $duplicate = Tale::factory()->create();
+
+    $artist->credits()->attach(
+        $duplicate,
+        ['type' => CreditType::director(), 'nr' => 0]
+    );
+
+    $artist->asActor()->attach($duplicate);
+
+    expect($artist->appearances())->toBe(11);
 });
 
 it('can flush cached data', function () {
