@@ -173,50 +173,6 @@ it('can get its director', function () {
         ->and($tale->director()->is($artist))->toBeTrue();
 });
 
-it('can get its lyricist', function () {
-    $tale = Tale::factory()->create();
-
-    expect($tale->lyricists())->toBeInstanceOf(BelongsToMany::class);
-
-    $tale->lyricists()->detach();
-
-    $tale->lyricists()->attach($artists = [
-        Artist::factory()->create()->id => ['credit_nr' => 3],
-        Artist::factory()->create()->id => ['credit_nr' => 1],
-        Artist::factory()->create()->id => ['credit_nr' => 2],
-    ]);
-
-    expect($tale->lyricists)->toHaveCount(3);
-
-    $artists = array_keys($artists);
-
-    expect($tale->lyricists->get(2)->id)->toBe($artists[0]);
-    expect($tale->lyricists->get(0)->id)->toBe($artists[1]);
-    expect($tale->lyricists->get(1)->id)->toBe($artists[2]);
-});
-
-it('can get its composer', function () {
-    $tale = Tale::factory()->create();
-
-    expect($tale->composers())->toBeInstanceOf(BelongsToMany::class);
-
-    $tale->composers()->detach();
-
-    $tale->composers()->attach($artists = [
-        Artist::factory()->create()->id => ['credit_nr' => 3],
-        Artist::factory()->create()->id => ['credit_nr' => 1],
-        Artist::factory()->create()->id => ['credit_nr' => 2],
-    ]);
-
-    expect($tale->composers)->toHaveCount(3);
-
-    $artists = array_keys($artists);
-
-    expect($tale->composers->get(2)->id)->toBe($artists[0]);
-    expect($tale->composers->get(0)->id)->toBe($artists[1]);
-    expect($tale->composers->get(1)->id)->toBe($artists[2]);
-});
-
 it('can get its actor', function () {
     $tale = Tale::factory()->create();
 
