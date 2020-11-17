@@ -140,7 +140,6 @@ it('can get credits of given type', function () {
         ],
     ]);
 
-
     $composers = $tale->creditsFor(CreditType::composer());
 
     expect($composers)
