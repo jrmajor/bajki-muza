@@ -9,19 +9,13 @@ class CreateTalesLyricistsTable extends Migration
     public function up()
     {
         Schema::create('tales_lyricists', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('artist_id')->unsigned();
-            $table->integer('tale_id')->unsigned();
+            $table->smallId();
+            $table->smallForeignId('artist_id')
+                ->constrained()->restrictOnDelete();
+            $table->smallForeignId('tale_id')
+                ->constrained()->restrictOnDelete();
             $table->integer('credit_nr')->nullable();
             $table->timestamps();
-
-            $table->foreign('artist_id')
-                ->references('id')->on('artists')
-                ->onDelete('cascade');
-
-            $table->foreign('tale_id')
-                ->references('id')->on('tales')
-                ->onDelete('cascade');
         });
     }
 

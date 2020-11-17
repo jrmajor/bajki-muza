@@ -9,7 +9,7 @@ class CreateArtistsTable extends Migration
     public function up()
     {
         Schema::create('artists', function (Blueprint $table) {
-            $table->increments('id');
+            $table->smallId();
             $table->char('slug', 100);
             $table->char('name', 100);
             $table->integer('discogs')->nullable();
