@@ -56,6 +56,14 @@ class Tale extends Model
         return Storage::cloud()->url("covers/$size/$this->cover");
     }
 
+    public function removeCover(): bool
+    {
+        $this->forceFill([
+            'cover' => null,
+            'cover_placeholder' => null,
+        ])->save();
+    }
+
     public function credits(): BelongsToMany
     {
         return $this->belongsToMany(Artist::class, 'credits')

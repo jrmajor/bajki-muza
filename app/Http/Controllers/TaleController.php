@@ -66,8 +66,7 @@ class TaleController extends Controller
         }
 
         if ($request->boolean('remove_cover')) {
-            $tale->cover = null;
-            $tale->cover_placeholder = null;
+            $tale->removeCover();
         } elseif ($request->file('cover')) {
             $path = Storage::cloud()
                 ->putFile('covers/original', $request->file('cover'), 'private');
