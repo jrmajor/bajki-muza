@@ -18,4 +18,9 @@ class Credit extends Pivot
     {
         return $this->type->equals($type);
     }
+
+    public function isCustom(): bool
+    {
+        return $this->type->isCustom();
+    }
 }

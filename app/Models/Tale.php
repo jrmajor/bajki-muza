@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -77,6 +78,13 @@ class Tale extends Model
         return $this->credits
             ->filter(fn ($artist) => $artist->credit->ofType($type))
             ->values();
+    }
+
+    public function customCredits(): Collection
+    {
+        return $this->credits
+            ->filter(fn ($artist) => $artist->credit->isCustom())
+            ->groupBy(fn ($artist) => $artist->credit->type->label);
     }
 
     public function actors(): BelongsToMany
