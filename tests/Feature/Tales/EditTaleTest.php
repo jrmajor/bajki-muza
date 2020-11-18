@@ -158,6 +158,6 @@ test('users with permissions can remove tale relations', function () {
 
     $tale = $this->tale->fresh();
 
-    expect($tale->credits)->toHaveCount(0);
-    expect($tale->actors)->toHaveCount(0);
+    expect($tale->credits)->toBeEmpty();
+    expect($tale->actors)->toBeEmpty();
 });
