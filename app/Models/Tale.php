@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Values\CreditType;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -72,11 +72,11 @@ class Tale extends Model
             ->orderBy('credits.nr');
     }
 
-    public function creditsFor(CreditType $type): Collection
+    public function creditsFor(CreditType $type): EloquentCollection
     {
         return $this->credits
-                    ->filter(fn ($credit) => $credit->credit->ofType($type))
-                    ->values();
+            ->filter(fn ($artist) => $artist->credit->ofType($type))
+            ->values();
     }
 
     public function actors(): BelongsToMany
