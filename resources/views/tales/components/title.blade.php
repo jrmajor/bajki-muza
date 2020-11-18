@@ -1,3 +1,5 @@
+<?php /** @var App\Models\Tale $tale */ ?>
+
 <h2 class="text-2xl font-medium">
   @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
     @foreach (explode(' ', $tale->title) as $word)
