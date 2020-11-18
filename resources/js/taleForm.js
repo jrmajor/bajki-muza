@@ -9,15 +9,10 @@ window.taleFormData = function (data) {
       remove: false
     },
 
-    lyricists: data.lyricists.map(lyricist => ({
-      artist: lyricist,
-      key: Math.random().toString(20).substr(2)
-    })),
-
-    composers: data.composers.map(composer => ({
-      artist: composer,
-      key: Math.random().toString(20).substr(2)
-    })),
+    credits: data.credits.map(credit => {
+      credit.key = Math.random().toString(20).substr(2)
+      return credit
+    }),
 
     actors: data.actors.map(actor => {
       actor.key = Math.random().toString(20).substr(2)
@@ -32,11 +27,7 @@ window.taleFormData = function (data) {
         if (value !== '') this.cover.remove = false
       })
 
-      this.$watch('lyricists', value => {
-        this.$nextTick(() => $dispatch('artists-indexes-updated'))
-      })
-
-      this.$watch('composers', value => {
+      this.$watch('credits', value => {
         this.$nextTick(() => $dispatch('artists-indexes-updated'))
       })
 
@@ -53,11 +44,17 @@ window.taleFormData = function (data) {
       }
     },
 
-    addArtist (list) {
-      this[list].push({
-        artist: '',
+    addActor () {
+      this.actors.push({
         key: Math.random().toString(20).substr(2),
         isDragged: false
+      })
+    },
+
+    addCredit () {
+      this.credits.push({
+        nr: 0,
+        key: Math.random().toString(20).substr(2),
       })
     },
 

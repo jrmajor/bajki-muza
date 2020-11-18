@@ -83,7 +83,7 @@
 }
 
 @layer components {
-  .form-input {
+  .form-input, .form-select {
     @apply dark:bg-gray-800 dark:border-gray-900 dark:focus:border-gray-700;
   }
 }
