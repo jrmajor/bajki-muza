@@ -32,70 +32,11 @@
     <div class="sm:py-2 flex-grow self-center sm:self-stretch flex flex-col justify-between space-y-3">
 
       <div class="hidden sm:block self-start">
-        @include ('tales.components.title')
+        @include('tales.components.title')
       </div>
 
       <div>
-        @if (
-          ($text = $tale->creditsFor(CreditType::text()))->isNotEmpty()
-          xor ($authors = $tale->creditsFor(CreditType::author()))->isNotEmpty()
-        )
-          <strong>Słowa:</strong>
-          @foreach ($text->merge($authors) as $lyricist)
-            <a href="{{ route('artists.show', $lyricist) }}"
-              class="inline-flex items-center">
-              {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
-              <x-appearances :count="$lyricist->appearances" size="small"/>
-            </a>
-            @if (! $loop->last && $lyricist->appearances > 1),@endif
-          @endforeach
-          <br>
-        @elseif ($text->isNotEmpty() && $authors->isNotEmpty())
-          <strong>Słowa:</strong>
-          @foreach ($text as $lyricist)
-            <a href="{{ route('artists.show', $lyricist) }}"
-              class="inline-flex items-center">
-              {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
-              <x-appearances :count="$lyricist->appearances" size="small"/>
-            </a>
-            @if (! $loop->last && $lyricist->appearances > 1),@endif
-          @endforeach
-          <span class="ml-1.5">wg.</span>
-          @foreach ($authors as $author)
-            <a href="{{ route('artists.show', $author) }}"
-              class="inline-flex items-center">
-              {{ $author->genetivus ?? $author->name }}@if (! $loop->last && $author->appearances <= 1),@endif
-              <x-appearances :count="$author->appearances" size="small"/>
-            </a>
-            @if (! $loop->last && $author->appearances > 1),@endif
-          @endforeach
-          <br>
-        @endif
-
-        @unless ($tale->creditsFor(CreditType::lyrics())->isEmpty())
-          <strong>Teksty piosenek:</strong>
-          @foreach ($tale->creditsFor(CreditType::lyrics()) as $lyricist)
-            <a href="{{ route('artists.show', $lyricist) }}"
-              class="inline-flex items-center">
-              {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
-              <x-appearances :count="$lyricist->appearances" size="small"/>
-            </a>
-            @if (! $loop->last && $lyricist->appearances > 1),@endif
-          @endforeach
-          <br>
-        @endif
-
-        @unless ($tale->creditsFor(CreditType::music())->isEmpty())
-          <strong>Muzyka:</strong>
-          @foreach ($tale->creditsFor(CreditType::music()) as $composer)
-            <a href="{{ route('artists.show', $composer) }}"
-              class="inline-flex items-center">
-              {{ $composer->name }}@if (! $loop->last && $composer->appearances <= 1),@endif
-              <x-appearances :count="$composer->appearances" size="small"/>
-            </a>
-            @if (! $loop->last && $composer->appearances > 1),@endif
-          @endforeach
-        @endif
+        @include('tales.components.main-credits')
       </div>
 
     </div>
