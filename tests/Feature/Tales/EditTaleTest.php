@@ -97,7 +97,6 @@ test('users with permissions can add credits', function () {
 
     $this->tale->refresh();
 
-
     $directorCredits = $this->tale->creditsFor(CreditType::director());
 
     expect($directorCredits)->toHaveCount(1);
