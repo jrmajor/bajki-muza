@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Values\CreditType;
 use Illuminate\Foundation\Http\FormRequest;
+use Spatie\Enum\Laravel\Rules\EnumRule;
 
 class StoreTale extends FormRequest
 {
@@ -21,13 +23,9 @@ class StoreTale extends FormRequest
             'cover' => ['file', 'mimes:jpeg,png', 'nullable'],
             'remove_cover' => ['boolean', 'nullable'],
 
-            'director' => ['string', 'max:100', 'nullable'],
-
-            'lyricists.*.artist' => ['string', 'max:100'],
-            'lyricists.*.credit_nr' => ['integer'],
-
-            'composers.*.artist' => ['string', 'max:100'],
-            'composers.*.credit_nr' => ['integer'],
+            'credits.*.artist' => ['string', 'max:100', 'required'],
+            'credits.*.type' => [new EnumRule(CreditType::class), 'required'],
+            'credits.*.nr' => ['integer', 'required'],
 
             'actors.*.artist' => ['string', 'max:100'],
             'actors.*.credit_nr' => ['integer'],

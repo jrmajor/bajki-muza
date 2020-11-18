@@ -20,13 +20,9 @@ class TaleController extends Controller
     {
         $tale = new Tale();
 
-        $tale->fill($request->validated());
-
-        if ($request->input('director')) {
-            $tale->director_id = Artist::findBySlugOrNew($request->input('director'))->id;
-        }
-
-        $tale->save();
+        $tale->fill(
+            $data = $request->validated()
+        )->save();
 
         if ($request->file('cover')) {
             $path = Storage::cloud()
@@ -35,7 +31,7 @@ class TaleController extends Controller
             ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
         }
 
-        $this->saveRelationships($tale, $request);
+        $this->saveRelationships($tale, $data);
 
         return redirect()->route('tales.show', $tale);
     }
@@ -57,13 +53,9 @@ class TaleController extends Controller
 
     public function update(StoreTale $request, Tale $tale)
     {
-        $tale->fill($request->validated());
-
-        if ($request->input('director')) {
-            $tale->director_id = Artist::findBySlugOrNew($request->input('director'))->id;
-        } else {
-            $tale->director_id = null;
-        }
+        $tale->fill(
+            $data = $request->validated()
+        )->save();
 
         if ($request->boolean('remove_cover')) {
             $tale->removeCover();
@@ -74,33 +66,24 @@ class TaleController extends Controller
             ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
         }
 
-        $tale->save();
-
-        $this->saveRelationships($tale, $request);
+        $this->saveRelationships($tale, $data);
 
         return redirect()->route('tales.show', $tale);
     }
 
-    private function saveRelationships(Tale $tale, StoreTale $request)
+    private function saveRelationships(Tale $tale, array $data): void
     {
-        $lyricists = [];
-        foreach ($request->validated()['lyricists'] ?? [] as $lyricist) {
-            $lyricists[Artist::findBySlugOrNew($lyricist['artist'])->id] = [
-                'credit_nr' => $lyricist['credit_nr'],
-            ];
-        }
-        $tale->lyricists()->sync($lyricists);
+        $credits = collect($data['credits'] ?? [])
+            ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
+            ->map(fn ($credit) => [
+                'type' => $credit['type'],
+                'nr' => $credit['nr'],
+            ]);
 
-        $composers = [];
-        foreach ($request->validated()['composers'] ?? [] as $composer) {
-            $composers[Artist::findBySlugOrNew($composer['artist'])->id] = [
-                'credit_nr' => $composer['credit_nr'],
-            ];
-        }
-        $tale->composers()->sync($composers);
+        $tale->credits()->sync($credits);
 
         $actors = [];
-        foreach ($request->input('actors') ?? [] as $actor) {
+        foreach ($data['actors'] ?? [] as $actor) {
             $actors[Artist::findBySlugOrNew($actor['artist'])->id] = [
                 'credit_nr' => $actor['credit_nr'],
                 'characters' => $actor['characters'],
