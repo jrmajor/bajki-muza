@@ -220,8 +220,8 @@ it('can get credits', function () {
 
     expect($artist->credits())->toBeInstanceOf(BelongsToMany::class);
 
-    $lyricist = ['type' => CreditType::lyricist(), 'nr' => 0];
-    $composer = ['type' => CreditType::composer(), 'nr' => 0];
+    $lyricist = ['type' => CreditType::text(), 'nr' => 0];
+    $composer = ['type' => CreditType::music(), 'nr' => 0];
 
     $artist->credits()->attach($tales = [
         Tale::factory()->create([
@@ -265,8 +265,8 @@ it('can get credits', function () {
 it('can get credits of given type', function () {
     $artist = Artist::factory()->create();
 
-    $lyricist = ['type' => CreditType::lyricist(), 'nr' => 0];
-    $composer = ['type' => CreditType::composer(), 'nr' => 0];
+    $lyricist = ['type' => CreditType::text(), 'nr' => 0];
+    $composer = ['type' => CreditType::music(), 'nr' => 0];
 
     $artist->credits()->attach($tales = [
         Tale::factory()->create([
@@ -285,7 +285,7 @@ it('can get credits of given type', function () {
         ])->id => $lyricist,
     ]);
 
-    $asLyricist = $artist->creditsAs(CreditType::lyricist());
+    $asLyricist = $artist->creditsAs(CreditType::text());
 
     expect($asLyricist)
         ->toBeInstanceOf(EloquentCollection::class)
@@ -321,7 +321,7 @@ test('countAppearances scope works', function () {
 
     $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
-        ['type' => CreditType::composer(), 'nr' => 0]
+        ['type' => CreditType::music(), 'nr' => 0]
     );
 
     $artist->asActor()->attach(
@@ -332,7 +332,7 @@ test('countAppearances scope works', function () {
 
     $artist->credits()->attach(
          $duplicate,
-         ['type' => CreditType::director(), 'nr' => 0]
+         ['type' => CreditType::directing(), 'nr' => 0]
     );
 
     $artist->asActor()->attach($duplicate);
@@ -345,7 +345,7 @@ test('appearances method works', function () {
 
     $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
-        ['type' => CreditType::composer(), 'nr' => 0]
+        ['type' => CreditType::music(), 'nr' => 0]
     );
 
     $artist->asActor()->attach(
@@ -356,7 +356,7 @@ test('appearances method works', function () {
 
     $artist->credits()->attach(
         $duplicate,
-        ['type' => CreditType::director(), 'nr' => 0]
+        ['type' => CreditType::directing(), 'nr' => 0]
     );
 
     $artist->asActor()->attach($duplicate);

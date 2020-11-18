@@ -42,17 +42,17 @@ test('users with permissions can create tale', function () {
     $credits = array_merge(
         [[
             'artist' => $director->name,
-            'type' => CreditType::director()->value,
+            'type' => CreditType::directing()->value,
             'nr' => 0,
         ]],
         $lyricists->map(fn ($lyricist, $nr) => [
             'artist' => $lyricist->name,
-            'type' => CreditType::lyricist()->value,
+            'type' => CreditType::text()->value,
             'nr' => $nr,
         ])->all(),
         $composers->map(fn ($composer, $nr) => [
             'artist' => $composer->name,
-            'type' => CreditType::composer()->value,
+            'type' => CreditType::music()->value,
             'nr' => $nr,
         ])->all()
     );
@@ -83,12 +83,12 @@ test('users with permissions can create tale', function () {
         expect($tale->$key)->toBe($attribute);
     }
 
-    $directorCredits = $tale->creditsFor(CreditType::director());
+    $directorCredits = $tale->creditsFor(CreditType::directing());
 
     expect($directorCredits)->toHaveCount(1);
     expect($directorCredits->first()->id)->toBe($director->id);
 
-    $lyricistsCredits = $tale->creditsFor(CreditType::lyricist());
+    $lyricistsCredits = $tale->creditsFor(CreditType::text());
 
     expect($lyricistsCredits)->toHaveCount(2);
     expect($lyricistsCredits[0]->id)->toBe($lyricists[0]->id)
@@ -96,7 +96,7 @@ test('users with permissions can create tale', function () {
     expect($lyricistsCredits[1]->id)->toBe($lyricists[1]->id)
         ->and($lyricistsCredits[1]->credit->nr)->toBe(1);
 
-    $composersCredits = $tale->creditsFor(CreditType::composer());
+    $composersCredits = $tale->creditsFor(CreditType::music());
 
     expect($composersCredits)->toHaveCount(2);
 

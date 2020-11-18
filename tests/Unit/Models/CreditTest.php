@@ -12,9 +12,9 @@ it('casts values', function () {
 
 test('ofType method works', function () {
     $credit = new Credit([
-        'type' => CreditType::lyricist(),
+        'type' => CreditType::text(),
     ]);
 
-    expect($credit->ofType(CreditType::lyricist()))->toBeTrue();
-    expect($credit->ofType(CreditType::composer()))->toBeFalse();
+    expect($credit->ofType(CreditType::text()))->toBeTrue();
+    expect($credit->ofType(CreditType::music()))->toBeFalse();
 });

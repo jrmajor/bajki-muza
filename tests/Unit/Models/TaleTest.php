@@ -69,27 +69,27 @@ it('can get credits', function () {
 
     $tale->credits()->attach($artists = [
         Artist::factory()->create()->id => [
-            'type' => CreditType::lyricist(),
+            'type' => CreditType::text(),
             'nr' => 2,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::lyricist(),
+            'type' => CreditType::text(),
             'nr' => 1,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::lyricist(),
+            'type' => CreditType::text(),
             'nr' => 0,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::composer(),
+            'type' => CreditType::music(),
             'nr' => 1,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::composer(),
+            'type' => CreditType::music(),
             'nr' => 0,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::composer(),
+            'type' => CreditType::music(),
             'nr' => 2,
         ],
     ]);
@@ -113,36 +113,36 @@ it('can get credits of given type', function () {
 
     $tale->credits()->attach($artists = [
         Artist::factory()->create()->id => [
-            'type' => CreditType::lyricist(),
+            'type' => CreditType::text(),
             'nr' => 2,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::lyricist(),
+            'type' => CreditType::text(),
             'nr' => 1,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::composer(),
+            'type' => CreditType::music(),
             'nr' => 1,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::composer(),
+            'type' => CreditType::music(),
             'nr' => 0,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::lyricist(),
+            'type' => CreditType::text(),
             'nr' => 0,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::composer(),
+            'type' => CreditType::music(),
             'nr' => 2,
         ],
         Artist::factory()->create()->id => [
-            'type' => CreditType::director(),
+            'type' => CreditType::directing(),
             'nr' => 0,
         ],
     ]);
 
-    $composers = $tale->creditsFor(CreditType::composer());
+    $composers = $tale->creditsFor(CreditType::music());
 
     expect($composers)
         ->toBeInstanceOf(EloquentCollection::class)

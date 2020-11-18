@@ -14,9 +14,9 @@ final class CreditType extends Enum
     protected static function labels(): array
     {
         return [
-            'director' => 'reżyser',
-            'lyricist' => 'słowa',
-            'composer' => 'kompozytor',
+            'directing' => 'reżyser',
+            'text' => 'słowa',
+            'music' => 'muzyka',
         ];
     }
 }

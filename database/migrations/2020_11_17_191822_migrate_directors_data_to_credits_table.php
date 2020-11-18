@@ -11,7 +11,7 @@ class MigrateDirectorsDataToCreditsTable extends Migration
             ->map(fn ($tale) => [
                 'tale_id' => $tale->id,
                 'artist_id' => $tale->director_id,
-                'type' => CreditType::director(),
+                'type' => CreditType::directing(),
                 'nr' => 0,
                 'created_at' => $tale->created_at,
                 'updated_at' => $tale->updated_at,

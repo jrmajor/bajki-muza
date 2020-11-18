@@ -12,7 +12,7 @@ class MigrateDataToCreditsTable extends Migration
             ->map(fn ($credit) => [
                 'tale_id' => $credit->tale_id,
                 'artist_id' => $credit->artist_id,
-                'type' => CreditType::lyricist(),
+                'type' => CreditType::text(),
                 'nr' => $credit->credit_nr ?? 1,
                 'created_at' => $credit->created_at,
                 'updated_at' => $credit->updated_at,
@@ -24,7 +24,7 @@ class MigrateDataToCreditsTable extends Migration
             ->map(fn ($credit) => [
                 'tale_id' => $credit->tale_id,
                 'artist_id' => $credit->artist_id,
-                'type' => CreditType::composer(),
+                'type' => CreditType::music(),
                 'nr' => $credit->credit_nr ?? 1,
                 'created_at' => $credit->created_at,
                 'updated_at' => $credit->updated_at,

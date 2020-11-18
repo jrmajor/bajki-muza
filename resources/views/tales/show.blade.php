@@ -52,9 +52,9 @@
       </div>
 
       <div>
-        @unless ($tale->creditsFor(CreditType::director())->isEmpty())
+        @unless ($tale->creditsFor(CreditType::directing())->isEmpty())
           <strong>Reżyseria:</strong>
-          @foreach ($tale->creditsFor(CreditType::director()) as $director)
+          @foreach ($tale->creditsFor(CreditType::directing()) as $director)
             <a href="{{ route('artists.show', $director) }}"
               class="inline-flex items-center">
               {{ $director->name }}@if (! $loop->last && $director->appearances <= 1),@endif
@@ -69,9 +69,9 @@
           <br>
         @endif
 
-        @unless ($tale->creditsFor(CreditType::lyricist())->isEmpty())
+        @unless ($tale->creditsFor(CreditType::text())->isEmpty())
           <strong>Słowa:</strong>
-          @foreach ($tale->creditsFor(CreditType::lyricist()) as $lyricist)
+          @foreach ($tale->creditsFor(CreditType::text()) as $lyricist)
             <a href="{{ route('artists.show', $lyricist) }}"
               class="inline-flex items-center">
               {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
@@ -86,9 +86,9 @@
           <br>
         @endif
 
-        @unless ($tale->creditsFor(CreditType::composer())->isEmpty())
+        @unless ($tale->creditsFor(CreditType::music())->isEmpty())
           <strong>Muzyka:</strong>
-          @foreach ($tale->creditsFor(CreditType::composer()) as $composer)
+          @foreach ($tale->creditsFor(CreditType::music()) as $composer)
             <a href="{{ route('artists.show', $composer) }}"
               class="inline-flex items-center">
               {{ $composer->name }}@if (! $loop->last && $composer->appearances <= 1),@endif

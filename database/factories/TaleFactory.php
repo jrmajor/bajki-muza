@@ -25,20 +25,20 @@ class TaleFactory extends Factory
         return $this->afterCreating(function (Tale $tale) {
             $tale->credits()->attach(
                 Artist::factory()->create()->id,
-                ['type' => CreditType::director(), 'nr' => 0]
+                ['type' => CreditType::directing(), 'nr' => 0]
             );
 
             for ($i = 1; $i <= 2; $i++) {
                 $tale->credits()->attach(
                     Artist::factory()->create()->id,
-                    ['type' => CreditType::lyricist(), 'nr' => $i]
+                    ['type' => CreditType::text(), 'nr' => $i]
                 );
             }
 
             for ($i = 1; $i <= 2; $i++) {
                 $tale->credits()->attach(
                     Artist::factory()->create()->id,
-                    ['type' => CreditType::composer(), 'nr' => $i]
+                    ['type' => CreditType::music(), 'nr' => $i]
                 );
             }
 
