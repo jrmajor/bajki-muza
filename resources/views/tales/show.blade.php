@@ -58,11 +58,7 @@
             <a href="{{ route('artists.show', $director) }}"
               class="inline-flex items-center">
               {{ $director->name }}@if (! $loop->last && $director->appearances <= 1),@endif
-              @if ($director->appearances > 1)
-                <small class="ml-1.5 w-4.5 h-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
-                  {{ $director->appearances }}
-                </small>
-              @endif
+              <x-appearances :count="$director->appearances" size="small"/>
             </a>
             @if (! $loop->last && $director->appearances > 1),@endif
           @endforeach
@@ -75,11 +71,7 @@
             <a href="{{ route('artists.show', $lyricist) }}"
               class="inline-flex items-center">
               {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
-              @if ($lyricist->appearances > 1)
-                <small class="ml-1.5 w-4.5 h-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
-                  {{ $lyricist->appearances }}
-                </small>
-              @endif
+              <x-appearances :count="$lyricist->appearances" size="small"/>
             </a>
             @if (! $loop->last && $lyricist->appearances > 1),@endif
           @endforeach
@@ -92,11 +84,7 @@
             <a href="{{ route('artists.show', $composer) }}"
               class="inline-flex items-center">
               {{ $composer->name }}@if (! $loop->last && $composer->appearances <= 1),@endif
-              @if ($composer->appearances > 1)
-                <small class="ml-1.5 w-4.5 h-4.5 text-2xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md -mr-1">
-                  {{ $composer->appearances }}
-                </small>
-              @endif
+              <x-appearances :count="$composer->appearances" size="small"/>
             </a>
             @if (! $loop->last && $composer->appearances > 1),@endif
           @endforeach
@@ -144,11 +132,7 @@
               @endif
             </div>
             <div class="flex-none pr-4">
-              @if ($actor->appearances > 1)
-                <small class="ml-1.5 w-6 h-6 text-xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">
-                  {{ $actor->appearances }}
-                </small>
-              @endif
+              <x-appearances :count="$actor->appearances"/>
             </div>
           </a>
         @endforeach

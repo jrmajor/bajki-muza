@@ -31,11 +31,7 @@
           <span class="flex-shrink-0 font-medium">{{ $artist->name }}</span>
         </div>
         <div class="flex-none pr-4">
-          @if ($artist->appearances > 1)
-            <small class="ml-1.5 h-6 w-6 text-xs inline-flex items-center justify-center bg-yellow-300 text-yellow-800 rounded-full shadow-md">
-              {{ $artist->appearances }}
-            </small>
-          @endif
+          <x-appearances :count="$artist->appearances"/>
         </div>
       </a>
     @empty
