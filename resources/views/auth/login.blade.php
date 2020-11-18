@@ -3,8 +3,8 @@
 @section('content')
 
   <div class="text-center">
-    <h2 class="text-2xl font-medium leading-7">
-      <span class="shadow-title px-1.5">Login</span>
+    <h2 class="text-2xl font-medium">
+      <span class="shadow-title">Login</span>
     </h2>
   </div>
 

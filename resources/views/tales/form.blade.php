@@ -207,7 +207,7 @@
 
     <div class="w-full flex flex-col">
       <label for="notes" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Notatki</label>
-      <textarea type="text" name="notes" class="w-full form-input">{{ old('notes', $tale->notes) }}</textarea>
+      <textarea type="text" name="notes" rows="5" class="w-full form-input">{{ old('notes', $tale->notes) }}</textarea>
     </div>
 
   <button type="submit"
