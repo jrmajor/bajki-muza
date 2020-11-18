@@ -11,4 +11,12 @@ use Spatie\Enum\Laravel\Enum;
  */
 final class CreditType extends Enum
 {
+    protected static function labels(): array
+    {
+        return [
+            'director' => 'reżyser',
+            'lyricist' => 'słowa',
+            'composer' => 'kompozytor',
+        ];
+    }
 }
