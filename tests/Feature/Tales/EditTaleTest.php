@@ -26,7 +26,7 @@ beforeEach(function () {
 });
 
 test('guests are asked to log in when attempting to view edit tale form', function () {
-    get("bajki/drzewko-aby-baby/edit")
+    get('bajki/drzewko-aby-baby/edit')
         ->assertRedirect('login');
 });
 
@@ -36,12 +36,12 @@ test('guests are asked to log in when attempting to view edit form for nonexiste
 
 test('users can view edit tale form', function () {
     asUser()
-        ->get("bajki/drzewko-aby-baby/edit")
+        ->get('bajki/drzewko-aby-baby/edit')
         ->assertOk();
 });
 
 test('guests cannot edit tale attributes', function () {
-    put("bajki/drzewko-aby-baby", $this->newAttributes)
+    put('bajki/drzewko-aby-baby' $this->newAttributes)
         ->assertRedirect('login');
 
     $tale = $this->tale->fresh();
@@ -53,8 +53,8 @@ test('guests cannot edit tale attributes', function () {
 
 test('users with permissions can edit tale attributes', function () {
     asUser()
-        ->put("bajki/drzewko-aby-baby", $this->newAttributes)
-        ->assertRedirect("bajki/o-dwoch-takich-co-ukradli-ksiezyc");
+        ->put('bajki/drzewko-aby-baby', $this->newAttributes)
+        ->assertRedirect('bajki/o-dwoch-takich-co-ukradli-ksiezyc');
 
     $tale = $this->tale->fresh();
 
@@ -92,8 +92,8 @@ test('users with permissions can add credits', function () {
     );
 
     asUser()
-        ->put("bajki/drzewko-aby-baby", $attributes)
-        ->assertRedirect("bajki/drzewko-aby-baby");
+        ->put('bajki/drzewko-aby-baby' $attributes)
+        ->assertRedirect('bajki/drzewko-aby-baby');
 
     $this->tale->refresh();
 
@@ -136,8 +136,8 @@ test('users with permissions can add tale actors', function () {
     );
 
     asUser()
-        ->put("bajki/drzewko-aby-baby", $attributes)
-        ->assertRedirect("bajki/drzewko-aby-baby");
+        ->put('bajki/drzewko-aby-baby' $attributes)
+        ->assertRedirect('bajki/drzewko-aby-baby');
 
     $tale = $this->tale->fresh();
 
@@ -154,8 +154,8 @@ test('users with permissions can add tale actors', function () {
 
 test('users with permissions can remove tale relations', function () {
     asUser()
-        ->put("bajki/drzewko-aby-baby", $this->oldAttributes)
-        ->assertRedirect("bajki/drzewko-aby-baby");
+        ->put('bajki/drzewko-aby-baby' $this->oldAttributes)
+        ->assertRedirect('bajki/drzewko-aby-baby');
 
     $tale = $this->tale->fresh();
 
