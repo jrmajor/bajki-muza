@@ -3,7 +3,7 @@
 @php
 
   $data = [
-    'credits' => $tale->credits->map(fn ($artist) => [
+    'credits' => $tale->orderedCredits()->map(fn ($artist) => [
         'artist' => $artist->name,
         'type' => $artist->credit->type,
         'nr' => $artist->credit->nr,

@@ -88,6 +88,14 @@ class Tale extends Model
             ->sortBy(fn ($artist, $label) => CreditType::labelsOrder()[$label]);
     }
 
+    public function orderedCredits(): Collection
+    {
+        return $this->credits
+            ->sortBy(function ($artist) {
+                return CreditType::labelsOrder()[$artist->credit->type->label];
+            })->values();
+    }
+
     public function actors(): BelongsToMany
     {
         return $this->belongsToMany('App\Models\Artist', 'tales_actors')
