@@ -2,6 +2,7 @@
 
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Values\CreditType;
 use function Pest\Laravel\get;
 use function Pest\Laravel\put;
 use function Tests\asUser;
@@ -25,7 +26,7 @@ beforeEach(function () {
 });
 
 test('guests are asked to log in when attempting to view edit tale form', function () {
-    get("bajki/{$this->tale->slug}/edit")
+    get("bajki/drzewko-aby-baby/edit")
         ->assertRedirect('login');
 });
 
@@ -35,12 +36,12 @@ test('guests are asked to log in when attempting to view edit form for nonexiste
 
 test('users can view edit tale form', function () {
     asUser()
-        ->get("bajki/{$this->tale->slug}/edit")
+        ->get("bajki/drzewko-aby-baby/edit")
         ->assertOk();
 });
 
 test('guests cannot edit tale attributes', function () {
-    put("bajki/{$this->tale->slug}", $this->newAttributes)
+    put("bajki/drzewko-aby-baby", $this->newAttributes)
         ->assertRedirect('login');
 
     $tale = $this->tale->fresh();
@@ -52,8 +53,8 @@ test('guests cannot edit tale attributes', function () {
 
 test('users with permissions can edit tale attributes', function () {
     asUser()
-        ->put("bajki/{$this->tale->slug}", $this->newAttributes)
-        ->assertRedirect("bajki/{$this->newAttributes['slug']}");
+        ->put("bajki/drzewko-aby-baby", $this->newAttributes)
+        ->assertRedirect("bajki/o-dwoch-takich-co-ukradli-ksiezyc");
 
     $tale = $this->tale->fresh();
 
@@ -62,108 +63,81 @@ test('users with permissions can edit tale attributes', function () {
     }
 });
 
-test('users with permissions can add tale director', function () {
+test('users with permissions can add credits', function () {
     $director = Artist::factory()->create();
-
-    asUser()
-        ->put(
-            "bajki/{$this->tale->slug}",
-            array_merge(
-                $this->oldAttributes,
-                ['director' => $director->slug]
-            )
-        )->assertRedirect("bajki/{$this->tale->slug}");
-
-    $tale = $this->tale->fresh();
-
-    expect($director->id)->toBe($tale->director->id);
-});
-
-test('users with permissions can add tale lyricists', function () {
     $lyricists = Artist::factory()->count(2)->create();
-
-    asUser()
-        ->put(
-            "bajki/{$this->tale->slug}",
-            array_merge(
-                $this->oldAttributes,
-                [
-                    'lyricists' => $lyricists->map(
-                        function ($lyricist, $credit_nr) {
-                            return [
-                                'artist' => $lyricist->slug,
-                                'credit_nr' => $credit_nr + 1,
-                            ];
-                        }
-                    )->all(),
-                ]
-            )
-        )->assertRedirect("bajki/{$this->tale->slug}");
-
-    $tale = $this->tale->fresh();
-
-    expect($tale->lyricists)->toHaveCount(2);
-
-    expect($tale->lyricists[0]->id)->toBe($lyricists[0]->id);
-    expect($tale->lyricists[0]->pivot->credit_nr)->toBe('1');
-
-    expect($tale->lyricists[1]->id)->toBe($lyricists[1]->id);
-    expect($tale->lyricists[1]->pivot->credit_nr)->toBe('2');
-});
-
-test('users with permissions can add tale composers', function () {
     $composers = Artist::factory()->count(2)->create();
 
+    $credits = array_merge(
+        [[
+            'artist' => $director->name,
+            'type' => CreditType::director()->value,
+            'nr' => 0,
+        ]],
+        $lyricists->map(fn ($lyricist, $nr) => [
+            'artist' => $lyricist->name,
+            'type' => CreditType::lyricist()->value,
+            'nr' => $nr,
+        ])->all(),
+        $composers->map(fn ($composer, $nr) => [
+            'artist' => $composer->name,
+            'type' => CreditType::composer()->value,
+            'nr' => $nr,
+        ])->all()
+    );
+
+    $attributes = array_merge(
+        $this->oldAttributes,
+        ['credits' => $credits]
+    );
+
     asUser()
-        ->put(
-            "bajki/{$this->tale->slug}",
-            array_merge(
-                $this->oldAttributes,
-                [
-                    'composers' => $composers->map(
-                        function ($composer, $credit_nr) {
-                            return [
-                                'artist' => $composer->slug,
-                                'credit_nr' => $credit_nr + 1,
-                            ];
-                        }
-                    )->all(),
-                ]
-            )
-        )->assertRedirect("bajki/{$this->tale->slug}");
+        ->put("bajki/drzewko-aby-baby", $attributes)
+        ->assertRedirect("bajki/drzewko-aby-baby");
 
-    $tale = $this->tale->fresh();
+    $this->tale->refresh();
 
-    expect($tale->composers)->toHaveCount(2);
 
-    expect($tale->composers[0]->id)->toBe($composers[0]->id);
-    expect($tale->composers[0]->pivot->credit_nr)->toBe('1');
+    $directorCredits = $this->tale->creditsFor(CreditType::director());
 
-    expect($tale->composers[1]->id)->toBe($composers[1]->id);
-    expect($tale->composers[1]->pivot->credit_nr)->toBe('2');
+    expect($directorCredits)->toHaveCount(1);
+    expect($directorCredits->first()->id)->toBe($director->id);
+
+    $lyricistsCredits = $this->tale->creditsFor(CreditType::lyricist());
+
+    expect($lyricistsCredits)->toHaveCount(2);
+    expect($lyricistsCredits[0]->id)->toBe($lyricists[0]->id)
+        ->and($lyricistsCredits[0]->credit->nr)->toBe(0);
+    expect($lyricistsCredits[1]->id)->toBe($lyricists[1]->id)
+        ->and($lyricistsCredits[1]->credit->nr)->toBe(1);
+
+    $composersCredits = $this->tale->creditsFor(CreditType::composer());
+
+    expect($composersCredits)->toHaveCount(2);
+
+    expect($composersCredits[0]->id)->toBe($composers[0]->id)
+        ->and($composersCredits[0]->credit->nr)->toBe(0);
+    expect($composersCredits[1]->id)->toBe($composers[1]->id)
+        ->and($composersCredits[1]->credit->nr)->toBe(1);
 });
 
 test('users with permissions can add tale actors', function () {
     $actors = Artist::factory()->count(2)->create();
 
+    $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [
+        'artist' => $composer->slug,
+        'characters' => 'Zbójca '.($credit_nr + 1),
+        'credit_nr' => $credit_nr + 1,
+    ])->all();
+
+    $attributes = array_merge(
+        $this->oldAttributes,
+        ['actors' => $actorsCredits]
+    );
+
     asUser()
-        ->put(
-            "bajki/{$this->tale->slug}",
-            array_merge(
-                $this->oldAttributes,
-                [
-                    'actors' => $actors->map(
-                        function ($composer, $credit_nr) {
-                            return [
-                                'artist' => $composer->slug,
-                                'characters' => 'Zbójca '.($credit_nr + 1),
-                                'credit_nr' => $credit_nr + 1,
-                            ];
-                        }
-                    )->all(),
-                ]
-            )
-        )->assertRedirect("bajki/{$this->tale->slug}");
+        ->put("bajki/drzewko-aby-baby", $attributes)
+        ->assertRedirect("bajki/drzewko-aby-baby");
 
     $tale = $this->tale->fresh();
 
@@ -180,13 +154,11 @@ test('users with permissions can add tale actors', function () {
 
 test('users with permissions can remove tale relations', function () {
     asUser()
-        ->put("bajki/{$this->tale->slug}", $this->oldAttributes)
-        ->assertRedirect("bajki/{$this->tale->slug}");
+        ->put("bajki/drzewko-aby-baby", $this->oldAttributes)
+        ->assertRedirect("bajki/drzewko-aby-baby");
 
     $tale = $this->tale->fresh();
 
-    expect($tale->director)->toBeNull();
-    expect($tale->lyricists)->toHaveCount(0);
-    expect($tale->composers)->toHaveCount(0);
+    expect($tale->credits)->toHaveCount(0);
     expect($tale->actors)->toHaveCount(0);
 });
