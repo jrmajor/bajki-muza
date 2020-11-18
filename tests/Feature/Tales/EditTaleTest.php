@@ -41,7 +41,7 @@ test('users can view edit tale form', function () {
 });
 
 test('guests cannot edit tale attributes', function () {
-    put('bajki/drzewko-aby-baby' $this->newAttributes)
+    put('bajki/drzewko-aby-baby', $this->newAttributes)
         ->assertRedirect('login');
 
     $tale = $this->tale->fresh();
@@ -92,7 +92,7 @@ test('users with permissions can add credits', function () {
     );
 
     asUser()
-        ->put('bajki/drzewko-aby-baby' $attributes)
+        ->put('bajki/drzewko-aby-baby', $attributes)
         ->assertRedirect('bajki/drzewko-aby-baby');
 
     $this->tale->refresh();
@@ -136,7 +136,7 @@ test('users with permissions can add tale actors', function () {
     );
 
     asUser()
-        ->put('bajki/drzewko-aby-baby' $attributes)
+        ->put('bajki/drzewko-aby-baby', $attributes)
         ->assertRedirect('bajki/drzewko-aby-baby');
 
     $tale = $this->tale->fresh();
@@ -154,7 +154,7 @@ test('users with permissions can add tale actors', function () {
 
 test('users with permissions can remove tale relations', function () {
     asUser()
-        ->put('bajki/drzewko-aby-baby' $this->oldAttributes)
+        ->put('bajki/drzewko-aby-baby', $this->oldAttributes)
         ->assertRedirect('bajki/drzewko-aby-baby');
 
     $tale = $this->tale->fresh();
