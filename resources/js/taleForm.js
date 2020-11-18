@@ -54,7 +54,7 @@ window.taleFormData = function (data) {
     addCredit () {
       this.credits.push({
         nr: 0,
-        key: Math.random().toString(20).substr(2),
+        key: Math.random().toString(20).substr(2)
       })
     },
 
