@@ -105,13 +105,13 @@
   </div>
 
   <div class="w-full space-y-6">
-    @unless ($artist->creditsAs(CreditType::directing())->isEmpty())
+    @unless ($artist->creditsFor(CreditType::directing())->isEmpty())
       <div class="w-full flex flex-col items-center space-y-3">
         <h3 class="text-xl font-medium shadow-subtitle">
           Reżyser
         </h3>
         <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
-          @foreach ($artist->creditsAs(CreditType::directing()) as $tale)
+          @foreach ($artist->creditsFor(CreditType::directing()) as $tale)
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"
@@ -140,13 +140,13 @@
       </div>
     @endif
 
-    @unless ($artist->creditsAs(CreditType::text())->isEmpty())
+    @unless ($artist->creditsFor(CreditType::text())->isEmpty())
       <div class="w-full flex flex-col items-center space-y-3">
         <h3 class="text-xl font-medium shadow-subtitle">
           Autor
         </h3>
         <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
-          @foreach ($artist->creditsAs(CreditType::text()) as $tale)
+          @foreach ($artist->creditsFor(CreditType::text()) as $tale)
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"
@@ -175,13 +175,13 @@
       </div>
     @endif
 
-    @unless ($artist->creditsAs(CreditType::music())->isEmpty())
+    @unless ($artist->creditsFor(CreditType::music())->isEmpty())
       <div class="w-full flex flex-col items-center space-y-3">
         <h3 class="text-xl font-medium shadow-subtitle">
           Kompozytor
         </h3>
         <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
-          @foreach ($artist->creditsAs(CreditType::music()) as $tale)
+          @foreach ($artist->creditsFor(CreditType::music()) as $tale)
             <a href="{{ route('tales.show', $tale) }}"
               class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
               <div class="flex-none bg-placeholder-cover w-13 h-13"

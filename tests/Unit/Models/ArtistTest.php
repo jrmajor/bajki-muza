@@ -285,7 +285,7 @@ it('can get credits of given type', function () {
         ])->id => $lyricist,
     ]);
 
-    $asLyricist = $artist->creditsAs(CreditType::text());
+    $asLyricist = $artist->creditsFor(CreditType::text());
 
     expect($asLyricist)
         ->toBeInstanceOf(EloquentCollection::class)

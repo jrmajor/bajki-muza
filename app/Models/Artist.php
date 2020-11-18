@@ -165,7 +165,7 @@ class Artist extends Model
             ->orderBy('year')->orderBy('title');
     }
 
-    public function creditsAs(CreditType $type): Collection
+    public function creditsFor(CreditType $type): Collection
     {
         return $this->credits
                     ->filter(fn ($credit) => $credit->credit->ofType($type))
