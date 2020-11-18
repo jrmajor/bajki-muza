@@ -21,7 +21,7 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
     @stack('scripts')
   </head>
-  <body class="bg-gray-200 text-gray-900 dark:bg-gray-950 dark:text-gray-200">
+  <body class="bg-gray-200 text-gray-900 dark:bg-gray-950 dark:text-gray-200 font-sans">
     <div id="app" class="container mx-auto min-h-screen flex flex-col justify-between">
 
       <div>

@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   theme: {
     colors: {
@@ -89,14 +91,17 @@ module.exports = {
       }
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
       fontSize: { '2xs': '0.7rem' },
+      inset: { '-px': '-1px' },
+      maxWidth: { '1/2': '50%' },
       spacing: {
         4.5: '1.125rem',
         13: '3.25rem',
         15: '3.75rem'
-      },
-      inset: { '-px': '-1px' },
-      maxWidth: { '1/2': '50%' }
+      }
     }
   },
   darkMode: 'media',
