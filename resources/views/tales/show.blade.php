@@ -9,16 +9,7 @@
   <div class="flex flex-col sm:flex-row items-center mb-6">
 
     <div class="sm:hidden text-center">
-      <h2 class="text-2xl font-medium">
-        @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
-          @foreach (explode(' ', $tale->title) as $word)
-            <span class="shadow-title">{{ $word }}</span>
-          @endforeach
-        @auth </a> @endauth
-      </h2>
-      @if ($tale->year)
-        <div class="mt-1.5">{{ $tale->year }}</div>
-      @endif
+      @include ('tales.components.title')
     </div>
 
     <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center shadow-lg rounded-lg overflow-hidden">
@@ -41,14 +32,7 @@
     <div class="sm:py-2 flex-grow self-center sm:self-stretch flex flex-col justify-between space-y-3">
 
       <div class="hidden sm:block self-start">
-        <h2 class="text-2xl font-medium">
-          @auth <a href="{{ route('tales.edit', $tale) }}"> @endauth
-            <span class="shadow-title">{{ $tale->title }}</span>
-          @auth </a> @endauth
-        </h2>
-        @if ($tale->year)
-          <div class="mt-1">{{ $tale->year }}</div>
-        @endif
+        @include ('tales.components.title')
       </div>
 
       <div>
