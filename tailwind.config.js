@@ -90,34 +90,18 @@ module.exports = {
     },
     extend: {
       fontSize: { '2xs': '0.7rem' },
-      spacing: { 4.5: '1.125rem' },
+      spacing: {
+        4.5: '1.125rem',
+        13: '3.25rem',
+        15: '3.75rem'
+      },
       inset: { '-px': '-1px' },
       maxWidth: { '1/2': '50%' }
     }
   },
-  dark: 'media',
-  variants: {
-    backgroundColor: ({ after }) => after(['dark']),
-    borderColor: ({ after }) => after(['dark']),
-    opacity: ({ after }) => after(['group-hover']),
-    textColor: ({ after }) => after(['dark'])
-  },
+  darkMode: 'media',
   plugins: [
-    require('@tailwindcss/ui')
+    require('@tailwindcss/forms')
   ],
-  purge: ['./resources/views/**/*.blade.php'],
-  experimental: {
-    additionalBreakpoint: true,
-    applyComplexClasses: true,
-    darkModeVariant: true,
-    extendedFontSizeScale: true,
-    extendedSpacingScale: true,
-    uniformColorPalette: false
-  },
-  future: {
-    defaultLineHeights: true,
-    purgeLayersByDefault: true,
-    removeDeprecatedGapUtilities: true,
-    standardFontWeights: true
-  }
+  purge: ['./resources/views/**/*.blade.php']
 }
