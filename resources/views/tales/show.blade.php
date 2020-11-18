@@ -52,28 +52,38 @@
       </div>
 
       <div>
-        @unless ($tale->creditsFor(CreditType::directing())->isEmpty())
-          <strong>Reżyseria:</strong>
-          @foreach ($tale->creditsFor(CreditType::directing()) as $director)
-            <a href="{{ route('artists.show', $director) }}"
-              class="inline-flex items-center">
-              {{ $director->name }}@if (! $loop->last && $director->appearances <= 1),@endif
-              <x-appearances :count="$director->appearances" size="small"/>
-            </a>
-            @if (! $loop->last && $director->appearances > 1),@endif
-          @endforeach
-          <br>
-        @endif
-
-        @unless ($tale->creditsFor(CreditType::text())->isEmpty())
+        @if (
+          ($text = $tale->creditsFor(CreditType::text()))->isNotEmpty()
+          xor ($authors = $tale->creditsFor(CreditType::author()))->isNotEmpty()
+        )
           <strong>Słowa:</strong>
-          @foreach ($tale->creditsFor(CreditType::text()) as $lyricist)
+          @foreach ($text->merge($authors) as $lyricist)
             <a href="{{ route('artists.show', $lyricist) }}"
               class="inline-flex items-center">
               {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
               <x-appearances :count="$lyricist->appearances" size="small"/>
             </a>
             @if (! $loop->last && $lyricist->appearances > 1),@endif
+          @endforeach
+          <br>
+        @elseif ($text->isNotEmpty() && $authors->isNotEmpty())
+          <strong>Słowa:</strong>
+          @foreach ($text as $lyricist)
+            <a href="{{ route('artists.show', $lyricist) }}"
+              class="inline-flex items-center">
+              {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
+              <x-appearances :count="$lyricist->appearances" size="small"/>
+            </a>
+            @if (! $loop->last && $lyricist->appearances > 1),@endif
+          @endforeach
+          <span class="ml-1.5">wg.</span>
+          @foreach ($authors as $author)
+            <a href="{{ route('artists.show', $author) }}"
+              class="inline-flex items-center">
+              {{ $author->genetivus ?? $author->name }}@if (! $loop->last && $author->appearances <= 1),@endif
+              <x-appearances :count="$author->appearances" size="small"/>
+            </a>
+            @if (! $loop->last && $author->appearances > 1),@endif
           @endforeach
           <br>
         @endif
@@ -88,8 +98,22 @@
             </a>
             @if (! $loop->last && $composer->appearances > 1),@endif
           @endforeach
+          <br>
+        @endif
+
+        @unless ($tale->creditsFor(CreditType::directing())->isEmpty())
+          <strong>Reżyseria:</strong>
+          @foreach ($tale->creditsFor(CreditType::directing()) as $director)
+            <a href="{{ route('artists.show', $director) }}"
+              class="inline-flex items-center">
+              {{ $director->name }}@if (! $loop->last && $director->appearances <= 1),@endif
+              <x-appearances :count="$director->appearances" size="small"/>
+            </a>
+            @if (! $loop->last && $director->appearances > 1),@endif
+          @endforeach
         @endif
       </div>
+
     </div>
   </div>
 
