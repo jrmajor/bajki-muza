@@ -30,6 +30,8 @@ class StoreTale extends FormRequest
             'actors.*.artist' => ['string', 'max:100'],
             'actors.*.credit_nr' => ['integer'],
             'actors.*.characters' => ['string', 'max:100', 'nullable'],
+
+            'notes' => ['string', 'max:4096', 'nullable'],
         ];
     }
 }

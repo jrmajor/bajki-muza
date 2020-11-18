@@ -16,7 +16,7 @@ class Tale extends Model
     use HasSlug, HasFactory;
 
     public $fillable = [
-        'title', 'year', 'nr',
+        'title', 'year', 'nr', 'notes',
     ];
 
     protected $casts = [
