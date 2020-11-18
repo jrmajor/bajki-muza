@@ -5,9 +5,9 @@ namespace App\Values;
 use Spatie\Enum\Laravel\Enum;
 
 /**
- * @method static self director()
- * @method static self lyricist()
- * @method static self composer()
+ * @method static self directing()
+ * @method static self text()
+ * @method static self music()
  */
 final class CreditType extends Enum
 {
