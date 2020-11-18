@@ -82,13 +82,13 @@ class TaleController extends Controller
 
         $tale->credits()->sync($credits);
 
-        $actors = [];
-        foreach ($data['actors'] ?? [] as $actor) {
-            $actors[Artist::findBySlugOrNew($actor['artist'])->id] = [
-                'credit_nr' => $actor['credit_nr'],
-                'characters' => $actor['characters'],
-            ];
-        }
+        $actors = collect($data['actors'] ?? [])
+            ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
+            ->map(fn ($credit) => [
+                'credit_nr' => $credit['credit_nr'],
+                'characters' => $credit['characters'],
+            ]);
+
         $tale->actors()->sync($actors);
     }
 }
