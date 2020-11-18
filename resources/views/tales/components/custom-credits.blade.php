@@ -6,9 +6,9 @@
       <strong>{{ Str::ucfirst($label) }}:</strong>
       @foreach ($credits as $artist)
         <a href="{{ route('artists.show', $artist) }}" class="inline-flex items-center">
-          {{ $artist->name }}@if (! $loop->last && $artist->appearances <= 1),@endif
+          {{ $artist->name }}
           <x-appearances :count="$artist->appearances" size="small"/>
-        </a>@if (! $loop->last && $artist->appearances > 1),@endif
+        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
       @endforeach
     </div>
   @endforeach

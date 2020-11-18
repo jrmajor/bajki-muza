@@ -11,16 +11,16 @@
       <strong>Słowa:</strong>
       @foreach ($text as $lyricist)
         <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
-          {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
+          {{ $lyricist->name }}
           <x-appearances :count="$lyricist->appearances" size="small"/>
-        </a>@if (! $loop->last && $lyricist->appearances > 1),@endif
+        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
       @endforeach
       wg.
       @foreach ($authors as $author)
         <a href="{{ route('artists.show', $author) }}" class="inline-flex items-center">
-          {{ $author->genetivus ?? $author->name }}@if (! $loop->last && $author->appearances <= 1),@endif
+          {{ $author->genetivus ?? $author->name }}
           <x-appearances :count="$author->appearances" size="small"/>
-        </a>@if (! $loop->last && $author->appearances > 1),@endif
+        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
       @endforeach
     </div>
   @elseif ($text->isNotEmpty())
@@ -28,9 +28,9 @@
       <strong>Słowa:</strong>
       @foreach ($text->merge($authors) as $lyricist)
         <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
-          {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
+          {{ $lyricist->name }}
           <x-appearances :count="$lyricist->appearances" size="small"/>
-        </a>@if (! $loop->last && $lyricist->appearances > 1),@endif
+        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
       @endforeach
     </div>
   @elseif ($authors->isNotEmpty())
@@ -38,9 +38,9 @@
       <strong>Autor:</strong>
       @foreach ($text->merge($authors) as $lyricist)
         <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
-          {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
+          {{ $lyricist->name }}
           <x-appearances :count="$lyricist->appearances" size="small"/>
-        </a>@if (! $loop->last && $lyricist->appearances > 1),@endif
+        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
       @endforeach
     </div>
   @endif
@@ -50,9 +50,9 @@
       <strong>Teksty piosenek:</strong>
       @foreach ($tale->creditsFor(CreditType::lyrics()) as $lyricist)
         <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
-          {{ $lyricist->name }}@if (! $loop->last && $lyricist->appearances <= 1),@endif
+          {{ $lyricist->name }}
           <x-appearances :count="$lyricist->appearances" size="small"/>
-        </a>@if (! $loop->last && $lyricist->appearances > 1),@endif
+        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
       @endforeach
     </div>
   @endif
@@ -62,9 +62,9 @@
       <strong>Muzyka:</strong>
       @foreach ($tale->creditsFor(CreditType::music()) as $composer)
         <a href="{{ route('artists.show', $composer) }}" class="inline-flex items-center">
-          {{ $composer->name }}@if (! $loop->last && $composer->appearances <= 1),@endif
+          {{ $composer->name }}
           <x-appearances :count="$composer->appearances" size="small"/>
-        </a>@if (! $loop->last && $composer->appearances > 1),@endif
+        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
       @endforeach
     </div>
   @endif
