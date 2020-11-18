@@ -15,6 +15,7 @@ class StoreArtist extends FormRequest
     {
         return [
             'name' => ['string', 'max:100'],
+            'genetivus' => ['string', 'max:100', 'nullable'],
 
             'discogs' => ['integer', 'nullable'],
             'filmpolski' => ['integer', 'nullable'],

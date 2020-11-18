@@ -54,6 +54,12 @@
         class="w-full form-input">
     </div>
 
+    <div class="flex flex-col">
+      <label for="genetivus" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Dopełniacz</label>
+      <input type="text" name="genetivus" value="{{ old('genetivus', $artist->genetivus) }}"
+        class="w-full form-input">
+    </div>
+
     <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
 
       <div class="w-full sm:w-1/2 flex space-x-5">

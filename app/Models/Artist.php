@@ -25,7 +25,9 @@ class Artist extends Model
     use HasSlug, HasFactory;
 
     public $fillable = [
-        'name', 'discogs', 'filmpolski', 'wikipedia', 'photo_source',
+        'name', 'genetivus',
+        'discogs', 'filmpolski', 'wikipedia',
+        'photo_source',
     ];
 
     protected $casts = [
