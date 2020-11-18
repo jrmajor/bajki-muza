@@ -122,7 +122,8 @@ window.taleFormData = function (data) {
       // if element was inserted above original location,
       // its index increased by one
       const indexToDelete = destination < currentIndex
-        ? currentIndex + 1 : currentIndex
+        ? currentIndex + 1
+        : currentIndex
 
       this[list].splice(indexToDelete, 1)
 
