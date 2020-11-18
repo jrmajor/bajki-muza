@@ -54,6 +54,11 @@ final class CreditType extends Enum
         ];
     }
 
+    public static function labelsOrder(): array
+    {
+        return array_flip(array_values(self::labels()));
+    }
+
     public function isCustom(): bool
     {
         return ! in_array($this->value, self::$basic);

@@ -84,7 +84,8 @@ class Tale extends Model
     {
         return $this->credits
             ->filter(fn ($artist) => $artist->credit->isCustom())
-            ->groupBy(fn ($artist) => $artist->credit->type->label);
+            ->groupBy(fn ($artist) => $artist->credit->type->label)
+            ->sortBy(fn ($artist, $label) => CreditType::labelsOrder()[$label]);
     }
 
     public function actors(): BelongsToMany
