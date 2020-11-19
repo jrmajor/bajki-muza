@@ -101,7 +101,16 @@ module.exports = {
         4.5: '1.125rem',
         13: '3.25rem',
         15: '3.75rem'
+      },
+      transitionProperty: {
+        'colors-shadow': defaultTheme.transitionProperty.colors + ', ' + defaultTheme.transitionProperty.shadow
       }
+    }
+  },
+  variants: {
+    extend: {
+      ringWidth: ['hover', 'active'],
+      ringOpacity: ['hover', 'active']
     }
   },
   darkMode: 'media',
