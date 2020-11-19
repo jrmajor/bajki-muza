@@ -6,7 +6,8 @@
 <div class="w-full">
   <div class="space-y-3 flex flex-col items-center">
     <input type="search" wire:key="search" wire:model.debounce.100ms="search" autocomplete="off" autofocus
-      class="w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900 focus:outline-none">
+      class="w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900
+        border-none focus:outline-none focus:ring ring-yellow-kox ring-opacity-25">
 
     @forelse ($artists as $artist)
       <a href="{{ route('artists.show', $artist) }}" wire:key="{{ $artist->id }}"
