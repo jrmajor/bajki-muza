@@ -92,7 +92,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans]
       },
       fontSize: { '2xs': '0.7rem' },
       inset: { '-px': '-1px' },

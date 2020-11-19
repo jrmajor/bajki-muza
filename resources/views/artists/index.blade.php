@@ -36,7 +36,7 @@
         </div>
       </a>
     @empty
-      <div class="pt-6 text-lg font-medium leading-tight text-gray-700  dark:text-gray-400">Nie ma takich zwierząt.</div>
+      <div class="pt-6 text-lg font-medium leading-tight text-gray-700 dark:text-gray-400">Nie ma takich zwierząt.</div>
     @endforelse
   </div>
 
