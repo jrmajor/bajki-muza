@@ -65,6 +65,13 @@ class Tale extends Model
         ])->save();
     }
 
+    public function actors(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Models\Artist', 'tales_actors')
+            ->withPivot('credit_nr', 'characters')->withTimestamps()
+            ->orderBy('tales_actors.credit_nr');
+    }
+
     public function credits(): BelongsToMany
     {
         return $this->belongsToMany(Artist::class, 'credits')
@@ -94,12 +101,5 @@ class Tale extends Model
             ->sortBy(function ($artist) {
                 return CreditType::labelsOrder()[$artist->credit->type->label];
             })->values();
-    }
-
-    public function actors(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\Artist', 'tales_actors')
-            ->withPivot('credit_nr', 'characters')->withTimestamps()
-            ->orderBy('tales_actors.credit_nr');
     }
 }

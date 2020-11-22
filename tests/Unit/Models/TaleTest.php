@@ -62,6 +62,37 @@ it('can get its cover', function () {
     expect($tale->cover('original'))->toBeNull();
 });
 
+it('can get its actors', function () {
+    $tale = Tale::factory()->create();
+
+    expect($tale->actors())->toBeInstanceOf(BelongsToMany::class);
+
+    $tale->actors()->detach();
+
+    $tale->actors()->attach($artists = [
+        Artist::factory()->create()->id => [
+            'characters' => 'Wróżka Bzów',
+            'credit_nr' => 3,
+        ],
+        Artist::factory()->create()->id => [
+            'characters' => 'Ośla Skórka',
+            'credit_nr' => 1,
+        ],
+        Artist::factory()->create()->id => [
+            'characters' => null,
+            'credit_nr' => 2,
+        ],
+    ]);
+
+    expect($tale->actors)->toHaveCount(3);
+
+    $artists = array_keys($artists);
+
+    expect($tale->actors->get(2)->id)->toBe($artists[0]);
+    expect($tale->actors->get(0)->id)->toBe($artists[1]);
+    expect($tale->actors->get(1)->id)->toBe($artists[2]);
+});
+
 it('can get credits', function () {
     $tale = Tale::factory()->withoutRelations()->create();
 
@@ -153,35 +184,4 @@ it('can get credits of given type', function () {
     expect($composers->get(0)->id)->toBe($ids[3]);
     expect($composers->get(1)->id)->toBe($ids[2]);
     expect($composers->get(2)->id)->toBe($ids[5]);
-});
-
-it('can get its actors', function () {
-    $tale = Tale::factory()->create();
-
-    expect($tale->actors())->toBeInstanceOf(BelongsToMany::class);
-
-    $tale->actors()->detach();
-
-    $tale->actors()->attach($artists = [
-        Artist::factory()->create()->id => [
-            'characters' => 'Wróżka Bzów',
-            'credit_nr' => 3,
-        ],
-        Artist::factory()->create()->id => [
-            'characters' => 'Ośla Skórka',
-            'credit_nr' => 1,
-        ],
-        Artist::factory()->create()->id => [
-            'characters' => null,
-            'credit_nr' => 2,
-        ],
-    ]);
-
-    expect($tale->actors)->toHaveCount(3);
-
-    $artists = array_keys($artists);
-
-    expect($tale->actors->get(2)->id)->toBe($artists[0]);
-    expect($tale->actors->get(0)->id)->toBe($artists[1]);
-    expect($tale->actors->get(1)->id)->toBe($artists[2]);
 });

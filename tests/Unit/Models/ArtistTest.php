@@ -215,6 +215,24 @@ it('can get photo from discogs', function () {
         ->and($artist->discogsPhoto('150'))->toBe('test150');
 });
 
+it('can get its appearances as actor', function () {
+    $artist = Artist::factory()->create();
+
+    expect($artist->asActor())->toBeInstanceOf(BelongsToMany::class);
+
+    $artist->asActor()->attach($tales = [
+        Tale::factory()->create(['year' => 1978])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
+        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
+    ]);
+
+    expect($artist->asActor)->toHaveCount(3);
+
+    expect($artist->asActor->get(2)->id)->toBe($tales[0]);
+    expect($artist->asActor->get(1)->id)->toBe($tales[1]);
+    expect($artist->asActor->get(0)->id)->toBe($tales[2]);
+});
+
 it('can get credits', function () {
     $artist = Artist::factory()->create();
 
@@ -296,24 +314,6 @@ it('can get credits of given type', function () {
     expect($asLyricist->get(0)->id)->toBe($ids[3]);
     expect($asLyricist->get(1)->id)->toBe($ids[1]);
     expect($asLyricist->get(2)->id)->toBe($ids[0]);
-});
-
-it('can get its appearances as actor', function () {
-    $artist = Artist::factory()->create();
-
-    expect($artist->asActor())->toBeInstanceOf(BelongsToMany::class);
-
-    $artist->asActor()->attach($tales = [
-        Tale::factory()->create(['year' => 1978])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
-    ]);
-
-    expect($artist->asActor)->toHaveCount(3);
-
-    expect($artist->asActor->get(2)->id)->toBe($tales[0]);
-    expect($artist->asActor->get(1)->id)->toBe($tales[1]);
-    expect($artist->asActor->get(0)->id)->toBe($tales[2]);
 });
 
 test('countAppearances scope works', function () {

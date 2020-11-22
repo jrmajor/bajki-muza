@@ -160,6 +160,13 @@ class Artist extends Model
         throw new InvalidArgumentException();
     }
 
+    public function asActor(): BelongsToMany
+    {
+        return $this->belongsToMany(Tale::class, 'tales_actors')
+            ->withPivot('characters')->withTimestamps()
+            ->orderBy('year')->orderBy('title');
+    }
+
     public function credits(): BelongsToMany
     {
         return $this->belongsToMany(Tale::class, 'credits')
@@ -180,13 +187,6 @@ class Artist extends Model
         return $this->credits
             ->groupBy(fn ($tale) => $tale->credit->type->label)
             ->sortBy(fn ($tale, $label) => CreditType::labelsOrder()[$label]);
-    }
-
-    public function asActor(): BelongsToMany
-    {
-        return $this->belongsToMany('App\Models\Tale', 'tales_actors')
-            ->withPivot('characters')->withTimestamps()
-            ->orderBy('year')->orderBy('title');
     }
 
     public function scopeCountAppearances(Builder $query): void
