@@ -63,13 +63,7 @@ class Artist extends Model
     {
         $artist = self::findBySlug(Str::slug($name));
 
-        if ($artist === null) {
-            $artist = new self();
-            $artist->name = $name;
-            $artist->save();
-        }
-
-        return $artist;
+        return $artist ?? tap((new self(compact('name'))))->save();
     }
 
     public function getDiscogsUrlAttribute(): ?string
