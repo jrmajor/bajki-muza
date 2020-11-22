@@ -43,11 +43,11 @@ trait ProcessesImages
 
         $image = Image::load($baseImagePath);
 
-        if ($fit == 'square') {
+        if ($fit === 'square') {
             $originalImageWidth = $originalImageHeight = 32;
 
             $image->fit(Manipulations::FIT_CROP, 32, 32);
-        } elseif ($fit == 'height') {
+        } elseif ($fit === 'height') {
             $originalImageWidth = (int) round($image->getWidth() / $image->getHeight() * 32);
 
             $originalImageHeight = 32;
@@ -85,9 +85,9 @@ trait ProcessesImages
         $image = Image::load($baseImagePath)
                     ->optimize();
 
-        if ($fit == 'square') {
+        if ($fit === 'square') {
             $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize);
-        } elseif ($fit == 'height') {
+        } elseif ($fit === 'height') {
             $image->height($targetSize);
         } else {
             throw new InvalidArgumentException();

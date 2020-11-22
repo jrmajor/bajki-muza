@@ -117,7 +117,7 @@
   </div>
 
   @auth
-    @if ($artist->appearances() == 0)
+    @if ($artist->appearances() === 0)
       <form method="post" action="{{ route('artists.destroy', $artist) }}">
         @csrf
         @method('delete')

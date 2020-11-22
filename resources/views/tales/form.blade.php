@@ -18,11 +18,11 @@
 
 <form
   method="post"
-  action="{{ $action == 'create' ? route('tales.store') : route('tales.update', $tale) }}"
+  action="{{ $action === 'create' ? route('tales.store') : route('tales.update', $tale) }}"
   enctype="multipart/form-data"
   class="flex flex-col space-y-5"
   x-data="taleFormData(@encodedjson($data))" x-init="init($dispatch)">
-  @method($action == 'create' ? 'post' : 'put')
+  @method($action === 'create' ? 'post' : 'put')
   @csrf
 
   @if ($errors->any())

@@ -63,7 +63,7 @@ class Artist extends Model
     {
         $artist = self::findBySlug(Str::slug($name));
 
-        if ($artist == null) {
+        if ($artist === null) {
             $artist = new self();
             $artist->name = $name;
             $artist->save();
