@@ -165,7 +165,7 @@ class Artist extends Model
     {
         return $this->belongsToMany(Tale::class, 'credits')
             ->using(Credit::class)->as('credit')
-            ->withPivot('type', 'nr')->withTimestamps()
+            ->withPivot('type', 'as', 'nr')->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }
 

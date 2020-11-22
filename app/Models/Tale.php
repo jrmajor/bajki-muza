@@ -76,7 +76,7 @@ class Tale extends Model
     {
         return $this->belongsToMany(Artist::class, 'credits')
             ->using(Credit::class)->as('credit')
-            ->withPivot('type', 'nr')->withTimestamps()
+            ->withPivot('type', 'as', 'nr')->withTimestamps()
             ->orderBy('credits.nr');
     }
 
@@ -92,7 +92,9 @@ class Tale extends Model
         return $this->credits
             ->filter(fn ($artist) => $artist->credit->isCustom())
             ->sortBy(fn ($artist) => $artist->credit->type->order())
-            ->groupBy(fn ($artist) => $artist->credit->type->label);
+            ->groupBy(function ($artist) {
+                return $artist->credit->as ?? $artist->credit->type->label;
+            });
     }
 
     public function orderedCredits(): Collection

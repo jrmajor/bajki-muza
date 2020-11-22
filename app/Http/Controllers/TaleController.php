@@ -77,6 +77,7 @@ class TaleController extends Controller
             ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
             ->map(fn ($credit) => [
                 'type' => $credit['type'],
+                'as' => $credit['as'],
                 'nr' => $credit['nr'],
             ]);
 

@@ -25,6 +25,7 @@ class StoreTale extends FormRequest
 
             'credits.*.artist' => ['string', 'max:100', 'required'],
             'credits.*.type' => [new EnumRule(CreditType::class), 'required'],
+            'credits.*.as' => ['string', 'max:32', 'nullable'],
             'credits.*.nr' => ['integer', 'required'],
 
             'actors.*.artist' => ['string', 'max:100'],

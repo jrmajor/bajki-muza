@@ -6,6 +6,7 @@
     'credits' => $tale->orderedCredits()->map(fn ($artist) => [
         'artist' => $artist->name,
         'type' => $artist->credit->type,
+        'as' => $artist->credit->as,
         'nr' => $artist->credit->nr,
     ]),
     'actors' => $tale->actors->map(fn ($actor) => [
@@ -114,8 +115,9 @@
     <div class="relative -space-y-1 mb-0.5">
       <span class="w-full font-medium text-gray-700 dark:text-gray-400">Solidna robota</span>
       <div class="w-full flex items-center space-x-2">
-        <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
-        <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Robota</span></div>
+        <div class="w-1/2 flex-shrink-1 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
+        <div class="w-1/4 flex-shrink-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Robota</span></div>
+        <div class="w-1/4 flex-shrink-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Jako</span></div>
         <div class="w-8 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
         <div class="w-5"></div>
       </div>
@@ -129,16 +131,19 @@
     <div class="w-full flex flex-wrap space-y-1.5">
       <template x-for="(credit, index) in credits" :key="credit.key">
         <div class="w-full flex items-center space-x-2">
-          <div class="w-1/2" :data-picker-name="'credits[' + index + '][artist]'" :data-picker-value="credit.artist">
+          <div class="w-1/2 flex-shrink-1" :data-picker-name="'credits[' + index + '][artist]'" :data-picker-value="credit.artist">
             <x-artist-picker/>
           </div>
-          <div class="w-1/2">
+          <div class="w-1/4 flex-shrink-0">
             <select :name="'credits[' + index + '][type]'" x-model="credit.type"
               class="w-full form-select">
               @foreach (CreditType::toArray() as $value => $label)
                 <option value="{{ $value }}">{{ $label }}</option>
               @endforeach
             </select>
+          </div>
+          <div class="w-1/4 flex-shrink-0">
+            <input type="text" :name="'credits[' + index + '][as]'" x-model="credit.as" class="w-full form-input">
           </div>
           <div class="w-8 flex-0 self-stretch flex items-center justify-center">
             <input type="text" :name="'credits[' + index + '][nr]'" x-model="credit.nr"
