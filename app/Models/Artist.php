@@ -9,10 +9,11 @@ use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -167,11 +168,18 @@ class Artist extends Model
             ->orderBy('year')->orderBy('title');
     }
 
-    public function creditsFor(CreditType $type): Collection
+    public function creditsFor(CreditType $type): EloquentCollection
     {
         return $this->credits
-                    ->filter(fn ($credit) => $credit->credit->ofType($type))
+                    ->filter(fn ($tale) => $tale->credit->ofType($type))
                     ->values();
+    }
+
+    public function orderedCredits(): Collection
+    {
+        return $this->credits
+            ->groupBy(fn ($tale) => $tale->credit->type->label)
+            ->sortBy(fn ($tale, $label) => CreditType::labelsOrder()[$label]);
     }
 
     public function asActor(): BelongsToMany
