@@ -178,8 +178,8 @@ class Artist extends Model
     public function creditsFor(CreditType $type): EloquentCollection
     {
         return $this->credits
-                    ->filter(fn ($tale) => $tale->credit->ofType($type))
-                    ->values();
+            ->filter(fn ($tale) => $tale->credit->ofType($type))
+            ->values();
     }
 
     public function orderedCredits(): Collection
