@@ -185,8 +185,8 @@ class Artist extends Model
     public function orderedCredits(): Collection
     {
         return $this->credits
-            ->groupBy(fn ($tale) => $tale->credit->type->label)
-            ->sortBy(fn ($tale, $label) => CreditType::labelsOrder()[$label]);
+            ->sortBy(fn ($tale) => $tale->credit->type->order())
+            ->groupBy(fn ($tale) => $tale->credit->type->label);
     }
 
     public function scopeCountAppearances(Builder $query): void
