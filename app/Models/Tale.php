@@ -59,7 +59,7 @@ class Tale extends Model
 
     public function removeCover(): bool
     {
-        $this->forceFill([
+        return $this->forceFill([
             'cover' => null,
             'cover_placeholder' => null,
         ])->save();
