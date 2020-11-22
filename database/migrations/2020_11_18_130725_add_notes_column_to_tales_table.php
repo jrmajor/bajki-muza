@@ -16,7 +16,7 @@ class AddNotesColumnToTalesTable extends Migration
     public function down()
     {
         Schema::table('tales', function (Blueprint $table) {
-            $table->removeColumn('notes');
+            $table->dropColumn('notes');
         });
     }
 }

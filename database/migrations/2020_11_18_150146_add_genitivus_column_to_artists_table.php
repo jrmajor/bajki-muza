@@ -16,7 +16,7 @@ class AddGenitivusColumnToArtistsTable extends Migration
     public function down()
     {
         Schema::table('artists', function (Blueprint $table) {
-            $table->removeColumn('genetivus');
+            $table->dropColumn('genetivus');
         });
     }
 }
