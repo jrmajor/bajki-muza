@@ -64,16 +64,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.163.0",
+            "version": "3.163.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d3f51c57f17581d79151c9b5265e131391bd191f"
+                "reference": "ef46d2daf80f2a21809608ada7ba76dddfd103cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d3f51c57f17581d79151c9b5265e131391bd191f",
-                "reference": "d3f51c57f17581d79151c9b5265e131391bd191f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ef46d2daf80f2a21809608ada7ba76dddfd103cd",
+                "reference": "ef46d2daf80f2a21809608ada7ba76dddfd103cd",
                 "shasum": ""
             },
             "require": {
@@ -148,9 +148,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.163.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.163.2"
             },
-            "time": "2020-11-18T19:12:41+00:00"
+            "time": "2020-11-20T19:13:16+00:00"
         },
         {
             "name": "brick/math",
@@ -3406,16 +3406,16 @@
         },
         {
             "name": "spatie/enum",
-            "version": "3.5.0",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "ead64c904c122b7fa8cc9a76744453843754f7b4"
+                "reference": "9c14cee8ef02832596219ba29495e38f5f533839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/ead64c904c122b7fa8cc9a76744453843754f7b4",
-                "reference": "ead64c904c122b7fa8cc9a76744453843754f7b4",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/9c14cee8ef02832596219ba29495e38f5f533839",
+                "reference": "9c14cee8ef02832596219ba29495e38f5f533839",
                 "shasum": ""
             },
             "require": {
@@ -3478,7 +3478,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-22T10:08:21+00:00"
+            "time": "2020-11-19T12:37:21+00:00"
         },
         {
             "name": "spatie/image",
@@ -3549,16 +3549,16 @@
         },
         {
             "name": "spatie/image-optimizer",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image-optimizer.git",
-                "reference": "f87f8328ca5bfabb3811241f5d35f17e146f7f83"
+                "reference": "b622d0cf29f57d7735d49f2b62471e6b788cb291"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/f87f8328ca5bfabb3811241f5d35f17e146f7f83",
-                "reference": "f87f8328ca5bfabb3811241f5d35f17e146f7f83",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/b622d0cf29f57d7735d49f2b62471e6b788cb291",
+                "reference": "b622d0cf29f57d7735d49f2b62471e6b788cb291",
                 "shasum": ""
             },
             "require": {
@@ -3597,9 +3597,9 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/image-optimizer/issues",
-                "source": "https://github.com/spatie/image-optimizer/tree/1.3.0"
+                "source": "https://github.com/spatie/image-optimizer/tree/1.3.1"
             },
-            "time": "2020-11-10T13:45:49+00:00"
+            "time": "2020-11-20T11:36:11+00:00"
         },
         {
             "name": "spatie/laravel-enum",
