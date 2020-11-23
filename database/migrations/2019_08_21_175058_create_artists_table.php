@@ -25,8 +25,8 @@ class CreateArtistsTable extends Migration
             $table->unsignedSmallInteger('photo_width')->nullable();
             $table->unsignedSmallInteger('photo_height')->nullable();
             $table->json('photo_crop')->nullable();
-            $table->string('photo_face_placeholder', 4096)->nullable();
-            $table->string('photo_placeholder', 8192)->nullable();
+            $table->binary('photo_face_placeholder')->nullable();
+            $table->binary('photo_placeholder')->nullable();
 
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ class CreateTalesTable extends Migration
             $table->string('nr', 4)->nullable();
 
             $table->string('cover', 100)->nullable();
-            $table->string('cover_placeholder', 8192)->nullable();
+            $table->binary('cover_placeholder')->nullable();
 
             $table->text('notes')->nullable();
             $table->timestamps();
