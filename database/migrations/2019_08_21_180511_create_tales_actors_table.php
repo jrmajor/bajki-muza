@@ -17,7 +17,7 @@ class CreateTalesActorsTable extends Migration
             $table->smallForeignId('tale_id')
                 ->constrained()->restrictOnDelete();
 
-            $table->char('characters', 100)->nullable();
+            $table->string('characters', 100)->nullable();
             $table->integer('credit_nr')->nullable();
 
             $table->timestamps();

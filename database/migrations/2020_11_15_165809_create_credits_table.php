@@ -17,8 +17,8 @@ class CreateCreditsTable extends Migration
             $table->smallForeignId('artist_id')
                 ->constrained()->restrictOnDelete();
 
-            $table->char('type', 32);
-            $table->char('as', 32)->nullable();
+            $table->string('type', 32);
+            $table->string('as', 32)->nullable();
             $table->tinyInteger('nr')->unsigned();
 
             $table->timestamps();

@@ -11,14 +11,14 @@ class CreateArtistsTable extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->smallId();
 
-            $table->char('slug', 100);
-            $table->char('name', 100);
-            $table->char('genetivus', 100)->nullable();
+            $table->string('slug', 100);
+            $table->string('name', 100);
+            $table->string('genetivus', 100)->nullable();
 
             $table->integer('discogs')->nullable();
-            $table->char('imdb', 10)->nullable();
+            $table->string('imdb', 10)->nullable();
             $table->integer('filmpolski')->nullable();
-            $table->char('wikipedia', 100)->nullable();
+            $table->string('wikipedia', 100)->nullable();
 
             $table->string('photo', 100)->nullable();
             $table->string('photo_source', 128)->nullable();
