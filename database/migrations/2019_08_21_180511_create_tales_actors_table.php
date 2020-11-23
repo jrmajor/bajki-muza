@@ -10,12 +10,16 @@ class CreateTalesActorsTable extends Migration
     {
         Schema::create('tales_actors', function (Blueprint $table) {
             $table->smallId();
+
             $table->smallForeignId('artist_id')
                 ->constrained()->restrictOnDelete();
+
             $table->smallForeignId('tale_id')
                 ->constrained()->restrictOnDelete();
+
             $table->char('characters', 100)->nullable();
             $table->integer('credit_nr')->nullable();
+
             $table->timestamps();
         });
     }

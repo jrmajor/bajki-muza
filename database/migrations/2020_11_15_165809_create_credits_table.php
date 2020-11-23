@@ -10,12 +10,17 @@ class CreateCreditsTable extends Migration
     {
         Schema::create('credits', function (Blueprint $table) {
             $table->smallId('id');
+
             $table->smallForeignId('tale_id')
                 ->constrained()->restrictOnDelete();
+
             $table->smallForeignId('artist_id')
                 ->constrained()->restrictOnDelete();
+
             $table->char('type', 32);
+            $table->char('as', 32)->nullable();
             $table->tinyInteger('nr')->unsigned();
+
             $table->timestamps();
         });
     }

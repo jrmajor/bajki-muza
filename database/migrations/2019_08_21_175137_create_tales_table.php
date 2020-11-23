@@ -10,11 +10,16 @@ class CreateTalesTable extends Migration
     {
         Schema::create('tales', function (Blueprint $table) {
             $table->smallId();
+
             $table->char('slug', 100);
             $table->char('title', 100);
             $table->year('year')->nullable();
             $table->char('nr', 4)->nullable();
+
             $table->char('cover', 100)->nullable();
+            $table->string('cover_placeholder', 8192)->nullable();
+
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
