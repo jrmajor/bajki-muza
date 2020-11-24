@@ -6,7 +6,7 @@ use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-it('casts discogs and filmpolski ids to integers', function () {
+it('casts year to integer', function () {
     $tale = Tale::factory()->create([
         'year' => '1973',
     ]);
