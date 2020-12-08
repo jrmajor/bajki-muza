@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @hasSection('title')
@@ -15,10 +14,14 @@
     @production
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @endproduction
-    <link rel="stylesheet" href="{{ mix('css/style.css') }}">
+    @unless (app()->runningUnitTests())
+      <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @endif
 
     @routes
-    <script src="{{ mix('js/app.js') }}" defer></script>
+    @unless (app()->runningUnitTests())
+      <script src="{{ mix('js/app.js') }}" defer></script>
+    @endif
     @stack('scripts')
   </head>
   <body class="bg-gray-200 text-gray-900 dark:bg-gray-950 dark:text-gray-200 font-sans">
