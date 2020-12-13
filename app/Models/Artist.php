@@ -83,7 +83,7 @@ class Artist extends Model
 
     public function photo($size = null): ?string
     {
-        if (optional($this->attributes)['photo'] === null) {
+        if ($this->getAttributeValue('photo') === null) {
             return null;
         }
 

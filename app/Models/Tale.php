@@ -39,7 +39,7 @@ class Tale extends Model
 
     public function cover($size = null): ?string
     {
-        if (optional($this->attributes)['cover'] === null) {
+        if ($this->getAttributeValue('cover') === null) {
             return null;
         }
 
