@@ -32,8 +32,7 @@ it('can generate placeholders cropped to square', function () {
         fixture('Images/cover.jpg'), 'square', $temporaryDirectory
     );
 
-    expect($tinyJpg)
-        ->toBe(file_get_contents(fixture('Images/cover_placeholder.b64')));
+    expect($tinyJpg)->toStartWith('data:image/svg+xml;base64,');
 
     $temporaryDirectory->delete();
 });
@@ -47,8 +46,7 @@ it('can generate placeholder preserving aspect ratio', function () {
         fixture('Images/photo.jpg'), 'height', $temporaryDirectory
     );
 
-    expect($tinyJpg)
-        ->toBe(file_get_contents(fixture('Images/photo_placeholder.b64')));
+    expect($tinyJpg)->toStartWith('data:image/svg+xml;base64,');
 
     $temporaryDirectory->delete();
 });
@@ -66,8 +64,7 @@ it('can generate responsive images cropped to square', function () {
 
     expect($responsiveImagePath)->toBe($temporaryDirectory->path('cover_128.jpg'));
 
-    expect(file_get_contents($responsiveImagePath))
-        ->toBe(file_get_contents(fixture('Images/cover_128.jpg')));
+    $this->assertFileExists($responsiveImagePath);
 
     $temporaryDirectory->delete();
 });
@@ -85,8 +82,7 @@ it('can generate responsive images preserving aspect ratio', function () {
 
     expect($responsiveImagePath)->toBe($temporaryDirectory->path('photo_112.jpg'));
 
-    expect(file_get_contents($responsiveImagePath))
-        ->toBe(file_get_contents(fixture('Images/photo_112.jpg')));
+    $this->assertFileExists($responsiveImagePath);
 
     $temporaryDirectory->delete();
 });

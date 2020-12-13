@@ -14,7 +14,7 @@ it('works', function () {
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/cover.jpg'), 'r');
 
-    Storage::cloud()->put("covers/original/$filename", $file, 'public');
+    Storage::cloud()->put("covers/original/{$filename}", $file, 'public');
 
     $tale = Tale::factory()
         ->create(['cover' => null]);
@@ -26,8 +26,7 @@ it('works', function () {
     expect($tale->cover)->toBe($filename);
 
     expect($tale->cover_placeholder)
-        ->toBe(file_get_contents(fixture('Images/cover_placeholder.b64')));
+        ->toStartWith('data:image/svg+xml;base64,');
 
-    expect(Storage::cloud()->get("covers/128/$filename"))
-        ->toBe(file_get_contents(fixture('Images/cover_128.jpg')));
+    Storage::cloud()->assertExists("covers/128/{$filename}");
 });
