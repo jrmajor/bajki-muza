@@ -11,14 +11,6 @@ mix.postCss('resources/css/style.css', 'public/css')
 
 mix.postCss('node_modules/croppr/src/css/croppr.css', 'public/css')
 
-mix.webpackConfig({
-  resolve: {
-    alias: {
-      ziggy: path.resolve('vendor/tightenco/ziggy/src/js/route.js')
-    }
-  }
-})
-
 if (!mix.inProduction()) {
   require('laravel-mix-bundle-analyzer')
 

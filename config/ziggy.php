@@ -2,7 +2,7 @@
 
 return [
 
-    'whitelist' => ['ajax.*'],
+    'only' => ['ajax.*'],
 
     'skip-route-function' => true,
 

@@ -1,5 +1,5 @@
 /* global fetch */
-import route from 'ziggy'
+import route from 'ziggy-js'
 import artistPhotoPicker from './artistPhotoPicker'
 
 window.artistFormData = function (data) {
