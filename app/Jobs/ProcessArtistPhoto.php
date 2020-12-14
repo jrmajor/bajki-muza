@@ -17,12 +17,6 @@ class ProcessArtistPhoto implements ShouldQueue
 {
     use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public Artist $artist;
-
-    public string $filename;
-
-    public ArtistPhotoCrop $crop;
-
     public static $faceSizes = [
         56, // 3.5rem
         84, // 3.5rem * 1.5
@@ -35,14 +29,11 @@ class ProcessArtistPhoto implements ShouldQueue
         320, // 10rem * 2
     ];
 
-    public function __construct(Artist $artist, string $filename, ArtistPhotoCrop $crop)
-    {
-        $this->artist = $artist;
-
-        $this->filename = $filename;
-
-        $this->crop = $crop;
-    }
+    public function __construct(
+        public Artist $artist,
+        public string $filename,
+        public ArtistPhotoCrop $crop,
+    ) { }
 
     public function handle(): void
     {

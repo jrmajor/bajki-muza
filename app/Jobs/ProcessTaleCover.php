@@ -15,10 +15,6 @@ class ProcessTaleCover implements ShouldQueue
 {
     use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected Tale $tale;
-
-    protected string $filename;
-
     public static $sizes = [
         60, // 3.75rem
         90, // 3.75rem * 1.5
@@ -30,12 +26,10 @@ class ProcessTaleCover implements ShouldQueue
         384, // 12rem * 2
     ];
 
-    public function __construct(Tale $tale, string $filename)
-    {
-        $this->tale = $tale;
-
-        $this->filename = $filename;
-    }
+    public function __construct(
+        protected Tale $tale,
+        protected string $filename,
+    ) { }
 
     public function handle(): void
     {

@@ -11,12 +11,9 @@ use Illuminate\Support\Facades\Http;
 
 class Discogs
 {
-    protected string $token;
-
-    public function __construct(string $token)
-    {
-        $this->token = $token;
-    }
+    public function __construct(
+        protected string $token,
+    ) { }
 
     protected function request(): PendingRequest
     {
