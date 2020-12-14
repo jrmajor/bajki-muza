@@ -6,17 +6,12 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
-    protected $dontReport = [
-        //
-    ];
+    protected $dontReport = [];
 
     protected $dontFlash = [
         'password',
         'password_confirmation',
     ];
 
-    public function register()
-    {
-        //
-    }
+    public function register() { }
 }

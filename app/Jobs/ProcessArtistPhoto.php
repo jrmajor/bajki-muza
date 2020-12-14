@@ -71,11 +71,10 @@ class ProcessArtistPhoto implements ShouldQueue
 
         foreach (self::$faceSizes as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                                            $croppedFacePath,
-                                            $size,
-                                            'square',
-                                            $temporaryDirectory,
-                                        );
+                $croppedFacePath,
+                $size, 'square',
+                $temporaryDirectory,
+            );
 
             $file = fopen($responsiveImagePath, 'r');
 
@@ -85,11 +84,10 @@ class ProcessArtistPhoto implements ShouldQueue
 
         foreach (self::$imageSizes as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                                            $croppedImagePath,
-                                            $size,
-                                            'height',
-                                            $temporaryDirectory,
-                                        );
+                $croppedImagePath,
+                $size, 'height',
+                $temporaryDirectory,
+            );
 
             $file = fopen($responsiveImagePath, 'r');
 

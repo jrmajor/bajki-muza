@@ -57,8 +57,9 @@ trait ProcessesImages
             throw new InvalidArgumentException();
         }
 
-        $image->blur(5)
-                ->save($temporaryDestination);
+        $image
+            ->blur(5)
+            ->save($temporaryDestination);
 
         $tinyImageDataBase64 = base64_encode(file_get_contents($temporaryDestination));
 
