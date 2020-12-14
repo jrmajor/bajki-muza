@@ -49,12 +49,12 @@ class Tale extends Model
 
         if ($size === 'original') {
             return Storage::cloud()->temporaryUrl(
-                "covers/original/$this->cover",
+                "covers/original/{$this->cover}",
                 now()->addMinutes(15)
             );
         }
 
-        return Storage::cloud()->url("covers/$size/$this->cover");
+        return Storage::cloud()->url("covers/{$size}/{$this->cover}");
     }
 
     public function removeCover(): bool

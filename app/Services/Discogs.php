@@ -40,16 +40,16 @@ class Discogs
 
     public function url(int $id): string
     {
-        return "https://www.discogs.com/artist/$id";
+        return "https://www.discogs.com/artist/{$id}";
     }
 
     public function photos(int $id): PhotoCollection
     {
         $response = Cache::remember(
-            "discogs-$id-photos",
+            "discogs-{$id}-photos",
             CarbonInterval::week(),
             fn () => $this->request()
-                ->get("https://api.discogs.com/artists/$id")->json()
+                ->get("https://api.discogs.com/artists/{$id}")->json()
         );
 
         return PhotoCollection::fromArray($response['images'] ?? []);
@@ -57,6 +57,6 @@ class Discogs
 
     public function forget(int $id): bool
     {
-        return Cache::forget("discogs-$id-photos");
+        return Cache::forget("discogs-{$id}-photos");
     }
 }
