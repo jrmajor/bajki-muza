@@ -83,16 +83,13 @@ trait ProcessesImages
 
         $responsiveImagePath = $temporaryDirectory->path($responsiveImageName);
 
-        $image = Image::load($baseImagePath)
-                    ->optimize();
+        $image = Image::load($baseImagePath)->optimize();
 
-        if ($fit === 'square') {
-            $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize);
-        } elseif ($fit === 'height') {
-            $image->height($targetSize);
-        } else {
-            throw new InvalidArgumentException();
-        }
+        match ($fit) {
+            'square' => $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize),
+            'height' =>  $image->height($targetSize),
+            default => throw new InvalidArgumentException(),
+        };
 
         $image->save($responsiveImagePath);
 
