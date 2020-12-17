@@ -44,7 +44,7 @@ class FilmPolski
             return ArtistCollection::fromArray(
                 $people->unique('id')->all(),
             );
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             return new ArtistCollection();
         }
     }
@@ -116,7 +116,7 @@ class FilmPolski
             }
 
             return $crawler->attr('src');
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             return null;
         }
     }
@@ -129,7 +129,7 @@ class FilmPolski
                 ->children()->last();
 
             return (int) Str::after($crawler->attr('href'), '/');
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             return null;
         }
     }
@@ -144,7 +144,7 @@ class FilmPolski
                 ->children();
 
             $count = $crawler->count();
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             return [];
         }
 
@@ -173,7 +173,7 @@ class FilmPolski
                 $photo = Regex::replace('/\/([0-9]+)i\//', '/$1z/', $photo)->result();
 
                 $photos[$title]['photos'][] = $photo;
-            } catch (InvalidArgumentException $e) {
+            } catch (InvalidArgumentException) {
                 continue;
             }
         }
