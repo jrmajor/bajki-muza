@@ -25,7 +25,7 @@ class FilmPolski
                 ->filter('.wynikiszukania');
 
             if ($crawler->count() === 0) {
-                new ArtistCollection();
+                return new ArtistCollection();
             }
 
             $crawler = $crawler->first()->children();
