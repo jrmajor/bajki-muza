@@ -10,9 +10,11 @@ use Illuminate\Support\Facades\Http;
 
 class Wikipedia
 {
+    protected string $endpoint = 'https://pl.wikipedia.org/w/api.php';
+
     public function search(string $search): ArtistCollection
     {
-        $response = Http::get('https://pl.wikipedia.org/w/api.php', [
+        $response = Http::get($this->endpoint, [
             'action' => 'opensearch',
             'search' => $search,
             'limit' => 10,
@@ -41,7 +43,7 @@ class Wikipedia
             "wikipedia-$titleHash-extract",
             CarbonInterval::week(),
             function () use ($title) {
-                $response = Http::get('https://pl.wikipedia.org/w/api.php', [
+                $response = Http::get($this->endpoint, [
                     'action' => 'query',
                     'titles' => $title,
                     'prop' => 'extracts',
