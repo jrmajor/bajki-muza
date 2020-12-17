@@ -40,7 +40,7 @@ class Wikipedia
         $titleHash = md5($title);
 
         return Cache::remember(
-            "wikipedia-$titleHash-extract",
+            "wikipedia-{$titleHash}-extract",
             CarbonInterval::week(),
             function () use ($title) {
                 $response = Http::get($this->endpoint, [
@@ -61,6 +61,6 @@ class Wikipedia
     {
         $titleHash = md5($title);
 
-        return Cache::forget("wikipedia-$titleHash-extract");
+        return Cache::forget("wikipedia-{$titleHash}-extract");
     }
 }

@@ -50,13 +50,13 @@ class FilmPolski
 
     public function url(int $id): string
     {
-        return "http://www.filmpolski.pl/fp/index.php?osoba=$id";
+        return "http://www.filmpolski.pl/fp/index.php?osoba={$id}";
     }
 
     public function photos(int $id): array
     {
         return Cache::remember(
-            "filmpolski-$id-photos",
+            "filmpolski-{$id}-photos",
             CarbonInterval::week(),
             function () use ($id) {
                 $photos = [];

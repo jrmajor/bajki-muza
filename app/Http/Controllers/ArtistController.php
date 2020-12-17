@@ -44,7 +44,7 @@ class ArtistController extends Controller
 
             $filename = Str::random(40).'.jpeg';
 
-            Storage::cloud()->put('photos/original/'.$filename, $photo->body(), 'private');
+            Storage::cloud()->put("photos/original/{$filename}", $photo->body(), 'private');
 
             ProcessArtistPhoto::dispatch($artist, $filename, $photoCrop);
         } elseif (
