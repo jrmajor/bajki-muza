@@ -41,7 +41,7 @@ class FilmPolski
             }
 
             return ArtistCollection::fromArray(
-                $people->unique('id')->all()
+                $people->unique('id')->all(),
             );
         } catch (InvalidArgumentException $e) {
             return new ArtistCollection();
@@ -83,7 +83,7 @@ class FilmPolski
                 $gallerySource = $this->getGallerySource($galleryId);
 
                 return array_merge($photos, $this->getPhotosFromGallery($gallerySource));
-            }
+            },
         );
     }
 

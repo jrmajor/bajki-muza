@@ -67,7 +67,7 @@ trait ProcessesImages
 
         $svg = view(
             'components.placeholderSvg',
-            compact('originalImageWidth', 'originalImageHeight', 'tinyImageBase64')
+            compact('originalImageWidth', 'originalImageHeight', 'tinyImageBase64'),
         );
 
         return 'data:image/svg+xml;base64,'.base64_encode($svg);

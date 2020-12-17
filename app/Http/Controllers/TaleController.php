@@ -54,7 +54,7 @@ class TaleController extends Controller
     public function update(StoreTale $request, Tale $tale)
     {
         $tale->fill(
-            $data = $request->validated()
+            $data = $request->validated(),
         )->save();
 
         if ($request->boolean('remove_cover')) {

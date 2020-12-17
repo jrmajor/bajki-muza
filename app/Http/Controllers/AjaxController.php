@@ -32,7 +32,7 @@ class AjaxController extends Controller
         }
 
         return response()->json(
-            Discogs::search($request->input('search'))->toArray()
+            Discogs::search($request->input('search'))->toArray(),
         );
     }
 
@@ -43,7 +43,7 @@ class AjaxController extends Controller
         }
 
         return response()->json(
-            FilmPolski::search($request->input('search'))->toArray()
+            FilmPolski::search($request->input('search'))->toArray(),
         );
     }
 
@@ -54,7 +54,7 @@ class AjaxController extends Controller
         }
 
         return response()->json(
-            Wikipedia::search($request->input('search'))->toArray()
+            Wikipedia::search($request->input('search'))->toArray(),
         );
     }
 }

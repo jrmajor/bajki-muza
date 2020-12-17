@@ -53,7 +53,7 @@ class Wikipedia
                 ]);
 
                 return Arr::first($response['query']['pages'])['extract'] ?? null;
-            }
+            },
         );
     }
 
