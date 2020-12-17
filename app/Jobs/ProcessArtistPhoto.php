@@ -103,8 +103,7 @@ class ProcessArtistPhoto implements ShouldQueue
                 $this->crop->face->size,
                 $this->crop->face->x,
                 $this->crop->face->y,
-            )
-            ->save($croppedFacePath);
+            )->save($croppedFacePath);
 
         return $croppedFacePath;
     }
@@ -123,8 +122,7 @@ class ProcessArtistPhoto implements ShouldQueue
                 $this->crop->image->height,
                 $this->crop->image->x,
                 $this->crop->image->y,
-            )
-            ->save($croppedImagePath);
+            )->save($croppedImagePath);
 
         return $croppedImagePath;
     }

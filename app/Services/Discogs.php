@@ -29,8 +29,7 @@ class Discogs
                 'query' => $search,
                 'type' => 'artist',
                 'per_page' => 10,
-            ])
-            ->json();
+            ])->json();
 
         return ArtistCollection::fromArray($response['results'] ?? []);
     }
