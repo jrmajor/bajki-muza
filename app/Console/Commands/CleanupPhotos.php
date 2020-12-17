@@ -66,7 +66,7 @@ class CleanupPhotos extends Command
     {
         $photosToDelete = $this->getResponsiveSizes()
             ->prepend('original')
-            ->map(fn($size) => "photos/{$size}/{$filename}")
+            ->map(fn ($size) => "photos/{$size}/{$filename}")
             ->all();
 
         Storage::cloud()->delete($photosToDelete);

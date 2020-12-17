@@ -80,7 +80,7 @@ class ReprocessCovers extends Command
     protected function deleteResponsiveVariants(Tale $tale): bool
     {
         $coversToDelete = $this->getResponsiveSizes()
-            ->map(fn($size) => "covers/{$size}/{$tale->cover}")
+            ->map(fn ($size) => "covers/{$size}/{$tale->cover}")
             ->all();
 
         return Storage::cloud()->delete($coversToDelete);
