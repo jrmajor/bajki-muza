@@ -183,6 +183,6 @@ class FilmPolski
 
     public function forget(int $id): bool
     {
-        return Cache::forget("filmpolski-$id-photos");
+        return Cache::forget("filmpolski-{$id}-photos");
     }
 }

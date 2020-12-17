@@ -17,13 +17,13 @@ class ProcessArtistPhoto implements ShouldQueue
 {
     use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public static $faceSizes = [
+    public static array $faceSizes = [
         56, // 3.5rem
         84, // 3.5rem * 1.5
         112, // 3.5rem * 2
     ];
 
-    public static $imageSizes = [
+    public static array $imageSizes = [
         160, // 10rem
         240, // 10rem * 1.5
         320, // 10rem * 2

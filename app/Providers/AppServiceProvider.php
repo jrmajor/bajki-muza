@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php echo e(json_encode($expression)) ?>";
         });
 
-        Blueprint::macro('smallId', function ($column = 'id') {
+        Blueprint::macro('smallId', function (string $column = 'id') {
             return $this->smallIncrements($column);
         });
 

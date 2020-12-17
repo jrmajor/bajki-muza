@@ -37,7 +37,7 @@ class Tale extends Model
         return 'slug';
     }
 
-    public function cover($size = null): ?string
+    public function cover(string|int|null $size = null): ?string
     {
         if ($this->getAttributeValue('cover') === null) {
             return null;

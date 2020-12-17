@@ -15,7 +15,7 @@ class ProcessTaleCover implements ShouldQueue
 {
     use ProcessesImages, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public static $sizes = [
+    public static array $sizes = [
         60, // 3.75rem
         90, // 3.75rem * 1.5
         120, // 3.75rem * 2

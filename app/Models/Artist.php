@@ -81,7 +81,7 @@ class Artist extends Model
         return $this->wikipedia ? Wikipedia::url($this->wikipedia) : null;
     }
 
-    public function photo($size = null): ?string
+    public function photo(string|int|null $size = null): ?string
     {
         if ($this->getAttributeValue('photo') === null) {
             return null;
