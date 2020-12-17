@@ -64,12 +64,12 @@ class CleanupPhotos extends Command
 
     protected function removeResponsivePhotos($filename): int
     {
-        Storage::cloud()->delete(
-            $this->getResponsiveSizes()
+        $photosToDelete = $this->getResponsiveSizes()
             ->prepend('original')
-            ->map(fn ($size) => "photos/{$size}/{$filename}")
-            ->all()
-        );
+            ->map(fn($size) => "photos/{$size}/{$filename}")
+            ->all();
+
+        Storage::cloud()->delete($photosToDelete);
 
         return 0;
     }

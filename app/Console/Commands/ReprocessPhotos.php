@@ -79,11 +79,11 @@ class ReprocessPhotos extends Command
 
     protected function deleteResponsiveVariants(Artist $artist): bool
     {
-        return Storage::cloud()->delete(
-            $this->getResponsiveSizes()
-            ->map(fn ($size) => "photos/{$size}/{$artist->photo}")
-            ->all()
-        );
+        $photosToDelete = $this->getResponsiveSizes()
+            ->map(fn($size) => "photos/{$size}/{$artist->photo}")
+            ->all();
+
+        return Storage::cloud()->delete($photosToDelete);
     }
 
     protected function getResponsiveSizes(): Collection

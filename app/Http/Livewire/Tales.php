@@ -30,7 +30,8 @@ class Tales extends Component
                 ->orderBy('year')->orderBy('title')
                 ->paginate(20);
 
-        return view('tales.index', ['tales' => $tales])
+        return view('tales.index')
+            ->with('tales', $tales)
             ->extends('layouts.app');
     }
 

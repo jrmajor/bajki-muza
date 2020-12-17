@@ -24,9 +24,9 @@ class ArtistController extends Controller
 
     public function update(StoreArtist $request, Artist $artist)
     {
-        $artist
-            ->fill($data = $request->validated())
-            ->save();
+        $artist->fill(
+            $data = $request->validated(),
+        )->save();
 
         $photoCrop = $data['photo_crop'] ?? null !== null
             ? ArtistPhotoCrop::fromStrings($data['photo_crop'])

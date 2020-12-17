@@ -64,12 +64,12 @@ class CleanupCovers extends Command
 
     protected function removeResponsiveCovers($filename): int
     {
-        Storage::cloud()->delete(
-            $this->getResponsiveSizes()
+        $coversToDelete = $this->getResponsiveSizes()
             ->prepend('original')
             ->map(fn ($size) => "covers/{$size}/{$filename}")
-            ->all()
-        );
+            ->all();
+
+        Storage::cloud()->delete($coversToDelete);
 
         return 0;
     }

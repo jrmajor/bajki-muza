@@ -32,12 +32,15 @@ class AppServiceProvider extends ServiceProvider
             return $column;
         });
 
-        Blueprint::macro('smallForeignIdFor', function ($model, ?string $column = null): ForeignIdColumnDefinition {
-            if (is_string($model)) {
-                $model = new $model;
-            }
+        Blueprint::macro(
+            'smallForeignIdFor',
+            function ($model, ?string $column = null): ForeignIdColumnDefinition {
+                if (is_string($model)) {
+                    $model = new $model;
+                }
 
-            return $this->smallForeignId($column ?: $model->getForeignKey());
-        });
+                return $this->smallForeignId($column ?: $model->getForeignKey());
+            },
+        );
     }
 }

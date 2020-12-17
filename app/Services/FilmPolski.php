@@ -15,9 +15,10 @@ class FilmPolski
 {
     public function search(string $search): ArtistCollection
     {
-        $source = Http::get('http://www.filmpolski.pl/fp/index.php', [
-            'szukaj' => $search,
-        ])->body();
+        $source = Http::get(
+            'http://www.filmpolski.pl/fp/index.php',
+            ['szukaj' => $search],
+        )->body();
 
         try {
             $crawler = (new Crawler($source))
@@ -89,16 +90,18 @@ class FilmPolski
 
     protected function getPersonSource(int $id): string
     {
-        return Http::get('http://www.filmpolski.pl/fp/index.php', [
-            'osoba' => $id,
-        ])->body();
+        return Http::get(
+            'http://www.filmpolski.pl/fp/index.php',
+            ['osoba' => $id],
+        )->body();
     }
 
     protected function getGallerySource(int $galleryId): string
     {
-        return Http::get('http://www.filmpolski.pl/fp/index.php', [
-            'galeria_osoby' => $galleryId,
-        ])->body();
+        return Http::get(
+            'http://www.filmpolski.pl/fp/index.php',
+            ['galeria_osoby' => $galleryId],
+        )->body();
     }
 
     protected function getMainPhoto(string $source): ?string
