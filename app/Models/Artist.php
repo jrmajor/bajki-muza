@@ -87,18 +87,14 @@ class Artist extends Model
             return null;
         }
 
-        if ($size === null) {
-            return $this->photo;
-        }
-
-        if ($size === 'original') {
-            return Storage::cloud()->temporaryUrl(
+        return match ($size) {
+            null => $this->photo,
+            'original' => Storage::cloud()->temporaryUrl(
                 "photos/original/{$this->photo}",
                 now()->addMinutes(15)
-            );
-        }
-
-        return Storage::cloud()->url("photos/{$size}/{$this->photo}");
+            ),
+            default => Storage::cloud()->url("photos/{$size}/{$this->photo}"),
+        };
     }
 
     public function removePhoto(): bool

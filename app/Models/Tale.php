@@ -43,18 +43,14 @@ class Tale extends Model
             return null;
         }
 
-        if ($size === null) {
-            return $this->cover;
-        }
-
-        if ($size === 'original') {
-            return Storage::cloud()->temporaryUrl(
+        return match ($size) {
+            null => $this->cover,
+            'original' => Storage::cloud()->temporaryUrl(
                 "covers/original/{$this->cover}",
                 now()->addMinutes(15)
-            );
-        }
-
-        return Storage::cloud()->url("covers/{$size}/{$this->cover}");
+            ),
+            default => Storage::cloud()->url("covers/{$size}/{$this->cover}"),
+        };
     }
 
     public function removeCover(): bool
