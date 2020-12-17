@@ -44,7 +44,7 @@ class CleanupCovers extends Command
 
         $this->info("Removing (unused): {$filename}");
 
-        return $this->removeResponsiveCovers($filename);
+        return $this->deleteResponsiveVariants($filename);
     }
 
     protected function removeCoverIfNoOriginal(string $filename): int
@@ -59,10 +59,10 @@ class CleanupCovers extends Command
 
         $this->info("Removing (no original): {$filename}");
 
-        return $this->removeResponsiveCovers($filename);
+        return $this->deleteResponsiveVariants($filename);
     }
 
-    protected function removeResponsiveCovers($filename): int
+    protected function deleteResponsiveVariants($filename): int
     {
         $coversToDelete = $this->getResponsiveSizes()
             ->prepend('original')

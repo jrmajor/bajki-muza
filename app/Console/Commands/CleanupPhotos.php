@@ -44,7 +44,7 @@ class CleanupPhotos extends Command
 
         $this->info("Removing (unused): {$filename}");
 
-        return $this->removeResponsivePhotos($filename);
+        return $this->deleteResponsiveVariants($filename);
     }
 
     protected function removePhotoIfNoOriginal(string $filename): int
@@ -59,10 +59,10 @@ class CleanupPhotos extends Command
 
         $this->info("Removing (no original): {$filename}");
 
-        return $this->removeResponsivePhotos($filename);
+        return $this->deleteResponsiveVariants($filename);
     }
 
-    protected function removeResponsivePhotos($filename): int
+    protected function deleteResponsiveVariants($filename): int
     {
         $photosToDelete = $this->getResponsiveSizes()
             ->prepend('original')
