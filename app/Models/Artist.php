@@ -144,11 +144,11 @@ class Artist extends Model
     public function discogsPhoto(string $type = 'normal'): ?string
     {
         if ($type === 'normal') {
-            return optional($this->discogsPhotos()->primary())->uri;
+            return $this->discogsPhotos()->primary()?->uri;
         }
 
         if ($type === '150') {
-            return optional($this->discogsPhotos()->primary())->uri150;
+            return $this->discogsPhotos()->primary()?->uri150;
         }
 
         throw new InvalidArgumentException();

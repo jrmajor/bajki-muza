@@ -49,7 +49,7 @@ class ArtistController extends Controller
             ProcessArtistPhoto::dispatch($artist, $filename, $photoCrop);
         } elseif (
             $artist->photo
-            && optional($photoCrop)->toArray() != optional($artist->photo_crop)->toArray()
+            && $photoCrop?->toArray() != $artist->photo_crop?->toArray()
         ) {
             ProcessArtistPhoto::dispatch($artist, $artist->photo, $photoCrop);
         }
