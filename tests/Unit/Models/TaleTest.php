@@ -20,7 +20,7 @@ it('generates slug when created', function () {
 
     expect($tale->slug)->toBe('o-tadku-niejadku-babci-i-dziadku');
 
-    $tale = new Tale;
+    $tale = new Tale();
     $tale->title = 'Ali Baba i czterdziestu rozbójników';
 
     expect($tale->slug)->toBeNull();
