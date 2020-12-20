@@ -14,11 +14,9 @@ test()->asUser()
 get('ajax/discogs')
     ->assertRedirect('login');
 
-test("asUser → get 'ajax/discogs' → assertOk", function () {
-    asUser()
-        ->get('ajax/discogs')
-        ->assertOk();
-});
+test()->asUser()
+    ->get('ajax/discogs')
+    ->assertOk();
 
 get('ajax/filmpolski')
     ->assertRedirect('login');

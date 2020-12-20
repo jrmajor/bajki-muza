@@ -131,16 +131,14 @@ it('does not query wikipedia when no id is set', function () {
 });
 
 it('can get photos from discogs', function () {
-    $images = DiscogsPhotoCollection::fromArray([
-        [
-            'type' => 'primary',
-            'uri' => 'test',
-            'resource_url' => 'test',
-            'uri150' => 'test150',
-            'width' => 561,
-            'height' => 800,
-        ],
-    ]);
+    $images = DiscogsPhotoCollection::fromArray([[
+        'type' => 'primary',
+        'uri' => 'test',
+        'resource_url' => 'test',
+        'uri150' => 'test150',
+        'width' => 561,
+        'height' => 800,
+    ]]);
 
     $artist = Artist::factory()
         ->create(['discogs' => 602473]);
@@ -193,16 +191,14 @@ it('does not query filmpolski when no id is set', function () {
 });
 
 it('can get photo from discogs', function () {
-    $images = DiscogsPhotoCollection::fromArray([
-        [
-            'type' => 'primary',
-            'uri' => 'test',
-            'resource_url' => 'test',
-            'uri150' => 'test150',
-            'width' => 561,
-            'height' => 800,
-        ],
-    ]);
+    $images = DiscogsPhotoCollection::fromArray([[
+        'type' => 'primary',
+        'uri' => 'test',
+        'resource_url' => 'test',
+        'uri150' => 'test150',
+        'width' => 561,
+        'height' => 800,
+    ]]);
 
     $artist = Artist::factory()
         ->create(['discogs' => 602473]);
@@ -321,7 +317,7 @@ test('countAppearances scope works', function () {
 
     $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
-        ['type' => CreditType::music(), 'nr' => 0]
+        ['type' => CreditType::music(), 'nr' => 0],
     );
 
     $artist->asActor()->attach(
@@ -332,7 +328,7 @@ test('countAppearances scope works', function () {
 
     $artist->credits()->attach(
          $duplicate,
-         ['type' => CreditType::directing(), 'nr' => 0]
+         ['type' => CreditType::directing(), 'nr' => 0],
     );
 
     $artist->asActor()->attach($duplicate);
@@ -345,7 +341,7 @@ test('appearances method works', function () {
 
     $artist->credits()->attach(
         Tale::factory()->count(4)->create()->map->id,
-        ['type' => CreditType::music(), 'nr' => 0]
+        ['type' => CreditType::music(), 'nr' => 0],
     );
 
     $artist->asActor()->attach(
@@ -356,7 +352,7 @@ test('appearances method works', function () {
 
     $artist->credits()->attach(
         $duplicate,
-        ['type' => CreditType::directing(), 'nr' => 0]
+        ['type' => CreditType::directing(), 'nr' => 0],
     );
 
     $artist->asActor()->attach($duplicate);
@@ -395,7 +391,7 @@ test('findBySlug method works', function () {
     expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
 
     expect(
-        Artist::findBySlug('jan-matyjaszkiewicz')->is($artist)
+        Artist::findBySlug('jan-matyjaszkiewicz')->is($artist),
     )->toBeTrue();
 });
 
@@ -406,7 +402,7 @@ test('findBySlugOrNew method works', function () {
     expect(Artist::count())->toBe(1);
 
     expect(
-        Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ')->is($artist)
+        Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ')->is($artist),
     )->toBeTrue();
 
     expect(Artist::count())->toBe(1);

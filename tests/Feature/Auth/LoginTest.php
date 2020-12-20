@@ -80,7 +80,8 @@ test('user can log in with correct credentials', function () {
     post('login', [
         'username' => 'gracjan',
         'password' => 'secret',
-    ])->assertSessionHasNoErrors()
+    ])
+        ->assertSessionHasNoErrors()
         ->assertStatus(302)
         ->assertRedirect('bajki');
 

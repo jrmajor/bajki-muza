@@ -34,11 +34,10 @@ test('guests are asked to log in when attempting to view edit form for nonexiste
     ->get('bajki/2137/edit')
     ->assertRedirect('login');
 
-test('users can view edit tale form', function () {
-    asUser()
-        ->get('bajki/drzewko-aby-baby/edit')
-        ->assertOk();
-});
+test('users can view edit tale form')
+    ->asUser()
+    ->get('bajki/drzewko-aby-baby/edit')
+    ->assertOk();
 
 test('guests cannot edit tale attributes', function () {
     put('bajki/drzewko-aby-baby', $this->newAttributes)
@@ -86,12 +85,12 @@ test('users with permissions can add credits', function () {
             'type' => CreditType::music()->value,
             'as' => null,
             'nr' => $nr,
-        ])->all()
+        ])->all(),
     );
 
     $attributes = array_merge(
         $this->oldAttributes,
-        ['credits' => $credits]
+        ['credits' => $credits],
     );
 
     asUser()
@@ -138,7 +137,7 @@ test('users with permissions can add tale actors', function () {
 
     $attributes = array_merge(
         $this->oldAttributes,
-        ['actors' => $actorsCredits]
+        ['actors' => $actorsCredits],
     );
 
     asUser()

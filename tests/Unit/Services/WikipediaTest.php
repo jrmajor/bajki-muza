@@ -59,7 +59,7 @@ it('caches wikipedia extract', function () {
         ->with(
             'wikipedia-c562333d77f2c81b6f75acd8bd7c7871-extract',
             CarbonInterval::class,
-            Closure::class
+            Closure::class,
         )->andReturn($this->extract);
 
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
@@ -71,9 +71,7 @@ it('can flush cached data', function () {
     $newResponse = [
         'query' => [
             'pages' => [
-                117656 => [
-                    'extract' => 'test',
-                ],
+                117656 => ['extract' => 'test'],
             ],
         ],
     ];

@@ -5,7 +5,6 @@ use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Str;
 use function Tests\asUser;
 use function Tests\fixture;
 
@@ -53,9 +52,8 @@ test('photo can be deleted', function () {
             "artysci/{$this->artist->slug}",
             array_merge($this->attributes, [
                 'remove_photo' => true,
-            ])
-        )
-        ->assertRedirect("artysci/{$this->artist->slug}");
+            ]),
+        )->assertRedirect("artysci/{$this->artist->slug}");
 
     $this->artist->refresh();
 
@@ -79,9 +77,8 @@ test('photo can be uploaded', function () {
             array_merge($this->attributes, [
                 'photo' => UploadedFile::fake()->image('test.jpg'),
                 'photo_crop' => $this->rawCrop,
-            ])
-        )
-        ->assertRedirect("artysci/{$this->artist->slug}");
+            ]),
+        )->assertRedirect("artysci/{$this->artist->slug}");
 
     expect(Storage::cloud()->files('photos/original'))->toHaveCount(1);
 
@@ -108,9 +105,8 @@ test('photo can be downloaded from specified uri', function () {
             array_merge($this->attributes, [
                 'photo_uri' => $uri = 'https://filmpolski.pl/z1/31z/2431_3.jpg',
                 'photo_crop' => $this->rawCrop,
-            ])
-        )
-        ->assertRedirect("artysci/{$this->artist->slug}");
+            ]),
+        )->assertRedirect("artysci/{$this->artist->slug}");
 
     Http::assertSent(fn ($request) => $request->url() === $uri);
 
@@ -140,9 +136,8 @@ test('crop can be updated without changing photo', function () {
             "artysci/{$this->artist->slug}",
             array_merge($this->attributes, [
                 'photo_crop' => $this->rawCrop,
-            ])
-        )
-        ->assertRedirect("artysci/{$this->artist->slug}");
+            ]),
+        )->assertRedirect("artysci/{$this->artist->slug}");
 
     Queue::assertPushedWithChain(
         GenerateArtistPhotoPlaceholders::class,

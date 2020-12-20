@@ -2,7 +2,9 @@
 
 namespace Tests;
 
-function asUser(?Authenticatable $user = null, string $driver = null): TestCase
+use App\Models\User;
+
+function asUser(?User $user = null, string $driver = null): TestCase
 {
     return test()->asUser($user, $driver);
 }
@@ -10,4 +12,4 @@ function asUser(?Authenticatable $user = null, string $driver = null): TestCase
 function fixture(string $path = ''): string
 {
     return __DIR__.'/Fixtures'.($path ? DIRECTORY_SEPARATOR.$path : $path);
-};
+}

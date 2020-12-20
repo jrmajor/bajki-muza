@@ -77,7 +77,7 @@ it('caches discogs photos', function () {
         ->with(
             'discogs-602473-photos',
             CarbonInterval::class,
-            Closure::class
+            Closure::class,
         )->andReturn($this->photoResponse);
 
     expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
@@ -115,13 +115,11 @@ it('can flush cached data', function () {
 
     expect(Discogs::forget(602473))->toBeTrue();
 
-    expect(Discogs::photos(602473)->toArray())->toBe([
-        [
-            'type' => 'primary',
-            'uri' => 'newTest',
-            'uri150' => 'newTest150',
-            'width' => 561,
-            'height' => 800,
-        ],
-    ]);
+    expect(Discogs::photos(602473)->toArray())->toBe([[
+        'type' => 'primary',
+        'uri' => 'newTest',
+        'uri150' => 'newTest150',
+        'width' => 561,
+        'height' => 800,
+    ]]);
 });

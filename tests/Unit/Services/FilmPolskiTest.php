@@ -10,8 +10,8 @@ it('can create artist url', function () {
 
 it('can get photos from filmpolski', function ($personId, $personSource, $galleryId, $gallerySource, $expectedOutput) {
     Http::fakeSequence()
-            ->push($personSource, 200)
-            ->push($gallerySource, 200);
+        ->push($personSource, 200)
+        ->push($gallerySource, 200);
 
     expect(FilmPolski::photos($personId))->toBe($expectedOutput);
 
@@ -22,9 +22,7 @@ it('caches filmpolski photos', function () {
     $images = [
         'main' => [
             'year' => null,
-            'photos' => [
-                'test',
-            ],
+            'photos' => ['test'],
         ],
     ];
 
@@ -35,7 +33,7 @@ it('caches filmpolski photos', function () {
         ->with(
             'filmpolski-11232-photos',
             CarbonInterval::class,
-            Closure::class
+            Closure::class,
         )->andReturn($images);
 
     expect(FilmPolski::photos(11232))->toBe($images);

@@ -57,7 +57,7 @@ test('users with permissions can create tale', function () {
             'type' => CreditType::music()->value,
             'as' => null,
             'nr' => $nr,
-        ])->all()
+        ])->all(),
     );
 
     $actors = Artist::factory()->count(2)->create();
