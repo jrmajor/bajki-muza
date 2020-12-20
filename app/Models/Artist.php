@@ -133,15 +133,11 @@ class Artist extends Model
 
     public function discogsPhoto(string $type = 'normal'): ?string
     {
-        if ($type === 'normal') {
-            return $this->discogsPhotos()->primary()?->uri;
-        }
-
-        if ($type === '150') {
-            return $this->discogsPhotos()->primary()?->uri150;
-        }
-
-        throw new InvalidArgumentException();
+        return match ($type) {
+            'normal' => $this->discogsPhotos()->primary()?->uri,
+            '150' => $this->discogsPhotos()->primary()?->uri150,
+            default => throw new InvalidArgumentException(),
+        };
     }
 
     public function asActor(): BelongsToMany
