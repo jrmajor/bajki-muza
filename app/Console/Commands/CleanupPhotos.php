@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Images\Jobs\ProcessArtistPhoto;
+use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -21,7 +20,7 @@ class CleanupPhotos extends Command
             ->map(fn ($path) => $this->removePhotoIfUnused($path))
             ->contains(1) ? 1 : 0;
 
-        return $this->getResponsiveSizes()
+        return Photo::sizes()
             ->map(fn ($size) => Storage::cloud()->files("photos/{$size}"))
             ->flatten()
             ->map(fn ($path) => Str::afterLast($path, '/'))
@@ -64,7 +63,7 @@ class CleanupPhotos extends Command
 
     protected function deleteResponsiveVariants($filename): int
     {
-        $photosToDelete = $this->getResponsiveSizes()
+        $photosToDelete = Photo::sizes()
             ->prepend('original')
             ->map(fn ($size) => "photos/{$size}/{$filename}")
             ->all();
@@ -72,11 +71,5 @@ class CleanupPhotos extends Command
         Storage::cloud()->delete($photosToDelete);
 
         return 0;
-    }
-
-    protected function getResponsiveSizes(): Collection
-    {
-        return collect(ProcessArtistPhoto::$faceSizes)
-            ->concat(ProcessArtistPhoto::$imageSizes);
     }
 }

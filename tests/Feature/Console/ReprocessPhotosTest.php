@@ -1,32 +1,33 @@
 <?php
 
-use App\Images\Jobs\ProcessArtistPhoto;
-use App\Models\Artist;
+use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
+use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Values\ArtistPhotoCrop;
-use Illuminate\Support\Facades\Bus;
+use App\Models\Artist;
+use Illuminate\Support\Facades\Queue;
 use function Pest\Laravel\artisan;
 use function Tests\fixture;
 
-it('throws error when artist doesn\'t exist')
+it('throws error when artist does not exist')
     ->artisan('reprocess:photos --artist nonexistent-artist')
-    ->expectsOutput('Artist doesn\'t exist.')
+    ->expectsOutput('Artist does not exist.')
     ->assertExitCode(1);
 
-it('throws error when artist doesn\'t have a photo', function () {
+it('throws error when artist does not have a photo', function () {
     Artist::factory()->create([
         'name' => 'Test Artist',
         'photo' => null,
     ]);
 
     artisan('reprocess:photos --artist test-artist')
-        ->expectsOutput('Artist doesn\'t have a photo.')
+        ->expectsOutput('Artist does not have a photo.')
         ->assertExitCode(1);
 });
 
 it('works with single artist', function () {
     Storage::fake('testing');
 
-    $artist = Artist::factory()->create([
+    Artist::factory()->create([
         'name' => 'Test Artist',
         'photo' => 'test.jpg',
         'photo_crop' => new ArtistPhotoCrop([
@@ -49,12 +50,15 @@ it('works with single artist', function () {
 
     Storage::cloud()->put('photos/original/test.jpg', $file, 'public');
 
-    Bus::fake();
+    Queue::fake();
 
     artisan('reprocess:photos --artist test-artist')
         ->assertExitCode(0);
 
-    Bus::assertDispatched(ProcessArtistPhoto::class);
+    Queue::assertPushedWithChain(
+        GenerateArtistPhotoPlaceholders::class,
+        [GenerateArtistPhotoVariants::class],
+    );
 });
 
 it('asks for confirmation when processing all photos')

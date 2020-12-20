@@ -24,14 +24,14 @@ abstract class Image implements Castable
 
     abstract public static function sizes(): Collection;
 
-    public static function store(UploadedFile $file, Closure $callback)
+    public static function store(UploadedFile $file, Closure $callback, ...$args)
     {
         $path = static::defaultDisk()
             ->putFile(static::uploadPath(), $file, 'private');
 
         $filename = Str::afterLast($path, '/');
 
-        $image = new static($filename);
+        $image = new static($filename, ...$args);
 
         $image->process($callback);
 

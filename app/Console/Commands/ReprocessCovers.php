@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Images\Cover;
 use App\Images\Exceptions\OriginalDoesNotExist;
-use App\Images\Jobs\ProcessTaleCover;
 use App\Models\Tale;
 use Illuminate\Console\Command;
 

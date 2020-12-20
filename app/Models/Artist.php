@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Values\CreditType;
 use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Spatie\Sluggable\HasSlug;
@@ -34,6 +34,7 @@ class Artist extends Model
     protected $casts = [
         'discogs' => 'int',
         'filmpolski' => 'int',
+        'photo' => Photo::class,
         'photo_width' => 'int',
         'photo_height' => 'int',
         'photo_crop' => ArtistPhotoCrop::class,
@@ -83,17 +84,10 @@ class Artist extends Model
 
     public function photo(string|int|null $size = null): ?string
     {
-        if ($this->getAttributeValue('photo') === null) {
-            return null;
-        }
-
         return match ($size) {
-            null => $this->photo,
-            'original' => Storage::cloud()->temporaryUrl(
-                "photos/original/{$this->photo}",
-                now()->addMinutes(15),
-            ),
-            default => Storage::cloud()->url("photos/{$size}/{$this->photo}"),
+            null => $this->photo?->filename(),
+            'original' => $this->photo?->originalUrl(),
+            default => $this->photo?->url($size),
         };
     }
 

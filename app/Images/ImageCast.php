@@ -2,6 +2,7 @@
 
 namespace App\Images;
 
+use App\Models\Artist;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use ReflectionClass;
 
@@ -18,6 +19,10 @@ class ImageCast implements CastsAttributes
         }
 
         $reflection = new ReflectionClass($this->class);
+
+        if ($model instanceof Artist) {
+            return $reflection->newInstance($value, $model->photo_crop);
+        }
 
         return $reflection->newInstance($value);
     }

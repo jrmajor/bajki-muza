@@ -2,11 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Images\Jobs\ProcessArtistPhoto;
+use App\Images\Exceptions\OriginalDoesNotExist;
+use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 
 class ReprocessPhotos extends Command
 {
@@ -32,13 +31,13 @@ class ReprocessPhotos extends Command
         $artist = Artist::where('slug', $this->option('artist'))->first();
 
         if (! $artist) {
-            $this->error('Artist doesn\'t exist.');
+            $this->error('Artist does not exist.');
 
             return 1;
         }
 
         if ($artist->photo === null) {
-            $this->error('Artist doesn\'t have a photo.');
+            $this->error('Artist does not have a photo.');
 
             return 1;
         }
@@ -55,7 +54,7 @@ class ReprocessPhotos extends Command
         return $artists
             ->map(function ($artist, $index) use ($total) {
                 $index++;
-                $this->info("Processing artist {$index} of {$total}: {$artist->name} ({$artist->photo})");
+                $this->info("Processing artist {$index} of {$total}: {$artist->name} ({$artist->photo->filename()})");
 
                 return $this->reprocessArtist($artist);
             })
@@ -64,33 +63,35 @@ class ReprocessPhotos extends Command
 
     protected function reprocessArtist(Artist $artist): int
     {
-        if (Storage::cloud()->missing("photos/original/{$artist->photo}")) {
-            $this->error("The original photo doesn't exist.");
+        if (($missing = $artist->photo->missingResponsiveVariants())->isNotEmpty()) {
+            $missing = $missing->join(', ');
+
+            $this->warn("Some of responsive variants were missing ({$missing}).");
+        }
+
+        try {
+            $artist->photo->reprocess(
+                function (
+                    Photo $photo,
+                    int $width,
+                    int $height,
+                    string $placeholder,
+                    string $facePlaceholder,
+                ) use ($artist) {
+                    $artist->forceFill([
+                        'photo_width' => $width,
+                        'photo_height' => $height,
+                        'photo_face_placeholder' => $facePlaceholder,
+                        'photo_placeholder' => $placeholder,
+                    ])->save();
+                },
+            );
+
+            return 0;
+        } catch (OriginalDoesNotExist $exception) {
+            $this->error("The original photo doesn't exist ({$exception->path}).");
 
             return 1;
         }
-
-        if (! $this->deleteResponsiveVariants($artist)) {
-            $this->warn('Some of responsive images were missing. Fixing that!');
-        }
-
-        ProcessArtistPhoto::dispatchSync($artist, $artist->photo, $artist->photo_crop);
-
-        return 0;
-    }
-
-    protected function deleteResponsiveVariants(Artist $artist): bool
-    {
-        $photosToDelete = $this->getResponsiveSizes()
-            ->map(fn ($size) => "photos/{$size}/{$artist->photo}")
-            ->all();
-
-        return Storage::cloud()->delete($photosToDelete);
-    }
-
-    protected function getResponsiveSizes(): Collection
-    {
-        return collect(ProcessArtistPhoto::$faceSizes)
-            ->concat(ProcessArtistPhoto::$imageSizes);
     }
 }
