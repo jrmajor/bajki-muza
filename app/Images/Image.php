@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use Illuminate\Filesystem\FilesystemAdapter;
+use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +25,7 @@ abstract class Image implements Castable
 
     abstract public static function sizes(): Collection;
 
-    public static function store(UploadedFile $file, Closure $callback, ...$args)
+    public static function store(File|UploadedFile $file, Closure $callback, ...$args)
     {
         $path = static::defaultDisk()
             ->putFile(static::uploadPath(), $file, 'private');

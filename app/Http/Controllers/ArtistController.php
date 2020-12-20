@@ -6,6 +6,10 @@ use App\Http\Requests\StoreArtist;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
+use Illuminate\Http\File;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Http;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class ArtistController extends Controller
 {
@@ -32,15 +36,9 @@ class ArtistController extends Controller
         if ($request->boolean('remove_photo')) {
             $artist->removePhoto();
         } elseif ($request->file('photo')) {
-            $this->storePhoto($request, $photoCrop, $artist);
+            $this->storePhoto($request->file('photo'), $photoCrop, $artist);
         } elseif ($data['photo_uri'] ?? null) {
-            $photo = Http::get($data['photo_uri']);
-
-            $filename = Str::random(40).'.jpeg';
-
-            Storage::cloud()->put("photos/original/{$filename}", $photo->body(), 'private');
-
-            ProcessArtistPhoto::dispatch($artist, $filename, $photoCrop);
+            $this->storePhotoFromUrl($data['photo_uri'], $photoCrop, $artist);
         } elseif (
             $artist->photo
             && $photoCrop?->toArray() != $artist->photo_crop?->toArray()
@@ -85,13 +83,13 @@ class ArtistController extends Controller
         return redirect()->route('artists.index');
     }
 
-    protected function storePhoto(
-        StoreArtist $request,
+    private function storePhoto(
+        File|UploadedFile $photo,
         ArtistPhotoCrop $photoCrop,
         Artist $artist
     ): Photo {
         return Photo::store(
-            $request->file('photo'),
+            $photo,
             function (
                 Photo $photo,
                 int $width,
@@ -110,5 +108,33 @@ class ArtistController extends Controller
             },
             $photoCrop,
         );
+    }
+
+    private function storePhotoFromUrl(
+        string $uri,
+        ArtistPhotoCrop $photoCrop,
+        Artist $artist,
+    ): Photo {
+        $contents = Http::get($uri);
+
+        $temporaryDirectory = (new TemporaryDirectory)->create();
+
+        $targetFile = $temporaryDirectory->path('uploaded-photo.jpeg');
+
+        touch($targetFile);
+
+        $targetStream = fopen($targetFile, 'a');
+
+        fwrite($targetStream, $contents);
+
+        fclose($targetStream);
+
+        $file = new File($targetFile, checkPath: true);
+
+        $photo = $this->storePhoto($file, $photoCrop, $artist);
+
+        $temporaryDirectory->delete();
+
+        return $photo;
     }
 }

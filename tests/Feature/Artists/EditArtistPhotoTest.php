@@ -100,7 +100,7 @@ test('photo can be downloaded from specified uri', function () {
 
     Storage::fake('testing');
 
-    Bus::fake();
+    Queue::fake();
 
     asUser()
         ->put(
@@ -114,19 +114,17 @@ test('photo can be downloaded from specified uri', function () {
 
     Http::assertSent(fn ($request) => $request->url() === $uri);
 
-    expect($files = Storage::cloud()->files('photos/original'))->toHaveCount(1);
+    expect($files = Storage::cloud()->files('photos/original'))
+        ->toHaveCount(1);
 
     expect(Storage::cloud()->get($files[0]))
         ->toBe(file_get_contents(fixture('Images/photo.jpg')));
 
-    Bus::assertDispatched(ProcessArtistPhoto::class, function ($command) use ($files) {
-        expect($this->artist->is($command->artist))->toBeTrue();
-        expect($command->filename)->toBe(Str::afterLast($files[0], '/'));
-        expect($command->crop->toArray())->toBe($this->crop->toArray());
-
-        return true;
-    });
-})->skip('wip');
+    Queue::assertPushedWithChain(
+        GenerateArtistPhotoPlaceholders::class,
+        [GenerateArtistPhotoVariants::class],
+    );
+});
 
 test('crop can be updated without changing photo', function () {
     Storage::fake('testing');
