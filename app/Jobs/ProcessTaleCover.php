@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Images\Jobs\ProcessesImages;
 use App\Models\Tale;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
