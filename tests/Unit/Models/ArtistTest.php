@@ -1,5 +1,6 @@
 <?php
 
+use App\Images\Photo;
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
@@ -29,6 +30,18 @@ it('casts discogs and filmpolski ids to integers', function () {
 
     expect($artist->photo_height)->toBe(964)
         ->and($artist->photo_height)->not->toBe('964');
+});
+
+it('casts its photo', function () {
+    $artist = Artist::factory()
+        ->create(['photo' => null]);
+
+    expect($artist->photo)->toBeNull();
+
+    $artist->setAttribute('photo', new Photo('testPhoto.jpg'));
+
+    expect($artist->photo)->toBeInstanceOf(Photo::class)
+        ->and($artist->photo->filename())->toBe('testPhoto.jpg');
 });
 
 it('generates slug when created', function () {

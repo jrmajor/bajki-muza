@@ -1,5 +1,6 @@
 <?php
 
+use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
@@ -13,6 +14,18 @@ it('casts year to integer', function () {
 
     expect($tale->year)->toBe(1973)
         ->and($tale->year)->not->toBe('1973');
+});
+
+it('casts its cover', function () {
+    $tale = Tale::factory()
+        ->create(['cover' => null]);
+
+    expect($tale->cover)->toBeNull();
+
+    $tale->setAttribute('cover', new Cover('testCover.jpg'));
+
+    expect($tale->cover)->toBeInstanceOf(Cover::class)
+        ->and($tale->cover->filename())->toBe('testCover.jpg');
 });
 
 it('generates slug when created', function () {
