@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ProcessTaleCover;
+use App\Images\Cover;
 use App\Models\Tale;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -21,7 +20,7 @@ class CleanupCovers extends Command
             ->map(fn ($path) => $this->removeCoverIfUnused($path))
             ->contains(1) ? 1 : 0;
 
-        return $this->getResponsiveSizes()
+        return Cover::sizes()
             ->map(fn ($size) => Storage::cloud()->files("covers/{$size}"))
             ->flatten()
             ->map(fn ($path) => Str::afterLast($path, '/'))
@@ -64,7 +63,7 @@ class CleanupCovers extends Command
 
     protected function deleteResponsiveVariants($filename): int
     {
-        $coversToDelete = $this->getResponsiveSizes()
+        $coversToDelete = Cover::sizes()
             ->prepend('original')
             ->map(fn ($size) => "covers/{$size}/{$filename}")
             ->all();
@@ -72,10 +71,5 @@ class CleanupCovers extends Command
         Storage::cloud()->delete($coversToDelete);
 
         return 0;
-    }
-
-    protected function getResponsiveSizes(): Collection
-    {
-        return collect(ProcessTaleCover::$sizes);
     }
 }

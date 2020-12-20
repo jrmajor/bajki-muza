@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Images\Cover;
 use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -22,6 +22,7 @@ class Tale extends Model
 
     protected $casts = [
         'year' => 'int',
+        'cover' => Cover::class,
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -39,17 +40,10 @@ class Tale extends Model
 
     public function cover(string|int|null $size = null): ?string
     {
-        if ($this->getAttributeValue('cover') === null) {
-            return null;
-        }
-
         return match ($size) {
-            null => $this->cover,
-            'original' => Storage::cloud()->temporaryUrl(
-                "covers/original/{$this->cover}",
-                now()->addMinutes(15)
-            ),
-            default => Storage::cloud()->url("covers/{$size}/{$this->cover}"),
+            null => $this->cover?->filename(),
+            'original' => $this->cover?->originalUrl(),
+            default => $this->cover?->url($size),
         };
     }
 

@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ProcessTaleCover;
+use App\Images\Cover;
+use App\Images\Exceptions\OriginalDoesNotExist;
+use App\Images\Jobs\ProcessTaleCover;
 use App\Models\Tale;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 
 class ReprocessCovers extends Command
 {
@@ -55,7 +55,7 @@ class ReprocessCovers extends Command
         return $tales
             ->map(function ($tale, $index) use ($total) {
                 $index++;
-                $this->info("Processing tale {$index} of {$total}: {$tale->title} ({$tale->cover})");
+                $this->info("Processing tale {$index} of {$total}: {$tale->title} ({$tale->cover->filename()})");
 
                 return $this->reprocessTale($tale);
             })
@@ -64,32 +64,24 @@ class ReprocessCovers extends Command
 
     protected function reprocessTale(Tale $tale): int
     {
-        if (Storage::cloud()->missing("covers/original/{$tale->cover}")) {
-            $this->error("The original cover doesn't exist.");
+        if (($missing = $tale->cover->missingResponsiveVariants())->isNotEmpty()) {
+            $missing = $missing->join(', ');
+
+            $this->warn("Some of responsive variants were missing ({$missing}).");
+        }
+
+        try {
+            $tale->cover->reprocess(
+                function (Cover $image, string $placeholder) use ($tale) {
+                    $tale->setAttribute('cover_placeholder', $placeholder)->save();
+                }
+            );
+
+            return 0;
+        } catch (OriginalDoesNotExist $exception) {
+            $this->error("The original cover doesn't exist ({$exception->path}).");
 
             return 1;
         }
-
-        if (! $this->deleteResponsiveVariants($tale)) {
-            $this->warn('Some of responsive images were missing. Fixing that!');
-        }
-
-        ProcessTaleCover::dispatchSync($tale, $tale->cover);
-
-        return 0;
-    }
-
-    protected function deleteResponsiveVariants(Tale $tale): bool
-    {
-        $coversToDelete = $this->getResponsiveSizes()
-            ->map(fn ($size) => "covers/{$size}/{$tale->cover}")
-            ->all();
-
-        return Storage::cloud()->delete($coversToDelete);
-    }
-
-    protected function getResponsiveSizes(): Collection
-    {
-        return collect(ProcessTaleCover::$sizes);
     }
 }

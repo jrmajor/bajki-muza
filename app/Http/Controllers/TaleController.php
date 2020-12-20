@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTale;
-use App\Jobs\ProcessTaleCover;
+use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class TaleController extends Controller
 {
@@ -25,10 +23,7 @@ class TaleController extends Controller
         )->save();
 
         if ($request->file('cover')) {
-            $path = Storage::cloud()
-                ->putFile('covers/original', $request->file('cover'), 'private');
-
-            ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
+            $this->storeCover($request, $tale);
         }
 
         $this->saveRelationships($tale, $data);
@@ -60,10 +55,7 @@ class TaleController extends Controller
         if ($request->boolean('remove_cover')) {
             $tale->removeCover();
         } elseif ($request->file('cover')) {
-            $path = Storage::cloud()
-                ->putFile('covers/original', $request->file('cover'), 'private');
-
-            ProcessTaleCover::dispatch($tale, Str::afterLast($path, '/'));
+            $this->storeCover($request, $tale);
         }
 
         $this->saveRelationships($tale, $data);
@@ -71,7 +63,7 @@ class TaleController extends Controller
         return redirect()->route('tales.show', $tale);
     }
 
-    private function saveRelationships(Tale $tale, array $data): void
+    protected function saveRelationships(Tale $tale, array $data): void
     {
         $credits = collect($data['credits'] ?? [])
             ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
@@ -91,5 +83,16 @@ class TaleController extends Controller
             ]);
 
         $tale->actors()->sync($actors);
+    }
+
+    protected function storeCover(StoreTale $request, Tale $tale): Cover
+    {
+        return Cover::store(
+            $request->file('cover'),
+            fn (Cover $cover, string $placeholder) => $tale->forceFill([
+                'cover' => $cover,
+                'cover_placeholder' => $placeholder,
+            ])->save(),
+        );
     }
 }
