@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Images\Jobs;
 
 use InvalidArgumentException;
 use Spatie\Image\Image;

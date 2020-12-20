@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArtist;
-use App\Jobs\ProcessArtistPhoto;
+use App\Images\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
 use App\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Http;

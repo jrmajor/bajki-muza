@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ProcessArtistPhoto;
+use App\Images\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;

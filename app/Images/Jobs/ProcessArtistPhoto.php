@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Images\Jobs;
 
 use App\Models\Artist;
 use App\Values\ArtistPhotoCrop;
