@@ -18,11 +18,13 @@ class ReprocessPhotos extends Command
     {
         if ($this->option('artist') !== null) {
             return $this->handleSingleArtist();
-        } elseif ($this->confirm('Do you want to reprocess all photos?', true)) {
-            return $this->handleAllArtists();
-        } else {
-            return 1;
         }
+
+        if ($this->confirm('Do you want to reprocess all photos?', true)) {
+            return $this->handleAllArtists();
+        }
+
+        return 1;
     }
 
     protected function handleSingleArtist(): int

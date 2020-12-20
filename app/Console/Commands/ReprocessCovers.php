@@ -18,11 +18,13 @@ class ReprocessCovers extends Command
     {
         if ($this->option('tale') !== null) {
             return $this->handleSingleTale();
-        } elseif ($this->confirm('Do you want to reprocess all covers?', true)) {
-            return $this->handleAllTales();
-        } else {
-            return 1;
         }
+
+        if ($this->confirm('Do you want to reprocess all covers?', true)) {
+            return $this->handleAllTales();
+        }
+
+        return 1;
     }
 
     protected function handleSingleTale(): int
@@ -30,13 +32,13 @@ class ReprocessCovers extends Command
         $tale = Tale::where('slug', $this->option('tale'))->first();
 
         if (! $tale) {
-            $this->error('Tale doesn\'t exist.');
+            $this->error('Tale does not exist.');
 
             return 1;
         }
 
         if ($tale->cover === null) {
-            $this->error('Tale doesn\'t have a cover.');
+            $this->error('Tale does not have a cover.');
 
             return 1;
         }
