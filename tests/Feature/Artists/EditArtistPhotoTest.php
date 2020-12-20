@@ -2,7 +2,7 @@
 
 use App\Images\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
-use App\Values\ArtistPhotoCrop;
+use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use function Tests\asUser;

@@ -2,7 +2,7 @@
 
 use App\Images\Jobs\ProcessArtistPhoto;
 use App\Models\Artist;
-use App\Values\ArtistPhotoCrop;
+use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Bus;
 use function Pest\Laravel\artisan;
 use function Tests\fixture;

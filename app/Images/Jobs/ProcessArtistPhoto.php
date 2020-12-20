@@ -3,7 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Models\Artist;
-use App\Values\ArtistPhotoCrop;
+use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
