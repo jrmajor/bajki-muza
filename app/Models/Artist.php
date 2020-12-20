@@ -91,7 +91,7 @@ class Artist extends Model
             null => $this->photo,
             'original' => Storage::cloud()->temporaryUrl(
                 "photos/original/{$this->photo}",
-                now()->addMinutes(15)
+                now()->addMinutes(15),
             ),
             default => Storage::cloud()->url("photos/{$size}/{$this->photo}"),
         };
