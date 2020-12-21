@@ -46,6 +46,7 @@ test('photo can be deleted', function () {
         ]),
     )->save();
 
+    // @todo $this->artist->refresh();
     $this->artist = $this->artist->fresh();
 
     expect($this->artist->photo)->not->toBeNull();
@@ -58,6 +59,7 @@ test('photo can be deleted', function () {
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
 
+    // @todo $this->artist->refresh();
     $this->artist = $this->artist->fresh();
 
     expect($this->artist->photo)->toBeNull();
@@ -78,6 +80,7 @@ test('photo can be uploaded', function () {
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
 
+    // @todo $this->artist->refresh();
     $this->artist = $this->artist->fresh();
 
     expect($this->artist->photo)->not->toBeNull()
@@ -115,6 +118,7 @@ test('photo can be downloaded from specified uri', function () {
 
     Http::assertSent(fn ($request) => $request->url() === $uri);
 
+    // @todo $this->artist->refresh();
     $this->artist = $this->artist->fresh();
 
     expect($this->artist->photo)->not->toBeNull()
@@ -145,6 +149,7 @@ test('crop can be updated without changing photo', function () {
         ]),
     )->save();
 
+    // @todo $this->artist->refresh();
     $this->artist = $this->artist->fresh();
 
     $newCrop = $this->rawCrop;
@@ -163,6 +168,7 @@ test('crop can be updated without changing photo', function () {
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
 
+    // @todo $this->artist->refresh();
     $this->artist = $this->artist->fresh();
 
     expect(
