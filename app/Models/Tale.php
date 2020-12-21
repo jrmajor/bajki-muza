@@ -17,6 +17,8 @@ class Tale extends Model
 {
     use HasSlug, HasFactory;
 
+    protected $with = ['cover'];
+
     public $fillable = [
         'title', 'year', 'nr', 'notes',
     ];

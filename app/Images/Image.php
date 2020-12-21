@@ -16,6 +16,8 @@ abstract class Image extends Model
 {
     protected $primaryKey = 'filename';
 
+    protected $keyType = 'string';
+
     public $incrementing = false;
 
     protected $guarded = [];

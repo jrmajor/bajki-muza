@@ -26,6 +26,8 @@ class Artist extends Model
 {
     use HasSlug, HasFactory;
 
+    protected $with = ['photo'];
+
     public $fillable = [
         'name', 'genetivus',
         'discogs', 'filmpolski', 'wikipedia',
