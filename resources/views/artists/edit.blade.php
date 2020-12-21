@@ -212,7 +212,7 @@
 
       <div class="flex flex-row items-center space-x-3">
         <label for="photo_source" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Źródło</label>
-        <input type="text" value="{{ old('photo_source', $artist->photo_source) }}"
+        <input type="text" value="{{ old('photo_source', $artist->photo?->source) }}"
           name="photo_source" x-model="photo.source"
           class="w-full text-sm px-2 py-1 form-input">
       </div>

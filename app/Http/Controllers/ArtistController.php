@@ -36,19 +36,31 @@ class ArtistController extends Controller
             $artist->photo()->disassociate()->save();
         } elseif ($request->file('photo')) {
             $artist->photo()->associate(
-                Photo::store($request->file('photo'), ['crop' => $photoCrop]),
+                Photo::store($request->file('photo'), [
+                    'crop' => $photoCrop,
+                    'source' => $data['photo_source'],
+                ]),
             )->save();
         } elseif ($data['photo_uri'] ?? null) {
             $artist->photo()->associate(
-                $this->storePhotoFromUrl($data['photo_uri'], $photoCrop),
+                $this->storePhotoFromUrl(
+                    $data['photo_uri'],
+                    $photoCrop,
+                    $data['photo_source'],
+                ),
             )->save();
         } elseif (
             $artist->photo
             && $photoCrop?->toArray() != $artist->photo_crop?->toArray()
         ) {
             $artist->photo
+                ->setAttribute('source', $data['photo_source'])
                 ->setCrop($photoCrop)
                 ->reprocess();
+        } elseif ($artist->photo) {
+            $artist->photo
+                ->setAttribute('source', $data['photo_source'])
+                ->save();
         }
 
         $artist->flushCache();
@@ -66,6 +78,7 @@ class ArtistController extends Controller
     private function storePhotoFromUrl(
         string $uri,
         ArtistPhotoCrop $crop,
+        string $source,
     ): Photo {
         $contents = Http::get($uri);
 
@@ -83,7 +96,7 @@ class ArtistController extends Controller
 
         $photo = Photo::store(
             new File($targetFile, checkPath: true),
-            ['crop' => $crop],
+            compact('crop', 'source'),
         );
 
         $temporaryDirectory->delete();
