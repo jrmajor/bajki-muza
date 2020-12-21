@@ -7,6 +7,7 @@ use App\Models\Tale;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class CleanupCovers extends Command
 {
@@ -16,6 +17,8 @@ class CleanupCovers extends Command
 
     public function handle(): int
     {
+        throw new CommandNotFoundException("The command \"{$this->signature}\" is yet to be implemented.");
+
         $result = collect(Storage::cloud()->files('covers/original'))
             ->map(fn ($path) => $this->removeCoverIfUnused($path))
             ->contains(1) ? 1 : 0;

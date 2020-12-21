@@ -4,8 +4,7 @@ namespace App\Images;
 
 use App\Images\Exceptions\OriginalDoesNotExist;
 use Carbon\Carbon;
-use Closure;
-use Illuminate\Contracts\Database\Eloquent\Castable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
@@ -13,35 +12,35 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-abstract class Image implements Castable
+abstract class Image extends Model
 {
-    protected string $disk;
+    protected $primaryKey = 'filename';
 
-    public function __construct(
-        private string $filename,
-    ) {
-        $this->disk = config('filesystems.cloud');
-    }
+    public $incrementing = false;
+
+    protected $guarded = [];
 
     abstract public static function sizes(): Collection;
 
-    public static function store(File|UploadedFile $file, Closure $callback, ...$args)
+    public static function store(File|UploadedFile $file, array $attributes = []): static
     {
-        $path = static::defaultDisk()
+        $path = static::disk()
             ->putFile(static::uploadPath(), $file, 'private');
 
         $filename = Str::afterLast($path, '/');
 
-        $image = new static($filename, ...$args);
+        $image = static::create(
+            array_merge(compact('filename'), $attributes),
+        );
 
-        $image->process($callback);
+        $image->process();
 
         return $image;
     }
 
-    abstract protected function process(Closure $callback): void;
+    abstract protected function process(): void;
 
-    public function reprocess(Closure $callback): void
+    public function reprocess(): void
     {
         if ($this->originalMissing()) {
             throw new OriginalDoesNotExist($this->originalPath());
@@ -49,7 +48,7 @@ abstract class Image implements Castable
 
         $this->deleteResponsiveVariants();
 
-        $this->process($callback);
+        $this->process();
     }
 
     public function filename(): string
@@ -76,6 +75,11 @@ abstract class Image implements Castable
         return $this->disk()->url($this->path($size));
     }
 
+    public function placeholder(): ?string
+    {
+        return $this->placeholder;
+    }
+
     public function originalMissing(): bool
     {
         return $this->disk()->missing($this->originalPath());
@@ -89,7 +93,8 @@ abstract class Image implements Castable
     public function missingResponsiveVariants(): Collection
     {
         return static::sizes()
-            ->filter(fn ($size) => $this->responsiveVariantMissing($size));
+            ->filter(fn ($size) => $this->responsiveVariantMissing($size))
+            ->values();
     }
 
     protected function deleteResponsiveVariants(): bool
@@ -101,18 +106,8 @@ abstract class Image implements Castable
         return $this->disk()->delete($variantsToDelete);
     }
 
-    protected static function defaultDisk(): FilesystemAdapter
+    public static function disk(): FilesystemAdapter
     {
         return Storage::disk(config('filesystems.cloud'));
-    }
-
-    protected function disk(): FilesystemAdapter
-    {
-        return Storage::disk($this->disk);
-    }
-
-    public static function castUsing(array $arguments)
-    {
-        return new ImageCast(static::class);
     }
 }

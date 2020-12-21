@@ -8,7 +8,7 @@ use Mockery;
 
 class TestCoverWithMockedTemporaryUrl extends TestCover
 {
-    protected function disk(): FilesystemAdapter
+    public static function disk(): FilesystemAdapter
     {
         return Mockery::mock(FilesystemAdapter::class)
             ->shouldReceive('temporaryUrl')

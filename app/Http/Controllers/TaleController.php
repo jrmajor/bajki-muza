@@ -23,7 +23,9 @@ class TaleController extends Controller
         )->save();
 
         if ($request->file('cover')) {
-            $this->storeCover($request, $tale);
+            $tale->cover()->associate(
+                Cover::store($request->file('cover')),
+            )->save();
         }
 
         $this->saveRelationships($tale, $data);
@@ -53,9 +55,11 @@ class TaleController extends Controller
         )->save();
 
         if ($request->boolean('remove_cover')) {
-            $tale->removeCover();
+            $tale->cover()->disassociate()->save();
         } elseif ($request->file('cover')) {
-            $this->storeCover($request, $tale);
+            $tale->cover()->associate(
+                Cover::store($request->file('cover')),
+            )->save();
         }
 
         $this->saveRelationships($tale, $data);
@@ -83,16 +87,5 @@ class TaleController extends Controller
             ]);
 
         $tale->actors()->sync($actors);
-    }
-
-    protected function storeCover(StoreTale $request, Tale $tale): Cover
-    {
-        return Cover::store(
-            $request->file('cover'),
-            fn (Cover $cover, string $placeholder) => $tale->forceFill([
-                'cover' => $cover,
-                'cover_placeholder' => $placeholder,
-            ])->save(),
-        );
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Images\Exceptions\OriginalDoesNotExist;
-use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Console\Command;
 
@@ -47,7 +46,7 @@ class ReprocessPhotos extends Command
 
     protected function handleAllArtists(): int
     {
-        $artists = Artist::whereNotNull('photo')->get();
+        $artists = Artist::whereNotNull('photo_filename')->get();
 
         $total = $artists->count();
 
@@ -70,22 +69,7 @@ class ReprocessPhotos extends Command
         }
 
         try {
-            $artist->photo->reprocess(
-                function (
-                    Photo $photo,
-                    int $width,
-                    int $height,
-                    string $placeholder,
-                    string $facePlaceholder,
-                ) use ($artist) {
-                    $artist->forceFill([
-                        'photo_width' => $width,
-                        'photo_height' => $height,
-                        'photo_face_placeholder' => $facePlaceholder,
-                        'photo_placeholder' => $placeholder,
-                    ])->save();
-                },
-            );
+            $artist->photo->reprocess();
 
             return 0;
         } catch (OriginalDoesNotExist $exception) {

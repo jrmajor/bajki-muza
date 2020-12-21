@@ -16,18 +16,6 @@ it('casts year to integer', function () {
         ->and($tale->year)->not->toBe('1973');
 });
 
-it('casts its cover', function () {
-    $tale = Tale::factory()
-        ->create(['cover' => null]);
-
-    expect($tale->cover)->toBeNull();
-
-    $tale->setAttribute('cover', new Cover('testCover.jpg'));
-
-    expect($tale->cover)->toBeInstanceOf(Cover::class)
-        ->and($tale->cover->filename())->toBe('testCover.jpg');
-});
-
 it('generates slug when created', function () {
     $tale = Tale::create(['title' => 'O Tadku-Niejadku, babci i dziadku']);
 
@@ -60,19 +48,15 @@ it('regenerates slug when updated', function () {
 });
 
 it('can get its cover', function () {
-    Storage::fake('testing');
+    $cover = Cover::create([
+        'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
+    ]);
 
-    $tale = Tale::factory()
-        ->create(['cover' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png']);
+    $tale = Tale::factory()->cover($cover)->create();
 
-    expect($tale->cover())->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
-
-    expect($tale->cover('288'))
-        ->toContain('/covers/288/tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
-
-    $tale->cover = null;
-
-    expect($tale->cover('original'))->toBeNull();
+    expect($tale->cover)->toBeInstanceOf(Cover::class)
+        ->and($tale->cover->filename())
+        ->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
 });
 
 it('can get its actors', function () {

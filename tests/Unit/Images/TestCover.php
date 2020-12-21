@@ -3,17 +3,18 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Image;
-use Closure;
 use Illuminate\Support\Collection;
 
 class TestCover extends Image
 {
+    protected $table = 'covers';
+
     public static function sizes(): Collection
     {
         return collect([128, 192, 256]);
     }
 
-    protected function process(Closure $callback): void
+    protected function process(): void
     {
         dispatch(new ProcessTestCover());
     }

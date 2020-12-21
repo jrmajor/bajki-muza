@@ -14,14 +14,14 @@
 
     <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center shadow-lg rounded-lg overflow-hidden">
       <div class="bg-placeholder-cover w-48 h-48"
-        @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+        @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)" @endif
         >
-        @if ($tale->cover())
-          <img src="{{ $tale->cover('384') }}"
+        @if ($tale->cover)
+          <img src="{{ $tale->cover->url(384) }}"
             srcset="
-              {{ $tale->cover('192') }} 1x,
-              {{ $tale->cover('288') }} 1.5x,
-              {{ $tale->cover('384') }} 2x"
+              {{ $tale->cover->url(192) }} 1x,
+              {{ $tale->cover->url(288) }} 1.5x,
+              {{ $tale->cover->url(384) }} 2x"
             loading="eager"
             alt="Okładka bajki {{ $tale->title }}"
             class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">

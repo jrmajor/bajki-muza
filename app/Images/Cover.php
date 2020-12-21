@@ -4,8 +4,6 @@ namespace App\Images;
 
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
-use Closure;
-use Illuminate\Queue\SerializableClosure;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 
@@ -25,10 +23,10 @@ class Cover extends Image
         ]);
     }
 
-    protected function process(Closure $callback): void
+    protected function process(): void
     {
         Bus::chain([
-            new GenerateTaleCoverPlaceholder($this, new SerializableClosure($callback)),
+            new GenerateTaleCoverPlaceholder($this),
             new GenerateTaleCoverVariants($this),
         ])->dispatch();
     }

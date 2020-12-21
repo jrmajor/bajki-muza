@@ -7,7 +7,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Storage;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class GenerateArtistPhotoVariants implements ShouldQueue
@@ -23,9 +22,9 @@ class GenerateArtistPhotoVariants implements ShouldQueue
     {
         $temporaryDirectory = (new TemporaryDirectory)->create();
 
-        $sourceFile = $this->image->originalPath();
-
-        $sourceStream = Storage::cloud()->readStream($sourceFile);
+        $sourceStream = Photo::disk()->readStream(
+            $this->image->originalPath(),
+        );
 
         $baseImagePath = $this->copyToTemporaryDirectory(
             $sourceStream,
@@ -54,7 +53,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue
 
             $file = fopen($responsiveImagePath, 'r');
 
-            Storage::cloud()
+            Photo::disk()
                 ->put("photos/{$size}/{$this->image->filename()}", $file, 'public');
         }
 
@@ -67,7 +66,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue
 
             $file = fopen($responsiveImagePath, 'r');
 
-            Storage::cloud()
+            Photo::disk()
                 ->put("photos/{$size}/{$this->image->filename()}", $file, 'public');
         }
 

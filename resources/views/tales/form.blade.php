@@ -60,10 +60,10 @@
     <div class="flex space-x-5">
       <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer dark:border-gray-900 dark:bg-gray-800">
         <div class="flex-none bg-placeholder-cover w-10 h-10">
-          @if ($tale->cover())
-            <img src="{{ $tale->cover('128') }}"
+          @if ($tale->cover)
+            <img src="{{ $tale->cover->url(128) }}"
               class="w-10 h-10 object-cover bg-cover"
-              style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)"
+              style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)"
               x-show="cover.file === '' && cover.remove == false">
           @endif
           <template x-if="cover.file !== ''">

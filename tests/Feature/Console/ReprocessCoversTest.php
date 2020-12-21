@@ -1,5 +1,6 @@
 <?php
 
+use App\Images\Cover;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
@@ -13,9 +14,8 @@ it('throws error when tale does not exist')
     ->assertExitCode(1);
 
 it('throws error when tale does not have a cover', function () {
-    Tale::factory()->create([
+    Tale::factory()->noCover()->create([
         'title' => 'Test tale',
-        'cover' => null,
     ]);
 
     artisan('reprocess:covers --tale test-tale')
@@ -26,15 +26,14 @@ it('throws error when tale does not have a cover', function () {
 it('works with single tale', function () {
     Storage::fake('testing');
 
-    Tale::factory()->create([
+    Tale::factory()->cover('test.jpg')->create([
         'title' => 'Test tale',
-        'cover' => 'test.jpg',
     ]);
 
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/cover.jpg'), 'r');
 
-    Storage::cloud()->put('covers/original/test.jpg', $file, 'public');
+    Cover::disk()->put('covers/original/test.jpg', $file, 'public');
 
     Queue::fake();
 

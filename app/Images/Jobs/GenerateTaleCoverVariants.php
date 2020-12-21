@@ -7,7 +7,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Storage;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class GenerateTaleCoverVariants implements ShouldQueue
@@ -22,9 +21,9 @@ class GenerateTaleCoverVariants implements ShouldQueue
     {
         $temporaryDirectory = (new TemporaryDirectory)->create();
 
-        $sourceFile = $this->image->originalPath();
-
-        $sourceStream = Storage::cloud()->readStream($sourceFile);
+        $sourceStream = Cover::disk()->readStream(
+             $this->image->originalPath(),
+        );
 
         $baseImagePath = $this->copyToTemporaryDirectory(
             $sourceStream,
@@ -33,11 +32,15 @@ class GenerateTaleCoverVariants implements ShouldQueue
         );
 
         foreach (Cover::sizes() as $size) {
-            $responsiveImagePath = $this->generateResponsiveImage($baseImagePath, $size, 'square', $temporaryDirectory);
+            $responsiveImagePath = $this->generateResponsiveImage(
+                $baseImagePath,
+                $size, 'square',
+                $temporaryDirectory,
+            );
 
             $file = fopen($responsiveImagePath, 'r');
 
-            Storage::cloud()
+            Cover::disk()
                 ->put("covers/{$size}/{$this->image->filename()}", $file, 'public');
         }
 

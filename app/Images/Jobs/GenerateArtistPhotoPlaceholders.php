@@ -7,8 +7,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializableClosure;
-use Illuminate\Support\Facades\Storage;
 use Spatie\Image\Image;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
@@ -19,16 +17,15 @@ class GenerateArtistPhotoPlaceholders implements ShouldQueue
 
     public function __construct(
         protected Photo $image,
-        protected SerializableClosure $callback,
     ) { }
 
     public function handle()
     {
         $temporaryDirectory = (new TemporaryDirectory)->create();
 
-        $sourceFile = $this->image->originalPath();
-
-        $sourceStream = Storage::cloud()->readStream($sourceFile);
+        $sourceStream = Photo::disk()->readStream(
+            $this->image->originalPath(),
+        );
 
         $baseImagePath = $this->copyToTemporaryDirectory(
             $sourceStream,
@@ -50,16 +47,17 @@ class GenerateArtistPhotoPlaceholders implements ShouldQueue
 
         $croppedImage = Image::load($croppedImagePath);
 
-        $data = [
-            'photo' => $this->image,
+        $this->image->fill([
             'width' => $croppedImage->getWidth(),
             'height' => $croppedImage->getHeight(),
-            'placeholder' => $this->generateTinyJpg($croppedImagePath, 'height', $temporaryDirectory),
-            'facePlaceholder' => $this->generateTinyJpg($croppedFacePath, 'square', $temporaryDirectory),
-        ];
+            'placeholder' => $this->generateTinyJpg(
+                $croppedImagePath, 'height', $temporaryDirectory,
+            ),
+            'face_placeholder' => $this->generateTinyJpg(
+                $croppedFacePath, 'square', $temporaryDirectory,
+            ),
+        ])->save();
 
         $temporaryDirectory->delete();
-
-        ($this->callback)(...array_values($data));
     }
 }

@@ -20,7 +20,7 @@ class CreateArtistsTable extends Migration
             $table->integer('filmpolski')->nullable();
             $table->string('wikipedia', 100)->nullable();
 
-            $table->string('photo', 100)->nullable();
+            $table->string('photo', 64)->nullable();
             $table->string('photo_source', 128)->nullable();
             $table->unsignedSmallInteger('photo_width')->nullable();
             $table->unsignedSmallInteger('photo_height')->nullable();

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -28,15 +29,11 @@ class Artist extends Model
     public $fillable = [
         'name', 'genetivus',
         'discogs', 'filmpolski', 'wikipedia',
-        'photo_source',
     ];
 
     protected $casts = [
         'discogs' => 'int',
         'filmpolski' => 'int',
-        'photo' => Photo::class,
-        'photo_width' => 'int',
-        'photo_height' => 'int',
         'photo_crop' => ArtistPhotoCrop::class,
     ];
 
@@ -82,26 +79,9 @@ class Artist extends Model
         return $this->wikipedia ? Wikipedia::url($this->wikipedia) : null;
     }
 
-    public function photo(string|int|null $size = null): ?string
+    public function photo(): BelongsTo
     {
-        return match ($size) {
-            null => $this->photo?->filename(),
-            'original' => $this->photo?->originalUrl(),
-            default => $this->photo?->url($size),
-        };
-    }
-
-    public function removePhoto(): bool
-    {
-        return $this->forceFill([
-            'photo' => null,
-            'photo_source' => null,
-            'photo_width' => null,
-            'photo_height' => null,
-            'photo_crop' => null,
-            'photo_face_placeholder' => null,
-            'photo_placeholder' => null,
-        ])->save();
+        return $this->belongsTo(Photo::class, 'photo_filename', 'filename');
     }
 
     public function getWikipediaExtractAttribute(): ?string

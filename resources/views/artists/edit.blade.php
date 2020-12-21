@@ -26,9 +26,9 @@
       'wikipedia' => old('wikipedia', $artist->wikipedia),
 
       'photo' => [
-        'uri' => $artist->photo('original'),
-        'source' => old('photo_source', $artist->photo_source),
-        'crop' => old('photo_crop', $artist->photo_crop),
+        'uri' => $artist->photo?->originalUrl(),
+        'source' => old('photo_source', $artist->photo?->source),
+        'crop' => old('photo_crop', $artist->photo?->crop()),
       ],
     ];
 

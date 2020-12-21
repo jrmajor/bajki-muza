@@ -2,6 +2,7 @@
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
+use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Http\UploadedFile;
@@ -33,19 +34,21 @@ beforeEach(function () {
 
     $this->crop = ArtistPhotoCrop::fromStrings($this->rawCrop);
 
-    $this->artist = Artist::factory()->create($this->attributes);
+    $this->artist = Artist::factory()
+        ->noPhoto()->create($this->attributes);
 });
 
 test('photo can be deleted', function () {
-    $this->artist->forceFill([
-        'photo' => 'test.jpg',
-        'photo_source' => 'test',
-        'photo_width' => 21,
-        'photo_height' => 37,
-        'photo_crop' => $this->crop,
-        'photo_face_placeholder' => 'test',
-        'photo_placeholder' => 'test',
-    ]);
+    $this->artist->photo()->associate(
+        Photo::create([
+            'filename' => 'test.jpg',
+            'crop' => ArtistPhotoCrop::fake(),
+        ]),
+    )->save();
+
+    $this->artist = $this->artist->fresh();
+
+    expect($this->artist->photo)->not->toBeNull();
 
     asUser()
         ->put(
@@ -55,15 +58,9 @@ test('photo can be deleted', function () {
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
 
-    $this->artist->refresh();
+    $this->artist = $this->artist->fresh();
 
     expect($this->artist->photo)->toBeNull();
-    expect($this->artist->photo_source)->toBeNull();
-    expect($this->artist->photo_width)->toBeNull();
-    expect($this->artist->photo_height)->toBeNull();
-    expect($this->artist->photo_crop)->toBeNull();
-    expect($this->artist->photo_face_placeholder)->toBeNull();
-    expect($this->artist->photo_placeholder)->toBeNull();
 });
 
 test('photo can be uploaded', function () {
@@ -80,7 +77,7 @@ test('photo can be uploaded', function () {
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
 
-    expect(Storage::cloud()->files('photos/original'))->toHaveCount(1);
+    expect(Photo::disk()->files('photos/original'))->toHaveCount(1);
 
     Queue::assertPushedWithChain(
         GenerateArtistPhotoPlaceholders::class,
@@ -110,10 +107,10 @@ test('photo can be downloaded from specified uri', function () {
 
     Http::assertSent(fn ($request) => $request->url() === $uri);
 
-    expect($files = Storage::cloud()->files('photos/original'))
+    expect($files = Photo::disk()->files('photos/original'))
         ->toHaveCount(1);
 
-    expect(Storage::cloud()->get($files[0]))
+    expect(Photo::disk()->get($files[0]))
         ->toBe(file_get_contents(fixture('Images/photo.jpg')));
 
     Queue::assertPushedWithChain(
@@ -125,19 +122,41 @@ test('photo can be downloaded from specified uri', function () {
 test('crop can be updated without changing photo', function () {
     Storage::fake('testing');
 
-    Storage::cloud()->put('photos/original/test.jpg', 'contents');
+    Photo::disk()->put('photos/original/test.jpg', 'contents');
+
+    $this->artist->photo()->associate(
+        Photo::create([
+            'filename' => 'test.jpg',
+            'crop' => ArtistPhotoCrop::fake(),
+        ]),
+    )->save();
+
+    $this->artist = $this->artist->fresh();
+
+    $newCrop = $this->rawCrop;
+
+    Arr::set($newCrop, 'face.size', '190');
+
+    expect(Arr::get($newCrop, 'face.size'))->toBe('190');
 
     Queue::fake();
-
-    $this->artist->setAttribute('photo', 'test.jpg')->save();
 
     asUser()
         ->put(
             "artysci/{$this->artist->slug}",
             array_merge($this->attributes, [
-                'photo_crop' => $this->rawCrop,
+                'photo_crop' => $newCrop,
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
+
+    $this->artist = $this->artist->fresh();
+
+    expect(
+        Arr::get(
+            $this->artist->photo->crop->toArray(),
+            'face.size'
+        ),
+    )->toBe(190);
 
     Queue::assertPushedWithChain(
         GenerateArtistPhotoPlaceholders::class,

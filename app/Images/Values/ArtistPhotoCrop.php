@@ -26,4 +26,21 @@ class ArtistPhotoCrop extends CastableDataTransferObject
             ],
         ]);
     }
+
+    public static function fake(): self
+    {
+        return new self([
+            'face' => [
+                'x' => 181,
+                'y' => 246,
+                'size' => 189,
+            ],
+            'image' => [
+                'x' => 79,
+                'y' => 247,
+                'width' => 529,
+                'height' => 352,
+            ],
+        ]);
+    }
 }

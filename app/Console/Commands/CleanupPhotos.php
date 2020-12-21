@@ -7,6 +7,7 @@ use App\Models\Artist;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class CleanupPhotos extends Command
 {
@@ -16,6 +17,8 @@ class CleanupPhotos extends Command
 
     public function handle(): int
     {
+        throw new CommandNotFoundException("The command \"{$this->signature}\" is yet to be implemented.");
+
         $result = collect(Storage::cloud()->files('photos/original'))
             ->map(fn ($path) => $this->removePhotoIfUnused($path))
             ->contains(1) ? 1 : 0;

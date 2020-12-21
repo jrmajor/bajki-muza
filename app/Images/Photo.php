@@ -5,19 +5,16 @@ namespace App\Images;
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Values\ArtistPhotoCrop;
-use Closure;
-use Illuminate\Queue\SerializableClosure;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 
 class Photo extends Image
 {
-    public function __construct(
-        string $filename,
-        protected ?ArtistPhotoCrop $crop = null,
-    ) {
-        parent::__construct($filename);
-    }
+    protected $casts = [
+        'width' => 'int',
+        'height' => 'int',
+        'crop' => ArtistPhotoCrop::class,
+    ];
 
     public static function imageSizes(): Collection
     {
@@ -39,13 +36,16 @@ class Photo extends Image
 
     public static function sizes(): Collection
     {
-        return self::imageSizes()->concat(self::faceSizes());
+        return self::imageSizes()
+            ->concat(self::faceSizes())
+            ->sort()
+            ->values();
     }
 
-    protected function process(Closure $callback): void
+    protected function process(): void
     {
         Bus::chain([
-            new GenerateArtistPhotoPlaceholders($this, new SerializableClosure($callback)),
+            new GenerateArtistPhotoPlaceholders($this),
             new GenerateArtistPhotoVariants($this),
         ])->dispatch();
     }
@@ -65,15 +65,29 @@ class Photo extends Image
         return "photos/{$size}/{$this->filename()}";
     }
 
+    public function facePlaceholder(): ?string
+    {
+        return $this->face_placeholder;
+    }
+
     public function setCrop(ArtistPhotoCrop $crop): static
     {
-        $this->crop = $crop;
-
-        return $this;
+        return tap(
+            $this->setAttribute('crop', $crop)
+        )->save();
     }
 
     public function crop(): ArtistPhotoCrop
     {
         return $this->crop;
+    }
+
+    public function aspectRatio(): ?float
+    {
+        if (! $this->width || ! $this->height) {
+            return null;
+        }
+
+        return $this->width / $this->height;
     }
 }

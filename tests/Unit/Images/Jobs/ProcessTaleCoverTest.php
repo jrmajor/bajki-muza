@@ -3,9 +3,6 @@
 use App\Images\Cover;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
-use App\Models\Tale;
-use Illuminate\Queue\SerializableClosure;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function Tests\fixture;
 
@@ -17,28 +14,16 @@ test('GenerateTaleCoverPlaceholder job works', function () {
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/cover.jpg'), 'r');
 
-    Storage::cloud()->put("covers/original/{$filename}", $file, 'public');
-
-    $tale = Tale::factory()->create([
-        'cover' => null,
-        'cover_placeholder' => null,
-    ]);
+    Cover::disk()->put("covers/original/{$filename}", $file, 'public');
 
     GenerateTaleCoverPlaceholder::dispatchSync(
-        new Cover($filename),
-        new SerializableClosure(
-            fn (Cover $cover, string $placeholder) => $tale->forceFill([
-                'cover' => $cover,
-                'cover_placeholder' => $placeholder,
-            ])->save(),
-        ),
+        $cover = Cover::create(['filename' => $filename]),
     );
 
-    $tale->refresh();
+    $cover->refresh();
 
-    expect($tale->cover)->not->toBeNull()
-        ->and($tale->cover->filename())->toBe($filename)
-        ->and($tale->cover_placeholder)->toStartWith('data:image/svg+xml;base64,');
+    expect($cover->filename())->toBe($filename)
+        ->and($cover->placeholder)->toStartWith('data:image/svg+xml;base64,');
 });
 
 test('GenerateTaleCoverVariants job works', function () {
@@ -49,9 +34,11 @@ test('GenerateTaleCoverVariants job works', function () {
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/cover.jpg'), 'r');
 
-    Storage::cloud()->put("covers/original/{$filename}", $file, 'public');
+    Cover::disk()->put("covers/original/{$filename}", $file, 'public');
 
-    GenerateTaleCoverVariants::dispatchSync(new Cover($filename));
+    GenerateTaleCoverVariants::dispatchSync(
+        Cover::create(['filename' => $filename]),
+    );
 
-    Storage::cloud()->assertExists("covers/128/{$filename}");
+    Cover::disk()->assertExists("covers/128/{$filename}");
 });

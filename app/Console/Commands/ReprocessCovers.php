@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Images\Cover;
 use App\Images\Exceptions\OriginalDoesNotExist;
 use App\Models\Tale;
 use Illuminate\Console\Command;
@@ -47,7 +46,7 @@ class ReprocessCovers extends Command
 
     protected function handleAllTales(): int
     {
-        $tales = Tale::whereNotNull('cover')->get();
+        $tales = Tale::whereNotNull('cover_filename')->get();
 
         $total = $tales->count();
 
@@ -70,11 +69,7 @@ class ReprocessCovers extends Command
         }
 
         try {
-            $tale->cover->reprocess(
-                function (Cover $image, string $placeholder) use ($tale) {
-                    $tale->setAttribute('cover_placeholder', $placeholder)->save();
-                }
-            );
+            $tale->cover->reprocess();
 
             return 0;
         } catch (OriginalDoesNotExist $exception) {

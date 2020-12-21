@@ -2,7 +2,7 @@
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
-use App\Images\Values\ArtistPhotoCrop;
+use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Support\Facades\Queue;
 use function Pest\Laravel\artisan;
@@ -14,9 +14,8 @@ it('throws error when artist does not exist')
     ->assertExitCode(1);
 
 it('throws error when artist does not have a photo', function () {
-    Artist::factory()->create([
+    Artist::factory()->noPhoto()->create([
         'name' => 'Test Artist',
-        'photo' => null,
     ]);
 
     artisan('reprocess:photos --artist test-artist')
@@ -27,28 +26,14 @@ it('throws error when artist does not have a photo', function () {
 it('works with single artist', function () {
     Storage::fake('testing');
 
-    Artist::factory()->create([
+    Artist::factory()->photo('test.jpg')->create([
         'name' => 'Test Artist',
-        'photo' => 'test.jpg',
-        'photo_crop' => new ArtistPhotoCrop([
-            'face' => [
-                'x' => 181,
-                'y' => 246,
-                'size' => 189,
-            ],
-            'image' => [
-                'x' => 79,
-                'y' => 247,
-                'width' => 529,
-                'height' => 352,
-            ],
-        ]),
     ]);
 
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/photo.jpg'), 'r');
 
-    Storage::cloud()->put('photos/original/test.jpg', $file, 'public');
+    Photo::disk()->put('photos/original/test.jpg', $file, 'public');
 
     Queue::fake();
 

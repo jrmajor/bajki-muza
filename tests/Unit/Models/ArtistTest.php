@@ -1,6 +1,7 @@
 <?php
 
 use App\Images\Photo;
+use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
@@ -15,8 +16,6 @@ it('casts discogs and filmpolski ids to integers', function () {
     $artist = Artist::factory()->create([
         'discogs' => '1023394',
         'filmpolski' => '116251',
-        'photo_width' => '640',
-        'photo_height' => '964',
     ]);
 
     expect($artist->discogs)->toBe(1023394)
@@ -24,24 +23,6 @@ it('casts discogs and filmpolski ids to integers', function () {
 
     expect($artist->filmpolski)->toBe(116251)
         ->and($artist->filmpolski)->not->toBe('116251');
-
-    expect($artist->photo_width)->toBe(640)
-        ->and($artist->photo_width)->not->toBe('640');
-
-    expect($artist->photo_height)->toBe(964)
-        ->and($artist->photo_height)->not->toBe('964');
-});
-
-it('casts its photo', function () {
-    $artist = Artist::factory()
-        ->create(['photo' => null]);
-
-    expect($artist->photo)->toBeNull();
-
-    $artist->setAttribute('photo', new Photo('testPhoto.jpg'));
-
-    expect($artist->photo)->toBeInstanceOf(Photo::class)
-        ->and($artist->photo->filename())->toBe('testPhoto.jpg');
 });
 
 it('generates slug when created', function () {
@@ -73,6 +54,19 @@ it('regenerates slug when updated', function () {
     $artist->fill(['name' => 'Andrzej Stockinger'])->save();
 
     expect($artist->slug)->toBe('andrzej-stockinger');
+});
+
+it('can get its photo', function () {
+    $photo = Photo::create([
+        'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
+        'crop' => ArtistPhotoCrop::fake(),
+    ]);
+
+    $artist = Artist::factory()->photo($photo)->create();
+
+    expect($artist->photo)->toBeInstanceOf(Photo::class)
+        ->and($artist->photo->filename())
+        ->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
 });
 
 it('can generate discogs url', function () {

@@ -16,7 +16,7 @@ class CreateTalesTable extends Migration
             $table->year('year')->nullable();
             $table->string('nr', 4)->nullable();
 
-            $table->string('cover', 100)->nullable();
+            $table->string('cover', 64)->nullable();
             $table->binary('cover_placeholder')->nullable();
 
             $table->text('notes')->nullable();

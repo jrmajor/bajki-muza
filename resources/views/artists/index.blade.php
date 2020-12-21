@@ -13,14 +13,14 @@
       <a href="{{ route('artists.show', $artist) }}" wire:key="{{ $artist->id }}"
         class="w-full h-12 sm:h-14 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
         <div class="flex-none bg-placeholder-artist w-12 h-12 sm:w-14 sm:h-14"
-          @if ($artist->photo()) style="background-image: url(&quot;{{ $artist->photo_face_placeholder }}&quot;)" @endif
+          @if ($artist->photo) style="background-image: url(&quot;{{ $artist->facePlaceholder() }}&quot;)" @endif
           >
-          @if ($artist->photo())
-            <img src="{{ $artist->photo('112') }}"
+          @if ($artist->photo)
+            <img src="{{ $artist->photo->url(112) }}"
               srcset="
-                {{ $artist->photo('56') }} 1x,
-                {{ $artist->photo('84') }} 1.5x,
-                {{ $artist->photo('112') }} 2x"
+                {{ $artist->photo->url(56) }} 1x,
+                {{ $artist->photo->url(84) }} 1.5x,
+                {{ $artist->photo->url(112) }} 2x"
               loading="lazy"
               class="w-12 h-12 sm:w-14 sm:h-14 object-cover transition-opacity duration-300 opacity-0">
           @elseif ($artist->discogsPhoto() && Auth::guest())

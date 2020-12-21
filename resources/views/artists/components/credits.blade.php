@@ -8,14 +8,14 @@
         <a href="{{ route('tales.show', $tale) }}"
           class="w-full h-13 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
           <div class="flex-none bg-placeholder-cover w-13 h-13"
-            @if ($tale->cover()) style="background-image: url(&quot;{{ $tale->cover_placeholder }}&quot;)" @endif
+            @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)" @endif
             >
-            @if ($tale->cover())
-              <img src="{{ $tale->cover('120') }}"
+            @if ($tale->cover)
+              <img src="{{ $tale->cover->url(120) }}"
                 srcset="
-                  {{ $tale->cover('60') }} 1x,
-                  {{ $tale->cover('90') }} 1.5x,
-                  {{ $tale->cover('120') }} 2x"
+                  {{ $tale->cover->url(60) }} 1x,
+                  {{ $tale->cover->url(90) }} 1.5x,
+                  {{ $tale->cover->url(120) }} 2x"
                 loading="lazy"
                 alt="Okładka bajki {{ $tale->title }}"
                 class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">

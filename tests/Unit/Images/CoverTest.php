@@ -1,22 +1,16 @@
 <?php
 
-namespace Tests\Unit\Images;
-
 use App\Images\Cover;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
-use Exception;
+use App\Images\Photo;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 
-it('can get list of sizes', function () {
-    expect(Cover::sizes())->toHaveCount(8);
-
-    Cover::sizes()->each(function ($size) {
-        expect($size)->toBeInt();
-    });
-});
+it('can get list of sizes')
+    ->expect(Cover::sizes()->all())
+    ->toBe([60, 90, 120, 128, 192, 288, 256, 384]);
 
 it('stores new cover in correct path and dispatches necessary jobs to process it', function () {
     Storage::fake('testing');
@@ -25,13 +19,12 @@ it('stores new cover in correct path and dispatches necessary jobs to process it
 
     $image = Cover::store(
         UploadedFile::fake()->image('test.jpg'),
-        fn (Cover $cover, string $placeholder) => throw new Exception('Queue is mocked anyway.'),
     );
 
     expect($image)->toBeInstanceOf(Cover::class)
         ->and($image->filename())->toEndWith('.jpg');
 
-    expect(Storage::cloud()->files('covers/original'))->toHaveCount(1);
+    expect(Photo::disk()->files('covers/original'))->toHaveCount(1);
 
     Queue::assertPushedWithChain(
         GenerateTaleCoverPlaceholder::class,
@@ -41,12 +34,12 @@ it('stores new cover in correct path and dispatches necessary jobs to process it
 
 it('returns correct original path', function () {
     expect(
-        (new Cover('test.jpg'))->originalPath(),
+        (new Cover(['filename' => 'test.jpg']))->originalPath(),
     )->toBe('covers/original/test.jpg');
 });
 
 it('returns correct path for given size', function () {
     expect(
-        (new Cover('test.jpg'))->path(384),
+        (new Cover(['filename' => 'test.jpg']))->path(384),
     )->toBe('covers/384/test.jpg');
 });

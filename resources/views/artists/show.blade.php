@@ -22,20 +22,20 @@
       </h2>
     </div>
 
-    @if ($artist->photo())
-      <div style="width: {{ ($artist->photo_width / $artist->photo_height) * 10 }}rem"
+    @if ($artist->photo)
+      <div style="width: {{ $artist->photo->aspectRatio() * 10 }}rem"
         class="relative mt-5 mb-2 sm:my-0 sm:mr-6 -p-px flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
         @auth
           <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
         @endauth
         <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
-          style="background-image: url(&quot;{{ $artist->photo_placeholder }}&quot;)">
-          <img src="{{ $artist->photo('320') }}"
+          style="background-image: url(&quot;{{ $artist->photo->placeholder() }}&quot;)">
+          <img src="{{ $artist->photo->url(320) }}"
             srcset="
-              {{ $artist->photo('160') }} 1x,
-              {{ $artist->photo('240') }} 1.5x,
-              {{ $artist->photo('320') }} 2x"
             @auth onclick="document.getElementById('flush-cache-form').submit()" @endauth
+              {{ $artist->photo->url(160) }} 1x,
+              {{ $artist->photo->url(240) }} 1.5x,
+              {{ $artist->photo->url(320) }} 2x"
             loading="eager"
             class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
         </div>
@@ -54,13 +54,13 @@
 
     <div class="
       flex flex-col flex-grow justify-between space-y-3
-      @if ($artist->photo() || $artist->discogsPhoto()) sm:py-2 @endif
+      @if ($artist->photo || $artist->discogsPhoto()) sm:py-2 @endif
       @if ($artist->wikipedia) self-stretch @endif
     ">
 
       <div class="
         hidden sm:block
-        @if ($artist->photo() || $artist->wikipedia) self-start @else self-center @endif">
+        @if ($artist->photo || $artist->wikipedia) self-start @else self-center @endif">
         <h2 class="text-2xl font-medium">
           @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
             <span class="shadow-title">{{ $artist->name }}</span>
@@ -71,7 +71,7 @@
       @if ($artist->discogs || $artist->filmpolski || $artist->wikipedia)
         <div class="
           flex flex-col space-y-2
-          @if ($artist->photo() || $artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif
+          @if ($artist->photo || $artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif
         ">
           @if ($artist->wikipedia)
             <div>

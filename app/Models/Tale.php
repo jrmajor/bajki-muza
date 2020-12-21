@@ -7,6 +7,7 @@ use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Spatie\Sluggable\HasSlug;
@@ -22,7 +23,6 @@ class Tale extends Model
 
     protected $casts = [
         'year' => 'int',
-        'cover' => Cover::class,
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -38,26 +38,14 @@ class Tale extends Model
         return 'slug';
     }
 
-    public function cover(string|int|null $size = null): ?string
+    public function cover(): BelongsTo
     {
-        return match ($size) {
-            null => $this->cover?->filename(),
-            'original' => $this->cover?->originalUrl(),
-            default => $this->cover?->url($size),
-        };
-    }
-
-    public function removeCover(): bool
-    {
-        return $this->forceFill([
-            'cover' => null,
-            'cover_placeholder' => null,
-        ])->save();
+        return $this->belongsTo(Cover::class, 'cover_filename', 'filename');
     }
 
     public function actors(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Artist', 'tales_actors')
+        return $this->belongsToMany(Artist::class, 'tales_actors')
             ->withPivot('credit_nr', 'characters')->withTimestamps()
             ->orderBy('tales_actors.credit_nr');
     }

@@ -7,7 +7,6 @@ use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Http\File;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
@@ -34,34 +33,22 @@ class ArtistController extends Controller
             : null;
 
         if ($request->boolean('remove_photo')) {
-            $artist->removePhoto();
+            $artist->photo()->disassociate()->save();
         } elseif ($request->file('photo')) {
-            $this->storePhoto($request->file('photo'), $photoCrop, $artist);
+            $artist->photo()->associate(
+                Photo::store($request->file('photo'), ['crop' => $photoCrop]),
+            )->save();
         } elseif ($data['photo_uri'] ?? null) {
-            $this->storePhotoFromUrl($data['photo_uri'], $photoCrop, $artist);
+            $artist->photo()->associate(
+                $this->storePhotoFromUrl($data['photo_uri'], $photoCrop),
+            )->save();
         } elseif (
             $artist->photo
             && $photoCrop?->toArray() != $artist->photo_crop?->toArray()
         ) {
             $artist->photo
                 ->setCrop($photoCrop)
-                ->reprocess(
-                    function (
-                        Photo $photo,
-                        int $width,
-                        int $height,
-                        string $placeholder,
-                        string $facePlaceholder,
-                    ) use ($artist) {
-                        $artist->forceFill([
-                            'photo_width' => $width,
-                            'photo_height' => $height,
-                            'photo_crop' => $photo->crop(),
-                            'photo_face_placeholder' => $facePlaceholder,
-                            'photo_placeholder' => $placeholder,
-                        ])->save();
-                    },
-                );
+                ->reprocess();
         }
 
         $artist->flushCache();
@@ -83,37 +70,9 @@ class ArtistController extends Controller
         return redirect()->route('artists.index');
     }
 
-    private function storePhoto(
-        File|UploadedFile $photo,
-        ArtistPhotoCrop $photoCrop,
-        Artist $artist
-    ): Photo {
-        return Photo::store(
-            $photo,
-            function (
-                Photo $photo,
-                int $width,
-                int $height,
-                string $placeholder,
-                string $facePlaceholder,
-            ) use ($artist) {
-                $artist->forceFill([
-                    'photo' => $photo,
-                    'photo_width' => $width,
-                    'photo_height' => $height,
-                    'photo_crop' => $photo->crop(),
-                    'photo_face_placeholder' => $facePlaceholder,
-                    'photo_placeholder' => $placeholder,
-                ])->save();
-            },
-            $photoCrop,
-        );
-    }
-
     private function storePhotoFromUrl(
         string $uri,
-        ArtistPhotoCrop $photoCrop,
-        Artist $artist,
+        ArtistPhotoCrop $crop,
     ): Photo {
         $contents = Http::get($uri);
 
@@ -129,9 +88,10 @@ class ArtistController extends Controller
 
         fclose($targetStream);
 
-        $file = new File($targetFile, checkPath: true);
-
-        $photo = $this->storePhoto($file, $photoCrop, $artist);
+        $photo = Photo::store(
+            new File($targetFile, checkPath: true),
+            ['crop' => $crop],
+        );
 
         $temporaryDirectory->delete();
 

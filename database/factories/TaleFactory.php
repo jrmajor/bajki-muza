@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
@@ -67,7 +68,25 @@ class TaleFactory extends Factory
         });
     }
 
-    public function withoutRelations()
+    public function noCover(): static
+    {
+        return $this->state(['cover_filename' => null]);
+    }
+
+    public function cover(string|Cover $cover = null): static
+    {
+        if (! $cover instanceof Cover) {
+            $cover = Cover::create([
+                'filename' => $cover ?? 'test.jpg',
+            ]);
+        }
+
+        return $this->state([
+            'cover_filename' => $cover->filename(),
+        ]);
+    }
+
+    public function withoutRelations(): static
     {
         return $this->afterCreating(function (Tale $tale) {
             $tale->credits()->detach();
