@@ -25,14 +25,10 @@
     @if ($artist->photo)
       <div style="width: {{ $artist->photo->aspectRatio() * 10 }}rem"
         class="relative mt-5 mb-2 sm:my-0 sm:mr-6 -p-px flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
-        @auth
-          <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
-        @endauth
         <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
           style="background-image: url(&quot;{{ $artist->photo->placeholder() }}&quot;)">
           <img src="{{ $artist->photo->url(320) }}"
             srcset="
-            @auth onclick="document.getElementById('flush-cache-form').submit()" @endauth
               {{ $artist->photo->url(160) }} 1x,
               {{ $artist->photo->url(240) }} 1.5x,
               {{ $artist->photo->url(320) }} 2x"
@@ -42,13 +38,7 @@
       </div>
     @elseif ($artist->discogsPhoto() && Auth::guest())
       <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
-        @auth
-          <form id="flush-cache-form" method="post" action="{{ route('artists.flushCache', $artist) }}" class="hidden"> @csrf </form>
-        @endauth
-
-        <img src="{{ $artist->discogsPhoto() }}" class="h-40"
-          @auth onclick="document.getElementById('flush-cache-form').submit()" @endauth
-          >
+        <img src="{{ $artist->discogsPhoto() }}" class="h-40">
       </div>
     @endif
 
