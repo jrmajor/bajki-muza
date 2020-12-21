@@ -3,6 +3,8 @@ import prettyBytes from 'pretty-bytes'
 
 window.taleFormData = function (data) {
   return {
+    discogs: data.discogs,
+
     cover: {
       preview: '',
       file: '',
@@ -34,6 +36,14 @@ window.taleFormData = function (data) {
       this.$watch('actors', value => {
         this.$nextTick(() => $dispatch('artists-indexes-updated'))
       })
+    },
+
+    updatedDiscogs (event) {
+      const id = this.discogs.match(/discogs\.com\/(?:.*\/)?release\/([0-9]+)/)
+
+      if (id === null) return
+
+      this.discogs = id[1]
     },
 
     setCoverPreview (files) {

@@ -3,6 +3,8 @@
 @php
 
   $data = [
+    'discogs' => old('discogs', $tale->discogs),
+
     'credits' => $tale->orderedCredits()->map(fn ($artist) => [
         'artist' => $artist->name,
         'type' => $artist->credit->type,
@@ -51,6 +53,22 @@
         <input type="text" name="nr" value="{{ old('nr', $tale->nr) }}"
           class="w-full form-input">
       </div>
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <label for="year" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Discogs</label>
+    <div class="flex items-center space-x-5">
+      <input type="text" name="discogs"
+        x-model="discogs" x-on:input="updatedDiscogs()"
+        class="w-full form-input">
+      @if ($tale->discogs)
+        <div class="flex-grow-0">
+          <a href="{{ $tale->discogs_url }}" target="_blank">
+            <x-icons.discogs class="fill-current h-5"/>
+          </a>
+        </div>
+      @endif
     </div>
   </div>
 

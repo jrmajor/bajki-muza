@@ -12,18 +12,13 @@ use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-it('casts discogs and filmpolski ids to integers', function () {
-    $artist = Artist::factory()->create([
-        'discogs' => '1023394',
-        'filmpolski' => '116251',
-    ]);
+it('casts discogs id to integer',)
+    ->expect((new Artist(['discogs' => '1023394']))->discogs)
+    ->toBe(1023394);
 
-    expect($artist->discogs)->toBe(1023394)
-        ->and($artist->discogs)->not->toBe('1023394');
-
-    expect($artist->filmpolski)->toBe(116251)
-        ->and($artist->filmpolski)->not->toBe('116251');
-});
+it('casts filmpolski id to integer',)
+    ->expect((new Artist(['filmpolski' => '116251']))->filmpolski)
+    ->toBe(116251);
 
 it('generates slug when created', function () {
     $artist = Artist::create(['name' => 'Tadeusz Włudarski']);

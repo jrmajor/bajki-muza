@@ -50,8 +50,13 @@ beforeEach(function () {
 });
 
 it('can create artist url', function () {
-    expect(Discogs::url('518243'))
+    expect(Discogs::url(518243))
         ->toBe('https://www.discogs.com/artist/518243');
+});
+
+it('can create release url', function () {
+    expect(Discogs::releaseUrl(2792351))
+        ->toBe('https://www.discogs.com/release/2792351');
 });
 
 it('can get photos from discogs', function () {

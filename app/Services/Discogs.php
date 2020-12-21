@@ -39,13 +39,18 @@ class Discogs
         return "https://www.discogs.com/artist/{$id}";
     }
 
+    public function releaseUrl(int $id): string
+    {
+        return "https://www.discogs.com/release/{$id}";
+    }
+
     public function photos(int $id): PhotoCollection
     {
         $response = Cache::remember(
             "discogs-{$id}-photos",
             CarbonInterval::week(),
             fn () => $this->request()
-                ->get("https://api.discogs.com/artists/{$id}")->json()
+                ->get("https://api.discogs.com/artists/{$id}")->json(),
         );
 
         return PhotoCollection::fromArray($response['images'] ?? []);

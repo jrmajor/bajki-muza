@@ -4,17 +4,17 @@ use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
+use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-it('casts year to integer', function () {
-    $tale = Tale::factory()->create([
-        'year' => '1973',
-    ]);
+it('casts year to integer',)
+    ->expect((new Tale(['year' => '1973']))->year)
+    ->toBe(1973);
 
-    expect($tale->year)->toBe(1973)
-        ->and($tale->year)->not->toBe('1973');
-});
+it('casts discogs id to integer',)
+    ->expect((new Tale(['discogs' => '2792351']))->discogs)
+    ->toBe(2792351);
 
 it('generates slug when created', function () {
     $tale = Tale::create(['title' => 'O Tadku-Niejadku, babci i dziadku']);
@@ -45,6 +45,17 @@ it('regenerates slug when updated', function () {
     $tale->fill(['title' => 'Jak Janek i Marianek szczęścia szukali'])->save();
 
     expect($tale->slug)->toBe('jak-janek-i-marianek-szczescia-szukali');
+});
+
+it('can generate discogs url', function () {
+    $tale = Tale::factory()
+        ->make(['discogs' => 2792351]);
+
+    Discogs::shouldReceive('releaseUrl')
+        ->andReturn('https://www.discogs.com/release/2792351');
+
+    expect($tale->discogs_url)
+        ->toBe('https://www.discogs.com/release/2792351');
 });
 
 it('can get its cover', function () {

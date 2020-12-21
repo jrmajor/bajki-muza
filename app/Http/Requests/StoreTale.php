@@ -20,6 +20,8 @@ class StoreTale extends FormRequest
             'year' => ['digits:4', 'nullable'],
             'nr' => ['string', 'max:4', 'nullable'],
 
+            'discogs' => ['integer', 'nullable'],
+
             'cover' => ['file', 'mimes:jpeg,png', 'nullable'],
             'remove_cover' => ['boolean', 'nullable'],
 

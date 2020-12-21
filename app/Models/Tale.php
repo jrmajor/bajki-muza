@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Images\Cover;
 use App\Values\CreditType;
+use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,11 +21,12 @@ class Tale extends Model
     protected $with = ['cover'];
 
     public $fillable = [
-        'title', 'year', 'nr', 'notes',
+        'title', 'year', 'nr', 'notes', 'discogs',
     ];
 
     protected $casts = [
         'year' => 'int',
+        'discogs' => 'int',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -38,6 +40,11 @@ class Tale extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function getDiscogsUrlAttribute(): ?string
+    {
+        return $this->discogs ? Discogs::releaseUrl($this->discogs) : null;
     }
 
     public function cover(): BelongsTo
