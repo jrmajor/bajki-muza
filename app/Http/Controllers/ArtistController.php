@@ -32,21 +32,21 @@ class ArtistController extends Controller
             ? ArtistPhotoCrop::fromStrings($data['photo_crop'])
             : null;
 
+        $photoSource = $data['photo_source'] ?? null;
+
         if ($request->boolean('remove_photo')) {
             $artist->photo()->disassociate()->save();
         } elseif ($request->file('photo')) {
             $artist->photo()->associate(
                 Photo::store($request->file('photo'), [
                     'crop' => $photoCrop,
-                    'source' => $data['photo_source'],
+                    'source' => $photoSource,
                 ]),
             )->save();
         } elseif ($data['photo_uri'] ?? null) {
             $artist->photo()->associate(
                 $this->storePhotoFromUrl(
-                    $data['photo_uri'],
-                    $photoCrop,
-                    $data['photo_source'],
+                    $data['photo_uri'], $photoCrop, $photoSource,
                 ),
             )->save();
         } elseif (
@@ -54,12 +54,12 @@ class ArtistController extends Controller
             && $photoCrop?->toArray() != $artist->photo_crop?->toArray()
         ) {
             $artist->photo
-                ->setAttribute('source', $data['photo_source'])
+                ->setAttribute('source', $photoSource)
                 ->setCrop($photoCrop)
                 ->reprocess();
         } elseif ($artist->photo) {
             $artist->photo
-                ->setAttribute('source', $data['photo_source'])
+                ->setAttribute('source', $photoSource)
                 ->save();
         }
 

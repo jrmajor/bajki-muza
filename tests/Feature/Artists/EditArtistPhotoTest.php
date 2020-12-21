@@ -74,8 +74,15 @@ test('photo can be uploaded', function () {
             array_merge($this->attributes, [
                 'photo' => UploadedFile::fake()->image('test.jpg'),
                 'photo_crop' => $this->rawCrop,
+                'photo_source' => 'test source',
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
+
+    $this->artist = $this->artist->fresh();
+
+    expect($this->artist->photo)->not->toBeNull()
+        ->and($this->artist->photo->source)->toBe('test source')
+        ->and($this->artist->photo->crop->toArray())->toBe(ArtistPhotoCrop::fake()->toArray());
 
     expect(Photo::disk()->files('photos/original'))->toHaveCount(1);
 
@@ -102,10 +109,17 @@ test('photo can be downloaded from specified uri', function () {
             array_merge($this->attributes, [
                 'photo_uri' => $uri = 'https://filmpolski.pl/z1/31z/2431_3.jpg',
                 'photo_crop' => $this->rawCrop,
+                'photo_source' => 'test source',
             ]),
         )->assertRedirect("artysci/{$this->artist->slug}");
 
     Http::assertSent(fn ($request) => $request->url() === $uri);
+
+    $this->artist = $this->artist->fresh();
+
+    expect($this->artist->photo)->not->toBeNull()
+        ->and($this->artist->photo->source)->toBe('test source')
+        ->and($this->artist->photo->crop->toArray())->toBe(ArtistPhotoCrop::fake()->toArray());
 
     expect($files = Photo::disk()->files('photos/original'))
         ->toHaveCount(1);
