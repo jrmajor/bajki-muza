@@ -36,7 +36,7 @@
       </div>
     @endforeach
   @elseif ($authors->isNotEmpty())
-    @foreach ($text->groupBy(fn ($artist) => $artist->credit->as ?? 'Autor') as $credit => $authors)
+    @foreach ($authors->groupBy(fn ($artist) => $artist->credit->as ?? 'Autor') as $credit => $authors)
       <div>
         <strong>{{ $credit }}:</strong>
         @foreach ($authors as $author)
