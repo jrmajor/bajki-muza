@@ -4,6 +4,8 @@ namespace App\Images;
 
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
+use App\Models\Tale;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 
@@ -44,5 +46,10 @@ class Cover extends Image
     public function path(int $size): string
     {
         return "covers/{$size}/{$this->filename()}";
+    }
+
+    public function tales(): HasMany
+    {
+        return $this->hasMany(Tale::class, 'cover_filename', 'filename');
     }
 }

@@ -4,6 +4,7 @@ use App\Images\Cover;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Images\Photo;
+use App\Models\Tale;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
@@ -42,4 +43,22 @@ it('returns correct path for given size', function () {
     expect(
         (new Cover(['filename' => 'test.jpg']))->path(384),
     )->toBe('covers/384/test.jpg');
+});
+
+it('can get its tales', function () {
+    $cover = Cover::create([
+        'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
+    ]);
+
+    $tales = Tale::factory()
+        ->count(2)
+        ->cover($cover)
+        ->create();
+
+    // @todo $cover->refesh();
+    $cover = $cover->fresh();
+
+    expect($cover->tales)->toHaveCount(2)
+        ->and($cover->tales[0]->is($tales[0]))->toBeTrue()
+        ->and($cover->tales[1]->is($tales[1]))->toBeTrue();
 });

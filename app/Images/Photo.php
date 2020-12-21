@@ -5,6 +5,8 @@ namespace App\Images;
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Values\ArtistPhotoCrop;
+use App\Models\Artist;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 
@@ -89,5 +91,10 @@ class Photo extends Image
         }
 
         return $this->width / $this->height;
+    }
+
+    public function artists(): HasMany
+    {
+        return $this->hasMany(Artist::class, 'photo_filename', 'filename');
     }
 }

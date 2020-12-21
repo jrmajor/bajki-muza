@@ -4,6 +4,7 @@ use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
+use App\Models\Artist;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
@@ -106,3 +107,22 @@ test('aspect ratio is null, when dimensions are not set')
             'height' => null,
         ]))->aspectRatio(),
     )->toBeNull();
+
+it('can get its tales', function () {
+    $photo = Photo::create([
+        'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
+        'crop' => ArtistPhotoCrop::fake(),
+    ]);
+
+    $photos = Artist::factory()
+        ->count(2)
+        ->photo($photo)
+        ->create();
+
+    // @todo $photo->refesh();
+    $photo = $photo->fresh();
+
+    expect($photo->artists)->toHaveCount(2)
+        ->and($photo->artists[0]->is($photos[0]))->toBeTrue()
+        ->and($photo->artists[1]->is($photos[1]))->toBeTrue();
+});
