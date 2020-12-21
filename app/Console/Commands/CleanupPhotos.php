@@ -3,11 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Images\Photo;
-use App\Models\Artist;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class CleanupPhotos extends Command
 {
@@ -17,26 +14,24 @@ class CleanupPhotos extends Command
 
     public function handle(): int
     {
-        throw new CommandNotFoundException("The command \"{$this->signature}\" is yet to be implemented.");
-
-        $result = collect(Storage::cloud()->files('photos/original'))
-            ->map(fn ($path) => $this->removePhotoIfUnused($path))
+        $result = collect(Photo::disk()->files('photos/original'))
+            ->map(fn ($path) => $this->removePhotoIfItHasNoModel($path))
             ->contains(1) ? 1 : 0;
 
         return Photo::sizes()
-            ->map(fn ($size) => Storage::cloud()->files("photos/{$size}"))
+            ->map(fn ($size) => Photo::disk()->files("photos/{$size}"))
             ->flatten()
             ->map(fn ($path) => Str::afterLast($path, '/'))
             ->unique()
-            ->map(fn ($filename) => $this->removePhotoIfNoOriginal($filename))
+            ->map(fn ($filename) => $this->removeVariantsWithoutOriginal($filename))
             ->contains(1) ? 1 : $result;
     }
 
-    protected function removePhotoIfUnused(string $path): int
+    protected function removePhotoIfItHasNoModel(string $path): int
     {
         $filename = Str::afterLast($path, '/');
 
-        if (Artist::where('photo', $filename)->count() > 0) {
+        if (! is_null(Photo::find($filename))) {
             return 0;
         }
 
@@ -46,12 +41,12 @@ class CleanupPhotos extends Command
 
         $this->info("Removing (unused): {$filename}");
 
-        return $this->deleteResponsiveVariants($filename);
+        return $this->deleteOriginalAndResponsiveVariants($filename);
     }
 
-    protected function removePhotoIfNoOriginal(string $filename): int
+    protected function removeVariantsWithoutOriginal(string $filename): int
     {
-        if (Storage::cloud()->exists("photos/original/{$filename}")) {
+        if (Photo::disk()->exists("photos/original/{$filename}")) {
             return 0;
         }
 
@@ -61,17 +56,17 @@ class CleanupPhotos extends Command
 
         $this->info("Removing (no original): {$filename}");
 
-        return $this->deleteResponsiveVariants($filename);
+        return $this->deleteOriginalAndResponsiveVariants($filename);
     }
 
-    protected function deleteResponsiveVariants($filename): int
+    protected function deleteOriginalAndResponsiveVariants(string $filename): int
     {
         $photosToDelete = Photo::sizes()
             ->prepend('original')
             ->map(fn ($size) => "photos/{$size}/{$filename}")
             ->all();
 
-        Storage::cloud()->delete($photosToDelete);
+        Photo::disk()->delete($photosToDelete);
 
         return 0;
     }

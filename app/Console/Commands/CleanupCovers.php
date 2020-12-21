@@ -3,11 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Images\Cover;
-use App\Models\Tale;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Exception\CommandNotFoundException;
 
 class CleanupCovers extends Command
 {
@@ -17,26 +14,24 @@ class CleanupCovers extends Command
 
     public function handle(): int
     {
-        throw new CommandNotFoundException("The command \"{$this->signature}\" is yet to be implemented.");
-
-        $result = collect(Storage::cloud()->files('covers/original'))
-            ->map(fn ($path) => $this->removeCoverIfUnused($path))
+        $result = collect(Cover::disk()->files('covers/original'))
+            ->map(fn ($path) => $this->removeCoverIfItHasNoModel($path))
             ->contains(1) ? 1 : 0;
 
         return Cover::sizes()
-            ->map(fn ($size) => Storage::cloud()->files("covers/{$size}"))
+            ->map(fn ($size) => Cover::disk()->files("covers/{$size}"))
             ->flatten()
             ->map(fn ($path) => Str::afterLast($path, '/'))
             ->unique()
-            ->map(fn ($filename) => $this->removeCoverIfNoOriginal($filename))
+            ->map(fn ($filename) => $this->removeVariantsWithoutOriginal($filename))
             ->contains(1) ? 1 : $result;
     }
 
-    protected function removeCoverIfUnused(string $path): int
+    protected function removeCoverIfItHasNoModel(string $path): int
     {
         $filename = Str::afterLast($path, '/');
 
-        if (Tale::where('cover', $filename)->count() > 0) {
+        if (! is_null(Cover::find($filename))) {
             return 0;
         }
 
@@ -46,12 +41,12 @@ class CleanupCovers extends Command
 
         $this->info("Removing (unused): {$filename}");
 
-        return $this->deleteResponsiveVariants($filename);
+        return $this->deleteOriginalAndResponsiveVariants($filename);
     }
 
-    protected function removeCoverIfNoOriginal(string $filename): int
+    protected function removeVariantsWithoutOriginal(string $filename): int
     {
-        if (Storage::cloud()->exists("covers/original/{$filename}")) {
+        if (Cover::disk()->exists("covers/original/{$filename}")) {
             return 0;
         }
 
@@ -61,17 +56,17 @@ class CleanupCovers extends Command
 
         $this->info("Removing (no original): {$filename}");
 
-        return $this->deleteResponsiveVariants($filename);
+        return $this->deleteOriginalAndResponsiveVariants($filename);
     }
 
-    protected function deleteResponsiveVariants($filename): int
+    protected function deleteOriginalAndResponsiveVariants(string $filename): int
     {
         $coversToDelete = Cover::sizes()
             ->prepend('original')
             ->map(fn ($size) => "covers/{$size}/{$filename}")
             ->all();
 
-        Storage::cloud()->delete($coversToDelete);
+        Cover::disk()->delete($coversToDelete);
 
         return 0;
     }
