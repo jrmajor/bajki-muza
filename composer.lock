@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64c6c6c3e2c623f489db0022a2b9edd7",
+    "content-hash": "67e10847b6a78117c55fae0466dbb123",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8133,29 +8133,31 @@
         },
         {
             "name": "pestphp/pest",
-            "version": "v0.3.12",
+            "version": "v0.3.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "6be131d602ecedd75917f072adb4ba0023c14b98"
+                "reference": "885d224c5d263f7cbdc7326065c0a59832644c6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/6be131d602ecedd75917f072adb4ba0023c14b98",
-                "reference": "6be131d602ecedd75917f072adb4ba0023c14b98",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/885d224c5d263f7cbdc7326065c0a59832644c6d",
+                "reference": "885d224c5d263f7cbdc7326065c0a59832644c6d",
                 "shasum": ""
             },
             "require": {
                 "nunomaduro/collision": "^5.0",
                 "pestphp/pest-plugin": "^0.3",
                 "pestphp/pest-plugin-coverage": "^0.3",
+                "pestphp/pest-plugin-expectations": "^0.3.2",
                 "pestphp/pest-plugin-init": "^0.3",
                 "php": "^7.3 || ^8.0",
-                "phpunit/phpunit": ">= 9.3.7 <= 9.4.3"
+                "phpunit/phpunit": ">= 9.3.7 <= 9.5.0"
             },
             "require-dev": {
                 "illuminate/console": "^7.16.1",
                 "illuminate/support": "^7.16.1",
+                "laravel/dusk": "^6.9.1",
                 "mockery/mockery": "^1.4.1",
                 "pestphp/pest-dev-tools": "dev-master"
             },
@@ -8183,7 +8185,7 @@
                     "Pest\\": "src/"
                 },
                 "files": [
-                    "src/globals.php",
+                    "src/Functions.php",
                     "src/Pest.php"
                 ]
             },
@@ -8208,7 +8210,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v0.3.12"
+                "source": "https://github.com/pestphp/pest/tree/v0.3.17"
             },
             "funding": [
                 {
@@ -8224,7 +8226,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2020-11-11T23:29:18+00:00"
+            "time": "2020-12-20T16:22:40+00:00"
         },
         {
             "name": "pestphp/pest-plugin",
@@ -8373,6 +8375,76 @@
                 }
             ],
             "time": "2020-08-25T20:42:46+00:00"
+        },
+        {
+            "name": "pestphp/pest-plugin-expectations",
+            "version": "v0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pestphp/pest-plugin-expectations.git",
+                "reference": "4bef39aef0d36a2b566e279860a11762be90cbf9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-expectations/zipball/4bef39aef0d36a2b566e279860a11762be90cbf9",
+                "reference": "4bef39aef0d36a2b566e279860a11762be90cbf9",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3 || ^8.0",
+                "phpunit/phpunit": "^9.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^0.3.16",
+                "pestphp/pest-dev-tools": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pest\\Expectations\\": "src/"
+                },
+                "files": [
+                    "src/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Add expectations testing capabilities to Pest or PHPUnit",
+            "keywords": [
+                "expectations",
+                "framework",
+                "pest",
+                "php",
+                "test",
+                "testing",
+                "unit"
+            ],
+            "support": {
+                "issues": "https://github.com/pestphp/pest-plugin-expectations/issues",
+                "source": "https://github.com/pestphp/pest-plugin-expectations/tree/v0.3.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/nunomaduro",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/nunomaduro",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-12-13T22:08:48+00:00"
         },
         {
             "name": "pestphp/pest-plugin-init",
@@ -9175,16 +9247,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.4.3",
+            "version": "9.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab"
+                "reference": "8e16c225d57c3d6808014df6b1dd7598d0a5bbbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab",
-                "reference": "9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e16c225d57c3d6808014df6b1dd7598d0a5bbbe",
+                "reference": "8e16c225d57c3d6808014df6b1dd7598d0a5bbbe",
                 "shasum": ""
             },
             "require": {
@@ -9200,7 +9272,7 @@
                 "phar-io/version": "^3.0.2",
                 "php": ">=7.3",
                 "phpspec/prophecy": "^1.12.1",
-                "phpunit/php-code-coverage": "^9.2",
+                "phpunit/php-code-coverage": "^9.2.3",
                 "phpunit/php-file-iterator": "^3.0.5",
                 "phpunit/php-invoker": "^3.1.1",
                 "phpunit/php-text-template": "^2.0.3",
@@ -9231,7 +9303,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "9.4-dev"
+                    "dev-master": "9.5-dev"
                 }
             },
             "autoload": {
@@ -9262,7 +9334,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.4.3"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.0"
             },
             "funding": [
                 {
@@ -9274,7 +9346,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-10T12:53:30+00:00"
+            "time": "2020-12-04T05:05:53+00:00"
         },
         {
             "name": "react/promise",

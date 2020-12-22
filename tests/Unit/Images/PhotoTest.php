@@ -23,7 +23,7 @@ it('can get lists of sizes')
 
 it('casts dimensions to integers')
     ->expect((new Photo(['width' => '2137']))->width)->toBe(2137)
-    ->expect((new Photo(['height' => '2115']))->height)->toBe(2115);
+    ->and((new Photo(['height' => '2115']))->height)->toBe(2115);
 
 it('casts crop to ArtistPhotoCrop', function () {
     $photo = Photo::create([

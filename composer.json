@@ -39,9 +39,9 @@
         "fakerphp/faker": "^1.13",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^5.1",
-        "pestphp/pest": "0.3.12",
+        "pestphp/pest": "0.3.17",
         "pestphp/pest-plugin-laravel": "0.3.0",
-        "phpunit/phpunit": "9.4.3"
+        "phpunit/phpunit": "9.5.0"
     },
     "config": {
         "optimize-autoloader": true,
