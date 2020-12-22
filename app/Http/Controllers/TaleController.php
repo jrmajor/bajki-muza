@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTale;
 use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Values\CreditData;
 
 class TaleController extends Controller
 {
@@ -70,14 +71,14 @@ class TaleController extends Controller
     protected function saveRelationships(Tale $tale, array $data): void
     {
         $credits = collect($data['credits'] ?? [])
-            ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
-            ->map(fn ($credit) => [
+            ->groupBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
+            ->map->map(fn ($credit) => new CreditData([
                 'type' => $credit['type'],
                 'as' => $credit['as'],
-                'nr' => $credit['nr'],
-            ]);
+                'nr' => (int) $credit['nr'],
+            ]));
 
-        $tale->credits()->sync($credits);
+        $tale->syncCredits($credits);
 
         $actors = collect($data['actors'] ?? [])
             ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Images\Cover;
+use App\Values\CreditData;
 use App\Values\CreditType;
 use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -63,7 +64,7 @@ class Tale extends Model
     {
         return $this->belongsToMany(Artist::class, 'credits')
             ->using(Credit::class)->as('credit')
-            ->withPivot('type', 'as', 'nr')->withTimestamps()
+            ->withPivot('id', 'type', 'as', 'nr')->withTimestamps()
             ->orderBy('credits.nr');
     }
 
@@ -89,5 +90,50 @@ class Tale extends Model
         return $this->credits
             ->sortBy(fn ($artist) => $artist->credit->type->order())
             ->values();
+    }
+
+    /**
+     * @param array<int, CreditData[]> $credits (keys are artists ids)
+     */
+    public function syncCredits(array|Collection $credits)
+    {
+        $allCreditsToSync = collect($credits)
+            ->map(curry('collect'));
+
+        // Delete credits for artists who don't exist in new credit list.
+        $this->credits()->whereIntegerNotInRaw(
+            'artists.id', $allCreditsToSync->keys(),
+        )->get()
+            ->map->credit
+            ->map->delete();
+
+        // Refresh existing credits after deleting some of them
+        // and format them the same way input is formatted.
+        $allExistingCredits = $this->credits()->get()
+            ->groupBy->id
+            ->map->map(fn ($artist) => $artist->credit);
+
+        foreach ($allCreditsToSync as $artistId => $newCredits) {
+            $existingCredits = $allExistingCredits[$artistId] ?? collect();
+
+            // Add new credits if artist should have more of them.
+            // They will be filled with more data and saved later on.
+            while ($newCredits->count() > $existingCredits->count()) {
+                $existingCredits->push(
+                    new Credit(['tale_id' => $this->id, 'artist_id' => $artistId]),
+                );
+            }
+
+            // Remove some credits if artist should have less.
+            while ($existingCredits->count() > $newCredits->count()) {
+                $existingCredits->pop()->delete();
+            }
+
+            // Now that we have as many credits, as we should, we can update them.
+            foreach ($newCredits as $credit) {
+                $existingCredits->shift()
+                    ->fill($credit->toArray())->save();
+            }
+        }
     }
 }

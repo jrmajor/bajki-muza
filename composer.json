@@ -21,6 +21,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "league/flysystem-cached-adapter": "~1.0",
         "livewire/livewire": "^2.3",
+        "nunomaduro/curryable": "master",
         "spatie/data-transfer-object": "^2.6",
         "spatie/image": "^1.10",
         "spatie/laravel-enum": "^2.2",

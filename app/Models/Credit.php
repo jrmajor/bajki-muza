@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Credit extends Pivot
 {
+    protected $table = 'credits';
+
     public $incrementing = true;
 
     protected $casts = [

@@ -3,6 +3,7 @@
 use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Values\CreditData;
 use App\Values\CreditType;
 use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -192,4 +193,105 @@ it('can get credits of given type', function () {
     expect($composers->get(0)->id)->toBe($ids[3]);
     expect($composers->get(1)->id)->toBe($ids[2]);
     expect($composers->get(2)->id)->toBe($ids[5]);
+});
+
+it('can sync credits', function () {
+    $creditKeys = fn (Artist $artist) => Arr::only(
+        $artist->credit->getAttributes(),
+        ['type', 'as', 'nr'],
+    );
+
+    [$firstArtist, $secondArtist] = Artist::factory()->count(2)->create();
+
+    $tale = Tale::factory()->withoutRelations()->create();
+
+    // no credits -> one credit
+
+    $tale->syncCredits([
+        $firstArtist->id => [
+            new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
+        ]
+    ]);
+
+    $tale->refresh();
+
+    expect($tale->credits)->toHaveCount(1);
+
+    expect($tale->credits[0]->is($firstArtist))->toBeTrue()
+        ->and($creditKeys($tale->credits[0]))->toBe([
+            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => '0',
+        ]);
+
+    // one credit -> two credits for the same artist
+
+    $tale->syncCredits([
+        $firstArtist->id => [
+            new CreditData(['type' => 'adaptation', 'as' => null, 'nr' => 1]),
+            new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
+        ]
+    ]);
+
+    $tale->refresh();
+
+    expect($tale->credits)->toHaveCount(2);
+
+    expect($tale->credits[0]->is($firstArtist))->toBeTrue()
+        ->and($creditKeys($tale->credits[0]))->toBe([
+            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => '0',
+        ]);
+
+    expect($tale->credits[1]->is($firstArtist))->toBeTrue()
+        ->and($creditKeys($tale->credits[1]))->toBe([
+            'type' => 'adaptation', 'as' => null, 'nr' => '1',
+        ]);
+
+    // two credits for the same artist -> two credits for two artists
+
+    $tale->syncCredits([
+        $firstArtist->id => [
+            new CreditData(['type' => 'adaptation', 'as' => null, 'nr' => 1]),
+        ],
+        $secondArtist->id => [
+            new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
+        ],
+    ]);
+
+    $tale->refresh();
+
+    expect($tale->credits)->toHaveCount(2);
+
+    expect($tale->credits[0]->is($secondArtist))->toBeTrue()
+        ->and($creditKeys($tale->credits[0]))->toBe([
+            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => '0',
+        ]);
+
+    expect($tale->credits[1]->is($firstArtist))->toBeTrue()
+        ->and($creditKeys($tale->credits[1]))->toBe([
+            'type' => 'adaptation', 'as' => null, 'nr' => '1',
+        ]);
+
+    // two credits for the same artist -> change only pivot attributes
+
+    $tale->syncCredits([
+        $firstArtist->id => [
+            new CreditData(['type' => 'author', 'as' => 'A-utor', 'nr' => 2]),
+        ],
+        $secondArtist->id => [
+            new CreditData(['type' => 'music', 'as' => null, 'nr' => 3]),
+        ],
+    ]);
+
+    $tale->refresh();
+
+    expect($tale->credits)->toHaveCount(2);
+
+    expect($tale->credits[0]->is($firstArtist))->toBeTrue()
+        ->and($creditKeys($tale->credits[0]))->toBe([
+            'type' => 'author', 'as' => 'A-utor', 'nr' => '2',
+        ]);
+
+    expect($tale->credits[1]->is($secondArtist))->toBeTrue()
+        ->and($creditKeys($tale->credits[1]))->toBe([
+            'type' => 'music', 'as' => null, 'nr' => '3',
+        ]);
 });
