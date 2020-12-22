@@ -123,6 +123,6 @@ it('can get its tales', function () {
     $photo = $photo->fresh();
 
     expect($photo->artists)->toHaveCount(2)
-        ->and($photo->artists[0]->is($photos[0]))->toBeTrue()
-        ->and($photo->artists[1]->is($photos[1]))->toBeTrue();
+        ->and($photo->artists[0])->toBeModel($photos[0])
+        ->and($photo->artists[1])->toBeModel($photos[1]);
 });

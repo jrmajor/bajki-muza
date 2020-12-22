@@ -392,9 +392,7 @@ test('findBySlug method works', function () {
 
     expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
 
-    expect(
-        Artist::findBySlug('jan-matyjaszkiewicz')->is($artist),
-    )->toBeTrue();
+    expect(Artist::findBySlug('jan-matyjaszkiewicz'))->toBeModel($artist);
 });
 
 test('findBySlugOrNew method works', function () {
@@ -404,8 +402,8 @@ test('findBySlugOrNew method works', function () {
     expect(Artist::count())->toBe(1);
 
     expect(
-        Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ')->is($artist),
-    )->toBeTrue();
+        Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ'),
+    )->toBeModel($artist);
 
     expect(Artist::count())->toBe(1);
 

@@ -59,6 +59,6 @@ it('can get its tales', function () {
     $cover = $cover->fresh();
 
     expect($cover->tales)->toHaveCount(2)
-        ->and($cover->tales[0]->is($tales[0]))->toBeTrue()
-        ->and($cover->tales[1]->is($tales[1]))->toBeTrue();
+        ->and($cover->tales[0])->toBeModel($tales[0])
+        ->and($cover->tales[1])->toBeModel($tales[1]);
 });
