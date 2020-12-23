@@ -39,8 +39,10 @@
         "fakerphp/faker": "^1.13",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^5.1",
+        "nunomaduro/larastan": "^0.6.11",
         "pestphp/pest": "0.3.17",
         "pestphp/pest-plugin-laravel": "0.3.0",
+        "phpstan/phpstan": "^0.12.64",
         "phpunit/phpunit": "9.5.0"
     },
     "config": {
