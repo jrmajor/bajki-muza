@@ -39,7 +39,7 @@ class Artists extends Component
             ->unless(blank($this->max), function ($query) {
                 $query->having('appearances', '<=', (int) $this->max);
             })
-            ->orderBy('name')->paginate(30);
+            ->orderByDesc('appearances')->orderBy('name')->paginate(30);
 
         return view('artists.index')
             ->with('artists', $artists)

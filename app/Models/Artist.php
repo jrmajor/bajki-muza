@@ -157,8 +157,8 @@ class Artist extends Model
                 DB::table('credits')->select('tale_id')
                     ->whereColumn('artist_id', 'artists.id')
                 ->union(DB::table('tales_actors')->select('tale_id')
-                    ->whereColumn('artist_id', 'artists.id')
-                )
+                    ->whereColumn('artist_id', 'artists.id'),
+                ),
             )->select(DB::raw('count(*) as appearances')),
         ])->withCasts(['appearances' => 'int']);
     }
@@ -169,8 +169,8 @@ class Artist extends Model
                 DB::table('credits')->select('tale_id')
                     ->where('artist_id', $this->id)
                 ->union(DB::table('tales_actors')->select('tale_id')
-                    ->where('artist_id', $this->id)
-                )
+                    ->where('artist_id', $this->id),
+                ),
             )->count();
     }
 
