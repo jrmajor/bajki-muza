@@ -55,7 +55,7 @@ abstract class Image extends Model
 
     public function filename(): string
     {
-        return $this->filename;
+        return $this->getAttribute('filename');
     }
 
     abstract protected static function uploadPath(): string;
@@ -79,7 +79,7 @@ abstract class Image extends Model
 
     public function placeholder(): ?string
     {
-        return $this->placeholder;
+         return $this->getAttribute('placeholder');
     }
 
     public function originalMissing(): bool
