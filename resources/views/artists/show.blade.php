@@ -50,7 +50,7 @@
 
       <div class="
         hidden sm:block
-        @if ($artist->photo || $artist->wikipedia) self-start @else self-center @endif">
+        @if ($artist->photo || $artist->discogsPhoto() || $artist->wikipedia) self-start @else self-center @endif">
         <h2 class="text-2xl font-medium">
           @auth <a href="{{ route('artists.edit', $artist) }}"> @endauth
             <span class="shadow-title">{{ $artist->name }}</span>
