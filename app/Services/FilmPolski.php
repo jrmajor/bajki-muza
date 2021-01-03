@@ -158,7 +158,7 @@ class FilmPolski
                 }
 
                 if ($nodeCrawler->attr('class') === 'opzdj') {
-                    $photos[$title]['year'] = $nodeCrawler->text();
+                    $photos[$title ?? '?']['year'] = $nodeCrawler->text();
                     continue;
                 }
 
@@ -172,7 +172,7 @@ class FilmPolski
 
                 $photo = Regex::replace('/\/([0-9]+)i\//', '/$1z/', $photo)->result();
 
-                $photos[$title]['photos'][] = $photo;
+                $photos[$title ?? '?']['photos'][] = $photo;
             } catch (InvalidArgumentException) {
                 continue;
             }
