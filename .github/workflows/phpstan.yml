@@ -30,5 +30,10 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
+      - name: Prepare Laravel application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyse --no-progress --no-interaction
