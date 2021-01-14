@@ -2,7 +2,6 @@
 
 namespace App\Values\Wikipedia;
 
-use Illuminate\Support\Str;
 use Spatie\DataTransferObject\DataTransferObject;
 
 class Artist extends DataTransferObject
@@ -14,7 +13,7 @@ class Artist extends DataTransferObject
     public static function fromArray(array $artist): self
     {
         return new self([
-            'id' => urldecode(Str::afterLast($artist['uri'], '/')),
+            'id' => $artist['id'],
             'name' => $artist['name'],
         ]);
     }

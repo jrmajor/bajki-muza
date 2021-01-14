@@ -7,6 +7,7 @@ use Carbon\CarbonInterval;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class Wikipedia
 {
@@ -21,11 +22,14 @@ class Wikipedia
             'redirects' => 'resolve',
         ])->json();
 
-        $artists = collect($response[3])
-            ->map(fn ($uri, $key) => [
-                'uri' => $uri,
-                'name' => $response[1][$key],
-            ])->all();
+        $artists = collect($response)
+            ->only(1, 3)
+            ->transpose()
+            ->map->combineKeys(['name', 'id'])
+            ->each(function ($artist) {
+                $artist['id'] = urldecode(Str::afterLast($artist['id'], '/'));
+            })
+            ->toArray();
 
         return ArtistCollection::fromArray($artists);
     }

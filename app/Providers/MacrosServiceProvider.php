@@ -4,12 +4,17 @@ namespace App\Providers;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ForeignIdColumnDefinition;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class MacrosServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        Collection::macro('combineKeys', function ($keys) {
+            return new static(array_combine($this->getArrayableItems($keys), $this->all()));
+        });
+
         Blueprint::macro('smallId', function (string $column = 'id') {
             return $this->smallIncrements($column);
         });
