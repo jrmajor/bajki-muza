@@ -228,10 +228,10 @@
     </div>
   </div>
 
-    <div class="w-full flex flex-col">
-      <label for="notes" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Notatki</label>
-      <textarea type="text" name="notes" rows="5" class="w-full form-input">{{ old('notes', $tale->notes) }}</textarea>
-    </div>
+  <div class="w-full flex flex-col">
+    <label for="notes" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Notatki</label>
+    <textarea type="text" name="notes" rows="5" class="w-full form-input">{{ old('notes', $tale->notes) }}</textarea>
+  </div>
 
   <button type="submit"
     class="self-center px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium rounded-full shadow-md">
