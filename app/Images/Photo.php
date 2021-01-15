@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 
-class Photo extends Image
+final class Photo extends Image
 {
     protected $casts = [
         'width' => 'int',
@@ -72,7 +72,7 @@ class Photo extends Image
         return $this->face_placeholder;
     }
 
-    public function setCrop(ArtistPhotoCrop $crop): static
+    public function setCrop(ArtistPhotoCrop $crop): self
     {
         return tap(
             $this->setAttribute('crop', $crop)

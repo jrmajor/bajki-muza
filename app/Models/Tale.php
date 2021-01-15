@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Tale extends Model
+final class Tale extends Model
 {
     use HasSlug, HasFactory;
 

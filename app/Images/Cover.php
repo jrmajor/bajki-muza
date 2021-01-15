@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 
-class Cover extends Image
+final class Cover extends Image
 {
     public static function sizes(): Collection
     {

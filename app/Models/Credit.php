@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Credit extends Pivot
+final class Credit extends Pivot
 {
     protected $table = 'credits';
 

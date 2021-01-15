@@ -22,7 +22,7 @@ use InvalidArgumentException;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Artist extends Model
+final class Artist extends Model
 {
     use HasSlug, HasFactory;
 
