@@ -19,6 +19,7 @@ class CreateCreditsTable extends Migration
 
             $table->string('type', 32);
             $table->string('as', 32)->nullable();
+
             $table->tinyInteger('nr')->unsigned();
 
             $table->timestamps();
