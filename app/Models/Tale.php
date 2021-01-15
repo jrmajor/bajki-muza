@@ -141,7 +141,8 @@ class Tale extends Model
 
     public function scopeWithActorsPopularity(Builder $query): void
     {
-        $query->addSelect(['popularity' => DB::table(
+        $query->addSelect(['popularity' =>
+            DB::table(
                 DB::table('tales_actors')
                     ->selectSub(
                         DB::table('tales_actors', 'appearances')
@@ -149,7 +150,7 @@ class Tale extends Model
                             ->selectRaw('count(*) as appearances'),
                         as: 'appearances',
                     )->whereColumn('tales_actors.tale_id', 'tales.id'),
-            )->select(DB::raw('sum(appearances) as popularity')),
+            )->selectRaw('sum(appearances) as popularity'),
         ])->withCasts(['popularity' => 'int']);
     }
 }
