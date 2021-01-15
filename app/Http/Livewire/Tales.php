@@ -26,14 +26,14 @@ class Tales extends Component
 
     public function render()
     {
-        $tales = Tale::query()
+        $tales = Tale::withActorsPopularity()
             ->unless(blank($this->search), function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%');
             })
             ->unless(is_null($this->discogs), function ($query) {
                 $query->whereNull('discogs', not: (bool) $this->discogs);
             })
-            ->orderBy('year')->orderBy('title')->paginate(20);
+            ->orderByDesc('popularity')->orderBy('year')->orderBy('title')->paginate(20);
 
         return view('tales.index')
             ->with('tales', $tales)
