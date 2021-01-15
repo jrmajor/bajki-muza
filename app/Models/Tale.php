@@ -6,12 +6,14 @@ use App\Images\Cover;
 use App\Values\CreditData;
 use App\Values\CreditType;
 use Facades\App\Services\Discogs;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -135,5 +137,19 @@ class Tale extends Model
                     ->fill($credit->toArray())->save();
             }
         }
+    }
+
+    public function scopeWithActorsPopularity(Builder $query): void
+    {
+        $query->addSelect(['popularity' => DB::table(
+                DB::table('tales_actors')
+                    ->selectSub(
+                        DB::table('tales_actors', 'appearances')
+                            ->whereColumn('artist_id', 'tales_actors.artist_id')
+                            ->selectRaw('count(*) as appearances'),
+                        as: 'appearances',
+                    )->whereColumn('tales_actors.tale_id', 'tales.id'),
+            )->select(DB::raw('sum(appearances) as popularity')),
+        ])->withCasts(['popularity' => 'int']);
     }
 }

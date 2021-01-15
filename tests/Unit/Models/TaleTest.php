@@ -295,3 +295,23 @@ it('can sync credits', function () {
             'type' => 'music', 'as' => null, 'nr' => '3',
         ]);
 });
+
+test('withActorsPopularity scope works', function () {
+    $artists = Artist::factory()->count(3)->create();
+
+    $artists[0]->asActor()->attach(
+        $ids = Tale::factory()->count(6)->create()->map->id,
+    );
+
+    $artists[1]->asActor()->attach(
+        Tale::factory()->count(3)->create()->map->id,
+    );
+
+    $artists[1]->asActor()->attach($ids[0]);
+
+    $tale = Tale::factory()->withoutRelations()->create();
+
+    $tale->actors()->attach($artists->map->id);
+
+    expect(Tale::withActorsPopularity()->find($tale->id)->popularity)->toBe(13);
+});
