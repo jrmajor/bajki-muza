@@ -31,8 +31,8 @@ class StoreTale extends FormRequest
             'credits.*.nr' => ['integer', 'required'],
 
             'actors.*.artist' => ['string', 'max:100'],
-            'actors.*.credit_nr' => ['integer'],
             'actors.*.characters' => ['string', 'max:100', 'nullable'],
+            'actors.*.credit_nr' => ['integer'],
 
             'notes' => ['string', 'max:4096', 'nullable'],
         ];

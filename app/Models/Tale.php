@@ -58,7 +58,8 @@ final class Tale extends Model
     public function actors(): BelongsToMany
     {
         return $this->belongsToMany(Artist::class, 'tales_actors')
-            ->withPivot('credit_nr', 'characters')->withTimestamps()
+            ->as('credit')
+            ->withPivot('characters', 'credit_nr')->withTimestamps()
             ->orderBy('tales_actors.credit_nr');
     }
 

@@ -3,18 +3,19 @@
 @php
 
   $data = [
-    'discogs' => old('discogs', $tale->discogs),
+      'discogs' => old('discogs', $tale->discogs),
 
-    'credits' => $tale->orderedCredits()->map(fn ($artist) => [
-        'artist' => $artist->name,
-        'type' => $artist->credit->type,
-        'as' => $artist->credit->as,
-        'nr' => $artist->credit->nr,
-    ]),
-    'actors' => $tale->actors->map(fn ($actor) => [
-        'artist' => $actor->name,
-        'characters' => $actor->pivot->characters,
-    ]),
+      'credits' => $tale->orderedCredits()->map(fn ($artist) => [
+          'artist' => $artist->name,
+          'type' => $artist->credit->type,
+          'as' => $artist->credit->as,
+          'nr' => $artist->credit->nr,
+      ]),
+
+      'actors' => $tale->actors->map(fn ($actor) => [
+          'artist' => $actor->name,
+          'characters' => $actor->credit->characters,
+      ]),
   ];
 
 @endphp

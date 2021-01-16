@@ -115,10 +115,10 @@ test('users with permissions can create tale', function () {
     expect($tale->actors)->toHaveCount(2);
 
     expect($tale->actors[0]->id)->toBe($actors[0]->id)
-        ->and($tale->actors[0]->pivot->characters)->toBe('Zbójca 1')
-        ->and($tale->actors[0]->pivot->credit_nr)->toBe('1');
+        ->and($tale->actors[0]->credit->characters)->toBe('Zbójca 1')
+        ->and($tale->actors[0]->credit->credit_nr)->toBe('1');
 
     expect($tale->actors[1]->id)->toBe($actors[1]->id)
-        ->and($tale->actors[1]->pivot->characters)->toBe('Zbójca 2')
-        ->and($tale->actors[1]->pivot->credit_nr)->toBe('2');
+        ->and($tale->actors[1]->credit->characters)->toBe('Zbójca 2')
+        ->and($tale->actors[1]->credit->credit_nr)->toBe('2');
 });

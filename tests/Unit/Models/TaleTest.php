@@ -268,7 +268,7 @@ it('can sync credits', function () {
             'type' => 'adaptation', 'as' => null, 'nr' => '1',
         ]);
 
-    // two credits for the same artist -> change only pivot attributes
+    // two credits for the same artist -> change only credit attributes
 
     $tale->syncCredits([
         $firstArtist->id => [

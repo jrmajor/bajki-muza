@@ -24,10 +24,10 @@
           <div class="text-sm sm:text-base font-medium leading-tight">
             {{ $tale->title }}
           </div>
-          @if ($tale->pivot->characters)
+          @if ($tale->credit->characters)
             <small>
               jako
-              @foreach (explode('; ', $tale->pivot->characters) as $character)
+              @foreach (explode('; ', $tale->credit->characters) as $character)
                 {{ $character }}@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
               @endforeach
             </small>
