@@ -125,7 +125,7 @@ final class Artist extends Model
     public function asActor(): BelongsToMany
     {
         return $this->belongsToMany(Tale::class, 'tales_actors')
-            ->as('credit')
+            ->using(Actor::class)->as('credit')
             ->withPivot('characters', 'credit_nr')->withTimestamps()
             ->orderBy('year')->orderBy('title');
     }
