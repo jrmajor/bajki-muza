@@ -13,6 +13,7 @@ beforeEach(function () {
         'title' => 'O dwóch takich co ukradli księżyc',
         'year' => 1976,
         'nr' => '28',
+        'discogs' => 1211239,
     ];
 });
 
@@ -116,9 +117,9 @@ test('users with permissions can create tale', function () {
 
     expect($tale->actors[0]->id)->toBe($actors[0]->id)
         ->and($tale->actors[0]->credit->characters)->toBe('Zbójca 1')
-        ->and($tale->actors[0]->credit->credit_nr)->toBe('1');
+        ->and($tale->actors[0]->credit->credit_nr)->toBe(1);
 
     expect($tale->actors[1]->id)->toBe($actors[1]->id)
         ->and($tale->actors[1]->credit->characters)->toBe('Zbójca 2')
-        ->and($tale->actors[1]->credit->credit_nr)->toBe('2');
+        ->and($tale->actors[1]->credit->credit_nr)->toBe(2);
 });

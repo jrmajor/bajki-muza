@@ -60,8 +60,8 @@ class TaleFactory extends Factory
                 $tale->actors()->attach(
                     Artist::factory()->create()->id,
                     [
-                        'credit_nr'  => $credit_nr,
                         'characters' => $characters,
+                        'credit_nr'  => $credit_nr,
                     ]
                 );
             }
