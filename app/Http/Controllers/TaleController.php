@@ -20,7 +20,7 @@ class TaleController extends Controller
         $tale = new Tale();
 
         $tale->fill(
-            $data = $request->validated()
+            $data = $request->validated(),
         )->save();
 
         if ($request->file('cover')) {
