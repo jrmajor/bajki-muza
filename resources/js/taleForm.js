@@ -8,7 +8,7 @@ window.taleFormData = function (data) {
     cover: {
       preview: '',
       file: '',
-      remove: false
+      remove: false,
     },
 
     credits: data.credits.map(credit => {
@@ -23,7 +23,7 @@ window.taleFormData = function (data) {
 
     prettyBytes,
 
-    init ($dispatch) {
+    init($dispatch) {
       this.$watch('cover.file', value => {
         this.setCoverPreview(this.$refs.cover.files)
         if (value !== '') this.cover.remove = false
@@ -38,7 +38,7 @@ window.taleFormData = function (data) {
       })
     },
 
-    updatedDiscogs (event) {
+    updatedDiscogs(event) {
       const id = this.discogs.match(/discogs\.com\/(?:.*\/)?release\/([0-9]+)/)
 
       if (id === null) return
@@ -46,7 +46,7 @@ window.taleFormData = function (data) {
       this.discogs = id[1]
     },
 
-    setCoverPreview (files) {
+    setCoverPreview(files) {
       if (files.length === 0) {
         this.cover.preview = ''
       } else {
@@ -54,34 +54,36 @@ window.taleFormData = function (data) {
       }
     },
 
-    addActor () {
+    addActor() {
       this.actors.push({
         key: Math.random().toString(20).substr(2),
-        isDragged: false
+        isDragged: false,
       })
     },
 
-    addCredit () {
+    addCredit() {
       this.credits.push({
         nr: 0,
-        key: Math.random().toString(20).substr(2)
+        key: Math.random().toString(20).substr(2),
       })
     },
 
-    removeArtist (list, index) {
+    removeArtist(list, index) {
       this[list].splice(index, 1)
     },
 
-    onDragStart (event, list, index) {
+    onDragStart(event, list, index) {
       event.dataTransfer.setData('index', index)
       event.dataTransfer.setData('list', list)
 
       this[list][index].isDragged = true
     },
 
-    onDragEnd (artist) { artist.isDragged = false },
+    onDragEnd(artist) {
+      artist.isDragged = false 
+    },
 
-    onDragOver (event, targetList, destination) {
+    onDragOver(event, targetList, destination) {
       const list = event.dataTransfer.getData('list')
 
       if (list === targetList || list === '') event.preventDefault()
@@ -99,11 +101,11 @@ window.taleFormData = function (data) {
       }
     },
 
-    onDragLeave (artist) {
+    onDragLeave(artist) {
       artist.isDraggedOver = false
     },
 
-    onDrop (event, list, destination) {
+    onDrop(event, list, destination) {
       if (event.dataTransfer.getData('list') !== list) return
 
       const currentIndex = parseInt(event.dataTransfer.getData('index'))
@@ -120,7 +122,7 @@ window.taleFormData = function (data) {
       // dragged is alpine proxy
       const draggedClone = {
         characters: dragged.characters,
-        key: dragged.key
+        key: dragged.key,
       }
 
       // if the element is dragged from above, insert it below
@@ -156,7 +158,9 @@ window.taleFormData = function (data) {
         priorDestinationElement.noTransitions = false
       })
 
-      this[list].forEach((artist) => { artist.isDraggedOver = false })
-    }
+      this[list].forEach((artist) => {
+        artist.isDraggedOver = false 
+      })
+    },
   }
 }

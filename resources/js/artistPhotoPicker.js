@@ -12,51 +12,51 @@ export default function (data) {
         x: 0,
         y: 0,
         width: 0,
-        height: 0
+        height: 0,
       },
       image: {
         x: 0,
         y: 0,
         width: 0,
-        height: 0
-      }
+        height: 0,
+      },
     },
 
     pickers: {
       current: {
         uri: data.photo.uri,
         source: data.photo.source,
-        crop: data.photo.crop
+        crop: data.photo.crop,
       },
 
       upload: {
         uri: '',
-        file: ''
+        file: '',
       },
 
       uri: {
         uri: '',
-        source: ''
-      }
+        source: '',
+      },
     },
 
-    init () {
+    init() {
       if (this.pickers.current.uri !== null) this.updateCroppr()
     },
 
-    removePhoto () {
+    removePhoto() {
       this.picker = 'remove'
       this.source = ''
     },
 
-    resetPickerToCurrent () {
+    resetPickerToCurrent() {
       this.picker = 'current'
       this.source = this.pickers.current.source
 
       this.updateCroppr()
     },
 
-    fileSelected (files, value) {
+    fileSelected(files, value) {
       if (value === '') return this.resetPickerToCurrent()
 
       this.pickers.uri.uri = ''
@@ -67,7 +67,7 @@ export default function (data) {
       this.updateCroppr()
     },
 
-    setPhotoUri (uri, source) {
+    setPhotoUri(uri, source) {
       if (this.picker === 'uri' && this.pickers.uri.uri === uri) {
         return this.resetPickerToCurrent()
       }
@@ -81,7 +81,7 @@ export default function (data) {
       this.updateCroppr()
     },
 
-    labelText (files) {
+    labelText(files) {
       if (this.picker === 'upload') return files[0].name
 
       if (this.picker === 'uri') {
@@ -92,14 +92,14 @@ export default function (data) {
       return 'Wybierz plik'
     },
 
-    size (files) {
+    size(files) {
       if (this.picker !== 'upload') return
       if (this.pickers.upload.file === '') return
 
       return prettyBytes(files[0].size)
     },
 
-    initCroppr (src, startSize, onFaceInitialize, onInitialize) {
+    initCroppr(src, startSize, onFaceInitialize, onInitialize) {
       if (typeof window.artistFacePhotoCroppr !== 'undefined') {
         window.artistFacePhotoCroppr.destroy()
       }
@@ -122,18 +122,18 @@ export default function (data) {
         minSize: [50, 50, 'px'],
         startSize,
         onInitialize: onFaceInitialize,
-        onCropEnd: onFaceCropEnd
+        onCropEnd: onFaceCropEnd,
       })
 
       window.artistPhotoCroppr = new Croppr(el2, {
         minSize: [50, 50, 'px'],
         startSize,
         onInitialize,
-        onCropEnd
+        onCropEnd,
       })
     },
 
-    updateCroppr () {
+    updateCroppr() {
       const uri = this.pickers[this.picker].uri
 
       if (uri === null) return
@@ -156,7 +156,7 @@ export default function (data) {
             x: Math.round(this.pickers.current.crop.face.x / factorX),
             y: Math.round(this.pickers.current.crop.face.y / factorY),
             width: Math.round(this.pickers.current.crop.face.size / factorX),
-            height: Math.round(this.pickers.current.crop.face.size / factorY)
+            height: Math.round(this.pickers.current.crop.face.size / factorY),
           }
 
           instance
@@ -181,7 +181,7 @@ export default function (data) {
             x: Math.round(this.pickers.current.crop.image.x / factorX),
             y: Math.round(this.pickers.current.crop.image.y / factorY),
             width: Math.round(this.pickers.current.crop.image.width / factorX),
-            height: Math.round(this.pickers.current.crop.image.height / factorY)
+            height: Math.round(this.pickers.current.crop.image.height / factorY),
           }
 
           instance
@@ -198,9 +198,9 @@ export default function (data) {
       this.initCroppr(uri, [100, 100, '%'], onFaceInitialize, onInitialize)
     },
 
-    updateCrop () {
+    updateCrop() {
       this.crop.face = window.artistFacePhotoCroppr.getValue()
       this.crop.image = window.artistPhotoCroppr.getValue()
-    }
+    },
   }
 }

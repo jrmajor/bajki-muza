@@ -17,7 +17,7 @@ module.exports = {
         700: '#525252',
         800: '#404040',
         900: '#2e2e2e',
-        950: '#121212'
+        950: '#121212',
       },
       'cool-gray': {
         50: '#fbfdfe',
@@ -29,7 +29,7 @@ module.exports = {
         600: '#475569',
         700: '#364152',
         800: '#27303f',
-        900: '#1a202e'
+        900: '#1a202e',
       },
       red: {
         50: '#fdf2f2',
@@ -41,7 +41,7 @@ module.exports = {
         600: '#e02424',
         700: '#c81e1e',
         800: '#9b1c1c',
-        900: '#771d1d'
+        900: '#771d1d',
       },
       yellow: {
         kox: '#ffcc00',
@@ -57,7 +57,7 @@ module.exports = {
         600: '#9f580a',
         700: '#8e4b10',
         800: '#723b13',
-        900: '#633112'
+        900: '#633112',
       },
       green: {
         50: '#f3faf7',
@@ -69,7 +69,7 @@ module.exports = {
         600: '#057a55',
         700: '#046c4e',
         800: '#03543f',
-        900: '#014737'
+        900: '#014737',
       },
       blue: {
         50: '#ebf5ff',
@@ -81,18 +81,18 @@ module.exports = {
         600: '#1c64f2',
         700: '#1a56db',
         800: '#1e429f',
-        900: '#233876'
+        900: '#233876',
       },
       filmpolski: {
         blue: '#566ea1',
         'blue-lighter': '#7393d9',
         gray: '#010101',
-        'gray-inverted': '#eeeeee'
-      }
+        'gray-inverted': '#eeeeee',
+      },
     },
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans]
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       fontSize: { '2xs': '0.7rem' },
       inset: { '-px': '-1px' },
@@ -100,22 +100,22 @@ module.exports = {
       spacing: {
         4.5: '1.125rem',
         13: '3.25rem',
-        15: '3.75rem'
+        15: '3.75rem',
       },
       transitionProperty: {
-        'colors-shadow': defaultTheme.transitionProperty.colors + ', ' + defaultTheme.transitionProperty.shadow
-      }
-    }
+        'colors-shadow': defaultTheme.transitionProperty.colors + ', ' + defaultTheme.transitionProperty.shadow,
+      },
+    },
   },
   variants: {
     extend: {
       ringWidth: ['hover', 'active'],
-      ringOpacity: ['hover', 'active']
-    }
+      ringOpacity: ['hover', 'active'],
+    },
   },
   darkMode: 'media',
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
   ],
-  purge: ['./resources/views/**/*.blade.php']
+  purge: ['./resources/views/**/*.blade.php'],
 }

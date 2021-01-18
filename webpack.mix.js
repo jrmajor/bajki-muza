@@ -6,7 +6,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.postCss('resources/css/style.css', 'public/css')
   .options({
-    postCss: [tailwindcss('tailwind.config.js')]
+    postCss: [tailwindcss('tailwind.config.js')],
   }).version()
 
 mix.postCss('node_modules/croppr/src/css/croppr.css', 'public/css')
@@ -16,6 +16,6 @@ if (!mix.inProduction()) {
 
   mix.bundleAnalyzer({
     analyzerMode: 'static',
-    openAnalyzer: false
+    openAnalyzer: false,
   })
 }

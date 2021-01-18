@@ -1,4 +1,3 @@
-/* global fetch */
 import route from 'ziggy-js'
 
 window.artistPickerData = function () {
@@ -11,16 +10,16 @@ window.artistPickerData = function () {
     search: '',
     artists: [],
 
-    init () {
+    init() {
       this.name = this.$el.parentElement.getAttribute('data-picker-name')
       this.value = this.$el.parentElement.getAttribute('data-picker-value')
     },
 
-    updateIndexes () {
+    updateIndexes() {
       this.name = this.$el.parentElement.getAttribute('data-picker-name')
     },
 
-    findArtists (event) {
+    findArtists(event) {
       if (this.value.length < 2) {
         this.artists = []
       } else {
@@ -28,8 +27,8 @@ window.artistPickerData = function () {
 
         fetch(
           route('ajax.artists', {
-            search: this.value
-          })
+            search: this.value,
+          }),
         )
           .then(response => response.json())
           .then(data => {
@@ -39,7 +38,7 @@ window.artistPickerData = function () {
       }
     },
 
-    arrow (direction) {
+    arrow(direction) {
       if (this.artists.length === 0) return
 
       if (this.hovered === null) {
@@ -53,11 +52,11 @@ window.artistPickerData = function () {
       if (this.hovered > this.artists.length - 1) this.hovered = 0
     },
 
-    enter () {
+    enter() {
       if (this.hovered !== null) this.select(this.artists[this.hovered])
     },
 
-    closeDropdown () {
+    closeDropdown() {
       if (!this.shouldCloseOnBlur) {
         this.shouldCloseOnBlur = true
         return
@@ -69,9 +68,9 @@ window.artistPickerData = function () {
       this.shouldCloseOnBlur = true
     },
 
-    select (artist) {
+    select(artist) {
       this.value = artist
       this.closeDropdown()
-    }
+    },
   }
 }

@@ -1,4 +1,3 @@
-/* global fetch */
 import route from 'ziggy-js'
 import artistPhotoPicker from './artistPhotoPicker'
 
