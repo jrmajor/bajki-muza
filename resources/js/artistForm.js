@@ -10,7 +10,7 @@ window.artistFormData = function (data) {
       hovered: null,
       isOpen: false,
       shouldCloseOnBlur: true,
-      people: []
+      people: [],
     },
 
     filmPolski: {
@@ -18,7 +18,7 @@ window.artistFormData = function (data) {
       hovered: null,
       isOpen: false,
       shouldCloseOnBlur: true,
-      people: []
+      people: [],
     },
 
     wikipedia: {
@@ -26,20 +26,20 @@ window.artistFormData = function (data) {
       hovered: null,
       isOpen: false,
       shouldCloseOnBlur: true,
-      people: []
+      people: [],
     },
 
     dimensions: { },
 
-    init () {
+    init() {
       this.$watch('photo.pickers.upload.file', value =>
-        this.photo.fileSelected(this.$refs.photo.files, value)
+        this.photo.fileSelected(this.$refs.photo.files, value),
       )
 
       this.photo.init()
     },
 
-    findPeople (type) {
+    findPeople(type) {
       if (this[type].value.length < 5) {
         this[type].people = []
       } else {
@@ -47,8 +47,8 @@ window.artistFormData = function (data) {
 
         fetch(
           route('ajax.' + type, {
-            search: this[type].value
-          })
+            search: this[type].value,
+          }),
         )
           .then(response => response.json())
           .then(data => {
@@ -57,7 +57,7 @@ window.artistFormData = function (data) {
       }
     },
 
-    arrow (type, direction) {
+    arrow(type, direction) {
       if (this[type].people.length === 0) return
 
       if (this[type].hovered === null) {
@@ -71,11 +71,11 @@ window.artistFormData = function (data) {
       if (this[type].hovered > this[type].people.length - 1) this[type].hovered = 0
     },
 
-    enter (type) {
+    enter(type) {
       if (this[type].hovered !== null) this.select(type, this[type].people[this[type].hovered])
     },
 
-    closeDropdown (type) {
+    closeDropdown(type) {
       if (!this[type].shouldCloseOnBlur) {
         this[type].shouldCloseOnBlur = true
         return
@@ -87,9 +87,9 @@ window.artistFormData = function (data) {
       this[type].shouldCloseOnBlur = true
     },
 
-    select (type, person) {
+    select(type, person) {
       this[type].value = person.id
       this.closeDropdown(type)
-    }
+    },
   }
 }
