@@ -21,9 +21,9 @@
   @php
 
     $data = [
-      'discogs' => old('discogs', $artist->discogs),
-      'filmpolski' => old('filmpolski', $artist->filmpolski),
-      'wikipedia' => old('wikipedia', $artist->wikipedia),
+      'discogs' => old('discogs', $artist->discogs) ?? '',
+      'filmpolski' => old('filmpolski', $artist->filmpolski) ?? '',
+      'wikipedia' => old('wikipedia', $artist->wikipedia) ?? '',
 
       'photo' => [
         'uri' => $artist->photo?->originalUrl(),

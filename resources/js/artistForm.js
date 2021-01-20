@@ -6,7 +6,7 @@ window.artistFormData = function (data) {
     photo: artistPhotoPicker(data),
 
     discogs: {
-      value: data.discogs ?? '',
+      value: data.discogs,
       hovered: null,
       isOpen: false,
       shouldCloseOnBlur: true,
@@ -14,7 +14,7 @@ window.artistFormData = function (data) {
     },
 
     filmPolski: {
-      value: data.filmpolski ?? '',
+      value: data.filmpolski,
       hovered: null,
       isOpen: false,
       shouldCloseOnBlur: true,
@@ -22,7 +22,7 @@ window.artistFormData = function (data) {
     },
 
     wikipedia: {
-      value: data.wikipedia ?? '',
+      value: data.wikipedia,
       hovered: null,
       isOpen: false,
       shouldCloseOnBlur: true,
