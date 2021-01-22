@@ -74,7 +74,7 @@ test('users with permissions can create tale', function () {
         [
             'credits' => $credits,
             'actors' => $actorsCredits,
-        ]
+        ],
     );
 
     asUser()

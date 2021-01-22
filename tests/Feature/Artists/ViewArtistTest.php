@@ -17,7 +17,7 @@ it('works', function () {
         ->shouldReceive('photos')
         ->andReturn(new DiscogsPhotoCollection());
 
-    get("artysci/$artist->slug")
+    get("artysci/{$artist->slug}")
         ->assertOk();
 });
 

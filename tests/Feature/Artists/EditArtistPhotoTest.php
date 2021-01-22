@@ -174,7 +174,7 @@ test('crop can be updated without changing photo', function () {
     expect(
         Arr::get(
             $this->artist->photo->crop->toArray(),
-            'face.size'
+            'face.size',
         ),
     )->toBe(190);
 

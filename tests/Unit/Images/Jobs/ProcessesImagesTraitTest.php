@@ -11,7 +11,7 @@ it('can copy image to temporary directory', function () {
 
     $copiedFilePath = $imagesProcessor->copyToTemporaryDirectory(
         fopen(fixture('Images/cover.jpg'), 'r'),
-        $temporaryDirectory, 'desiredFilename.jpg'
+        $temporaryDirectory, 'desiredFilename.jpg',
     );
 
     expect($copiedFilePath)->toBe($temporaryDirectory->path('desiredFilename.jpg'))
@@ -29,7 +29,7 @@ it('can generate placeholders cropped to square', function () {
     $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
 
     $tinyJpg = $imagesProcessor->generateTinyJpg(
-        fixture('Images/cover.jpg'), 'square', $temporaryDirectory
+        fixture('Images/cover.jpg'), 'square', $temporaryDirectory,
     );
 
     expect($tinyJpg)->toStartWith('data:image/svg+xml;base64,');
@@ -43,7 +43,7 @@ it('can generate placeholder preserving aspect ratio', function () {
     $imagesProcessor = $this->getMockForTrait(ProcessesImages::class);
 
     $tinyJpg = $imagesProcessor->generateTinyJpg(
-        fixture('Images/photo.jpg'), 'height', $temporaryDirectory
+        fixture('Images/photo.jpg'), 'height', $temporaryDirectory,
     );
 
     expect($tinyJpg)->toStartWith('data:image/svg+xml;base64,');
@@ -59,7 +59,7 @@ it('can generate responsive images cropped to square', function () {
     $responsiveImagePath = $imagesProcessor->generateResponsiveImage(
         fixture('Images/cover.jpg'),
         128, 'square',
-        $temporaryDirectory
+        $temporaryDirectory,
     );
 
     expect($responsiveImagePath)->toBe($temporaryDirectory->path('cover_128.jpg'));
@@ -77,7 +77,7 @@ it('can generate responsive images preserving aspect ratio', function () {
     $responsiveImagePath = $imagesProcessor->generateResponsiveImage(
         fixture('Images/photo.jpg'),
         112, 'height',
-        $temporaryDirectory
+        $temporaryDirectory,
     );
 
     expect($responsiveImagePath)->toBe($temporaryDirectory->path('photo_112.jpg'));

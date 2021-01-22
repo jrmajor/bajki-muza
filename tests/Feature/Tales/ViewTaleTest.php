@@ -15,7 +15,7 @@ it('works', function () {
     Discogs::shouldReceive('photos')
         ->andReturn(new DiscogsPhotoCollection());
 
-    get("bajki/$tale->slug")
+    get("bajki/{$tale->slug}")
         ->assertOk();
 });
 
