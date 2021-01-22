@@ -7,7 +7,7 @@ return [
     'env' => env('APP_ENV', 'production'),
     'debug' => (bool) env('APP_DEBUG', false),
 
-    'url' => env('APP_URL', 'http://bajki-grajki.test'),
+    'url' => env('APP_URL', 'http://bajki-muza.test'),
     'asset_url' => env('ASSET_URL', null),
 
     'timezone' => 'Europe/Warsaw',
