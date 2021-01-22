@@ -27,10 +27,9 @@ beforeEach(function () {
     $this->tale = Tale::factory()->create($this->oldAttributes);
 });
 
-test('guests are asked to log in when attempting to view edit tale form', function () {
-    get('bajki/drzewko-aby-baby/edit')
-        ->assertRedirect('login');
-});
+test('guests are asked to log in when attempting to view edit tale form')
+    ->get('bajki/drzewko-aby-baby/edit')
+    ->assertRedirect('login');
 
 test('guests are asked to log in when attempting to view edit form for nonexistent tale')
     ->get('bajki/2137/edit')

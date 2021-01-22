@@ -17,16 +17,14 @@ beforeEach(function () {
     ];
 });
 
-test('guests are asked to log in when attempting to view create tale form', function () {
-    get('bajki/create')
-        ->assertRedirect('login');
-});
+test('guests are asked to log in when attempting to view create tale form')
+    ->get('bajki/create')
+    ->assertRedirect('login');
 
-test('users can view create tale form', function () {
-    asUser()
-        ->get('bajki/create')
-        ->assertOk();
-});
+test('users can view create tale form')
+    ->asUser()
+    ->get('bajki/create')
+    ->assertOk();
 
 test('guests cannot create tale', function () {
     post('bajki', $this->attributes)
