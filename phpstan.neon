@@ -4,7 +4,7 @@ parameters:
         - app
         - database/factories
         - database/seeders
-    excludes_analyse:
+    excludePaths:
         - app/Providers/MacrosServiceProvider.php
     ignoreErrors:
         - '#Access to an undefined property Illuminate\\Support\\HigherOrderCollectionProxy::\$\w+\.#'
