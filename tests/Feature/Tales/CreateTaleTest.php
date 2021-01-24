@@ -35,8 +35,8 @@ test('guests cannot create tale', function () {
 
 test('users with permissions can create tale', function () {
     $director = Artist::factory()->create();
-    $lyricists = Artist::factory()->count(2)->create();
-    $composers = Artist::factory()->count(2)->create();
+    $lyricists = Artist::factory(2)->create();
+    $composers = Artist::factory(2)->create();
 
     $credits = array_merge(
         [[
@@ -59,7 +59,7 @@ test('users with permissions can create tale', function () {
         ])->all(),
     );
 
-    $actors = Artist::factory()->count(2)->create();
+    $actors = Artist::factory(2)->create();
 
     $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [
         'artist' => $composer->slug,

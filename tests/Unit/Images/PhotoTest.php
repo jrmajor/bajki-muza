@@ -114,8 +114,7 @@ it('can get its tales', function () {
         'crop' => ArtistPhotoCrop::fake(),
     ]);
 
-    $photos = Artist::factory()
-        ->count(2)
+    $photos = Artist::factory(2)
         ->photo($photo)
         ->create();
 

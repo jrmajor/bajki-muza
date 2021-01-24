@@ -199,7 +199,7 @@ it('can sync credits', function () {
         ['type', 'as', 'nr'],
     );
 
-    [$firstArtist, $secondArtist] = Artist::factory()->count(2)->create();
+    [$firstArtist, $secondArtist] = Artist::factory(2)->create();
 
     $tale = Tale::factory()->withoutRelations()->create();
 
@@ -295,14 +295,14 @@ it('can sync credits', function () {
 });
 
 test('withActorsPopularity scope works', function () {
-    $artists = Artist::factory()->count(3)->create();
+    $artists = Artist::factory(3)->create();
 
     $artists[0]->asActor()->attach(
-        $ids = Tale::factory()->count(6)->create()->map->id,
+        $ids = Tale::factory(6)->create()->map->id,
     );
 
     $artists[1]->asActor()->attach(
-        Tale::factory()->count(3)->create()->map->id,
+        Tale::factory(3)->create()->map->id,
     );
 
     $artists[1]->asActor()->attach($ids[0]);

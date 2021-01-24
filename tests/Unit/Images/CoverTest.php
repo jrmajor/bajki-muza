@@ -50,8 +50,7 @@ it('can get its tales', function () {
         'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
     ]);
 
-    $tales = Tale::factory()
-        ->count(2)
+    $tales = Tale::factory(2)
         ->cover($cover)
         ->create();
 

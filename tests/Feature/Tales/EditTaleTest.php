@@ -68,10 +68,10 @@ test('users with permissions can add credits', function () {
 
     $lyricistAndComposer = Artist::factory()->create();
 
-    $lyricists = Artist::factory()->count(2)->create()
+    $lyricists = Artist::factory(2)->create()
         ->push($lyricistAndComposer);
 
-    $composers = Artist::factory()->count(2)->create()
+    $composers = Artist::factory(2)->create()
         ->push($lyricistAndComposer);
 
     $credits = array_merge(
@@ -139,7 +139,7 @@ test('users with permissions can add credits', function () {
 });
 
 test('users with permissions can add tale actors', function () {
-    $actors = Artist::factory()->count(2)->create();
+    $actors = Artist::factory(2)->create();
 
     $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [
         'artist' => $composer->slug,

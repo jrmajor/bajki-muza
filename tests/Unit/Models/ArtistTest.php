@@ -318,12 +318,12 @@ test('countAppearances scope works', function () {
     $artist = Artist::factory()->create();
 
     $artist->credits()->attach(
-        Tale::factory()->count(4)->create()->map->id,
+        Tale::factory(4)->create()->map->id,
         ['type' => CreditType::music(), 'nr' => 0],
     );
 
     $artist->asActor()->attach(
-        Tale::factory()->count(6)->create()->map->id,
+        Tale::factory(6)->create()->map->id,
     );
 
     $duplicate = Tale::factory()->create();
@@ -342,12 +342,12 @@ test('appearances method works', function () {
     $artist = Artist::factory()->create();
 
     $artist->credits()->attach(
-        Tale::factory()->count(4)->create()->map->id,
+        Tale::factory(4)->create()->map->id,
         ['type' => CreditType::music(), 'nr' => 0],
     );
 
     $artist->asActor()->attach(
-        Tale::factory()->count(6)->create()->map->id,
+        Tale::factory(6)->create()->map->id,
     );
 
     $duplicate = Tale::factory()->create();
