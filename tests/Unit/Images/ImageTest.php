@@ -1,12 +1,13 @@
 <?php
 
 use App\Images\Exceptions\OriginalDoesNotExist;
+use Carbon\Carbon;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 use Tests\Unit\Images\ProcessTestCover;
 use Tests\Unit\Images\TestCover;
-use Tests\Unit\Images\TestCoverWithMockedTemporaryUrl;
 
 it('can store new image', function () {
     Storage::fake('testing');
@@ -67,11 +68,20 @@ it('can get its filename', function () {
 });
 
 it('can get original url', function () {
-    expect(
-        (new TestCoverWithMockedTemporaryUrl([
-            'filename' => 'testFilename.jpg',
-        ]))->originalUrl(),
-    )->toBe('testUrl');
+    $cover = new class([
+        'filename' => 'testFilename.jpg',
+    ]) extends TestCover {
+        public static function disk(): FilesystemAdapter
+        {
+            return Mockery::mock(FilesystemAdapter::class)
+                ->shouldReceive('temporaryUrl')
+                ->with('covers/original/testFilename.jpg', Carbon::class)
+                ->andReturn('testUrl')
+                ->mock();
+        }
+    };
+
+    expect($cover->originalUrl())->toBe('testUrl');
 });
 
 it('can get url for given size', function () {
