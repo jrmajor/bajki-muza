@@ -12,17 +12,17 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "0.1.4",
-    "alpinejs": "^2.7.3",
-    "croppr": "^2.3.1",
-    "pretty-bytes": "^5.4.1",
-    "tailwindcss": "^2.0.1",
-    "ziggy-js": "^1.0.4"
+    "alpinejs": "^2.8",
+    "croppr": "^2.3",
+    "pretty-bytes": "^5.4",
+    "tailwindcss": "^2.0",
+    "ziggy-js": "^1.0"
   },
   "devDependencies": {
-    "eslint": "^7.18.0",
-    "eslint-config-spatie": "^2.0.3",
-    "laravel-mix": "^6.0.6",
-    "laravel-mix-bundle-analyzer": "^1.0.5",
-    "postcss": "^8.1.14"
+    "eslint": "^7.18",
+    "eslint-config-spatie": "^2.0",
+    "laravel-mix": "^6.0",
+    "laravel-mix-bundle-analyzer": "^1.0",
+    "postcss": "^8.1"
   }
 }
