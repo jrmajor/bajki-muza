@@ -7,8 +7,11 @@ use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\File;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Http;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 final class Photo extends Image
 {
@@ -51,6 +54,29 @@ final class Photo extends Image
                 $photo->reprocess();
             }
         });
+    }
+
+    public static function fromUrl(string $uri, array $attributes = []): self
+    {
+        $contents = Http::get($uri);
+
+        $temporaryDirectory = (new TemporaryDirectory)->create();
+
+        $targetFile = $temporaryDirectory->path('uploaded-photo.jpeg');
+
+        touch($targetFile);
+
+        $targetStream = fopen($targetFile, 'a');
+
+        fwrite($targetStream, $contents);
+
+        fclose($targetStream);
+
+        $photo = self::store(new File($targetFile), $attributes);
+
+        $temporaryDirectory->delete();
+
+        return $photo;
     }
 
     protected function process(): void

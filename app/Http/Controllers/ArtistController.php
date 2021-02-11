@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArtist;
 use App\Images\Photo;
-use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Http;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class ArtistController extends Controller
 {
@@ -43,9 +39,10 @@ class ArtistController extends Controller
             )->save();
         } elseif ($data['photo_uri'] ?? null) {
             $artist->photo()->associate(
-                $this->storePhotoFromUrl(
-                    $data['photo_uri'], $photoCrop, $photoSource,
-                ),
+                Photo::fromUrl($data['photo_uri'], [
+                    'crop' => $photoCrop,
+                    'source' => $photoSource,
+                ]),
             )->save();
         } elseif ($artist->photo) {
             $artist->photo->forceFill([
@@ -64,34 +61,5 @@ class ArtistController extends Controller
         $artist->delete();
 
         return redirect()->route('artists.index');
-    }
-
-    private function storePhotoFromUrl(
-        string $uri,
-        ArtistPhotoCrop $crop,
-        string $source,
-    ): Photo {
-        $contents = Http::get($uri);
-
-        $temporaryDirectory = (new TemporaryDirectory)->create();
-
-        $targetFile = $temporaryDirectory->path('uploaded-photo.jpeg');
-
-        touch($targetFile);
-
-        $targetStream = fopen($targetFile, 'a');
-
-        fwrite($targetStream, $contents);
-
-        fclose($targetStream);
-
-        $photo = Photo::store(
-            new File($targetFile, checkPath: true),
-            compact('crop', 'source'),
-        );
-
-        $temporaryDirectory->delete();
-
-        return $photo;
     }
 }
