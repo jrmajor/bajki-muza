@@ -19,6 +19,8 @@ return [
     'key' => env('APP_KEY'),
     'cipher' => 'AES-256-CBC',
 
+    'admin_id' => (int) env('ADMIN_ID'),
+
     'providers' => [
 
         /*
@@ -58,9 +60,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\MacrosServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
         App\Providers\ServicesServiceProvider::class,
 
     ],
+
     'aliases' => [
 
         'App' => Illuminate\Support\Facades\App::class,
