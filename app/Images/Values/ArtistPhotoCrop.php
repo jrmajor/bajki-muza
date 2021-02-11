@@ -3,8 +3,9 @@
 namespace App\Images\Values;
 
 use JessArcher\CastableDataTransferObject\CastableDataTransferObject;
+use Stringable;
 
-class ArtistPhotoCrop extends CastableDataTransferObject
+class ArtistPhotoCrop extends CastableDataTransferObject implements Stringable
 {
     public ArtistFaceCrop $face;
 
@@ -25,6 +26,11 @@ class ArtistPhotoCrop extends CastableDataTransferObject
                 'height' => (int) $crop['image']['height'],
             ],
         ]);
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 
     public static function fake(): self

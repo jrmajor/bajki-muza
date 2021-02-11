@@ -47,18 +47,11 @@ class ArtistController extends Controller
                     $data['photo_uri'], $photoCrop, $photoSource,
                 ),
             )->save();
-        } elseif (
-            $artist->photo
-            && $photoCrop?->toArray() != $artist->photo_crop?->toArray()
-        ) {
-            $artist->photo
-                ->setAttribute('source', $photoSource)
-                ->setCrop($photoCrop)
-                ->reprocess();
         } elseif ($artist->photo) {
-            $artist->photo
-                ->setAttribute('source', $photoSource)
-                ->save();
+            $artist->photo->forceFill([
+                'source' => $photoSource,
+                'crop' => $photoCrop,
+            ])->save();
         }
 
         $artist->flushCache();

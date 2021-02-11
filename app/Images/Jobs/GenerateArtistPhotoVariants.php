@@ -4,19 +4,26 @@ namespace App\Images\Jobs;
 
 use App\Images\Photo;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
-class GenerateArtistPhotoVariants implements ShouldQueue
+class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 {
     use CropsArtistPhoto, ProcessesImages;
-    use Dispatchable, InteractsWithQueue, Queueable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public function __construct(
         protected Photo $image,
     ) { }
+
+    public function uniqueId(): string
+    {
+        return $this->image->filename;
+    }
 
     public function handle()
     {

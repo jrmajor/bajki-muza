@@ -74,22 +74,28 @@ it('can get face placeholder')
         (new Photo(['face_placeholder' => 'test placeholder']))->facePlaceholder(),
     )->toBe('test placeholder');
 
-it('can set and get crop', function () {
-     $photo = Photo::create([
-         'filename' => 'test.jpg',
-         'crop' => $oldCrop = ArtistPhotoCrop::fake(),
-     ]);
+it('reprocesses image when crop is updated', function () {
+    Storage::fake('testing');
 
-     expect($photo->crop()->toArray())
-         ->toBe($newCrop = $oldCrop->toArray());
+    Queue::fake();
 
-     Arr::set($newCrop, 'face.size', 190);
+    $photo = Photo::store(
+        UploadedFile::fake()->image('test.jpg'),
+        ['crop' => $crop = ArtistPhotoCrop::fake()],
+    );
 
-     expect(Arr::get($newCrop, 'face.size'))->toBe(190);
+    expect((string) $photo->crop())->toBe((string) $crop);
 
-     $photo->setCrop(new ArtistPhotoCrop($newCrop));
+    $crop->face->size = 190;
 
-     expect($photo->refresh()->crop()->toArray())->toBe($newCrop);
+    $photo->update(['crop' => $crop]);
+
+    expect((string) $photo->refresh()->crop())->toBe((string) $crop);
+
+    Queue::assertPushedWithChain(
+        GenerateArtistPhotoPlaceholders::class,
+        [GenerateArtistPhotoVariants::class],
+    );
 });
 
 it('can calculate aspect ratio')

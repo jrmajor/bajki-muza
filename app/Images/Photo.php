@@ -44,6 +44,15 @@ final class Photo extends Image
             ->values();
     }
 
+    protected static function booted(): void
+    {
+        self::updated(function (self $photo) {
+            if ($photo->isDirty('crop')) {
+                $photo->reprocess();
+            }
+        });
+    }
+
     protected function process(): void
     {
         Bus::chain([
@@ -72,13 +81,6 @@ final class Photo extends Image
         return $this->face_placeholder;
     }
 
-    public function setCrop(ArtistPhotoCrop $crop): self
-    {
-        return tap(
-            $this->setAttribute('crop', $crop)
-        )->save();
-    }
-
     public function crop(): ArtistPhotoCrop
     {
         return $this->crop;
@@ -96,5 +98,14 @@ final class Photo extends Image
     public function artists(): HasMany
     {
         return $this->hasMany(Artist::class, 'photo_filename', 'filename');
+    }
+
+    public function originalIsEquivalent($key): bool
+    {
+        if ($key !== 'crop') {
+            return parent::originalIsEquivalent($key);
+        }
+
+        return (string) $this->getOriginal('crop') === (string) $this->getAttribute('crop');
     }
 }
