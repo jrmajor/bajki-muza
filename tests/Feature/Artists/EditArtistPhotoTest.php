@@ -85,7 +85,7 @@ test('photo can be uploaded', function () {
 
     expect($this->artist->photo)->not->toBeNull()
         ->and($this->artist->photo->source)->toBe('test source')
-        ->and($this->artist->photo->crop->toArray())->toBe(ArtistPhotoCrop::fake()->toArray());
+        ->and((string) $this->artist->photo->crop)->toBe((string) ArtistPhotoCrop::fake());
 
     expect(Photo::disk()->files('photos/original'))->toHaveCount(1);
 
@@ -123,7 +123,7 @@ test('photo can be downloaded from specified uri', function () {
 
     expect($this->artist->photo)->not->toBeNull()
         ->and($this->artist->photo->source)->toBe('test source')
-        ->and($this->artist->photo->crop->toArray())->toBe(ArtistPhotoCrop::fake()->toArray());
+        ->and((string) $this->artist->photo->crop)->toBe((string) ArtistPhotoCrop::fake());
 
     expect($files = Photo::disk()->files('photos/original'))
         ->toHaveCount(1);
@@ -171,12 +171,7 @@ test('crop can be updated without changing photo', function () {
     // @todo $this->artist->refresh();
     $this->artist = $this->artist->fresh();
 
-    expect(
-        Arr::get(
-            $this->artist->photo->crop->toArray(),
-            'face.size',
-        ),
-    )->toBe(190);
+    expect($this->artist->photo->crop->face->size)->toBe(190);
 
     Queue::assertPushedWithChain(
         GenerateArtistPhotoPlaceholders::class,

@@ -36,7 +36,7 @@ it('GenerateArtistPhotoPlaceholders', function () {
         ->and($photo->width)->toBe(529)
         ->and($photo->height)->toBe(352)
         ->and($photo->crop)->not->toBeNull()
-        ->and($photo->crop->toArray())->toEqual($this->crop->toArray())
+        ->and((string) $photo->crop)->toEqual((string) $this->crop)
         ->and($photo->face_placeholder)->toStartWith('data:image/svg+xml;base64,')
         ->and($photo->placeholder)->toStartWith('data:image/svg+xml;base64,');
 });

@@ -32,7 +32,7 @@ it('casts crop to ArtistPhotoCrop', function () {
     ])->refresh();
 
     expect($photo->crop)->toBeInstanceOf(ArtistPhotoCrop::class)
-        ->and($photo->crop->toArray())->toBe(ArtistPhotoCrop::fake()->toArray());
+        ->and((string) $photo->crop)->toBe((string) ArtistPhotoCrop::fake());
 });
 
 it('stores new photo in correct path and dispatches necessary jobs to process it', function () {
@@ -47,7 +47,7 @@ it('stores new photo in correct path and dispatches necessary jobs to process it
 
     expect($image)->toBeInstanceOf(Photo::class)
         ->and($image->filename())->toEndWith('.png')
-        ->and($image->crop()->toArray())->toBe(ArtistPhotoCrop::fake()->toArray());
+        ->and((string) $image->crop())->toBe((string) ArtistPhotoCrop::fake());
 
     expect(Photo::disk()->files('photos/original'))->toHaveCount(1);
 
