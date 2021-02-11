@@ -24,31 +24,20 @@ class ArtistController extends Controller
             $data = $request->validated(),
         )->save();
 
-        $photoCrop = $request->photoCrop();
-
-        $photoSource = $data['photo_source'] ?? null;
-
         if ($request->boolean('remove_photo')) {
             $artist->photo()->disassociate()->save();
         } elseif ($request->file('photo')) {
             $artist->photo()->associate(
-                Photo::store($request->file('photo'), [
-                    'crop' => $photoCrop,
-                    'source' => $photoSource,
-                ]),
+                Photo::store($request->file('photo'), $request->photoData()),
             )->save();
-        } elseif ($data['photo_uri'] ?? null) {
+        } elseif ($request->photo_uri) {
             $artist->photo()->associate(
-                Photo::fromUrl($data['photo_uri'], [
-                    'crop' => $photoCrop,
-                    'source' => $photoSource,
-                ]),
+                Photo::fromUrl($data['photo_uri'], $request->photoData()),
             )->save();
         } elseif ($artist->photo) {
-            $artist->photo->forceFill([
-                'source' => $photoSource,
-                'crop' => $photoCrop,
-            ])->save();
+            $artist->photo->forceFill(
+                $request->photoData(),
+            )->save();
         }
 
         $artist->flushCache();

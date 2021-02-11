@@ -37,10 +37,12 @@ class StoreArtist extends FormRequest
         ];
     }
 
-    public function photoCrop(): ?ArtistPhotoCrop
+    public function photoData(): array
     {
-        return $this->photo_crop ?? false
-            ? ArtistPhotoCrop::fromStrings($this->photo_crop)
-            : null;
+        return [
+            'crop' => $this->photo_crop
+                ? ArtistPhotoCrop::fromStrings($this->photo_crop) : null,
+            'source' => $this->photo_source,
+        ];
     }
 }
