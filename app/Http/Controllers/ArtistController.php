@@ -28,9 +28,7 @@ class ArtistController extends Controller
             $data = $request->validated(),
         )->save();
 
-        $photoCrop = $data['photo_crop'] ?? null !== null
-            ? ArtistPhotoCrop::fromStrings($data['photo_crop'])
-            : null;
+        $photoCrop = $request->photoCrop();
 
         $photoSource = $data['photo_source'] ?? null;
 

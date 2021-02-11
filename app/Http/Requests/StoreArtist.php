@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreArtist extends FormRequest
@@ -34,5 +35,12 @@ class StoreArtist extends FormRequest
             'photo_uri' => ['string', 'ends_with:.jpg', 'nullable'],
             'remove_photo' => ['boolean', 'nullable'],
         ];
+    }
+
+    public function photoCrop(): ?ArtistPhotoCrop
+    {
+        return $this->photo_crop ?? false
+            ? ArtistPhotoCrop::fromStrings($this->photo_crop)
+            : null;
     }
 }
