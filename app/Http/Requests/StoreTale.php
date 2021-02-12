@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Artist;
+use App\Values\CreditData;
 use App\Values\CreditType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Collection;
 use Spatie\Enum\Laravel\Rules\EnumRule;
 
 class StoreTale extends FormRequest
@@ -36,5 +39,26 @@ class StoreTale extends FormRequest
 
             'notes' => ['string', 'max:4096', 'nullable'],
         ];
+    }
+
+    public function creditsData(): Collection
+    {
+        return collect($this->credits)
+            ->groupBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
+            ->map->map(fn ($credit) => new CreditData([
+                'type' => $credit['type'],
+                'as' => $credit['as'],
+                'nr' => (int) $credit['nr'],
+            ]));
+    }
+
+    public function actorsData(): Collection
+    {
+        return collect($this->actors)
+            ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
+            ->map(fn ($credit) => [
+                'characters' => $credit['characters'],
+                'credit_nr' => $credit['credit_nr'],
+            ]);
     }
 }
