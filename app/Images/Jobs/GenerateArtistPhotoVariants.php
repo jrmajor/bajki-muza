@@ -14,7 +14,11 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 {
     use CropsArtistPhoto, ProcessesImages;
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    use Dispatchable,
+        InteractsWithQueue,
+        Queueable,
+        SerializesModels;
 
     public function __construct(
         protected Photo $image,
