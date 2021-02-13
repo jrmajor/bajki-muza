@@ -20,12 +20,8 @@ trait CropsArtistPhoto
         $croppedImagePath = $temporaryDirectory->path($croppedImageName);
 
         Image::load($baseImagePath)
-            ->manualCrop(
-                $crop->image->width,
-                $crop->image->height,
-                $crop->image->x,
-                $crop->image->y,
-            )->save($croppedImagePath);
+            ->manualCrop(...$crop->image->toArray())
+            ->save($croppedImagePath);
 
         return $croppedImagePath;
     }
