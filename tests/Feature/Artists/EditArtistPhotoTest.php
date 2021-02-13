@@ -18,21 +18,9 @@ beforeEach(function () {
         'wikipedia' => 'Ilona_Kuśmierska',
     ];
 
-    $this->rawCrop = [
-        'face' => [
-            'x' => '181',
-            'y' => '246',
-            'size' => '189',
-        ],
-        'image'=> [
-            'x' => '79',
-            'y' => '247',
-            'width' => '529',
-            'height' => '352',
-        ],
-    ];
+    $this->crop = ArtistPhotoCrop::fake();
 
-    $this->crop = ArtistPhotoCrop::fromStrings($this->rawCrop);
+    $this->rawCrop = $this->crop->toArray();
 
     $this->artist = Artist::factory()
         ->noPhoto()->create($this->attributes);
