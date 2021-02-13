@@ -64,16 +64,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.173.6",
+            "version": "3.173.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "439a161e46895cd1f7b93b4c0295f95d6a17385e"
+                "reference": "e6d08cdc8206af55dd7bbb967a0350b41263018c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/439a161e46895cd1f7b93b4c0295f95d6a17385e",
-                "reference": "439a161e46895cd1f7b93b4c0295f95d6a17385e",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e6d08cdc8206af55dd7bbb967a0350b41263018c",
+                "reference": "e6d08cdc8206af55dd7bbb967a0350b41263018c",
                 "shasum": ""
             },
             "require": {
@@ -148,9 +148,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.173.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.173.8"
             },
-            "time": "2021-02-09T19:14:22+00:00"
+            "time": "2021-02-12T19:15:02+00:00"
         },
         {
             "name": "brick/math",
@@ -2621,16 +2621,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.45.0",
+            "version": "2.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "e2ba3174ce869da1713c38340dbb36572dfacd5a"
+                "reference": "528783b188bdb853eb21239b1722831e0f000a8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e2ba3174ce869da1713c38340dbb36572dfacd5a",
-                "reference": "e2ba3174ce869da1713c38340dbb36572dfacd5a",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/528783b188bdb853eb21239b1722831e0f000a8d",
+                "reference": "528783b188bdb853eb21239b1722831e0f000a8d",
                 "shasum": ""
             },
             "require": {
@@ -2710,7 +2710,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-07T21:35:59+00:00"
+            "time": "2021-02-11T18:30:17+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -5414,16 +5414,16 @@
         },
         {
             "name": "spatie/data-transfer-object",
-            "version": "2.8.2",
+            "version": "2.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/data-transfer-object.git",
-                "reference": "d53fca493fab11212535d79b7e5a0c2fb2474469"
+                "reference": "2625a59566804ec63f01947d85947336237cbda6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/d53fca493fab11212535d79b7e5a0c2fb2474469",
-                "reference": "d53fca493fab11212535d79b7e5a0c2fb2474469",
+                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/2625a59566804ec63f01947d85947336237cbda6",
+                "reference": "2625a59566804ec63f01947d85947336237cbda6",
                 "shasum": ""
             },
             "require": {
@@ -5461,7 +5461,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/data-transfer-object/issues",
-                "source": "https://github.com/spatie/data-transfer-object/tree/2.8.2"
+                "source": "https://github.com/spatie/data-transfer-object/tree/2.8.3"
             },
             "funding": [
                 {
@@ -5469,20 +5469,20 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-02-11T08:20:39+00:00"
+            "time": "2021-02-12T08:46:52+00:00"
         },
         {
             "name": "spatie/enum",
-            "version": "3.7.0",
+            "version": "3.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac"
+                "reference": "c86b1fd251ccbb0cc7237d3376a75a6e28ad051c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac",
-                "reference": "4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/c86b1fd251ccbb0cc7237d3376a75a6e28ad051c",
+                "reference": "c86b1fd251ccbb0cc7237d3376a75a6e28ad051c",
                 "shasum": ""
             },
             "require": {
@@ -5545,7 +5545,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-01-13T12:07:52+00:00"
+            "time": "2021-02-12T10:20:29+00:00"
         },
         {
             "name": "spatie/image",
@@ -5748,16 +5748,16 @@
         },
         {
             "name": "spatie/laravel-enum",
-            "version": "2.2.0",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-enum.git",
-                "reference": "a49ce4c05f95e037017d4b3b63a5fbbbb38e0dd2"
+                "reference": "9e3ae55f2823da9fdba7181a599537d323aff2dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-enum/zipball/a49ce4c05f95e037017d4b3b63a5fbbbb38e0dd2",
-                "reference": "a49ce4c05f95e037017d4b3b63a5fbbbb38e0dd2",
+                "url": "https://api.github.com/repos/spatie/laravel-enum/zipball/9e3ae55f2823da9fdba7181a599537d323aff2dc",
+                "reference": "9e3ae55f2823da9fdba7181a599537d323aff2dc",
                 "shasum": ""
             },
             "require": {
@@ -5768,16 +5768,17 @@
                 "illuminate/http": "^8.0",
                 "illuminate/support": "^8.0",
                 "php": "^7.4 || ^8.0",
-                "spatie/enum": "^3.5.0"
+                "spatie/enum": "^3.5"
             },
             "conflict": {
                 "bensampo/laravel-enum": "*"
             },
             "require-dev": {
-                "fzaninotto/faker": "^1.9.1",
-                "orchestra/testbench": "^5.0 || ^6.0",
+                "fakerphp/faker": "^1.9.1",
+                "mockery/mockery": "^1.4.0",
+                "orchestra/testbench": "^6.0",
                 "phpunit/phpunit": "^9.3",
-                "vimeo/psalm": "^3.12"
+                "vimeo/psalm": "^4.0"
             },
             "suggest": {
                 "fzaninotto/faker": "^1.9.1"
@@ -5823,7 +5824,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-enum/issues",
-                "source": "https://github.com/spatie/laravel-enum/tree/2.2.0"
+                "source": "https://github.com/spatie/laravel-enum/tree/2.3.0"
             },
             "funding": [
                 {
@@ -5835,7 +5836,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-24T11:49:26+00:00"
+            "time": "2021-02-12T11:46:04+00:00"
         },
         {
             "name": "spatie/laravel-sluggable",
@@ -10760,16 +10761,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.75",
+            "version": "0.12.76",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "2e4738cd67e0163861a065180eff7eb5c8417d6e"
+                "reference": "7aaaf9a759a29795e8f46d48041af1c1f1b23d38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2e4738cd67e0163861a065180eff7eb5c8417d6e",
-                "reference": "2e4738cd67e0163861a065180eff7eb5c8417d6e",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7aaaf9a759a29795e8f46d48041af1c1f1b23d38",
+                "reference": "7aaaf9a759a29795e8f46d48041af1c1f1b23d38",
                 "shasum": ""
             },
             "require": {
@@ -10800,7 +10801,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.75"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.76"
             },
             "funding": [
                 {
@@ -10816,7 +10817,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-11T13:58:47+00:00"
+            "time": "2021-02-13T11:47:44+00:00"
         },
         {
             "name": "react/promise",
