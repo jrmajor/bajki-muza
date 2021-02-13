@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\Discogs;
+use App\Services\FilmPolski;
 use App\Services\Wikipedia;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -19,5 +20,6 @@ class ServicesServiceProvider extends ServiceProvider
 
         $this->app->singleton(Wikipedia::class);
 
+        $this->app->singleton(FilmPolski::class);
     }
 }
