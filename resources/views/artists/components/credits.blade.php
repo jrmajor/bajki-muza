@@ -11,14 +11,9 @@
             @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)" @endif
             >
             @if ($tale->cover)
-              <img src="{{ $tale->cover->url(120) }}"
-                srcset="
-                  {{ $tale->cover->url(60) }} 1x,
-                  {{ $tale->cover->url(90) }} 1.5x,
-                  {{ $tale->cover->url(120) }} 2x"
-                loading="lazy"
-                alt="Okładka bajki {{ $tale->title }}"
-                class="w-13 h-13 object-cover transition-opacity duration-300 opacity-0">
+              <x-responsive-image :image="$tale->cover"
+                :size="13" :imageSize="60"
+                alt="Okładka bajki {{ $tale->title }}"/>
             @endif
           </div>
           <div class="flex-grow p-2 pl-3 text-sm sm:text-base font-medium leading-tight">

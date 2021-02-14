@@ -16,13 +16,8 @@
           @if ($artist->photo) style="background-image: url(&quot;{{ $artist->photo->facePlaceholder() }}&quot;)" @endif
           >
           @if ($artist->photo)
-            <img src="{{ $artist->photo->url(112) }}"
-              srcset="
-                {{ $artist->photo->url(56) }} 1x,
-                {{ $artist->photo->url(84) }} 1.5x,
-                {{ $artist->photo->url(112) }} 2x"
-              loading="lazy"
-              class="w-12 h-12 sm:w-14 sm:h-14 object-cover transition-opacity duration-300 opacity-0">
+            <x-responsive-image :image="$artist->photo" :size="14"
+              class="w-12 h-12 sm:w-14 sm:h-14"/>
           @elseif ($artist->discogsPhoto() && Auth::guest())
             <img src="{{ $artist->discogsPhoto('150') }}"
               class="w-12 h-12 sm:w-14 sm:h-14 object-cover">

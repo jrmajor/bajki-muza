@@ -27,13 +27,8 @@
         class="relative mt-5 mb-2 sm:my-0 sm:mr-6 -p-px flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
         <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
           style="background-image: url(&quot;{{ $artist->photo->placeholder() }}&quot;)">
-          <img src="{{ $artist->photo->url(320) }}"
-            srcset="
-              {{ $artist->photo->url(160) }} 1x,
-              {{ $artist->photo->url(240) }} 1.5x,
-              {{ $artist->photo->url(320) }} 2x"
-            loading="eager"
-            class="w-full h-full object-center object-cover transition-opacity duration-300 opacity-0">
+          <x-responsive-image :image="$artist->photo"
+            size="full" :imageSize="160" loading="eager"/> {{-- @todo add alt --}}
         </div>
       </div>
     @elseif ($artist->discogsPhoto() && Auth::guest())

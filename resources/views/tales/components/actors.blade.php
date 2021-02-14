@@ -12,13 +12,7 @@
           @if ($actor->photo) style="background-image: url(&quot;{{ $actor->photo->facePlaceholder() }}&quot;)" @endif
           >
           @if ($actor->photo)
-            <img src="{{ $actor->photo->url(112) }}"
-              srcset="
-                {{ $actor->photo->url(56) }} 1x,
-                {{ $actor->photo->url(84) }} 1.5x,
-                {{ $actor->photo->url(112) }} 2x"
-              loading="lazy"
-              class="w-14 h-14 object-cover transition-opacity duration-300 opacity-0">
+            <x-responsive-image :image="$actor->photo" :size="14"/>
           @elseif ($actor->discogsPhoto() && Auth::guest())
             <img src="{{ $actor->discogsPhoto('150') }}"
               class="w-14 h-14 object-cover">
