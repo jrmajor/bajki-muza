@@ -14,9 +14,9 @@ it('redirects to welcome page after logging out')
     ->asUser()
     ->post('logout')
     ->assertStatus(302)
-    ->assertRedirect('/');
+    ->assertRedirect('bajki');
 
 it('redirects to welcome page if no user is authenticated')
     ->post('logout')
     ->assertStatus(302)
-    ->assertRedirect('/');
+    ->assertRedirect('bajki');

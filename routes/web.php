@@ -2,17 +2,18 @@
 
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\TaleController;
 use App\Http\Livewire\Artists;
 use App\Http\Livewire\Tales;
 use Illuminate\Support\Facades\Route;
 
-Auth::routes([
-    'register' => false,
-    'reset' => false,
-    'confirm' => false,
-    'verify' => false,
-]);
+Route::middleware('guest')->group(function () {
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+});
+
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::redirect('/', '/bajki')->name('home');
 
