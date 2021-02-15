@@ -20,26 +20,19 @@ class ArtistController extends Controller
 
     public function update(StoreArtist $request, Artist $artist)
     {
-        $artist->fill(
-            $data = $request->validated(),
-        )->save();
+        $artist->fill($request->validated());
 
         if ($request->boolean('remove_photo')) {
-            $artist->photo()->disassociate()->save();
-        } elseif ($request->file('photo')) {
+            $artist->photo()->disassociate();
+        } elseif ($request->uploadedPhoto()) {
             $artist->photo()->associate(
-                Photo::store($request->file('photo'), $request->photoData()),
-            )->save();
-        } elseif ($request->photo_uri) {
-            $artist->photo()->associate(
-                Photo::fromUrl($data['photo_uri'], $request->photoData()),
-            )->save();
+                Photo::store($request->uploadedPhoto(), $request->photoData()),
+            );
         } elseif ($artist->photo) {
-            $artist->photo->forceFill(
-                $request->photoData(),
-            )->save();
+            $artist->photo->forceFill($request->photoData());
         }
 
+        $artist->push();
         $artist->flushCache();
 
         return redirect()->route('artists.show', $artist);

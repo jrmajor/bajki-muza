@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 
 class StoreArtist extends FormRequest
 {
@@ -44,5 +45,10 @@ class StoreArtist extends FormRequest
                 ? ArtistPhotoCrop::fromStrings($this->photo_crop) : null,
             'source' => $this->photo_source,
         ];
+    }
+
+    public function uploadedPhoto(): UploadedFile|string|null
+    {
+        return $this->file('photo') ?? $this->photo_uri;
     }
 }

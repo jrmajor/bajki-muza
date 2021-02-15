@@ -9,8 +9,10 @@ use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 abstract class Image extends Model
 {
@@ -24,8 +26,12 @@ abstract class Image extends Model
 
     abstract public static function sizes(): Collection;
 
-    public static function store(File|UploadedFile $file, array $attributes = []): static
+    public static function store(File|UploadedFile|string $file, array $attributes = []): static
     {
+        if (is_string($file)) {
+            return self::storeFromUrl($file, $attributes);
+        }
+
         $path = static::disk()
             ->putFile(static::uploadPath(), $file, 'private');
 
@@ -35,9 +41,30 @@ abstract class Image extends Model
             array_merge(compact('filename'), $attributes),
         );
 
-        $image->process();
+        return tap($image, fn ($image) => $image->process());
+    }
 
-        return $image;
+    protected static function storeFromUrl(string $url, array $attributes): static
+    {
+        $contents = Http::get($url);
+
+        $temporaryDirectory = (new TemporaryDirectory)->create();
+
+        $targetFile = $temporaryDirectory->path('uploaded-image.jpeg');
+
+        touch($targetFile);
+
+        $targetStream = fopen($targetFile, 'a');
+
+        fwrite($targetStream, $contents);
+
+        fclose($targetStream);
+
+        $photo = self::store(new File($targetFile), $attributes);
+
+        $temporaryDirectory->delete();
+
+        return $photo;
     }
 
     abstract protected function process(): void;
