@@ -83,7 +83,7 @@ final class Artist extends Model
 
     public function photo(): BelongsTo
     {
-        return $this->belongsTo(Photo::class, 'photo_filename', 'filename');
+        return $this->belongsTo(Photo::class);
     }
 
     public function getWikipediaExtractAttribute(): ?string

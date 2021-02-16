@@ -52,7 +52,7 @@ final class Tale extends Model
 
     public function cover(): BelongsTo
     {
-        return $this->belongsTo(Cover::class, 'cover_filename', 'filename');
+        return $this->belongsTo(Cover::class);
     }
 
     public function actors(): BelongsToMany
@@ -100,8 +100,7 @@ final class Tale extends Model
      */
     public function syncCredits(array|Collection $credits)
     {
-        $allCreditsToSync = collect($credits)
-            ->map(curry('collect'));
+        $allCreditsToSync = collect($credits)->map('collect');
 
         // Delete credits for artists who don't exist in new credit list.
         $this->credits()->whereIntegerNotInRaw(
