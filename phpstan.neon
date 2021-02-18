@@ -9,6 +9,7 @@ parameters:
     ignoreErrors:
         - '#Access to an undefined property Illuminate\\Support\\HigherOrderCollectionProxy::\$\w+\.#'
         - '#Call to an undefined method Illuminate\\Support\\HigherOrderCollectionProxy::\w+\(\)\.#'
+        - '#Call to an undefined method Illuminate\\Contracts\\Container\\ContextualBindingBuilder::giveConfig\(\)\.#'
 
 includes:
     - vendor/nunomaduro/larastan/extension.neon
