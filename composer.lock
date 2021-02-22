@@ -64,16 +64,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.173.11",
+            "version": "3.173.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "539d5235443368a34e98b8f0f434f2146a8ddb32"
+                "reference": "b8ef72b8b335a1bb004505784f1a03ff5b37928f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/539d5235443368a34e98b8f0f434f2146a8ddb32",
-                "reference": "539d5235443368a34e98b8f0f434f2146a8ddb32",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b8ef72b8b335a1bb004505784f1a03ff5b37928f",
+                "reference": "b8ef72b8b335a1bb004505784f1a03ff5b37928f",
                 "shasum": ""
             },
             "require": {
@@ -145,7 +145,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2021-02-17T19:12:46+00:00"
+            "time": "2021-02-19T19:14:50+00:00"
         },
         {
             "name": "brick/math",
@@ -5668,16 +5668,16 @@
         },
         {
             "name": "spatie/laravel-enum",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-enum.git",
-                "reference": "9e3ae55f2823da9fdba7181a599537d323aff2dc"
+                "reference": "0588c8abe1e999ca8d359a97b4d182c1222c089e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-enum/zipball/9e3ae55f2823da9fdba7181a599537d323aff2dc",
-                "reference": "9e3ae55f2823da9fdba7181a599537d323aff2dc",
+                "url": "https://api.github.com/repos/spatie/laravel-enum/zipball/0588c8abe1e999ca8d359a97b4d182c1222c089e",
+                "reference": "0588c8abe1e999ca8d359a97b4d182c1222c089e",
                 "shasum": ""
             },
             "require": {
@@ -5742,10 +5742,6 @@
                 "laravel-enum",
                 "spatie"
             ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-enum/issues",
-                "source": "https://github.com/spatie/laravel-enum/tree/2.3.0"
-            },
             "funding": [
                 {
                     "url": "https://spatie.be/open-source/support-us",
@@ -5756,7 +5752,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-02-12T11:46:04+00:00"
+            "time": "2021-02-19T11:35:56+00:00"
         },
         {
             "name": "spatie/laravel-sluggable",
@@ -10644,16 +10640,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.77",
+            "version": "0.12.78",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1f10b8c8d118d01e7b492f9707999d456be5812c"
+                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1f10b8c8d118d01e7b492f9707999d456be5812c",
-                "reference": "1f10b8c8d118d01e7b492f9707999d456be5812c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/eecce8d2ee3cac6769f37b4cb1998b2715f82984",
+                "reference": "eecce8d2ee3cac6769f37b4cb1998b2715f82984",
                 "shasum": ""
             },
             "require": {
@@ -10696,7 +10692,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-02-17T16:22:19+00:00"
+            "time": "2021-02-20T13:24:36+00:00"
         },
         {
             "name": "react/promise",
