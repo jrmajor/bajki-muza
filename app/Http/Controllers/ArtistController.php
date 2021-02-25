@@ -33,7 +33,6 @@ class ArtistController extends Controller
         }
 
         $artist->push();
-        $artist->flushCache();
 
         return redirect()->route('artists.show', $artist);
     }

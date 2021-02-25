@@ -66,6 +66,11 @@ final class Artist extends Model
         return $artist ?? tap((new self(compact('name'))))->save();
     }
 
+    protected static function booted(): void
+    {
+        self::updated(fn (self $artist) => $artist->flushCache());
+    }
+
     public function getDiscogsUrlAttribute(): ?string
     {
         return $this->discogs ? Discogs::url($this->discogs) : null;
