@@ -68,7 +68,9 @@ final class Artist extends Model
 
     protected static function booted(): void
     {
-        self::updated(fn (self $artist) => $artist->flushCache());
+        self::updated(function (self $artist) {
+            $artist->flushCache();
+        });
     }
 
     public function getDiscogsUrlAttribute(): ?string
