@@ -1,11 +1,13 @@
+const colors = require('tailwindcss/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   theme: {
     colors: {
       transparent: 'transparent',
-      white: '#ffffff',
-      black: '#000000',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
       gray: {
         50: '#fafafa',
         100: '#f7f7f7',
@@ -19,30 +21,7 @@ module.exports = {
         900: '#2e2e2e',
         950: '#121212',
       },
-      'cool-gray': {
-        50: '#fbfdfe',
-        100: '#f1f5f9',
-        200: '#e2e8f0',
-        300: '#cfd8e3',
-        400: '#97a6ba',
-        500: '#64748b',
-        600: '#475569',
-        700: '#364152',
-        800: '#27303f',
-        900: '#1a202e',
-      },
-      red: {
-        50: '#fdf2f2',
-        100: '#fde8e8',
-        200: '#fbd5d5',
-        300: '#f8b4b4',
-        400: '#f98080',
-        500: '#f05252',
-        600: '#e02424',
-        700: '#c81e1e',
-        800: '#9b1c1c',
-        900: '#771d1d',
-      },
+      red: colors.red,
       yellow: {
         kox: '#ffcc00',
         ciul: '#f6e05e',
@@ -59,30 +38,7 @@ module.exports = {
         800: '#723b13',
         900: '#633112',
       },
-      green: {
-        50: '#f3faf7',
-        100: '#def7ec',
-        200: '#bcf0da',
-        300: '#84e1bc',
-        400: '#31c48d',
-        500: '#0e9f6e',
-        600: '#057a55',
-        700: '#046c4e',
-        800: '#03543f',
-        900: '#014737',
-      },
-      blue: {
-        50: '#ebf5ff',
-        100: '#e1effe',
-        200: '#c3ddfd',
-        300: '#a4cafe',
-        400: '#76a9fa',
-        500: '#3f83f8',
-        600: '#1c64f2',
-        700: '#1a56db',
-        800: '#1e429f',
-        900: '#233876',
-      },
+      green: colors.green,
       filmpolski: {
         blue: '#566ea1',
         'blue-lighter': '#7393d9',

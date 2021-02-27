@@ -19,7 +19,7 @@
         <li
           x-on:mouseover="hovered = index" x-on:click="select(artist)"
           class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
-          :class="{ 'bg-cool-gray-100': hovered === index }">
+          :class="{ 'bg-gray-200': hovered === index }">
           <span x-text="artist"></span>
           <span class="text-gray-800" x-text="value === artist ? '✓ ' : ''"></span>
         </li>

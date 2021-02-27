@@ -88,7 +88,7 @@
                   <li
                     x-on:mouseover="discogs.hovered = index" x-on:click="select('discogs', person)"
                     class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
-                    :class="{ 'bg-cool-gray-100': discogs.hovered === index }">
+                    :class="{ 'bg-gray-200': discogs.hovered === index }">
                     <span x-text="person.name"></span>
                     <span class="text-gray-400" x-text="discogs.value === person.id ? '✓ ' : ''"></span>
                   </li>
@@ -120,7 +120,7 @@
                   <li
                     x-on:mouseover="filmPolski.hovered = index" x-on:click="select('filmPolski', person)"
                     class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
-                    :class="{ 'bg-cool-gray-100': filmPolski.hovered === index }">
+                    :class="{ 'bg-gray-200': filmPolski.hovered === index }">
                     <span x-text="person.name"></span>
                     <span class="text-gray-400" x-text="filmPolski.value === person.id ? '✓ ' : ''"></span>
                   </li>
@@ -154,7 +154,7 @@
                 <li
                   x-on:mouseover="wikipedia.hovered = index" x-on:click="select('wikipedia', person)"
                   class="select-none flex w-full px-3 py-1 text-gray-800 text-left justify-between"
-                  :class="{ 'bg-cool-gray-100': wikipedia.hovered === index }">
+                  :class="{ 'bg-gray-200': wikipedia.hovered === index }">
                   <span x-text="person.name"></span>
                   <span class="text-gray-400" x-text="wikipedia.value === person.id ? '✓ ' : ''"></span>
                 </li>
