@@ -34,7 +34,7 @@ class MacrosServiceProvider extends ServiceProvider
             'smallForeignIdFor',
             function ($model, ?string $column = null): ForeignIdColumnDefinition {
                 if (is_string($model)) {
-                    $model = new $model;
+                    $model = new $model();
                 }
 
                 return $this->smallForeignId($column ?: $model->getForeignKey());

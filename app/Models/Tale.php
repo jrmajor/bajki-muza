@@ -19,7 +19,8 @@ use Spatie\Sluggable\SlugOptions;
 
 final class Tale extends Model
 {
-    use HasSlug, HasFactory;
+    use HasSlug;
+    use HasFactory;
 
     protected $with = ['cover'];
 
@@ -104,7 +105,8 @@ final class Tale extends Model
 
         // Delete credits for artists who don't exist in new credit list.
         $this->credits()->whereIntegerNotInRaw(
-            'artists.id', $allCreditsToSync->keys(),
+            'artists.id',
+            $allCreditsToSync->keys(),
         )->get()
             ->map->credit
             ->map->delete();

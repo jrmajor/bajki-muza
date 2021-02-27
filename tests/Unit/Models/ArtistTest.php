@@ -12,11 +12,11 @@ use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-it('casts discogs id to integer',)
+it('casts discogs id to integer')
     ->expect((new Artist(['discogs' => '1023394']))->discogs)
     ->toBe(1023394);
 
-it('casts filmpolski id to integer',)
+it('casts filmpolski id to integer')
     ->expect((new Artist(['filmpolski' => '116251']))->filmpolski)
     ->toBe(116251);
 
@@ -25,7 +25,7 @@ it('generates slug when created', function () {
 
     expect($artist->slug)->toBe('tadeusz-wludarski');
 
-    $artist = new Artist;
+    $artist = new Artist();
     $artist->name = 'Zofia Rysiówna';
 
     expect($artist->slug)->toBeNull();
@@ -329,8 +329,8 @@ test('countAppearances scope works', function () {
     $duplicate = Tale::factory()->create();
 
     $artist->credits()->attach(
-         $duplicate,
-         ['type' => CreditType::directing(), 'nr' => 0],
+        $duplicate,
+        ['type' => CreditType::directing(), 'nr' => 0],
     );
 
     $artist->asActor()->attach($duplicate);

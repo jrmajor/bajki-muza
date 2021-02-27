@@ -15,10 +15,10 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
 {
     use ProcessesImages;
 
-    use Dispatchable,
-        InteractsWithQueue,
-        Queueable,
-        SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(
         protected Cover $image,
@@ -31,10 +31,10 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        $temporaryDirectory = (new TemporaryDirectory)->create();
+        $temporaryDirectory = (new TemporaryDirectory())->create();
 
         $sourceStream = Cover::disk()->readStream(
-             $this->image->originalPath(),
+            $this->image->originalPath(),
         );
 
         $baseImagePath = $this->copyToTemporaryDirectory(
@@ -45,9 +45,7 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
 
         foreach (Cover::sizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $baseImagePath,
-                $size, 'square',
-                $temporaryDirectory,
+                $baseImagePath, $size, 'square', $temporaryDirectory,
             );
 
             $file = fopen($responsiveImagePath, 'r');

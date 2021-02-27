@@ -13,12 +13,13 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 {
-    use CropsArtistPhoto, ProcessesImages;
+    use CropsArtistPhoto;
+    use ProcessesImages;
 
-    use Dispatchable,
-        InteractsWithQueue,
-        Queueable,
-        SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(
         protected Photo $image,
@@ -31,7 +32,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        $temporaryDirectory = (new TemporaryDirectory)->create();
+        $temporaryDirectory = (new TemporaryDirectory())->create();
 
         $sourceStream = Photo::disk()->readStream(
             $this->image->originalPath(),
@@ -57,9 +58,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
         foreach (Photo::faceSizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedFacePath,
-                $size, 'square',
-                $temporaryDirectory,
+                $croppedFacePath, $size, 'square', $temporaryDirectory,
             );
 
             $file = fopen($responsiveImagePath, 'r');
@@ -70,9 +69,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
         foreach (Photo::imageSizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedImagePath,
-                $size, 'height',
-                $temporaryDirectory,
+                $croppedImagePath, $size, 'height', $temporaryDirectory,
             );
 
             $file = fopen($responsiveImagePath, 'r');

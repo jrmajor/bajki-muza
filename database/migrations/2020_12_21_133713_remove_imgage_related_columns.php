@@ -21,7 +21,6 @@ class RemoveImgageRelatedColumns extends Migration
                 'photo_placeholder',
                 'photo_face_placeholder',
             );
-
         });
     }
 }

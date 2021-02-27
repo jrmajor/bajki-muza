@@ -14,12 +14,13 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class GenerateArtistPhotoPlaceholders implements ShouldQueue, ShouldBeUnique
 {
-    use CropsArtistPhoto, ProcessesImages;
+    use CropsArtistPhoto;
+    use ProcessesImages;
 
-    use Dispatchable,
-        InteractsWithQueue,
-        Queueable,
-        SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(
         protected Photo $image,
@@ -32,7 +33,7 @@ class GenerateArtistPhotoPlaceholders implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        $temporaryDirectory = (new TemporaryDirectory)->create();
+        $temporaryDirectory = (new TemporaryDirectory())->create();
 
         $sourceStream = Photo::disk()->readStream(
             $this->image->originalPath(),
@@ -62,10 +63,14 @@ class GenerateArtistPhotoPlaceholders implements ShouldQueue, ShouldBeUnique
             'width' => $croppedImage->getWidth(),
             'height' => $croppedImage->getHeight(),
             'placeholder' => $this->generateTinyJpg(
-                $croppedImagePath, 'height', $temporaryDirectory,
+                $croppedImagePath,
+                'height',
+                $temporaryDirectory,
             ),
             'face_placeholder' => $this->generateTinyJpg(
-                $croppedFacePath, 'square', $temporaryDirectory,
+                $croppedFacePath,
+                'square',
+                $temporaryDirectory,
             ),
         ])->save();
 

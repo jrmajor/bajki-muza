@@ -8,7 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 final class User extends Authenticatable
 {
-    use Notifiable, HasFactory;
+    use Notifiable;
+    use HasFactory;
 
     public $timestamps = false;
 

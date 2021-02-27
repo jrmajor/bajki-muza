@@ -24,7 +24,8 @@ use Spatie\Sluggable\SlugOptions;
 
 final class Artist extends Model
 {
-    use HasSlug, HasFactory;
+    use HasSlug;
+    use HasFactory;
 
     protected $with = ['photo'];
 
@@ -165,8 +166,9 @@ final class Artist extends Model
             DB::table(
                 DB::table('credits')->select('tale_id')
                     ->whereColumn('artist_id', 'artists.id')
-                ->union(DB::table('tales_actors')->select('tale_id')
-                    ->whereColumn('artist_id', 'artists.id'),
+                ->union(
+                    DB::table('tales_actors')->select('tale_id')
+                        ->whereColumn('artist_id', 'artists.id'),
                 ),
             )->selectRaw('count(*) as appearances'),
         ])->withCasts(['appearances' => 'int']);
@@ -177,8 +179,9 @@ final class Artist extends Model
         return DB::table(
             DB::table('credits')->select('tale_id')
                 ->where('artist_id', $this->id)
-            ->union(DB::table('tales_actors')->select('tale_id')
-                ->where('artist_id', $this->id),
+            ->union(
+                DB::table('tales_actors')->select('tale_id')
+                    ->where('artist_id', $this->id),
             ),
         )->count();
     }

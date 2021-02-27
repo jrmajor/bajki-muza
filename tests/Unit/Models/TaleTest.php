@@ -9,10 +9,10 @@ use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-it('casts year to integer',)
+it('casts year to integer')
     ->expect((new Tale(['year' => '1973']))->year)->toBe(1973);
 
-it('casts discogs id to integer',)
+it('casts discogs id to integer')
     ->expect((new Tale(['discogs' => '2792351']))->discogs)->toBe(2792351);
 
 it('generates slug when created', function () {

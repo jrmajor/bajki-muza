@@ -48,7 +48,7 @@ abstract class Image extends Model
     {
         $contents = Http::get($url);
 
-        $temporaryDirectory = (new TemporaryDirectory)->create();
+        $temporaryDirectory = (new TemporaryDirectory())->create();
 
         $targetFile = $temporaryDirectory->path('uploaded-image.jpeg');
 
@@ -106,7 +106,7 @@ abstract class Image extends Model
 
     public function placeholder(): ?string
     {
-         return $this->getAttribute('placeholder');
+        return $this->getAttribute('placeholder');
     }
 
     public function originalMissing(): bool
