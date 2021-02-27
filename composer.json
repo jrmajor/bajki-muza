@@ -80,7 +80,7 @@
         ],
         "post-root-package-install": "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
         "post-create-project-cmd": "@php artisan key:generate --ansi",
-        "check-format": "vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "check-formatting": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "format": "vendor/bin/php-cs-fixer fix"
     }
 }
