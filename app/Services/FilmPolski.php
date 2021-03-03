@@ -154,11 +154,13 @@ class FilmPolski
 
                 if ($nodeCrawler->nodeName() === 'h2') {
                     $title = $nodeCrawler->text();
+
                     continue;
                 }
 
                 if ($nodeCrawler->attr('class') === 'opzdj') {
                     $photos[$title ?? '?']['year'] = $nodeCrawler->text();
+
                     continue;
                 }
 
@@ -170,7 +172,7 @@ class FilmPolski
                     ->children()->children()
                     ->attr('src');
 
-                $photo = Regex::replace('/\/([0-9]+)i\//', '/$1z/', $photo)->result();
+                $photo = Regex::replace('/\\/([0-9]+)i\\//', '/$1z/', $photo)->result();
 
                 $photos[$title ?? '?']['photos'][] = $photo;
             } catch (InvalidArgumentException) {

@@ -162,8 +162,7 @@ final class Artist extends Model
 
     public function scopeCountAppearances(Builder $query): void
     {
-        $query->addSelect(['appearances' =>
-            DB::table(
+        $query->addSelect(['appearances' => DB::table(
                 DB::table('credits')->select('tale_id')
                     ->whereColumn('artist_id', 'artists.id')
                 ->union(

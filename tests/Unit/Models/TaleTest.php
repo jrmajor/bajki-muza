@@ -208,7 +208,7 @@ it('can sync credits', function () {
     $tale->syncCredits([
         $firstArtist->id => [
             new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
-        ]
+        ],
     ]);
 
     $tale->refresh();
@@ -226,7 +226,7 @@ it('can sync credits', function () {
         $firstArtist->id => [
             new CreditData(['type' => 'adaptation', 'as' => null, 'nr' => 1]),
             new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
-        ]
+        ],
     ]);
 
     $tale->refresh();

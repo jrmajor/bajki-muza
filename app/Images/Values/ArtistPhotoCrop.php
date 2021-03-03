@@ -28,11 +28,6 @@ class ArtistPhotoCrop extends CastableDataTransferObject implements Stringable
         ]);
     }
 
-    public function __toString(): string
-    {
-        return $this->toJson();
-    }
-
     public static function fake(): self
     {
         return new self([
@@ -48,5 +43,10 @@ class ArtistPhotoCrop extends CastableDataTransferObject implements Stringable
                 'height' => 352,
             ],
         ]);
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
     }
 }

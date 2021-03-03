@@ -91,7 +91,7 @@ abstract class Image extends Model
 
     abstract public function path(int $size): string;
 
-    public function originalUrl(?Carbon $expiration = null): string
+    public function originalUrl(Carbon $expiration = null): string
     {
         return $this->disk()->temporaryUrl(
             $this->originalPath(),

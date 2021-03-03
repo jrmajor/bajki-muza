@@ -61,7 +61,7 @@ class TaleFactory extends Factory
                     Artist::factory()->create()->id,
                     [
                         'characters' => $characters,
-                        'credit_nr'  => $credit_nr,
+                        'credit_nr' => $credit_nr,
                     ]
                 );
             }

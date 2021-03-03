@@ -28,7 +28,7 @@ class Tales extends Component
     {
         $tales = Tale::withActorsPopularity()
             ->unless(blank($this->search), function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%');
+                $query->where('title', 'like', '%'.$this->search.'%');
             })
             ->unless(is_null($this->discogs), function ($query) {
                 $query->whereNull('discogs', not: (bool) $this->discogs);

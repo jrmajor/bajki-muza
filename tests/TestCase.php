@@ -9,7 +9,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function asUser(?User $user = null, string $driver = null): TestCase
+    public function asUser(User $user = null, string $driver = null): TestCase
     {
         return $this->actingAs($user ?? User::factory()->create(), $driver);
     }

@@ -87,7 +87,7 @@ trait ProcessesImages
 
         match ($fit) {
             'square' => $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize),
-            'height' =>  $image->height($targetSize),
+            'height' => $image->height($targetSize),
             default => throw new InvalidArgumentException(),
         };
 

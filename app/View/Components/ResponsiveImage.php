@@ -14,7 +14,7 @@ class ResponsiveImage extends Component
     public function __construct(
         public Image $image,
         public string|int $size,
-        ?int $imageSize = null,
+        int $imageSize = null,
     ) {
         $this->imageSize = $imageSize ?? $size * 4;
 
@@ -24,12 +24,12 @@ class ResponsiveImage extends Component
     public function render()
     {
         return <<<'blade'
-          <img {{ $attributes->merge(['loading' => 'lazy', 'class' => $class]) }}
-            src="{{ $image->url($imageSize * 2) }}"
-            srcset="
-              {{ $image->url($imageSize) }} 1x,
-              {{ $image->url($imageSize * 1.5) }} 1.5x,
-              {{ $image->url($imageSize * 2) }} 2x">
-        blade;
+              <img {{ $attributes->merge(['loading' => 'lazy', 'class' => $class]) }}
+                src="{{ $image->url($imageSize * 2) }}"
+                srcset="
+                  {{ $image->url($imageSize) }} 1x,
+                  {{ $image->url($imageSize * 1.5) }} 1.5x,
+                  {{ $image->url($imageSize * 2) }} 2x">
+            blade;
     }
 }
