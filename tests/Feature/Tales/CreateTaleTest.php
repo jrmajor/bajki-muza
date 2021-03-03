@@ -82,7 +82,7 @@ test('users with permissions can create tale', function () {
     $tale = Tale::first();
 
     foreach ($this->attributes as $key => $attribute) {
-        expect($tale->$key)->toBe($attribute);
+        expect($tale->{$key})->toBe($attribute);
     }
 
     $directorCredits = $tale->creditsFor(CreditType::directing());

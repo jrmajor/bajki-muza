@@ -10,7 +10,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('encodedjson', function ($expression) {
-            return "<?php echo e(json_encode($expression)) ?>";
+            return "<?php echo e(json_encode({$expression})) ?>";
         });
     }
 }

@@ -47,7 +47,7 @@ test('guests cannot edit tale attributes', function () {
     $tale = $this->tale->fresh();
 
     foreach ($this->oldAttributes as $key => $attribute) {
-        expect($tale->$key)->toBe($attribute);
+        expect($tale->{$key})->toBe($attribute);
     }
 });
 
@@ -59,7 +59,7 @@ test('users with permissions can edit tale attributes', function () {
     $tale = $this->tale->fresh();
 
     foreach ($this->newAttributes as $key => $attribute) {
-        expect($tale->$key)->toBe($attribute);
+        expect($tale->{$key})->toBe($attribute);
     }
 });
 

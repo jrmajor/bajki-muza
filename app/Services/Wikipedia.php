@@ -36,7 +36,7 @@ class Wikipedia
 
     public function url(string $title): string
     {
-        return "https://pl.wikipedia.org/wiki/$title";
+        return "https://pl.wikipedia.org/wiki/{$title}";
     }
 
     public function extract(string $title): ?string
