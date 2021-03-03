@@ -70,7 +70,9 @@ final class Artist extends Model
     protected static function booted(): void
     {
         self::updated(function (self $artist) {
-            $artist->flushCache();
+            if ($artist->isDirty('discogs', 'filmpolski', 'wikipedia')) {
+                $artist->flushCache();
+            }
         });
     }
 
