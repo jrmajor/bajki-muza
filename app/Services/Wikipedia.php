@@ -15,14 +15,13 @@ class Wikipedia
 
     public function search(string $search): ArtistCollection
     {
-        $response = Http::get($this->endpoint, [
+        $artists = Http::get($this->endpoint, [
             'action' => 'opensearch',
             'search' => $search,
             'limit' => 10,
             'redirects' => 'resolve',
-        ])->json();
-
-        $artists = collect($response)
+        ])
+            ->collect()
             ->only(1, 3)
             ->transpose()
             ->map->combineKeys(['name', 'id'])
