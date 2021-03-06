@@ -66,6 +66,30 @@ it('caches wikipedia extract', function () {
     Http::assertSentCount(0);
 });
 
+it('can refresh cached data', function () {
+    $newResponse = [
+        'query' => [
+            'pages' => [
+                117656 => ['extract' => 'test'],
+            ],
+        ],
+    ];
+
+    Http::fake(['pl.wikipedia.org/*' => Http::response($this->response)]);
+
+    expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
+
+    Facade::clearResolvedInstance(Illuminate\Http\Client\Factory::class);
+
+    Http::fake(['pl.wikipedia.org/*' => Http::response($newResponse)]);
+
+    expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
+
+    Wikipedia::refreshCache('Piotr_Fronczewski');
+
+    expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe('test');
+});
+
 it('can flush cached data', function () {
     $newResponse = [
         'query' => [

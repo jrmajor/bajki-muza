@@ -89,6 +89,41 @@ it('caches discogs photos', function () {
     Http::assertSentCount(0);
 });
 
+it('can refresh cached data', function () {
+    $newResponse = [
+        'images' => [
+            [
+                'type' => 'primary',
+                'uri' => 'newTest',
+                'resource_url' => 'newTest',
+                'uri150' => 'newTest150',
+                'width' => 561,
+                'height' => 800,
+            ],
+        ],
+    ];
+
+    Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
+
+    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+
+    Facade::clearResolvedInstance(Illuminate\Http\Client\Factory::class);
+
+    Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
+
+    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+
+    Discogs::refreshCache(602473);
+
+    expect(Discogs::photos(602473)->toArray())->toBe([[
+        'type' => 'primary',
+        'uri' => 'newTest',
+        'uri150' => 'newTest150',
+        'width' => 561,
+        'height' => 800,
+    ]]);
+});
+
 it('can flush cached data', function () {
     $newResponse = [
         'images' => [

@@ -60,6 +60,13 @@ class Wikipedia
         );
     }
 
+    public function refreshCache(string $title): void
+    {
+        $this->forget($title);
+
+        $this->extract($title);
+    }
+
     public function forget(string $title): bool
     {
         $titleHash = md5($title);

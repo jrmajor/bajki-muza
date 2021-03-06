@@ -56,6 +56,13 @@ class Discogs
         return PhotoCollection::fromArray($response['images'] ?? []);
     }
 
+    public function refreshCache(int $id): void
+    {
+        $this->forget($id);
+
+        $this->photos($id);
+    }
+
     public function forget(int $id): bool
     {
         return Cache::forget("discogs-{$id}-photos");
