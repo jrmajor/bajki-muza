@@ -3,6 +3,7 @@
 use Carbon\CarbonInterval;
 use Facades\App\Services\Wikipedia;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
@@ -40,9 +41,7 @@ it('can create page url', function () {
 });
 
 it('can get extract from wikipedia', function () {
-    Http::fake([
-        'pl.wikipedia.org/*' => Http::response($this->response),
-    ]);
+    Http::fake(['pl.wikipedia.org/*' => Http::response($this->response)]);
 
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
 
@@ -76,17 +75,13 @@ it('can flush cached data', function () {
         ],
     ];
 
-    Http::fake([
-        'pl.wikipedia.org/*' => Http::response($this->response),
-    ]);
+    Http::fake(['pl.wikipedia.org/*' => Http::response($this->response)]);
 
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
 
-    Http::clearResolvedInstances();
+    Facade::clearResolvedInstance(Illuminate\Http\Client\Factory::class);
 
-    Http::fake([
-        'pl.wikipedia.org/*' => Http::response($newResponse),
-    ]);
+    Http::fake(['pl.wikipedia.org/*' => Http::response($newResponse)]);
 
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
 

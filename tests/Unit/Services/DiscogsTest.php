@@ -3,6 +3,7 @@
 use Carbon\CarbonInterval;
 use Facades\App\Services\Discogs;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
@@ -62,9 +63,7 @@ it('can create release url', function () {
 it('can get photos from discogs', function () {
     config()->set('services.discogs.token', '4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR');
 
-    Http::fake([
-        'api.discogs.com/*' => Http::response($this->photoResponse),
-    ]);
+    Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
 
     expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
 
@@ -104,17 +103,13 @@ it('can flush cached data', function () {
         ],
     ];
 
-    Http::fake([
-        'api.discogs.com/*' => Http::response($this->photoResponse),
-    ]);
+    Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
 
     expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
 
-    Http::clearResolvedInstances();
+    Facade::clearResolvedInstance(Illuminate\Http\Client\Factory::class);
 
-    Http::fake([
-        'api.discogs.com/*' => Http::response($newResponse),
-    ]);
+    Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
     expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
 
