@@ -63,7 +63,7 @@ it('can get photos from discogs', function () {
     config()->set('services.discogs.token', '4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR');
 
     Http::fake([
-        'api.discogs.com/*' => Http::response($this->photoResponse, 200),
+        'api.discogs.com/*' => Http::response($this->photoResponse),
     ]);
 
     expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
@@ -105,7 +105,7 @@ it('can flush cached data', function () {
     ];
 
     Http::fake([
-        'api.discogs.com/*' => Http::response($this->photoResponse, 200),
+        'api.discogs.com/*' => Http::response($this->photoResponse),
     ]);
 
     expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
@@ -113,7 +113,7 @@ it('can flush cached data', function () {
     Http::clearResolvedInstances();
 
     Http::fake([
-        'api.discogs.com/*' => Http::response($newResponse, 200),
+        'api.discogs.com/*' => Http::response($newResponse),
     ]);
 
     expect(Discogs::photos(602473)->toArray())->toBe($this->photos);

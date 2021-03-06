@@ -41,7 +41,7 @@ it('can create page url', function () {
 
 it('can get extract from wikipedia', function () {
     Http::fake([
-        'pl.wikipedia.org/*' => Http::response($this->response, 200),
+        'pl.wikipedia.org/*' => Http::response($this->response),
     ]);
 
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
@@ -77,7 +77,7 @@ it('can flush cached data', function () {
     ];
 
     Http::fake([
-        'pl.wikipedia.org/*' => Http::response($this->response, 200),
+        'pl.wikipedia.org/*' => Http::response($this->response),
     ]);
 
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
@@ -85,7 +85,7 @@ it('can flush cached data', function () {
     Http::clearResolvedInstances();
 
     Http::fake([
-        'pl.wikipedia.org/*' => Http::response($newResponse, 200),
+        'pl.wikipedia.org/*' => Http::response($newResponse),
     ]);
 
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
