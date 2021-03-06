@@ -187,6 +187,21 @@ final class Artist extends Model
         )->count();
     }
 
+    public function refreshCache(): void
+    {
+        if ($this->discogs) {
+            Discogs::refreshCache($this->discogs);
+        }
+
+        if ($this->filmpolski) {
+            FilmPolski::refreshCache($this->filmpolski);
+        }
+
+        if ($this->wikipedia) {
+            Wikipedia::refreshCache($this->wikipedia);
+        }
+    }
+
     public function flushCache(): bool
     {
         return ($this->discogs ? Discogs::forget($this->discogs) : true)

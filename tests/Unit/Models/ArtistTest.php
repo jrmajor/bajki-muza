@@ -362,6 +362,28 @@ test('appearances method works', function () {
     expect($artist->appearances())->toBe(11);
 });
 
+it('can refresh cached data', function () {
+    $artist = Artist::factory()->create([
+        'discogs' => 602473,
+        'filmpolski' => 112891,
+        'wikipedia' => 'Piotr_Fronczewski',
+    ]);
+
+    Discogs::shouldReceive('refreshCache')
+        ->with(602473)
+        ->andReturn(true);
+
+    FilmPolski::shouldReceive('refreshCache')
+        ->with(112891)
+        ->andReturn(true);
+
+    Wikipedia::shouldReceive('refreshCache')
+        ->with('Piotr_Fronczewski')
+        ->andReturn(true);
+
+    $artist->refreshCache();
+});
+
 it('can flush cached data', function () {
     $artist = Artist::factory()->create([
         'discogs' => 602473,
