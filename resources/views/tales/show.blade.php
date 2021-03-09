@@ -4,6 +4,13 @@
 
 @section('title', $tale->title)
 
+@section('meta')
+  @if($tale->cover)
+    <meta property="og:image" content="{{ $tale->cover->url(384) }}">
+    <meta name="twitter:image" content="{{ $tale->cover->url(384) }}">
+  @endif
+@endsection
+
 @section('content')
 
   <div class="flex flex-col sm:flex-row items-center mb-6">

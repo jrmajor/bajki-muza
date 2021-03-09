@@ -6,9 +6,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @hasSection('title')
-      <title>@yield('title') - {{ config('app.name') }}</title>
+      <title>@yield('title')</title>
     @else
       <title>{{ config('app.name') }}</title>
+    @endif
+
+    @hasSection('meta')
+      @yield('meta')
     @endif
 
     @production
