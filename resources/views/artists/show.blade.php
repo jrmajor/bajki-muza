@@ -4,6 +4,13 @@
 
 @section('title', $artist->name)
 
+@section('meta')
+  @if($artist->photo)
+    <meta property="og:image" content="{{ $artist->photo->url(320) }}">
+    <meta name="twitter:image" content="{{ $artist->photo->url(320) }}">
+  @endif
+@endsection
+
 @section('content')
 
   <div class="flex flex-col sm:flex-row items-center mb-6">
