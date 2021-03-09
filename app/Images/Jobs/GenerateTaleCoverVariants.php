@@ -47,10 +47,12 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
                 $baseImagePath, $size, 'square',
             );
 
-            $file = fopen($responsiveImagePath, 'r');
-
-            Cover::disk()
-                ->put("covers/{$size}/{$this->image->filename()}", $file, 'public');
+            Cover::disk()->putFileAs(
+                path: "covers/{$size}",
+                file: $responsiveImagePath,
+                name: $this->image->filename(),
+                options: 'public',
+            );
         }
 
         $this->temporaryDirectory->delete()

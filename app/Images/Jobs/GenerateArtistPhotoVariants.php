@@ -52,10 +52,12 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
                 $croppedFacePath, $size, 'square',
             );
 
-            $file = fopen($responsiveImagePath, 'r');
-
-            Photo::disk()
-                ->put("photos/{$size}/{$this->image->filename()}", $file, 'public');
+            Photo::disk()->putFileAs(
+                path: "photos/{$size}",
+                file: $responsiveImagePath,
+                name: $this->image->filename(),
+                options: 'public',
+            );
         }
 
         foreach (Photo::imageSizes() as $size) {
@@ -63,10 +65,12 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
                 $croppedImagePath, $size, 'height',
             );
 
-            $file = fopen($responsiveImagePath, 'r');
-
-            Photo::disk()
-                ->put("photos/{$size}/{$this->image->filename()}", $file, 'public');
+            Photo::disk()->putFileAs(
+                path: "photos/{$size}",
+                file: $responsiveImagePath,
+                name: $this->image->filename(),
+                options: 'public',
+            );
         }
 
         $this->temporaryDirectory->delete()
