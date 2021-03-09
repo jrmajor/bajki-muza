@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Images\Photo;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,33 +33,23 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        $temporaryDirectory = (new TemporaryDirectory())->create();
+        $this->temporaryDirectory = (new TemporaryDirectory())->create();
 
         $sourceStream = Photo::disk()->readStream(
             $this->image->originalPath(),
         );
 
         $baseImagePath = $this->copyToTemporaryDirectory(
-            $sourceStream,
-            $temporaryDirectory,
-            $this->image->filename(),
+            $sourceStream, $this->image->filename(),
         );
 
-        $croppedImagePath = $this->cropImage(
-            $baseImagePath,
-            $this->image->crop(),
-            $temporaryDirectory,
-        );
+        $croppedImagePath = $this->cropImage($baseImagePath, $this->image->crop());
 
-        $croppedFacePath = $this->cropFace(
-            $baseImagePath,
-            $this->image->crop(),
-            $temporaryDirectory,
-        );
+        $croppedFacePath = $this->cropFace($baseImagePath, $this->image->crop());
 
         foreach (Photo::faceSizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedFacePath, $size, 'square', $temporaryDirectory,
+                $croppedFacePath, $size, 'square',
             );
 
             $file = fopen($responsiveImagePath, 'r');
@@ -69,7 +60,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
         foreach (Photo::imageSizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedImagePath, $size, 'height', $temporaryDirectory,
+                $croppedImagePath, $size, 'height',
             );
 
             $file = fopen($responsiveImagePath, 'r');
@@ -78,6 +69,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
                 ->put("photos/{$size}/{$this->image->filename()}", $file, 'public');
         }
 
-        $temporaryDirectory->delete();
+        $this->temporaryDirectory->delete()
+            ?: throw new Exception("Failed to delete temporary directory.");
     }
 }

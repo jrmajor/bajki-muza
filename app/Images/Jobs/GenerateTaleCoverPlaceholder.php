@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Images\Cover;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,24 +32,23 @@ class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        $temporaryDirectory = (new TemporaryDirectory())->create();
+        $this->temporaryDirectory = (new TemporaryDirectory())->create();
 
         $sourceStream = Cover::disk()->readStream(
             $this->image->originalPath(),
         );
 
         $baseImagePath = $this->copyToTemporaryDirectory(
-            $sourceStream,
-            $temporaryDirectory,
-            $this->image->filename(),
+            $sourceStream, $this->image->filename(),
         );
 
-        $placeholder = $this->generateTinyJpg($baseImagePath, 'square', $temporaryDirectory);
+        $placeholder = $this->generateTinyJpg($baseImagePath, 'square');
 
         $this->image->fill([
             'placeholder' => $placeholder,
         ])->save();
 
-        $temporaryDirectory->delete();
+        $this->temporaryDirectory->delete()
+            ?: throw new Exception("Failed to delete temporary directory.");
     }
 }

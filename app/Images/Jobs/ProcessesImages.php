@@ -9,12 +9,11 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 trait ProcessesImages
 {
-    public function copyToTemporaryDirectory(
-        $sourceStream,
-        TemporaryDirectory $temporaryDirectory,
-        string $filename
-    ): string {
-        $targetFile = $temporaryDirectory->path($filename);
+    protected TemporaryDirectory $temporaryDirectory;
+
+    public function copyToTemporaryDirectory($sourceStream, string $filename): string
+    {
+        $targetFile = $this->temporaryDirectory->path($filename);
 
         touch($targetFile);
 
@@ -32,14 +31,11 @@ trait ProcessesImages
         return $targetFile;
     }
 
-    public function generateTinyJpg(
-        string $baseImagePath,
-        string $fit,
-        TemporaryDirectory $temporaryDirectory
-    ): string {
+    public function generateTinyJpg(string $baseImagePath, string $fit): string
+    {
         $responsiveImageName = $this->appendToFileName($baseImagePath, '_tiny');
 
-        $temporaryDestination = $temporaryDirectory->path($responsiveImageName);
+        $temporaryDestination = $this->temporaryDirectory->path($responsiveImageName);
 
         $image = Image::load($baseImagePath);
 
@@ -77,11 +73,10 @@ trait ProcessesImages
         string $baseImagePath,
         int $targetSize,
         string $fit,
-        TemporaryDirectory $temporaryDirectory
     ): string {
         $responsiveImageName = $this->appendToFileName($baseImagePath, "_{$targetSize}");
 
-        $responsiveImagePath = $temporaryDirectory->path($responsiveImageName);
+        $responsiveImagePath = $this->temporaryDirectory->path($responsiveImageName);
 
         $image = Image::load($baseImagePath)->optimize();
 

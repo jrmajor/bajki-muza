@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Images\Cover;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,21 +32,19 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        $temporaryDirectory = (new TemporaryDirectory())->create();
+        $this->temporaryDirectory = (new TemporaryDirectory())->create();
 
         $sourceStream = Cover::disk()->readStream(
             $this->image->originalPath(),
         );
 
         $baseImagePath = $this->copyToTemporaryDirectory(
-            $sourceStream,
-            $temporaryDirectory,
-            $this->image->filename(),
+            $sourceStream, $this->image->filename(),
         );
 
         foreach (Cover::sizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $baseImagePath, $size, 'square', $temporaryDirectory,
+                $baseImagePath, $size, 'square',
             );
 
             $file = fopen($responsiveImagePath, 'r');
@@ -54,6 +53,7 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
                 ->put("covers/{$size}/{$this->image->filename()}", $file, 'public');
         }
 
-        $temporaryDirectory->delete();
+        $this->temporaryDirectory->delete()
+            ?: throw new Exception("Failed to delete temporary directory.");
     }
 }

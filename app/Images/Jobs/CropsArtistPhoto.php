@@ -4,20 +4,16 @@ namespace App\Images\Jobs;
 
 use App\Images\Values\ArtistPhotoCrop;
 use Spatie\Image\Image;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 trait CropsArtistPhoto
 {
     abstract public function appendToFileName(string $filePath, string $suffix): string;
 
-    public function cropImage(
-        string $baseImagePath,
-        ArtistPhotoCrop $crop,
-        TemporaryDirectory $temporaryDirectory
-    ): string {
+    public function cropImage(string $baseImagePath, ArtistPhotoCrop $crop): string
+    {
         $croppedImageName = $this->appendToFileName($baseImagePath, '_image');
 
-        $croppedImagePath = $temporaryDirectory->path($croppedImageName);
+        $croppedImagePath = $this->temporaryDirectory->path($croppedImageName);
 
         Image::load($baseImagePath)
             ->manualCrop(...$crop->image->toArray())
@@ -26,14 +22,11 @@ trait CropsArtistPhoto
         return $croppedImagePath;
     }
 
-    public function cropFace(
-        string $baseImagePath,
-        ArtistPhotoCrop $crop,
-        TemporaryDirectory $temporaryDirectory
-    ): string {
+    public function cropFace(string $baseImagePath, ArtistPhotoCrop $crop): string
+    {
         $croppedFaceName = $this->appendToFileName($baseImagePath, '_face');
 
-        $croppedFacePath = $temporaryDirectory->path($croppedFaceName);
+        $croppedFacePath = $this->temporaryDirectory->path($croppedFaceName);
 
         Image::load($baseImagePath)
             ->manualCrop(
