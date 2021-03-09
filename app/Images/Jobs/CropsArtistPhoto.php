@@ -2,40 +2,37 @@
 
 namespace App\Images\Jobs;
 
-use App\Images\Values\ArtistPhotoCrop;
 use Spatie\Image\Image;
 
 trait CropsArtistPhoto
 {
     abstract public function appendToFileName(string $filePath, string $suffix): string;
 
-    public function cropImage(string $baseImagePath, ArtistPhotoCrop $crop): string
+    public function cropImage(string $baseImagePath): string
     {
-        $croppedImageName = $this->appendToFileName($baseImagePath, '_image');
-
-        $croppedImagePath = $this->temporaryDirectory->path($croppedImageName);
+        $path = $this->temporaryDirectory->path(
+            $this->appendToFileName($baseImagePath, '_image'),
+        );
 
         Image::load($baseImagePath)
-            ->manualCrop(...$crop->image->toArray())
-            ->save($croppedImagePath);
+            ->manualCrop(...$this->image->crop()->image->toArray())
+            ->save($path);
 
-        return $croppedImagePath;
+        return $path;
     }
 
-    public function cropFace(string $baseImagePath, ArtistPhotoCrop $crop): string
+    public function cropFace(string $baseImagePath): string
     {
-        $croppedFaceName = $this->appendToFileName($baseImagePath, '_face');
+        $crop = $this->image->crop()->face;
 
-        $croppedFacePath = $this->temporaryDirectory->path($croppedFaceName);
+        $path = $this->temporaryDirectory->path(
+            $this->appendToFileName($baseImagePath, '_face'),
+        );
 
         Image::load($baseImagePath)
-            ->manualCrop(
-                $crop->face->size,
-                $crop->face->size,
-                $crop->face->x,
-                $crop->face->y,
-            )->save($croppedFacePath);
+            ->manualCrop($crop->size, $crop->size, $crop->x, $crop->y)
+            ->save($path);
 
-        return $croppedFacePath;
+        return $path;
     }
 }

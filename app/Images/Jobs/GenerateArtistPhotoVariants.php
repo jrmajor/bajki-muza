@@ -43,9 +43,9 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
             $sourceStream, $this->image->filename(),
         );
 
-        $croppedImagePath = $this->cropImage($baseImagePath, $this->image->crop());
+        $croppedImagePath = $this->cropImage($baseImagePath);
 
-        $croppedFacePath = $this->cropFace($baseImagePath, $this->image->crop());
+        $croppedFacePath = $this->cropFace($baseImagePath);
 
         foreach (Photo::faceSizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
