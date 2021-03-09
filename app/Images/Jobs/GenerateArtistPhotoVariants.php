@@ -70,6 +70,6 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
         }
 
         $this->temporaryDirectory->delete()
-            ?: throw new Exception("Failed to delete temporary directory.");
+            ?: throw new Exception('Failed to delete temporary directory.');
     }
 }
