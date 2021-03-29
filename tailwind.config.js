@@ -67,5 +67,8 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms'),
   ],
-  purge: ['./resources/views/**/*.blade.php'],
+  purge: [
+    './resources/views/**/*.blade.php',
+    './app/View/Components/**/*.php',
+  ],
 }
