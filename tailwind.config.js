@@ -39,12 +39,6 @@ module.exports = {
         900: '#633112',
       },
       green: colors.green,
-      filmpolski: {
-        blue: '#566ea1',
-        'blue-lighter': '#7393d9',
-        gray: '#010101',
-        'gray-inverted': '#eeeeee',
-      },
     },
     extend: {
       fontFamily: {

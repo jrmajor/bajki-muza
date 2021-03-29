@@ -80,7 +80,9 @@
             @if ($artist->filmpolski)
               <a href="{{ $artist->filmpolski_url }}" target="_blank"
                 class="font-medium">
-                <span class="text-filmpolski-blue dark:text-filmpolski-blue-lighter">FILM</span><span class="text-filmpolski-gray dark:text-filmpolski-gray-inverted">POLSKI</span><span class="text-filmpolski-blue dark:text-filmpolski-blue-lighter">.PL</span>
+                <span class="text-[#566ea1] dark:text-[#7393d9]">FILM</span>{{--
+            --}}<span class="text-[#010101] dark:text-[#eeeeee]">POLSKI</span>{{--
+            --}}<span class="text-[#566ea1] dark:text-[#7393d9]">.PL</span>
               </a>
             @endif
             @if ($artist->wikipedia)
