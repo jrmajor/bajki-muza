@@ -63,12 +63,6 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {
-      ringWidth: ['hover', 'active'],
-      ringOpacity: ['hover', 'active'],
-    },
-  },
   darkMode: 'media',
   plugins: [
     require('@tailwindcss/forms'),
