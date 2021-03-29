@@ -46,7 +46,7 @@
         "nunomaduro/larastan": "^0.6.13",
         "pestphp/pest": "^1.0.0",
         "pestphp/pest-plugin-laravel": "^1.0.0",
-        "phpstan/phpstan": "^0.12.82",
+        "phpstan/phpstan": "^0.12.81 <0.12.82",
         "phpunit/phpunit": "^9.5"
     },
     "config": {
