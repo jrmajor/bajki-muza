@@ -1,9 +1,3 @@
-@unless (app()->runningUnitTests())
-  @push('scripts')
-    <link rel="stylesheet" href="{{ mix('css/croppr.css') }}">
-  @endpush
-@endif
-
 @extends('layouts.app')
 
 @section('content')

@@ -6,7 +6,6 @@ mix
     require('@tailwindcss/jit'),
     require('autoprefixer'),
   ])
-  .postCss('node_modules/croppr/src/css/croppr.css', 'public/css')
   .version()
 
 if (!mix.inProduction()) {
