@@ -15,7 +15,7 @@
             <x-responsive-image :image="$actor->photo" :size="14"/>
           @elseif ($actor->discogsPhoto() && Auth::guest())
             <img src="{{ $actor->discogsPhoto('150') }}"
-              class="w-14 h-14 object-cover">
+              class="w-14 h-14 object-cover filter-grayscale">
           @endif
         </div>
         <div class="flex-grow flex flex-col justify-between p-2 pl-3">

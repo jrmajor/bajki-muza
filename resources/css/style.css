@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer utilities {
+  .filter-grayscale {
+    filter: grayscale(100%);
+  }
+
   .shadow-title,
   .shadow-subtitle,
   .shadow-link {

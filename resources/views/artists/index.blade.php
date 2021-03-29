@@ -20,7 +20,7 @@
               class="w-12 h-12 sm:w-14 sm:h-14"/>
           @elseif ($artist->discogsPhoto() && Auth::guest())
             <img src="{{ $artist->discogsPhoto('150') }}"
-              class="w-12 h-12 sm:w-14 sm:h-14 object-cover">
+              class="w-12 h-12 sm:w-14 sm:h-14 object-cover filter-grayscale">
           @endif
         </div>
         <div class="flex-grow p-2 pl-3">
