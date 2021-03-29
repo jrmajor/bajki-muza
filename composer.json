@@ -12,10 +12,10 @@
         "doctrine/dbal": "^2.12",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.3",
         "jessarcher/laravel-castable-data-transfer-object": "^1.0",
         "larabug/larabug": "^2.3",
-        "laravel/framework": "^8.28",
+        "laravel/framework": "^8.34",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.6",
         "league/flysystem-aws-s3-v3": "~1.0",
@@ -37,8 +37,8 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
         "barryvdh/laravel-ide-helper": "^2.8",
-        "facade/ignition": "^2.5",
-        "fakerphp/faker": "^1.13",
+        "facade/ignition": "^2.6",
+        "fakerphp/faker": "^1.14",
         "friendsofphp/php-cs-fixer": "^2.18",
         "laravel/sail": "^1.0",
         "mockery/mockery": "^1.4",
@@ -46,7 +46,7 @@
         "nunomaduro/larastan": "^0.6.13",
         "pestphp/pest": "^1.0.0",
         "pestphp/pest-plugin-laravel": "^1.0.0",
-        "phpstan/phpstan": "^0.12.71",
+        "phpstan/phpstan": "^0.12.82",
         "phpunit/phpunit": "^9.5"
     },
     "config": {
