@@ -3,7 +3,7 @@
 namespace App\Images\Jobs;
 
 use InvalidArgumentException;
-use Spatie\Image\Image;
+use App\Services\Image;
 use Spatie\Image\Manipulations;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 

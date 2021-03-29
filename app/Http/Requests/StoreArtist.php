@@ -32,6 +32,7 @@ class StoreArtist extends FormRequest
             'photo_crop.image.y' => ['integer'],
             'photo_crop.image.width' => ['integer'],
             'photo_crop.image.height' => ['integer'],
+            'photo_grayscale' => ['boolean'],
             'photo_source' => ['string', 'max:128', 'nullable'],
             'photo_uri' => ['string', 'ends_with:.jpg', 'nullable'],
             'remove_photo' => ['boolean', 'nullable'],
@@ -43,6 +44,7 @@ class StoreArtist extends FormRequest
         return [
             'crop' => $this->photo_crop
                 ? ArtistPhotoCrop::fromStrings($this->photo_crop) : null,
+            'grayscale' => $this->boolean('photo_grayscale'),
             'source' => $this->photo_source,
         ];
     }

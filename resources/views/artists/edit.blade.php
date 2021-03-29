@@ -23,6 +23,7 @@
         'uri' => $artist->photo?->originalUrl(),
         'source' => old('photo_source', $artist->photo?->source),
         'crop' => old('photo_crop', $artist->photo?->crop()),
+        'grayscale' => (bool) old('photo_grayscale', $artist->photo?->grayscale ?? true),
       ],
     ];
 
@@ -204,11 +205,21 @@
         </div>
       </div>
 
-      <div class="flex flex-row items-center space-x-3">
-        <label for="photo_source" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Źródło</label>
-        <input type="text" value="{{ old('photo_source', $artist->photo?->source) }}"
-          name="photo_source" x-model="photo.source"
-          class="w-full text-sm px-2 py-1 form-input">
+      <div class="flex flex-row items-center space-x-5">
+        <div class="flex-grow flex flex-row items-center space-x-3">
+          <label for="photo_source" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Źródło</label>
+          <input type="text" value="{{ old('photo_source', $artist->photo?->source) }}"
+            name="photo_source" x-model="photo.source"
+            class="w-full text-sm px-2 py-1 form-input">
+        </div>
+
+        <div class="flex-none flex flex-row items-center space-x-1">
+          <label for="photo-grayscale" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Cz-B.</label>
+          <input type="hidden" id="photo-grayscale-hidden" name="photo_grayscale" value="0">
+          <input type="checkbox" id="photo-grayscale" name="photo_grayscale"
+            {{ old('photo_grayscale', $artist->photo?->grayscale ?? true) ? 'checked' : '' }}
+            x-model="photo.grayscale" value="1">
+        </div>
       </div>
 
       <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"

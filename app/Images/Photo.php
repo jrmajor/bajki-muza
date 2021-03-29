@@ -16,6 +16,7 @@ final class Photo extends Image
         'width' => 'int',
         'height' => 'int',
         'crop' => ArtistPhotoCrop::class,
+        'grayscale' => 'bool',
     ];
 
     public static function imageSizes(): Collection
@@ -47,7 +48,7 @@ final class Photo extends Image
     protected static function booted(): void
     {
         self::updated(function (self $photo) {
-            if ($photo->isDirty('crop')) {
+            if ($photo->isDirty('crop', 'grayscale')) {
                 $photo->reprocess();
             }
         });

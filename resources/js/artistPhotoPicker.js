@@ -7,6 +7,8 @@ export default function (data) {
 
     source: data.photo.source,
 
+    grayscale: data.photo.grayscale,
+
     crop: {
       face: {
         x: 0,
@@ -27,6 +29,7 @@ export default function (data) {
         uri: data.photo.uri,
         source: data.photo.source,
         crop: data.photo.crop,
+        grayscale: data.photo.grayscale,
       },
 
       upload: {
@@ -52,6 +55,7 @@ export default function (data) {
     resetPickerToCurrent() {
       this.picker = 'current'
       this.source = this.pickers.current.source
+      this.grayscale = this.pickers.current.grayscale
 
       this.updateCroppr()
     },
@@ -63,6 +67,8 @@ export default function (data) {
 
       this.picker = 'upload'
       this.pickers.upload.uri = URL.createObjectURL(files[0])
+
+      this.grayscale = true
 
       this.updateCroppr()
     },
@@ -77,6 +83,7 @@ export default function (data) {
       this.picker = 'uri'
       this.pickers.uri.uri = uri
       this.pickers.uri.source = this.source = source
+      this.grayscale = true
 
       this.updateCroppr()
     },
