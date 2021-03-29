@@ -29,10 +29,10 @@ window.artistFormData = function (data) {
       people: [],
     },
 
-    dimensions: { },
+    dimensions: {},
 
     init() {
-      this.$watch('photo.pickers.upload.file', value =>
+      this.$watch('photo.pickers.upload.file', (value) =>
         this.photo.fileSelected(this.$refs.photo.files, value),
       )
 
@@ -50,8 +50,8 @@ window.artistFormData = function (data) {
             search: this[type].value,
           }),
         )
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             this[type].people = data
           })
       }

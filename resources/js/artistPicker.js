@@ -30,8 +30,8 @@ window.artistPickerData = function () {
             search: this.value,
           }),
         )
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             this.artists = data
             if (this.hovered > this.artists.length - 1) this.hovered = null
           })

@@ -121,8 +121,8 @@ export default function (data) {
       el1.setAttribute('src', src)
       el2.setAttribute('src', src)
 
-      const onFaceCropEnd = (crop) => this.crop.face = crop
-      const onCropEnd = (crop) => this.crop.image = crop
+      const onFaceCropEnd = (crop) => (this.crop.face = crop)
+      const onCropEnd = (crop) => (this.crop.image = crop)
 
       window.artistFacePhotoCroppr = new Croppr(el1, {
         aspectRatio: 1,
@@ -148,7 +148,7 @@ export default function (data) {
       let onFaceInitialize, onInitialize
 
       if (this.picker === 'current') {
-        onFaceInitialize = instance => {
+        onFaceInitialize = (instance) => {
           const el = instance.imageEl
 
           const actualWidth = el.naturalWidth
@@ -173,7 +173,7 @@ export default function (data) {
           this.updateCrop()
         }
 
-        onInitialize = instance => {
+        onInitialize = (instance) => {
           const el = instance.imageEl
 
           const actualWidth = el.naturalWidth
@@ -198,8 +198,8 @@ export default function (data) {
           this.updateCrop()
         }
       } else {
-        onFaceInitialize = instance => instance
-        onInitialize = instance => instance
+        onFaceInitialize = (instance) => instance
+        onInitialize = (instance) => instance
       }
 
       this.initCroppr(uri, [100, 100, '%'], onFaceInitialize, onInitialize)

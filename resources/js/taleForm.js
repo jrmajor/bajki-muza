@@ -11,12 +11,12 @@ window.taleFormData = function (data) {
       remove: false,
     },
 
-    credits: data.credits.map(credit => {
+    credits: data.credits.map((credit) => {
       credit.key = Math.random().toString(20).substr(2)
       return credit
     }),
 
-    actors: data.actors.map(actor => {
+    actors: data.actors.map((actor) => {
       actor.key = Math.random().toString(20).substr(2)
       return actor
     }),
@@ -24,16 +24,16 @@ window.taleFormData = function (data) {
     prettyBytes,
 
     init($dispatch) {
-      this.$watch('cover.file', value => {
+      this.$watch('cover.file', (value) => {
         this.setCoverPreview(this.$refs.cover.files)
         if (value !== '') this.cover.remove = false
       })
 
-      this.$watch('credits', value => {
+      this.$watch('credits', (value) => {
         this.$nextTick(() => $dispatch('artists-indexes-updated'))
       })
 
-      this.$watch('actors', value => {
+      this.$watch('actors', (value) => {
         this.$nextTick(() => $dispatch('artists-indexes-updated'))
       })
     },
@@ -80,7 +80,7 @@ window.taleFormData = function (data) {
     },
 
     onDragEnd(artist) {
-      artist.isDragged = false 
+      artist.isDragged = false
     },
 
     onDragOver(event, targetList, destination) {
@@ -133,9 +133,7 @@ window.taleFormData = function (data) {
 
       // if element was inserted above original location,
       // its index increased by one
-      const indexToDelete = destination < currentIndex
-        ? currentIndex + 1
-        : currentIndex
+      const indexToDelete = destination < currentIndex ? currentIndex + 1 : currentIndex
 
       this[list].splice(indexToDelete, 1)
 
@@ -159,7 +157,7 @@ window.taleFormData = function (data) {
       })
 
       this[list].forEach((artist) => {
-        artist.isDraggedOver = false 
+        artist.isDraggedOver = false
       })
     },
   }
