@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Images\Photo;
-use App\Images\Values\ArtistPhotoCrop;
 use App\Values\CreditType;
 use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
