@@ -37,7 +37,6 @@ final class Artist extends Model
     protected $casts = [
         'discogs' => 'int',
         'filmpolski' => 'int',
-        'photo_crop' => ArtistPhotoCrop::class,
     ];
 
     public function getSlugOptions(): SlugOptions
