@@ -2,8 +2,8 @@
 
 namespace App\Images\Jobs;
 
-use InvalidArgumentException;
 use App\Services\Image;
+use InvalidArgumentException;
 use Spatie\Image\Manipulations;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
