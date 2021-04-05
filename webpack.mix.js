@@ -4,7 +4,7 @@ mix
   .js('resources/js/app.js', 'public/js')
   .postCss('resources/css/style.css', 'public/css', [
     require('postcss-import'),
-    require('@tailwindcss/jit'),
+    require('tailwindcss'),
     require('postcss-nested'),
     require('autoprefixer'),
   ])
