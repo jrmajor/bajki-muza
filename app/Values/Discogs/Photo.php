@@ -2,9 +2,10 @@
 
 namespace App\Values\Discogs;
 
-use Spatie\DataTransferObject\FlexibleDataTransferObject;
+use Illuminate\Contracts\Support\Arrayable;
+use Spatie\DataTransferObject\DataTransferObject;
 
-class Photo extends FlexibleDataTransferObject
+class Photo extends DataTransferObject implements Arrayable
 {
     public string $type;
 

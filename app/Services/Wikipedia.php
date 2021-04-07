@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use App\Values\Wikipedia\ArtistCollection;
+use App\Values\Wikipedia\Artist;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class Wikipedia
 {
     protected string $endpoint = 'https://pl.wikipedia.org/w/api.php';
 
-    public function search(string $search): ArtistCollection
+    public function search(string $search): Collection
     {
         $artists = Http::get($this->endpoint, [
             'action' => 'opensearch',
@@ -30,7 +31,7 @@ class Wikipedia
             })
             ->toArray();
 
-        return ArtistCollection::fromArray($artists);
+        return collect($artists)->mapInto(Artist::class);
     }
 
     public function url(string $title): string

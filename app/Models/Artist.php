@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Images\Photo;
 use App\Values\CreditType;
-use App\Values\Discogs\PhotoCollection as DiscogsPhotoCollection;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
@@ -103,10 +102,10 @@ final class Artist extends Model
         return Wikipedia::extract($this->wikipedia);
     }
 
-    public function discogsPhotos(): DiscogsPhotoCollection
+    public function discogsPhotos(): Collection
     {
         if (! $this->discogs) {
-            return new DiscogsPhotoCollection();
+            return collect();
         }
 
         return Discogs::photos($this->discogs);
@@ -124,8 +123,8 @@ final class Artist extends Model
     public function discogsPhoto(string $type = 'normal'): ?string
     {
         return match ($type) {
-            'normal' => $this->discogsPhotos()->primary()?->uri,
-            '150' => $this->discogsPhotos()->primary()?->uri150,
+            'normal' => $this->discogsPhotos()->first()?->uri,
+            '150' => $this->discogsPhotos()->first()?->uri150,
             default => throw new InvalidArgumentException(),
         };
     }

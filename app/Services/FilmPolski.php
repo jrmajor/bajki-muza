@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
-use App\Values\FilmPolski\ArtistCollection;
+use App\Values\FilmPolski\Artist;
 use Carbon\CarbonInterval;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
 {
-    public function search(string $search): ArtistCollection
+    public function search(string $search): Collection
     {
         $source = Http::get(
             'http://www.filmpolski.pl/fp/index.php',
@@ -25,7 +26,7 @@ class FilmPolski
                 ->filter('.wynikiszukania');
 
             if ($crawler->count() === 0) {
-                return new ArtistCollection();
+                return collect();
             }
 
             $crawler = $crawler->first()->children();
@@ -41,11 +42,9 @@ class FilmPolski
                 ]);
             }
 
-            return ArtistCollection::fromArray(
-                $people->unique('id')->all(),
-            );
+            return $people->unique('id')->mapInto(Artist::class);
         } catch (InvalidArgumentException) {
-            return new ArtistCollection();
+            return collect();
         }
     }
 

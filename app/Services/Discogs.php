@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use App\Values\Discogs\ArtistCollection;
-use App\Values\Discogs\PhotoCollection;
+use App\Values\Discogs\Artist;
+use App\Values\Discogs\Photo;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -22,7 +23,7 @@ class Discogs
         ]);
     }
 
-    public function search(string $search): ArtistCollection
+    public function search(string $search): Collection
     {
         $response = $this->request()
             ->get('https://api.discogs.com/database/search', [
@@ -31,7 +32,7 @@ class Discogs
                 'per_page' => 10,
             ])->json();
 
-        return ArtistCollection::fromArray($response['results'] ?? []);
+        return collect($response['results'] ?? [])->map([Artist::class, 'fromArray']);
     }
 
     public function url(int $id): string
@@ -44,7 +45,7 @@ class Discogs
         return "https://www.discogs.com/release/{$id}";
     }
 
-    public function photos(int $id): PhotoCollection
+    public function photos(int $id): Collection
     {
         $response = Cache::remember(
             "discogs-{$id}-photos",
@@ -53,7 +54,7 @@ class Discogs
                 ->get("https://api.discogs.com/artists/{$id}")->json(),
         );
 
-        return PhotoCollection::fromArray($response['images'] ?? []);
+        return collect($response['images'] ?? [])->mapInto(Photo::class);
     }
 
     public function refreshCache(int $id): void
