@@ -10,13 +10,13 @@
 
   <form
     method="POST" action="{{ route('login') }}"
-    class="flex flex-col space-y-5"
+    class="flex flex-col gap-5 mt-5"
     x-data="{
       remember: {{ old('remember') ? 'true' : 'false' }}
     }">
     @csrf
 
-    <div class="flex flex-col items-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+    <div class="flex flex-col gap-2 items-center sm:flex-row">
       <input type="text" name="username" value="{{ old('username') }}"
         class="w-full form-input">
       <input type="password" name="password"

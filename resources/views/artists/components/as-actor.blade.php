@@ -1,8 +1,8 @@
-<div class="flex flex-col items-center space-y-3 w-full">
+<div class="flex flex-col gap-3 items-center w-full">
   <h3 class="text-xl font-medium shadow-subtitle">
     Aktor
   </h3>
-  <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
+  <div class="flex flex-col gap-2.5 w-full md:w-5/6 xl:w-2/3">
     @foreach ($artist->asActor as $tale)
       <a href="{{ route('tales.show', $tale) }}"
         class="flex overflow-hidden items-center w-full bg-gray-50 rounded-lg shadow-lg h-15 dark:bg-gray-900">

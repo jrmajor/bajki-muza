@@ -62,7 +62,7 @@
 
       @if ($artist->discogs || $artist->filmpolski || $artist->wikipedia)
         <div class="
-          flex flex-col space-y-2
+          flex flex-col gap-2
           @if ($artist->photo || $artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif
         ">
           @if ($artist->wikipedia)
@@ -71,7 +71,7 @@
             </div>
           @endif
 
-          <div class="flex items-center self-center space-x-5 sm:self-start">
+          <div class="flex gap-5 items-center self-center sm:self-start">
             @if ($artist->discogs)
               <a href="{{ $artist->discogs_url }}" target="_blank">
                 <x-icons.discogs class="h-5 fill-current"/>
@@ -98,7 +98,7 @@
 
   </div>
 
-  <div class="space-y-6 w-full">
+  <div class="flex flex-col gap-6 w-full">
 
     @unless ($artist->asActor->isEmpty())
       @include('artists.components.as-actor')

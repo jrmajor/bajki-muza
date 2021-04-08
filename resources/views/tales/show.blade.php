@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="flex flex-col flex-grow justify-between self-center space-y-3 sm:py-2 sm:self-stretch">
+    <div class="flex flex-col flex-grow gap-3 justify-between self-center sm:py-2 sm:self-stretch">
 
       <div class="hidden self-start sm:block">
         @include('tales.components.title')
@@ -45,7 +45,7 @@
 
   </div>
 
-  <div class="flex flex-col items-center space-y-8 w-full">
+  <div class="flex flex-col gap-8 items-center w-full">
 
     @if ($tale->actors->count())
       @include('tales.components.actors')

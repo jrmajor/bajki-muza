@@ -32,7 +32,7 @@
   <form
     method="post" action="{{ route('artists.update', $artist) }}"
     enctype="multipart/form-data"
-    class="flex flex-col space-y-5"
+    class="flex flex-col gap-5"
     x-data="artistFormData(@encodedjson($data))" x-init="init">
     @method('put')
     @csrf
@@ -57,9 +57,9 @@
         class="w-full form-input">
     </div>
 
-    <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
+    <div class="flex flex-col gap-2 sm:flex-row sm:gap-5">
 
-      <div class="flex space-x-5 w-full sm:w-1/2">
+      <div class="flex gap-5 w-full sm:w-1/2">
 
         <div class="flex flex-col items-stretch w-1/2">
           <label for="year" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Discogs</label>
@@ -161,13 +161,13 @@
 
     </div>
 
-    <div class="flex flex-col space-y-3">
+    <div class="flex flex-col gap-3">
 
       <div class="flex flex-col">
         <span for="photo" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Zdjęcie</span>
         <input type="hidden" name="remove_photo" :value="photo.picker === 'remove' ? 1 : 0">
         <input type="hidden" name="photo_uri" :value="photo.picker === 'uri' ? photo.pickers.uri.uri : ''">
-        <div class="flex space-x-5">
+        <div class="flex gap-5">
           <label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
             <div class="flex-none w-10 h-10 bg-placeholder-artist">
               <template x-if="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null">
@@ -205,15 +205,15 @@
         </div>
       </div>
 
-      <div class="flex flex-row items-center space-x-5">
-        <div class="flex flex-row flex-grow items-center space-x-3">
+      <div class="flex flex-row gap-5 items-center">
+        <div class="flex flex-row flex-grow gap-3 items-center">
           <label for="photo_source" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Źródło</label>
           <input type="text" value="{{ old('photo_source', $artist->photo?->source) }}"
             name="photo_source" x-model="photo.source"
             class="py-1 px-2 w-full text-sm form-input">
         </div>
 
-        <div class="flex flex-row flex-none items-center space-x-1">
+        <div class="flex flex-row flex-none gap-1 items-center">
           <label for="photo-grayscale" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Cz-B.</label>
           <input type="hidden" id="photo-grayscale-hidden" name="photo_grayscale" value="0">
           <input type="checkbox" id="photo-grayscale" name="photo_grayscale"
@@ -223,7 +223,7 @@
       </div>
 
       <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
-        class="flex justify-center items-center space-x-5">
+        class="flex gap-5 justify-center items-center">
         <div class="flex justify-end max-w-1/2">
           <img id="artist-face-photo-croppr">
         </div>
@@ -253,7 +253,7 @@
       </div>
 
       <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
-        class="flex justify-center items-center space-x-5">
+        class="flex gap-5 justify-center items-center">
         <div class="flex justify-end max-w-1/2">
           <img id="artist-photo-croppr">
         </div>
@@ -290,9 +290,9 @@
       Zapisz
     </button>
 
-    <div class="flex flex-col items-center space-y-3">
+    <div class="flex flex-col gap-3 items-center">
 
-      <div class="flex flex-col items-center py-3 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
+      <div class="flex flex-col gap-2 items-center py-3 sm:flex-row sm:gap-5">
         <a href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
           class="text-sm font-medium">
           <span class="shadow-link">Google</span> →

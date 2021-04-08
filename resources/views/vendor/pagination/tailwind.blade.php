@@ -1,7 +1,7 @@
 @if ($paginator->hasPages())
   <nav role="navigation" aria-label="Nawigacja" class="w-full text-sm font-medium leading-5">
 
-    <div class="sm:hidden w-full flex justify-around space-x-3">
+    <div class="flex justify-around w-full sm:hidden gap-3">
       @if (! $paginator->onFirstPage())
         <a id="mobile-pagination-previous" wire:click="previousPage" rel="prev" aria-label="Poprzednia"
           class="relative inline-flex items-center px-4 py-2 cursor-pointer
@@ -25,8 +25,8 @@
       @endif
     </div>
 
-    <div class="hidden sm:flex w-full justify-center">
-      <span class="relative z-0 inline-flex shadow-sm">
+    <div class="hidden justify-center w-full sm:flex">
+      <span class="inline-flex relative z-0 shadow-sm">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
           <span aria-disabled="true" aria-label="Poprzednia">

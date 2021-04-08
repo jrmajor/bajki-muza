@@ -24,7 +24,7 @@
   method="post"
   action="{{ $action === 'create' ? route('tales.store') : route('tales.update', $tale) }}"
   enctype="multipart/form-data"
-  class="flex flex-col space-y-5"
+  class="flex flex-col gap-5"
   x-data="taleFormData(@encodedjson($data))" x-init="init($dispatch)">
   @method($action === 'create' ? 'post' : 'put')
   @csrf
@@ -37,13 +37,13 @@
     </ul>
   @endif
 
-  <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
+  <div class="flex flex-col gap-2 sm:flex-row sm:gap-5">
     <div class="flex flex-col w-full sm:w-1/2">
       <label for="title" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Tytuł</label>
       <input type="text" name="title" value="{{ old('title', $tale->title) }}"
         class="w-full form-input">
     </div>
-    <div class="flex space-x-5 w-full sm:w-1/2">
+    <div class="flex gap-5 w-full sm:w-1/2">
       <div class="flex flex-col items-stretch w-1/2">
         <label for="year" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Rok</label>
         <input type="text" name="year" value="{{ old('year', $tale->year) }}"
@@ -59,7 +59,7 @@
 
   <div class="flex flex-col">
     <label for="year" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Discogs</label>
-    <div class="flex items-center space-x-5">
+    <div class="flex gap-5 items-center">
       <input type="text" name="discogs"
         x-model="discogs" x-on:input="updatedDiscogs()"
         class="w-full form-input">
@@ -76,7 +76,7 @@
   <div class="flex flex-col">
     <span for="cover" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Okładka</span>
     <input type="hidden" name="remove_cover" :value="cover.remove ? 1 : 0">
-    <div class="flex space-x-5">
+    <div class="flex gap-5">
       <label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
         <div class="flex-none w-10 h-10 bg-placeholder-cover">
           @if ($tale->cover)
@@ -133,7 +133,7 @@
   <div class="flex flex-col">
     <div class="relative -space-y-1 mb-0.5">
       <span class="w-full font-medium text-gray-700 dark:text-gray-400">Solidna robota</span>
-      <div class="flex items-center space-x-2 w-full">
+      <div class="flex gap-2 items-center w-full">
         <div class="px-1 w-1/2 flex-shrink-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
         <div class="flex-shrink-0 px-1 w-1/4"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Robota</span></div>
         <div class="flex-shrink-0 px-1 w-1/4"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Jako</span></div>
@@ -147,9 +147,9 @@
         </button>
       </div>
     </div>
-    <div class="w-full flex flex-wrap space-y-1.5">
+    <div class="flex flex-wrap gap-1.5 w-full">
       <template x-for="(credit, index) in credits" :key="credit.key">
-        <div class="flex items-center space-x-2 w-full">
+        <div class="flex items-center gap-2 w-full">
           <div class="w-1/2 flex-shrink-1" :data-picker-name="'credits[' + index + '][artist]'" :data-picker-value="credit.artist">
             <x-artist-picker/>
           </div>
@@ -180,7 +180,7 @@
   <div class="flex flex-col">
     <div class="relative -space-y-1 mb-0.5">
       <span class="w-full font-medium text-gray-700 dark:text-gray-400">Obsada</span>
-      <div class="flex items-center space-x-2 w-full">
+      <div class="flex items-center gap-2 w-full">
         <div class="px-1 w-6 flex-0"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
         <div class="px-1 w-1/2"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
         <div class="px-1 w-1/2"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Postaci</span></div>
@@ -193,9 +193,9 @@
         </button>
       </div>
     </div>
-    <div class="w-full flex flex-wrap space-y-1.5">
+    <div class="w-full flex gap-1.5 flex-wrap">
       <template x-for="(actor, index) in actors" :key="actor.key">
-        <div class="flex items-center space-x-2 w-full"
+        <div class="flex items-center gap-2 w-full"
           :class="{
             'opacity-0': actor.isDragged,
             'pt-12': actor.isDraggedOver === 'fromBelow' || actor.hasDeletedElement === 'above',

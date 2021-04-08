@@ -32,7 +32,7 @@
     <div id="app" class="container flex flex-col justify-between mx-auto min-h-screen">
 
       <div>
-        <nav class="flex justify-center my-8 space-x-4">
+        <nav class="flex gap-4 justify-center my-8">
           <a href="{{ route('tales.index') }}" alt="Bajki"
             class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
               text-gray-900 dark:text-white transition-colors-shadow duration-200 uppercase font-semibold tracking-wide
