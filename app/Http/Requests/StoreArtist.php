@@ -43,7 +43,7 @@ class StoreArtist extends FormRequest
     {
         return [
             'crop' => $this->photo_crop
-                ? ArtistPhotoCrop::fromStrings($this->photo_crop) : null,
+                ? new ArtistPhotoCrop($this->photo_crop) : null,
             'grayscale' => $this->boolean('photo_grayscale'),
             'source' => $this->photo_source,
         ];

@@ -2,9 +2,11 @@
 
 namespace App\Images\Values;
 
+use Spatie\DataTransferObject\Attributes\Strict;
 use Spatie\DataTransferObject\DataTransferObject;
 
-class ArtistImageCrop extends DataTransferObject
+#[Strict]
+final class ArtistImageCrop extends DataTransferObject
 {
     public int $x;
 

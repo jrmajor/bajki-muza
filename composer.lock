@@ -3546,16 +3546,16 @@
         },
         {
             "name": "spatie/data-transfer-object",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/data-transfer-object.git",
-                "reference": "b0e1a2ebb2715868b07b48d05e3a2a5daf7e5c3f"
+                "reference": "b22200a34305f7889ae27539901be62594ff2aaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/b0e1a2ebb2715868b07b48d05e3a2a5daf7e5c3f",
-                "reference": "b0e1a2ebb2715868b07b48d05e3a2a5daf7e5c3f",
+                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/b22200a34305f7889ae27539901be62594ff2aaa",
+                "reference": "b22200a34305f7889ae27539901be62594ff2aaa",
                 "shasum": ""
             },
             "require": {
@@ -3594,7 +3594,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/data-transfer-object/issues",
-                "source": "https://github.com/spatie/data-transfer-object/tree/3.0.2"
+                "source": "https://github.com/spatie/data-transfer-object/tree/3.0.3"
             },
             "funding": [
                 {
@@ -3606,7 +3606,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-04-02T07:38:53+00:00"
+            "time": "2021-04-08T10:56:18+00:00"
         },
         {
             "name": "spatie/enum",
