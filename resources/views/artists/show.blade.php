@@ -40,7 +40,7 @@
       </div>
     @elseif ($artist->discogsPhoto() && Auth::guest())
       <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
-        <img src="{{ $artist->discogsPhoto() }}" class="h-40 filter-grayscale">
+        <img src="{{ $artist->discogsPhoto() }}" class="h-40 filter grayscale">
       </div>
     @endif
 
