@@ -45,11 +45,7 @@ class StoreTale extends FormRequest
     {
         return collect($this->credits)
             ->groupBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
-            ->map->map(fn ($credit) => new CreditData([
-                'type' => $credit['type'],
-                'as' => $credit['as'],
-                'nr' => (int) $credit['nr'],
-            ]));
+            ->map->mapInto(CreditData::class);
     }
 
     public function actorsData(): Collection
