@@ -1,25 +1,25 @@
 <?php /** @var App\Models\Tale $tale */ ?>
 
-<div class="w-full flex flex-col items-center space-y-3">
+<div class="flex flex-col items-center space-y-3 w-full">
   <h3 class="text-xl font-medium shadow-subtitle">
     Obsada
   </h3>
   <div class="w-full md:w-5/6 xl:w-2/3 flex flex-col space-y-2.5">
     @foreach ($tale->actors as $actor)
       <a href="{{ route('artists.show', $actor) }}"
-        class="w-full h-14 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
-        <div class="flex-none bg-placeholder-artist w-14 h-14"
+        class="flex overflow-hidden items-center w-full h-14 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900">
+        <div class="flex-none w-14 h-14 bg-placeholder-artist"
           @if ($actor->photo) style="background-image: url(&quot;{{ $actor->photo->facePlaceholder() }}&quot;)" @endif
           >
           @if ($actor->photo)
             <x-responsive-image :image="$actor->photo" :size="14"/>
           @elseif ($actor->discogsPhoto() && Auth::guest())
             <img src="{{ $actor->discogsPhoto('150') }}"
-              class="w-14 h-14 object-cover filter grayscale">
+              class="object-cover w-14 h-14 filter grayscale">
           @endif
         </div>
-        <div class="flex-grow flex flex-col justify-between p-2 pl-3">
-          <div class="text-sm sm:text-base font-medium leading-tight">
+        <div class="flex flex-col flex-grow justify-between p-2 pl-3">
+          <div class="text-sm font-medium leading-tight sm:text-base">
             {{ $actor->name }}
           </div>
           @if ($actor->credit->characters)

@@ -13,9 +13,9 @@
 
 @section('content')
 
-  <div class="flex flex-col sm:flex-row items-center mb-6">
+  <div class="flex flex-col items-center mb-6 sm:flex-row">
 
-    <div class="sm:hidden text-center">
+    <div class="text-center sm:hidden">
       <h2 class="text-2xl font-medium">
         @auth
           <a href="{{ route('artists.edit', $artist) }}">
@@ -31,15 +31,15 @@
 
     @if ($artist->photo)
       <div style="width: {{ $artist->photo->aspectRatio() * 10 }}rem"
-        class="relative mt-5 mb-2 sm:my-0 sm:mr-6 -p-px flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
-        <div class="bg-gray-400 dark:bg-gray-800 bg-center bg-cover absolute -inset-px"
+        class="overflow-hidden relative flex-none self-center mt-5 mb-2 h-40 rounded-lg shadow-lg sm:my-0 sm:mr-6 -p-px">
+        <div class="absolute -inset-px bg-gray-400 bg-center bg-cover dark:bg-gray-800"
           style="background-image: url(&quot;{{ $artist->photo->placeholder() }}&quot;)">
           <x-responsive-image :image="$artist->photo"
             size="full" :imageSize="160" loading="eager"/> {{-- @todo add alt --}}
         </div>
       </div>
     @elseif ($artist->discogsPhoto() && Auth::guest())
-      <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center h-40 shadow-lg rounded-lg overflow-hidden">
+      <div class="overflow-hidden flex-none self-center mt-5 mb-2 h-40 rounded-lg shadow-lg sm:my-0 sm:mr-6">
         <img src="{{ $artist->discogsPhoto() }}" class="h-40 filter grayscale">
       </div>
     @endif
@@ -71,10 +71,10 @@
             </div>
           @endif
 
-          <div class="self-center sm:self-start flex items-center space-x-5">
+          <div class="flex items-center self-center space-x-5 sm:self-start">
             @if ($artist->discogs)
               <a href="{{ $artist->discogs_url }}" target="_blank">
-                <x-icons.discogs class="fill-current h-5"/>
+                <x-icons.discogs class="h-5 fill-current"/>
               </a>
             @endif
             @if ($artist->filmpolski)
@@ -87,7 +87,7 @@
             @endif
             @if ($artist->wikipedia)
               <a href="{{ $artist->wikipedia_url }}" target="_blank">
-                <x-icons.wikipedia class="fill-current h-4"/>
+                <x-icons.wikipedia class="h-4 fill-current"/>
               </a>
             @endif
           </div>
@@ -98,7 +98,7 @@
 
   </div>
 
-  <div class="w-full space-y-6">
+  <div class="space-y-6 w-full">
 
     @unless ($artist->asActor->isEmpty())
       @include('artists.components.as-actor')

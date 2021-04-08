@@ -4,15 +4,15 @@
 @endpush
 
 <div class="w-full">
-  <div class="space-y-3 flex flex-col items-center">
+  <div class="flex flex-col items-center space-y-3">
     <input type="search" wire:key="search" wire:model.debounce.100ms="search" autocomplete="off" autofocus
       class="w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900
         border-none focus:outline-none focus:ring ring-yellow-kox ring-opacity-25">
 
     @forelse ($artists as $artist)
       <a href="{{ route('artists.show', $artist) }}" wire:key="{{ $artist->id }}"
-        class="w-full h-12 sm:h-14 flex items-center bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
-        <div class="flex-none bg-placeholder-artist w-12 h-12 sm:w-14 sm:h-14"
+        class="flex overflow-hidden items-center w-full h-12 bg-gray-50 rounded-lg shadow-lg sm:h-14 dark:bg-gray-900">
+        <div class="flex-none w-12 h-12 bg-placeholder-artist sm:w-14 sm:h-14"
           @if ($artist->photo) style="background-image: url(&quot;{{ $artist->photo->facePlaceholder() }}&quot;)" @endif
           >
           @if ($artist->photo)
@@ -20,7 +20,7 @@
               class="w-12 h-12 sm:w-14 sm:h-14"/>
           @elseif ($artist->discogsPhoto() && Auth::guest())
             <img src="{{ $artist->discogsPhoto('150') }}"
-              class="w-12 h-12 sm:w-14 sm:h-14 object-cover filter grayscale">
+              class="object-cover w-12 h-12 sm:w-14 sm:h-14 filter grayscale">
           @endif
         </div>
         <div class="flex-grow p-2 pl-3">
@@ -36,7 +36,7 @@
   </div>
 
   @if ($artists->hasPages())
-    <div class="w-full flex flex-col items-center mt-8">
+    <div class="flex flex-col items-center mt-8 w-full">
       {{ $artists->links() }}
     </div>
   @endif

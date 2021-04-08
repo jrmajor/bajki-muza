@@ -16,14 +16,14 @@
     }">
     @csrf
 
-    <div class="flex items-center flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+    <div class="flex flex-col items-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
       <input type="text" name="username" value="{{ old('username') }}"
         class="w-full form-input">
       <input type="password" name="password"
         class="w-full form-input">
     </div>
 
-    <div class="flex items-center justify-between">
+    <div class="flex justify-between items-center">
       <div>
         <input type="checkbox" name="remember" id="remember"
           x-model="remember" class="hidden">

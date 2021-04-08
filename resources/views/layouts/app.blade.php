@@ -28,11 +28,11 @@
     @endif
     @stack('scripts')
   </head>
-  <body class="bg-gray-200 text-gray-900 dark:bg-gray-950 dark:text-gray-200 font-sans">
-    <div id="app" class="container mx-auto min-h-screen flex flex-col justify-between">
+  <body class="font-sans text-gray-900 bg-gray-200 dark:bg-gray-950 dark:text-gray-200">
+    <div id="app" class="container flex flex-col justify-between mx-auto min-h-screen">
 
       <div>
-        <nav class="my-8 flex justify-center space-x-4">
+        <nav class="flex justify-center my-8 space-x-4">
           <a href="{{ route('tales.index') }}" alt="Bajki"
             class="px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
               text-gray-900 dark:text-white transition-colors-shadow duration-200 uppercase font-semibold tracking-wide
@@ -48,13 +48,13 @@
         </nav>
 
         <div class="flex flex-col items-center">
-          <main class="px-5 md:px-8 w-full lg:w-3/4 xl:1/2 flex flex-col items-center">
+          <main class="flex flex-col items-center px-5 w-full md:px-8 lg:w-3/4 xl:1/2">
             @yield('content')
           </main>
         </div>
       </div>
 
-      <footer class="my-8 px-3 text-center text-gray-500 dark:text-gray-600 text-sm">
+      <footer class="px-3 my-8 text-sm text-center text-gray-500 dark:text-gray-600">
         {{-- &copy; --}} 2019<a href="{{ route('login') }}" class="cursor-text">-</a>{{ now()->year }} {{-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> --}}
         @auth
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">

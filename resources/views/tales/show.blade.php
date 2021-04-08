@@ -13,14 +13,14 @@
 
 @section('content')
 
-  <div class="flex flex-col sm:flex-row items-center mb-6">
+  <div class="flex flex-col items-center mb-6 sm:flex-row">
 
-    <div class="sm:hidden text-center">
+    <div class="text-center sm:hidden">
       @include ('tales.components.title')
     </div>
 
-    <div class="mt-5 mb-2 sm:my-0 sm:mr-6 flex-none self-center shadow-lg rounded-lg overflow-hidden">
-      <div class="bg-placeholder-cover w-48 h-48"
+    <div class="overflow-hidden flex-none self-center mt-5 mb-2 rounded-lg shadow-lg sm:my-0 sm:mr-6">
+      <div class="w-48 h-48 bg-placeholder-cover"
         @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)" @endif
         >
         @if ($tale->cover)
@@ -31,9 +31,9 @@
       </div>
     </div>
 
-    <div class="sm:py-2 flex-grow self-center sm:self-stretch flex flex-col justify-between space-y-3">
+    <div class="flex flex-col flex-grow justify-between self-center space-y-3 sm:py-2 sm:self-stretch">
 
-      <div class="hidden sm:block self-start">
+      <div class="hidden self-start sm:block">
         @include('tales.components.title')
       </div>
 
@@ -45,7 +45,7 @@
 
   </div>
 
-  <div class="w-full flex flex-col items-center space-y-8">
+  <div class="flex flex-col items-center space-y-8 w-full">
 
     @if ($tale->actors->count())
       @include('tales.components.actors')

@@ -38,19 +38,19 @@
   @endif
 
   <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-5">
-    <div class="w-full sm:w-1/2 flex flex-col">
-      <label for="title" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Tytuł</label>
+    <div class="flex flex-col w-full sm:w-1/2">
+      <label for="title" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Tytuł</label>
       <input type="text" name="title" value="{{ old('title', $tale->title) }}"
         class="w-full form-input">
     </div>
-    <div class="w-full sm:w-1/2 flex space-x-5">
-      <div class="w-1/2 items-stretch flex flex-col">
-        <label for="year" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Rok</label>
+    <div class="flex space-x-5 w-full sm:w-1/2">
+      <div class="flex flex-col items-stretch w-1/2">
+        <label for="year" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Rok</label>
         <input type="text" name="year" value="{{ old('year', $tale->year) }}"
           class="w-full form-input">
       </div>
-      <div class="w-1/2 items-stretch flex flex-col">
-        <label for="nr" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">№</label>
+      <div class="flex flex-col items-stretch w-1/2">
+        <label for="nr" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">№</label>
         <input type="text" name="nr" value="{{ old('nr', $tale->nr) }}"
           class="w-full form-input">
       </div>
@@ -58,7 +58,7 @@
   </div>
 
   <div class="flex flex-col">
-    <label for="year" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Discogs</label>
+    <label for="year" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Discogs</label>
     <div class="flex items-center space-x-5">
       <input type="text" name="discogs"
         x-model="discogs" x-on:input="updatedDiscogs()"
@@ -66,7 +66,7 @@
       @if ($tale->discogs)
         <div class="flex-grow-0">
           <a href="{{ $tale->discogs_url }}" target="_blank">
-            <x-icons.discogs class="fill-current h-5"/>
+            <x-icons.discogs class="h-5 fill-current"/>
           </a>
         </div>
       @endif
@@ -74,23 +74,23 @@
   </div>
 
   <div class="flex flex-col">
-    <span for="cover" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Okładka</span>
+    <span for="cover" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Okładka</span>
     <input type="hidden" name="remove_cover" :value="cover.remove ? 1 : 0">
     <div class="flex space-x-5">
-      <label class="flex-grow h-10 flex items-center bg-white rounded-md border overflow-hidden cursor-pointer dark:border-gray-900 dark:bg-gray-800">
-        <div class="flex-none bg-placeholder-cover w-10 h-10">
+      <label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
+        <div class="flex-none w-10 h-10 bg-placeholder-cover">
           @if ($tale->cover)
             <img src="{{ $tale->cover->url(128) }}"
-              class="w-10 h-10 object-cover bg-cover"
+              class="object-cover w-10 h-10 bg-cover"
               style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)"
               x-show="cover.file === '' && cover.remove == false">
           @endif
           <template x-if="cover.file !== ''">
             <img :src="cover.preview"
-              class="w-10 h-10 object-cover">
+              class="object-cover w-10 h-10">
           </template>
         </div>
-        <span class="px-3 py-2">
+        <span class="py-2 px-3">
           <span
             x-text="cover.file !== '' ? $refs.cover.files[0].name : 'Wybierz plik'">
             Wybierz plik
@@ -133,27 +133,27 @@
   <div class="flex flex-col">
     <div class="relative -space-y-1 mb-0.5">
       <span class="w-full font-medium text-gray-700 dark:text-gray-400">Solidna robota</span>
-      <div class="w-full flex items-center space-x-2">
-        <div class="w-1/2 flex-shrink-1 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
-        <div class="w-1/4 flex-shrink-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Robota</span></div>
-        <div class="w-1/4 flex-shrink-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Jako</span></div>
-        <div class="w-8 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
+      <div class="flex items-center space-x-2 w-full">
+        <div class="px-1 w-1/2 flex-shrink-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
+        <div class="flex-shrink-0 px-1 w-1/4"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Robota</span></div>
+        <div class="flex-shrink-0 px-1 w-1/4"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Jako</span></div>
+        <div class="px-1 w-8 flex-0"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
         <div class="w-5"></div>
       </div>
-      <div class="absolute right-0 top-0 h-full flex items-center">
+      <div class="flex absolute top-0 right-0 items-center h-full">
         <button type="button" x-on:click="addCredit()"
-          class="w-5 h-5 flex items-center justify-center rounded-full bg-green-500 dark:bg-green-600 text-green-100 focus:bg-green-700">
+          class="flex justify-center items-center w-5 h-5 text-green-100 bg-green-500 rounded-full dark:bg-green-600 focus:bg-green-700">
           <span>+</span>
         </button>
       </div>
     </div>
     <div class="w-full flex flex-wrap space-y-1.5">
       <template x-for="(credit, index) in credits" :key="credit.key">
-        <div class="w-full flex items-center space-x-2">
+        <div class="flex items-center space-x-2 w-full">
           <div class="w-1/2 flex-shrink-1" :data-picker-name="'credits[' + index + '][artist]'" :data-picker-value="credit.artist">
             <x-artist-picker/>
           </div>
-          <div class="w-1/4 flex-shrink-0">
+          <div class="flex-shrink-0 w-1/4">
             <select :name="'credits[' + index + '][type]'" x-model="credit.type"
               class="w-full form-select">
               @foreach (CreditType::toArray() as $value => $label)
@@ -161,15 +161,15 @@
               @endforeach
             </select>
           </div>
-          <div class="w-1/4 flex-shrink-0">
+          <div class="flex-shrink-0 w-1/4">
             <input type="text" :name="'credits[' + index + '][as]'" x-model="credit.as" class="w-full form-input">
           </div>
-          <div class="w-8 flex-0 self-stretch flex items-center justify-center">
+          <div class="flex justify-center items-center self-stretch w-8 flex-0">
             <input type="text" :name="'credits[' + index + '][nr]'" x-model="credit.nr"
               class="w-8 px-1.5 py-1.5 text-center text-sm font-bold form-input">
           </div>
           <button type="button" x-on:click="removeArtist('credits', index)"
-            class="flex-none w-5 h-5 flex items-center justify-center rounded-full bg-red-500 dark:bg-red-600 text-red-100 focus:bg-red-700">
+            class="flex flex-none justify-center items-center w-5 h-5 text-red-100 bg-red-500 rounded-full dark:bg-red-600 focus:bg-red-700">
             <span>-</span>
           </button>
         </div>
@@ -180,22 +180,22 @@
   <div class="flex flex-col">
     <div class="relative -space-y-1 mb-0.5">
       <span class="w-full font-medium text-gray-700 dark:text-gray-400">Obsada</span>
-      <div class="w-full flex items-center space-x-2">
-        <div class="w-6 flex-0 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
-        <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
-        <div class="w-1/2 px-1"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Postaci</span></div>
+      <div class="flex items-center space-x-2 w-full">
+        <div class="px-1 w-6 flex-0"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">№</span></div>
+        <div class="px-1 w-1/2"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Artysta</span></div>
+        <div class="px-1 w-1/2"><span class="w-full text-xs font-medium text-gray-700 dark:text-gray-400">Postaci</span></div>
         <div class="w-5"></div>
       </div>
-      <div class="absolute right-0 top-0 h-full flex items-center">
+      <div class="flex absolute top-0 right-0 items-center h-full">
         <button type="button" x-on:click="addActor()"
-          class="w-5 h-5 flex items-center justify-center rounded-full bg-green-500 dark:bg-green-600 text-green-100 focus:bg-green-700">
+          class="flex justify-center items-center w-5 h-5 text-green-100 bg-green-500 rounded-full dark:bg-green-600 focus:bg-green-700">
           <span>+</span>
         </button>
       </div>
     </div>
     <div class="w-full flex flex-wrap space-y-1.5">
       <template x-for="(actor, index) in actors" :key="actor.key">
-        <div class="w-full flex items-center space-x-2"
+        <div class="flex items-center space-x-2 w-full"
           :class="{
             'opacity-0': actor.isDragged,
             'pt-12': actor.isDraggedOver === 'fromBelow' || actor.hasDeletedElement === 'above',
@@ -209,7 +209,7 @@
             callback = onDrop($event, 'actors', index);
             $nextTick(() => $dispatch('artists-indexes-updated'));
           ">
-          <div class="w-6 flex-0 self-stretch flex items-center justify-center">
+          <div class="flex justify-center items-center self-stretch w-6 flex-0">
             <input type="hidden" :name="'actors[' + index + '][credit_nr]'" :value="index + 1">
             <span class="text-sm font-bold text-gray-800 select-none" x-text="index + 1"></span>
           </div>
@@ -221,7 +221,7 @@
               class="w-full form-input">
           </div>
           <button type="button" x-on:click="removeArtist('actors', index)"
-            class="flex-none w-5 h-5 flex items-center justify-center rounded-full bg-red-500 dark:bg-red-600 text-red-100 focus:bg-red-700">
+            class="flex flex-none justify-center items-center w-5 h-5 text-red-100 bg-red-500 rounded-full dark:bg-red-600 focus:bg-red-700">
             <span>-</span>
           </button>
         </div>
@@ -229,13 +229,13 @@
     </div>
   </div>
 
-  <div class="w-full flex flex-col">
-    <label for="notes" class="w-full font-medium pb-1 text-gray-700 dark:text-gray-400">Notatki</label>
+  <div class="flex flex-col w-full">
+    <label for="notes" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Notatki</label>
     <textarea type="text" name="notes" rows="5" class="w-full form-input">{{ old('notes', $tale->notes) }}</textarea>
   </div>
 
   <button type="submit"
-    class="self-center px-4 py-2 bg-white dark:bg-gray-800 text-sm font-medium rounded-full shadow-md">
+    class="self-center py-2 px-4 text-sm font-medium bg-white rounded-full shadow-md dark:bg-gray-800">
     Zapisz
   </button>
 
