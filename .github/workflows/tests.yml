@@ -38,7 +38,7 @@ jobs:
           php artisan key:generate
 
       - name: Run Pest
-        run: ./vendor/bin/pest
+        run: vendor/bin/pest
 
   phpstan:
     name: Static analysis
@@ -73,4 +73,4 @@ jobs:
           php artisan key:generate
 
       - name: Run PHPStan
-        run: ./vendor/bin/phpstan analyse --no-progress --no-interaction
+        run: vendor/bin/phpstan analyse --no-progress --no-interaction
