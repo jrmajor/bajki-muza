@@ -22,4 +22,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'fathom' => [
+        'id' => env('FATHOM_SITE_ID'),
+    ],
+
 ];

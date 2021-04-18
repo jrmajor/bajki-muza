@@ -27,6 +27,9 @@
       <script src="{{ mix('js/app.js') }}" defer></script>
     @endif
     @stack('scripts')
+    @production
+      <script src="https://cdn.usefathom.com/script.js" data-site="{{ config('services.fathom.id') }}" defer></script>
+    @endproduction
   </head>
   <body class="font-sans text-gray-900 bg-gray-200 dark:bg-gray-950 dark:text-gray-200">
     <div id="app" class="container flex flex-col justify-between mx-auto min-h-screen">
