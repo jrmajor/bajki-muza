@@ -5,7 +5,7 @@ mix
   .postCss('resources/css/style.css', 'public/css', [
     require('postcss-import'),
     require('tailwindcss'),
-    require('postcss-nested'),
+    // require('postcss-nested'),
     require('autoprefixer'),
   ])
   .version()

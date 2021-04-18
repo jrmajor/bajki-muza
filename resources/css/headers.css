@@ -3,12 +3,14 @@
   .shadow-subtitle,
   .shadow-link {
     @apply relative;
+  }
 
-    &::after {
-      @apply block absolute;
-      content: '';
-      z-index: -1;
-    }
+  .shadow-title::after,
+  .shadow-subtitle::after,
+  .shadow-link::after {
+    @apply block absolute;
+    content: '';
+    z-index: -1;
   }
 
   .shadow-title::after {
