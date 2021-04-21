@@ -13,7 +13,7 @@ class ArtistFactory extends Factory
 
     public function definition()
     {
-        $name = $this->faker->name;
+        $name = $this->faker->name();
 
         return [
             'name' => $name,

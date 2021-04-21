@@ -15,7 +15,7 @@ class TaleFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence,
+            'title' => $this->faker->sentence(),
             'year' => $this->faker->numberBetween(1950, 1970),
             'nr' => $this->faker->numberBetween(1, 250),
         ];
