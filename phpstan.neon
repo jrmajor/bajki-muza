@@ -7,10 +7,10 @@ parameters:
     excludePaths:
         - app/Providers/MacrosServiceProvider.php
     ignoreErrors:
-        - '#Access to an undefined property Illuminate\\Support\\HigherOrderCollectionProxy::\$\w+\.#'
-        - '#Call to an undefined method Faker\\Generator::userName\(\)\.#'
-        - '#Call to an undefined method Illuminate\\Contracts\\Container\\ContextualBindingBuilder::giveConfig\(\)\.#'
-        - '#Call to an undefined method Illuminate\\Support\\HigherOrderCollectionProxy::\w+\(\)\.#'
+        - '#^Access to an undefined property Illuminate\\Support\\HigherOrderCollectionProxy::\$\w+\.$#'
+        - '#^Call to an undefined method Faker\\Generator::userName\(\)\.$#'
+        - '#^Call to an undefined method Illuminate\\Contracts\\Container\\ContextualBindingBuilder::giveConfig\(\)\.$#'
+        - '#^Call to an undefined method Illuminate\\Support\\HigherOrderCollectionProxy::\w+\(\)\.$#'
 
 includes:
     - vendor/nunomaduro/larastan/extension.neon
