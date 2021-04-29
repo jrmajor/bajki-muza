@@ -84,9 +84,7 @@ final class Tale extends Model
         return $this->credits
             ->filter(fn ($artist) => $artist->credit->isCustom())
             ->sortBy(fn ($artist) => $artist->credit->type->order())
-            ->groupBy(function ($artist) {
-                return $artist->credit->as ?? $artist->credit->type->label;
-            });
+            ->groupBy(fn ($artist) => $artist->credit->as ?? $artist->credit->type->label);
     }
 
     public function orderedCredits(): Collection
@@ -104,17 +102,18 @@ final class Tale extends Model
         $allCreditsToSync = collect($credits)->map('collect');
 
         // Delete credits for artists who don't exist in new credit list.
-        $this->credits()->whereIntegerNotInRaw(
-            'artists.id',
-            $allCreditsToSync->keys(),
-        )->get()
+        $this->credits()
+            ->whereIntegerNotInRaw(
+                'artists.id', $allCreditsToSync->keys(),
+            )
+            ->get()
             ->map->credit
             ->map->delete();
 
         // Refresh existing credits after deleting some of them
         // and format them the same way input is formatted.
         $allExistingCredits = $this->credits()->get()
-            ->groupBy->id
+            ->groupBy('id')
             ->map->map(fn ($artist) => $artist->credit);
 
         foreach ($allCreditsToSync as $artistId => $newCredits) {

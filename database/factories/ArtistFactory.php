@@ -39,8 +39,6 @@ class ArtistFactory extends Factory
             ]);
         }
 
-        return $this->state([
-            'photo_filename' => $photo->filename(),
-        ]);
+        return $this->state(['photo_filename' => $photo->filename()]);
     }
 }

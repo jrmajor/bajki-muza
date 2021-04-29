@@ -31,7 +31,7 @@ class CleanupCovers extends Command
     {
         $filename = Str::afterLast($path, '/');
 
-        if (! is_null(Cover::find($filename))) {
+        if (Cover::find($filename)) {
             return 0;
         }
 

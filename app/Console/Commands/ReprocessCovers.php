@@ -27,7 +27,7 @@ class ReprocessCovers extends Command
 
     protected function handleSingleTale(): int
     {
-        $tale = Tale::where('slug', $this->option('tale'))->first();
+        $tale = Tale::firstWhere('slug', $this->option('tale'));
 
         if (! $tale) {
             $this->error('Tale does not exist.');
@@ -35,7 +35,7 @@ class ReprocessCovers extends Command
             return 1;
         }
 
-        if ($tale->cover === null) {
+        if (! $tale->cover) {
             $this->error('Tale does not have a cover.');
 
             return 1;

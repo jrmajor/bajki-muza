@@ -27,7 +27,7 @@ class ReprocessPhotos extends Command
 
     protected function handleSingleArtist(): int
     {
-        $artist = Artist::where('slug', $this->option('artist'))->first();
+        $artist = Artist::firstWhere('slug', $this->option('artist'));
 
         if (! $artist) {
             $this->error('Artist does not exist.');
@@ -35,7 +35,7 @@ class ReprocessPhotos extends Command
             return 1;
         }
 
-        if ($artist->photo === null) {
+        if (! $artist->photo) {
             $this->error('Artist does not have a photo.');
 
             return 1;

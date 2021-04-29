@@ -31,7 +31,7 @@ class CleanupPhotos extends Command
     {
         $filename = Str::afterLast($path, '/');
 
-        if (! is_null(Photo::find($filename))) {
+        if (Photo::find($filename)) {
             return 0;
         }
 

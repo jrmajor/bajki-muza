@@ -7,7 +7,7 @@ use Spatie\Image\Image as SpatieImage;
 
 class Image extends SpatieImage
 {
-    public function when($value, Closure $callback)
+    public function when($value, Closure $callback): self
     {
         if ($value) {
             return $callback($this, $value) ?: $this;
