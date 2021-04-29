@@ -33,7 +33,7 @@ trait ProcessesImages
 
     public function generateTinyJpg(string $baseImagePath, string $fit): string
     {
-        $responsiveImageName = $this->appendToFileName($baseImagePath, '_tiny');
+        $responsiveImageName = $this->appendToFileName($baseImagePath, 'tiny');
 
         $temporaryDestination = $this->temporaryDirectory->path($responsiveImageName);
 
@@ -74,7 +74,7 @@ trait ProcessesImages
         int $targetSize,
         string $fit,
     ): string {
-        $responsiveImageName = $this->appendToFileName($baseImagePath, "_{$targetSize}");
+        $responsiveImageName = $this->appendToFileName($baseImagePath, $targetSize);
 
         $responsiveImagePath = $this->temporaryDirectory->path($responsiveImageName);
 
@@ -91,12 +91,12 @@ trait ProcessesImages
         return $responsiveImagePath;
     }
 
-    public function appendToFileName(string $filePath, string $suffix): string
+    public function appendToFileName(string $filePath, string $suffix, string $glue = '_'): string
     {
         $baseName = pathinfo($filePath, PATHINFO_FILENAME);
 
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
 
-        return "{$baseName}{$suffix}.{$extension}";
+        return "{$baseName}{$glue}{$suffix}.{$extension}";
     }
 }

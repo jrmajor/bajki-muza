@@ -54,9 +54,9 @@ it('can generate responsive images preserving aspect ratio')->imageProcessor(fun
 });
 
 test('appendToFilename method works')->imageProcessor(function () {
-    expect($this->appendToFileName('/var/folders/0k/T/desiredFilename.jpg', '_tiny'))
+    expect($this->appendToFileName('/var/folders/0k/T/desiredFilename.jpg', 'tiny'))
         ->toBe('desiredFilename_tiny.jpg');
 
-    expect($this->appendToFileName('test.jpeg', '.temp'))
+    expect($this->appendToFileName('test.jpeg', 'temp', '.'))
         ->toBe('test.temp.jpeg');
 });

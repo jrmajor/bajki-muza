@@ -11,7 +11,7 @@ trait CropsArtistPhoto
     public function cropImage(string $baseImagePath): string
     {
         $path = $this->temporaryDirectory->path(
-            $this->appendToFileName($baseImagePath, '_image'),
+            $this->appendToFileName($baseImagePath, 'image'),
         );
 
         Image::load($baseImagePath)
@@ -27,7 +27,7 @@ trait CropsArtistPhoto
         $crop = $this->image->crop()->face;
 
         $path = $this->temporaryDirectory->path(
-            $this->appendToFileName($baseImagePath, '_face'),
+            $this->appendToFileName($baseImagePath, 'face'),
         );
 
         Image::load($baseImagePath)
