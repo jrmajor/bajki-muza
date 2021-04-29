@@ -24,10 +24,10 @@ class TaleController extends Controller
         if ($request->file('cover')) {
             $tale->cover()->associate(
                 Cover::store($request->file('cover')),
-            )->save();
+            );
         }
 
-        return redirect()->route('tales.show', $tale);
+        return redirect()->route('tales.show', tap($tale)->push());
     }
 
     public function show(Tale $tale)
@@ -47,20 +47,20 @@ class TaleController extends Controller
 
     public function update(StoreTale $request, Tale $tale)
     {
-        $tale->update($request->validated());
+        $tale->fill($request->validated());
 
         $tale->syncCredits($request->creditsData());
 
         $tale->actors()->sync($request->actorsData());
 
         if ($request->boolean('remove_cover')) {
-            $tale->cover()->dissociate()->save();
+            $tale->cover()->dissociate();
         } elseif ($request->file('cover')) {
             $tale->cover()->associate(
                 Cover::store($request->file('cover')),
-            )->save();
+            );
         }
 
-        return redirect()->route('tales.show', $tale);
+        return redirect()->route('tales.show', tap($tale)->push());
     }
 }

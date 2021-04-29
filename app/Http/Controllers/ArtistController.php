@@ -32,9 +32,7 @@ class ArtistController extends Controller
             $artist->photo->forceFill($request->photoData());
         }
 
-        $artist->push();
-
-        return redirect()->route('artists.show', $artist);
+        return redirect()->route('artists.show', tap($artist)->push());
     }
 
     public function destroy(Artist $artist)
