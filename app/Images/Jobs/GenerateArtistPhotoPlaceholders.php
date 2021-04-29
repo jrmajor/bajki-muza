@@ -50,12 +50,12 @@ class GenerateArtistPhotoPlaceholders implements ShouldQueue, ShouldBeUnique
 
         $croppedImage = Image::load($croppedImagePath);
 
-        $this->image->fill([
+        $this->image->update([
             'width' => $croppedImage->getWidth(),
             'height' => $croppedImage->getHeight(),
             'placeholder' => $this->generateTinyJpg($croppedImagePath, 'height'),
             'face_placeholder' => $this->generateTinyJpg($croppedFacePath, 'square'),
-        ])->save();
+        ]);
 
         $this->temporaryDirectory->delete()
             ?: throw new Exception('Failed to delete temporary directory.');

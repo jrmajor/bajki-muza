@@ -42,11 +42,9 @@ class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
             $sourceStream, $this->image->filename(),
         );
 
-        $placeholder = $this->generateTinyJpg($baseImagePath, 'square');
-
-        $this->image->fill([
-            'placeholder' => $placeholder,
-        ])->save();
+        $this->image->update([
+            'placeholder' => $this->generateTinyJpg($baseImagePath, 'square'),
+        ]);
 
         $this->temporaryDirectory->delete()
             ?: throw new Exception('Failed to delete temporary directory.');

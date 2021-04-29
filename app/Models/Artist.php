@@ -61,7 +61,7 @@ final class Artist extends Model
     {
         $artist = self::findBySlug(Str::slug($name));
 
-        return $artist ?? tap((new self(compact('name'))))->save();
+        return $artist ?? self::create(['name' => $name]);
     }
 
     protected static function booted(): void

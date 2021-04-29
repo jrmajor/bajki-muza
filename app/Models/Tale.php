@@ -134,6 +134,7 @@ final class Tale extends Model
 
             // Now that we have as many credits, as we should, we can update them.
             foreach ($newCredits as $credit) {
+                // Can't use Model::update() because Pivot::$exists = false
                 $existingCredits->shift()
                     ->fill($credit->toArray())->save();
             }

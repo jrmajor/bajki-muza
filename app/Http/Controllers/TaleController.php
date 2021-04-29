@@ -15,11 +15,7 @@ class TaleController extends Controller
 
     public function store(StoreTale $request)
     {
-        $tale = new Tale();
-
-        $tale->fill(
-            $data = $request->validated(),
-        )->save();
+        $tale = Tale::create($request->validated());
 
         $tale->syncCredits($request->creditsData());
 
@@ -51,9 +47,7 @@ class TaleController extends Controller
 
     public function update(StoreTale $request, Tale $tale)
     {
-        $tale->fill(
-            $data = $request->validated(),
-        )->save();
+        $tale->update($request->validated());
 
         $tale->syncCredits($request->creditsData());
 
