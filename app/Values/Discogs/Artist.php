@@ -12,9 +12,9 @@ class Artist extends DataTransferObject
 
     public static function fromArray(array $artist): self
     {
-        return new self([
-            'id' => $artist['id'],
-            'name' => $artist['title'],
-        ]);
+        return new self(
+            id: $artist['id'],
+            name: $artist['title'],
+        );
     }
 }

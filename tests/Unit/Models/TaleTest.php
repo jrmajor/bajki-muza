@@ -207,7 +207,7 @@ it('can sync credits', function () {
 
     $tale->syncCredits([
         $firstArtist->id => [
-            new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
+            new CreditData(type: 'directing', as: 'Reżyserya', nr: 0),
         ],
     ]);
 
@@ -224,8 +224,8 @@ it('can sync credits', function () {
 
     $tale->syncCredits([
         $firstArtist->id => [
-            new CreditData(['type' => 'adaptation', 'as' => null, 'nr' => 1]),
-            new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
+            new CreditData(type: 'adaptation', as: null, nr: 1),
+            new CreditData(type: 'directing', as: 'Reżyserya', nr: 0),
         ],
     ]);
 
@@ -247,10 +247,10 @@ it('can sync credits', function () {
 
     $tale->syncCredits([
         $firstArtist->id => [
-            new CreditData(['type' => 'adaptation', 'as' => null, 'nr' => 1]),
+            new CreditData(type: 'adaptation', as: null, nr: 1),
         ],
         $secondArtist->id => [
-            new CreditData(['type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0]),
+            new CreditData(type: 'directing', as: 'Reżyserya', nr: 0),
         ],
     ]);
 
@@ -272,10 +272,10 @@ it('can sync credits', function () {
 
     $tale->syncCredits([
         $firstArtist->id => [
-            new CreditData(['type' => 'author', 'as' => 'A-utor', 'nr' => 2]),
+            new CreditData(type: 'author', as: 'A-utor', nr: 2),
         ],
         $secondArtist->id => [
-            new CreditData(['type' => 'music', 'as' => null, 'nr' => 3]),
+            new CreditData(type: 'music', as: null, nr: 3),
         ],
     ]);
 
