@@ -54,7 +54,7 @@ class TaleController extends Controller
         $tale->actors()->sync($request->actorsData());
 
         if ($request->boolean('remove_cover')) {
-            $tale->cover()->disassociate()->save();
+            $tale->cover()->dissociate()->save();
         } elseif ($request->file('cover')) {
             $tale->cover()->associate(
                 Cover::store($request->file('cover')),
