@@ -15,7 +15,7 @@
         "guzzlehttp/guzzle": "^7.3",
         "jessarcher/laravel-castable-data-transfer-object": "^2.0",
         "larabug/larabug": "^2.3",
-        "laravel/framework": "^8.39",
+        "laravel/framework": "^8.40",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.6",
         "league/flysystem-aws-s3-v3": "~1.0",
