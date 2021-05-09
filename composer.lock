@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64acdb3c70831b627aab8d7f7df1147f",
+    "content-hash": "a179dbd0b6d3a2aa9021aadce84e7707",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4078,20 +4078,20 @@
         },
         {
             "name": "spatie/regex",
-            "version": "1.4.2",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/regex.git",
-                "reference": "1500ed75af430df3a32047494c43d79d45cf152b"
+                "reference": "6671b64ff0aaae5fbe98bb292eec93a8cd6281d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/regex/zipball/1500ed75af430df3a32047494c43d79d45cf152b",
-                "reference": "1500ed75af430df3a32047494c43d79d45cf152b",
+                "url": "https://api.github.com/repos/spatie/regex/zipball/6671b64ff0aaae5fbe98bb292eec93a8cd6281d3",
+                "reference": "6671b64ff0aaae5fbe98bb292eec93a8cd6281d3",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3|^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.3"
@@ -4125,7 +4125,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/regex/issues",
-                "source": "https://github.com/spatie/regex/tree/1.4.2"
+                "source": "https://github.com/spatie/regex/tree/2.0.1"
             },
             "funding": [
                 {
@@ -4137,7 +4137,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-03T23:05:25+00:00"
+            "time": "2021-04-20T08:33:46+00:00"
         },
         {
             "name": "spatie/temporary-directory",
