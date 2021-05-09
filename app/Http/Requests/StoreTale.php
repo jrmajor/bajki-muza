@@ -7,7 +7,6 @@ use App\Values\CreditData;
 use App\Values\CreditType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
-use Spatie\Enum\Laravel\Rules\EnumRule;
 
 class StoreTale extends FormRequest
 {
@@ -29,7 +28,7 @@ class StoreTale extends FormRequest
             'remove_cover' => ['boolean', 'nullable'],
 
             'credits.*.artist' => ['string', 'max:100', 'required'],
-            'credits.*.type' => [new EnumRule(CreditType::class), 'required'],
+            'credits.*.type' => [CreditType::toRule(), 'required'],
             'credits.*.as' => ['string', 'max:32', 'nullable'],
             'credits.*.nr' => ['integer', 'required'],
 
