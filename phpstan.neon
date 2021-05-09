@@ -11,6 +11,8 @@ parameters:
         - '#^Call to an undefined method Faker\\Generator::userName\(\)\.$#'
         - '#^Call to an undefined method Illuminate\\Contracts\\Container\\ContextualBindingBuilder::giveConfig\(\)\.$#'
         - '#^Call to an undefined method Illuminate\\Support\\HigherOrderCollectionProxy::\w+\(\)\.$#'
+        - '#^Call to an undefined method Spatie\\Image\\Manipulations::save\(\).$#'
+        - '#^Call to an undefined method Spatie\\Image\\Manipulations::when\(\).$#'
 
 includes:
     - vendor/nunomaduro/larastan/extension.neon
