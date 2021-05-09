@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96c41545a6f9f81a64b101ff4f4f3d24",
+    "content-hash": "64acdb3c70831b627aab8d7f7df1147f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4017,22 +4017,22 @@
         },
         {
             "name": "spatie/laravel-sluggable",
-            "version": "2.6.2",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-sluggable.git",
-                "reference": "297097239a675747d74fbd1ecb3ae0d4724a17de"
+                "reference": "8f2090004f5f02072ed8dbc6fd27d461b8e559fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/297097239a675747d74fbd1ecb3ae0d4724a17de",
-                "reference": "297097239a675747d74fbd1ecb3ae0d4724a17de",
+                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/8f2090004f5f02072ed8dbc6fd27d461b8e559fe",
+                "reference": "8f2090004f5f02072ed8dbc6fd27d461b8e559fe",
                 "shasum": ""
             },
             "require": {
                 "illuminate/database": "^7.30|^8.0",
                 "illuminate/support": "^7.30|^8.0",
-                "php": "^7.4|^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.18",
@@ -4066,7 +4066,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-sluggable/issues",
-                "source": "https://github.com/spatie/laravel-sluggable/tree/2.6.2"
+                "source": "https://github.com/spatie/laravel-sluggable/tree/3.0.2"
             },
             "funding": [
                 {
@@ -4074,7 +4074,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-20T18:07:00+00:00"
+            "time": "2021-05-07T14:58:12+00:00"
         },
         {
             "name": "spatie/regex",
