@@ -46,7 +46,7 @@ it('can get extract from wikipedia', function () {
     expect(Wikipedia::extract('Piotr_Fronczewski'))->toBe($this->extract);
 
     Http::assertSent(
-        fn ($request) => $request->url() === 'https://pl.wikipedia.org/w/api.php?action=query&titles=Piotr_Fronczewski&prop=extracts&exintro=1&redirects=1&format=json'
+        fn ($request) => $request->url() === 'https://pl.wikipedia.org/w/api.php?action=query&titles=Piotr_Fronczewski&prop=extracts&exintro=1&redirects=1&format=json',
     );
 });
 
