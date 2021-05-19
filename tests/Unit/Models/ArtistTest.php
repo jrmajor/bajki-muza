@@ -166,9 +166,7 @@ it('can get photos from filmpolski', function () {
     $images = [
         'main' => [
             'year' => null,
-            'photos' => [
-                'test',
-            ],
+            'photos' => ['test'],
         ],
     ];
 

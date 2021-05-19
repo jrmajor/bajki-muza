@@ -10,8 +10,8 @@ it('can create artist url', function () {
 
 it('can get photos from filmpolski', function ($personId, $personSource, $galleryId, $gallerySource, $expectedOutput) {
     Http::fakeSequence()
-        ->push($personSource, 200)
-        ->push($gallerySource, 200);
+        ->push($personSource)
+        ->push($gallerySource);
 
     expect(FilmPolski::photos($personId))->toBe($expectedOutput);
 

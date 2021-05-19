@@ -8,12 +8,10 @@ use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 it('can refresh artists cache', function () {
-    Artist::factory(48)
-        ->state(new Sequence(
-            [],
-            ['discogs' => null, 'filmpolski' => null, 'wikipedia' => null],
-        ))
-        ->create();
+    Artist::factory(48)->sequence(
+        [],
+        ['discogs' => null, 'filmpolski' => null, 'wikipedia' => null],
+    )->create();
 
     Discogs::shouldReceive('refreshCache')->times(24);
     FilmPolski::shouldReceive('refreshCache')->times(24);

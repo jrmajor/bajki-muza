@@ -66,13 +66,10 @@ test('users with permissions can create tale', function () {
         'credit_nr' => $credit_nr + 1,
     ])->all();
 
-    $attributes = array_merge(
-        $this->attributes,
-        [
-            'credits' => $credits,
-            'actors' => $actorsCredits,
-        ],
-    );
+    $attributes = array_merge($this->attributes, [
+        'credits' => $credits,
+        'actors' => $actorsCredits,
+    ]);
 
     asUser()
         ->post('bajki', $attributes)

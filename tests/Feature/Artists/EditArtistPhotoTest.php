@@ -86,9 +86,7 @@ test('photo can be uploaded', function () {
 test('photo can be downloaded from specified uri', function () {
     $photoResponse = Http::response(file_get_contents(fixture('Images/photo.jpg')), 200);
 
-    Http::fake([
-        'filmpolski.pl/*' => $photoResponse,
-    ]);
+    Http::fake(['filmpolski.pl/*' => $photoResponse]);
 
     Storage::fake('testing');
 
