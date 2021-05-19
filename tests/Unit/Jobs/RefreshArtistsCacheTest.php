@@ -5,7 +5,6 @@ use App\Models\Artist;
 use Facades\App\Services\Discogs;
 use Facades\App\Services\FilmPolski;
 use Facades\App\Services\Wikipedia;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 
 it('can refresh artists cache', function () {
     Artist::factory(48)->sequence(
