@@ -6,7 +6,6 @@ use App\Models\Tale;
 use App\Values\CreditData;
 use App\Values\CreditType;
 use Facades\App\Services\Discogs;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 it('casts year to integer')
