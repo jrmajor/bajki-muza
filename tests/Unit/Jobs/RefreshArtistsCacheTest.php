@@ -16,5 +16,5 @@ it('can refresh artists cache', function () {
     FilmPolski::shouldReceive('refreshCache')->times(24);
     Wikipedia::shouldReceive('refreshCache')->times(24);
 
-    RefreshArtistsCache::dispatchNow();
+    RefreshArtistsCache::dispatchSync();
 });
