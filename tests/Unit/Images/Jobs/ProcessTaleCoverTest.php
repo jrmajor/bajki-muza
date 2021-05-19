@@ -16,6 +16,8 @@ test('GenerateTaleCoverPlaceholder job works', function () {
 
     Cover::disk()->put("covers/original/{$filename}", $file, 'public');
 
+    fclose($file);
+
     GenerateTaleCoverPlaceholder::dispatchSync(
         $cover = Cover::create(['filename' => $filename]),
     );
@@ -35,6 +37,8 @@ test('GenerateTaleCoverVariants job works', function () {
     $file = fopen(fixture('Images/cover.jpg'), 'r');
 
     Cover::disk()->put("covers/original/{$filename}", $file, 'public');
+
+    fclose($file);
 
     GenerateTaleCoverVariants::dispatchSync(
         Cover::create(['filename' => $filename]),

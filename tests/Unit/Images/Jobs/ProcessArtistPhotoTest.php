@@ -22,6 +22,8 @@ it('GenerateArtistPhotoPlaceholders', function () {
 
     Photo::disk()->put("photos/original/{$filename}", $file, 'public');
 
+    fclose($file);
+
     GenerateArtistPhotoPlaceholders::dispatchSync(
         $photo = Photo::create([
             'filename' => $filename,
@@ -50,6 +52,8 @@ test('GenerateArtistPhotoVariants job works', function () {
     $file = fopen(fixture('Images/photo.jpg'), 'r');
 
     Photo::disk()->put("photos/original/{$filename}", $file, 'public');
+
+    fclose($file);
 
     GenerateArtistPhotoVariants::dispatchSync(
         Photo::create([

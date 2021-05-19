@@ -35,6 +35,8 @@ it('works with single artist', function () {
 
     Photo::disk()->put('photos/original/test.jpg', $file, 'public');
 
+    fclose($file);
+
     Queue::fake();
 
     artisan('reprocess:photos --artist test-artist')

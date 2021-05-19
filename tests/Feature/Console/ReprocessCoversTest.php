@@ -35,6 +35,8 @@ it('works with single tale', function () {
 
     Cover::disk()->put('covers/original/test.jpg', $file, 'public');
 
+    fclose($file);
+
     Queue::fake();
 
     artisan('reprocess:covers --tale test-tale')
