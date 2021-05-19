@@ -57,22 +57,17 @@ it('stores new photo in correct path and dispatches necessary jobs to process it
     );
 });
 
-it('returns correct original path', function () {
-    expect(
-        (new Photo(['filename' => 'test.jpg']))->originalPath(),
-    )->toBe('photos/original/test.jpg');
-});
+it('returns correct original path')
+    ->expect((new Photo(['filename' => 'test.jpg']))->originalPath())
+    ->toBe('photos/original/test.jpg');
 
-it('returns correct path for given size', function () {
-    expect(
-        (new Photo(['filename' => 'test.jpg']))->path(384),
-    )->toBe('photos/384/test.jpg');
-});
+it('returns correct path for given size')
+    ->expect((new Photo(['filename' => 'test.jpg']))->path(384))
+    ->toBe('photos/384/test.jpg');
 
 it('can get face placeholder')
-    ->expect(
-        (new Photo(['face_placeholder' => 'test placeholder']))->facePlaceholder(),
-    )->toBe('test placeholder');
+    ->expect((new Photo(['face_placeholder' => 'test placeholder']))->facePlaceholder())
+    ->toBe('test placeholder');
 
 it('reprocesses image when crop is updated', function () {
     Storage::fake('testing');

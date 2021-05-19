@@ -33,17 +33,13 @@ it('stores new cover in correct path and dispatches necessary jobs to process it
     );
 });
 
-it('returns correct original path', function () {
-    expect(
-        (new Cover(['filename' => 'test.jpg']))->originalPath(),
-    )->toBe('covers/original/test.jpg');
-});
+it('returns correct original path')
+    ->expect((new Cover(['filename' => 'test.jpg']))->originalPath())
+    ->toBe('covers/original/test.jpg');
 
-it('returns correct path for given size', function () {
-    expect(
-        (new Cover(['filename' => 'test.jpg']))->path(384),
-    )->toBe('covers/384/test.jpg');
-});
+it('returns correct path for given size')
+    ->expect((new Cover(['filename' => 'test.jpg']))->path(384))
+    ->toBe('covers/384/test.jpg');
 
 it('can get its tales', function () {
     $cover = Cover::create([
