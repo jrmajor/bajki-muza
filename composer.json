@@ -21,6 +21,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "league/flysystem-cached-adapter": "~1.0",
         "livewire/livewire": "^2.3",
+        "nesbot/carbon": "^2.48",
         "nunomaduro/curryable": "master",
         "sammyjo20/lasso": "^1.2",
         "spatie/data-transfer-object": "^3.1",
