@@ -234,82 +234,67 @@ it('can get credits', function () {
 
     expect($artist->credits())->toBeInstanceOf(BelongsToMany::class);
 
+    $tales = Tale::factory(6)->sequence(
+        ['year' => 1979],
+        ['year' => 1969, 'title' => 'b'],
+        ['year' => 1969, 'title' => 'a'],
+        ['year' => 1978],
+        ['year' => 1969, 'title' => 'c'],
+        ['year' => 1969, 'title' => 'd'],
+    )->create();
+
     $lyricist = ['type' => CreditType::text(), 'nr' => 0];
     $composer = ['type' => CreditType::music(), 'nr' => 0];
 
-    $artist->credits()->attach($tales = [
-        Tale::factory()->create([
-            'year' => 1979,
-        ])->id => $lyricist,
-        Tale::factory()->create([
-            'year' => 1969,
-            'title' => 'b',
-        ])->id => $lyricist,
-        Tale::factory()->create([
-            'year' => 1969,
-            'title' => 'a',
-        ])->id => $lyricist,
-        Tale::factory()->create([
-            'year' => 1978,
-        ])->id => $composer,
-        Tale::factory()->create([
-            'year' => 1969,
-            'title' => 'c',
-        ])->id => $composer,
-        Tale::factory()->create([
-            'year' => 1969,
-            'title' => 'd',
-        ])->id => $composer,
+    $artist->credits()->attach([
+        $tales[0]->id => $lyricist,
+        $tales[1]->id => $lyricist,
+        $tales[2]->id => $lyricist,
+        $tales[3]->id => $composer,
+        $tales[4]->id => $composer,
+        $tales[5]->id => $composer,
     ]);
 
-    $credits = $artist->credits;
-
-    expect($credits)->toHaveCount(6);
-
-    $ids = array_keys($tales);
-
-    expect($credits->get(0)->id)->toBe($ids[2]);
-    expect($credits->get(1)->id)->toBe($ids[1]);
-    expect($credits->get(2)->id)->toBe($ids[4]);
-    expect($credits->get(3)->id)->toBe($ids[5]);
-    expect($credits->get(4)->id)->toBe($ids[3]);
-    expect($credits->get(5)->id)->toBe($ids[0]);
+    expect($artist->credits)
+        ->toHaveCount(6)
+        ->sequence(
+            fn ($e) => $e->toBeModel($tales[2]),
+            fn ($e) => $e->toBeModel($tales[1]),
+            fn ($e) => $e->toBeModel($tales[4]),
+            fn ($e) => $e->toBeModel($tales[5]),
+            fn ($e) => $e->toBeModel($tales[3]),
+            fn ($e) => $e->toBeModel($tales[0]),
+        );
 });
 
 it('can get credits of given type', function () {
     $artist = Artist::factory()->create();
 
+    $tales = Tale::factory(4)->sequence(
+        ['year' => 1978],
+        ['year' => 1969, 'title' => 'b'],
+        ['year' => 1978],
+        ['year' => 1969, 'title' => 'a'],
+    )->create();
+
     $lyricist = ['type' => CreditType::text(), 'nr' => 0];
     $composer = ['type' => CreditType::music(), 'nr' => 0];
 
-    $artist->credits()->attach($tales = [
-        Tale::factory()->create([
-            'year' => 1978,
-        ])->id => $lyricist,
-        Tale::factory()->create([
-            'year' => 1969,
-            'title' => 'b',
-        ])->id => $lyricist,
-        Tale::factory()->create([
-            'year' => 1978,
-        ])->id => $composer,
-        Tale::factory()->create([
-            'year' => 1969,
-            'title' => 'a',
-        ])->id => $lyricist,
+    $artist->credits()->attach([
+        $tales[0]->id => $lyricist,
+        $tales[1]->id => $lyricist,
+        $tales[2]->id => $composer,
+        $tales[3]->id => $lyricist,
     ]);
 
-    $asLyricist = $artist->creditsFor(CreditType::text());
-
-    expect($asLyricist)
+    expect($artist->creditsFor(CreditType::text()))
         ->toBeInstanceOf(EloquentCollection::class)
-        ->toHaveCount(3);
-
-    $ids = array_keys($tales);
-
-    expect($asLyricist->get(0)->id)->toBe($ids[3]);
-    expect($asLyricist->get(1)->id)->toBe($ids[1]);
-    expect($asLyricist->get(2)->id)->toBe($ids[0]);
+        ->toHaveCount(3)
+        ->sequence(
+            fn ($e) => $e->toBeModel($tales[3]),
+            fn ($e) => $e->toBeModel($tales[1]),
+            fn ($e) => $e->toBeModel($tales[0]),
+        );
 });
 
 test('countAppearances scope works', function () {

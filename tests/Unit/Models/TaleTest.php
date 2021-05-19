@@ -76,28 +76,30 @@ it('can get its actors', function () {
 
     $tale->actors()->detach();
 
-    $tale->actors()->attach($artists = [
-        Artist::factory()->create()->id => [
+    $artists = Artist::factory(3)->create();
+
+    $tale->actors()->attach([
+        $artists[0]->id => [
             'characters' => 'Wróżka Bzów',
             'credit_nr' => 3,
         ],
-        Artist::factory()->create()->id => [
+        $artists[1]->id => [
             'characters' => 'Ośla Skórka',
             'credit_nr' => 1,
         ],
-        Artist::factory()->create()->id => [
+        $artists[2]->id => [
             'characters' => null,
             'credit_nr' => 2,
         ],
     ]);
 
-    expect($tale->actors)->toHaveCount(3);
-
-    $artists = array_keys($artists);
-
-    expect($tale->actors->get(2)->id)->toBe($artists[0]);
-    expect($tale->actors->get(0)->id)->toBe($artists[1]);
-    expect($tale->actors->get(1)->id)->toBe($artists[2]);
+    expect($tale->actors)
+        ->toHaveCount(3)
+        ->sequence(
+            fn ($e) => $e->toBeModel($artists[1]),
+            fn ($e) => $e->toBeModel($artists[2]),
+            fn ($e) => $e->toBeModel($artists[0]),
+        );
 });
 
 it('can get credits', function () {
@@ -105,92 +107,67 @@ it('can get credits', function () {
 
     expect($tale->credits())->toBeInstanceOf(BelongsToMany::class);
 
-    $tale->credits()->attach($artists = [
-        Artist::factory()->create()->id => [
+    $artists = Artist::factory(6)->create();
+
+    $tale->credits()->attach([
+        $artists[0]->id => [
             'type' => CreditType::text(),
             'nr' => 2,
         ],
-        Artist::factory()->create()->id => [
+        $artists[1]->id => [
             'type' => CreditType::text(),
             'nr' => 1,
         ],
-        Artist::factory()->create()->id => [
+        $artists[2]->id => [
             'type' => CreditType::text(),
             'nr' => 0,
         ],
-        Artist::factory()->create()->id => [
+        $artists[3]->id => [
             'type' => CreditType::music(),
             'nr' => 1,
         ],
-        Artist::factory()->create()->id => [
+        $artists[4]->id => [
             'type' => CreditType::music(),
             'nr' => 0,
         ],
-        Artist::factory()->create()->id => [
+        $artists[5]->id => [
             'type' => CreditType::music(),
             'nr' => 2,
         ],
     ]);
 
-    $credits = $tale->credits;
-
-    expect($credits)->toHaveCount(6);
-
-    $ids = array_keys($artists);
-
-    expect($credits->get(0)->id)->toBe($ids[2]);
-    expect($credits->get(1)->id)->toBe($ids[4]);
-    expect($credits->get(2)->id)->toBe($ids[1]);
-    expect($credits->get(3)->id)->toBe($ids[3]);
-    expect($credits->get(4)->id)->toBe($ids[0]);
-    expect($credits->get(5)->id)->toBe($ids[5]);
+    expect($tale->credits)->toHaveCount(6)->sequence(
+        fn ($e) => $e->toBeModel($artists[2]),
+        fn ($e) => $e->toBeModel($artists[4]),
+        fn ($e) => $e->toBeModel($artists[1]),
+        fn ($e) => $e->toBeModel($artists[3]),
+        fn ($e) => $e->toBeModel($artists[0]),
+        fn ($e) => $e->toBeModel($artists[5]),
+    );
 });
 
 it('can get credits of given type', function () {
     $tale = Tale::factory()->withoutRelations()->create();
 
-    $tale->credits()->attach($artists = [
-        Artist::factory()->create()->id => [
-            'type' => CreditType::text(),
-            'nr' => 2,
-        ],
-        Artist::factory()->create()->id => [
-            'type' => CreditType::text(),
-            'nr' => 1,
-        ],
-        Artist::factory()->create()->id => [
-            'type' => CreditType::music(),
-            'nr' => 1,
-        ],
-        Artist::factory()->create()->id => [
-            'type' => CreditType::music(),
-            'nr' => 0,
-        ],
-        Artist::factory()->create()->id => [
-            'type' => CreditType::text(),
-            'nr' => 0,
-        ],
-        Artist::factory()->create()->id => [
-            'type' => CreditType::music(),
-            'nr' => 2,
-        ],
-        Artist::factory()->create()->id => [
-            'type' => CreditType::directing(),
-            'nr' => 0,
-        ],
+    $artists = Artist::factory(7)->create();
+
+    $tale->credits()->attach([
+        $artists[0]->id => ['type' => CreditType::text(), 'nr' => 2],
+        $artists[1]->id => ['type' => CreditType::text(), 'nr' => 1],
+        $artists[2]->id => ['type' => CreditType::music(), 'nr' => 1],
+        $artists[3]->id => ['type' => CreditType::music(), 'nr' => 0],
+        $artists[4]->id => ['type' => CreditType::text(), 'nr' => 0],
+        $artists[5]->id => ['type' => CreditType::music(), 'nr' => 2],
+        $artists[6]->id => ['type' => CreditType::directing(), 'nr' => 0],
     ]);
 
     $composers = $tale->creditsFor(CreditType::music());
 
-    expect($composers)
-        ->toBeInstanceOf(EloquentCollection::class)
-        ->toHaveCount(3);
-
-    $ids = array_keys($artists);
-
-    expect($composers->get(0)->id)->toBe($ids[3]);
-    expect($composers->get(1)->id)->toBe($ids[2]);
-    expect($composers->get(2)->id)->toBe($ids[5]);
+    expect($composers)->toHaveCount(3)->sequence(
+        fn ($e) => $e->toBeModel($artists[3]),
+        fn ($e) => $e->toBeModel($artists[2]),
+        fn ($e) => $e->toBeModel($artists[5]),
+    );
 });
 
 it('can sync credits', function () {
