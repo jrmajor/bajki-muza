@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21101143cfc6a9dddd6691f9a607de51",
+    "content-hash": "9fdf9390647ec0112c60dfc39720e9f1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -8294,6 +8294,49 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+            "name": "jrmajor/cs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jrmajor/php-cs.git",
+                "reference": "4efd790067647f6bae75ffacaba014426cb55b04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jrmajor/php-cs/zipball/4efd790067647f6bae75ffacaba014426cb55b04",
+                "reference": "4efd790067647f6bae75ffacaba014426cb55b04",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "php": ">= 7.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremiasz Major",
+                    "email": "jrh.mjr@gmail.com"
+                }
+            ],
+            "description": "My PHP-CS-Fixer configuration",
+            "homepage": "https://github.com/jrmajor/php-cs",
+            "support": {
+                "issues": "https://github.com/jrmajor/php-cs/issues",
+                "source": "https://github.com/jrmajor/php-cs/tree/master"
+            },
+            "time": "2021-05-19T18:55:02+00:00"
+        },
+        {
             "name": "justinrainbow/json-schema",
             "version": "5.2.10",
             "source": {
@@ -11586,7 +11629,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "jrmajor/cs": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
