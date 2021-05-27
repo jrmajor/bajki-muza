@@ -15,7 +15,7 @@
         "guzzlehttp/guzzle": "^7.3",
         "jessarcher/laravel-castable-data-transfer-object": "^2.0",
         "larabug/larabug": "^2.4",
-        "laravel/framework": "^8.42",
+        "laravel/framework": "^8.43",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.6",
         "league/flysystem-aws-s3-v3": "~1.0",
@@ -33,7 +33,7 @@
         "spatie/temporary-directory": "^2.0",
         "symfony/css-selector": "^5.2",
         "symfony/dom-crawler": "^5.2",
-        "tightenco/ziggy": "^1.1"
+        "tightenco/ziggy": "^1.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
@@ -42,7 +42,7 @@
         "fakerphp/faker": "^1.14",
         "friendsofphp/php-cs-fixer": "^3.0",
         "jrmajor/cs": "dev-master",
-        "laravel/sail": "^1.6",
+        "laravel/sail": "^1.7",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^5.4",
         "nunomaduro/larastan": "^0.7.6",

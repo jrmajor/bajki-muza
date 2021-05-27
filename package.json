@@ -16,7 +16,7 @@
     "croppr": "^2.3",
     "pretty-bytes": "^5.4",
     "tailwindcss": "^2.1",
-    "ziggy-js": "^1.0"
+    "ziggy-js": "^1.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.2",
