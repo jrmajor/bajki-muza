@@ -2,6 +2,7 @@ parameters:
     level: 2
     paths:
         - app
+        - config
         - database/factories
         - database/seeders
     excludePaths:
