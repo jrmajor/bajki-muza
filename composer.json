@@ -24,7 +24,7 @@
         "nesbot/carbon": "^2.48",
         "nunomaduro/curryable": "master",
         "sammyjo20/lasso": "^1.2",
-        "spatie/data-transfer-object": "^3.2",
+        "spatie/data-transfer-object": "^3.3",
         "spatie/image": "^1.10",
         "spatie/laravel-collection-macros": "^7.2",
         "spatie/laravel-enum": "^2.5",
@@ -36,9 +36,9 @@
         "tightenco/ziggy": "^1.2"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.5",
+        "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.10",
-        "facade/ignition": "^2.9",
+        "facade/ignition": "^2.10",
         "fakerphp/faker": "^1.14",
         "friendsofphp/php-cs-fixer": "^3.0",
         "jrmajor/cs": "dev-master",
