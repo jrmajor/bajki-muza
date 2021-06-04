@@ -2,17 +2,10 @@
 
 namespace App\Services;
 
-use Closure;
+use Illuminate\Support\Traits\Conditionable;
 use Spatie\Image\Image as SpatieImage;
 
 class Image extends SpatieImage
 {
-    public function when($value, Closure $callback): self
-    {
-        if ($value) {
-            return $callback($this, $value) ?: $this;
-        }
-
-        return $this;
-    }
+    use Conditionable;
 }

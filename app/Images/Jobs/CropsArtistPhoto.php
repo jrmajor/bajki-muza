@@ -16,7 +16,7 @@ trait CropsArtistPhoto
 
         Image::load($baseImagePath)
             ->manualCrop(...$this->image->crop()->image->toArray())
-            ->when($this->image->grayscale, fn ($i) => $i->greyscale())
+            ->when($this->image->grayscale, fn (Image $i) => $i->greyscale())
             ->save($path);
 
         return $path;
@@ -32,7 +32,7 @@ trait CropsArtistPhoto
 
         Image::load($baseImagePath)
             ->manualCrop($crop->size, $crop->size, $crop->x, $crop->y)
-            ->when($this->image->grayscale, fn ($i) => $i->greyscale())
+            ->when($this->image->grayscale, fn (Image $i) => $i->greyscale())
             ->save($path);
 
         return $path;
