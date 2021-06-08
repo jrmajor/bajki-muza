@@ -5,6 +5,7 @@ use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Support\Facades\Queue;
+
 use function Pest\Laravel\artisan;
 use function Tests\fixture;
 

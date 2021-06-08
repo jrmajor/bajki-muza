@@ -5,6 +5,7 @@ use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
 use Illuminate\Support\Facades\Queue;
+
 use function Pest\Laravel\artisan;
 use function Tests\fixture;
 

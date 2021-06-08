@@ -61,7 +61,7 @@ it('can create release url', function () {
 });
 
 it('can get photos from discogs', function () {
-    config()->set('services.discogs.token', '4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR');
+    config(['services.discogs.token' => '4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR']);
 
     Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
 

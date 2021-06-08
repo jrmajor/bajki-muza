@@ -4,6 +4,7 @@ use App\Images\Cover;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
 use Illuminate\Support\Str;
+
 use function Tests\fixture;
 
 test('GenerateTaleCoverPlaceholder job works', function () {

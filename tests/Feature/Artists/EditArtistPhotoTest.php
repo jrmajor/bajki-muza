@@ -6,6 +6,7 @@ use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Http\UploadedFile;
+
 use function Tests\asUser;
 use function Tests\fixture;
 

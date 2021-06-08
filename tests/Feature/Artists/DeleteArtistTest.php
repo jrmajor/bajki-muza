@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Artist;
+
 use function Pest\Laravel\delete;
 use function Tests\asUser;
 
