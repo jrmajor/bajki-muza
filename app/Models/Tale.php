@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Images\Cover;
 use App\Values\CreditData;
 use App\Values\CreditType;
-use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,7 +47,7 @@ final class Tale extends Model
 
     public function getDiscogsUrlAttribute(): ?string
     {
-        return $this->discogs ? Discogs::releaseUrl($this->discogs) : null;
+        return $this->discogs ? app('discogs')->releaseUrl($this->discogs) : null;
     }
 
     public function cover(): BelongsTo

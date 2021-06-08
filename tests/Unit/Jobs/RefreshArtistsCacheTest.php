@@ -2,9 +2,11 @@
 
 use App\Jobs\RefreshArtistsCache;
 use App\Models\Artist;
-use Facades\App\Services\Discogs;
-use Facades\App\Services\FilmPolski;
-use Facades\App\Services\Wikipedia;
+use App\Services\Discogs;
+use App\Services\FilmPolski;
+use App\Services\Wikipedia;
+
+use function Pest\Laravel\mock;
 
 it('can refresh artists cache', function () {
     Artist::factory(48)->sequence(
@@ -12,9 +14,9 @@ it('can refresh artists cache', function () {
         ['discogs' => null, 'filmpolski' => null, 'wikipedia' => null],
     )->create();
 
-    Discogs::shouldReceive('refreshCache')->times(24);
-    FilmPolski::shouldReceive('refreshCache')->times(24);
-    Wikipedia::shouldReceive('refreshCache')->times(24);
+    mock(Discogs::class)->shouldReceive('refreshCache')->times(24);
+    mock(FilmPolski::class)->shouldReceive('refreshCache')->times(24);
+    mock(Wikipedia::class)->shouldReceive('refreshCache')->times(24);
 
     RefreshArtistsCache::dispatchSync();
 });

@@ -1,7 +1,7 @@
 <?php
 
+use App\Services\Discogs;
 use Carbon\CarbonInterval;
-use Facades\App\Services\Discogs;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
@@ -50,13 +50,17 @@ beforeEach(function () {
     ];
 });
 
+test('alias is properly registered', function () {
+    expect(app(Discogs::class))->toBe(app('discogs'));
+});
+
 it('can create artist url', function () {
-    expect(Discogs::url(518243))
+    expect(app('discogs')->url(518243))
         ->toBe('https://www.discogs.com/artist/518243');
 });
 
 it('can create release url', function () {
-    expect(Discogs::releaseUrl(2792351))
+    expect(app('discogs')->releaseUrl(2792351))
         ->toBe('https://www.discogs.com/release/2792351');
 });
 
@@ -65,7 +69,7 @@ it('can get photos from discogs', function () {
 
     Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
 
-    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+    expect(app('discogs')->photos(602473)->toArray())->toBe($this->photos);
 
     Http::assertSent(function ($request) {
         return $request->url() === 'https://api.discogs.com/artists/602473'
@@ -76,15 +80,11 @@ it('can get photos from discogs', function () {
 it('caches discogs photos', function () {
     Http::fake();
 
-    Cache::shouldReceive('remember')
-        ->once()
-        ->with(
-            'discogs-602473-photos',
-            CarbonInterval::class,
-            Closure::class,
-        )->andReturn($this->photoResponse);
+    Cache::shouldReceive('remember')->once()
+        ->with('discogs-602473-photos', CarbonInterval::class, Closure::class)
+        ->andReturn($this->photoResponse);
 
-    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+    expect(app('discogs')->photos(602473)->toArray())->toBe($this->photos);
 
     Http::assertSentCount(0);
 });
@@ -105,17 +105,19 @@ it('can refresh cached data', function () {
 
     Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
 
-    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+    $discogs = app('discogs');
+
+    expect($discogs->photos(602473)->toArray())->toBe($this->photos);
 
     Facade::clearResolvedInstance(Illuminate\Http\Client\Factory::class);
 
     Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
-    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+    expect($discogs->photos(602473)->toArray())->toBe($this->photos);
 
-    Discogs::refreshCache(602473);
+    $discogs->refreshCache(602473);
 
-    expect(Discogs::photos(602473)->toArray())->toBe([[
+    expect($discogs->photos(602473)->toArray())->toBe([[
         'type' => 'primary',
         'uri' => 'newTest',
         'uri150' => 'newTest150',
@@ -140,17 +142,19 @@ it('can flush cached data', function () {
 
     Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
 
-    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+    $discogs = app('discogs');
+
+    expect($discogs->photos(602473)->toArray())->toBe($this->photos);
 
     Facade::clearResolvedInstance(Illuminate\Http\Client\Factory::class);
 
     Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
-    expect(Discogs::photos(602473)->toArray())->toBe($this->photos);
+    expect($discogs->photos(602473)->toArray())->toBe($this->photos);
 
-    expect(Discogs::forget(602473))->toBeTrue();
+    expect($discogs->forget(602473))->toBeTrue();
 
-    expect(Discogs::photos(602473)->toArray())->toBe([[
+    expect($discogs->photos(602473)->toArray())->toBe([[
         'type' => 'primary',
         'uri' => 'newTest',
         'uri150' => 'newTest150',

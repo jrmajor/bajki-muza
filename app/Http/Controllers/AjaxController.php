@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Services\Discogs;
+use App\Services\FilmPolski;
+use App\Services\Wikipedia;
 use Closure;
-use Facades\App\Services\Discogs;
-use Facades\App\Services\FilmPolski;
-use Facades\App\Services\Wikipedia;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(
+        protected Discogs $discogs,
+        protected FilmPolski $filmPolski,
+        protected Wikipedia $wikipedia,
+    ) {
         $this->middleware(function (Request $request, Closure $next) {
             return blank($request->input('search'))
                 ? response()->json([])
@@ -34,21 +37,21 @@ class AjaxController extends Controller
     public function discogs(Request $request)
     {
         return response()->json(
-            Discogs::search($request->input('search')),
+            $this->discogs->search($request->input('search')),
         );
     }
 
     public function filmPolski(Request $request)
     {
         return response()->json(
-            FilmPolski::search($request->input('search')),
+            $this->filmPolski->search($request->input('search')),
         );
     }
 
     public function wikipedia(Request $request)
     {
         return response()->json(
-            Wikipedia::search($request->input('search')),
+            $this->wikipedia->search($request->input('search')),
         );
     }
 }

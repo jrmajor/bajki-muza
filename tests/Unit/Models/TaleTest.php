@@ -3,10 +3,12 @@
 use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Services\Discogs;
 use App\Values\CreditData;
 use App\Values\CreditType;
-use Facades\App\Services\Discogs;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+use function Pest\Laravel\mock;
 
 it('casts year to integer')
     ->expect((new Tale(['year' => '1973']))->year)->toBe(1973);
@@ -46,14 +48,11 @@ it('regenerates slug when updated', function () {
 });
 
 it('can generate discogs url', function () {
-    $tale = Tale::factory()
-        ->make(['discogs' => 2792351]);
+    $tale = Tale::factory()->make(['discogs' => 2792351]);
 
-    Discogs::shouldReceive('releaseUrl')
-        ->andReturn('https://www.discogs.com/release/2792351');
+    mock(Discogs::class)->shouldReceive('releaseUrl')->andReturn('https://www.discogs.com/release/2792351');
 
-    expect($tale->discogs_url)
-        ->toBe('https://www.discogs.com/release/2792351');
+    expect($tale->discogs_url)->toBe('https://www.discogs.com/release/2792351');
 });
 
 it('can get its cover', function () {

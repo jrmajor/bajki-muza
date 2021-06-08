@@ -1,10 +1,14 @@
 <?php
 
+use App\Services\FilmPolski;
 use Carbon\CarbonInterval;
-use Facades\App\Services\FilmPolski;
+
+test('alias is properly registered', function () {
+    expect(app(FilmPolski::class))->toBe(app('filmPolski'));
+});
 
 it('can create artist url', function () {
-    expect(FilmPolski::url('112891'))
+    expect(app('filmPolski')->url('112891'))
         ->toBe('http://www.filmpolski.pl/fp/index.php?osoba=112891');
 });
 
@@ -13,7 +17,7 @@ it('can get photos from filmpolski', function ($personId, $personSource, $galler
         ->push($personSource)
         ->push($gallerySource);
 
-    expect(FilmPolski::photos($personId))->toBe($expectedOutput);
+    expect(app('filmPolski')->photos($personId))->toBe($expectedOutput);
 
     Http::assertSentCount($galleryId ? 2 : 1);
 })->with('filmpolski');
@@ -28,25 +32,23 @@ it('caches filmpolski photos', function () {
 
     Http::fake();
 
-    Cache::shouldReceive('remember')
-        ->once()
-        ->with(
-            'filmpolski-11232-photos',
-            CarbonInterval::class,
-            Closure::class,
-        )->andReturn($images);
+    Cache::shouldReceive('remember')->once()
+        ->with('filmpolski-11232-photos', CarbonInterval::class, Closure::class)
+        ->andReturn($images);
 
-    expect(FilmPolski::photos(11232))->toBe($images);
+    expect(app('filmPolski')->photos(11232))->toBe($images);
 
     Http::assertSentCount(0);
 });
 
 it('can flush cached data', function () {
-    expect(FilmPolski::forget(11232))->toBeFalse();
+    $filmPolski = app('filmPolski');
+
+    expect($filmPolski->forget(11232))->toBeFalse();
 
     Http::fake();
 
-    expect(FilmPolski::photos(11232))->toBe([]);
+    expect($filmPolski->photos(11232))->toBe([]);
 
-    expect(FilmPolski::forget(11232))->toBeTrue();
+    expect($filmPolski->forget(11232))->toBeTrue();
 });

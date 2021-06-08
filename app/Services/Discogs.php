@@ -48,10 +48,8 @@ class Discogs
     public function photos(int $id): Collection
     {
         $response = Cache::remember(
-            "discogs-{$id}-photos",
-            CarbonInterval::week(),
-            fn () => $this->request()
-                ->get("https://api.discogs.com/artists/{$id}")->json(),
+            "discogs-{$id}-photos", CarbonInterval::week(),
+            fn () => $this->request()->get("https://api.discogs.com/artists/{$id}")->json(),
         );
 
         return collect($response['images'] ?? [])->mapInto(Photo::class);

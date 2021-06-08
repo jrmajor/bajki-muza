@@ -1,19 +1,17 @@
 <?php
 
 use App\Models\Tale;
-use Facades\App\Services\Discogs;
-use Facades\App\Services\Wikipedia;
+use App\Services\Discogs;
+use App\Services\Wikipedia;
 
 use function Pest\Laravel\get;
+use function Pest\Laravel\mock;
 
 it('works', function () {
     $tale = Tale::factory()->create();
 
-    Wikipedia::shouldReceive('extract')
-        ->andReturn('test');
-
-    Discogs::shouldReceive('photos')
-        ->andReturn(collect());
+    mock(Wikipedia::class)->shouldReceive('extract')->andReturn('test');
+    mock(Discogs::class)->shouldReceive('photos')->andReturn(collect());
 
     get("bajki/{$tale->slug}")
         ->assertOk();

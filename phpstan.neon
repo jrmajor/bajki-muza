@@ -9,7 +9,6 @@ parameters:
         - app/Providers/MacrosServiceProvider.php
     ignoreErrors:
         - '#^Call to an undefined method Faker\\Generator::userName\(\)\.$#'
-        - '#^Call to an undefined method Illuminate\\Contracts\\Container\\ContextualBindingBuilder::giveConfig\(\)\.$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::save\(\).$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::when\(\).$#'
 

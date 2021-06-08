@@ -4,13 +4,16 @@ use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use App\Models\Tale;
+use App\Services\Discogs;
+use App\Services\FilmPolski;
+use App\Services\Wikipedia;
 use App\Values\CreditType;
 use App\Values\Discogs\Photo as DiscogsPhoto;
-use Facades\App\Services\Discogs;
-use Facades\App\Services\FilmPolski;
-use Facades\App\Services\Wikipedia;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+use function Pest\Laravel\mock;
+use function Pest\Laravel\spy;
 
 it('casts discogs id to integer')
     ->expect((new Artist(['discogs' => '1023394']))->discogs)
@@ -65,36 +68,27 @@ it('can get its photo', function () {
 });
 
 it('can generate discogs url', function () {
-    $artist = Artist::factory()
-        ->make(['discogs' => 518243]);
+    $artist = Artist::factory()->make(['discogs' => 518243]);
 
-    Discogs::shouldReceive('url')
-        ->andReturn('https://www.discogs.com/artist/518243');
+    mock(Discogs::class)->shouldReceive('url')->andReturn('https://www.discogs.com/artist/518243');
 
-    expect($artist->discogs_url)
-        ->toBe('https://www.discogs.com/artist/518243');
+    expect($artist->discogs_url)->toBe('https://www.discogs.com/artist/518243');
 });
 
 it('can generate filmpolski url', function () {
-    $artist = Artist::factory()
-        ->make(['filmpolski' => 112891]);
+    $artist = Artist::factory()->make(['filmpolski' => 112891]);
 
-    FilmPolski::shouldReceive('url')
-        ->andReturn('http://www.filmpolski.pl/fp/index.php?osoba=112891');
+    mock(FilmPolski::class)->shouldReceive('url')->andReturn('http://www.filmpolski.pl/fp/index.php?osoba=112891');
 
-    expect($artist->filmpolski_url)
-        ->toBe('http://www.filmpolski.pl/fp/index.php?osoba=112891');
+    expect($artist->filmpolski_url)->toBe('http://www.filmpolski.pl/fp/index.php?osoba=112891');
 });
 
 it('can generate wikipedia url', function () {
-    $artist = Artist::factory()
-        ->make(['wikipedia' => 'Joanna_Sobieska']);
+    $artist = Artist::factory()->make(['wikipedia' => 'Joanna_Sobieska']);
 
-    Wikipedia::shouldReceive('url')
-        ->andReturn('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
+    mock(Wikipedia::class)->shouldReceive('url')->andReturn('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
 
-    expect($artist->wikipedia_url)
-        ->toBe('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
+    expect($artist->wikipedia_url)->toBe('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
 });
 
 it('does not generate nonexistent urls', function () {
@@ -112,12 +106,9 @@ it('does not generate nonexistent urls', function () {
 it('can get extract from wikipedia', function () {
     $extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor.\n</p>";
 
-    $artist = Artist::factory()
-        ->create(['wikipedia' => 'Piotr_Fronczewski']);
+    $artist = Artist::factory()->create(['wikipedia' => 'Piotr_Fronczewski']);
 
-    Wikipedia::shouldReceive('extract')
-        ->with('Piotr_Fronczewski')
-        ->andReturn($extract);
+    mock(Wikipedia::class)->shouldReceive('extract')->with('Piotr_Fronczewski')->andReturn($extract);
 
     expect($artist->wikipedia_extract)->toBe($extract);
 });
@@ -126,8 +117,7 @@ it('does not query wikipedia when no id is set', function () {
     $artist = Artist::factory()
         ->create(['wikipedia' => null]);
 
-    Wikipedia::spy()
-        ->shouldNotReceive('extract');
+    spy(Wikipedia::class)->shouldNotReceive('extract');
 
     expect($artist->wikipedia_extract)->toBeNull();
 });
@@ -142,22 +132,17 @@ it('can get photos from discogs', function () {
         height: 800,
     )]);
 
-    $artist = Artist::factory()
-        ->create(['discogs' => 602473]);
+    $artist = Artist::factory()->create(['discogs' => 602473]);
 
-    Discogs::shouldReceive('photos')
-        ->with(602473)
-        ->andReturn($images);
+    mock(Discogs::class)->shouldReceive('photos')->with(602473)->andReturn($images);
 
     expect($artist->discogsPhotos())->toBe($images);
 });
 
 it('does not query discogs when no id is set', function () {
-    $artist = Artist::factory()
-        ->create(['discogs' => null]);
+    $artist = Artist::factory()->create(['discogs' => null]);
 
-    Discogs::spy()
-        ->shouldNotReceive('photos');
+    spy(Discogs::class)->shouldNotReceive('photos');
 
     expect($artist->discogsPhotos()->toArray())->toBe([]);
 });
@@ -170,22 +155,17 @@ it('can get photos from filmpolski', function () {
         ],
     ];
 
-    $artist = Artist::factory()
-        ->create(['filmpolski' => 112891]);
+    $artist = Artist::factory()->create(['filmpolski' => 112891]);
 
-    FilmPolski::shouldReceive('photos')
-        ->with(112891)
-        ->andReturn($images);
+    mock(FilmPolski::class)->shouldReceive('photos')->with(112891)->andReturn($images);
 
     expect($artist->filmPolskiPhotos())->toBe($images);
 });
 
 it('does not query filmpolski when no id is set', function () {
-    $artist = Artist::factory()
-        ->create(['filmpolski' => null]);
+    $artist = Artist::factory()->create(['filmpolski' => null]);
 
-    FilmPolski::spy()
-        ->shouldNotReceive('photos');
+    spy(FilmPolski::class)->shouldNotReceive('photos');
 
     expect($artist->filmPolskiPhotos())->toBe([]);
 });
@@ -200,12 +180,9 @@ it('can get photo from discogs', function () {
         height: 800,
     )]);
 
-    $artist = Artist::factory()
-        ->create(['discogs' => 602473]);
+    $artist = Artist::factory()->create(['discogs' => 602473]);
 
-    Discogs::shouldReceive('photos')
-        ->with(602473)
-        ->andReturn($images);
+    mock(Discogs::class)->shouldReceive('photos')->with(602473)->andReturn($images);
 
     expect($artist->discogsPhoto())->toBe('test')
         ->and($artist->discogsPhoto('150'))->toBe('test150');
@@ -352,17 +329,9 @@ it('can refresh cached data', function () {
         'wikipedia' => 'Piotr_Fronczewski',
     ]);
 
-    Discogs::shouldReceive('refreshCache')
-        ->with(602473)
-        ->andReturn(true);
-
-    FilmPolski::shouldReceive('refreshCache')
-        ->with(112891)
-        ->andReturn(true);
-
-    Wikipedia::shouldReceive('refreshCache')
-        ->with('Piotr_Fronczewski')
-        ->andReturn(true);
+    mock(Discogs::class)->shouldReceive('refreshCache')->with(602473)->andReturn(true);
+    mock(FilmPolski::class)->shouldReceive('refreshCache')->with(112891)->andReturn(true);
+    mock(Wikipedia::class)->shouldReceive('refreshCache')->with('Piotr_Fronczewski')->andReturn(true);
 
     $artist->refreshCache();
 });
@@ -374,17 +343,9 @@ it('can flush cached data', function () {
         'wikipedia' => 'Piotr_Fronczewski',
     ]);
 
-    Discogs::shouldReceive('forget')
-        ->with(602473)
-        ->andReturn(true);
-
-    FilmPolski::shouldReceive('forget')
-        ->with(112891)
-        ->andReturn(true);
-
-    Wikipedia::shouldReceive('forget')
-        ->with('Piotr_Fronczewski')
-        ->andReturn(true);
+    mock(Discogs::class)->shouldReceive('forget')->with(602473)->andReturn(true);
+    mock(FilmPolski::class)->shouldReceive('forget')->with(112891)->andReturn(true);
+    mock(Wikipedia::class)->shouldReceive('forget')->with('Piotr_Fronczewski')->andReturn(true);
 
     expect($artist->flushCache())->toBeTrue();
 });
@@ -392,8 +353,7 @@ it('can flush cached data', function () {
 test('findBySlug method works', function () {
     expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
 
-    $artist = Artist::factory()
-        ->create(['name' => 'Jan Matyjaszkiewicz']);
+    $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
 
     expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
 
@@ -401,8 +361,7 @@ test('findBySlug method works', function () {
 });
 
 test('findBySlugOrNew method works', function () {
-    $artist = Artist::factory()
-        ->create(['name' => 'Jan Matyjaszkiewicz']);
+    $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
 
     expect(Artist::count())->toBe(1);
 
