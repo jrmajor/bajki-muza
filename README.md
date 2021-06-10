@@ -17,9 +17,7 @@ Clone this repository and install it like you normally install Laravel applicati
 This application uses Pest for testing and PHPStan for static analysis.
 
 ```sh
-# Tests
-vendor/bin/pest
-
-# Static analysis
-vendor/bin/phpstan analyse
+vendor/bin/pest              # Tests
+vendor/bin/phpstan analyse   # Static analysis
+vendor/bin/php-cs-fixer fix  # Formatting
 ```
