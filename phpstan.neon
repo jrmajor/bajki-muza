@@ -1,5 +1,5 @@
 parameters:
-    level: 2
+    level: 3
     paths:
         - app
         - config
@@ -9,8 +9,8 @@ parameters:
         - app/Providers/MacrosServiceProvider.php
     ignoreErrors:
         - '#^Call to an undefined method Faker\\Generator::userName\(\)\.$#'
-        - '#^Call to an undefined method Spatie\\Image\\Manipulations::save\(\).$#'
-        - '#^Call to an undefined method Spatie\\Image\\Manipulations::when\(\).$#'
+        - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\).$#'
 
 includes:
+    - phpstan-baseline.neon
     - vendor/nunomaduro/larastan/extension.neon
