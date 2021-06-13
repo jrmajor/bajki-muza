@@ -74,7 +74,7 @@ trait ProcessesImages
         int $targetSize,
         string $fit,
     ): string {
-        $responsiveImageName = $this->appendToFileName($baseImagePath, $targetSize);
+        $responsiveImageName = $this->appendToFileName($baseImagePath, (string) $targetSize);
 
         $responsiveImagePath = $this->temporaryDirectory->path($responsiveImageName);
 
