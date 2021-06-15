@@ -58,21 +58,28 @@
       </div>
 
       <footer class="px-3 my-8 text-sm text-center text-gray-500 dark:text-gray-600">
-        {{-- &copy; --}} 2019<a href="{{ route('login') }}" class="cursor-text">-</a>{{ now()->year }} {{-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> --}}
+        <div>
+          {{-- &copy; --}} 2019<a href="{{ route('login') }}" class="cursor-text">-</a>{{ now()->year }} {{-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> --}}
+        </div>
         @auth
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
-            @csrf
-          </form>
-          <br>
-          <a href="{{ route('tales.create') }}"
-            class="mr-1.5 text-xs uppercase tracking-wide">
-            Dodaj bajkę
-          </a>
-          <a href="{{ route('logout') }}"
-            class="ml-1.5 text-xs uppercase tracking-wide"
-            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-            Wyloguj
-          </a>
+          <div x-data>
+            <form x-ref="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none">
+              @csrf
+            </form>
+            <a
+              href="{{ route('tales.create') }}"
+              class="mr-1.5 text-xs uppercase tracking-wide"
+            >
+              Dodaj bajkę
+            </a>
+            <a
+              href="{{ route('logout') }}"
+              class="ml-1.5 text-xs uppercase tracking-wide"
+              x-on:click.prevent="$refs.logoutForm.submit()"
+            >
+              Wyloguj
+            </a>
+          </div>
         @endauth
       </footer>
     </div>
