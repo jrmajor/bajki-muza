@@ -10,18 +10,8 @@ export default function (data) {
     grayscale: data.photo.grayscale,
 
     crop: {
-      face: {
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-      },
-      image: {
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-      },
+      face: { x: 0, y: 0, width: 0, height: 0 },
+      image: { x: 0, y: 0, width: 0, height: 0 },
     },
 
     pickers: {
@@ -32,15 +22,9 @@ export default function (data) {
         grayscale: data.photo.grayscale,
       },
 
-      upload: {
-        uri: '',
-        file: '',
-      },
+      upload: { uri: '', file: '' },
 
-      uri: {
-        uri: '',
-        source: '',
-      },
+      uri: { uri: '', source: '' },
     },
 
     init() {
