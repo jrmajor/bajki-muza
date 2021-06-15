@@ -19,23 +19,24 @@ window.artistPickerData = function () {
       this.name = this.$el.parentElement.getAttribute('data-picker-name')
     },
 
-    findArtists(event) {
+    findArtists() {
       if (this.value.length < 2) {
         this.artists = []
-      } else {
-        this.isOpen = true
-
-        fetch(
-          route('ajax.artists', {
-            search: this.value,
-          }),
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            this.artists = data
-            if (this.hovered > this.artists.length - 1) this.hovered = null
-          })
+        return
       }
+
+      this.isOpen = true
+
+      fetch(
+        route('ajax.artists', {
+          search: this.value,
+        }),
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          this.artists = data
+          if (this.hovered > this.artists.length - 1) this.hovered = null
+        })
     },
 
     arrow(direction) {

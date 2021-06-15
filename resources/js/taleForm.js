@@ -29,16 +29,16 @@ window.taleFormData = function (data) {
         if (value !== '') this.cover.remove = false
       })
 
-      this.$watch('credits', (value) => {
+      this.$watch('credits', () => {
         this.$nextTick(() => $dispatch('artists-indexes-updated'))
       })
 
-      this.$watch('actors', (value) => {
+      this.$watch('actors', () => {
         this.$nextTick(() => $dispatch('artists-indexes-updated'))
       })
     },
 
-    updatedDiscogs(event) {
+    updatedDiscogs() {
       const id = this.discogs.match(/discogs\.com\/(?:.*\/)?release\/([0-9]+)/)
 
       if (id === null) return
