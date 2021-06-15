@@ -171,7 +171,7 @@
           <label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
             <div class="flex-none w-10 h-10 bg-placeholder-artist">
               <template x-if="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null">
-                <img :src="photo.pickers[photo.picker].uri" class="object-cover w-10 h-10">
+                <img :src="photo.pickers[photo.picker] && photo.pickers[photo.picker].uri" class="object-cover w-10 h-10">
               </template>
             </div>
             <span class="py-2 px-3">
@@ -225,7 +225,7 @@
       <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
         class="flex gap-5 justify-center items-center">
         <div class="flex justify-end max-w-1/2">
-          <img id="artist-face-photo-croppr">
+          <img id="artist-face-photo-cropper">
         </div>
         <table>
           <tr>
@@ -255,7 +255,7 @@
       <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
         class="flex gap-5 justify-center items-center">
         <div class="flex justify-end max-w-1/2">
-          <img id="artist-photo-croppr">
+          <img id="artist-photo-cropper">
         </div>
         <table>
           <tr>

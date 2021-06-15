@@ -1,5 +1,5 @@
 import prettyBytes from 'pretty-bytes'
-import Croppr from 'croppr'
+import Cropper from './cropper'
 
 export default function (data) {
   return {
@@ -28,7 +28,7 @@ export default function (data) {
     },
 
     init() {
-      if (this.pickers.current.uri !== null) this.updateCroppr()
+      if (this.pickers.current.uri !== null) this.updateCropper()
     },
 
     removePhoto() {
@@ -41,7 +41,7 @@ export default function (data) {
       this.source = this.pickers.current.source
       this.grayscale = this.pickers.current.grayscale
 
-      this.updateCroppr()
+      this.updateCropper()
     },
 
     fileSelected(files, value) {
@@ -54,7 +54,7 @@ export default function (data) {
 
       this.grayscale = true
 
-      this.updateCroppr()
+      this.updateCropper()
     },
 
     setPhotoUri(uri, source) {
@@ -69,7 +69,7 @@ export default function (data) {
       this.pickers.uri.source = this.source = source
       this.grayscale = true
 
-      this.updateCroppr()
+      this.updateCropper()
     },
 
     labelText(files) {
@@ -90,108 +90,62 @@ export default function (data) {
       return prettyBytes(files[0].size)
     },
 
-    initCroppr(src, startSize, onFaceInitialize, onInitialize) {
-      if (typeof window.artistFacePhotoCroppr !== 'undefined') {
-        window.artistFacePhotoCroppr.destroy()
+    initCropper(src, onFaceInitialize, onInitialize) {
+      if (typeof this.artistFacePhotoCropper !== 'undefined') {
+        this.artistFacePhotoCropper.destroy()
       }
 
-      if (typeof window.artistPhotoCroppr !== 'undefined') {
-        window.artistPhotoCroppr.destroy()
+      if (typeof this.artistPhotoCropper !== 'undefined') {
+        this.artistPhotoCropper.destroy()
       }
 
-      const el1 = document.getElementById('artist-face-photo-croppr')
-      const el2 = document.getElementById('artist-photo-croppr')
+      const faceCropperEl = document.getElementById('artist-face-photo-cropper')
+      const imageCropperEl = document.getElementById('artist-photo-cropper')
 
-      el1.setAttribute('src', src)
-      el2.setAttribute('src', src)
+      faceCropperEl.setAttribute('src', src)
+      imageCropperEl.setAttribute('src', src)
 
-      const onFaceCropEnd = (crop) => (this.crop.face = crop)
-      const onCropEnd = (crop) => (this.crop.image = crop)
-
-      window.artistFacePhotoCroppr = new Croppr(el1, {
+      this.artistFacePhotoCropper = new Cropper(faceCropperEl, {
         aspectRatio: 1,
         minSize: [50, 50, 'px'],
-        startSize,
+        startSize: [100, 100, '%'],
         onInitialize: onFaceInitialize,
-        onCropEnd: onFaceCropEnd,
+        onCropEnd: (crop) => (this.crop.face = crop),
       })
 
-      window.artistPhotoCroppr = new Croppr(el2, {
+      this.artistPhotoCropper = new Cropper(imageCropperEl, {
         minSize: [50, 50, 'px'],
-        startSize,
+        startSize: [100, 100, '%'],
         onInitialize,
-        onCropEnd,
+        onCropEnd: (crop) => (this.crop.image = crop),
       })
     },
 
-    updateCroppr() {
+    updateCropper() {
       const uri = this.pickers[this.picker].uri
 
       if (uri === null) return
 
-      let onFaceInitialize, onInitialize
+      const crop = this.pickers.current.crop
 
-      if (this.picker === 'current') {
-        onFaceInitialize = (instance) => {
-          const el = instance.imageEl
+      const onFaceInitialize = this.picker === 'current'
+        ? (instance) => instance
+          .resizeToScaled(crop.face.size, crop.face.size)
+          .moveToScaled(crop.face.x, crop.face.y)
+        : (instance) => instance
 
-          const actualWidth = el.naturalWidth
-          const actualHeight = el.naturalHeight
+      const onInitialize = this.picker === 'current'
+        ? (instance) => instance
+          .resizeToScaled(crop.image.width, crop.image.height)
+          .moveToScaled(crop.image.x, crop.image.y)
+        : (instance) => instance
 
-          const { width: elementWidth, height: elementHeight } = el.getBoundingClientRect()
-
-          const factorX = actualWidth / elementWidth
-          const factorY = actualHeight / elementHeight
-
-          const actualCrop = {
-            x: Math.round(this.pickers.current.crop.face.x / factorX),
-            y: Math.round(this.pickers.current.crop.face.y / factorY),
-            width: Math.round(this.pickers.current.crop.face.size / factorX),
-            height: Math.round(this.pickers.current.crop.face.size / factorY),
-          }
-
-          instance
-            .resizeTo(actualCrop.width, actualCrop.height)
-            .moveTo(actualCrop.x, actualCrop.y)
-
-          this.updateCrop()
-        }
-
-        onInitialize = (instance) => {
-          const el = instance.imageEl
-
-          const actualWidth = el.naturalWidth
-          const actualHeight = el.naturalHeight
-
-          const { width: elementWidth, height: elementHeight } = el.getBoundingClientRect()
-
-          const factorX = actualWidth / elementWidth
-          const factorY = actualHeight / elementHeight
-
-          const actualCrop = {
-            x: Math.round(this.pickers.current.crop.image.x / factorX),
-            y: Math.round(this.pickers.current.crop.image.y / factorY),
-            width: Math.round(this.pickers.current.crop.image.width / factorX),
-            height: Math.round(this.pickers.current.crop.image.height / factorY),
-          }
-
-          instance
-            .resizeTo(actualCrop.width, actualCrop.height)
-            .moveTo(actualCrop.x, actualCrop.y)
-
-          this.updateCrop()
-        }
-      } else {
-        onFaceInitialize = (instance) => instance
-        onInitialize = (instance) => instance
-      }
-
-      this.initCroppr(uri, [100, 100, '%'], onFaceInitialize, onInitialize)
+      this.initCropper(uri, onFaceInitialize, onInitialize)
     },
 
     updateCrop() {
-      this.crop.face = window.artistFacePhotoCroppr.getValue()
-      this.crop.image = window.artistPhotoCroppr.getValue()
+      this.crop.face = this.artistFacePhotoCropper.getValue()
+      this.crop.image = this.artistPhotoCropper.getValue()
     },
   }
 }
