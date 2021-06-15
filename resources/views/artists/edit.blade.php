@@ -33,7 +33,7 @@
     method="post" action="{{ route('artists.update', $artist) }}"
     enctype="multipart/form-data"
     class="flex flex-col gap-5"
-    x-data="artistFormData(@encodedjson($data))" x-init="init">
+    x-data="artistFormData(@encodedjson($data))">
     @method('put')
     @csrf
 

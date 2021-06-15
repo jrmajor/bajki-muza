@@ -1,5 +1,5 @@
 <div class="relative w-full"
-  x-data="artistPickerData()" x-init="init"
+  x-data="artistPickerData()"
   x-on:artists-indexes-updated.window="updateIndexes">
   <input
     type="text" class="w-full form-input" autocomplete="off"
