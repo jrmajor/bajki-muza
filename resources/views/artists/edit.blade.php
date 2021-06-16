@@ -165,23 +165,22 @@
 
       <div class="flex flex-col">
         <span for="photo" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Zdjęcie</span>
-        <input type="hidden" name="remove_photo" :value="photo.picker === 'remove' ? 1 : 0">
-        <input type="hidden" name="photo_uri" :value="photo.picker === 'uri' ? photo.pickers.uri.uri : ''">
+        <input type="hidden" name="remove_photo" :value="photo.activePicker === 'remove' ? 1 : 0">
+        <input type="hidden" name="photo_uri" :value="photo.activePicker === 'uri' ? photo.uri : ''">
         <div class="flex gap-5">
           <label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
             <div class="flex-none w-10 h-10 bg-placeholder-artist">
-              <template x-if="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null">
-                <img :src="photo.pickers[photo.picker] && photo.pickers[photo.picker].uri" class="object-cover w-10 h-10">
+              <template x-if="photo.uri !== null">
+                <img :src="photo.uri" class="object-cover w-10 h-10">
               </template>
             </div>
             <span class="py-2 px-3">
-              <span x-text="photo.labelText($refs.photo.files)">Wybierz plik</span>
-              <small x-text="photo.size($refs.photo.files)" class="pl-1 text-xs font-medium"></small>
+              <span x-text="photo.labelText()">Wybierz plik</span>
+              <small x-text="photo.size()" class="pl-1 text-xs font-medium"></small>
             </span>
-            <input type="file" name="photo" class="hidden"
-              x-ref="photo" x-model="photo.pickers.upload.file">
+            <input type="file" name="photo" class="hidden" x-on:change="photo.fileSelected($el.files)">
           </label>
-          <template x-if="photo.picker !== 'remove'">
+          <template x-if="photo.activePicker !== 'remove'">
             <button type="button" x-on:click="photo.removePhoto()"
                 class="flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
                 hover:bg-red-100 hover:text-red-700
@@ -192,7 +191,7 @@
               Usuń
             </button>
           </template>
-          <template x-if="photo.picker === 'remove'">
+          <template x-if="photo.activePicker === 'remove'">
             <button type="button" x-on:click="photo.resetPickerToCurrent()"
                 class="flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
                 hover:bg-red-500 hover:border-red-500 hover:text-white
@@ -222,8 +221,10 @@
         </div>
       </div>
 
-      <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
-        class="flex gap-5 justify-center items-center">
+      <div
+        x-show="photo.activePicker !== 'remove' && photo.uri !== null"
+        class="flex gap-5 justify-center items-center"
+      >
         <div class="flex justify-end max-w-1/2">
           <img id="artist-face-photo-cropper">
         </div>
@@ -252,8 +253,10 @@
         </table>
       </div>
 
-      <div x-show="photo.picker !== 'remove' && photo.pickers[photo.picker].uri !== null"
-        class="flex gap-5 justify-center items-center">
+      <div
+        x-show="photo.activePicker !== 'remove' && photo.uri !== null"
+        class="flex gap-5 justify-center items-center"
+      >
         <div class="flex justify-end max-w-1/2">
           <img id="artist-photo-cropper">
         </div>
@@ -285,22 +288,25 @@
 
     </div>
 
-    <button type="submit"
-      class="self-center py-2 px-4 text-sm font-medium bg-white rounded-full shadow-md dark:bg-gray-800">
+    <button type="submit" class="self-center py-2 px-4 text-sm font-medium bg-white rounded-full shadow-md dark:bg-gray-800">
       Zapisz
     </button>
 
     <div class="flex flex-col gap-3 items-center">
 
       <div class="flex flex-col gap-2 items-center py-3 sm:flex-row sm:gap-5">
-        <a href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
-          class="text-sm font-medium">
+        <a
+          href="https://www.google.com/search?q={{ urlencode($artist->name) }}&tbm=isch" target="_blank"
+          class="text-sm font-medium"
+        >
           <span class="shadow-link">Google</span> →
         </a>
-        <a href="http://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?key={{
+        <a
+          href="http://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?key={{
               urlencode(Str::afterLast($artist->name, ' ').' '.Str::beforeLast($artist->name, ' '))
             }}&search_type_in=osoba&filter[charakter][]=portret" target="_blank"
-          class="text-sm font-medium">
+          class="text-sm font-medium"
+        >
           <span class="shadow-link">Fototeka</span> →
         </a>
       </div>
@@ -308,22 +314,31 @@
       <div class="flex flex-wrap justify-around w-full">
         @foreach ($artist->discogsPhotos() as $photo)
           @php $ref = 'discogs_'.$loop->iteration @endphp
-          <button class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
-            type="button" x-on:click="photo.setPhotoUri('{{ $photo->uri }}', 'discogs')">
-            <img class="h-40" src="{{ $photo->uri }}" x-ref="{{ $ref }}"
-              x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
-            <div class="absolute top-0 right-0 pl-8 pb-2
+          <button
+            class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
+            type="button" x-on:click="photo.setPhotoUri('{{ $photo->uri }}', 'discogs')"
+          >
+            <img
+              class="h-40" src="{{ $photo->uri }}" x-ref="{{ $ref }}"
+              x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight"
+            >
+            <div
+              class="absolute top-0 right-0 pl-8 pb-2
               opacity-0 group-hover:opacity-100 transition-all duration-300"
-              style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);">
-              <span class="px-2 text-white text-2xs"
+              style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);"
+            >
+              <span
+                class="px-2 text-white text-2xs"
                 x-text="$refs.{{ $ref }}.complete
                       ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
                       : dimensions.{{ $ref }}">
               </span>
             </div>
-            <div class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
+            <div
+              class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
               transition-all duration-300"
-              :class="{ 'inset-shadow-hard opacity-100': photo.picker === 'uri' && photo.pickers.uri.uri === '{{ $photo->uri }}' }">
+              :class="{ 'inset-shadow-hard opacity-100': photo.activePicker === 'uri' && photo.uri === '{{ $photo->uri }}' }"
+            >
             </div>
           </button>
         @endforeach
@@ -333,13 +348,16 @@
         @foreach ($artist->filmPolskiPhotos() as $title => $movie)
           @foreach ($movie['photos'] as $photo)
             @php $ref = 'filmpolski_'.$loop->parent->iteration.'_'.$loop->iteration @endphp
-            <button class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
-              type="button" x-on:click="photo.setPhotoUri('https://filmpolski.pl{{ $photo }}', 'filmpolski')">
-              <img class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
-                x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight">
+            <button
+              class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
+              type="button" x-on:click="photo.setPhotoUri('https://filmpolski.pl{{ $photo }}', 'filmpolski')"
+            >
+              <img
+                class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
+                x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight"
+              >
               @if ($title !== 'main' && $title !== '')
-                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent
-                  opacity-0 group-hover:opacity-75 transition-all duration-300"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-75 transition-all duration-300"></div>
               @endif
               <div class="absolute bottom-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div class="flex flex-col p-2 text-white">
@@ -347,18 +365,23 @@
                   <span class="text-sm font-medium leading-tight">{{ $title !== 'main' ? Str::title($title) : '' }}</span>
                 </div>
               </div>
-              <div class="absolute top-0 right-0 pl-8 pb-2
+              <div
+                class="absolute top-0 right-0 pl-8 pb-2
                 opacity-0 group-hover:opacity-100 transition-all duration-300"
-                style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0,0,0,.4), transparent);">
-                <span class="px-2 text-white text-2xs"
+                style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0,0,0,.4), transparent);"
+              >
+                <span
+                  class="px-2 text-white text-2xs"
                   x-text="$refs.{{ $ref }}.complete
                         ? $refs.{{ $ref }}.naturalWidth + '×' + $refs.{{ $ref }}.naturalHeight
                         : dimensions.{{ $ref }}">
                 </span>
               </div>
-              <div class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
+              <div
+                class="absolute inset-0 rounded-lg group-focus:inset-shadow-light
                 transition-all duration-300"
-                :class="{ 'inset-shadow-hard opacity-100': photo.picker === 'uri' && photo.pickers.uri.uri === 'https://filmpolski.pl{{ $photo }}' }">
+                :class="{ 'inset-shadow-hard opacity-100': photo.activePicker === 'uri' && photo.uri === 'https://filmpolski.pl{{ $photo }}' }"
+              >
               </div>
             </button>
           @endforeach

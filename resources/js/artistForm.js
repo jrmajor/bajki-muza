@@ -3,8 +3,6 @@ import artistPhotoPicker from './artistPhotoPicker'
 
 window.artistFormData = function (data) {
   return {
-    photo: artistPhotoPicker(data),
-
     discogs: {
       value: data.discogs,
       hovered: null,
@@ -32,11 +30,7 @@ window.artistFormData = function (data) {
     dimensions: {},
 
     init() {
-      this.$watch('photo.pickers.upload.file', (value) =>
-        this.photo.fileSelected(this.$refs.photo.files, value),
-      )
-
-      this.photo.init()
+      this.photo = artistPhotoPicker(data.photo).init()
     },
 
     findPeople(type) {

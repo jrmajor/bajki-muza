@@ -3,101 +3,122 @@ import Cropper from './cropper'
 
 export default function (data) {
   return {
-    picker: 'current',
+    activePicker: 'current',
 
-    source: data.photo.source,
-
-    grayscale: data.photo.grayscale,
-
+    uri: null,
+    source: null,
     crop: {
       face: { x: 0, y: 0, width: 0, height: 0 },
       image: { x: 0, y: 0, width: 0, height: 0 },
     },
+    grayscale: null,
 
-    pickers: {
-      current: {
-        uri: data.photo.uri,
-        source: data.photo.source,
-        crop: data.photo.crop,
-        grayscale: data.photo.grayscale,
-      },
+    uriFrom: null,
+    file: null,
 
-      upload: { uri: '', file: '' },
-
-      uri: { uri: '', source: '' },
+    original: {
+      uri: data.uri,
+      source: data.source,
+      crop: data.crop,
+      grayscale: data.grayscale,
     },
+
+    croppers: { face: null, image: null },
 
     init() {
-      if (this.pickers.current.uri !== null) this.updateCropper()
+      if (this.original.uri !== null) {
+        this.resetPickerToCurrent()
+      }
+
+      return this
     },
 
-    removePhoto() {
-      this.picker = 'remove'
-      this.source = ''
+    setPicker(picker) {
+      this.uri = this.uriFrom = this.file = null
+      this.crop = {
+        face: { x: 0, y: 0, width: 0, height: 0 },
+        image: { x: 0, y: 0, width: 0, height: 0 },
+      }
+      this.grayscale = true
+
+      this.activePicker = picker
     },
 
     resetPickerToCurrent() {
-      this.picker = 'current'
-      this.source = this.pickers.current.source
-      this.grayscale = this.pickers.current.grayscale
+      this.setPicker('current')
 
-      this.updateCropper()
+      this.uri = this.original.uri
+      this.source = this.original.source
+      this.grayscale = this.original.grayscale
+
+      this.crop = {
+        face: {
+          x: this.original.crop.face.x,
+          y: this.original.crop.face.y,
+          width: this.original.crop.face.size,
+          height: this.original.crop.face.size,
+        },
+        image: {
+          x: this.original.crop.image.x,
+          y: this.original.crop.image.y,
+          width: this.original.crop.image.width,
+          height: this.original.crop.image.height,
+        },
+      }
+
+      this.updateCropper(true)
     },
 
-    fileSelected(files, value) {
-      if (value === '') return this.resetPickerToCurrent()
+    removePhoto() {
+      this.setPicker('remove')
 
-      this.pickers.uri.uri = ''
+      this.source = null
+    },
 
-      this.picker = 'upload'
-      this.pickers.upload.uri = URL.createObjectURL(files[0])
+    fileSelected(files) {
+      if (files.length === 0) {
+        return this.resetPickerToCurrent()
+      }
 
-      this.grayscale = true
+      this.setPicker('upload')
+      this.file = files[0]
+      this.uri = URL.createObjectURL(this.file)
 
       this.updateCropper()
     },
 
     setPhotoUri(uri, source) {
-      if (this.picker === 'uri' && this.pickers.uri.uri === uri) {
+      if (this.activePicker === 'uri' && this.uri === uri) {
         return this.resetPickerToCurrent()
       }
 
-      this.pickers.upload.file = ''
-
-      this.picker = 'uri'
-      this.pickers.uri.uri = uri
-      this.pickers.uri.source = this.source = source
-      this.grayscale = true
+      this.setPicker('uri')
+      this.uriFrom = this.source = source
+      this.uri = uri
 
       this.updateCropper()
     },
 
-    labelText(files) {
-      if (this.picker === 'upload') return files[0].name
+    labelText() {
+      if (this.activePicker === 'upload') return this.file.name
 
-      if (this.picker === 'uri') {
-        if (this.pickers.uri.source === 'discogs') return 'Wybrano z Discogsa'
-        if (this.pickers.uri.source === 'filmpolski') return 'Wybrano z FilmuPolskiego'
+      if (this.activePicker === 'uri') {
+        if (this.uriFrom === 'discogs') return 'Wybrano z Discogsa'
+        if (this.uriFrom === 'filmpolski') return 'Wybrano z FilmuPolskiego'
       }
 
       return 'Wybierz plik'
     },
 
-    size(files) {
-      if (this.picker !== 'upload') return
-      if (this.pickers.upload.file === '') return
+    size() {
+      if (this.activePicker !== 'upload') return
 
-      return prettyBytes(files[0].size)
+      return prettyBytes(this.file.size)
     },
 
     initCropper(src, onFaceInitialize, onInitialize) {
-      if (typeof this.artistFacePhotoCropper !== 'undefined') {
-        this.artistFacePhotoCropper.destroy()
-      }
-
-      if (typeof this.artistPhotoCropper !== 'undefined') {
-        this.artistPhotoCropper.destroy()
-      }
+      if (this.croppers.face !== null) this.croppers.face.destroy()
+      if (this.croppers.image !== null) this.croppers.image.destroy()
 
       const faceCropperEl = document.getElementById('artist-face-photo-cropper')
       const imageCropperEl = document.getElementById('artist-photo-cropper')
@@ -105,47 +126,40 @@ export default function (data) {
       faceCropperEl.setAttribute('src', src)
       imageCropperEl.setAttribute('src', src)
 
-      this.artistFacePhotoCropper = new Cropper(faceCropperEl, {
+      this.croppers.face = new Cropper(faceCropperEl, {
         aspectRatio: 1,
         minSize: [50, 50, 'px'],
         startSize: [100, 100, '%'],
         onInitialize: onFaceInitialize,
+        onCropMove: (crop) => (this.crop.face = crop),
         onCropEnd: (crop) => (this.crop.face = crop),
       })
 
-      this.artistPhotoCropper = new Cropper(imageCropperEl, {
+      this.croppers.image = new Cropper(imageCropperEl, {
         minSize: [50, 50, 'px'],
         startSize: [100, 100, '%'],
         onInitialize,
+        onCropMove: (crop) => (this.crop.image = crop),
         onCropEnd: (crop) => (this.crop.image = crop),
       })
     },
 
-    updateCropper() {
-      const uri = this.pickers[this.picker].uri
+    updateCropper(resetCropToOriginal = false) {
+      if (this.uri === null) return
 
-      if (uri === null) return
-
-      const crop = this.pickers.current.crop
-
-      const onFaceInitialize = this.picker === 'current'
+      const onFaceInitialize = resetCropToOriginal
         ? (instance) => instance
-          .resizeToScaled(crop.face.size, crop.face.size)
-          .moveToScaled(crop.face.x, crop.face.y)
+          .resizeToScaled(this.original.crop.face.size, this.original.crop.face.size)
+          .moveToScaled(this.original.crop.face.x, this.original.crop.face.y)
         : (instance) => instance
 
-      const onInitialize = this.picker === 'current'
+      const onInitialize = resetCropToOriginal
         ? (instance) => instance
-          .resizeToScaled(crop.image.width, crop.image.height)
-          .moveToScaled(crop.image.x, crop.image.y)
+          .resizeToScaled(this.original.crop.image.width, this.original.crop.image.height)
+          .moveToScaled(this.original.crop.image.x, this.original.crop.image.y)
         : (instance) => instance
 
-      this.initCropper(uri, onFaceInitialize, onInitialize)
-    },
-
-    updateCrop() {
-      this.crop.face = this.artistFacePhotoCropper.getValue()
-      this.crop.image = this.artistPhotoCropper.getValue()
+      this.initCropper(this.uri, onFaceInitialize, onInitialize)
     },
   }
 }
