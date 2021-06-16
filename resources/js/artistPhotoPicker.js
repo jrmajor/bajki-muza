@@ -37,10 +37,6 @@ export default function (data, artistForm) {
 
     setPicker(picker) {
       this.uri = this.uriFrom = this.file = null
-      this.crop = {
-        face: { x: 0, y: 0, width: 0, height: 0 },
-        image: { x: 0, y: 0, width: 0, height: 0 },
-      }
       this.grayscale = true
 
       this.activePicker = picker
@@ -119,22 +115,17 @@ export default function (data, artistForm) {
     },
 
     initCropper(src, onFaceInitialize, onInitialize) {
-      this.croppers.face = null
-      this.croppers.image = null
+      const containers = {
+        face: this.artistForm.$refs.faceCropper,
+        image: this.artistForm.$refs.imageCropper,
+      }
 
-      const faceCropperContainer = this.artistForm.$refs.faceCropper
-      const imageCropperContainer = this.artistForm.$refs.imageCropper
+      const elements = {
+        face: document.createElement('img'),
+        image: document.createElement('img'),
+      }
 
-      faceCropperContainer.innerHTML = ''
-      imageCropperContainer.innerHTML = ''
-
-      const faceCropperEl = document.createElement('img')
-      const imageCropperEl = document.createElement('img')
-
-      faceCropperEl.setAttribute('src', src)
-      imageCropperEl.setAttribute('src', src)
-
-      faceCropperEl.onload = (event) => {
+      elements.face.onload = (event) => {
         this.croppers.face = new Cropper(event.target, {
           aspectRatio: 1,
           minSize: [50, 50, 'px'],
@@ -144,7 +135,8 @@ export default function (data, artistForm) {
           onCropEnd: (crop) => (this.crop.face = crop),
         })
       }
-      imageCropperEl.onload = (event) => {
+
+      elements.image.onload = (event) => {
         this.croppers.image = new Cropper(event.target, {
           minSize: [50, 50, 'px'],
           startSize: [100, 100, '%'],
@@ -154,8 +146,11 @@ export default function (data, artistForm) {
         })
       }
 
-      faceCropperContainer.appendChild(faceCropperEl)
-      imageCropperContainer.appendChild(imageCropperEl)
+      ['face', 'image'].forEach((cropper) => {
+        containers[cropper].innerHTML = ''
+        elements[cropper].setAttribute('src', src)
+        containers[cropper].appendChild(elements[cropper])
+      })
     },
 
     updateCropper(resetCropToOriginal = false) {
