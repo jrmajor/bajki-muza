@@ -30,7 +30,7 @@ window.artistFormData = function (data) {
     dimensions: {},
 
     init() {
-      this.photo = artistPhotoPicker(data.photo).init()
+      this.photo = artistPhotoPicker(data.photo, this).init()
     },
 
     findPeople(type) {

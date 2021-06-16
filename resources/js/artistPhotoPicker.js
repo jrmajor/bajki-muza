@@ -1,8 +1,10 @@
 import prettyBytes from 'pretty-bytes'
 import Cropper from './cropper'
 
-export default function (data) {
+export default function (data, artistForm) {
   return {
+    artistForm,
+
     activePicker: 'current',
 
     uri: null,
@@ -117,31 +119,43 @@ export default function (data) {
     },
 
     initCropper(src, onFaceInitialize, onInitialize) {
-      if (this.croppers.face !== null) this.croppers.face.destroy()
-      if (this.croppers.image !== null) this.croppers.image.destroy()
+      this.croppers.face = null
+      this.croppers.image = null
 
-      const faceCropperEl = document.getElementById('artist-face-photo-cropper')
-      const imageCropperEl = document.getElementById('artist-photo-cropper')
+      const faceCropperContainer = this.artistForm.$refs.faceCropper
+      const imageCropperContainer = this.artistForm.$refs.imageCropper
+
+      faceCropperContainer.innerHTML = ''
+      imageCropperContainer.innerHTML = ''
+
+      const faceCropperEl = document.createElement('img')
+      const imageCropperEl = document.createElement('img')
 
       faceCropperEl.setAttribute('src', src)
       imageCropperEl.setAttribute('src', src)
 
-      this.croppers.face = new Cropper(faceCropperEl, {
-        aspectRatio: 1,
-        minSize: [50, 50, 'px'],
-        startSize: [100, 100, '%'],
-        onInitialize: onFaceInitialize,
-        onCropMove: (crop) => (this.crop.face = crop),
-        onCropEnd: (crop) => (this.crop.face = crop),
-      })
+      faceCropperEl.onload = (event) => {
+        this.croppers.face = new Cropper(event.target, {
+          aspectRatio: 1,
+          minSize: [50, 50, 'px'],
+          startSize: [100, 100, '%'],
+          onInitialize: onFaceInitialize,
+          onCropMove: (crop) => (this.crop.face = crop),
+          onCropEnd: (crop) => (this.crop.face = crop),
+        })
+      }
+      imageCropperEl.onload = (event) => {
+        this.croppers.image = new Cropper(event.target, {
+          minSize: [50, 50, 'px'],
+          startSize: [100, 100, '%'],
+          onInitialize,
+          onCropMove: (crop) => (this.crop.image = crop),
+          onCropEnd: (crop) => (this.crop.image = crop),
+        })
+      }
 
-      this.croppers.image = new Cropper(imageCropperEl, {
-        minSize: [50, 50, 'px'],
-        startSize: [100, 100, '%'],
-        onInitialize,
-        onCropMove: (crop) => (this.crop.image = crop),
-        onCropEnd: (crop) => (this.crop.image = crop),
-      })
+      faceCropperContainer.appendChild(faceCropperEl)
+      imageCropperContainer.appendChild(imageCropperEl)
     },
 
     updateCropper(resetCropToOriginal = false) {

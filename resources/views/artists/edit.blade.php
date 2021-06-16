@@ -225,9 +225,7 @@
         x-show="photo.activePicker !== 'remove' && photo.uri !== null"
         class="flex gap-5 justify-center items-center"
       >
-        <div class="flex justify-end max-w-1/2">
-          <img id="artist-face-photo-cropper">
-        </div>
+        <div x-ref="faceCropper" class="flex justify-end max-w-1/2"></div>
         <table>
           <tr>
             <td class="px-1 text-sm font-medium text-right">x:</td>
@@ -257,9 +255,7 @@
         x-show="photo.activePicker !== 'remove' && photo.uri !== null"
         class="flex gap-5 justify-center items-center"
       >
-        <div class="flex justify-end max-w-1/2">
-          <img id="artist-photo-cropper">
-        </div>
+        <div x-ref="imageCropper" class="flex justify-end max-w-1/2"></div>
         <table>
           <tr>
             <td class="px-1 text-sm font-medium text-right">x:</td>
