@@ -165,13 +165,13 @@ export default function (data, artistForm) {
         ? (instance) => instance
           .resizeToScaled(this.original.crop.face.size, this.original.crop.face.size)
           .moveToScaled(this.original.crop.face.x, this.original.crop.face.y)
-        : (instance) => instance
+        : (instance) => this.crop.face = instance.getValue()
 
       const onInitialize = resetCropToOriginal
         ? (instance) => instance
           .resizeToScaled(this.original.crop.image.width, this.original.crop.image.height)
           .moveToScaled(this.original.crop.image.x, this.original.crop.image.y)
-        : (instance) => instance
+        : (instance) => this.crop.image = instance.getValue()
 
       this.initCropper(this.uri, onFaceInitialize, onInitialize)
     },
