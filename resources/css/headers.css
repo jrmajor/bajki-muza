@@ -2,19 +2,19 @@
   .shadow-title,
   .shadow-subtitle,
   .shadow-link {
-    @apply relative;
+    @apply relative after:block after:absolute after:z-[-1];
   }
 
-  .shadow-title::after,
-  .shadow-subtitle::after,
-  .shadow-link::after {
-    @apply block absolute;
-    content: '';
-    z-index: -1;
+  .shadow-title {
+    @apply after:bg-yellow-kox after:dark:bg-yellow-kox-dark;
+  }
+
+  .shadow-subtitle,
+  .shadow-link {
+    @apply after:bg-yellow-ciul after:dark:bg-yellow-ciul-dark;
   }
 
   .shadow-title::after {
-    @apply bg-yellow-kox;
     top: calc(100% - 0.6rem);
     left: -0.375rem;
     width: calc(100% + 0.75rem);
@@ -22,7 +22,6 @@
   }
 
   .shadow-subtitle::after {
-    @apply bg-yellow-ciul;
     top: calc(100% - 0.6rem);
     left: -0.25rem;
     width: calc(100% + 0.5rem);
@@ -30,21 +29,9 @@
   }
 
   .shadow-link::after {
-    @apply bg-yellow-ciul;
     top: calc(100% - 0.35rem);
     left: -0.25rem;
     width: calc(100% + 0.5rem);
     height: 0.3rem;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .shadow-title::after {
-      @apply bg-yellow-kox-dark;
-    }
-
-    .shadow-subtitle::after,
-    .shadow-link::after {
-      @apply bg-yellow-ciul-dark;
-    }
   }
 }
