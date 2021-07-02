@@ -59,14 +59,14 @@ trait ProcessesImages
 
         $tinyImageDataBase64 = base64_encode(file_get_contents($temporaryDestination));
 
-        $tinyImageBase64 = 'data:image/jpeg;base64,'.$tinyImageDataBase64;
+        $tinyImageBase64 = 'data:image/jpeg;base64,' . $tinyImageDataBase64;
 
         $svg = view(
             'components.placeholderSvg',
             compact('originalImageWidth', 'originalImageHeight', 'tinyImageBase64'),
         );
 
-        return 'data:image/svg+xml;base64,'.base64_encode($svg);
+        return 'data:image/svg+xml;base64,' . base64_encode($svg);
     }
 
     public function generateResponsiveImage(

@@ -16,7 +16,7 @@ beforeEach(function () {
 it('GenerateArtistPhotoPlaceholders', function () {
     Storage::fake('testing');
 
-    $filename = Str::random('10').'.jpg';
+    $filename = Str::random('10') . '.jpg';
 
     // Photo by Alberto Bigoni on Unsplash
     $file = fopen(fixture('Images/photo.jpg'), 'r');
@@ -47,7 +47,7 @@ it('GenerateArtistPhotoPlaceholders', function () {
 test('GenerateArtistPhotoVariants job works', function () {
     Storage::fake('testing');
 
-    $filename = Str::random('10').'.jpg';
+    $filename = Str::random('10') . '.jpg';
 
     // Photo by Alberto Bigoni on Unsplash
     $file = fopen(fixture('Images/photo.jpg'), 'r');

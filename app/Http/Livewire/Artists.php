@@ -31,7 +31,7 @@ class Artists extends Component
     {
         $artists = Artist::countAppearances()
             ->unless(blank($this->search), function ($query) {
-                $query->where('name', 'like', '%'.$this->search.'%');
+                $query->where('name', 'like', "%{$this->search}%");
             })
             ->unless(blank($this->min), function ($query) {
                 $query->having('appearances', '>=', (int) $this->min);

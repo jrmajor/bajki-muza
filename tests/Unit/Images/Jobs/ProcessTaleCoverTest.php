@@ -10,7 +10,7 @@ use function Tests\fixture;
 test('GenerateTaleCoverPlaceholder job works', function () {
     Storage::fake('testing');
 
-    $filename = Str::random('10').'.jpg';
+    $filename = Str::random('10') . '.jpg';
 
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/cover.jpg'), 'r');
@@ -32,7 +32,7 @@ test('GenerateTaleCoverPlaceholder job works', function () {
 test('GenerateTaleCoverVariants job works', function () {
     Storage::fake('testing');
 
-    $filename = Str::random('10').'.jpg';
+    $filename = Str::random('10') . '.jpg';
 
     // Photo by David Grandmougin on Unsplash
     $file = fopen(fixture('Images/cover.jpg'), 'r');

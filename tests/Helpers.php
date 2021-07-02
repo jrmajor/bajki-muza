@@ -11,5 +11,5 @@ function asUser(User $user = null, string $driver = null): TestCase
 
 function fixture(string $path = ''): string
 {
-    return __DIR__.'/Fixtures'.($path ? '/'.$path : $path);
+    return __DIR__ . '/Fixtures' . ($path ? '/' . $path : $path);
 }

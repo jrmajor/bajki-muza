@@ -63,7 +63,7 @@ test('users with permissions can create tale', function () {
 
     $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [
         'artist' => $composer->slug,
-        'characters' => 'Zbójca '.($credit_nr + 1),
+        'characters' => 'Zbójca ' . ($credit_nr + 1),
         'credit_nr' => $credit_nr + 1,
     ])->all();
 
