@@ -19,7 +19,7 @@ abstract class TestCase extends BaseTestCase
 
     public function imageProcessor(Closure $callback)
     {
-        return (new class ($this) {
+        return (new class($this) {
             use ProcessesImages;
 
             public function __construct(
