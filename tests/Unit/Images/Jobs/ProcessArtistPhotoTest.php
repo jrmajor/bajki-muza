@@ -13,7 +13,7 @@ beforeEach(function () {
     $this->crop = ArtistPhotoCrop::fake();
 });
 
-it('GenerateArtistPhotoPlaceholders', function () {
+test('GenerateArtistPhotoPlaceholders job works', function () {
     Storage::fake('testing');
 
     $filename = Str::random('10') . '.jpg';
