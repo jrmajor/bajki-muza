@@ -1,6 +1,6 @@
 ## About
 
-This repo contains the source code of https://bajki-muza.pl.
+This repo contains the source code of https://bajki-muza.pl, a knowledge base about audio tales recorded by Polskie Nagrania Muza.
 
 ## Installation
 
