@@ -28,7 +28,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
     public function uniqueId(): string
     {
-        return $this->image->filename;
+        return $this->image->filename();
     }
 
     public function handle()
