@@ -19,6 +19,9 @@ final class Photo extends Image
         'grayscale' => 'bool',
     ];
 
+    /**
+     * @return Collection<int, int>
+     */
     public static function imageSizes(): Collection
     {
         return collect([
@@ -28,6 +31,9 @@ final class Photo extends Image
         ]);
     }
 
+    /**
+     * @return Collection<int, int>
+     */
     public static function faceSizes(): Collection
     {
         return collect([
@@ -37,6 +43,9 @@ final class Photo extends Image
         ]);
     }
 
+    /**
+     * @return Collection<int, int>
+     */
     public static function sizes(): Collection
     {
         return self::imageSizes()

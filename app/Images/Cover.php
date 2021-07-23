@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Bus;
 
 final class Cover extends Image
 {
+    /**
+     * @return Collection<int, int>
+     */
     public static function sizes(): Collection
     {
         return collect([

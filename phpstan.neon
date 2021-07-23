@@ -8,9 +8,13 @@ parameters:
     excludePaths:
         - app/Providers/MacrosServiceProvider.php
     ignoreErrors:
-        - '#^Call to an undefined method Faker\\Generator::userName\(\)\.$#'
-        - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\).$#'
+        - '#^Access to an undefined property .*\|Illuminate\\Database\\Eloquent\\Model::\$id\.$#'
+        - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
+        - '#^Method Database\\Factories\\TaleFactory::configure\(\) should return \$this\(Database\\Factories\\TaleFactory\) but returns static\(Database\\Factories\\TaleFactory\)\.$#'
+        -
+            message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,array\\>\\:\\:map\\(\\) expects callable\\(array, int\\)\\: string, Closure\\(string\\)\\: string given\\.$#"
+            count: 2
+            path: app/Console/Commands/Cleanup*.php
 
 includes:
-    - phpstan-baseline.neon
     - vendor/nunomaduro/larastan/extension.neon

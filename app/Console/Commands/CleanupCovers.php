@@ -15,15 +15,15 @@ class CleanupCovers extends Command
     public function handle(): int
     {
         $result = collect(Cover::disk()->files('covers/original'))
-            ->map(fn ($path) => $this->removeCoverIfItHasNoModel($path))
+            ->map(fn (string $path) => $this->removeCoverIfItHasNoModel($path))
             ->contains(1) ? 1 : 0;
 
         return Cover::sizes()
-            ->map(fn ($size) => Cover::disk()->files("covers/{$size}"))
+            ->map(fn (int $size) => Cover::disk()->files("covers/{$size}"))
             ->flatten()
-            ->map(fn ($path) => Str::afterLast($path, '/'))
+            ->map(fn (string $path) => Str::afterLast($path, '/'))
             ->unique()
-            ->map(fn ($filename) => $this->removeVariantsWithoutOriginal($filename))
+            ->map(fn (string $filename) => $this->removeVariantsWithoutOriginal($filename))
             ->contains(1) ? 1 : $result;
     }
 

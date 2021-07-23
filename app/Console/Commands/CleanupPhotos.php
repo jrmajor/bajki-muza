@@ -19,11 +19,11 @@ class CleanupPhotos extends Command
             ->contains(1) ? 1 : 0;
 
         return Photo::sizes()
-            ->map(fn ($size) => Photo::disk()->files("photos/{$size}"))
+            ->map(fn (int $size) => Photo::disk()->files("photos/{$size}"))
             ->flatten()
-            ->map(fn ($path) => Str::afterLast($path, '/'))
+            ->map(fn (string $path) => Str::afterLast($path, '/'))
             ->unique()
-            ->map(fn ($filename) => $this->removeVariantsWithoutOriginal($filename))
+            ->map(fn (string $filename) => $this->removeVariantsWithoutOriginal($filename))
             ->contains(1) ? 1 : $result;
     }
 
