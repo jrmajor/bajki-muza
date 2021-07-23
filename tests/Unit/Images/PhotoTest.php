@@ -31,8 +31,9 @@ it('casts crop to ArtistPhotoCrop', function () {
         'crop' => ArtistPhotoCrop::fake(),
     ])->refresh();
 
-    expect($photo->crop)->toBeInstanceOf(ArtistPhotoCrop::class)
-        ->and((string) $photo->crop)->toBe((string) ArtistPhotoCrop::fake());
+    expect($photo->crop)
+        ->toBeInstanceOf(ArtistPhotoCrop::class)
+        ->toJson()->toBe(ArtistPhotoCrop::fake()->toJson());
 });
 
 it('stores new photo in correct path and dispatches necessary jobs to process it', function () {
@@ -45,9 +46,10 @@ it('stores new photo in correct path and dispatches necessary jobs to process it
         ['crop' => ArtistPhotoCrop::fake()],
     );
 
-    expect($image)->toBeInstanceOf(Photo::class)
-        ->and($image->filename())->toEndWith('.png')
-        ->and((string) $image->crop())->toBe((string) ArtistPhotoCrop::fake());
+    expect($image)
+        ->toBeInstanceOf(Photo::class)
+        ->filename()->toEndWith('.png')
+        ->crop()->toJson()->toBe(ArtistPhotoCrop::fake()->toJson());
 
     expect(Photo::disk()->files('photos/original'))->toHaveCount(1);
 
@@ -115,14 +117,13 @@ it('can get its tales', function () {
         'crop' => ArtistPhotoCrop::fake(),
     ]);
 
-    $photos = Artist::factory(2)
-        ->photo($photo)
-        ->create();
+    $photos = Artist::factory(2)->photo($photo)->create();
 
     // @todo $photo->refesh();
     $photo = $photo->fresh();
 
-    expect($photo->artists)->toHaveCount(2)
-        ->and($photo->artists[0])->toBeModel($photos[0])
-        ->and($photo->artists[1])->toBeModel($photos[1]);
+    expect($photo->artists)->toHaveCount(2)->sequence(
+        fn ($e) => $e->toBeModel($photos[0]),
+        fn ($e) => $e->toBeModel($photos[1]),
+    );
 });

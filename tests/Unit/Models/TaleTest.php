@@ -62,9 +62,9 @@ it('can get its cover', function () {
 
     $tale = Tale::factory()->cover($cover)->create();
 
-    expect($tale->cover)->toBeInstanceOf(Cover::class)
-        ->and($tale->cover->filename())
-        ->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
+    expect($tale->cover)
+        ->toBeInstanceOf(Cover::class)
+        ->filename()->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
 });
 
 it('can get its actors', function () {
@@ -91,13 +91,11 @@ it('can get its actors', function () {
         ],
     ]);
 
-    expect($tale->actors)
-        ->toHaveCount(3)
-        ->sequence(
-            fn ($e) => $e->toBeModel($artists[1]),
-            fn ($e) => $e->toBeModel($artists[2]),
-            fn ($e) => $e->toBeModel($artists[0]),
-        );
+    expect($tale->actors)->toHaveCount(3)->sequence(
+        fn ($e) => $e->toBeModel($artists[1]),
+        fn ($e) => $e->toBeModel($artists[2]),
+        fn ($e) => $e->toBeModel($artists[0]),
+    );
 });
 
 it('can get credits', function () {

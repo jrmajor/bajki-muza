@@ -18,8 +18,9 @@ it('can store new image', function () {
 
     $image = TestCover::store($uploadedFile);
 
-    expect($image)->toBeInstanceOf(TestCover::class)
-        ->and($image->filename())->toEndWith('.jpg');
+    expect($image)
+        ->toBeInstanceOf(TestCover::class)
+        ->filename()->toEndWith('.jpg');
 
     expect(TestCover::disk()->files('covers/original'))->toHaveCount(1);
 

@@ -85,36 +85,47 @@ test('users with permissions can create tale', function () {
     $directorCredits = $tale->creditsFor(CreditType::directing());
 
     expect($directorCredits)->toHaveCount(1);
-    expect($directorCredits[0]->id)->toBe($director->id)
-        ->and($directorCredits[0]->credit->as)->toBe('Reżysor')
-        ->and($directorCredits[0]->credit->nr)->toBe(0);
+
+    expect($directorCredits[0])
+        ->id->toBe($director->id)
+        ->credit->as->toBe('Reżysor')
+        ->credit->nr->toBe(0);
 
     $lyricistsCredits = $tale->creditsFor(CreditType::text());
 
     expect($lyricistsCredits)->toHaveCount(2);
-    expect($lyricistsCredits[0]->id)->toBe($lyricists[0]->id)
-        ->and($lyricistsCredits[0]->credit->as)->toBeNull()
-        ->and($lyricistsCredits[0]->credit->nr)->toBe(0);
-    expect($lyricistsCredits[1]->id)->toBe($lyricists[1]->id)
-        ->and($lyricistsCredits[1]->credit->as)->toBeNull()
-        ->and($lyricistsCredits[1]->credit->nr)->toBe(1);
+
+    expect($lyricistsCredits[0])
+        ->id->toBe($lyricists[0]->id)
+        ->credit->as->toBeNull()
+        ->credit->nr->toBe(0);
+
+    expect($lyricistsCredits[1])
+        ->id->toBe($lyricists[1]->id)
+        ->credit->as->toBeNull()
+        ->credit->nr->toBe(1);
 
     $composersCredits = $tale->creditsFor(CreditType::music());
 
     expect($composersCredits)->toHaveCount(2);
 
-    expect($composersCredits[0]->id)->toBe($composers[0]->id)
-        ->and($composersCredits[0]->credit->nr)->toBe(0);
-    expect($composersCredits[1]->id)->toBe($composers[1]->id)
-        ->and($composersCredits[1]->credit->nr)->toBe(1);
+    expect($composersCredits[0])
+        ->id->toBe($composers[0]->id)
+        ->credit->nr->toBe(0);
+
+    expect($composersCredits[1])
+        ->id->toBe($composers[1]->id)
+        ->credit->nr->toBe(1);
 
     expect($tale->actors)->toHaveCount(2);
 
-    expect($tale->actors[0]->id)->toBe($actors[0]->id)
-        ->and($tale->actors[0]->credit->characters)->toBe('Zbójca 1')
-        ->and($tale->actors[0]->credit->credit_nr)->toBe(1);
+    expect($tale->actors[0])
+        ->id->toBe($actors[0]->id)
+        ->credit->characters->toBe('Zbójca 1')
+        ->credit->credit_nr->toBe(1);
 
-    expect($tale->actors[1]->id)->toBe($actors[1]->id)
-        ->and($tale->actors[1]->credit->characters)->toBe('Zbójca 2')
-        ->and($tale->actors[1]->credit->credit_nr)->toBe(2);
+    expect($tale->actors[1])
+        ->id->toBe($actors[1]->id)
+        ->credit->characters->toBe('Zbójca 2')
+        ->credit->credit_nr->toBe(2);
 });

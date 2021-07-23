@@ -62,9 +62,9 @@ it('can get its photo', function () {
 
     $artist = Artist::factory()->photo($photo)->create();
 
-    expect($artist->photo)->toBeInstanceOf(Photo::class)
-        ->and($artist->photo->filename())
-        ->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
+    expect($artist->photo)
+        ->toBeInstanceOf(Photo::class)
+        ->filename()->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
 });
 
 it('can generate discogs url', function () {
@@ -98,9 +98,10 @@ it('does not generate nonexistent urls', function () {
         'wikipedia' => null,
     ]);
 
-    expect($artist->discogs_url)->toBeNull()
-        ->and($artist->filmpolski_url)->toBeNull()
-        ->and($artist->wikipedia_url)->toBeNull();
+    expect($artist)
+        ->discogs_url->toBeNull()
+        ->filmpolski_url->toBeNull()
+        ->wikipedia_url->toBeNull();
 });
 
 it('can get extract from wikipedia', function () {
@@ -193,17 +194,19 @@ it('can get its appearances as actor', function () {
 
     expect($artist->asActor())->toBeInstanceOf(BelongsToMany::class);
 
-    $artist->asActor()->attach($tales = [
-        Tale::factory()->create(['year' => 1978])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'b'])->id,
-        Tale::factory()->create(['year' => 1969, 'title' => 'a'])->id,
+    $tales = collect([
+        Tale::factory()->create(['year' => 1978]),
+        Tale::factory()->create(['year' => 1969, 'title' => 'b']),
+        Tale::factory()->create(['year' => 1969, 'title' => 'a']),
     ]);
 
-    expect($artist->asActor)->toHaveCount(3);
+    $artist->asActor()->attach($tales->map->id);
 
-    expect($artist->asActor->get(2)->id)->toBe($tales[0]);
-    expect($artist->asActor->get(1)->id)->toBe($tales[1]);
-    expect($artist->asActor->get(0)->id)->toBe($tales[2]);
+    expect($artist->fresh()->asActor)->toHaveCount(3)->sequence(
+        fn ($e) => $e->toBeModel($tales[2]),
+        fn ($e) => $e->toBeModel($tales[1]),
+        fn ($e) => $e->toBeModel($tales[0]),
+    );
 });
 
 it('can get credits', function () {
@@ -232,16 +235,14 @@ it('can get credits', function () {
         $tales[5]->id => $composer,
     ]);
 
-    expect($artist->credits)
-        ->toHaveCount(6)
-        ->sequence(
-            fn ($e) => $e->toBeModel($tales[2]),
-            fn ($e) => $e->toBeModel($tales[1]),
-            fn ($e) => $e->toBeModel($tales[4]),
-            fn ($e) => $e->toBeModel($tales[5]),
-            fn ($e) => $e->toBeModel($tales[3]),
-            fn ($e) => $e->toBeModel($tales[0]),
-        );
+    expect($artist->credits)->toHaveCount(6)->sequence(
+        fn ($e) => $e->toBeModel($tales[2]),
+        fn ($e) => $e->toBeModel($tales[1]),
+        fn ($e) => $e->toBeModel($tales[4]),
+        fn ($e) => $e->toBeModel($tales[5]),
+        fn ($e) => $e->toBeModel($tales[3]),
+        fn ($e) => $e->toBeModel($tales[0]),
+    );
 });
 
 it('can get credits of given type', function () {

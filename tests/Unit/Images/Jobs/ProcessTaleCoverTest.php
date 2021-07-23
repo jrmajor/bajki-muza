@@ -25,8 +25,9 @@ test('GenerateTaleCoverPlaceholder job works', function () {
 
     $cover->refresh();
 
-    expect($cover->filename())->toBe($filename)
-        ->and($cover->placeholder)->toStartWith('data:image/svg+xml;base64,');
+    expect($cover)
+        ->filename()->toBe($filename)
+        ->placeholder()->toStartWith('data:image/svg+xml;base64,');
 });
 
 test('GenerateTaleCoverVariants job works', function () {

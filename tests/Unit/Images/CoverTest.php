@@ -22,8 +22,9 @@ it('stores new cover in correct path and dispatches necessary jobs to process it
         UploadedFile::fake()->image('test.jpg'),
     );
 
-    expect($image)->toBeInstanceOf(Cover::class)
-        ->and($image->filename())->toEndWith('.jpg');
+    expect($image)
+        ->toBeInstanceOf(Cover::class)
+        ->filename()->toEndWith('.jpg');
 
     expect(Photo::disk()->files('covers/original'))->toHaveCount(1);
 
@@ -46,14 +47,13 @@ it('can get its tales', function () {
         'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
     ]);
 
-    $tales = Tale::factory(2)
-        ->cover($cover)
-        ->create();
+    $tales = Tale::factory(2)->cover($cover)->create();
 
     // @todo $cover->refesh();
     $cover = $cover->fresh();
 
-    expect($cover->tales)->toHaveCount(2)
-        ->and($cover->tales[0])->toBeModel($tales[0])
-        ->and($cover->tales[1])->toBeModel($tales[1]);
+    expect($cover->tales)->toHaveCount(2)->sequence(
+        fn ($e) => $e->toBeModel($tales[0]),
+        fn ($e) => $e->toBeModel($tales[1]),
+    );
 });

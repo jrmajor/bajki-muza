@@ -34,14 +34,14 @@ test('GenerateArtistPhotoPlaceholders job works', function () {
 
     $photo->refresh();
 
-    expect($photo)->not->toBeNull()
-        ->and($photo->filename())->toBe($filename)
-        ->and($photo->width)->toBe(529)
-        ->and($photo->height)->toBe(352)
-        ->and($photo->crop)->not->toBeNull()
-        ->and((string) $photo->crop)->toEqual((string) $this->crop)
-        ->and($photo->face_placeholder)->toStartWith('data:image/svg+xml;base64,')
-        ->and($photo->placeholder)->toStartWith('data:image/svg+xml;base64,');
+    expect($photo)
+        ->filename()->toBe($filename)
+        ->width->toBe(529)
+        ->height->toBe(352)
+        ->crop()->not->toBeNull()
+        ->crop()->toJson()->toEqual($this->crop->toJson())
+        ->facePlaceholder()->toStartWith('data:image/svg+xml;base64,')
+        ->placeholder()->toStartWith('data:image/svg+xml;base64,');
 });
 
 test('GenerateArtistPhotoVariants job works', function () {
