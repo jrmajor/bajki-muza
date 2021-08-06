@@ -15,6 +15,8 @@
       @yield('meta')
     @endif
 
+    <meta name="theme-color" content="#ebebeb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
     @production
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @endproduction
