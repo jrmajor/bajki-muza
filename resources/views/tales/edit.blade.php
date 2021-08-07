@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <div class="text-center">
+  <div class="text-center pb-4">
     <h2 class="text-2xl font-medium">
       <a href="{{ route('tales.show', $tale) }}">
         @foreach (explode(' ', $tale->title) as $word)
