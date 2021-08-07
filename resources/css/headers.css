@@ -6,12 +6,12 @@
   }
 
   .shadow-title {
-    @apply after:bg-yellow-kox after:dark:bg-yellow-kox-dark;
+    @apply after:bg-brand-primary after:dark:bg-brand-primary-dark;
   }
 
   .shadow-subtitle,
   .shadow-link {
-    @apply after:bg-yellow-ciul after:dark:bg-yellow-ciul-dark;
+    @apply after:bg-brand-lighter after:dark:bg-brand-lighter-dark;
   }
 
   .shadow-title::after {

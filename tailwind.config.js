@@ -9,6 +9,12 @@ module.exports = {
       current: 'currentColor',
       black: colors.black,
       white: colors.white,
+      brand: {
+        primary: '#ffcc00',
+        lighter: '#f6e05e',
+        'primary-dark': '#896f09',
+        'lighter-dark': '#847938',
+      },
       gray: {
         50: '#fafafa',
         100: '#f7f7f7',
@@ -24,10 +30,6 @@ module.exports = {
       },
       red: colors.red,
       yellow: {
-        kox: '#ffcc00',
-        ciul: '#f6e05e',
-        'kox-dark': '#896f09',
-        'ciul-dark': '#847938',
         50: '#fdfdea',
         100: '#fdf6b2',
         200: '#fce96a',

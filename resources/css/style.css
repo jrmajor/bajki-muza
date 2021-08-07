@@ -5,11 +5,11 @@
 
 @layer utilities {
   .inset-shadow-light {
-    box-shadow: inset 0 0 0 theme('spacing.1') theme('colors.yellow.ciul');
+    box-shadow: inset 0 0 0 theme('spacing.1') theme('colors.brand.lighter');
   }
 
   .inset-shadow-hard {
-    box-shadow: inset 0 0 0 theme('spacing.1') theme('colors.yellow.kox');
+    box-shadow: inset 0 0 0 theme('spacing.1') theme('colors.brand.primary');
   }
 }
 
