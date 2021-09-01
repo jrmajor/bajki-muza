@@ -4,6 +4,8 @@ $app = new App\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__),
 );
 
+$app->instance(App\Application::class, $app);
+
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
     App\Http\Kernel::class,
