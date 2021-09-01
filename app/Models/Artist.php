@@ -150,12 +150,10 @@ final class Artist extends Model
 
     public function scopeCountAppearances(Builder $query): void
     {
-        $query->addSelect(['appearances' => DB::table(
-                DB::table('credits')->select('tale_id')
-                    ->whereColumn('artist_id', 'artists.id')
-                ->union(
-                    DB::table('tales_actors')->select('tale_id')
-                        ->whereColumn('artist_id', 'artists.id'),
+        $query->addSelect([
+            'appearances' => DB::table(
+                DB::table('credits')->select('tale_id')->whereColumn('artist_id', 'artists.id')->union(
+                    DB::table('tales_actors')->select('tale_id')->whereColumn('artist_id', 'artists.id'),
                 ),
             )->selectRaw('count(*) as appearances'),
         ])->withCasts(['appearances' => 'int']);
@@ -163,14 +161,9 @@ final class Artist extends Model
 
     public function appearances(): int
     {
-        return DB::table(
-            DB::table('credits')->select('tale_id')
-                ->where('artist_id', $this->id)
-            ->union(
-                DB::table('tales_actors')->select('tale_id')
-                    ->where('artist_id', $this->id),
-            ),
-        )->count();
+        return DB::table('credits')->select('tale_id')->where('artist_id', $this->id)->union(
+                DB::table('tales_actors')->select('tale_id')->where('artist_id', $this->id),
+            )->count();
     }
 
     public function refreshCache(): void
