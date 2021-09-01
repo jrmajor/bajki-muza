@@ -9,4 +9,6 @@ $finder = PhpCsFixer\Finder::create()
     ->notName('_ide_helper*.php')
     ->ignoreVCS(true);
 
-return Major\CS\config($finder);
+return Major\CS\config($finder, [
+    'class_definition' => false,
+]);
