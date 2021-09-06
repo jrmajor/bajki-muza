@@ -21,7 +21,7 @@
         "league/flysystem-aws-s3-v3": "~1.0",
         "league/flysystem-cached-adapter": "~1.0",
         "livewire/livewire": "^2.5",
-        "nesbot/carbon": "^2.52",
+        "nesbot/carbon": "^2.53",
         "nunomaduro/curryable": "master",
         "sammyjo20/lasso": "^1.2",
         "spatie/data-transfer-object": "^3.7",
@@ -39,7 +39,7 @@
         "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "^2.12",
-        "fakerphp/faker": "^1.15",
+        "fakerphp/faker": "^1.16",
         "friendsofphp/php-cs-fixer": "^3.1",
         "jrmajor/cs": "^0.2.2",
         "laravel/sail": "^1.10",
@@ -48,7 +48,7 @@
         "nunomaduro/larastan": "^0.7.12",
         "pestphp/pest": "^1.18",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/phpstan": "^0.12.97",
+        "phpstan/phpstan": "^0.12.98",
         "phpunit/phpunit": "^9.5"
     },
     "config": {
