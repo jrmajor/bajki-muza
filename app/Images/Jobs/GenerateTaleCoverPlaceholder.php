@@ -15,7 +15,6 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
 {
     use ProcessesImages;
-
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;

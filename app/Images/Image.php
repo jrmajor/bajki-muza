@@ -26,6 +26,14 @@ abstract class Image extends Model
 
     abstract public static function sizes(): Collection;
 
+    abstract protected function process(): void;
+
+    abstract protected static function uploadPath(): string;
+
+    abstract public function originalPath(): string;
+
+    abstract public function path(int $size): string;
+
     public static function store(File|UploadedFile|string $file, array $attributes = []): static
     {
         if (is_string($file)) {
@@ -68,8 +76,6 @@ abstract class Image extends Model
         return $photo;
     }
 
-    abstract protected function process(): void;
-
     public function reprocess(): void
     {
         if ($this->originalMissing()) {
@@ -85,12 +91,6 @@ abstract class Image extends Model
     {
         return $this->getAttribute('filename');
     }
-
-    abstract protected static function uploadPath(): string;
-
-    abstract public function originalPath(): string;
-
-    abstract public function path(int $size): string;
 
     public function originalUrl(Carbon $expiration = null): string
     {

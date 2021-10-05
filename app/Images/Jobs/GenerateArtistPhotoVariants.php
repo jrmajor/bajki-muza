@@ -16,7 +16,6 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 {
     use CropsArtistPhoto;
     use ProcessesImages;
-
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
