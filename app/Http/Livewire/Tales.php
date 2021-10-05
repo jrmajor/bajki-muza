@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Tale;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -27,10 +28,10 @@ class Tales extends Component
     public function render()
     {
         $tales = Tale::withActorsPopularity()
-            ->unless(blank($this->search), function ($query) {
+            ->unless(blank($this->search), function (Builder $query) {
                 $query->where('title', 'like', "%{$this->search}%");
             })
-            ->unless(is_null($this->discogs), function ($query) {
+            ->unless(is_null($this->discogs), function (Builder $query) {
                 $query->whereNull('discogs', not: (bool) $this->discogs);
             })
             ->orderByDesc('popularity')->orderBy('year')->orderBy('title')->paginate(20);
