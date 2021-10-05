@@ -4,7 +4,7 @@ namespace Tests;
 
 use App\Models\User;
 
-function asUser(User $user = null, string $driver = null): TestCase
+function asUser(?User $user = null, ?string $driver = null): TestCase
 {
     return test()->asUser($user, $driver);
 }

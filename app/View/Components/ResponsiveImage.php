@@ -14,7 +14,7 @@ class ResponsiveImage extends Component
     public function __construct(
         public Image $image,
         public string|int $size,
-        int $imageSize = null,
+        ?int $imageSize = null,
     ) {
         $this->imageSize = $imageSize ?? $size * 4;
 

@@ -30,7 +30,7 @@ class ArtistFactory extends Factory
 
     public function photo(
         string|Photo $photo = null,
-        ArtistPhotoCrop $crop = null,
+        ?ArtistPhotoCrop $crop = null,
     ): static {
         if (! $photo instanceof Photo) {
             $photo = Photo::create([

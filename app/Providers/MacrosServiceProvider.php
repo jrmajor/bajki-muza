@@ -32,7 +32,7 @@ class MacrosServiceProvider extends ServiceProvider
 
         Blueprint::macro(
             'smallForeignIdFor',
-            function ($model, string $column = null): ForeignIdColumnDefinition {
+            function ($model, ?string $column = null): ForeignIdColumnDefinition {
                 if (is_string($model)) {
                     $model = new $model();
                 }

@@ -92,7 +92,7 @@ abstract class Image extends Model
         return $this->getAttribute('filename');
     }
 
-    public function originalUrl(Carbon $expiration = null): string
+    public function originalUrl(?Carbon $expiration = null): string
     {
         return $this->disk()->temporaryUrl(
             $this->originalPath(),
