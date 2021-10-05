@@ -10,11 +10,6 @@ use Illuminate\Support\Collection;
 
 class StoreTale extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         return [

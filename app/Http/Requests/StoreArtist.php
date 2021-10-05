@@ -8,11 +8,6 @@ use Illuminate\Http\UploadedFile;
 
 class StoreArtist extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return true;
-    }
-
     public function rules(): array
     {
         return [
