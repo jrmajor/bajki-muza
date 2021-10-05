@@ -40,7 +40,7 @@
         "facade/ignition": "^2.12",
         "fakerphp/faker": "^1.16",
         "friendsofphp/php-cs-fixer": "^3.1",
-        "jrmajor/cs": "^0.2.2",
+        "jrmajor/cs": "^0.3.0",
         "laravel/sail": "^1.10",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^5.9",
