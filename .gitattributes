@@ -1,3 +1,2 @@
 * text=auto
-/public/vendor/** linguist-vendored
-/tests/Fixtures/FilmPolski/**.html linguist-vendored
+/tests/Fixtures/FilmPolski/**/*.html linguist-vendored
