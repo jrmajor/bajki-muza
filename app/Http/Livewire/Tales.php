@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Tale;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,14 +21,15 @@ class Tales extends Component
         'discogs' => ['except' => null],
     ];
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render()
+    public function render(): View
     {
-        $tales = Tale::withActorsPopularity()
+        $tales = Tale::query()
+            ->withActorsPopularity()
             ->unless(blank($this->search), function (Builder $query) {
                 $query->where('title', 'like', "%{$this->search}%");
             })
@@ -41,7 +43,10 @@ class Tales extends Component
             ->extends('layouts.app');
     }
 
-    public function paginationView()
+    /**
+     * @phpstan-return view-string
+     */
+    public function paginationView(): string
     {
         return 'vendor.pagination.tailwind';
     }

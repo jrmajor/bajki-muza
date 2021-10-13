@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Artist;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -23,14 +24,15 @@ class Artists extends Component
         'max' => ['except' => ''],
     ];
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render()
+    public function render(): View
     {
-        $artists = Artist::countAppearances()
+        $artists = Artist::query()
+            ->countAppearances()
             ->unless(blank($this->search), function (Builder $query) {
                 $query->where('name', 'like', "%{$this->search}%");
             })
@@ -47,7 +49,10 @@ class Artists extends Component
             ->extends('layouts.app');
     }
 
-    public function paginationView()
+    /**
+     * @phpstan-return view-string
+     */
+    public function paginationView(): string
     {
         return 'vendor.pagination.tailwind';
     }
