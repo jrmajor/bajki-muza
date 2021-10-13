@@ -21,7 +21,7 @@ class ResponsiveImage extends Component
         $this->class = "w-{$size} h-{$size} object-center object-cover transition-opacity duration-300 opacity-0";
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
               <img {{ $attributes->merge(['loading' => 'lazy', 'class' => $class]) }}
