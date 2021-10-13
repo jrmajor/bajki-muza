@@ -12,14 +12,20 @@ class Tales extends Component
 {
     use WithPagination;
 
-    public $search;
+    public string $search = '';
 
-    public $discogs;
+    /** @phpstan-var numeric-string|'' */
+    public string $discogs = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'discogs' => ['except' => null],
+        'discogs' => ['except' => ''],
     ];
+
+    public function mount(): void
+    {
+        $this->discogs = (string) (int) $this->discogs;
+    }
 
     public function updatingSearch(): void
     {
@@ -33,7 +39,7 @@ class Tales extends Component
             ->unless(blank($this->search), function (Builder $query) {
                 $query->where('title', 'like', "%{$this->search}%");
             })
-            ->unless(is_null($this->discogs), function (Builder $query) {
+            ->unless(blank($this->discogs), function (Builder $query) {
                 $query->whereNull('discogs', not: (bool) $this->discogs);
             })
             ->orderByDesc('popularity')->orderBy('year')->orderBy('title')->paginate(20);

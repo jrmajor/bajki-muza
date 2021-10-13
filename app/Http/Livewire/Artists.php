@@ -12,17 +12,25 @@ class Artists extends Component
 {
     use WithPagination;
 
-    public $search;
+    public string $search = '';
 
-    public $min;
+    /** @phpstan-var numeric-string|'' */
+    public string $min = '';
 
-    public $max;
+    /** @phpstan-var numeric-string|'' */
+    public string $max = '';
 
     protected $queryString = [
         'search' => ['except' => ''],
         'min' => ['except' => ''],
         'max' => ['except' => ''],
     ];
+
+    public function mount(): void
+    {
+        $this->min = (string) (int) $this->min;
+        $this->max = (string) (int) $this->max;
+    }
 
     public function updatingSearch(): void
     {
@@ -37,10 +45,10 @@ class Artists extends Component
                 $query->where('name', 'like', "%{$this->search}%");
             })
             ->unless(blank($this->min), function (Builder $query) {
-                $query->having('appearances', '>=', (int) $this->min);
+                $query->having('appearances', '>=', $this->min);
             })
             ->unless(blank($this->max), function (Builder $query) {
-                $query->having('appearances', '<=', (int) $this->max);
+                $query->having('appearances', '<=', $this->max);
             })
             ->orderByDesc('appearances')->orderBy('name')->paginate(30);
 
