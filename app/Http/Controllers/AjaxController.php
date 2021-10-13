@@ -25,7 +25,8 @@ class AjaxController extends Controller
 
     public function artists(Request $request)
     {
-        $artists = Artist::where('name', 'like', '%' . $request->input('search') . '%')
+        $artists = Artist::query()
+            ->where('name', 'like', '%' . $request->input('search') . '%')
             ->orderBy('name')
             ->take(10)
             ->get()
