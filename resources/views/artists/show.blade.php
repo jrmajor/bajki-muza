@@ -66,9 +66,7 @@
           @if ($artist->photo || $artist->discogsPhoto() || $artist->wikipedia) self-stretch @else self-center @endif
         ">
           @if ($artist->wikipedia)
-            <div>
-              {!! strip_tags($artist->wikipedia_extract) !!}
-            </div>
+            <div>{{ $artist->wikipedia_extract }}</div>
           @endif
 
           <div class="flex gap-5 items-center self-center sm:self-start">

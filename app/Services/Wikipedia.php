@@ -56,7 +56,9 @@ class Wikipedia
                     'format' => 'json',
                 ]);
 
-                return Arr::first($response['query']['pages'])['extract'] ?? null;
+                $extract = Arr::first($response['query']['pages'])['extract'] ?? null;
+
+                return $extract === null ? null : trim(strip_tags($extract));
             },
         );
     }

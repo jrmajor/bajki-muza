@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
 
 beforeEach(function () {
-    $this->extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor teatralny, filmowy i dubbingowy, piosenkarz, satyryk, reżyser teatralny oraz pedagog. \n</p><p>Ma w swoim dorobku artystycznym blisko 120 ról filmowych w serialach telewizyjnych i filmach fabularnych. Jeden z najwybitniejszych i najwszechstronniejszych aktorów w historii polskiej kinematografii. Przez Gustawa Holoubka, Tadeusza Łomnickiego i Zbigniewa Zapasiewicza został w 1990 uznany za jednego z trzech największych polskich aktorów dramatycznych po 1965 (obok Wojciecha Pszoniaka i Andrzeja Seweryna).\n</p>";
-
     $this->response = [
         'batchcomplete' => '',
         'warnings' => [
@@ -28,11 +26,13 @@ beforeEach(function () {
                     'pageid' => 117656,
                     'ns' => 0,
                     'title' => 'Piotr Fronczewski',
-                    'extract' => $this->extract,
+                    'extract' => "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor teatralny, filmowy i dubbingowy, piosenkarz, satyryk, reżyser teatralny oraz pedagog. \n</p><p>Ma w swoim dorobku artystycznym blisko 120 ról filmowych w serialach telewizyjnych i filmach fabularnych. Jeden z najwybitniejszych i najwszechstronniejszych aktorów w historii polskiej kinematografii. Przez Gustawa Holoubka, Tadeusza Łomnickiego i Zbigniewa Zapasiewicza został w 1990 uznany za jednego z trzech największych polskich aktorów dramatycznych po 1965 (obok Wojciecha Pszoniaka i Andrzeja Seweryna).\n</p>",
                 ],
             ],
         ],
     ];
+
+    $this->extract = "Piotr Fronczewski (ur. 8 czerwca 1946 w Łodzi) – polski aktor teatralny, filmowy i dubbingowy, piosenkarz, satyryk, reżyser teatralny oraz pedagog. \nMa w swoim dorobku artystycznym blisko 120 ról filmowych w serialach telewizyjnych i filmach fabularnych. Jeden z najwybitniejszych i najwszechstronniejszych aktorów w historii polskiej kinematografii. Przez Gustawa Holoubka, Tadeusza Łomnickiego i Zbigniewa Zapasiewicza został w 1990 uznany za jednego z trzech największych polskich aktorów dramatycznych po 1965 (obok Wojciecha Pszoniaka i Andrzeja Seweryna).";
 });
 
 test('alias is properly registered', function () {

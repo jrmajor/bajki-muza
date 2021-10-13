@@ -105,7 +105,7 @@ it('does not generate nonexistent urls', function () {
 });
 
 it('can get extract from wikipedia', function () {
-    $extract = "<p><b>Piotr Fronczewski</b> (ur. 8 czerwca 1946 w Łodzi) – polski aktor.\n</p>";
+    $extract = 'Piotr Fronczewski (ur. 8 czerwca 1946 w Łodzi) – polski aktor.';
 
     $artist = Artist::factory()->create(['wikipedia' => 'Piotr_Fronczewski']);
 
