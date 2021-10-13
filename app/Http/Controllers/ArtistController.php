@@ -24,9 +24,9 @@ class ArtistController extends Controller
 
         if ($request->boolean('remove_photo')) {
             $artist->photo()->dissociate();
-        } elseif ($request->uploadedPhoto()) {
+        } elseif ($photo = $request->uploadedPhoto()) {
             $artist->photo()->associate(
-                Photo::store($request->uploadedPhoto(), $request->photoData()),
+                Photo::store($photo, $request->photoData()),
             );
         } elseif ($artist->photo) {
             $artist->photo->forceFill($request->photoData());
