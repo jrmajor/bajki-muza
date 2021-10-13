@@ -58,7 +58,7 @@ class FilmPolski
         return Cache::remember(
             "filmpolski-{$id}-photos",
             CarbonInterval::week(),
-            function () use ($id) {
+            function () use ($id): array {
                 $photos = [];
 
                 $source = $this->getPersonSource($id);

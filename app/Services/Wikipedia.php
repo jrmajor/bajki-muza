@@ -46,7 +46,7 @@ class Wikipedia
         return Cache::remember(
             "wikipedia-{$titleHash}-extract",
             CarbonInterval::week(),
-            function () use ($title) {
+            function () use ($title): ?string {
                 $response = Http::get($this->endpoint, [
                     'action' => 'query',
                     'titles' => $title,
