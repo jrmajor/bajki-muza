@@ -8,7 +8,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Spatie\Regex\Regex;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -21,9 +20,8 @@ class FilmPolski
             ['szukaj' => $search],
         )->body();
 
-        try {
-            $crawler = (new Crawler($source))
-                ->filter('.wynikiszukania');
+        return rescue(function () use ($source) {
+            $crawler = (new Crawler($source))->filter('.wynikiszukania');
 
             if ($crawler->count() === 0) {
                 return collect();
@@ -43,9 +41,7 @@ class FilmPolski
             }
 
             return $people->unique('id')->mapInto(Artist::class);
-        } catch (InvalidArgumentException) {
-            return collect();
-        }
+        }, collect());
     }
 
     public function url(int $id): string
@@ -105,7 +101,7 @@ class FilmPolski
 
     protected function getMainPhoto(string $source): ?string
     {
-        try {
+        return rescue(function () use ($source): ?string {
             $crawler = (new Crawler($source))
                 ->filter('.zdjecie')
                 ->filter('img');
@@ -115,40 +111,34 @@ class FilmPolski
             }
 
             return $crawler->attr('src');
-        } catch (InvalidArgumentException) {
-            return null;
-        }
+        });
     }
 
     protected function getGalleryId(string $source): ?int
     {
-        try {
+        return rescue(function () use ($source): int {
             $crawler = (new Crawler($source))
                 ->filter('.galeria_mala')
                 ->children()->last();
 
             return (int) Str::after($crawler->attr('href'), '/');
-        } catch (InvalidArgumentException) {
-            return null;
-        }
+        });
     }
 
+    /**
+     * @return array<string, array{year: string, photos: list<string>}>
+     */
     protected function getPhotosFromGallery(string $gallerySource): array
     {
-        $photos = [];
-
-        try {
+        return rescue(function () use ($gallerySource): array {
             $crawler = (new Crawler($gallerySource))
                 ->filter('#galeria_osoby')
                 ->children();
 
+            $photos = [];
             $count = $crawler->count();
-        } catch (InvalidArgumentException) {
-            return [];
-        }
 
-        for ($i = 0; $i < $count; $i++) {
-            try {
+            for ($i = 0; $i < $count; $i++) {
                 $nodeCrawler = $crawler->eq($i);
 
                 if ($nodeCrawler->nodeName() === 'h2') {
@@ -174,12 +164,10 @@ class FilmPolski
                 $photo = Regex::replace('/\\/([0-9]+)i\\//', '/$1z/', $photo)->result();
 
                 $photos[$title ?? '?']['photos'][] = $photo;
-            } catch (InvalidArgumentException) {
-                continue;
             }
-        }
 
-        return $photos;
+            return $photos;
+        }, []);
     }
 
     public function refreshCache(int $id): void
