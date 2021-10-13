@@ -22,6 +22,7 @@
         "livewire/livewire": "^2.6",
         "nesbot/carbon": "^2.53",
         "nunomaduro/curryable": "master",
+        "ohdearapp/ohdear-php-sdk": "^3.2",
         "sammyjo20/lasso": "^1.2",
         "spatie/data-transfer-object": "^3.7",
         "spatie/image": "^1.10",

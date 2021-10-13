@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5bfc9c1c50e2284f73015741ab87c039",
+    "content-hash": "e82d66f26c2457e3532c20a85b783fd7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3176,6 +3176,62 @@
                 }
             ],
             "time": "2020-12-17T12:44:29+00:00"
+        },
+        {
+            "name": "ohdearapp/ohdear-php-sdk",
+            "version": "3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ohdearapp/ohdear-php-sdk.git",
+                "reference": "5867f1382a6ffcd15aa840b8be6db4572bb19e72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ohdearapp/ohdear-php-sdk/zipball/5867f1382a6ffcd15aa840b8be6db4572bb19e72",
+                "reference": "5867f1382a6ffcd15aa840b8be6db4572bb19e72",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3|^7.0",
+                "nesbot/carbon": "^2.35.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0",
+                "psalm/plugin-laravel": "^1.2",
+                "vlucas/phpdotenv": "^4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OhDear\\PhpSdk\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "support@ohdear.app",
+                    "homepage": "https://ohdear.app",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An SDK to easily work with the Oh Dear API",
+            "homepage": "https://github.com/ohdearapp/ohdear-php-sdk",
+            "keywords": [
+                "api",
+                "monitoring",
+                "oh dear",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/ohdearapp/ohdear-php-sdk/issues",
+                "source": "https://github.com/ohdearapp/ohdear-php-sdk/tree/3.2.1"
+            },
+            "time": "2021-08-12T19:06:07+00:00"
         },
         {
             "name": "opis/closure",
