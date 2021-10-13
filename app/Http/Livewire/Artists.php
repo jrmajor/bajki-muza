@@ -28,8 +28,13 @@ class Artists extends Component
 
     public function mount(): void
     {
-        $this->min = (string) (int) $this->min;
-        $this->max = (string) (int) $this->max;
+        if ($this->min !== '') {
+            $this->min = (string) (int) $this->min;
+        }
+
+        if ($this->max !== '') {
+            $this->max = (string) (int) $this->max;
+        }
     }
 
     public function updatingSearch(): void
@@ -45,10 +50,10 @@ class Artists extends Component
                 $query->where('name', 'like', "%{$this->search}%");
             })
             ->unless(blank($this->min), function (Builder $query) {
-                $query->having('appearances', '>=', $this->min);
+                $query->having('appearances', '>=', (int) $this->min);
             })
             ->unless(blank($this->max), function (Builder $query) {
-                $query->having('appearances', '<=', $this->max);
+                $query->having('appearances', '<=', (int) $this->max);
             })
             ->orderByDesc('appearances')->orderBy('name')->paginate(30);
 

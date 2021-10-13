@@ -24,7 +24,9 @@ class Tales extends Component
 
     public function mount(): void
     {
-        $this->discogs = (string) (int) $this->discogs;
+        if ($this->discogs !== '') {
+            $this->discogs = (string) (int) $this->discogs;
+        }
     }
 
     public function updatingSearch(): void
