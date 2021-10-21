@@ -163,6 +163,8 @@ class FilmPolski
 
                 $photo = Regex::replace('/\\/([0-9]+)i\\//', '/$1z/', $photo)->result();
 
+                assert(is_string($photo));
+
                 $photos[$title ?? '?']['photos'][] = $photo;
             }
 
