@@ -7,7 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         Blade::directive('encodedjson', function ($expression) {
             return "<?php echo e(json_encode({$expression})) ?>";

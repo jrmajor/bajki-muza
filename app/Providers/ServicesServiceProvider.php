@@ -10,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 
 class ServicesServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->registerServices();
         $this->registerAliases();

@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 
 class MacrosServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         Collection::macro('combineKeys', function ($keys) {
             return new static(array_combine($this->getArrayableItems($keys), $this->all()));

@@ -11,7 +11,7 @@ class ArtistFactory extends Factory
 {
     protected $model = Artist::class;
 
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->name();
 

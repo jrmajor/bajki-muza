@@ -12,7 +12,7 @@ class TaleFactory extends Factory
 {
     protected $model = Tale::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => $this->faker->sentence(),
@@ -21,7 +21,7 @@ class TaleFactory extends Factory
         ];
     }
 
-    public function configure()
+    public function configure(): static
     {
         return $this->afterCreating(function (Tale $tale) {
             $tale->credits()->attach(

@@ -10,13 +10,13 @@ class Kernel extends ConsoleKernel
 {
     protected $commands = [];
 
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         // At 03:00 on Tuesday and Friday.
         $schedule->job(RefreshArtistsCache::class)->cron('0 3 * * 2,5');
     }
 
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__ . '/Commands');
     }

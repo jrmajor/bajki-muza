@@ -29,7 +29,7 @@ class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
         return $this->image->filename();
     }
 
-    public function handle()
+    public function handle(): void
     {
         $this->temporaryDirectory = (new TemporaryDirectory())->create();
 

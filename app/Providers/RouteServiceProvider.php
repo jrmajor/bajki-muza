@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->routes(function () {
             Route::middleware('web')->group(base_path('routes/routes.php'));
