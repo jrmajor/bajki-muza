@@ -8,7 +8,7 @@ return [
 
     'compiled' => env(
         'VIEW_COMPILED_PATH',
-        realpath(storage_path('framework/views')),
+        Safe\realpath(storage_path('framework/views')),
     ),
 
 ];

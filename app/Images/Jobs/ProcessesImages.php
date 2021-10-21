@@ -7,6 +7,12 @@ use InvalidArgumentException;
 use Spatie\Image\Manipulations;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
+use function Safe\fclose;
+use function Safe\file_get_contents;
+use function Safe\fopen;
+use function Safe\fwrite;
+use function Safe\touch;
+
 trait ProcessesImages
 {
     protected TemporaryDirectory $temporaryDirectory;

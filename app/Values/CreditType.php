@@ -4,6 +4,8 @@ namespace App\Values;
 
 use Spatie\Enum\Laravel\Enum;
 
+use function Safe\array_flip;
+
 /**
  * @method static self text()
  * @method static self author()
