@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTale;
 use App\Images\Cover;
 use App\Models\Tale;
+use Illuminate\Contracts\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class TaleController extends Controller
 {
-    public function create()
+    public function create(): View
     {
         return view('tales.create');
     }
 
-    public function store(StoreTale $request)
+    public function store(StoreTale $request): Response
     {
         $tale = Tale::create($request->validated());
 
@@ -28,7 +30,7 @@ class TaleController extends Controller
         return redirect()->route('tales.show', tap($tale)->push());
     }
 
-    public function show(Tale $tale)
+    public function show(Tale $tale): View
     {
         $tale->load([
             'credits' => fn ($query) => $query->countAppearances(),
@@ -38,12 +40,12 @@ class TaleController extends Controller
         return view('tales.show', ['tale' => $tale]);
     }
 
-    public function edit(Tale $tale)
+    public function edit(Tale $tale): View
     {
         return view('tales.edit', ['tale' => $tale]);
     }
 
-    public function update(StoreTale $request, Tale $tale)
+    public function update(StoreTale $request, Tale $tale): Response
     {
         $tale->fill($request->validated());
 

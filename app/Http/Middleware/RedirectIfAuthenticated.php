@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle(Request $request, Closure $next, string ...$guards): mixed
     {
         $guards = empty($guards) ? [null] : $guards;
 

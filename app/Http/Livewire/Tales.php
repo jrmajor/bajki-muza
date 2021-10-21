@@ -17,6 +17,7 @@ class Tales extends Component
     /** @phpstan-var numeric-string|'' */
     public string $discogs = '';
 
+    /** @var array<string, array{except: mixed}> */
     protected $queryString = [
         'search' => ['except' => ''],
         'discogs' => ['except' => ''],

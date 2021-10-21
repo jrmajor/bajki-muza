@@ -8,6 +8,7 @@ use App\Services\FilmPolski;
 use App\Services\Wikipedia;
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AjaxController extends Controller
 {
@@ -23,7 +24,7 @@ class AjaxController extends Controller
         });
     }
 
-    public function artists(Request $request)
+    public function artists(Request $request): Response
     {
         $artists = Artist::query()
             ->where('name', 'like', '%' . $request->input('search') . '%')
@@ -35,21 +36,21 @@ class AjaxController extends Controller
         return response()->json($artists);
     }
 
-    public function discogs(Request $request)
+    public function discogs(Request $request): Response
     {
         return response()->json(
             $this->discogs->search($request->input('search')),
         );
     }
 
-    public function filmPolski(Request $request)
+    public function filmPolski(Request $request): Response
     {
         return response()->json(
             $this->filmPolski->search($request->input('search')),
         );
     }
 
-    public function wikipedia(Request $request)
+    public function wikipedia(Request $request): Response
     {
         return response()->json(
             $this->wikipedia->search($request->input('search')),

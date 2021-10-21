@@ -96,7 +96,7 @@ final class Tale extends Model
     /**
      * @param array<int, CreditData[]> $credits (keys are artists ids)
      */
-    public function syncCredits(array|Collection $credits)
+    public function syncCredits(array|Collection $credits): void
     {
         $allCreditsToSync = collect($credits)->map('collect');
 

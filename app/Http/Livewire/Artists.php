@@ -20,6 +20,7 @@ class Artists extends Component
     /** @phpstan-var numeric-string|'' */
     public string $max = '';
 
+    /** @var array<string, array{except: mixed}> */
     protected $queryString = [
         'search' => ['except' => ''],
         'min' => ['except' => ''],

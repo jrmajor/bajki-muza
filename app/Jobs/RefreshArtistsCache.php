@@ -14,7 +14,7 @@ class RefreshArtistsCache implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
 
-    public function handle()
+    public function handle(): void
     {
         Artist::lazy(20)->each->refreshCache();
     }

@@ -11,6 +11,9 @@ trait ProcessesImages
 {
     protected TemporaryDirectory $temporaryDirectory;
 
+    /**
+     * @param resource $sourceStream
+     */
     public function copyToTemporaryDirectory($sourceStream, string $filename): string
     {
         $targetFile = $this->temporaryDirectory->path($filename);
