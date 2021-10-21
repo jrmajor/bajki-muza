@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ForeignIdColumnDefinition;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
@@ -11,6 +13,10 @@ class MacrosServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        Request::macro('oneFile', function (string $key): ?UploadedFile {
+            return $this->file($key);
+        });
+
         Collection::macro('combineKeys', function ($keys) {
             return new static(array_combine($this->getArrayableItems($keys), $this->all()));
         });

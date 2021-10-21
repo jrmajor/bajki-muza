@@ -46,6 +46,6 @@ class StoreArtist extends FormRequest
 
     public function uploadedPhoto(): UploadedFile|string|null
     {
-        return $this->file('photo') ?? $this->photo_uri;
+        return $this->oneFile('photo') ?? $this->photo_uri;
     }
 }

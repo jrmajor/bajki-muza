@@ -23,7 +23,7 @@ class TaleController extends Controller
 
         $tale->actors()->sync($request->actorsData());
 
-        if ($cover = $request->file('cover')) {
+        if ($cover = $request->oneFile('cover')) {
             $tale->cover()->associate(Cover::store($cover));
         }
 
@@ -55,7 +55,7 @@ class TaleController extends Controller
 
         if ($request->boolean('remove_cover')) {
             $tale->cover()->dissociate();
-        } elseif ($cover = $request->file('cover')) {
+        } elseif ($cover = $request->oneFile('cover')) {
             $tale->cover()->associate(Cover::store($cover));
         }
 
