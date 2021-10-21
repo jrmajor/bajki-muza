@@ -8,6 +8,9 @@ use App\Models\Tale;
 use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<Tale>
+ */
 class TaleFactory extends Factory
 {
     protected $model = Tale::class;
