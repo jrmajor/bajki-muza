@@ -142,7 +142,8 @@ final class Tale extends Model
 
     public function scopeWithActorsPopularity(Builder $query): void
     {
-        $query->addSelect(['popularity' => DB::table(
+        $query->addSelect([
+            'popularity' => DB::table(
                 DB::table('tales_actors')
                     ->selectSub(
                         DB::table('tales_actors', 'appearances')
