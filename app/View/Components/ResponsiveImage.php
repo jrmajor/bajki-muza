@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Images\Image;
 use Illuminate\View\Component;
+use InvalidArgumentException;
 
 class ResponsiveImage extends Component
 {
@@ -13,10 +14,17 @@ class ResponsiveImage extends Component
 
     public function __construct(
         public Image $image,
+        /** @var 'full'|int */
         public string|int $size,
         ?int $imageSize = null,
     ) {
-        $this->imageSize = $imageSize ?? $size * 4;
+        if ($imageSize === null) {
+            if (is_string($size)) {
+                throw new InvalidArgumentException('No $imageSize provided while using string size.');
+            }
+
+            $this->imageSize = $size * 4;
+        }
 
         $this->class = "w-{$size} h-{$size} object-center object-cover transition-opacity duration-300 opacity-0";
     }
