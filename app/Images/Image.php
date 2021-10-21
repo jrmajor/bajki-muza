@@ -45,10 +45,11 @@ abstract class Image extends Model
 
         $filename = Str::afterLast($path, '/');
 
-        /** @var static $image */
         $image = static::create(
             array_merge(compact('filename'), $attributes),
         );
+
+        assert($image instanceof static);
 
         return tap($image, fn ($image) => $image->process());
     }
