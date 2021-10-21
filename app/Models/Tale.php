@@ -101,14 +101,11 @@ final class Tale extends Model
         $allCreditsToSync = collect($credits)->map('collect');
 
         // Delete credits for artists who don't exist in new credit list.
-        /** @phpstan-ignore-next-line */
-        $this->credits()
-            ->whereIntegerNotInRaw(
-                'artists.id', $allCreditsToSync->keys(),
-            )
-            ->get()
-            ->map->credit
-            ->map->delete();
+        $this->credits()->whereIntegerNotInRaw(
+            'artists.id', $allCreditsToSync->keys(),
+        )->get()
+            ->map(fn (Artist $a): Credit => $a->credit)
+            ->each(fn (Credit $c) => $c->delete());
 
         // Refresh existing credits after deleting some of them
         // and format them the same way input is formatted.

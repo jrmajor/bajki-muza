@@ -17,6 +17,9 @@ use InvalidArgumentException;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+/**
+ * @property ?Credit $credit
+ */
 final class Artist extends Model
 {
     use HasSlug;
