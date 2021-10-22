@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Images\Exceptions\OriginalDoesNotExist;
+use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Console\Command;
 
@@ -41,7 +42,7 @@ class ReprocessPhotos extends Command
             return 1;
         }
 
-        return $this->reprocessArtist($artist);
+        return $this->reprocessPhoto($artist->photo);
     }
 
     protected function handleAllArtists(): int
@@ -52,24 +53,26 @@ class ReprocessPhotos extends Command
 
         return $artists
             ->map(function ($artist, $index) use ($total) {
+                assert($artist->photo !== null);
+
                 $index++;
                 $this->info("Processing artist {$index} of {$total}: {$artist->name} ({$artist->photo->filename()})");
 
-                return $this->reprocessArtist($artist);
+                return $this->reprocessPhoto($artist->photo);
             })
             ->contains(1) ? 1 : 0;
     }
 
-    protected function reprocessArtist(Artist $artist): int
+    protected function reprocessPhoto(Photo $photo): int
     {
-        if (($missing = $artist->photo->missingResponsiveVariants())->isNotEmpty()) {
+        if (($missing = $photo->missingResponsiveVariants())->isNotEmpty()) {
             $missing = $missing->join(', ');
 
             $this->warn("Some of responsive variants were missing ({$missing}).");
         }
 
         try {
-            $artist->photo->reprocess();
+            $photo->reprocess();
 
             return 0;
         } catch (OriginalDoesNotExist $exception) {

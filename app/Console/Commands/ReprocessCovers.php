@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Images\Cover;
 use App\Images\Exceptions\OriginalDoesNotExist;
 use App\Models\Tale;
 use Illuminate\Console\Command;
@@ -41,7 +42,7 @@ class ReprocessCovers extends Command
             return 1;
         }
 
-        return $this->reprocessTale($tale);
+        return $this->reprocessCover($tale->cover);
     }
 
     protected function handleAllTales(): int
@@ -52,24 +53,26 @@ class ReprocessCovers extends Command
 
         return $tales
             ->map(function ($tale, $index) use ($total) {
+                assert($tale->cover !== null);
+
                 $index++;
                 $this->info("Processing tale {$index} of {$total}: {$tale->title} ({$tale->cover->filename()})");
 
-                return $this->reprocessTale($tale);
+                return $this->reprocessCover($tale->cover);
             })
             ->contains(1) ? 1 : 0;
     }
 
-    protected function reprocessTale(Tale $tale): int
+    protected function reprocessCover(Cover $cover): int
     {
-        if (($missing = $tale->cover->missingResponsiveVariants())->isNotEmpty()) {
+        if (($missing = $cover->missingResponsiveVariants())->isNotEmpty()) {
             $missing = $missing->join(', ');
 
             $this->warn("Some of responsive variants were missing ({$missing}).");
         }
 
         try {
-            $tale->cover->reprocess();
+            $cover->reprocess();
 
             return 0;
         } catch (OriginalDoesNotExist $exception) {
