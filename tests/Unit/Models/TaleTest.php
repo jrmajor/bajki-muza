@@ -190,7 +190,7 @@ it('can sync credits', function () {
 
     expect($tale->credits[0])->toBeModel($firstArtist)
         ->and($creditKeys($tale->credits[0]))->toBe([
-            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => '0',
+            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0,
         ]);
 
     // one credit -> two credits for the same artist
@@ -208,12 +208,12 @@ it('can sync credits', function () {
 
     expect($tale->credits[0])->toBeModel($firstArtist)
         ->and($creditKeys($tale->credits[0]))->toBe([
-            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => '0',
+            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0,
         ]);
 
     expect($tale->credits[1])->toBeModel($firstArtist)
         ->and($creditKeys($tale->credits[1]))->toBe([
-            'type' => 'adaptation', 'as' => null, 'nr' => '1',
+            'type' => 'adaptation', 'as' => null, 'nr' => 1,
         ]);
 
     // two credits for the same artist -> two credits for two artists
@@ -233,12 +233,12 @@ it('can sync credits', function () {
 
     expect($tale->credits[0])->toBeModel($secondArtist)
         ->and($creditKeys($tale->credits[0]))->toBe([
-            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => '0',
+            'type' => 'directing', 'as' => 'Reżyserya', 'nr' => 0,
         ]);
 
     expect($tale->credits[1])->toBeModel($firstArtist)
         ->and($creditKeys($tale->credits[1]))->toBe([
-            'type' => 'adaptation', 'as' => null, 'nr' => '1',
+            'type' => 'adaptation', 'as' => null, 'nr' => 1,
         ]);
 
     // two credits for the same artist -> change only credit attributes
@@ -258,12 +258,12 @@ it('can sync credits', function () {
 
     expect($tale->credits[0])->toBeModel($firstArtist)
         ->and($creditKeys($tale->credits[0]))->toBe([
-            'type' => 'author', 'as' => 'A-utor', 'nr' => '2',
+            'type' => 'author', 'as' => 'A-utor', 'nr' => 2,
         ]);
 
     expect($tale->credits[1])->toBeModel($secondArtist)
         ->and($creditKeys($tale->credits[1]))->toBe([
-            'type' => 'music', 'as' => null, 'nr' => '3',
+            'type' => 'music', 'as' => null, 'nr' => 3,
         ]);
 });
 
