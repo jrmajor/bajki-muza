@@ -18,13 +18,12 @@ class ResponsiveImage extends Component
         public string|int $size,
         ?int $imageSize = null,
     ) {
-        if ($imageSize === null) {
-            if (is_string($size)) {
-                throw new InvalidArgumentException('No $imageSize provided while using string size.');
-            }
-
-            $this->imageSize = $size * 4;
+        if ($imageSize === null && is_string($size)) {
+            throw new InvalidArgumentException('No $imageSize provided while using string size.');
         }
+
+        /** @phpstan-ignore-next-line */
+        $this->imageSize = $imageSize ?? $size * 4;
 
         $this->class = "w-{$size} h-{$size} object-center object-cover transition-opacity duration-300 opacity-0";
     }
