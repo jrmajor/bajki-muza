@@ -47,12 +47,12 @@
         "laravel/sail": "^1.12",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^5.10",
-        "nunomaduro/larastan": "^0.7.12",
+        "nunomaduro/larastan": "^1.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/phpstan": "^0.12.99",
+        "phpstan/phpstan": "^1.2",
         "phpunit/phpunit": "^9.5",
-        "thecodingmachine/phpstan-safe-rule": "^1.0"
+        "thecodingmachine/phpstan-safe-rule": "^1.1"
     },
     "config": {
         "optimize-autoloader": true,
