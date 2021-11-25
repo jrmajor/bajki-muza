@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "0.1.4",
-    "alpinejs": "^3.4",
+    "alpinejs": "^3.5",
     "croppr": "^2.3",
     "pretty-bytes": "^5.4",
     "tailwindcss": "^2.2",
@@ -24,7 +24,7 @@
     "eslint-config-spatie": "^2.0",
     "laravel-mix": "^6.0",
     "laravel-mix-bundle-analyzer": "^1.0",
-    "postcss": "^8.3",
+    "postcss": "^8.4",
     "postcss-import": "^14.0"
   }
 }
