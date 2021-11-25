@@ -15,7 +15,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.1'
 
       - name: Get Composer cache directory path
         id: composer-cache-dir
@@ -33,7 +33,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-interaction
 
       - name: Run PHP-CS-Fixer
-        run: composer check-formatting
+        run: PHP_CS_FIXER_IGNORE_ENV=1 composer check-formatting
 
   js:
     name: JS
