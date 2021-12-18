@@ -32,7 +32,7 @@ class Discogs
                 'per_page' => 10,
             ])->json();
 
-        return collect($response['results'] ?? [])->map([Artist::class, 'fromArray']);
+        return collect($response['results'] ?? [])->map(Artist::fromArray(...));
     }
 
     public function url(int $id): string

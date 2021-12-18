@@ -98,7 +98,7 @@ final class Tale extends Model
      */
     public function syncCredits(array|Collection $credits): void
     {
-        $allCreditsToSync = collect($credits)->map('collect');
+        $allCreditsToSync = collect($credits)->map(collect(...));
 
         // Delete credits for artists who don't exist in new credit list.
         $this->credits()->whereIntegerNotInRaw(
