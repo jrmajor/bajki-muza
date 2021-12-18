@@ -7,8 +7,10 @@ parameters:
         - database/seeders
     excludePaths:
         - app/Providers/MacrosServiceProvider.php
+        - app/Values/CreditType.php
     checkMissingIterableValueType: false
     ignoreErrors:
+        - '#^Access to undefined constant App\\Values\\CreditType::\w+\.$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Parameter \#2 \$string of function Safe\\fwrite expects string, string\|false given\.$#'
         - '#^Parameter \#3 \$value of method Illuminate\\Database\\Eloquent\\Builder<Illuminate\\Database\\Eloquent\\Model>::having\(\) expects string\|null, int given\.$#'
