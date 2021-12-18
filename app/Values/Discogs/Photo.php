@@ -7,13 +7,13 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class Photo extends DataTransferObject implements Arrayable
 {
-    public string $type;
+    public readonly string $type;
 
-    public string $uri;
+    public readonly string $uri;
 
-    public string $uri150;
+    public readonly string $uri150;
 
-    public int $width;
+    public readonly int $width;
 
-    public int $height;
+    public readonly int $height;
 }

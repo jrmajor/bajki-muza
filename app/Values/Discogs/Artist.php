@@ -6,9 +6,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class Artist extends DataTransferObject
 {
-    public int $id;
+    public readonly int $id;
 
-    public string $name;
+    public readonly string $name;
 
     public static function fromArray(array $artist): self
     {

@@ -6,9 +6,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class CreditData extends DataTransferObject
 {
-    public string $type;
+    public readonly string $type;
 
-    public ?string $as;
+    public readonly ?string $as;
 
-    public int $nr;
+    public readonly int $nr;
 }

@@ -6,7 +6,7 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class Artist extends DataTransferObject
 {
-    public string $id;
+    public readonly string $id;
 
-    public string $name;
+    public readonly string $name;
 }
