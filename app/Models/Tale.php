@@ -83,7 +83,7 @@ final class Tale extends Model
         return $this->credits
             ->filter(fn ($artist) => $artist->credit->isCustom())
             ->sortBy(fn ($artist) => $artist->credit->type->order())
-            ->groupBy(fn ($artist) => $artist->credit->as ?? $artist->credit->type->label);
+            ->groupBy(fn ($artist) => $artist->credit->as ?? $artist->credit->type->label());
     }
 
     public function orderedCredits(): Collection

@@ -2,67 +2,56 @@
 
 namespace App\Values;
 
-use Spatie\Enum\Laravel\Enum;
-
-use function Safe\array_flip;
-
-/**
- * @method static self text()
- * @method static self author()
- * @method static self lyrics()
- * @method static self adaptation()
- * @method static self translation()
- * @method static self music()
- * @method static self arrangement()
- * @method static self directing()
- * @method static self directors_assistant()
- * @method static self production()
- * @method static self producers_assistant()
- * @method static self recording_director()
- * @method static self sound_operator()
- * @method static self sound_production()
- * @method static self editor()
- * @method static self production_manager()
- * @method static self artwork()
- */
-final class CreditType extends Enum
+enum CreditType: string
 {
-    protected static array $basic = [
-        'text', 'author',
-        'lyrics', 'music',
-    ];
-
-    protected static function labels(): array
-    {
-        return [
-            'text' => 'słowa',
-            'author' => 'autor',
-            'lyrics' => 'teksty piosenek',
-            'adaptation' => 'adaptacja',
-            'translation' => 'przekład',
-            'music' => 'muzyka',
-            'arrangement' => 'aranżacja',
-
-            'directing' => 'reżyseria',
-            'directors_assistant' => 'asystent reżysera',
-            'production' => 'realizacja',
-            'producers_assistant' => 'asystent realizatora',
-            'recording_director' => 'reżyser nagrania',
-            'sound_operator' => 'operator dźwięku',
-            'sound_production' => 'realizacja dźwięku',
-            'editor' => 'redaktor',
-            'production_manager' => 'kierownik produkcji',
-            'artwork' => 'opracowanie graficzne',
-        ];
-    }
+    case Text = 'text';
+    case Author = 'author';
+    case Lyrics = 'lyrics';
+    case Adaptation = 'adaptation';
+    case Translation = 'translation';
+    case Music = 'music';
+    case Arrangement = 'arrangement';
+    case Directing = 'directing';
+    case DirectorsAssistant = 'directors_assistant';
+    case Production = 'production';
+    case ProducersAssistant = 'producers_assistant';
+    case RecordingDirector = 'recording_director';
+    case SoundOperator = 'sound_operator';
+    case SoundProduction = 'sound_production';
+    case Editor = 'editor';
+    case ProductionManager = 'production_manager';
+    case Artwork = 'artwork';
 
     public function order(): int
     {
-        return array_flip(array_keys(self::labels()))[$this->value];
+        return array_search($this, self::cases());
     }
 
     public function isCustom(): bool
     {
-        return ! in_array($this->value, self::$basic);
+        return ! in_array($this, [self::Text, self::Author, self::Lyrics, self::Music]);
+    }
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Text => 'słowa',
+            self::Author => 'autor',
+            self::Lyrics => 'teksty piosenek',
+            self::Adaptation => 'adaptacja',
+            self::Translation => 'przekład',
+            self::Music => 'muzyka',
+            self::Arrangement => 'aranżacja',
+            self::Directing => 'reżyseria',
+            self::DirectorsAssistant => 'asystent reżysera',
+            self::Production => 'realizacja',
+            self::ProducersAssistant => 'asystent realizatora',
+            self::RecordingDirector => 'reżyser nagrania',
+            self::SoundOperator => 'operator dźwięku',
+            self::SoundProduction => 'realizacja dźwięku',
+            self::Editor => 'redaktor',
+            self::ProductionManager => 'kierownik produkcji',
+            self::Artwork => 'opracowanie graficzne',
+        };
     }
 }

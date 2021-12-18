@@ -148,7 +148,7 @@ final class Artist extends Model
     {
         return $this->credits
             ->sortBy(fn ($tale) => $tale->credit->type->order())
-            ->groupBy(fn ($tale) => $tale->credit->type->label);
+            ->groupBy(fn ($tale) => $tale->credit->type->label());
     }
 
     public function scopeCountAppearances(Builder $query): void

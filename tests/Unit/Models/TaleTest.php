@@ -106,30 +106,12 @@ it('can get credits', function () {
     $artists = Artist::factory(6)->create();
 
     $tale->credits()->attach([
-        $artists[0]->id => [
-            'type' => CreditType::text(),
-            'nr' => 2,
-        ],
-        $artists[1]->id => [
-            'type' => CreditType::text(),
-            'nr' => 1,
-        ],
-        $artists[2]->id => [
-            'type' => CreditType::text(),
-            'nr' => 0,
-        ],
-        $artists[3]->id => [
-            'type' => CreditType::music(),
-            'nr' => 1,
-        ],
-        $artists[4]->id => [
-            'type' => CreditType::music(),
-            'nr' => 0,
-        ],
-        $artists[5]->id => [
-            'type' => CreditType::music(),
-            'nr' => 2,
-        ],
+        $artists[0]->id => ['type' => CreditType::Text, 'nr' => 2],
+        $artists[1]->id => ['type' => CreditType::Text, 'nr' => 1],
+        $artists[2]->id => ['type' => CreditType::Text, 'nr' => 0],
+        $artists[3]->id => ['type' => CreditType::Music, 'nr' => 1],
+        $artists[4]->id => ['type' => CreditType::Music, 'nr' => 0],
+        $artists[5]->id => ['type' => CreditType::Music, 'nr' => 2],
     ]);
 
     expect($tale->credits)->toHaveCount(6)->sequence(
@@ -148,16 +130,16 @@ it('can get credits of given type', function () {
     $artists = Artist::factory(7)->create();
 
     $tale->credits()->attach([
-        $artists[0]->id => ['type' => CreditType::text(), 'nr' => 2],
-        $artists[1]->id => ['type' => CreditType::text(), 'nr' => 1],
-        $artists[2]->id => ['type' => CreditType::music(), 'nr' => 1],
-        $artists[3]->id => ['type' => CreditType::music(), 'nr' => 0],
-        $artists[4]->id => ['type' => CreditType::text(), 'nr' => 0],
-        $artists[5]->id => ['type' => CreditType::music(), 'nr' => 2],
-        $artists[6]->id => ['type' => CreditType::directing(), 'nr' => 0],
+        $artists[0]->id => ['type' => CreditType::Text, 'nr' => 2],
+        $artists[1]->id => ['type' => CreditType::Text, 'nr' => 1],
+        $artists[2]->id => ['type' => CreditType::Music, 'nr' => 1],
+        $artists[3]->id => ['type' => CreditType::Music, 'nr' => 0],
+        $artists[4]->id => ['type' => CreditType::Text, 'nr' => 0],
+        $artists[5]->id => ['type' => CreditType::Music, 'nr' => 2],
+        $artists[6]->id => ['type' => CreditType::Directing, 'nr' => 0],
     ]);
 
-    $composers = $tale->creditsFor(CreditType::music());
+    $composers = $tale->creditsFor(CreditType::Music);
 
     expect($composers)->toHaveCount(3)->sequence(
         fn ($e) => $e->toBeModel($artists[3]),

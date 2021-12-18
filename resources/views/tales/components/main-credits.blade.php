@@ -1,8 +1,8 @@
 <?php /** @var App\Models\Tale $tale */ ?>
 
 @php
-  $text = $tale->creditsFor(CreditType::text());
-  $authors = $tale->creditsFor(CreditType::author());
+  $text = $tale->creditsFor(CreditType::Text);
+  $authors = $tale->creditsFor(CreditType::Author);
 @endphp
 
 <div class="flex flex-col">
@@ -49,10 +49,10 @@
     @endforeach
   @endif
 
-  @unless ($tale->creditsFor(CreditType::lyrics())->isEmpty())
+  @unless ($tale->creditsFor(CreditType::Lyrics)->isEmpty())
     <div>
       <strong>Teksty piosenek:</strong>
-      @foreach ($tale->creditsFor(CreditType::lyrics()) as $lyricist)
+      @foreach ($tale->creditsFor(CreditType::Lyrics) as $lyricist)
         <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
           {{ $lyricist->name }}
           <x-appearances :count="$lyricist->appearances" size="small"/>
@@ -61,9 +61,9 @@
     </div>
   @endif
 
-  @unless ($tale->creditsFor(CreditType::music())->isEmpty())
+  @unless ($tale->creditsFor(CreditType::Music)->isEmpty())
     @foreach (
-      $tale->creditsFor(CreditType::music())
+      $tale->creditsFor(CreditType::Music)
           ->groupBy(fn ($artist) => $artist->credit->as ?? 'Muzyka')
       as $credit => $composers
     )

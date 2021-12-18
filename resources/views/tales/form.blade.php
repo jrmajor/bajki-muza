@@ -156,8 +156,8 @@
           <div class="flex-shrink-0 w-1/4">
             <select :name="'credits[' + index + '][type]'" x-model="credit.type"
               class="w-full form-select">
-              @foreach (CreditType::toArray() as $value => $label)
-                <option value="{{ $value }}">{{ $label }}</option>
+              @foreach (CreditType::cases() as $type)
+                <option value="{{ $type->value }}">{{ $type->label() }}</option>
               @endforeach
             </select>
           </div>

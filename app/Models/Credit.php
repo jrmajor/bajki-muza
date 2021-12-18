@@ -18,7 +18,7 @@ final class Credit extends Pivot
 
     public function ofType(CreditType $type): bool
     {
-        return $this->type->equals($type);
+        return $this->type === $type;
     }
 
     public function isCustom(): bool

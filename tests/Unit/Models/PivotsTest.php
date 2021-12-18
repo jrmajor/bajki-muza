@@ -18,10 +18,8 @@ test('credit pivot casts values', function () {
 });
 
 test('ofType method works in credit pivot', function () {
-    $credit = new Credit([
-        'type' => CreditType::text(),
-    ]);
+    $credit = new Credit(['type' => CreditType::Text]);
 
-    expect($credit->ofType(CreditType::text()))->toBeTrue();
-    expect($credit->ofType(CreditType::music()))->toBeFalse();
+    expect($credit->ofType(CreditType::Text))->toBeTrue();
+    expect($credit->ofType(CreditType::Music))->toBeFalse();
 });
