@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "0.1.4",
-    "alpinejs": "^3.5",
+    "alpinejs": "^3.7",
     "croppr": "^2.3",
     "pretty-bytes": "^5.4",
     "tailwindcss": "^2.2",
