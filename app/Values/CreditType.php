@@ -24,7 +24,8 @@ enum CreditType: string
 
     public function order(): int
     {
-        return array_search($this, self::cases());
+        /** @var int */
+        return array_search($this, self::cases(), true);
     }
 
     public function isCustom(): bool
