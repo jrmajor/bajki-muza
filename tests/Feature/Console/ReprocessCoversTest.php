@@ -9,9 +9,8 @@ use App\Models\Tale;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\TestDox;
+use Tests;
 use Tests\TestCase;
-
-use function Tests\read_fixture;
 
 final class ReprocessCoversTest extends TestCase
 {
@@ -43,7 +42,7 @@ final class ReprocessCoversTest extends TestCase
         // Photo by David Grandmougin on Unsplash
         Cover::disk()->put(
             'covers/original/test.jpg',
-            read_fixture('Images/cover.jpg'),
+            Tests\read_fixture('Images/cover.jpg'),
         );
 
         Queue::fake();

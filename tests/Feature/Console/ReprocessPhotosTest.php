@@ -9,9 +9,8 @@ use App\Models\Artist;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\TestDox;
+use Tests;
 use Tests\TestCase;
-
-use function Tests\read_fixture;
 
 final class ReprocessPhotosTest extends TestCase
 {
@@ -43,7 +42,7 @@ final class ReprocessPhotosTest extends TestCase
         // Photo by David Grandmougin on Unsplash
         Photo::disk()->put(
             'photos/original/test.jpg',
-            read_fixture('Images/photo.jpg'),
+            Tests\read_fixture('Images/photo.jpg'),
         );
 
         Queue::fake();
