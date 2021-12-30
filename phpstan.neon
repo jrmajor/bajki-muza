@@ -18,10 +18,8 @@ parameters:
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Parameter \#2 \$string of function Safe\\fwrite expects string, string\|false given\.$#'
         - '#^Parameter \#3 \$value of method Illuminate\\Database\\Eloquent\\Builder<Illuminate\\Database\\Eloquent\\Model>::having\(\) expects string\|null, int given\.$#'
-        -
-            message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,array\\>\\:\\:map\\(\\) expects callable\\(array, int\\)\\: string, Closure\\(string\\)\\: string given\\.$#"
-            count: 2
-            path: app/Console/Commands/Cleanup*.php
+    stubFiles:
+        - phpstan.stub
 
 includes:
     - vendor/nunomaduro/larastan/extension.neon

@@ -1,0 +1,14 @@
+<?php
+
+namespace Illuminate\Filesystem;
+{
+    class FilesystemAdapter
+    {
+        /**
+         * @param string|null $directory
+         * @param bool $recursive
+         * @return list<string>
+         */
+        public function files($directory = null, $recursive = false);
+    }
+}
