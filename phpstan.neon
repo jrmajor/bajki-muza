@@ -7,6 +7,8 @@ parameters:
         - database/seeders
     excludePaths:
         - app/Providers/MacrosServiceProvider.php
+    scanFiles:
+        - tests/TestDox.php
     checkMissingIterableValueType: false
     ignoreErrors:
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
