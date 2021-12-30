@@ -135,6 +135,6 @@ it('can get check which responsive variants are missing', function () {
 
     expect(
         (new TestCover(['filename' => 'fileWithMissingVariants.jpg']))
-            ->missingResponsiveVariants()->all(),
+            ->missingResponsiveVariants(),
     )->toBe([192, 256]);
 });

@@ -65,8 +65,8 @@ class ReprocessPhotos extends Command
 
     protected function reprocessPhoto(Photo $photo): int
     {
-        if (($missing = $photo->missingResponsiveVariants())->isNotEmpty()) {
-            $missing = $missing->join(', ');
+        if (count($missing = $photo->missingResponsiveVariants()) !== 0) {
+            $missing = implode(', ', $missing);
 
             $this->warn("Some of responsive variants were missing ({$missing}).");
         }

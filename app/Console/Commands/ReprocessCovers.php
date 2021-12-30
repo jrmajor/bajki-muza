@@ -65,8 +65,8 @@ class ReprocessCovers extends Command
 
     protected function reprocessCover(Cover $cover): int
     {
-        if (($missing = $cover->missingResponsiveVariants())->isNotEmpty()) {
-            $missing = $missing->join(', ');
+        if (count($missing = $cover->missingResponsiveVariants()) !== 0) {
+            $missing = implode(', ', $missing);
 
             $this->warn("Some of responsive variants were missing ({$missing}).");
         }

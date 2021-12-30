@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\File as LaravelFile;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Psl\File;
 use Psl\Filesystem;
 use Psl\Str;
 use Psl\Type;
+use Psl\Vec;
 
 abstract class Image extends Model
 {
@@ -118,18 +118,20 @@ abstract class Image extends Model
         return $this->disk()->missing($this->path($size));
     }
 
-    public function missingResponsiveVariants(): Collection
+    public function missingResponsiveVariants(): array
     {
-        return collect(static::sizes())
-            ->filter(fn ($size) => $this->responsiveVariantMissing($size))
-            ->values();
+        return Vec\filter(
+            static::sizes(),
+            fn ($size) => $this->responsiveVariantMissing($size),
+        );
     }
 
     protected function deleteResponsiveVariants(): bool
     {
-        $variantsToDelete = collect(static::sizes())
-            ->map(fn ($size) => $this->path($size))
-            ->all();
+        $variantsToDelete = Vec\map(
+            static::sizes(),
+            fn ($size) => $this->path($size),
+        );
 
         return $this->disk()->delete($variantsToDelete);
     }
