@@ -5,9 +5,7 @@ parameters:
         - config
         - database/factories
         - database/seeders
-        - tests/Feature/Artists
-        - tests/Feature/Auth
-        - tests/Feature/Tales
+        - tests/Feature
     excludePaths:
         - app/Providers/MacrosServiceProvider.php
     scanFiles:
