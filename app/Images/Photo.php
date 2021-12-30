@@ -43,9 +43,6 @@ final class Photo extends Image
         ]);
     }
 
-    /**
-     * @return Collection<int, int>
-     */
     public static function sizes(): Collection
     {
         return self::imageSizes()

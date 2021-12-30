@@ -7,18 +7,15 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Http\File;
+use Illuminate\Http\File as LaravelFile;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
-
-use function Safe\fclose;
-use function Safe\fopen;
-use function Safe\fwrite;
-use function Safe\touch;
+use Psl\File;
+use Psl\Filesystem;
+use Psl\Str;
+use Psl\Type;
 
 abstract class Image extends Model
 {
@@ -30,6 +27,9 @@ abstract class Image extends Model
 
     protected $guarded = [];
 
+    /**
+     * @return Collection<int, int>
+     */
     abstract public static function sizes(): Collection;
 
     abstract protected function process(): void;
@@ -40,49 +40,36 @@ abstract class Image extends Model
 
     abstract public function path(int $size): string;
 
-    public static function store(File|UploadedFile|string $file, array $attributes = []): static
+    public static function store(LaravelFile|UploadedFile|string $file, array $attributes = []): static
     {
-        if (is_string($file)) {
+        if (Type\string()->matches($file)) {
             return self::storeFromUrl($file, $attributes);
         }
 
-        $path = static::disk()
-            ->putFile(static::uploadPath(), $file, 'private');
+        $path = static::disk()->putFile(static::uploadPath(), $file, 'private');
 
         if ($path === false) {
             throw new Exception('Failed to safe a file.');
         }
 
-        $filename = Str::afterLast($path, '/');
-
-        $image = static::create(
-            array_merge(compact('filename'), $attributes),
+        /** @var static */
+        return tap(
+            static::create(['filename' => Str\after_last($path, '/'), ...$attributes]),
+            fn (self $image) => $image->process(),
         );
-
-        assert($image instanceof static);
-
-        return tap($image, fn ($image) => $image->process());
     }
 
     protected static function storeFromUrl(string $url, array $attributes): static
     {
-        $contents = Http::get($url);
+        $content = Http::get($url)->throw()->body();
 
-        $temporaryDirectory = (new TemporaryDirectory())->create();
+        $tempPath = Filesystem\create_temporary_file();
 
-        $targetFile = $temporaryDirectory->path('uploaded-image.jpeg');
+        File\write($tempPath, $content);
 
-        touch($targetFile);
+        $photo = self::store(new LaravelFile($tempPath), $attributes);
 
-        $targetStream = fopen($targetFile, 'a');
-
-        fwrite($targetStream, $contents);
-
-        fclose($targetStream);
-
-        $photo = self::store(new File($targetFile), $attributes);
-
-        $temporaryDirectory->delete();
+        Filesystem\delete_file($tempPath);
 
         return $photo;
     }
