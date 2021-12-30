@@ -5,14 +5,16 @@ namespace Tests;
 use App\Images\Jobs\ProcessesImages;
 use App\Models\User;
 use Closure;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Testing\PendingCommand;
+use Psl\Type;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
-    use LazilyRefreshDatabase;
+    use RefreshDatabase;
 
     public function asUser(?User $user = null, ?string $driver = null): TestCase
     {
@@ -37,5 +39,14 @@ abstract class TestCase extends BaseTestCase
                 $this->temporaryDirectory->delete();
             }
         })->test($callback);
+    }
+
+    /**
+     * @param non-empty-string $command
+     */
+    protected function a(string $command): PendingCommand
+    {
+        return Type\instance_of(PendingCommand::class)
+            ->coerce($this->artisan($command));
     }
 }

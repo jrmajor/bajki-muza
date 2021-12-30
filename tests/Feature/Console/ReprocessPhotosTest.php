@@ -1,55 +1,69 @@
 <?php
 
+namespace Tests\Feature\Console;
+
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Support\Facades\Queue;
-
-use function Pest\Laravel\artisan;
+use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 use function Tests\fixture;
 
-it('throws error when artist does not exist')
-    ->artisan('reprocess:photos --artist nonexistent-artist')
-    ->expectsOutput('Artist does not exist.')
-    ->assertExitCode(1);
+final class ReprocessPhotosTest extends TestCase
+{
+    #[TestDox('it throws error when artist does not exist')]
+    public function testNonexistentArtist(): void
+    {
+        $this->a('reprocess:photos --artist nonexistent-artist')
+            ->expectsOutput('Artist does not exist.')
+            ->assertExitCode(1);
+    }
 
-it('throws error when artist does not have a photo', function () {
-    Artist::factory()->noPhoto()->create([
-        'name' => 'Test Artist',
-    ]);
+    #[TestDox('it throws error when artist does not have a photo')]
+    public function testNoPhoto(): void
+    {
+        Artist::factory()->noPhoto()->create(['name' => 'Test artist']);
 
-    artisan('reprocess:photos --artist test-artist')
-        ->expectsOutput('Artist does not have a photo.')
-        ->assertExitCode(1);
-});
+        $this->a('reprocess:photos --artist test-artist')
+            ->expectsOutput('Artist does not have a photo.')
+            ->assertExitCode(1);
+    }
 
-it('works with single artist', function () {
-    Storage::fake('testing');
+    #[TestDox('it works with single artist')]
+    public function testSingleArtist(): void
+    {
+        Storage::fake('testing');
 
-    Artist::factory()->photo('test.jpg')->create([
-        'name' => 'Test Artist',
-    ]);
+        Artist::factory()->photo('test.jpg')->create([
+            'name' => 'Test Artist',
+        ]);
 
-    // Photo by David Grandmougin on Unsplash
-    $file = fopen(fixture('Images/photo.jpg'), 'r');
+        // Photo by David Grandmougin on Unsplash
+        $file = fopen(fixture('Images/photo.jpg'), 'r');
 
-    Photo::disk()->put('photos/original/test.jpg', $file, 'public');
+        Photo::disk()->put('photos/original/test.jpg', $file, 'public');
 
-    fclose($file);
+        fclose($file);
 
-    Queue::fake();
+        Queue::fake();
 
-    artisan('reprocess:photos --artist test-artist')
-        ->assertExitCode(0);
+        $this->a('reprocess:photos --artist test-artist')
+            ->assertExitCode(0);
 
-    Queue::assertPushedWithChain(
-        GenerateArtistPhotoPlaceholders::class,
-        [GenerateArtistPhotoVariants::class],
-    );
-});
+        Queue::assertPushedWithChain(
+            GenerateArtistPhotoPlaceholders::class,
+            [GenerateArtistPhotoVariants::class],
+        );
+    }
 
-it('asks for confirmation when processing all photos')
-    ->artisan('reprocess:photos')
-    ->expectsConfirmation('Do you want to reprocess all photos?', 'no')
-    ->assertExitCode(1);
+    #[TestDox('it asks for confirmation when processing all photos')]
+    public function testConfirmation(): void
+    {
+        $this->a('reprocess:photos')
+            ->expectsConfirmation('Do you want to reprocess all photos?', 'no')
+            ->assertExitCode(1);
+    }
+}
