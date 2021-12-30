@@ -1,67 +1,87 @@
 <?php
 
+namespace Tests\Feature\Artists;
+
 use App\Models\Artist;
+use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\get;
-use function Pest\Laravel\put;
-use function Tests\asUser;
+final class EditArtistTest extends TestCase
+{
+    private array $oldAttributes;
 
-beforeEach(function () {
-    $this->oldAttributes = [
-        'slug' => 'ilona-kusmierska',
-        'name' => 'Ilona Kuśmierska',
-        'discogs' => 602488,
-        'filmpolski' => 11623,
-        'wikipedia' => 'Ilona_Kuśmierska',
-    ];
+    private array $newAttributes;
 
-    $this->newAttributes = [
-        'slug' => 'tadeusz-bartosik',
-        'name' => 'Tadeusz Bartosik',
-        'discogs' => 1023394,
-        'filmpolski' => 116251,
-        'wikipedia' => 'Tadeusz_Bartosik',
-    ];
+    private Artist $artist;
 
-    $this->artist = Artist::factory()->create($this->oldAttributes);
-});
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-test('guests are asked to log in when attempting to view edit artist form', function () {
-    get("artysci/{$this->artist->slug}/edit")
-        ->assertRedirect('login');
-});
+        $this->oldAttributes = [
+            'slug' => 'ilona-kusmierska',
+            'name' => 'Ilona Kuśmierska',
+            'discogs' => 602488,
+            'filmpolski' => 11623,
+            'wikipedia' => 'Ilona_Kuśmierska',
+        ];
 
-test('guests are asked to log in when attempting to view edit form for nonexistent artist')
-    ->get('artysci/2137/edit')
-    ->assertRedirect('login');
+        $this->newAttributes = [
+            'slug' => 'tadeusz-bartosik',
+            'name' => 'Tadeusz Bartosik',
+            'discogs' => 1023394,
+            'filmpolski' => 116251,
+            'wikipedia' => 'Tadeusz_Bartosik',
+        ];
 
-test('users can view edit artist form', function () {
-    Http::fake();
-
-    asUser()
-        ->get("artysci/{$this->artist->slug}/edit")
-        ->assertOk();
-});
-
-test('guests cannot edit artist', function () {
-    put("artysci/{$this->artist->slug}", $this->newAttributes)
-        ->assertRedirect('login');
-
-    $artist = $this->artist->fresh();
-
-    foreach ($this->oldAttributes as $key => $attribute) {
-        expect($artist->{$key})->toBe($attribute);
+        $this->artist = Artist::factory()->createOne($this->oldAttributes);
     }
-});
 
-test('users with permissions can edit artist', function () {
-    asUser()
-        ->put("artysci/{$this->artist->slug}", $this->newAttributes)
-        ->assertRedirect("artysci/{$this->newAttributes['slug']}");
-
-    $artist = $this->artist->fresh();
-
-    foreach ($this->newAttributes as $key => $attribute) {
-        expect($artist->{$key})->toBe($attribute);
+    #[TestDox('guests are asked to log in when attempting to view edit artist form')]
+    public function testGuestView(): void
+    {
+        $this->get("artysci/{$this->artist->slug}/edit")->assertRedirect('login');
     }
-});
+
+    #[TestDox('guests are asked to log in when attempting to view edit form for nonexistent artist')]
+    public function testGuestNonexistent(): void
+    {
+        $this->get('artysci/2137/edit')->assertRedirect('login');
+    }
+
+    #[TestDox('users can view edit artist form')]
+    public function testUserView(): void
+    {
+        Http::fake();
+
+        $this->asUser()->get("artysci/{$this->artist->slug}/edit")->assertOk();
+    }
+
+    #[TestDox('guests cannot edit artist')]
+    public function testGuestEdit(): void
+    {
+        $this->put("artysci/{$this->artist->slug}", $this->newAttributes)
+            ->assertRedirect('login');
+
+        $this->artist->refresh();
+
+        foreach ($this->oldAttributes as $key => $attribute) {
+            $this->assertSame($attribute, $this->artist->{$key});
+        }
+    }
+
+    #[TestDox('users with permissions can edit artist')]
+    public function testUserEdit(): void
+    {
+        $this->asUser()
+            ->put("artysci/{$this->artist->slug}", $this->newAttributes)
+            ->assertRedirect("artysci/{$this->newAttributes['slug']}");
+
+        $this->artist->refresh();
+
+        foreach ($this->newAttributes as $key => $attribute) {
+            $this->assertSame($attribute, $this->artist->{$key});
+        }
+    }
+}

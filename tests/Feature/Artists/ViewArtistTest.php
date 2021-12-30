@@ -1,22 +1,29 @@
 <?php
 
+namespace Tests\Feature\Artists;
+
 use App\Models\Artist;
 use App\Services\Discogs;
 use App\Services\Wikipedia;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\get;
-use function Pest\Laravel\partialMock;
+final class ViewArtistTest extends TestCase
+{
+    #[TestDox('it works')]
+    public function testOk(): void
+    {
+        $artist = Artist::factory()->createOne();
 
-it('works', function () {
-    $artist = Artist::factory()->create();
+        $this->partialMock(Wikipedia::class)->shouldReceive('extract')->andReturn('test');
+        $this->partialMock(Discogs::class)->shouldReceive('photos')->andReturn(collect());
 
-    partialMock(Wikipedia::class)->shouldReceive('extract')->andReturn('test');
-    partialMock(Discogs::class)->shouldReceive('photos')->andReturn(collect());
+        $this->get("artysci/{$artist->slug}")->assertOk();
+    }
 
-    get("artysci/{$artist->slug}")
-        ->assertOk();
-});
-
-it('returns 404 when attempting to view nonexistent artist')
-    ->get('artysci/nonexistent-artist')
-    ->assertStatus(404);
+    #[TestDox('returns 404 when attempting to view nonexistent artist')]
+    public function test404(): void
+    {
+        $this->get('artysci/nonexistent-artist')->assertStatus(404);
+    }
+}

@@ -1,167 +1,160 @@
 <?php
 
+namespace Tests\Feature\Artists;
+
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests;
+use Tests\TestCase;
 
-use function Tests\asUser;
-use function Tests\fixture;
+final class EditArtistPhotoTest extends TestCase
+{
+    private array $attributes;
 
-beforeEach(function () {
-    $this->attributes = [
-        'slug' => 'ilona-kusmierska',
-        'name' => 'Ilona Kuśmierska',
-        'discogs' => 602488,
-        'filmpolski' => 11623,
-        'wikipedia' => 'Ilona_Kuśmierska',
-    ];
+    private Artist $artist;
 
-    $this->crop = ArtistPhotoCrop::fake();
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-    $this->rawCrop = $this->crop->toArray();
+        $this->attributes = [
+            'slug' => 'ilona-kusmierska',
+            'name' => 'Ilona Kuśmierska',
+            'discogs' => 602488,
+            'filmpolski' => 11623,
+            'wikipedia' => 'Ilona_Kuśmierska',
+        ];
 
-    $this->artist = Artist::factory()
-        ->noPhoto()->create($this->attributes);
-});
+        $this->artist = Artist::factory()
+            ->noPhoto()->createOne($this->attributes);
+    }
 
-test('photo can be deleted', function () {
-    $this->artist->photo()->associate(
-        Photo::create([
-            'filename' => 'test.jpg',
-            'crop' => ArtistPhotoCrop::fake(),
-        ]),
-    )->save();
-
-    // @todo $this->artist->refresh();
-    $this->artist = $this->artist->fresh();
-
-    expect($this->artist->photo)->not->toBeNull();
-
-    asUser()
-        ->put(
-            "artysci/{$this->artist->slug}",
-            array_merge($this->attributes, [
-                'remove_photo' => true,
+    #[TestDox('photo can be deleted')]
+    public function testPhotoCanBeDeleted(): void
+    {
+        $this->artist->photo()->associate(
+            Photo::create([
+                'filename' => 'test.jpg',
+                'crop' => ArtistPhotoCrop::fake(),
             ]),
+        )->save();
+
+        $this->artist->refresh();
+
+        $this->assertNotNull($this->artist->photo);
+
+        $this->asUser()->put(
+            "artysci/{$this->artist->slug}",
+            [...$this->attributes, 'remove_photo' => true],
         )->assertRedirect("artysci/{$this->artist->slug}");
 
-    // @todo $this->artist->refresh();
-    $this->artist = $this->artist->fresh();
+        $this->artist->refresh();
 
-    expect($this->artist->photo)->toBeNull();
-});
+        $this->assertNull($this->artist->photo);
+    }
 
-test('photo can be uploaded', function () {
-    Storage::fake('testing');
+    #[TestDox('photo can be uploaded')]
+    public function testPhotoCanBeUploaded(): void
+    {
+        Storage::fake('testing');
 
-    Queue::fake();
+        Queue::fake();
 
-    asUser()
-        ->put(
-            "artysci/{$this->artist->slug}",
-            array_merge($this->attributes, [
-                'photo' => UploadedFile::fake()->image('test.jpg'),
-                'photo_crop' => $this->rawCrop,
-                'photo_source' => 'test source',
+        $this->asUser()->put("artysci/{$this->artist->slug}", [
+            ...$this->attributes,
+            'photo' => UploadedFile::fake()->image('test.jpg'),
+            'photo_crop' => ArtistPhotoCrop::fake()->toArray(),
+            'photo_source' => 'test source',
+        ])->assertRedirect("artysci/{$this->artist->slug}");
+
+        $photo = $this->artist->refresh()->photo;
+        $this->assertNotNull($photo);
+        $this->assertSame('test source', $photo->source);
+        $this->assertSame((string) ArtistPhotoCrop::fake(), (string) $photo->crop);
+
+        $this->assertCount(1, Photo::disk()->files('photos/original'));
+
+        Queue::assertPushedWithChain(
+            GenerateArtistPhotoPlaceholders::class,
+            [GenerateArtistPhotoVariants::class],
+        );
+    }
+
+    #[TestDox('photo can be updated using specified uri')]
+    public function testPhotoCanBeUpdatedUsingUri(): void
+    {
+        Http::fake(['filmpolski.pl/*' => Http::response(Tests\read_fixture('Images/photo.jpg'))]);
+
+        Storage::fake('testing');
+
+        Queue::fake();
+
+        $this->asUser()->put("artysci/{$this->artist->slug}", [
+            ...$this->attributes,
+            'photo_uri' => $uri = 'https://filmpolski.pl/z1/31z/2431_3.jpg',
+            'photo_crop' => ArtistPhotoCrop::fake()->toArray(),
+            'photo_source' => 'test source',
+        ])->assertRedirect("artysci/{$this->artist->slug}");
+
+        Http::assertSent(fn ($request) => $request->url() === $uri);
+
+        $photo = $this->artist->refresh()->photo;
+        $this->assertNotNull($photo);
+        $this->assertSame('test source', $photo->source);
+        $this->assertSame((string) ArtistPhotoCrop::fake(), (string) $photo->crop);
+
+        $this->assertCount(1, $files = Photo::disk()->files('photos/original'));
+
+        $this->assertStringEqualsFile(
+            Tests\fixture('Images/photo.jpg'),
+            Photo::disk()->get($files[0]),
+        );
+
+        Queue::assertPushedWithChain(
+            GenerateArtistPhotoPlaceholders::class,
+            [GenerateArtistPhotoVariants::class],
+        );
+    }
+
+    #[TestDox('crop can be updated without changing photo')]
+    public function testCropCanBeUpdated(): void
+    {
+        Storage::fake('testing');
+
+        Photo::disk()->put('photos/original/test.jpg', 'contents');
+
+        $this->artist->photo()->associate(
+            Photo::create([
+                'filename' => 'test.jpg',
+                'crop' => ArtistPhotoCrop::fake(),
             ]),
+        )->save();
+
+        $this->assertNotNull($this->artist->refresh()->photo);
+
+        $newCrop = ArtistPhotoCrop::fake()->toArray();
+        $newCrop['face']['size'] = '190';
+
+        Queue::fake();
+
+        $this->asUser()->put(
+            "artysci/{$this->artist->slug}",
+            [...$this->attributes, 'photo_crop' => $newCrop],
         )->assertRedirect("artysci/{$this->artist->slug}");
 
-    // @todo $this->artist->refresh();
-    $this->artist = $this->artist->fresh();
+        $this->assertSame(190, $this->artist->refresh()->photo->crop->face->size);
 
-    expect($this->artist->photo)->not->toBeNull()
-        ->and($this->artist->photo->source)->toBe('test source')
-        ->and((string) $this->artist->photo->crop)->toBe((string) ArtistPhotoCrop::fake());
-
-    expect(Photo::disk()->files('photos/original'))->toHaveCount(1);
-
-    Queue::assertPushedWithChain(
-        GenerateArtistPhotoPlaceholders::class,
-        [GenerateArtistPhotoVariants::class],
-    );
-});
-
-test('photo can be downloaded from specified uri', function () {
-    $photoResponse = Http::response(file_get_contents(fixture('Images/photo.jpg')), 200);
-
-    Http::fake(['filmpolski.pl/*' => $photoResponse]);
-
-    Storage::fake('testing');
-
-    Queue::fake();
-
-    asUser()
-        ->put(
-            "artysci/{$this->artist->slug}",
-            array_merge($this->attributes, [
-                'photo_uri' => $uri = 'https://filmpolski.pl/z1/31z/2431_3.jpg',
-                'photo_crop' => $this->rawCrop,
-                'photo_source' => 'test source',
-            ]),
-        )->assertRedirect("artysci/{$this->artist->slug}");
-
-    Http::assertSent(fn ($request) => $request->url() === $uri);
-
-    // @todo $this->artist->refresh();
-    $this->artist = $this->artist->fresh();
-
-    expect($this->artist->photo)->not->toBeNull()
-        ->and($this->artist->photo->source)->toBe('test source')
-        ->and((string) $this->artist->photo->crop)->toBe((string) ArtistPhotoCrop::fake());
-
-    expect($files = Photo::disk()->files('photos/original'))
-        ->toHaveCount(1);
-
-    expect(Photo::disk()->get($files[0]))
-        ->toBe(file_get_contents(fixture('Images/photo.jpg')));
-
-    Queue::assertPushedWithChain(
-        GenerateArtistPhotoPlaceholders::class,
-        [GenerateArtistPhotoVariants::class],
-    );
-});
-
-test('crop can be updated without changing photo', function () {
-    Storage::fake('testing');
-
-    Photo::disk()->put('photos/original/test.jpg', 'contents');
-
-    $this->artist->photo()->associate(
-        Photo::create([
-            'filename' => 'test.jpg',
-            'crop' => ArtistPhotoCrop::fake(),
-        ]),
-    )->save();
-
-    // @todo $this->artist->refresh();
-    $this->artist = $this->artist->fresh();
-
-    $newCrop = $this->rawCrop;
-
-    Arr::set($newCrop, 'face.size', '190');
-
-    expect(Arr::get($newCrop, 'face.size'))->toBe('190');
-
-    Queue::fake();
-
-    asUser()
-        ->put(
-            "artysci/{$this->artist->slug}",
-            array_merge($this->attributes, [
-                'photo_crop' => $newCrop,
-            ]),
-        )->assertRedirect("artysci/{$this->artist->slug}");
-
-    // @todo $this->artist->refresh();
-    $this->artist = $this->artist->fresh();
-
-    expect($this->artist->photo->crop->face->size)->toBe(190);
-
-    Queue::assertPushedWithChain(
-        GenerateArtistPhotoPlaceholders::class,
-        [GenerateArtistPhotoVariants::class],
-    );
-});
+        Queue::assertPushedWithChain(
+            GenerateArtistPhotoPlaceholders::class,
+            [GenerateArtistPhotoVariants::class],
+        );
+    }
+}

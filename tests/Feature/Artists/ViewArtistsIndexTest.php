@@ -1,7 +1,15 @@
 <?php
 
-use function Pest\Laravel\get;
+namespace Tests\Feature\Artists;
 
-get('artysci')
-    ->assertOk()
-    ->assertSeeLivewire('artists');
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
+
+final class ViewArtistsIndexTest extends TestCase
+{
+    #[TestDox('it works')]
+    public function testOk(): void
+    {
+        $this->get('artysci')->assertOk()->assertSeeLivewire('artists');
+    }
+}

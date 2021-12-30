@@ -1,25 +1,33 @@
 <?php
 
+namespace Tests\Feature\Artists;
+
 use App\Models\Artist;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\delete;
-use function Tests\asUser;
+final class DeleteArtistTest extends TestCase
+{
+    #[TestDox('guests can not delete artist')]
+    public function testGuest(): void
+    {
+        $artist = Artist::factory()->createOne();
 
-test('guests can not delete artist', function () {
-    $artist = Artist::factory()->create();
+        $this->delete("artysci/{$artist->slug}")
+            ->assertRedirect('login');
 
-    delete("artysci/{$artist->slug}")
-        ->assertRedirect('login');
+        $this->assertNotNull($artist->fresh());
+    }
 
-    expect($artist->fresh())->not->toBeNull();
-});
+    #[TestDox('users can delete artist')]
+    public function testUser(): void
+    {
+        $artist = Artist::factory()->createOne();
 
-test('users can delete artist', function () {
-    $artist = Artist::factory()->create();
+        $this->asUser()
+            ->delete("artysci/{$artist->slug}")
+            ->assertRedirect('artysci');
 
-    asUser()
-        ->delete("artysci/{$artist->slug}")
-        ->assertRedirect('artysci');
-
-    expect($artist->fresh())->toBeNull();
-});
+        $this->assertNull($artist->fresh());
+    }
+}
