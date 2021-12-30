@@ -6,14 +6,16 @@ use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 
 final class Cover extends Image
 {
-    public static function sizes(): Collection
+    /**
+     * @return list<positive-int>
+     */
+    public static function sizes(): array
     {
-        return collect([
+        return [
             60, // 3.75rem
             90, // 3.75rem * 1.5
             120, // 3.75rem * 2
@@ -22,7 +24,7 @@ final class Cover extends Image
             288, // 12rem * 1.5
             256, // 8rem * 2
             384, // 12rem * 2
-        ]);
+        ];
     }
 
     protected function process(): void

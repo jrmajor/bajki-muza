@@ -18,7 +18,7 @@ class CleanupPhotos extends Command
             ->map(fn ($path) => $this->removePhotoIfItHasNoModel($path))
             ->contains(1) ? 1 : 0;
 
-        return Photo::sizes()
+        return collect(Photo::sizes())
             ->map(fn (int $size) => Photo::disk()->files("photos/{$size}"))
             ->flatten()
             ->map(fn (string $path) => Str::afterLast($path, '/'))
@@ -61,7 +61,7 @@ class CleanupPhotos extends Command
 
     protected function deleteOriginalAndResponsiveVariants(string $filename): int
     {
-        $photosToDelete = Photo::sizes()
+        $photosToDelete = collect(Photo::sizes())
             ->prepend('original')
             ->map(fn ($size) => "photos/{$size}/{$filename}")
             ->all();

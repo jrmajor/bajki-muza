@@ -18,7 +18,7 @@ class CleanupCovers extends Command
             ->map(fn (string $path) => $this->removeCoverIfItHasNoModel($path))
             ->contains(1) ? 1 : 0;
 
-        return Cover::sizes()
+        return collect(Cover::sizes())
             ->map(fn (int $size) => Cover::disk()->files("covers/{$size}"))
             ->flatten()
             ->map(fn (string $path) => Str::afterLast($path, '/'))
@@ -61,7 +61,7 @@ class CleanupCovers extends Command
 
     protected function deleteOriginalAndResponsiveVariants(string $filename): int
     {
-        $coversToDelete = Cover::sizes()
+        $coversToDelete = collect(Cover::sizes())
             ->prepend('original')
             ->map(fn ($size) => "covers/{$size}/{$filename}")
             ->all();

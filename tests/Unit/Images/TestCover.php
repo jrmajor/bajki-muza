@@ -3,15 +3,14 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Image;
-use Illuminate\Support\Collection;
 
 class TestCover extends Image
 {
     protected $table = 'covers';
 
-    public static function sizes(): Collection
+    public static function sizes(): array
     {
-        return collect([128, 192, 256]);
+        return [128, 192, 256];
     }
 
     protected function process(): void

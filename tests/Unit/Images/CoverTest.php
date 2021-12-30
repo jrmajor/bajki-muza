@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 
 it('can get list of sizes')
-    ->expect(Cover::sizes()->all())
+    ->expect(Cover::sizes())
     ->toBe([60, 90, 120, 128, 192, 288, 256, 384]);
 
 it('stores new cover in correct path and dispatches necessary jobs to process it', function () {

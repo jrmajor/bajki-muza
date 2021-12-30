@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 
 it('can get lists of full image sizes')
-    ->expect(Photo::imageSizes()->all())
+    ->expect(Photo::imageSizes())
     ->toBe([160, 240, 320]);
 
 it('can get lists of cropped to face image sizes')
-    ->expect(Photo::faceSizes()->all())
+    ->expect(Photo::faceSizes())
     ->toBe([56, 84, 112]);
 
 it('can get lists of sizes')
-    ->expect(Photo::sizes()->all())
+    ->expect(Photo::sizes())
     ->toBe([56, 84, 112, 160, 240, 320]);
 
 it('casts dimensions to integers')

@@ -28,9 +28,9 @@ abstract class Image extends Model
     protected $guarded = [];
 
     /**
-     * @return Collection<int, int>
+     * @return list<positive-int>
      */
-    abstract public static function sizes(): Collection;
+    abstract public static function sizes(): array;
 
     abstract protected function process(): void;
 
@@ -120,14 +120,14 @@ abstract class Image extends Model
 
     public function missingResponsiveVariants(): Collection
     {
-        return static::sizes()
+        return collect(static::sizes())
             ->filter(fn ($size) => $this->responsiveVariantMissing($size))
             ->values();
     }
 
     protected function deleteResponsiveVariants(): bool
     {
-        $variantsToDelete = static::sizes()
+        $variantsToDelete = collect(static::sizes())
             ->map(fn ($size) => $this->path($size))
             ->all();
 

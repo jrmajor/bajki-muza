@@ -7,8 +7,8 @@ use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
+use Psl\Vec;
 
 final class Photo extends Image
 {
@@ -20,35 +20,32 @@ final class Photo extends Image
     ];
 
     /**
-     * @return Collection<int, int>
+     * @return list<positive-int>
      */
-    public static function imageSizes(): Collection
+    public static function imageSizes(): array
     {
-        return collect([
+        return [
             160, // 10rem
             240, // 10rem * 1.5
             320, // 10rem * 2
-        ]);
+        ];
     }
 
     /**
-     * @return Collection<int, int>
+     * @return list<positive-int>
      */
-    public static function faceSizes(): Collection
+    public static function faceSizes(): array
     {
-        return collect([
+        return [
             56, // 3.5rem
             84, // 3.5rem * 1.5
             112, // 3.5rem * 2
-        ]);
+        ];
     }
 
-    public static function sizes(): Collection
+    public static function sizes(): array
     {
-        return self::imageSizes()
-            ->concat(self::faceSizes())
-            ->sort()
-            ->values();
+        return Vec\sort([...self::faceSizes(), ...self::imageSizes()]);
     }
 
     protected static function booted(): void
