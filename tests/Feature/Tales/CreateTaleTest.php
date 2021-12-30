@@ -1,131 +1,146 @@
 <?php
 
+namespace Tests\Feature\Tales;
+
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
+use Illuminate\Database\Eloquent\Collection;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\post;
-use function Tests\asUser;
+final class CreateTaleTest extends TestCase
+{
+    private array $attributes;
 
-beforeEach(function () {
-    $this->attributes = [
-        'slug' => 'o-dwoch-takich-co-ukradli-ksiezyc',
-        'title' => 'O dwóch takich co ukradli księżyc',
-        'year' => 1976,
-        'nr' => '28',
-        'discogs' => 1211239,
-    ];
-});
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-test('guests are asked to log in when attempting to view create tale form')
-    ->get('bajki/create')
-    ->assertRedirect('login');
-
-test('users can view create tale form')
-    ->asUser()
-    ->get('bajki/create')
-    ->assertOk();
-
-test('guests cannot create tale', function () {
-    post('bajki', $this->attributes)
-        ->assertRedirect('login');
-
-    expect(Tale::count())->toBe(0);
-});
-
-test('users with permissions can create tale', function () {
-    $director = Artist::factory()->create();
-    $lyricists = Artist::factory(2)->create();
-    $composers = Artist::factory(2)->create();
-
-    $credits = array_merge(
-        [[
-            'artist' => $director->name,
-            'type' => 'directing',
-            'as' => 'Reżysor',
-            'nr' => 0,
-        ]],
-        $lyricists->map(fn ($lyricist, $nr) => [
-            'artist' => $lyricist->name,
-            'type' => 'text',
-            'as' => null,
-            'nr' => $nr,
-        ])->all(),
-        $composers->map(fn ($composer, $nr) => [
-            'artist' => $composer->name,
-            'type' => 'music',
-            'as' => null,
-            'nr' => $nr,
-        ])->all(),
-    );
-
-    $actors = Artist::factory(2)->create();
-
-    $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [
-        'artist' => $composer->slug,
-        'characters' => 'Zbójca ' . ($credit_nr + 1),
-        'credit_nr' => $credit_nr + 1,
-    ])->all();
-
-    $attributes = array_merge($this->attributes, [
-        'credits' => $credits,
-        'actors' => $actorsCredits,
-    ]);
-
-    asUser()
-        ->post('bajki', $attributes)
-        ->assertRedirect('bajki/o-dwoch-takich-co-ukradli-ksiezyc');
-
-    $tale = Tale::first();
-
-    foreach ($this->attributes as $key => $attribute) {
-        expect($tale->{$key})->toBe($attribute);
+        $this->attributes = [
+            'slug' => 'o-dwoch-takich-co-ukradli-ksiezyc',
+            'title' => 'O dwóch takich co ukradli księżyc',
+            'year' => 1976,
+            'nr' => '28',
+            'discogs' => 1211239,
+        ];
     }
 
-    $directorCredits = $tale->creditsFor(CreditType::Directing);
+    #[TestDox('guests are asked to log in when attempting to view create tale form')]
+    public function testGuestView(): void
+    {
+        $this->get('bajki/create')->assertRedirect('login');
+    }
 
-    expect($directorCredits)->toHaveCount(1);
+    #[TestDox('users can view create tale form')]
+    public function testUserVuew(): void
+    {
+        $this->asUser()->get('bajki/create')->assertOk();
+    }
 
-    expect($directorCredits[0])
-        ->id->toBe($director->id)
-        ->credit->as->toBe('Reżysor')
-        ->credit->nr->toBe(0);
+    #[TestDox('guests cannot create tale')]
+    public function testGuestCreate(): void
+    {
+        $this->post('bajki', $this->attributes)->assertRedirect('login');
 
-    $lyricistsCredits = $tale->creditsFor(CreditType::Text);
+        $this->assertSame(0, Tale::count());
+    }
 
-    expect($lyricistsCredits)->toHaveCount(2);
+    #[TestDox('users with permissions can create tale')]
+    public function testUserCreate(): void
+    {
+        $director = Artist::factory()->createOne();
 
-    expect($lyricistsCredits[0])
-        ->id->toBe($lyricists[0]->id)
-        ->credit->as->toBeNull()
-        ->credit->nr->toBe(0);
+        /** @var Collection<Artist> $lyricists */
+        $lyricists = Artist::factory(2)->create();
 
-    expect($lyricistsCredits[1])
-        ->id->toBe($lyricists[1]->id)
-        ->credit->as->toBeNull()
-        ->credit->nr->toBe(1);
+        /** @var Collection<Artist> $composers */
+        $composers = Artist::factory(2)->create();
 
-    $composersCredits = $tale->creditsFor(CreditType::Music);
+        $credits = [
+            [
+                'artist' => $director->name,
+                'type' => 'directing',
+                'as' => 'Reżysor',
+                'nr' => 0,
+            ],
+            ...$lyricists->map(fn ($lyricist, $nr) => [
+                'artist' => $lyricist->name,
+                'type' => 'text',
+                'as' => null,
+                'nr' => $nr,
+            ]),
+            ...$composers->map(fn ($composer, $nr) => [
+                'artist' => $composer->name,
+                'type' => 'music',
+                'as' => null,
+                'nr' => $nr,
+            ]),
+        ];
 
-    expect($composersCredits)->toHaveCount(2);
+        /** @var Collection<Artist> $actors */
+        $actors = Artist::factory(2)->create();
 
-    expect($composersCredits[0])
-        ->id->toBe($composers[0]->id)
-        ->credit->nr->toBe(0);
+        $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [
+            'artist' => $composer->slug,
+            'characters' => 'Zbójca ' . ($credit_nr + 1),
+            'credit_nr' => $credit_nr + 1,
+        ])->all();
 
-    expect($composersCredits[1])
-        ->id->toBe($composers[1]->id)
-        ->credit->nr->toBe(1);
+        $attributes = [
+            ...$this->attributes,
+            'credits' => $credits,
+            'actors' => $actorsCredits,
+        ];
 
-    expect($tale->actors)->toHaveCount(2);
+        $this->asUser()
+            ->post('bajki', $attributes)
+            ->assertRedirect('bajki/o-dwoch-takich-co-ukradli-ksiezyc');
 
-    expect($tale->actors[0])
-        ->id->toBe($actors[0]->id)
-        ->credit->characters->toBe('Zbójca 1')
-        ->credit->credit_nr->toBe(1);
+        $tale = Tale::first();
 
-    expect($tale->actors[1])
-        ->id->toBe($actors[1]->id)
-        ->credit->characters->toBe('Zbójca 2')
-        ->credit->credit_nr->toBe(2);
-});
+        foreach ($this->attributes as $key => $attribute) {
+            $this->assertSame($attribute, $tale->{$key});
+        }
+
+        $directorCredits = $tale->creditsFor(CreditType::Directing);
+
+        $this->assertCount(1, $directorCredits);
+
+        $this->assertSame($director->id, $directorCredits[0]->id);
+        $this->assertSame('Reżysor', $directorCredits[0]->credit->as);
+        $this->assertSame(0, $directorCredits[0]->credit->nr);
+
+        $lyricistsCredits = $tale->creditsFor(CreditType::Text);
+
+        $this->assertCount(2, $lyricistsCredits);
+
+        $this->assertSame($lyricists[0]->id, $lyricistsCredits[0]->id);
+        $this->assertNull($lyricistsCredits[0]->credit->as);
+        $this->assertSame(0, $lyricistsCredits[0]->credit->nr);
+
+        $this->assertSame($lyricists[1]->id, $lyricistsCredits[1]->id);
+        $this->assertNull($lyricistsCredits[1]->credit->as);
+        $this->assertSame(1, $lyricistsCredits[1]->credit->nr);
+
+        $composersCredits = $tale->creditsFor(CreditType::Music);
+
+        $this->assertCount(2, $composersCredits);
+
+        $this->assertSame($composers[0]->id, $composersCredits[0]->id);
+        $this->assertSame(0, $composersCredits[0]->credit->nr);
+
+        $this->assertSame($composers[1]->id, $composersCredits[1]->id);
+        $this->assertSame(1, $composersCredits[1]->credit->nr);
+
+        $this->assertCount(2, $tale->actors);
+
+        $this->assertSame($actors[0]->id, $tale->actors[0]->id);
+        $this->assertSame('Zbójca 1', $tale->actors[0]->credit->characters);
+        $this->assertSame(1, $tale->actors[0]->credit->credit_nr);
+
+        $this->assertSame($actors[1]->id, $tale->actors[1]->id);
+        $this->assertSame('Zbójca 2', $tale->actors[1]->credit->characters);
+        $this->assertSame(2, $tale->actors[1]->credit->credit_nr);
+    }
+}

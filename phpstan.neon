@@ -6,6 +6,7 @@ parameters:
         - database/factories
         - database/seeders
         - tests/Feature/Artists
+        - tests/Feature/Tales
     excludePaths:
         - app/Providers/MacrosServiceProvider.php
     scanFiles:

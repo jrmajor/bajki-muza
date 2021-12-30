@@ -1,189 +1,206 @@
 <?php
 
+namespace Tests\Feature\Tales;
+
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
+use Illuminate\Database\Eloquent\Collection;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\put;
-use function Tests\asUser;
+final class EditTaleTest extends TestCase
+{
+    private array $oldAttributes;
 
-beforeEach(function () {
-    $this->oldAttributes = [
-        'slug' => 'drzewko-aby-baby',
-        'title' => 'Drzewko Aby Baby',
-        'year' => 1986,
-        'nr' => '58',
-        'discogs' => 3962982,
-    ];
+    private array $newAttributes;
 
-    $this->newAttributes = [
-        'slug' => 'o-dwoch-takich-co-ukradli-ksiezyc',
-        'title' => 'O dwóch takich co ukradli księżyc',
-        'year' => 1976,
-        'nr' => '28',
-        'discogs' => 1211239,
-    ];
+    private Tale $tale;
 
-    $this->tale = Tale::factory()->create($this->oldAttributes);
-});
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-test('guests are asked to log in when attempting to view edit tale form')
-    ->get('bajki/drzewko-aby-baby/edit')
-    ->assertRedirect('login');
+        $this->oldAttributes = [
+            'slug' => 'drzewko-aby-baby',
+            'title' => 'Drzewko Aby Baby',
+            'year' => 1986,
+            'nr' => '58',
+            'discogs' => 3962982,
+        ];
 
-test('guests are asked to log in when attempting to view edit form for nonexistent tale')
-    ->get('bajki/2137/edit')
-    ->assertRedirect('login');
+        $this->newAttributes = [
+            'slug' => 'o-dwoch-takich-co-ukradli-ksiezyc',
+            'title' => 'O dwóch takich co ukradli księżyc',
+            'year' => 1976,
+            'nr' => '28',
+            'discogs' => 1211239,
+        ];
 
-test('users can view edit tale form')
-    ->asUser()
-    ->get('bajki/drzewko-aby-baby/edit')
-    ->assertOk();
-
-test('guests cannot edit tale attributes', function () {
-    put('bajki/drzewko-aby-baby', $this->newAttributes)
-        ->assertRedirect('login');
-
-    $tale = $this->tale->fresh();
-
-    foreach ($this->oldAttributes as $key => $attribute) {
-        expect($tale->{$key})->toBe($attribute);
+        $this->tale = Tale::factory()->createOne($this->oldAttributes);
     }
-});
 
-test('users with permissions can edit tale attributes', function () {
-    asUser()
-        ->put('bajki/drzewko-aby-baby', $this->newAttributes)
-        ->assertRedirect('bajki/o-dwoch-takich-co-ukradli-ksiezyc');
-
-    $tale = $this->tale->fresh();
-
-    foreach ($this->newAttributes as $key => $attribute) {
-        expect($tale->{$key})->toBe($attribute);
+    #[TestDox('guests are asked to log in when attempting to view edit tale form')]
+    public function testGuestView(): void
+    {
+        $this->get('bajki/drzewko-aby-baby/edit')->assertRedirect('login');
     }
-});
 
-test('users with permissions can add credits', function () {
-    $director = Artist::factory()->create();
+    #[TestDox('guests are asked to log in when attempting to view edit form for nonexistent tale')]
+    public function testGuestNonexistent(): void
+    {
+        $this->get('bajki/2137/edit')->assertRedirect('login');
+    }
 
-    $lyricistAndComposer = Artist::factory()->create();
+    #[TestDox('users can view edit tale form')]
+    public function testUserView(): void
+    {
+        $this->asUser()->get('bajki/drzewko-aby-baby/edit')->assertOk();
+    }
 
-    $lyricists = Artist::factory(2)->create()
-        ->push($lyricistAndComposer);
+    #[TestDox('guests cannot edit tale attributes')]
+    public function testGuestEdit(): void
+    {
+        $this->put('bajki/drzewko-aby-baby', $this->newAttributes)
+            ->assertRedirect('login');
 
-    $composers = Artist::factory(2)->create()
-        ->push($lyricistAndComposer);
+        $this->tale->refresh();
 
-    $credits = array_merge(
-        [[
-            'artist' => $director->name,
-            'type' => 'directing',
-            'as' => 'Reżysor',
-            'nr' => 0,
-        ]],
-        $lyricists->map(fn ($lyricist, $nr) => [
-            'artist' => $lyricist->name,
-            'type' => 'text',
-            'as' => null,
-            'nr' => $nr,
-        ])->all(),
-        $composers->map(fn ($composer, $nr) => [
-            'artist' => $composer->name,
-            'type' => 'music',
-            'as' => null,
-            'nr' => $nr,
-        ])->all(),
-    );
+        foreach ($this->oldAttributes as $key => $attribute) {
+            $this->assertSame($attribute, $this->tale->{$key});
+        }
+    }
 
-    $attributes = array_merge(
-        $this->oldAttributes,
-        ['credits' => $credits],
-    );
+    #[TestDox('users with permissions can edit tale attributes')]
+    public function testUserEdit(): void
+    {
+        $this->asUser()
+            ->put('bajki/drzewko-aby-baby', $this->newAttributes)
+            ->assertRedirect('bajki/o-dwoch-takich-co-ukradli-ksiezyc');
 
-    asUser()
-        ->put('bajki/drzewko-aby-baby', $attributes)
-        ->assertRedirect('bajki/drzewko-aby-baby');
+        $this->tale->refresh();
 
-    $this->tale->refresh();
+        foreach ($this->newAttributes as $key => $attribute) {
+            $this->assertSame($attribute, $this->tale->{$key});
+        }
+    }
 
-    $directorCredits = $this->tale->creditsFor(CreditType::Directing);
+    #[TestDox('users with permissions can add credits')]
+    public function testUserAddCredits(): void
+    {
+        $director = Artist::factory()->createOne();
 
-    expect($directorCredits)->toHaveCount(1);
-    expect($directorCredits[0])
-        ->id->toBe($director->id)
-        ->credit->as->toBe('Reżysor')
-        ->credit->nr->toBe(0);
+        $lyricistAndComposer = Artist::factory()->createOne();
 
-    $lyricistsCredits = $this->tale->creditsFor(CreditType::Text);
+        /** @var Collection<Artist> $lyricists */
+        $lyricists = Artist::factory(2)->create();
+        $lyricists->push($lyricistAndComposer);
 
-    expect($lyricistsCredits)->toHaveCount(3);
-    expect($lyricistsCredits[0])
-        ->id->toBe($lyricists[0]->id)
-        ->credit->as->toBeNull()
-        ->credit->nr->toBe(0);
-    expect($lyricistsCredits[1])
-        ->id->toBe($lyricists[1]->id)
-        ->credit->as->toBeNull()
-        ->credit->nr->toBe(1);
-    expect($lyricistsCredits[2])
-        ->id->toBe($lyricistAndComposer->id)
-        ->credit->as->toBeNull()
-        ->credit->nr->toBe(2);
+        /** @var Collection<Artist> $composers */
+        $composers = Artist::factory(2)->create();
+        $composers->push($lyricistAndComposer);
 
-    $composersCredits = $this->tale->creditsFor(CreditType::Music);
+        $credits = [
+            [
+                'artist' => $director->name,
+                'type' => 'directing',
+                'as' => 'Reżysor',
+                'nr' => 0,
+            ],
+            ...$lyricists->map(fn ($lyricist, $nr) => [
+                'artist' => $lyricist->name,
+                'type' => 'text',
+                'as' => null,
+                'nr' => $nr,
+            ]),
+            ...$composers->map(fn ($composer, $nr) => [
+                'artist' => $composer->name,
+                'type' => 'music',
+                'as' => null,
+                'nr' => $nr,
+            ]),
+        ];
 
-    expect($composersCredits)->toHaveCount(3);
-    expect($composersCredits[0])
-        ->id->toBe($composers[0]->id)
-        ->credit->nr->toBe(0);
-    expect($composersCredits[1])
-        ->id->toBe($composers[1]->id)
-        ->credit->nr->toBe(1);
-    expect($composersCredits[2])
-        ->id->toBe($lyricistAndComposer->id)
-        ->credit->nr->toBe(2);
-});
+        $attributes = [...$this->oldAttributes, 'credits' => $credits];
 
-test('users with permissions can add tale actors', function () {
-    $actors = Artist::factory(2)->create();
+        $this->asUser()
+            ->put('bajki/drzewko-aby-baby', $attributes)
+            ->assertRedirect('bajki/drzewko-aby-baby');
 
-    $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [
-        'artist' => $composer->slug,
-        'characters' => 'Zbójca ' . ($credit_nr + 1),
-        'credit_nr' => $credit_nr + 1,
-    ])->all();
+        $this->tale->refresh();
 
-    $attributes = array_merge(
-        $this->oldAttributes,
-        ['actors' => $actorsCredits],
-    );
+        $directorCredits = $this->tale->creditsFor(CreditType::Directing);
 
-    asUser()
-        ->put('bajki/drzewko-aby-baby', $attributes)
-        ->assertRedirect('bajki/drzewko-aby-baby');
+        $this->assertCount(1, $directorCredits);
+        $this->assertSame($director->id, $directorCredits[0]->id);
+        $this->assertSame('Reżysor', $directorCredits[0]->credit->as);
+        $this->assertSame(0, $directorCredits[0]->credit->nr);
 
-    $tale = $this->tale->fresh();
+        $lyricistsCredits = $this->tale->creditsFor(CreditType::Text);
 
-    expect($tale->actors)->toHaveCount(2);
+        $this->assertCount(3, $lyricistsCredits);
+        $this->assertSame($lyricists[0]->id, $lyricistsCredits[0]->id);
+        $this->assertNull($lyricistsCredits[0]->credit->as);
+        $this->assertSame(0, $lyricistsCredits[0]->credit->nr);
+        $this->assertSame($lyricists[1]->id, $lyricistsCredits[1]->id);
+        $this->assertNull($lyricistsCredits[1]->credit->as);
+        $this->assertSame(1, $lyricistsCredits[1]->credit->nr);
+        $this->assertSame($lyricistAndComposer->id, $lyricistsCredits[2]->id);
+        $this->assertNull($lyricistsCredits[2]->credit->as);
+        $this->assertSame(2, $lyricistsCredits[2]->credit->nr);
 
-    expect($tale->actors[0])
-        ->id->toBe($actors[0]->id)
-        ->credit->characters->toBe('Zbójca 1')
-        ->credit->credit_nr->toBe(1);
+        $composersCredits = $this->tale->creditsFor(CreditType::Music);
 
-    expect($tale->actors[1])
-        ->id->toBe($actors[1]->id)
-        ->credit->characters->toBe('Zbójca 2')
-        ->credit->credit_nr->toBe(2);
-});
+        $this->assertCount(3, $composersCredits);
+        $this->assertSame(0, $composersCredits[0]->credit->nr);
+        $this->assertSame($composers[0]->id, $composersCredits[0]->id);
+        $this->assertSame(1, $composersCredits[1]->credit->nr);
+        $this->assertSame($composers[1]->id, $composersCredits[1]->id);
+        $this->assertSame(2, $composersCredits[2]->credit->nr);
+        $this->assertSame($lyricistAndComposer->id, $composersCredits[2]->id);
+    }
 
-test('users with permissions can remove tale relations', function () {
-    asUser()
-        ->put('bajki/drzewko-aby-baby', $this->oldAttributes)
-        ->assertRedirect('bajki/drzewko-aby-baby');
+    #[TestDox('users with permissions can add tale actors')]
+    public function testUserAddActors(): void
+    {
+        /** @var Collection<Artist> $actors */
+        $actors = Artist::factory(2)->create();
 
-    $tale = $this->tale->fresh();
+        $actorsCredits = $actors->map(fn (Artist $composer, int $creditNr) => [
+            'artist' => $composer->slug,
+            'characters' => 'Zbójca ' . ($creditNr + 1),
+            'credit_nr' => $creditNr + 1,
+        ])->all();
 
-    expect($tale->credits)->toBeEmpty();
-    expect($tale->actors)->toBeEmpty();
-});
+        $attributes = [...$this->oldAttributes, 'actors' => $actorsCredits];
+
+        $this->asUser()
+            ->put('bajki/drzewko-aby-baby', $attributes)
+            ->assertRedirect('bajki/drzewko-aby-baby');
+
+        $tale = $this->tale->fresh();
+
+        $this->assertCount(2, $tale->actors);
+
+        $this->assertSame($actors[0]->id, $tale->actors[0]->id);
+        $this->assertSame('Zbójca 1', $tale->actors[0]->credit->characters);
+        $this->assertSame(1, $tale->actors[0]->credit->credit_nr);
+
+        $this->assertSame($actors[1]->id, $tale->actors[1]->id);
+        $this->assertSame('Zbójca 2', $tale->actors[1]->credit->characters);
+        $this->assertSame(2, $tale->actors[1]->credit->credit_nr);
+    }
+
+    #[TestDox('users with permissions can remove tale relations')]
+    public function testUserRemoveRelations(): void
+    {
+        $this->asUser()
+            ->put('bajki/drzewko-aby-baby', $this->oldAttributes)
+            ->assertRedirect('bajki/drzewko-aby-baby');
+
+        $tale = $this->tale->fresh();
+
+        $this->assertEmpty($tale->credits);
+        $this->assertEmpty($tale->actors);
+    }
+}

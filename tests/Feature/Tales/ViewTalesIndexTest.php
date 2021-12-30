@@ -1,7 +1,15 @@
 <?php
 
-use function Pest\Laravel\get;
+namespace Tests\Feature\Tales;
 
-get('bajki')
-    ->assertOk()
-    ->assertSeeLivewire('tales');
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
+
+final class ViewTalesIndexTest extends TestCase
+{
+    #[TestDox('it works')]
+    public function testOk(): void
+    {
+        $this->get('bajki')->assertOk()->assertSeeLivewire('tales');
+    }
+}
