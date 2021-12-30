@@ -1,42 +1,62 @@
 <?php
 
+namespace Tests\Feature;
+
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\get;
-use function Tests\asUser;
+final class AjaxTest extends TestCase
+{
+    #[TestDox('guest can not access ajax/artists endpoint')]
+    public function testGuestArtists(): void
+    {
+        $this->get('ajax/artists')->assertRedirect('login');
+    }
 
-get('ajax/artists')
-    ->assertRedirect('login');
+    #[TestDox('user can access ajax/artists endpoint')]
+    public function testUserArtists(): void
+    {
+        $this->asUser()->get('ajax/artists')->assertOk();
+    }
 
-test()->asUser()
-    ->get('ajax/artists')
-    ->assertOk();
+    #[TestDox('guest can not access ajax/discogs endpoint')]
+    public function testGuestDiscogs(): void
+    {
+        $this->get('ajax/discogs')->assertRedirect('login');
+    }
 
-get('ajax/discogs')
-    ->assertRedirect('login');
+    #[TestDox('user can access ajax/discogs endpoint')]
+    public function testUserDiscogs(): void
+    {
+        $this->asUser()->get('ajax/discogs')->assertOk();
+    }
 
-test()->asUser()
-    ->get('ajax/discogs')
-    ->assertOk();
+    #[TestDox('guest can not access ajax/filmpolski endpoint')]
+    public function testGuestFilmpolski(): void
+    {
+        $this->get('ajax/filmpolski')->assertRedirect('login');
+    }
 
-get('ajax/filmpolski')
-    ->assertRedirect('login');
+    #[TestDox('user can access ajax/filmpolski endpoint')]
+    public function testUserFilmpolski(): void
+    {
+        Http::fake();
 
-test("asUser → get 'ajax/filmpolski' → assertOk", function () {
-    Http::fake();
+        $this->asUser()->get('ajax/filmpolski')->assertOk();
+    }
 
-    asUser()
-        ->get('ajax/filmpolski')
-        ->assertOk();
-});
+    #[TestDox('guest can not access ajax/wikipedia endpoint')]
+    public function testGuestWikipedia(): void
+    {
+        $this->get('ajax/wikipedia')->assertRedirect('login');
+    }
 
-get('ajax/wikipedia')
-    ->assertRedirect('login');
+    #[TestDox('user can access ajax/wikipedia endpoint')]
+    public function testUserWikipedia(): void
+    {
+        Http::fake();
 
-test("asUser → get 'ajax/wikipedia' → assertOk", function () {
-    Http::fake();
-
-    asUser()
-        ->get('ajax/wikipedia')
-        ->assertOk();
-});
+        $this->asUser()->get('ajax/wikipedia')->assertOk();
+    }
+}
