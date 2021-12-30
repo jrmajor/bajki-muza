@@ -6,6 +6,8 @@ use App\Images\Exceptions\OriginalDoesNotExist;
 use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Console\Command;
+use Psl\Str;
+use Psl\Type;
 
 class ReprocessPhotos extends Command
 {
@@ -16,57 +18,57 @@ class ReprocessPhotos extends Command
     public function handle(): int
     {
         if ($this->option('artist') !== null) {
-            return $this->handleSingleArtist();
+            return (int) ! $this->handleSingleArtist();
         }
 
         if ($this->confirm('Do you want to reprocess all photos?', true)) {
-            return $this->handleAllArtists();
+            return (int) ! $this->handleAllArtists();
         }
 
         return 1;
     }
 
-    protected function handleSingleArtist(): int
+    protected function handleSingleArtist(): bool
     {
         $artist = Artist::firstWhere('slug', $this->option('artist'));
 
         if (! $artist) {
             $this->error('Artist does not exist.');
 
-            return 1;
+            return false;
         }
 
         if (! $artist->photo) {
             $this->error('Artist does not have a photo.');
 
-            return 1;
+            return false;
         }
 
         return $this->reprocessPhoto($artist->photo);
     }
 
-    protected function handleAllArtists(): int
+    protected function handleAllArtists(): bool
     {
         $artists = Artist::whereNotNull('photo_filename')->get();
 
         $total = $artists->count();
 
-        return $artists
-            ->map(function ($artist, $index) use ($total) {
-                assert($artist->photo !== null);
+        return ! $artists->map(function ($artist, $index) use ($total) {
+            $photo = Type\instance_of(Photo::class)->coerce($artist->photo);
 
-                $index++;
-                $this->info("Processing artist {$index} of {$total}: {$artist->name} ({$artist->photo->filename()})");
+            $this->info(Str\format(
+                'Processing artist %d of %d: %s (%s)',
+                ++$index, $total, $artist->name, $photo->filename(),
+            ));
 
-                return $this->reprocessPhoto($artist->photo);
-            })
-            ->contains(1) ? 1 : 0;
+            return $this->reprocessPhoto($photo);
+        })->contains(false);
     }
 
-    protected function reprocessPhoto(Photo $photo): int
+    protected function reprocessPhoto(Photo $photo): bool
     {
         if (count($missing = $photo->missingResponsiveVariants()) !== 0) {
-            $missing = implode(', ', $missing);
+            $missing = Str\join($missing, ', ');
 
             $this->warn("Some of responsive variants were missing ({$missing}).");
         }
@@ -74,11 +76,11 @@ class ReprocessPhotos extends Command
         try {
             $photo->reprocess();
 
-            return 0;
-        } catch (OriginalDoesNotExist $exception) {
-            $this->error("The original photo doesn't exist ({$exception->path}).");
+            return true;
+        } catch (OriginalDoesNotExist $e) {
+            $this->error("The original photo doesn't exist ({$e->path}).");
 
-            return 1;
+            return false;
         }
     }
 }
