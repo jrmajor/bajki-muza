@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Psl\Type;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -103,11 +104,11 @@ final class Tale extends Model
         // Delete credits for artists who don't exist in new credit list.
         $this->credits()->whereIntegerNotInRaw(
             'artists.id', $allCreditsToSync->keys(),
-        )->get()
-            ->map(fn (Artist $a): Credit => $a->credit)
-            ->each(function (Credit $credit): void {
-                $credit->delete();
-            });
+        )->get()->map(function (Artist $a) {
+            return Type\instance_of(Credit::class)->coerce($a->credit);
+        })->each(function (Credit $credit): void {
+            $credit->delete();
+        });
 
         // Refresh existing credits after deleting some of them
         // and format them the same way input is formatted.
