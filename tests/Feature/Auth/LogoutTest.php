@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 final class LogoutTest extends TestCase
 {
-    #[TestDox('logs user out')]
+    #[TestDox('it logs user out')]
     public function testOk(): void
     {
         $this->asUser()->post('logout');
@@ -15,7 +15,7 @@ final class LogoutTest extends TestCase
         $this->assertGuest();
     }
 
-    #[TestDox('redirects to welcome page after logging out')]
+    #[TestDox('it redirects to welcome page after logging out')]
     public function testRedirect(): void
     {
         $this->asUser()
@@ -24,7 +24,7 @@ final class LogoutTest extends TestCase
             ->assertRedirect('bajki');
     }
 
-    #[TestDox('redirects to welcome page if no user is authenticated')]
+    #[TestDox('it redirects to welcome page if no user is authenticated')]
     public function testUnauthenticated(): void
     {
         $this->post('logout')

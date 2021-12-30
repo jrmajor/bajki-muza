@@ -20,7 +20,7 @@ final class LoginTest extends TestCase
         $this->assertAuthenticated();
     }
 
-    #[TestDox('requires email')]
+    #[TestDox('it requires email')]
     public function testNoEmail(): void
     {
         $this->from('login')
@@ -32,7 +32,7 @@ final class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    #[TestDox('requires password')]
+    #[TestDox('it requires password')]
     public function testNoPassword(): void
     {
         $this->from('login')
@@ -44,7 +44,7 @@ final class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    #[TestDox('checks if user exists')]
+    #[TestDox('it checks if user exists')]
     public function testNoUser(): void
     {
         $this->from('login')
@@ -59,7 +59,7 @@ final class LoginTest extends TestCase
         $this->assertGuest();
     }
 
-    #[TestDox('checks password')]
+    #[TestDox('it checks password')]
     public function testInvalidPassword(): void
     {
         User::factory()->create([
