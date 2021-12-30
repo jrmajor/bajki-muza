@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
-use function Tests\fixture;
+
+use function Tests\read_fixture;
 
 final class ReprocessCoversTest extends TestCase
 {
@@ -37,21 +38,17 @@ final class ReprocessCoversTest extends TestCase
     {
         Storage::fake('testing');
 
-        Tale::factory()->cover('test.jpg')->create([
-            'title' => 'Test tale',
-        ]);
+        Tale::factory()->cover('test.jpg')->create(['title' => 'Test tale']);
 
         // Photo by David Grandmougin on Unsplash
-        $file = fopen(fixture('Images/cover.jpg'), 'r');
-
-        Cover::disk()->put('covers/original/test.jpg', $file, 'public');
-
-        fclose($file);
+        Cover::disk()->put(
+            'covers/original/test.jpg',
+            read_fixture('Images/cover.jpg'),
+        );
 
         Queue::fake();
 
-        $this->a('reprocess:covers --tale test-tale')
-            ->assertExitCode(0);
+        $this->a('reprocess:covers --tale test-tale')->assertExitCode(0);
 
         Queue::assertPushedWithChain(
             GenerateTaleCoverPlaceholder::class,

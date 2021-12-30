@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
-use function Tests\fixture;
+
+use function Tests\read_fixture;
 
 final class ReprocessPhotosTest extends TestCase
 {
@@ -37,21 +38,17 @@ final class ReprocessPhotosTest extends TestCase
     {
         Storage::fake('testing');
 
-        Artist::factory()->photo('test.jpg')->create([
-            'name' => 'Test Artist',
-        ]);
+        Artist::factory()->photo('test.jpg')->create(['name' => 'Test Artist']);
 
         // Photo by David Grandmougin on Unsplash
-        $file = fopen(fixture('Images/photo.jpg'), 'r');
-
-        Photo::disk()->put('photos/original/test.jpg', $file, 'public');
-
-        fclose($file);
+        Photo::disk()->put(
+            'photos/original/test.jpg',
+            read_fixture('Images/photo.jpg'),
+        );
 
         Queue::fake();
 
-        $this->a('reprocess:photos --artist test-artist')
-            ->assertExitCode(0);
+        $this->a('reprocess:photos --artist test-artist')->assertExitCode(0);
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
