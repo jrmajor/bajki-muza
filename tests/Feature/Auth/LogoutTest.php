@@ -1,22 +1,34 @@
 <?php
 
-use function Pest\Laravel\assertGuest;
-use function Tests\asUser;
+namespace Tests\Feature\Auth;
 
-it('logs user out', function () {
-    asUser()
-        ->post('logout');
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-    assertGuest();
-});
+final class LogoutTest extends TestCase
+{
+    #[TestDox('logs user out')]
+    public function testOk(): void
+    {
+        $this->asUser()->post('logout');
 
-it('redirects to welcome page after logging out')
-    ->asUser()
-    ->post('logout')
-    ->assertStatus(302)
-    ->assertRedirect('bajki');
+        $this->assertGuest();
+    }
 
-it('redirects to welcome page if no user is authenticated')
-    ->post('logout')
-    ->assertStatus(302)
-    ->assertRedirect('bajki');
+    #[TestDox('redirects to welcome page after logging out')]
+    public function testRedirect(): void
+    {
+        $this->asUser()
+            ->post('logout')
+            ->assertStatus(302)
+            ->assertRedirect('bajki');
+    }
+
+    #[TestDox('redirects to welcome page if no user is authenticated')]
+    public function testUnauthenticated(): void
+    {
+        $this->post('logout')
+            ->assertStatus(302)
+            ->assertRedirect('bajki');
+    }
+}

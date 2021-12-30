@@ -1,90 +1,99 @@
 <?php
 
+namespace Tests\Feature\Auth;
+
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\assertAuthenticated;
-use function Pest\Laravel\assertAuthenticatedAs;
-use function Pest\Laravel\assertGuest;
-use function Pest\Laravel\from;
-use function Pest\Laravel\post;
-use function Tests\asUser;
+final class LoginTest extends TestCase
+{
+    #[TestDox('authenticated users are redirected when trying to log in')]
+    public function testAlreadyAuthenticated(): void
+    {
+        $this->asUser()
+            ->post('login')
+            ->assertStatus(302)
+            ->assertRedirect('bajki');
 
-test('authenticated users are redirected when trying to log in', function () {
-    asUser()
-        ->post('login')
-        ->assertStatus(302)
-        ->assertRedirect('bajki');
+        $this->assertAuthenticated();
+    }
 
-    assertAuthenticated();
-});
+    #[TestDox('requires email')]
+    public function testNoEmail(): void
+    {
+        $this->from('login')
+            ->post('login', ['password' => 'password'])
+            ->assertSessionHasErrors('username')
+            ->assertStatus(302)
+            ->assertRedirect('login');
 
-it('requires email', function () {
-    from('login')
-        ->post('login', [
-            'password' => 'password',
-        ])
-        ->assertSessionHasErrors('username')
-        ->assertStatus(302)
-        ->assertRedirect('login');
+        $this->assertGuest();
+    }
 
-    assertGuest();
-});
+    #[TestDox('requires password')]
+    public function testNoPassword(): void
+    {
+        $this->from('login')
+            ->post('login', ['username' => 'gracjan'])
+            ->assertSessionHasErrors('password')
+            ->assertStatus(302)
+            ->assertRedirect('login');
 
-it('requires password', function () {
-    from('login')
-        ->post('login', [
+        $this->assertGuest();
+    }
+
+    #[TestDox('checks if user exists')]
+    public function testNoUser(): void
+    {
+        $this->from('login')
+            ->post('login', [
+                'username' => 'gracjan',
+                'password' => 'hasło',
+            ])
+            ->assertSessionHasErrors('username')
+            ->assertStatus(302)
+            ->assertRedirect('login');
+
+        $this->assertGuest();
+    }
+
+    #[TestDox('checks password')]
+    public function testInvalidPassword(): void
+    {
+        User::factory()->create([
             'username' => 'gracjan',
-        ])
-        ->assertSessionHasErrors('password')
-        ->assertStatus(302)
-        ->assertRedirect('login');
+        ]);
 
-    assertGuest();
-});
+        $this->from('login')
+            ->post('login', [
+                'username' => 'gracjan',
+                'password' => 'wrong',
+            ])
+            ->assertSessionHasErrors('username')
+            ->assertStatus(302)
+            ->assertRedirect('login');
 
-it('checks if user exists', function () {
-    from('login')
-        ->post('login', [
+        $this->assertGuest();
+    }
+
+    #[TestDox('user can log in with correct credentials')]
+    public function testOk(): void
+    {
+        $user = User::factory()->createOne([
             'username' => 'gracjan',
-            'password' => 'hasło',
-        ])
-        ->assertSessionHasErrors('username')
-        ->assertStatus(302)
-        ->assertRedirect('login');
+            'password' => Hash::make('secret'),
+        ]);
 
-    assertGuest();
-});
-
-it('checks password', function () {
-    User::factory()->create([
-        'username' => 'gracjan',
-    ]);
-
-    from('login')
-        ->post('login', [
+        $this->post('login', [
             'username' => 'gracjan',
-            'password' => 'wrong',
+            'password' => 'secret',
         ])
-        ->assertSessionHasErrors('username')
-        ->assertStatus(302)
-        ->assertRedirect('login');
+            ->assertSessionHasNoErrors()
+            ->assertStatus(302)
+            ->assertRedirect('bajki');
 
-    assertGuest();
-});
-
-test('user can log in with correct credentials', function () {
-    $user = User::factory()->create([
-        'username' => 'gracjan',
-        'password' => Hash::make($password = 'secret'),
-    ]);
-
-    post('login', [
-        'username' => 'gracjan',
-        'password' => 'secret',
-    ])
-        ->assertSessionHasNoErrors()
-        ->assertStatus(302)
-        ->assertRedirect('bajki');
-
-    assertAuthenticatedAs($user);
-});
+        $this->assertAuthenticatedAs($user);
+    }
+}
