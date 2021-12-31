@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit\Models;
+
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
@@ -11,371 +13,438 @@ use App\Values\CreditType;
 use App\Values\Discogs\Photo as DiscogsPhoto;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\mock;
-use function Pest\Laravel\spy;
+final class ArtistTest extends TestCase
+{
+    #[TestDox('it casts discogs id to integer')]
+    public function testCastDiscogs(): void
+    {
+        $this->assertSame(1023394, (new Artist(['discogs' => '1023394']))->discogs);
+    }
 
-it('casts discogs id to integer')
-    ->expect((new Artist(['discogs' => '1023394']))->discogs)
-    ->toBe(1023394);
+    #[TestDox('it casts filmpolski id to integer')]
+    public function testCastFilmPolski(): void
+    {
+        $this->assertSame(116251, (new Artist(['filmpolski' => '116251']))->filmpolski);
+    }
 
-it('casts filmpolski id to integer')
-    ->expect((new Artist(['filmpolski' => '116251']))->filmpolski)
-    ->toBe(116251);
+    #[TestDox('it generates slug when created')]
+    public function testSlugCreate(): void
+    {
+        $artist = Artist::create(['name' => 'Tadeusz Włudarski']);
 
-it('generates slug when created', function () {
-    $artist = Artist::create(['name' => 'Tadeusz Włudarski']);
+        $this->assertSame('tadeusz-wludarski', $artist->slug);
 
-    expect($artist->slug)->toBe('tadeusz-wludarski');
+        $artist = new Artist();
+        $artist->name = 'Zofia Rysiówna';
 
-    $artist = new Artist();
-    $artist->name = 'Zofia Rysiówna';
+        $this->assertNull($artist->slug);
 
-    expect($artist->slug)->toBeNull();
+        $artist->save();
 
-    $artist->save();
+        $this->assertSame('zofia-rysiowna', $artist->slug);
+    }
 
-    expect($artist->slug)->toBe('zofia-rysiowna');
-});
+    #[TestDox('it regenerates slug when updated')]
+    public function testSlugUpdate(): void
+    {
+        $artist = Artist::create(['name' => 'Tadeusz Włudarski']);
 
-it('regenerates slug when updated', function () {
-    $artist = Artist::create(['name' => 'Tadeusz Włudarski']);
+        $this->assertSame('tadeusz-wludarski', $artist->slug);
 
-    expect($artist->slug)->toBe('tadeusz-wludarski');
+        $artist->name = 'Zofia Rysiówna';
 
-    $artist->name = 'Zofia Rysiówna';
+        $artist->save();
 
-    $artist->save();
+        $this->assertSame('zofia-rysiowna', $artist->slug);
 
-    expect($artist->slug)->toBe('zofia-rysiowna');
+        $artist->fill(['name' => 'Andrzej Stockinger'])->save();
 
-    $artist->fill(['name' => 'Andrzej Stockinger'])->save();
+        $this->assertSame('andrzej-stockinger', $artist->slug);
+    }
 
-    expect($artist->slug)->toBe('andrzej-stockinger');
-});
+    #[TestDox('it can get its photo')]
+    public function testPhoto(): void
+    {
+        $photo = Photo::create([
+            'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
+            'crop' => ArtistPhotoCrop::fake(),
+        ]);
 
-it('can get its photo', function () {
-    $photo = Photo::create([
-        'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
-        'crop' => ArtistPhotoCrop::fake(),
-    ]);
+        $artist = Artist::factory()->photo($photo)->create();
 
-    $artist = Artist::factory()->photo($photo)->create();
-
-    expect($artist->photo)
-        ->toBeInstanceOf(Photo::class)
-        ->filename()->toBe('tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png');
-});
-
-it('can generate discogs url', function () {
-    $artist = Artist::factory()->make(['discogs' => 518243]);
-
-    mock(Discogs::class)->shouldReceive('url')->andReturn('https://www.discogs.com/artist/518243');
-
-    expect($artist->discogs_url)->toBe('https://www.discogs.com/artist/518243');
-});
-
-it('can generate filmpolski url', function () {
-    $artist = Artist::factory()->make(['filmpolski' => 112891]);
-
-    mock(FilmPolski::class)->shouldReceive('url')->andReturn('http://www.filmpolski.pl/fp/index.php?osoba=112891');
-
-    expect($artist->filmpolski_url)->toBe('http://www.filmpolski.pl/fp/index.php?osoba=112891');
-});
-
-it('can generate wikipedia url', function () {
-    $artist = Artist::factory()->make(['wikipedia' => 'Joanna_Sobieska']);
-
-    mock(Wikipedia::class)->shouldReceive('url')->andReturn('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
-
-    expect($artist->wikipedia_url)->toBe('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
-});
-
-it('does not generate nonexistent urls', function () {
-    $artist = Artist::factory()->make([
-        'discogs' => null,
-        'filmpolski' => null,
-        'wikipedia' => null,
-    ]);
-
-    expect($artist)
-        ->discogs_url->toBeNull()
-        ->filmpolski_url->toBeNull()
-        ->wikipedia_url->toBeNull();
-});
-
-it('can get extract from wikipedia', function () {
-    $extract = 'Piotr Fronczewski (ur. 8 czerwca 1946 w Łodzi) – polski aktor.';
-
-    $artist = Artist::factory()->create(['wikipedia' => 'Piotr_Fronczewski']);
-
-    mock(Wikipedia::class)->shouldReceive('extract')->with('Piotr_Fronczewski')->andReturn($extract);
-
-    expect($artist->wikipedia_extract)->toBe($extract);
-});
-
-it('does not query wikipedia when no id is set', function () {
-    $artist = Artist::factory()
-        ->create(['wikipedia' => null]);
-
-    spy(Wikipedia::class)->shouldNotReceive('extract');
-
-    expect($artist->wikipedia_extract)->toBeNull();
-});
-
-it('can get photos from discogs', function () {
-    $images = collect([new DiscogsPhoto(
-        type: 'primary',
-        uri: 'test',
-        resource_url: 'test',
-        uri150: 'test150',
-        width: 561,
-        height: 800,
-    )]);
-
-    $artist = Artist::factory()->create(['discogs' => 602473]);
-
-    mock(Discogs::class)->shouldReceive('photos')->with(602473)->andReturn($images);
-
-    expect($artist->discogsPhotos())->toBe($images);
-});
-
-it('does not query discogs when no id is set', function () {
-    $artist = Artist::factory()->create(['discogs' => null]);
-
-    spy(Discogs::class)->shouldNotReceive('photos');
-
-    expect($artist->discogsPhotos()->toArray())->toBe([]);
-});
-
-it('can get photos from filmpolski', function () {
-    $images = [
-        'main' => [
-            'year' => null,
-            'photos' => ['test'],
-        ],
-    ];
-
-    $artist = Artist::factory()->create(['filmpolski' => 112891]);
-
-    mock(FilmPolski::class)->shouldReceive('photos')->with(112891)->andReturn($images);
-
-    expect($artist->filmPolskiPhotos())->toBe($images);
-});
-
-it('does not query filmpolski when no id is set', function () {
-    $artist = Artist::factory()->create(['filmpolski' => null]);
-
-    spy(FilmPolski::class)->shouldNotReceive('photos');
-
-    expect($artist->filmPolskiPhotos())->toBe([]);
-});
-
-it('can get photo from discogs', function () {
-    $images = collect([new DiscogsPhoto(
-        type: 'primary',
-        uri: 'test',
-        resource_url: 'test',
-        uri150: 'test150',
-        width: 561,
-        height: 800,
-    )]);
-
-    $artist = Artist::factory()->create(['discogs' => 602473]);
-
-    mock(Discogs::class)->shouldReceive('photos')->with(602473)->andReturn($images);
-
-    expect($artist->discogsPhoto())->toBe('test')
-        ->and($artist->discogsPhoto('150'))->toBe('test150');
-});
-
-it('can get its appearances as actor', function () {
-    $artist = Artist::factory()->create();
-
-    expect($artist->asActor())->toBeInstanceOf(BelongsToMany::class);
-
-    $tales = collect([
-        Tale::factory()->create(['year' => 1978]),
-        Tale::factory()->create(['year' => 1969, 'title' => 'b']),
-        Tale::factory()->create(['year' => 1969, 'title' => 'a']),
-    ]);
-
-    $artist->asActor()->attach($tales->map->id);
-
-    expect($artist->fresh()->asActor)->toHaveCount(3)->sequence(
-        fn ($e) => $e->toBeModel($tales[2]),
-        fn ($e) => $e->toBeModel($tales[1]),
-        fn ($e) => $e->toBeModel($tales[0]),
-    );
-});
-
-it('can get credits', function () {
-    $artist = Artist::factory()->create();
-
-    expect($artist->credits())->toBeInstanceOf(BelongsToMany::class);
-
-    $tales = Tale::factory(6)->sequence(
-        ['year' => 1979],
-        ['year' => 1969, 'title' => 'b'],
-        ['year' => 1969, 'title' => 'a'],
-        ['year' => 1978],
-        ['year' => 1969, 'title' => 'c'],
-        ['year' => 1969, 'title' => 'd'],
-    )->create();
-
-    $lyricist = ['type' => CreditType::Text, 'nr' => 0];
-    $composer = ['type' => CreditType::Music, 'nr' => 0];
-
-    $artist->credits()->attach([
-        $tales[0]->id => $lyricist,
-        $tales[1]->id => $lyricist,
-        $tales[2]->id => $lyricist,
-        $tales[3]->id => $composer,
-        $tales[4]->id => $composer,
-        $tales[5]->id => $composer,
-    ]);
-
-    expect($artist->credits)->toHaveCount(6)->sequence(
-        fn ($e) => $e->toBeModel($tales[2]),
-        fn ($e) => $e->toBeModel($tales[1]),
-        fn ($e) => $e->toBeModel($tales[4]),
-        fn ($e) => $e->toBeModel($tales[5]),
-        fn ($e) => $e->toBeModel($tales[3]),
-        fn ($e) => $e->toBeModel($tales[0]),
-    );
-});
-
-it('can get credits of given type', function () {
-    $artist = Artist::factory()->create();
-
-    $tales = Tale::factory(4)->sequence(
-        ['year' => 1978],
-        ['year' => 1969, 'title' => 'b'],
-        ['year' => 1978],
-        ['year' => 1969, 'title' => 'a'],
-    )->create();
-
-    $lyricist = ['type' => CreditType::Text, 'nr' => 0];
-    $composer = ['type' => CreditType::Music, 'nr' => 0];
-
-    $artist->credits()->attach([
-        $tales[0]->id => $lyricist,
-        $tales[1]->id => $lyricist,
-        $tales[2]->id => $composer,
-        $tales[3]->id => $lyricist,
-    ]);
-
-    expect($artist->creditsFor(CreditType::Text))
-        ->toBeInstanceOf(EloquentCollection::class)
-        ->toHaveCount(3)
-        ->sequence(
-            fn ($e) => $e->toBeModel($tales[3]),
-            fn ($e) => $e->toBeModel($tales[1]),
-            fn ($e) => $e->toBeModel($tales[0]),
+        $this->assertInstanceOf(Photo::class, $artist->photo);
+        $this->assertSame(
+            'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
+            $artist->photo->filename(),
         );
-});
+    }
 
-test('countAppearances scope works', function () {
-    $artist = Artist::factory()->create();
+    #[TestDox('it can generate discogs url')]
+    public function testDiscogsUrl(): void
+    {
+        $artist = Artist::factory()->make(['discogs' => 518243]);
 
-    $artist->credits()->attach(
-        Tale::factory(4)->create()->map->id,
-        ['type' => CreditType::Music, 'nr' => 0],
-    );
+        $this->mock(Discogs::class)
+            ->shouldReceive('url')
+            ->andReturn('https://www.discogs.com/artist/518243');
 
-    $artist->asActor()->attach(
-        Tale::factory(6)->create()->map->id,
-    );
+        $this->assertSame('https://www.discogs.com/artist/518243', $artist->discogs_url);
+    }
 
-    $duplicate = Tale::factory()->create();
+    #[TestDox('it can generate filmpolski url')]
+    public function testFilmPolskiUrl(): void
+    {
+        $artist = Artist::factory()->make(['filmpolski' => 112891]);
 
-    $artist->credits()->attach(
-        $duplicate,
-        ['type' => CreditType::Directing, 'nr' => 0],
-    );
+        $this->mock(FilmPolski::class)
+            ->shouldReceive('url')
+            ->andReturn('http://www.filmpolski.pl/fp/index.php?osoba=112891');
 
-    $artist->asActor()->attach($duplicate);
+        $this->assertSame('http://www.filmpolski.pl/fp/index.php?osoba=112891', $artist->filmpolski_url);
+    }
 
-    expect(Artist::countAppearances()->find($artist->id)->appearances)->toBe(11);
-});
+    #[TestDox('it can generate wikipedia url')]
+    public function testWikipediaUrl(): void
+    {
+        $artist = Artist::factory()->make(['wikipedia' => 'Joanna_Sobieska']);
 
-test('appearances method works', function () {
-    $artist = Artist::factory()->create();
+        $this->mock(Wikipedia::class)
+            ->shouldReceive('url')
+            ->andReturn('https://pl.wikipedia.org/wiki/Joanna_Sobieska');
 
-    $artist->credits()->attach(
-        Tale::factory(4)->create()->map->id,
-        ['type' => CreditType::Music, 'nr' => 0],
-    );
+        $this->assertSame('https://pl.wikipedia.org/wiki/Joanna_Sobieska', $artist->wikipedia_url);
+    }
 
-    $artist->asActor()->attach(
-        Tale::factory(6)->create()->map->id,
-    );
+    #[TestDox('it does not generate nonexistent urls')]
+    public function testNonexistentUrls(): void
+    {
+        $artist = Artist::factory()->make([
+            'discogs' => null,
+            'filmpolski' => null,
+            'wikipedia' => null,
+        ]);
 
-    $duplicate = Tale::factory()->create();
 
-    $artist->credits()->attach(
-        $duplicate,
-        ['type' => CreditType::Directing, 'nr' => 0],
-    );
+        $this->assertNull($artist->discogs_url);
+        $this->assertNull($artist->filmpolski_url);
+        $this->assertNull($artist->wikipedia_url);
+    }
 
-    $artist->asActor()->attach($duplicate);
+    #[TestDox('it can get extract from wikipedia')]
+    public function testWikipediaExtract(): void
+    {
+        $extract = 'Piotr Fronczewski (ur. 8 czerwca 1946 w Łodzi) – polski aktor.';
 
-    expect($artist->appearances())->toBe(11);
-});
+        $artist = Artist::factory()->create(['wikipedia' => 'Piotr_Fronczewski']);
 
-it('can refresh cached data', function () {
-    $artist = Artist::factory()->create([
-        'discogs' => 602473,
-        'filmpolski' => 112891,
-        'wikipedia' => 'Piotr_Fronczewski',
-    ]);
+        $this->mock(Wikipedia::class)
+            ->shouldReceive('extract')
+            ->with('Piotr_Fronczewski')
+            ->andReturn($extract);
 
-    mock(Discogs::class)->shouldReceive('refreshCache')->with(602473)->andReturn(true);
-    mock(FilmPolski::class)->shouldReceive('refreshCache')->with(112891)->andReturn(true);
-    mock(Wikipedia::class)->shouldReceive('refreshCache')->with('Piotr_Fronczewski')->andReturn(true);
+        $this->assertSame($extract, $artist->wikipedia_extract);
+    }
 
-    $artist->refreshCache();
-});
+    #[TestDox('it does not query wikipedia when no id is set')]
+    public function testWikipediaNoExtract(): void
+    {
+        $artist = Artist::factory()->create(['wikipedia' => null]);
 
-it('can flush cached data', function () {
-    $artist = Artist::factory()->create([
-        'discogs' => 602473,
-        'filmpolski' => 112891,
-        'wikipedia' => 'Piotr_Fronczewski',
-    ]);
+        $this->spy(Wikipedia::class)->shouldNotReceive('extract');
 
-    mock(Discogs::class)->shouldReceive('forget')->with(602473)->andReturn(true);
-    mock(FilmPolski::class)->shouldReceive('forget')->with(112891)->andReturn(true);
-    mock(Wikipedia::class)->shouldReceive('forget')->with('Piotr_Fronczewski')->andReturn(true);
+        $this->assertNull($artist->wikipedia_extract);
+    }
 
-    expect($artist->flushCache())->toBeTrue();
-});
+    #[TestDox('it can get photos from discogs')]
+    public function testDiscogsPhotos(): void
+    {
+        $images = collect([new DiscogsPhoto(
+            type: 'primary',
+            uri: 'test',
+            resource_url: 'test',
+            uri150: 'test150',
+            width: 561,
+            height: 800,
+        )]);
 
-test('findBySlug method works', function () {
-    expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
+        $artist = Artist::factory()->create(['discogs' => 602473]);
 
-    $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
+        $this->mock(Discogs::class)
+            ->shouldReceive('photos')
+            ->with(602473)
+            ->andReturn($images);
 
-    expect(Artist::findBySlug('Jan Matyjaszkiewicz'))->toBeNull();
+        $this->assertSame($images, $artist->discogsPhotos());
+    }
 
-    expect(Artist::findBySlug('jan-matyjaszkiewicz'))->toBeModel($artist);
-});
+    #[TestDox('it does not query discogs when no id is set')]
+    public function testDiscogsNoPhotos(): void
+    {
+        $artist = Artist::factory()->create(['discogs' => null]);
 
-test('findBySlugOrNew method works', function () {
-    $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
+        $this->spy(Discogs::class)->shouldNotReceive('photos');
 
-    expect(Artist::count())->toBe(1);
+        $this->assertCount(0, $artist->discogsPhotos());
+    }
 
-    expect(
-        Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ'),
-    )->toBeModel($artist);
+    #[TestDox('it can get photos from filmpolski')]
+    public function testFilmPolskiPhotos(): void
+    {
+        $images = [
+            'main' => [
+                'year' => null,
+                'photos' => ['test'],
+            ],
+        ];
 
-    expect(Artist::count())->toBe(1);
+        $artist = Artist::factory()->create(['filmpolski' => 112891]);
 
-    $artist = Artist::findBySlugOrNew('Jan Kobuszewski');
+        $this->mock(FilmPolski::class)
+            ->shouldReceive('photos')
+            ->with(112891)
+            ->andReturn($images);
 
-    expect(Artist::count())->toBe(2);
+        $this->assertSame($images, $artist->filmPolskiPhotos());
+    }
 
-    expect($artist->name)->toBe('Jan Kobuszewski')
-        ->and($artist->slug)->toBe('jan-kobuszewski');
-});
+    #[TestDox('it does not query filmpolski when no id is set')]
+    public function testFilmPolskiNoPhotos(): void
+    {
+        $artist = Artist::factory()->create(['filmpolski' => null]);
+
+        $this->spy(FilmPolski::class)->shouldNotReceive('photos');
+
+        $this->assertCount(0, $artist->filmPolskiPhotos());
+    }
+
+    #[TestDox('it can get photo from discogs')]
+    public function testDiscogsPhoto(): void
+    {
+        $images = collect([new DiscogsPhoto(
+            type: 'primary',
+            uri: 'test',
+            resource_url: 'test',
+            uri150: 'test150',
+            width: 561,
+            height: 800,
+        )]);
+
+        $artist = Artist::factory()->create(['discogs' => 602473]);
+
+        $this->mock(Discogs::class)
+            ->shouldReceive('photos')
+            ->with(602473)
+            ->andReturn($images);
+
+        $this->assertSame('test', $artist->discogsPhoto());
+        $this->assertSame('test150', $artist->discogsPhoto('150'));
+    }
+
+    #[TestDox('it can get its appearances as actor')]
+    public function testAsActor(): void
+    {
+        $artist = Artist::factory()->create();
+
+        $this->assertInstanceOf(BelongsToMany::class, $artist->asActor());
+
+        $tales = collect([
+            Tale::factory()->create(['year' => 1978]),
+            Tale::factory()->create(['year' => 1969, 'title' => 'b']),
+            Tale::factory()->create(['year' => 1969, 'title' => 'a']),
+        ]);
+
+        $artist->asActor()->attach($tales->map->id);
+
+        $asActor = $artist->fresh()->asActor;
+        $this->assertCount(3, $asActor);
+        $this->assertSameModel($tales[2], $asActor[0]);
+        $this->assertSameModel($tales[1], $asActor[1]);
+        $this->assertSameModel($tales[0], $asActor[2]);
+    }
+
+    #[TestDox('it can get credits')]
+    public function testCredits(): void
+    {
+        $artist = Artist::factory()->create();
+
+        $this->assertInstanceOf(BelongsToMany::class, $artist->credits());
+
+        $tales = Tale::factory(6)->sequence(
+            ['year' => 1979],
+            ['year' => 1969, 'title' => 'b'],
+            ['year' => 1969, 'title' => 'a'],
+            ['year' => 1978],
+            ['year' => 1969, 'title' => 'c'],
+            ['year' => 1969, 'title' => 'd'],
+        )->create();
+
+        $lyricist = ['type' => CreditType::Text, 'nr' => 0];
+        $composer = ['type' => CreditType::Music, 'nr' => 0];
+
+        $artist->credits()->attach([
+            $tales[0]->id => $lyricist,
+            $tales[1]->id => $lyricist,
+            $tales[2]->id => $lyricist,
+            $tales[3]->id => $composer,
+            $tales[4]->id => $composer,
+            $tales[5]->id => $composer,
+        ]);
+
+        $credits = $artist->fresh()->credits;
+        $this->assertCount(6, $credits);
+        $this->assertSameModel($tales[2], $credits[0]);
+        $this->assertSameModel($tales[1], $credits[1]);
+        $this->assertSameModel($tales[4], $credits[2]);
+        $this->assertSameModel($tales[5], $credits[3]);
+        $this->assertSameModel($tales[3], $credits[4]);
+        $this->assertSameModel($tales[0], $credits[5]);
+    }
+
+    #[TestDox('it can get credits of given type')]
+    public function testCreditsOfType(): void
+    {
+        $artist = Artist::factory()->create();
+
+        $tales = Tale::factory(4)->sequence(
+            ['year' => 1978],
+            ['year' => 1969, 'title' => 'b'],
+            ['year' => 1978],
+            ['year' => 1969, 'title' => 'a'],
+        )->create();
+
+        $lyricist = ['type' => CreditType::Text, 'nr' => 0];
+        $composer = ['type' => CreditType::Music, 'nr' => 0];
+
+        $artist->credits()->attach([
+            $tales[0]->id => $lyricist,
+            $tales[1]->id => $lyricist,
+            $tales[2]->id => $composer,
+            $tales[3]->id => $lyricist,
+        ]);
+
+        $credits = $artist->fresh()->creditsFor(CreditType::Text);
+        $this->assertInstanceOf(EloquentCollection::class, $credits);
+        $this->assertCount(3, $credits);
+        $this->assertSameModel($tales[3], $credits[0]);
+        $this->assertSameModel($tales[1], $credits[1]);
+        $this->assertSameModel($tales[0], $credits[2]);
+    }
+
+    #[TestDox('countAppearances scope works')]
+    public function testCountAppearances(): void
+    {
+        $artist = Artist::factory()->create();
+
+        $artist->credits()->attach(
+            Tale::factory(4)->create()->map->id,
+            ['type' => CreditType::Music, 'nr' => 0],
+        );
+
+        $artist->asActor()->attach(
+            Tale::factory(6)->create()->map->id,
+        );
+
+        $duplicate = Tale::factory()->create();
+
+        $artist->credits()->attach(
+            $duplicate,
+            ['type' => CreditType::Directing, 'nr' => 0],
+        );
+
+        $artist->asActor()->attach($duplicate);
+
+        $this->assertSame(11, Artist::countAppearances()->find($artist->id)->appearances);
+    }
+
+    #[TestDox('appearances method works')]
+    public function testAppearances(): void
+    {
+        $artist = Artist::factory()->create();
+
+        $artist->credits()->attach(
+            Tale::factory(4)->create()->map->id,
+            ['type' => CreditType::Music, 'nr' => 0],
+        );
+
+        $artist->asActor()->attach(
+            Tale::factory(6)->create()->map->id,
+        );
+
+        $duplicate = Tale::factory()->create();
+
+        $artist->credits()->attach(
+            $duplicate,
+            ['type' => CreditType::Directing, 'nr' => 0],
+        );
+
+        $artist->asActor()->attach($duplicate);
+
+        $this->assertSame(11, $artist->appearances());
+    }
+
+    #[TestDox('it can refresh cached data')]
+    public function testRefreshCache(): void
+    {
+        $artist = Artist::factory()->create([
+            'discogs' => 602473,
+            'filmpolski' => 112891,
+            'wikipedia' => 'Piotr_Fronczewski',
+        ]);
+
+        $this->mock(Discogs::class)->shouldReceive('refreshCache')->with(602473)->andReturn(true);
+        $this->mock(FilmPolski::class)->shouldReceive('refreshCache')->with(112891)->andReturn(true);
+        $this->mock(Wikipedia::class)->shouldReceive('refreshCache')->with('Piotr_Fronczewski')->andReturn(true);
+
+        $artist->refreshCache();
+    }
+
+    #[TestDox('it can flush cached data')]
+    public function testFlushCache(): void
+    {
+        $artist = Artist::factory()->create([
+            'discogs' => 602473,
+            'filmpolski' => 112891,
+            'wikipedia' => 'Piotr_Fronczewski',
+        ]);
+
+        $this->mock(Discogs::class)->shouldReceive('forget')->with(602473)->andReturn(true);
+        $this->mock(FilmPolski::class)->shouldReceive('forget')->with(112891)->andReturn(true);
+        $this->mock(Wikipedia::class)->shouldReceive('forget')->with('Piotr_Fronczewski')->andReturn(true);
+
+        $this->assertTrue($artist->flushCache());
+    }
+
+    #[TestDox('findBySlug method works')]
+    public function testFindBySlug(): void
+    {
+        $this->assertNull(Artist::findBySlug('Jan Matyjaszkiewicz'));
+
+        $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
+
+        $this->assertNull(Artist::findBySlug('Jan Matyjaszkiewicz'));
+
+        $this->assertSameModel($artist, Artist::findBySlug('jan-matyjaszkiewicz'));
+    }
+
+    #[TestDox('findBySlugOrNew method works')]
+    public function testFindBySlugOrNew(): void
+    {
+        $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
+
+        $this->assertSame(1, Artist::count());
+
+        $this->assertSameModel($artist, Artist::findBySlugOrNew(' jan matyjaSZkiewiCZ'));
+
+        $this->assertSame(1, Artist::count());
+
+        $artist = Artist::findBySlugOrNew('Jan Kobuszewski');
+
+        $this->assertSame(2, Artist::count());
+
+        $this->assertSame('Jan Kobuszewski', $artist->name);
+        $this->assertSame('jan-kobuszewski', $artist->slug);
+    }
+}

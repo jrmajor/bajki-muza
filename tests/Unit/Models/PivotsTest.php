@@ -1,25 +1,38 @@
 <?php
 
+namespace Tests\Unit\Models;
+
 use App\Models\Actor;
 use App\Models\Credit;
 use App\Values\CreditType;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-test('actor pivot casts values', function () {
-    $casts = (new Actor())->getCasts();
+final class PivotsTest extends TestCase
+{
+    #[TestDox('actor pivot casts values')]
+    public function testActor(): void
+    {
+        $casts = (new Actor())->getCasts();
 
-    expect($casts['credit_nr'])->toBe('int');
-});
+        expect($casts['credit_nr'])->toBe('int');
+    }
 
-test('credit pivot casts values', function () {
-    $casts = (new Credit())->getCasts();
+    #[TestDox('credit pivot casts values')]
+    public function testCredit(): void
+    {
+        $casts = (new Credit())->getCasts();
 
-    expect($casts['type'])->toBe(CreditType::class);
-    expect($casts['nr'])->toBe('int');
-});
+        $this->assertSame(CreditType::class, $casts['type']);
+        $this->assertSame('int', $casts['nr']);
+    }
 
-test('ofType method works in credit pivot', function () {
-    $credit = new Credit(['type' => CreditType::Text]);
+    #[TestDox('ofType method works in credit pivot')]
+    public function testOfType(): void
+    {
+        $credit = new Credit(['type' => CreditType::Text]);
 
-    expect($credit->ofType(CreditType::Text))->toBeTrue();
-    expect($credit->ofType(CreditType::Music))->toBeFalse();
-});
+        $this->assertTrue($credit->ofType(CreditType::Text));
+        $this->assertFalse($credit->ofType(CreditType::Music));
+    }
+}
