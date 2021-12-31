@@ -15,7 +15,7 @@ final class PivotsTest extends TestCase
     {
         $casts = (new Actor())->getCasts();
 
-        expect($casts['credit_nr'])->toBe('int');
+        $this->assertSame('int', $casts['credit_nr']);
     }
 
     #[TestDox('credit pivot casts values')]
