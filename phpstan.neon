@@ -14,7 +14,7 @@ parameters:
         - tests/TestDox.php
     checkMissingIterableValueType: false
     ignoreErrors:
-        - '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Relations\\Pivot::\$(characters|credit_nr)\.$#'
+        - '#^Access to an undefined property App\\Models\\Actor\|App\\Models\\Credit::\$(characters|credit_nr)\.$#'
         - '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage::(andReturn|times|with)\(\)\.$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Parameter \#2 \$string of function Safe\\fwrite expects string, string\|false given\.$#'
