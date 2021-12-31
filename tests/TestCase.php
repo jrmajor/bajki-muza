@@ -2,9 +2,7 @@
 
 namespace Tests;
 
-use App\Images\Jobs\ProcessesImages;
 use App\Models\User;
-use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +11,6 @@ use Illuminate\Testing\PendingCommand;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use Psl\Type;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -36,26 +33,6 @@ abstract class TestCase extends BaseTestCase
             $actual->is($expected),
             'Value is not expected Eloquent model.',
         );
-    }
-
-    public function imageProcessor(Closure $callback)
-    {
-        return (new class ($this) {
-            use ProcessesImages;
-
-            public function __construct(
-                protected TestCase $testCase,
-            ) { }
-
-            public function test(Closure $callback)
-            {
-                $this->temporaryDirectory = (new TemporaryDirectory())->create();
-
-                $callback->call($this, $this->testCase);
-
-                $this->temporaryDirectory->delete();
-            }
-        })->test($callback);
     }
 
     /**
