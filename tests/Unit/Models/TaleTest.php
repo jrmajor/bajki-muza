@@ -70,7 +70,7 @@ final class TaleTest extends TestCase
             'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
         ]);
 
-        $tale = Tale::factory()->cover($cover)->create();
+        $tale = Tale::factory()->cover($cover)->createOne();
 
         $this->assertInstanceOf(Cover::class, $tale->cover);
         $this->assertSame(
@@ -82,7 +82,7 @@ final class TaleTest extends TestCase
     #[TestDox('it can generate discogs url')]
     public function testDiscogsUrl(): void
     {
-        $tale = Tale::factory()->make(['discogs' => 2792351]);
+        $tale = Tale::factory()->makeOne(['discogs' => 2792351]);
 
         $this->mock(Discogs::class)
             ->shouldReceive('releaseUrl')
@@ -94,7 +94,7 @@ final class TaleTest extends TestCase
     #[TestDox('it can get its actors')]
     public function testActors(): void
     {
-        $tale = Tale::factory()->create();
+        $tale = Tale::factory()->createOne();
 
         $this->assertInstanceOf(BelongsToMany::class, $tale->actors());
 
@@ -127,7 +127,7 @@ final class TaleTest extends TestCase
     #[TestDox('it can get credits')]
     public function testCredits(): void
     {
-        $tale = Tale::factory()->withoutRelations()->create();
+        $tale = Tale::factory()->withoutRelations()->createOne();
 
         $this->assertInstanceOf(BelongsToMany::class, $tale->credits());
 
@@ -155,7 +155,7 @@ final class TaleTest extends TestCase
     #[TestDox('it can get credits of given type')]
     public function testCreditsOfType(): void
     {
-        $tale = Tale::factory()->withoutRelations()->create();
+        $tale = Tale::factory()->withoutRelations()->createOne();
 
         $artists = Artist::factory(7)->create();
 
@@ -185,9 +185,13 @@ final class TaleTest extends TestCase
             ['type', 'as', 'nr'],
         );
 
+        /**
+         * @var Artist $firstArtist
+         * @var Artist $secondArtist
+         */
         [$firstArtist, $secondArtist] = Artist::factory(2)->create();
 
-        $tale = Tale::factory()->withoutRelations()->create();
+        $tale = Tale::factory()->withoutRelations()->createOne();
 
         // no credits -> one credit
 
@@ -302,7 +306,7 @@ final class TaleTest extends TestCase
 
         $artists[1]->asActor()->attach($ids[0]);
 
-        $tale = Tale::factory()->withoutRelations()->create();
+        $tale = Tale::factory()->withoutRelations()->createOne();
 
         $tale->actors()->attach($artists->map->id);
 

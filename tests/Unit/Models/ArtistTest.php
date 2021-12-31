@@ -73,7 +73,7 @@ final class ArtistTest extends TestCase
             'crop' => ArtistPhotoCrop::fake(),
         ]);
 
-        $artist = Artist::factory()->photo($photo)->create();
+        $artist = Artist::factory()->photo($photo)->createOne();
 
         $this->assertInstanceOf(Photo::class, $artist->photo);
         $this->assertSame(
@@ -85,7 +85,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can generate discogs url')]
     public function testDiscogsUrl(): void
     {
-        $artist = Artist::factory()->make(['discogs' => 518243]);
+        $artist = Artist::factory()->makeOne(['discogs' => 518243]);
 
         $this->mock(Discogs::class)
             ->shouldReceive('url')
@@ -97,7 +97,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can generate filmpolski url')]
     public function testFilmPolskiUrl(): void
     {
-        $artist = Artist::factory()->make(['filmpolski' => 112891]);
+        $artist = Artist::factory()->makeOne(['filmpolski' => 112891]);
 
         $this->mock(FilmPolski::class)
             ->shouldReceive('url')
@@ -109,7 +109,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can generate wikipedia url')]
     public function testWikipediaUrl(): void
     {
-        $artist = Artist::factory()->make(['wikipedia' => 'Joanna_Sobieska']);
+        $artist = Artist::factory()->makeOne(['wikipedia' => 'Joanna_Sobieska']);
 
         $this->mock(Wikipedia::class)
             ->shouldReceive('url')
@@ -121,7 +121,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it does not generate nonexistent urls')]
     public function testNonexistentUrls(): void
     {
-        $artist = Artist::factory()->make([
+        $artist = Artist::factory()->makeOne([
             'discogs' => null,
             'filmpolski' => null,
             'wikipedia' => null,
@@ -138,7 +138,7 @@ final class ArtistTest extends TestCase
     {
         $extract = 'Piotr Fronczewski (ur. 8 czerwca 1946 w Łodzi) – polski aktor.';
 
-        $artist = Artist::factory()->create(['wikipedia' => 'Piotr_Fronczewski']);
+        $artist = Artist::factory()->createOne(['wikipedia' => 'Piotr_Fronczewski']);
 
         $this->mock(Wikipedia::class)
             ->shouldReceive('extract')
@@ -151,7 +151,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it does not query wikipedia when no id is set')]
     public function testWikipediaNoExtract(): void
     {
-        $artist = Artist::factory()->create(['wikipedia' => null]);
+        $artist = Artist::factory()->createOne(['wikipedia' => null]);
 
         $this->spy(Wikipedia::class)->shouldNotReceive('extract');
 
@@ -170,7 +170,7 @@ final class ArtistTest extends TestCase
             height: 800,
         )]);
 
-        $artist = Artist::factory()->create(['discogs' => 602473]);
+        $artist = Artist::factory()->createOne(['discogs' => 602473]);
 
         $this->mock(Discogs::class)
             ->shouldReceive('photos')
@@ -183,7 +183,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it does not query discogs when no id is set')]
     public function testDiscogsNoPhotos(): void
     {
-        $artist = Artist::factory()->create(['discogs' => null]);
+        $artist = Artist::factory()->createOne(['discogs' => null]);
 
         $this->spy(Discogs::class)->shouldNotReceive('photos');
 
@@ -200,7 +200,7 @@ final class ArtistTest extends TestCase
             ],
         ];
 
-        $artist = Artist::factory()->create(['filmpolski' => 112891]);
+        $artist = Artist::factory()->createOne(['filmpolski' => 112891]);
 
         $this->mock(FilmPolski::class)
             ->shouldReceive('photos')
@@ -213,7 +213,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it does not query filmpolski when no id is set')]
     public function testFilmPolskiNoPhotos(): void
     {
-        $artist = Artist::factory()->create(['filmpolski' => null]);
+        $artist = Artist::factory()->createOne(['filmpolski' => null]);
 
         $this->spy(FilmPolski::class)->shouldNotReceive('photos');
 
@@ -232,7 +232,7 @@ final class ArtistTest extends TestCase
             height: 800,
         )]);
 
-        $artist = Artist::factory()->create(['discogs' => 602473]);
+        $artist = Artist::factory()->createOne(['discogs' => 602473]);
 
         $this->mock(Discogs::class)
             ->shouldReceive('photos')
@@ -246,14 +246,14 @@ final class ArtistTest extends TestCase
     #[TestDox('it can get its appearances as actor')]
     public function testAsActor(): void
     {
-        $artist = Artist::factory()->create();
+        $artist = Artist::factory()->createOne();
 
         $this->assertInstanceOf(BelongsToMany::class, $artist->asActor());
 
         $tales = collect([
-            Tale::factory()->create(['year' => 1978]),
-            Tale::factory()->create(['year' => 1969, 'title' => 'b']),
-            Tale::factory()->create(['year' => 1969, 'title' => 'a']),
+            Tale::factory()->createOne(['year' => 1978]),
+            Tale::factory()->createOne(['year' => 1969, 'title' => 'b']),
+            Tale::factory()->createOne(['year' => 1969, 'title' => 'a']),
         ]);
 
         $artist->asActor()->attach($tales->map->id);
@@ -268,7 +268,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can get credits')]
     public function testCredits(): void
     {
-        $artist = Artist::factory()->create();
+        $artist = Artist::factory()->createOne();
 
         $this->assertInstanceOf(BelongsToMany::class, $artist->credits());
 
@@ -306,7 +306,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can get credits of given type')]
     public function testCreditsOfType(): void
     {
-        $artist = Artist::factory()->create();
+        $artist = Artist::factory()->createOne();
 
         $tales = Tale::factory(4)->sequence(
             ['year' => 1978],
@@ -336,7 +336,7 @@ final class ArtistTest extends TestCase
     #[TestDox('countAppearances scope works')]
     public function testCountAppearances(): void
     {
-        $artist = Artist::factory()->create();
+        $artist = Artist::factory()->createOne();
 
         $artist->credits()->attach(
             Tale::factory(4)->create()->map->id,
@@ -347,7 +347,7 @@ final class ArtistTest extends TestCase
             Tale::factory(6)->create()->map->id,
         );
 
-        $duplicate = Tale::factory()->create();
+        $duplicate = Tale::factory()->createOne();
 
         $artist->credits()->attach(
             $duplicate,
@@ -362,7 +362,7 @@ final class ArtistTest extends TestCase
     #[TestDox('appearances method works')]
     public function testAppearances(): void
     {
-        $artist = Artist::factory()->create();
+        $artist = Artist::factory()->createOne();
 
         $artist->credits()->attach(
             Tale::factory(4)->create()->map->id,
@@ -373,7 +373,7 @@ final class ArtistTest extends TestCase
             Tale::factory(6)->create()->map->id,
         );
 
-        $duplicate = Tale::factory()->create();
+        $duplicate = Tale::factory()->createOne();
 
         $artist->credits()->attach(
             $duplicate,
@@ -388,7 +388,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can refresh cached data')]
     public function testRefreshCache(): void
     {
-        $artist = Artist::factory()->create([
+        $artist = Artist::factory()->createOne([
             'discogs' => 602473,
             'filmpolski' => 112891,
             'wikipedia' => 'Piotr_Fronczewski',
@@ -404,7 +404,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can flush cached data')]
     public function testFlushCache(): void
     {
-        $artist = Artist::factory()->create([
+        $artist = Artist::factory()->createOne([
             'discogs' => 602473,
             'filmpolski' => 112891,
             'wikipedia' => 'Piotr_Fronczewski',
@@ -422,7 +422,7 @@ final class ArtistTest extends TestCase
     {
         $this->assertNull(Artist::findBySlug('Jan Matyjaszkiewicz'));
 
-        $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
+        $artist = Artist::factory()->createOne(['name' => 'Jan Matyjaszkiewicz']);
 
         $this->assertNull(Artist::findBySlug('Jan Matyjaszkiewicz'));
 
@@ -432,7 +432,7 @@ final class ArtistTest extends TestCase
     #[TestDox('findBySlugOrNew method works')]
     public function testFindBySlugOrNew(): void
     {
-        $artist = Artist::factory()->create(['name' => 'Jan Matyjaszkiewicz']);
+        $artist = Artist::factory()->createOne(['name' => 'Jan Matyjaszkiewicz']);
 
         $this->assertSame(1, Artist::count());
 

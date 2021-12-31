@@ -19,10 +19,10 @@ abstract class TestCase extends BaseTestCase
 
     public function asUser(?User $user = null, ?string $driver = null): TestCase
     {
-        return $this->actingAs($user ?? User::factory()->create(), $driver);
+        return $this->actingAs($user ?? User::factory()->createOne(), $driver);
     }
 
-    public static function assertSameModel($expected, Model $actual): void
+    public static function assertSameModel(mixed $expected, Model $actual): void
     {
         self::assertThat($actual, Assert::logicalOr(
             new IsInstanceOf(Model::class),
