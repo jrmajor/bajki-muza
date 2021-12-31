@@ -1,22 +1,29 @@
 <?php
 
+namespace Tests\Unit\Jobs;
+
 use App\Jobs\RefreshArtistsCache;
 use App\Models\Artist;
 use App\Services\Discogs;
 use App\Services\FilmPolski;
 use App\Services\Wikipedia;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-use function Pest\Laravel\mock;
+final class RefreshArtistsCacheTest extends TestCase
+{
+    #[TestDox('can refresh artists cache')]
+    public function testOk(): void
+    {
+        Artist::factory(48)->sequence(
+            [],
+            ['discogs' => null, 'filmpolski' => null, 'wikipedia' => null],
+        )->create();
 
-it('can refresh artists cache', function () {
-    Artist::factory(48)->sequence(
-        [],
-        ['discogs' => null, 'filmpolski' => null, 'wikipedia' => null],
-    )->create();
+        $this->mock(Discogs::class)->shouldReceive('refreshCache')->times(24);
+        $this->mock(FilmPolski::class)->shouldReceive('refreshCache')->times(24);
+        $this->mock(Wikipedia::class)->shouldReceive('refreshCache')->times(24);
 
-    mock(Discogs::class)->shouldReceive('refreshCache')->times(24);
-    mock(FilmPolski::class)->shouldReceive('refreshCache')->times(24);
-    mock(Wikipedia::class)->shouldReceive('refreshCache')->times(24);
-
-    RefreshArtistsCache::dispatchSync();
-});
+        RefreshArtistsCache::dispatchSync();
+    }
+}
