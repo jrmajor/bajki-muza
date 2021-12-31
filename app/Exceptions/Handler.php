@@ -7,8 +7,10 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    /** @var list<class-string<Throwable>> */
     protected $dontReport = [];
 
+    /** @var array<int, string> */
     protected $dontFlash = [
         'current_password',
         'password',
