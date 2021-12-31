@@ -30,12 +30,12 @@ final class ProcessesImagesTraitTest extends TestCase
     public function testTemporaryDirectory(): void
     {
         $copiedFilePath = $this->copyToTemporaryDirectory(
-            fopen(Tests\fixture('Images/cover.jpg'), 'r'), 'desiredFilename.jpg',
+            fopen(Tests\fixture('Images/cover.jpg'), 'r') ?: $this->fail(),
+            'desiredFilename.jpg',
         );
 
-        $this->assertSame(
-            $this->temporaryDirectory->path('desiredFilename.jpg'), $copiedFilePath,
-        );
+        $path = $this->temporaryDirectory->path('desiredFilename.jpg');
+        $this->assertSame($path, $copiedFilePath);
         $this->assertStringEndsWith('desiredFilename.jpg', $copiedFilePath);
 
         $this->assertFileEquals(

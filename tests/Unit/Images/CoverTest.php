@@ -28,9 +28,7 @@ final class CoverTest extends TestCase
 
         Queue::fake();
 
-        $image = Cover::store(
-            UploadedFile::fake()->image('test.jpg'),
-        );
+        $image = Cover::store(UploadedFile::fake()->image('test.jpg'));
 
         $this->assertInstanceOf(Cover::class, $image);
         $this->assertStringEndsWith('.jpg', $image->filename());

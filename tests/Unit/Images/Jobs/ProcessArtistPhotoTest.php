@@ -28,14 +28,13 @@ final class ProcessArtistPhotoTest extends TestCase
     {
         Storage::fake('testing');
 
-        $filename = Str::random('10') . '.jpg';
+        $filename = Str::random(10) . '.jpg';
 
         // Photo by Alberto Bigoni on Unsplash
-        $file = fopen(Tests\fixture('Images/photo.jpg'), 'r');
-
-        Photo::disk()->put("photos/original/{$filename}", $file, 'public');
-
-        fclose($file);
+        Photo::disk()->put(
+            "photos/original/{$filename}",
+            Tests\read_fixture('Images/photo.jpg'),
+        );
 
         GenerateArtistPhotoPlaceholders::dispatchSync(
             $photo = Photo::create([
@@ -60,14 +59,13 @@ final class ProcessArtistPhotoTest extends TestCase
     {
         Storage::fake('testing');
 
-        $filename = Str::random('10') . '.jpg';
+        $filename = Str::random(10) . '.jpg';
 
         // Photo by Alberto Bigoni on Unsplash
-        $file = fopen(Tests\fixture('Images/photo.jpg'), 'r');
-
-        Photo::disk()->put("photos/original/{$filename}", $file, 'public');
-
-        fclose($file);
+        Photo::disk()->put(
+            "photos/original/{$filename}",
+            Tests\read_fixture('Images/photo.jpg'),
+        );
 
         GenerateArtistPhotoVariants::dispatchSync(
             Photo::create([
@@ -77,7 +75,6 @@ final class ProcessArtistPhotoTest extends TestCase
         );
 
         Photo::disk()->assertExists("photos/160/{$filename}");
-
         Photo::disk()->assertExists("photos/56/{$filename}");
     }
 }

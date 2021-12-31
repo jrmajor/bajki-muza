@@ -18,14 +18,13 @@ final class ProcessTaleCoverTest extends TestCase
     {
         Storage::fake('testing');
 
-        $filename = Str::random('10') . '.jpg';
+        $filename = Str::random(10) . '.jpg';
 
         // Photo by David Grandmougin on Unsplash
-        $file = fopen(Tests\fixture('Images/cover.jpg'), 'r');
-
-        Cover::disk()->put("covers/original/{$filename}", $file, 'public');
-
-        fclose($file);
+        Cover::disk()->put(
+            "covers/original/{$filename}",
+            Tests\read_fixture('Images/cover.jpg'),
+        );
 
         GenerateTaleCoverPlaceholder::dispatchSync(
             $cover = Cover::create(['filename' => $filename]),
@@ -42,14 +41,13 @@ final class ProcessTaleCoverTest extends TestCase
     {
         Storage::fake('testing');
 
-        $filename = Str::random('10') . '.jpg';
+        $filename = Str::random(10) . '.jpg';
 
         // Photo by David Grandmougin on Unsplash
-        $file = fopen(Tests\fixture('Images/cover.jpg'), 'r');
-
-        Cover::disk()->put("covers/original/{$filename}", $file, 'public');
-
-        fclose($file);
+        Cover::disk()->put(
+            "covers/original/{$filename}",
+            Tests\read_fixture('Images/cover.jpg'),
+        );
 
         GenerateTaleCoverVariants::dispatchSync(
             Cover::create(['filename' => $filename]),
