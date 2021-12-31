@@ -1,140 +1,174 @@
 <?php
 
+namespace Tests\Unit\Images;
+
 use App\Images\Exceptions\OriginalDoesNotExist;
 use Carbon\Carbon;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
-use Tests\Unit\Images\ProcessTestCover;
-use Tests\Unit\Images\TestCover;
+use Mockery;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-it('can store new image', function () {
-    Storage::fake('testing');
+final class ImageTest extends TestCase
+{
+    #[TestDox('it can store new image')]
+    public function testStore(): void
+    {
+        Storage::fake('testing');
 
-    $uploadedFile = UploadedFile::fake()->image('test.jpg');
+        $uploadedFile = UploadedFile::fake()->image('test.jpg');
 
-    Bus::fake();
+        Bus::fake();
 
-    $image = TestCover::store($uploadedFile);
+        $image = TestCover::store($uploadedFile);
 
-    expect($image)
-        ->toBeInstanceOf(TestCover::class)
-        ->filename()->toEndWith('.jpg');
+        $this->assertInstanceOf(TestCover::class, $image);
+        $this->assertStringEndsWith('.jpg', $image->filename());
 
-    expect(TestCover::disk()->files('covers/original'))->toHaveCount(1);
+        $this->assertCount(1, TestCover::disk()->files('covers/original'));
 
-    Bus::assertDispatched(ProcessTestCover::class);
-});
+        Bus::assertDispatched(ProcessTestCover::class);
+    }
 
-it('throws error when reprocessing image without original', function () {
-    Storage::fake('testing');
+    #[TestDox('it throws error when reprocessing image without original')]
+    public function testReprocessNoOriginal(): void
+    {
+        Storage::fake('testing');
 
-    (new TestCover(['filename' => 'test.jpg']))->reprocess();
-})->expectException(OriginalDoesNotExist::class);
+        $this->expectException(OriginalDoesNotExist::class);
 
-it('deletes responsive variants when reprocessing responsive images', function () {
-    Storage::fake('testing');
+        (new TestCover(['filename' => 'test.jpg']))->reprocess();
+    }
 
-    TestCover::disk()->put('covers/original/test.jpg', 'contents');
-    TestCover::disk()->put('covers/128/test.jpg', 'contents');
+    #[TestDox('it deletes responsive variants when reprocessing responsive images')]
+    public function testReprocessDeleteResponsve(): void
+    {
+        Storage::fake('testing');
 
-    TestCover::disk()->assertExists('covers/128/test.jpg');
+        TestCover::disk()->put('covers/original/test.jpg', 'contents');
+        TestCover::disk()->put('covers/128/test.jpg', 'contents');
 
-    Bus::fake();
+        TestCover::disk()->assertExists('covers/128/test.jpg');
 
-    (new TestCover(['filename' => 'test.jpg']))->reprocess();
+        Bus::fake();
 
-    TestCover::disk()->assertMissing('covers/128/fileWithMissingVariants.jpg');
+        (new TestCover(['filename' => 'test.jpg']))->reprocess();
 
-    Bus::assertDispatched(ProcessTestCover::class);
-});
+        TestCover::disk()->assertMissing('covers/128/fileWithMissingVariants.jpg');
 
-it('can reprocess responsive images', function () {
-    Storage::fake('testing');
+        Bus::assertDispatched(ProcessTestCover::class);
+    }
 
-    TestCover::disk()->put('covers/original/test.jpg', 'contents');
+    #[TestDox('it can reprocess responsive images')]
+    public function testReprocess(): void
+    {
+        Storage::fake('testing');
 
-    Bus::fake();
+        TestCover::disk()->put('covers/original/test.jpg', 'contents');
 
-    (new TestCover(['filename' => 'test.jpg']))->reprocess();
+        Bus::fake();
 
-    Bus::assertDispatched(ProcessTestCover::class);
-});
+        (new TestCover(['filename' => 'test.jpg']))->reprocess();
 
-it('can get its filename', function () {
-    expect(
-        (new TestCover(['filename' => 'testFilename.jpg']))->filename(),
-    )->toBe('testFilename.jpg');
-});
+        Bus::assertDispatched(ProcessTestCover::class);
+    }
 
-it('can get original url', function () {
-    $cover = new class([
-        'filename' => 'testFilename.jpg',
-    ]) extends TestCover {
-        public static function disk(): FilesystemAdapter
-        {
-            return Mockery::mock(FilesystemAdapter::class)
-                ->shouldReceive('temporaryUrl')
-                ->with('covers/original/testFilename.jpg', Carbon::class)
-                ->andReturn('testUrl')
-                ->mock();
-        }
-    };
+    #[TestDox('it can get its filename')]
+    public function testFilename(): void
+    {
+        $this->assertSame(
+            'testFilename.jpg',
+            (new TestCover(['filename' => 'testFilename.jpg']))->filename(),
+        );
+    }
 
-    expect($cover->originalUrl())->toBe('testUrl');
-});
+    #[TestDox('it can get original url')]
+    public function testOriginalUrl(): void
+    {
+        $cover = new class([
+            'filename' => 'testFilename.jpg',
+        ]) extends TestCover {
+            public static function disk(): FilesystemAdapter
+            {
+                return Mockery::mock(FilesystemAdapter::class)
+                    ->shouldReceive('temporaryUrl')
+                    ->with('covers/original/testFilename.jpg', Carbon::class)
+                    ->andReturn('testUrl')
+                    ->mock();
+            }
+        };
 
-it('can get url for given size', function () {
-    Storage::fake('testing');
+        $this->assertSame('testUrl', $cover->originalUrl());
+    }
 
-    expect(
-        (new TestCover(['filename' => 'testFilename.jpg']))->url(128),
-    )->toEndWith('/covers/128/testFilename.jpg');
-});
+    #[TestDox('it can get url for given size')]
+    public function testSizeUrl(): void
+    {
+        Storage::fake('testing');
 
-it('can get its placeholder')
-    ->expect(
-        (new TestCover(['placeholder' => 'test placeholder']))->placeholder(),
-    )->toBe('test placeholder');
+        $this->assertStringEndsWith(
+            '/covers/128/testFilename.jpg',
+            (new TestCover(['filename' => 'testFilename.jpg']))->url(128),
+        );
+    }
 
-it('can get check whether original is missing', function () {
-    Storage::fake('testing');
+    #[TestDox('it can get its placeholder')]
+    public function testPlaceholder(): void
+    {
+        $this->assertSame(
+            'test placeholder',
+            (new TestCover(['placeholder' => 'test placeholder']))->placeholder(),
+        );
+    }
 
-    expect(
-        (new TestCover(['filename' => 'fileWithoutOriginal.jpg']))->originalMissing(),
-    )->toBeTrue();
+    #[TestDox('it can get check whether original is missing')]
+    public function testOriginalMissing(): void
+    {
+        Storage::fake('testing');
 
-    $uploadedFile = UploadedFile::fake()->image('test.jpg');
+        $this->assertTrue(
+            (new TestCover(['filename' => 'fileWithoutOriginal.jpg']))->originalMissing(),
+        );
 
-    $image = TestCover::store($uploadedFile);
+        $uploadedFile = UploadedFile::fake()->image('test.jpg');
 
-    expect($image->originalMissing())->toBeFalse();
-});
+        $image = TestCover::store($uploadedFile);
 
-it('can get check whether responsive variant is missing', function () {
-    Storage::fake('testing');
+        $this->assertFalse($image->originalMissing());
+    }
 
-    expect(
-        (new TestCover(['filename' => 'fileWithout128Variant.jpg']))
-            ->responsiveVariantMissing(128),
-    )->toBeTrue();
+    #[TestDox('it can check whether responsive variant is missing')]
+    public function testVariantMissing(): void
+    {
+        Storage::fake('testing');
 
-    TestCover::disk()->put('covers/128/fileWith128Variant.jpg', 'contents');
+        $this->assertTrue(
+            (new TestCover(['filename' => 'fileWithout128Variant.jpg']))
+                ->responsiveVariantMissing(128),
+        );
 
-    expect(
-        (new TestCover(['filename' => 'fileWith128Variant.jpg']))
-            ->responsiveVariantMissing(128),
-    )->toBeFalse();
-});
+        TestCover::disk()->put('covers/128/fileWith128Variant.jpg', 'contents');
 
-it('can get check which responsive variants are missing', function () {
-    Storage::fake('testing');
+        $this->assertFalse(
+            (new TestCover(['filename' => 'fileWith128Variant.jpg']))
+                ->responsiveVariantMissing(128),
+        );
+    }
 
-    TestCover::disk()->put('covers/128/fileWithMissingVariants.jpg', 'contents');
+    #[TestDox('it can check which responsive variants are missing')]
+    public function testVariantsMissing(): void
+    {
+        Storage::fake('testing');
 
-    expect(
-        (new TestCover(['filename' => 'fileWithMissingVariants.jpg']))
-            ->missingResponsiveVariants(),
-    )->toBe([192, 256]);
-});
+        TestCover::disk()->put('covers/128/fileWithMissingVariants.jpg', 'contents');
+
+        $this->assertSame(
+            [192, 256],
+            (new TestCover(['filename' => 'fileWithMissingVariants.jpg']))
+                ->missingResponsiveVariants(),
+        );
+    }
+}

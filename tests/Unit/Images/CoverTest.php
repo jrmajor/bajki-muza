@@ -1,59 +1,81 @@
 <?php
 
+namespace Tests\Unit\Images;
+
 use App\Images\Cover;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
-use App\Images\Photo;
+use App\Models\Artist;
 use App\Models\Tale;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests\TestCase;
 
-it('can get list of sizes')
-    ->expect(Cover::sizes())
-    ->toBe([60, 90, 120, 128, 192, 288, 256, 384]);
+final class CoverTest extends TestCase
+{
+    #[TestDox('it can get list of sizes')]
+    public function testSizes(): void
+    {
+        $this->assertSame([60, 90, 120, 128, 192, 288, 256, 384], Cover::sizes());
+    }
 
-it('stores new cover in correct path and dispatches necessary jobs to process it', function () {
-    Storage::fake('testing');
+    #[TestDox('it stores new cover in correct path and dispatches necessary jobs to process it')]
+    public function testStore(): void
+    {
+        Storage::fake('testing');
 
-    Queue::fake();
+        Queue::fake();
 
-    $image = Cover::store(
-        UploadedFile::fake()->image('test.jpg'),
-    );
+        $image = Cover::store(
+            UploadedFile::fake()->image('test.jpg'),
+        );
 
-    expect($image)
-        ->toBeInstanceOf(Cover::class)
-        ->filename()->toEndWith('.jpg');
+        $this->assertInstanceOf(Cover::class, $image);
+        $this->assertStringEndsWith('.jpg', $image->filename());
 
-    expect(Photo::disk()->files('covers/original'))->toHaveCount(1);
+        $this->assertCount(1, Cover::disk()->files('covers/original'));
 
-    Queue::assertPushedWithChain(
-        GenerateTaleCoverPlaceholder::class,
-        [GenerateTaleCoverVariants::class],
-    );
-});
+        Queue::assertPushedWithChain(
+            GenerateTaleCoverPlaceholder::class,
+            [GenerateTaleCoverVariants::class],
+        );
+    }
 
-it('returns correct original path')
-    ->expect((new Cover(['filename' => 'test.jpg']))->originalPath())
-    ->toBe('covers/original/test.jpg');
+    #[TestDox('it returns correct original path')]
+    public function testOriginalPath(): void
+    {
+        $this->assertSame(
+            'covers/original/test.jpg',
+            (new Cover(['filename' => 'test.jpg']))->originalPath(),
+        );
+    }
 
-it('returns correct path for given size')
-    ->expect((new Cover(['filename' => 'test.jpg']))->path(384))
-    ->toBe('covers/384/test.jpg');
+    #[TestDox('it returns correct path for given size')]
+    public function testSizePath(): void
+    {
+        $this->assertSame(
+            'covers/384/test.jpg',
+            (new Cover(['filename' => 'test.jpg']))->path(384),
+        );
+    }
 
-it('can get its tales', function () {
-    $cover = Cover::create([
-        'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
-    ]);
+    #[TestDox('it can get its tales')]
+    public function testTales(): void
+    {
+        $cover = Cover::create([
+            'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
+        ]);
 
-    $tales = Tale::factory(2)->cover($cover)->create();
+        /** @var Collection<Artist> $artists */
+        $tales = Tale::factory(2)->cover($cover)->create();
 
-    // @todo $cover->refesh();
-    $cover = $cover->fresh();
+        $cover->refresh();
 
-    expect($cover->tales)->toHaveCount(2)->sequence(
-        fn ($e) => $e->toBeModel($tales[0]),
-        fn ($e) => $e->toBeModel($tales[1]),
-    );
-});
+        $this->assertCount(2, $cover->tales);
+        $this->assertSameModel($tales[0], $cover->tales[0]);
+        $this->assertSameModel($tales[1], $cover->tales[1]);
+    }
+}

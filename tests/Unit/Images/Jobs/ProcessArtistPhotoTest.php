@@ -1,69 +1,83 @@
 <?php
 
+namespace Tests\Unit\Images\Jobs;
+
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\TestDox;
+use Tests;
+use Tests\TestCase;
 
-use function Tests\fixture;
+final class ProcessArtistPhotoTest extends TestCase
+{
+    private ArtistPhotoCrop $crop;
 
-beforeEach(function () {
-    $this->crop = ArtistPhotoCrop::fake();
-});
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-test('GenerateArtistPhotoPlaceholders job works', function () {
-    Storage::fake('testing');
+        $this->crop = ArtistPhotoCrop::fake();
+    }
 
-    $filename = Str::random('10') . '.jpg';
+    #[TestDox('GenerateArtistPhotoPlaceholders job works')]
+    public function testPlaceholders(): void
+    {
+        Storage::fake('testing');
 
-    // Photo by Alberto Bigoni on Unsplash
-    $file = fopen(fixture('Images/photo.jpg'), 'r');
+        $filename = Str::random('10') . '.jpg';
 
-    Photo::disk()->put("photos/original/{$filename}", $file, 'public');
+        // Photo by Alberto Bigoni on Unsplash
+        $file = fopen(Tests\fixture('Images/photo.jpg'), 'r');
 
-    fclose($file);
+        Photo::disk()->put("photos/original/{$filename}", $file, 'public');
 
-    GenerateArtistPhotoPlaceholders::dispatchSync(
-        $photo = Photo::create([
-            'filename' => $filename,
-            'crop' => $this->crop,
-        ]),
-    );
+        fclose($file);
 
-    $photo->refresh();
+        GenerateArtistPhotoPlaceholders::dispatchSync(
+            $photo = Photo::create([
+                'filename' => $filename,
+                'crop' => $this->crop,
+            ]),
+        );
 
-    expect($photo)
-        ->filename()->toBe($filename)
-        ->width->toBe(529)
-        ->height->toBe(352)
-        ->crop()->not->toBeNull()
-        ->crop()->toJson()->toEqual($this->crop->toJson())
-        ->facePlaceholder()->toStartWith('data:image/svg+xml;base64,')
-        ->placeholder()->toStartWith('data:image/svg+xml;base64,');
-});
+        $photo->refresh();
 
-test('GenerateArtistPhotoVariants job works', function () {
-    Storage::fake('testing');
+        $this->assertSame($filename, $photo->filename());
+        $this->assertSame(529, $photo->width);
+        $this->assertSame(352, $photo->height);
+        $this->assertNotNull($photo->crop());
+        $this->assertSame($photo->crop()->toJson(), $this->crop->toJson());
+        $this->assertStringStartsWith('data:image/svg+xml;base64,', $photo->facePlaceholder());
+        $this->assertStringStartsWith('data:image/svg+xml;base64,', $photo->placeholder());
+    }
 
-    $filename = Str::random('10') . '.jpg';
+    #[TestDox('GenerateArtistPhotoVariants job works')]
+    public function testVariants(): void
+    {
+        Storage::fake('testing');
 
-    // Photo by Alberto Bigoni on Unsplash
-    $file = fopen(fixture('Images/photo.jpg'), 'r');
+        $filename = Str::random('10') . '.jpg';
 
-    Photo::disk()->put("photos/original/{$filename}", $file, 'public');
+        // Photo by Alberto Bigoni on Unsplash
+        $file = fopen(Tests\fixture('Images/photo.jpg'), 'r');
 
-    fclose($file);
+        Photo::disk()->put("photos/original/{$filename}", $file, 'public');
 
-    GenerateArtistPhotoVariants::dispatchSync(
-        Photo::create([
-            'filename' => $filename,
-            'crop' => $this->crop,
-        ]),
-    );
+        fclose($file);
 
-    Photo::disk()->assertExists("photos/160/{$filename}");
+        GenerateArtistPhotoVariants::dispatchSync(
+            Photo::create([
+                'filename' => $filename,
+                'crop' => $this->crop,
+            ]),
+        );
 
-    Photo::disk()->assertExists("photos/56/{$filename}");
-});
+        Photo::disk()->assertExists("photos/160/{$filename}");
+
+        Photo::disk()->assertExists("photos/56/{$filename}");
+    }
+}

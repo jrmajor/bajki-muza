@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Images;
 
-class ProcessTestCover
+final class ProcessTestCover
 {
     public function handle(): void
     {

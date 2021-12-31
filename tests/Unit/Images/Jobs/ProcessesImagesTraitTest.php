@@ -1,62 +1,111 @@
 <?php
 
-use function Tests\fixture;
+namespace Tests\Unit\Images\Jobs;
 
-it('can copy image to temporary directory')->imageProcessor(function () {
-    $copiedFilePath = $this->copyToTemporaryDirectory(
-        fopen(fixture('Images/cover.jpg'), 'r'), 'desiredFilename.jpg',
-    );
+use App\Images\Jobs\ProcessesImages;
+use PHPUnit\Framework\Attributes\TestDox;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Tests;
+use Tests\TestCase;
 
-    expect($copiedFilePath)
-        ->toBe($this->temporaryDirectory->path('desiredFilename.jpg'))
-        ->toEndWith('desiredFilename.jpg');
+final class ProcessesImagesTraitTest extends TestCase
+{
+    use ProcessesImages;
 
-    expect(file_get_contents($copiedFilePath))
-        ->toBe(file_get_contents(fixture('Images/cover.jpg')));
-});
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-it('can generate placeholders cropped to square')->imageProcessor(function () {
-    $tinyJpg = $this->generateTinyJpg(
-        fixture('Images/cover.jpg'), 'square',
-    );
+        $this->temporaryDirectory = (new TemporaryDirectory())->create();
+    }
 
-    expect($tinyJpg)->toStartWith('data:image/svg+xml;base64,');
-});
+    protected function tearDown(): void
+    {
+        parent::tearDown();
 
-it('can generate placeholder preserving aspect ratio')->imageProcessor(function () {
-    $tinyJpg = $this->generateTinyJpg(
-        fixture('Images/photo.jpg'), 'height',
-    );
+        $this->temporaryDirectory->delete();
+    }
 
-    expect($tinyJpg)->toStartWith('data:image/svg+xml;base64,');
-});
+    #[TestDox('can copy image to temporary directory')]
+    public function testTemporaryDirectory(): void
+    {
+        $copiedFilePath = $this->copyToTemporaryDirectory(
+            fopen(Tests\fixture('Images/cover.jpg'), 'r'), 'desiredFilename.jpg',
+        );
 
-it('can generate responsive images cropped to square')->imageProcessor(function ($testCase) {
-    $responsiveImagePath = $this->generateResponsiveImage(
-        fixture('Images/cover.jpg'), 128, 'square',
-    );
+        $this->assertSame(
+            $this->temporaryDirectory->path('desiredFilename.jpg'), $copiedFilePath,
+        );
+        $this->assertStringEndsWith('desiredFilename.jpg', $copiedFilePath);
 
-    expect($responsiveImagePath)
-        ->toBe($this->temporaryDirectory->path('cover_128.jpg'));
+        $this->assertFileEquals(
+            Tests\fixture('Images/cover.jpg'),
+            $copiedFilePath,
+        );
+    }
 
-    $testCase->assertFileExists($responsiveImagePath);
-});
+    #[TestDox('can generate placeholders cropped to square')]
+    public function testSquarePlaceholder(): void
+    {
+        $tinyJpg = $this->generateTinyJpg(
+            Tests\fixture('Images/cover.jpg'), 'square',
+        );
 
-it('can generate responsive images preserving aspect ratio')->imageProcessor(function ($testCase) {
-    $responsiveImagePath = $this->generateResponsiveImage(
-        fixture('Images/photo.jpg'), 112, 'height',
-    );
+        $this->assertStringStartsWith('data:image/svg+xml;base64,', $tinyJpg);
+    }
 
-    expect($responsiveImagePath)
-        ->toBe($this->temporaryDirectory->path('photo_112.jpg'));
+    #[TestDox('can generate placeholder preserving aspect ratio')]
+    public function testPlaceholder(): void
+    {
+        $tinyJpg = $this->generateTinyJpg(
+            Tests\fixture('Images/photo.jpg'), 'height',
+        );
 
-    $testCase->assertFileExists($responsiveImagePath);
-});
+        $this->assertStringStartsWith('data:image/svg+xml;base64,', $tinyJpg);
+    }
 
-test('appendToFilename method works')->imageProcessor(function () {
-    expect($this->appendToFileName('/var/folders/0k/T/desiredFilename.jpg', 'tiny'))
-        ->toBe('desiredFilename_tiny.jpg');
+    #[TestDox('can generate responsive images cropped to square')]
+    public function testSquareResponsive(): void
+    {
+        $responsiveImagePath = $this->generateResponsiveImage(
+            Tests\fixture('Images/cover.jpg'), 128, 'square',
+        );
 
-    expect($this->appendToFileName('test.jpeg', 'temp', '.'))
-        ->toBe('test.temp.jpeg');
-});
+        $this->assertSame(
+            $this->temporaryDirectory->path('cover_128.jpg'),
+            $responsiveImagePath,
+        );
+
+        $this->assertFileExists($responsiveImagePath);
+    }
+
+    #[TestDox('can generate responsive images preserving aspect ratio')]
+    public function testResponsive(): void
+    {
+        $responsiveImagePath = $this->generateResponsiveImage(
+            Tests\fixture('Images/photo.jpg'), 112, 'height',
+        );
+
+        $this->assertSame(
+            $this->temporaryDirectory->path('photo_112.jpg'),
+            $responsiveImagePath,
+        );
+
+        $this->assertFileExists($responsiveImagePath);
+    }
+
+    #[TestDox('appendToFilename method works')]
+    public function testAppendToFilename(): void
+    {
+        $this->assertSame(
+            'desiredFilename_tiny.jpg',
+            $this->appendToFileName('/var/folders/0k/T/desiredFilename.jpg', 'tiny'),
+        );
+
+
+        $this->assertSame(
+            'test.temp.jpeg',
+            $this->appendToFileName('test.jpeg', 'temp', '.'),
+        );
+    }
+}
