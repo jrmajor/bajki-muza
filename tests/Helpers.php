@@ -2,14 +2,8 @@
 
 namespace Tests;
 
-use App\Models\User;
 use Psl\File;
 use Psl\Str;
-
-function asUser(?User $user = null, ?string $driver = null): TestCase
-{
-    return test()->asUser($user, $driver);
-}
 
 /**
  * @return non-empty-string
