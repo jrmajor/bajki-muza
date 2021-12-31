@@ -5,7 +5,6 @@ namespace Tests\Unit\Images;
 use App\Images\Cover;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
-use App\Models\Artist;
 use App\Models\Tale;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -69,7 +68,7 @@ final class CoverTest extends TestCase
             'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
         ]);
 
-        /** @var Collection<Artist> $artists */
+        /** @var Collection<Tale> $tales */
         $tales = Tale::factory(2)->cover($cover)->create();
 
         $cover->refresh();
