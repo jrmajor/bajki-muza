@@ -8,6 +8,7 @@ use Closure;
 use Generator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -31,9 +32,7 @@ final class FilmPolskiTest extends TestCase
         );
     }
 
-    /**
-     * @dataProvider provideFilmPolskiCases
-     */
+    #[DataProvider('provideFilmPolskiCases')]
     #[TestDox('it can get photos from filmpolski')]
     public function testPhotos(
         int $personId,

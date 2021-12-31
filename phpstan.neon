@@ -8,8 +8,6 @@ parameters:
         - tests
     excludePaths:
         - app/Providers/MacrosServiceProvider.php
-    scanFiles:
-        - tests/TestDox.php
     checkMissingIterableValueType: false
     ignoreErrors:
         - '#^Access to an undefined property App\\Models\\(Artist|Tale)\|Illuminate\\Database\\Eloquent\\Collection<App\\Models\\(Artist|Tale)>::\$map\.$#'
