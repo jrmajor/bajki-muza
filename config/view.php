@@ -1,5 +1,7 @@
 <?php
 
+use Psl\Filesystem;
+
 return [
 
     'paths' => [
@@ -8,7 +10,7 @@ return [
 
     'compiled' => env(
         'VIEW_COMPILED_PATH',
-        Safe\realpath(storage_path('framework/views')),
+        Filesystem\canonicalize(storage_path('framework/views')),
     ),
 
 ];
