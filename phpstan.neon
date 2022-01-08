@@ -17,7 +17,6 @@ parameters:
         - '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage::(andReturn|times|with)\(\)\.$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Offset \d+ does not exist on App\\Models\\(Artist|Tale)\|Illuminate\\Database\\Eloquent\\Collection<App\\Models\\(Artist|Tale)>\.$#'
-        - '#^Parameter \#2 \$string of function Safe\\fwrite expects string, string\|false given\.$#'
         - '#^Parameter \#3 \$value of method Illuminate\\Database\\Eloquent\\Builder<Illuminate\\Database\\Eloquent\\Model>::having\(\) expects string\|null, int given\.$#'
     stubFiles:
         - phpstan.stub

@@ -12,3 +12,14 @@ namespace Illuminate\Filesystem
         public function files($directory = null, $recursive = false);
     }
 }
+
+namespace Spatie\TemporaryDirectory
+{
+    class TemporaryDirectory
+    {
+        /**
+         * @return non-empty-string
+         */
+        public function path(string $pathOrFilename = ''): string;
+    }
+}

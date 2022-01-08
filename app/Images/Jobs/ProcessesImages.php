@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Services\Image;
+use Exception;
 use InvalidArgumentException;
 use Psl\Encoding\Base64;
 use Psl\File;
@@ -29,6 +30,11 @@ trait ProcessesImages
 
         while (! feof($sourceStream)) {
             $chunk = fgets($sourceStream, 1024);
+
+            if ($chunk === false) {
+                throw new Exception();
+            }
+
             $targetHandle->writeAll($chunk);
         }
 
