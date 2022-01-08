@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Filesystem;
+namespace Illuminate\Filesystem
 {
     class FilesystemAdapter
     {
