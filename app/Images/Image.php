@@ -139,6 +139,14 @@ abstract class Image extends Model
         return $this->disk()->delete($variantsToDelete);
     }
 
+    /**
+     * @return resource
+     */
+    public function readStream()
+    {
+        return static::disk()->readStream($this->originalPath());
+    }
+
     public static function disk(): FilesystemAdapter
     {
         return Storage::disk(config('filesystems.cloud'));

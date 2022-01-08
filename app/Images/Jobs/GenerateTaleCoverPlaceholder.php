@@ -29,13 +29,9 @@ class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        $sourceStream = Cover::disk()->readStream(
-            $this->image->originalPath(),
-        );
-
-        $imageProcessor = new ImageProcessor($sourceStream);
-
-        fclose($sourceStream);
+        $original = $this->image->readStream();
+        $imageProcessor = new ImageProcessor($original);
+        fclose($original);
 
         $this->image->update([
             'placeholder' => $imageProcessor->generateTinyJpg(FitMethod::Square),

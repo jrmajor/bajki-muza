@@ -29,13 +29,9 @@ class GenerateArtistPhotoPlaceholders implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        $sourceStream = Photo::disk()->readStream(
-            $this->image->originalPath(),
-        );
-
-        $imageProcessor = new ImageProcessor($sourceStream);
-
-        fclose($sourceStream);
+        $original = $this->image->readStream();
+        $imageProcessor = new ImageProcessor($original);
+        fclose($original);
 
         $crop = $this->image->crop();
         $croppedFace = $imageProcessor->cropFace($crop->face, $this->image->grayscale);
