@@ -21,7 +21,7 @@ final class ViewTaleTest extends TestCase
         $this->get("bajki/{$tale->slug}")->assertOk();
     }
 
-    #[TestDox('returns 404 when attempting to view nonexistent tale')]
+    #[TestDox('it returns 404 when attempting to view nonexistent tale')]
     public function test404(): void
     {
         $this->get('bajki/nonexistent-tale')->assertStatus(404);

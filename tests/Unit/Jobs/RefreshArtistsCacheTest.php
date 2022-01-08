@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 final class RefreshArtistsCacheTest extends TestCase
 {
-    #[TestDox('can refresh artists cache')]
+    #[TestDox('it can refresh artists cache')]
     public function testOk(): void
     {
         Artist::factory(48)->sequence(
