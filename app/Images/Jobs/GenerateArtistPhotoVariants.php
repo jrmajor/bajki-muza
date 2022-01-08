@@ -4,19 +4,16 @@ namespace App\Images\Jobs;
 
 use App\Images\Photo;
 use App\Images\Values\FitMethod;
-use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Psl\Filesystem;
 
 class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 {
-    use CropsArtistPhoto;
-    use ProcessesImages;
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
@@ -33,47 +30,42 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        $this->temporaryDirectory = (new TemporaryDirectory())->create();
-
         $sourceStream = Photo::disk()->readStream(
             $this->image->originalPath(),
         );
 
-        $baseImagePath = $this->copyToTemporaryDirectory(
-            $sourceStream, $this->image->filename(),
-        );
+        $imageProcessor = new ImageProcessor($sourceStream);
 
-        $croppedImagePath = $this->cropImage($baseImagePath);
+        fclose($sourceStream);
 
-        $croppedFacePath = $this->cropFace($baseImagePath);
+        $crop = $this->image->crop();
+        $croppedFace = $imageProcessor->cropFace($crop->face, $this->image->grayscale);
+        $croppedImage = $imageProcessor->cropImage($crop->image, $this->image->grayscale);
 
         foreach (Photo::faceSizes() as $size) {
-            $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedFacePath, $size, FitMethod::Square,
-            );
+            $path = $croppedFace->responsiveImage($size, FitMethod::Square);
 
             Photo::disk()->putFileAs(
                 path: "photos/{$size}",
-                file: $responsiveImagePath,
+                file: $path,
                 name: $this->image->filename(),
                 options: 'public',
             );
+
+            Filesystem\delete_file($path);
         }
 
         foreach (Photo::imageSizes() as $size) {
-            $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedImagePath, $size, FitMethod::Height,
-            );
+            $path = $croppedImage->responsiveImage($size, FitMethod::Height);
 
             Photo::disk()->putFileAs(
                 path: "photos/{$size}",
-                file: $responsiveImagePath,
+                file: $path,
                 name: $this->image->filename(),
                 options: 'public',
             );
-        }
 
-        $this->temporaryDirectory->delete()
-            ?: throw new Exception('Failed to delete temporary directory.');
+            Filesystem\delete_file($path);
+        }
     }
 }

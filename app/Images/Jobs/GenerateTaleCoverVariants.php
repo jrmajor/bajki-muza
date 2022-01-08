@@ -4,18 +4,16 @@ namespace App\Images\Jobs;
 
 use App\Images\Cover;
 use App\Images\Values\FitMethod;
-use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Psl\Filesystem;
 
 class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
 {
-    use ProcessesImages;
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
@@ -32,30 +30,25 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        $this->temporaryDirectory = (new TemporaryDirectory())->create();
-
         $sourceStream = Cover::disk()->readStream(
             $this->image->originalPath(),
         );
 
-        $baseImagePath = $this->copyToTemporaryDirectory(
-            $sourceStream, $this->image->filename(),
-        );
+        $imageProcessor = new ImageProcessor($sourceStream);
+
+        fclose($sourceStream);
 
         foreach (Cover::sizes() as $size) {
-            $responsiveImagePath = $this->generateResponsiveImage(
-                $baseImagePath, $size, FitMethod::Square,
-            );
+            $path = $imageProcessor->responsiveImage($size, FitMethod::Square);
 
             Cover::disk()->putFileAs(
                 path: "covers/{$size}",
-                file: $responsiveImagePath,
+                file: $path,
                 name: $this->image->filename(),
                 options: 'public',
             );
-        }
 
-        $this->temporaryDirectory->delete()
-            ?: throw new Exception('Failed to delete temporary directory.');
+            Filesystem\delete_file($path);
+        }
     }
 }

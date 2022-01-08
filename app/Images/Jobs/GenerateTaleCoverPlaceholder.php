@@ -4,18 +4,15 @@ namespace App\Images\Jobs;
 
 use App\Images\Cover;
 use App\Images\Values\FitMethod;
-use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
 {
-    use ProcessesImages;
     use Dispatchable;
     use InteractsWithQueue;
     use Queueable;
@@ -32,21 +29,16 @@ class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
 
     public function handle(): void
     {
-        $this->temporaryDirectory = (new TemporaryDirectory())->create();
-
         $sourceStream = Cover::disk()->readStream(
             $this->image->originalPath(),
         );
 
-        $baseImagePath = $this->copyToTemporaryDirectory(
-            $sourceStream, $this->image->filename(),
-        );
+        $imageProcessor = new ImageProcessor($sourceStream);
+
+        fclose($sourceStream);
 
         $this->image->update([
-            'placeholder' => $this->generateTinyJpg($baseImagePath, FitMethod::Square),
+            'placeholder' => $imageProcessor->generateTinyJpg(FitMethod::Square),
         ]);
-
-        $this->temporaryDirectory->delete()
-            ?: throw new Exception('Failed to delete temporary directory.');
     }
 }
