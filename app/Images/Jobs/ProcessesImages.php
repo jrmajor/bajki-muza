@@ -26,7 +26,7 @@ trait ProcessesImages
     {
         $targetPath = $this->temporaryDirectory->path($filename);
 
-        $targetHandle = File\open_write_only($targetPath, File\WriteMode::APPEND);
+        $targetHandle = File\open_write_only($targetPath, File\WriteMode::MUST_CREATE);
 
         while (! feof($sourceStream)) {
             $chunk = fgets($sourceStream, 1024);
