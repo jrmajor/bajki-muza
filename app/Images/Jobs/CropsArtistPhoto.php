@@ -6,7 +6,7 @@ use App\Services\Image;
 
 trait CropsArtistPhoto
 {
-    abstract public function appendToFileName(string $filePath, string $suffix): string;
+    abstract public function appendToFileName(string $path, string $suffix): string;
 
     public function cropImage(string $baseImagePath): string
     {

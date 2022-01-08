@@ -4,14 +4,13 @@ namespace App\Images\Jobs;
 
 use App\Services\Image;
 use InvalidArgumentException;
+use Psl\Encoding\Base64;
+use Psl\File;
+use Psl\Filesystem;
+use Psl\Math;
+use Safe;
 use Spatie\Image\Manipulations;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-
-use function Safe\fclose;
-use function Safe\file_get_contents;
-use function Safe\fopen;
-use function Safe\fwrite;
-use function Safe\touch;
 
 trait ProcessesImages
 {
@@ -22,22 +21,19 @@ trait ProcessesImages
      */
     public function copyToTemporaryDirectory($sourceStream, string $filename): string
     {
-        $targetFile = $this->temporaryDirectory->path($filename);
+        $targetPath = $this->temporaryDirectory->path($filename);
 
-        touch($targetFile);
-
-        $targetStream = fopen($targetFile, 'a');
+        $targetHandle = File\open_write_only($targetPath, File\WriteMode::APPEND);
 
         while (! feof($sourceStream)) {
             $chunk = fgets($sourceStream, 1024);
-            fwrite($targetStream, $chunk);
+            $targetHandle->writeAll($chunk);
         }
 
-        fclose($sourceStream);
+        Safe\fclose($sourceStream);
+        $targetHandle->close();
 
-        fclose($targetStream);
-
-        return $targetFile;
+        return $targetPath;
     }
 
     public function generateTinyJpg(string $baseImagePath, string $fit): string
@@ -53,7 +49,7 @@ trait ProcessesImages
 
             $image->fit(Manipulations::FIT_CROP, 32, 32);
         } elseif ($fit === 'height') {
-            $originalImageWidth = (int) round($image->getWidth() / $image->getHeight() * 32);
+            $originalImageWidth = (int) Math\round($image->getWidth() / $image->getHeight() * 32);
 
             $originalImageHeight = 32;
 
@@ -62,11 +58,9 @@ trait ProcessesImages
             throw new InvalidArgumentException();
         }
 
-        $image
-            ->blur(5)
-            ->save($temporaryDestination);
+        $image->blur(5)->save($temporaryDestination);
 
-        $tinyImageDataBase64 = base64_encode(file_get_contents($temporaryDestination));
+        $tinyImageDataBase64 = Base64\encode(File\read($temporaryDestination));
 
         $tinyImageBase64 = 'data:image/jpeg;base64,' . $tinyImageDataBase64;
 
@@ -75,7 +69,7 @@ trait ProcessesImages
             compact('originalImageWidth', 'originalImageHeight', 'tinyImageBase64'),
         );
 
-        return 'data:image/svg+xml;base64,' . base64_encode($svg);
+        return 'data:image/svg+xml;base64,' . Base64\encode($svg);
     }
 
     public function generateResponsiveImage(
@@ -100,11 +94,10 @@ trait ProcessesImages
         return $responsiveImagePath;
     }
 
-    public function appendToFileName(string $filePath, string $suffix, string $glue = '_'): string
+    public function appendToFileName(string $path, string $suffix, string $glue = '_'): string
     {
-        $baseName = pathinfo($filePath, PATHINFO_FILENAME);
-
-        $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+        $baseName = Filesystem\get_filename($path);
+        $extension = Filesystem\get_extension($path);
 
         return "{$baseName}{$glue}{$suffix}.{$extension}";
     }
