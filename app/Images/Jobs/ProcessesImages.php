@@ -2,6 +2,7 @@
 
 namespace App\Images\Jobs;
 
+use App\Images\Values\FitMethod;
 use App\Services\Image;
 use Exception;
 use InvalidArgumentException;
@@ -46,10 +47,9 @@ trait ProcessesImages
 
     /**
      * @param non-empty-string $baseImagePath
-     * @param 'square'|'height' $fit
      * @return non-empty-string
      */
-    public function generateTinyJpg(string $baseImagePath, string $fit): string
+    public function generateTinyJpg(string $baseImagePath, FitMethod $fit): string
     {
         $responsiveImageName = $this->appendToFileName($baseImagePath, 'tiny');
 
@@ -57,11 +57,11 @@ trait ProcessesImages
 
         $image = Image::load($baseImagePath);
 
-        if ($fit === 'square') {
+        if ($fit === FitMethod::Square) {
             $originalImageWidth = $originalImageHeight = 32;
 
             $image->fit(Manipulations::FIT_CROP, 32, 32);
-        } elseif ($fit === 'height') {
+        } elseif ($fit === FitMethod::Height) {
             $originalImageWidth = (int) Math\round($image->getWidth() / $image->getHeight() * 32);
 
             $originalImageHeight = 32;
@@ -88,13 +88,12 @@ trait ProcessesImages
     /**
      * @param non-empty-string $baseImagePath
      * @param int<0, max> $targetSize
-     * @param 'square'|'height' $fit
      * @return non-empty-string
      */
     public function generateResponsiveImage(
         string $baseImagePath,
         int $targetSize,
-        string $fit,
+        FitMethod $fit,
     ): string {
         $responsiveImageName = $this->appendToFileName($baseImagePath, (string) $targetSize);
 
@@ -103,8 +102,8 @@ trait ProcessesImages
         $image = Image::load($baseImagePath)->optimize();
 
         match ($fit) {
-            'square' => $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize),
-            'height' => $image->height($targetSize),
+            FitMethod::Square => $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize),
+            FitMethod::Height => $image->height($targetSize),
         };
 
         $image->save($responsiveImagePath);

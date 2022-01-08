@@ -3,6 +3,7 @@
 namespace Tests\Unit\Images\Jobs;
 
 use App\Images\Jobs\ProcessesImages;
+use App\Images\Values\FitMethod;
 use PHPUnit\Framework\Attributes\TestDox;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Tests;
@@ -48,7 +49,7 @@ final class ProcessesImagesTraitTest extends TestCase
     public function testSquarePlaceholder(): void
     {
         $tinyJpg = $this->generateTinyJpg(
-            Tests\fixture('Images/cover.jpg'), 'square',
+            Tests\fixture('Images/cover.jpg'), FitMethod::Square,
         );
 
         $this->assertStringStartsWith('data:image/svg+xml;base64,', $tinyJpg);
@@ -58,7 +59,7 @@ final class ProcessesImagesTraitTest extends TestCase
     public function testPlaceholder(): void
     {
         $tinyJpg = $this->generateTinyJpg(
-            Tests\fixture('Images/photo.jpg'), 'height',
+            Tests\fixture('Images/photo.jpg'), FitMethod::Height,
         );
 
         $this->assertStringStartsWith('data:image/svg+xml;base64,', $tinyJpg);
@@ -68,7 +69,7 @@ final class ProcessesImagesTraitTest extends TestCase
     public function testSquareResponsive(): void
     {
         $responsiveImagePath = $this->generateResponsiveImage(
-            Tests\fixture('Images/cover.jpg'), 128, 'square',
+            Tests\fixture('Images/cover.jpg'), 128, FitMethod::Square,
         );
 
         $this->assertSame(
@@ -83,7 +84,7 @@ final class ProcessesImagesTraitTest extends TestCase
     public function testResponsive(): void
     {
         $responsiveImagePath = $this->generateResponsiveImage(
-            Tests\fixture('Images/photo.jpg'), 112, 'height',
+            Tests\fixture('Images/photo.jpg'), 112, FitMethod::Height,
         );
 
         $this->assertSame(

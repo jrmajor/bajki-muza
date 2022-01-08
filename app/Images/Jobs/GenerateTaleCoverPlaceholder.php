@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Images\Cover;
+use App\Images\Values\FitMethod;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -42,7 +43,7 @@ class GenerateTaleCoverPlaceholder implements ShouldQueue, ShouldBeUnique
         );
 
         $this->image->update([
-            'placeholder' => $this->generateTinyJpg($baseImagePath, 'square'),
+            'placeholder' => $this->generateTinyJpg($baseImagePath, FitMethod::Square),
         ]);
 
         $this->temporaryDirectory->delete()

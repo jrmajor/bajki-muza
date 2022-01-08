@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Images\Photo;
+use App\Images\Values\FitMethod;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -48,7 +49,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
         foreach (Photo::faceSizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedFacePath, $size, 'square',
+                $croppedFacePath, $size, FitMethod::Square,
             );
 
             Photo::disk()->putFileAs(
@@ -61,7 +62,7 @@ class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
 
         foreach (Photo::imageSizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $croppedImagePath, $size, 'height',
+                $croppedImagePath, $size, FitMethod::Height,
             );
 
             Photo::disk()->putFileAs(

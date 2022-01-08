@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Images\Cover;
+use App\Images\Values\FitMethod;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -43,7 +44,7 @@ class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
 
         foreach (Cover::sizes() as $size) {
             $responsiveImagePath = $this->generateResponsiveImage(
-                $baseImagePath, $size, 'square',
+                $baseImagePath, $size, FitMethod::Square,
             );
 
             Cover::disk()->putFileAs(

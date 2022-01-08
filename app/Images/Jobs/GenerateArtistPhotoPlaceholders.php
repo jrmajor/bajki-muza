@@ -3,6 +3,7 @@
 namespace App\Images\Jobs;
 
 use App\Images\Photo;
+use App\Images\Values\FitMethod;
 use App\Services\Image;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -52,8 +53,8 @@ class GenerateArtistPhotoPlaceholders implements ShouldQueue, ShouldBeUnique
         $this->image->update([
             'width' => $croppedImage->getWidth(),
             'height' => $croppedImage->getHeight(),
-            'placeholder' => $this->generateTinyJpg($croppedImagePath, 'height'),
-            'face_placeholder' => $this->generateTinyJpg($croppedFacePath, 'square'),
+            'placeholder' => $this->generateTinyJpg($croppedImagePath, FitMethod::Height),
+            'face_placeholder' => $this->generateTinyJpg($croppedFacePath, FitMethod::Square),
         ]);
 
         $this->temporaryDirectory->delete()
