@@ -55,6 +55,7 @@ final class ImageProcessor
 
         $target->close();
 
+        /** @var non-empty-string */
         return $target->getPath();
     }
 
@@ -75,17 +76,15 @@ final class ImageProcessor
     {
         $image = Image::load($this->path);
 
-        if ($fit === FitMethod::Square) {
-            $originalWidth = $originalHeight = 32;
+        $originalWidth = (int) match ($fit) {
+            FitMethod::Square => 32,
+            FitMethod::Height => Math\round($image->getWidth() / $image->getHeight() * 32),
+        };
 
-            $image->fit(Manipulations::FIT_CROP, 32, 32);
-        } elseif ($fit === FitMethod::Height) {
-            $originalWidth = (int) Math\round($image->getWidth() / $image->getHeight() * 32);
-
-            $originalHeight = 32;
-
-            $image->height(32);
-        }
+        match ($fit) {
+            FitMethod::Square => $image->fit(Manipulations::FIT_CROP, 32, 32),
+            FitMethod::Height => $image->height(32),
+        };
 
         $file = Filesystem\create_temporary_file();
 
@@ -97,12 +96,11 @@ final class ImageProcessor
             Filesystem\delete_file($file);
         }
 
-        $tinyImageBase64 = 'data:image/jpeg;base64,' . $tinyImageDataBase64;
-
-        $svg = view(
-            'components.placeholderSvg',
-            compact('originalWidth', 'originalHeight', 'tinyImageBase64'),
-        );
+        $svg = view('components.placeholderSvg', [
+            'originalWidth' => $originalWidth,
+            'originalHeight' => 32,
+            'tinyImageBase64' => 'data:image/jpeg;base64,' . $tinyImageDataBase64,
+        ]);
 
         return 'data:image/svg+xml;base64,' . Base64\encode($svg);
     }
