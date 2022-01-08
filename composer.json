@@ -9,7 +9,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "azjezz/psl": "2.0.x-dev#94a0231",
+        "azjezz/psl": "2.0.x-dev#27cbe9f",
         "doctrine/dbal": "^3.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",

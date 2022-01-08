@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d21f40be033e30f7ede9013efc10460",
+    "content-hash": "0b2b13bd73b102fac8e7a388f55c8900",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -209,12 +209,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/azjezz/psl.git",
-                "reference": "94a0231"
+                "reference": "27cbe9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/azjezz/psl/zipball/94a0231",
-                "reference": "94a0231",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/27cbe9f",
+                "reference": "27cbe9f",
                 "shasum": ""
             },
             "require": {
