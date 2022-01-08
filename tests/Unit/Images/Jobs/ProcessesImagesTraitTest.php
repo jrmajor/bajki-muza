@@ -94,19 +94,4 @@ final class ProcessesImagesTraitTest extends TestCase
 
         $this->assertFileExists($responsiveImagePath);
     }
-
-    #[TestDox('appendToFilename method works')]
-    public function testAppendToFilename(): void
-    {
-        $this->assertSame(
-            'desiredFilename_tiny.jpg',
-            $this->appendToFileName('/var/folders/0k/T/desiredFilename.jpg', 'tiny'),
-        );
-
-
-        $this->assertSame(
-            'test.temp.jpeg',
-            $this->appendToFileName('test.jpeg', 'temp', '.'),
-        );
-    }
 }

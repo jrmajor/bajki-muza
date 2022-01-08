@@ -2,13 +2,13 @@
 
 namespace App\Images\Jobs;
 
+use App;
 use App\Images\Values\FitMethod;
 use App\Services\Image;
 use Exception;
 use InvalidArgumentException;
 use Psl\Encoding\Base64;
 use Psl\File;
-use Psl\Filesystem;
 use Psl\Math;
 use Safe;
 use Spatie\Image\Manipulations;
@@ -51,7 +51,7 @@ trait ProcessesImages
      */
     public function generateTinyJpg(string $baseImagePath, FitMethod $fit): string
     {
-        $responsiveImageName = $this->appendToFileName($baseImagePath, 'tiny');
+        $responsiveImageName = App\append_to_file_name($baseImagePath, 'tiny');
 
         $temporaryDestination = $this->temporaryDirectory->path($responsiveImageName);
 
@@ -95,7 +95,7 @@ trait ProcessesImages
         int $targetSize,
         FitMethod $fit,
     ): string {
-        $responsiveImageName = $this->appendToFileName($baseImagePath, (string) $targetSize);
+        $responsiveImageName = App\append_to_file_name($baseImagePath, (string) $targetSize);
 
         $responsiveImagePath = $this->temporaryDirectory->path($responsiveImageName);
 
@@ -109,16 +109,5 @@ trait ProcessesImages
         $image->save($responsiveImagePath);
 
         return $responsiveImagePath;
-    }
-
-    /**
-     * @param non-empty-string $path
-     */
-    public function appendToFileName(string $path, string $suffix, string $glue = '_'): string
-    {
-        $baseName = Filesystem\get_filename($path);
-        $extension = Filesystem\get_extension($path);
-
-        return "{$baseName}{$glue}{$suffix}.{$extension}";
     }
 }

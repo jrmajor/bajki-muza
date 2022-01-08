@@ -2,12 +2,11 @@
 
 namespace App\Images\Jobs;
 
+use App;
 use App\Services\Image;
 
 trait CropsArtistPhoto
 {
-    abstract public function appendToFileName(string $path, string $suffix): string;
-
     /**
      * @param non-empty-string $baseImagePath
      * @return non-empty-string
@@ -15,7 +14,7 @@ trait CropsArtistPhoto
     public function cropImage(string $baseImagePath): string
     {
         $path = $this->temporaryDirectory->path(
-            $this->appendToFileName($baseImagePath, 'image'),
+            App\append_to_file_name($baseImagePath, 'image'),
         );
 
         Image::load($baseImagePath)
@@ -35,7 +34,7 @@ trait CropsArtistPhoto
         $crop = $this->image->crop()->face;
 
         $path = $this->temporaryDirectory->path(
-            $this->appendToFileName($baseImagePath, 'face'),
+            App\append_to_file_name($baseImagePath, 'face'),
         );
 
         Image::load($baseImagePath)
