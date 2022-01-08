@@ -85,6 +85,9 @@ abstract class Image extends Model
         $this->process();
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function filename(): string
     {
         return $this->getAttribute('filename');

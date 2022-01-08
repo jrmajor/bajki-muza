@@ -8,6 +8,10 @@ trait CropsArtistPhoto
 {
     abstract public function appendToFileName(string $path, string $suffix): string;
 
+    /**
+     * @param non-empty-string $baseImagePath
+     * @return non-empty-string
+     */
     public function cropImage(string $baseImagePath): string
     {
         $path = $this->temporaryDirectory->path(
@@ -22,6 +26,10 @@ trait CropsArtistPhoto
         return $path;
     }
 
+    /**
+     * @param non-empty-string $baseImagePath
+     * @return non-empty-string
+     */
     public function cropFace(string $baseImagePath): string
     {
         $crop = $this->image->crop()->face;

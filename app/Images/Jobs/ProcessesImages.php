@@ -18,6 +18,8 @@ trait ProcessesImages
 
     /**
      * @param resource $sourceStream
+     * @param non-empty-string $filename
+     * @return non-empty-string
      */
     public function copyToTemporaryDirectory($sourceStream, string $filename): string
     {
@@ -36,6 +38,11 @@ trait ProcessesImages
         return $targetPath;
     }
 
+    /**
+     * @param non-empty-string $baseImagePath
+     * @param 'square'|'height' $fit
+     * @return non-empty-string
+     */
     public function generateTinyJpg(string $baseImagePath, string $fit): string
     {
         $responsiveImageName = $this->appendToFileName($baseImagePath, 'tiny');
@@ -72,6 +79,12 @@ trait ProcessesImages
         return 'data:image/svg+xml;base64,' . Base64\encode($svg);
     }
 
+    /**
+     * @param non-empty-string $baseImagePath
+     * @param int<0, max> $targetSize
+     * @param 'square'|'height' $fit
+     * @return non-empty-string
+     */
     public function generateResponsiveImage(
         string $baseImagePath,
         int $targetSize,
@@ -86,7 +99,6 @@ trait ProcessesImages
         match ($fit) {
             'square' => $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize),
             'height' => $image->height($targetSize),
-            default => throw new InvalidArgumentException(),
         };
 
         $image->save($responsiveImagePath);
@@ -94,6 +106,9 @@ trait ProcessesImages
         return $responsiveImagePath;
     }
 
+    /**
+     * @param non-empty-string $path
+     */
     public function appendToFileName(string $path, string $suffix, string $glue = '_'): string
     {
         $baseName = Filesystem\get_filename($path);
