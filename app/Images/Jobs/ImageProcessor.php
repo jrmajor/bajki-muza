@@ -28,11 +28,11 @@ final class ImageProcessor
         //     Type\non_empty_string(),
         // )->assert($baseImage);
 
-        if (! is_string($baseImage)) {
-            $baseImage = $this->copyToTemporaryDirectory($baseImage);
+        if (Type\string()->matches($baseImage)) {
+            $baseImage = fopen($baseImage, 'r');
         }
 
-        $this->path = $baseImage;
+        $this->path = $this->copyToTemporaryDirectory($baseImage);
     }
 
     /**
@@ -141,5 +141,10 @@ final class ImageProcessor
             ->save($path = Filesystem\create_temporary_file());
 
         return new self($path);
+    }
+
+    public function __destruct()
+    {
+        Filesystem\delete_file($this->path);
     }
 }

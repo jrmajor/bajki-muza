@@ -29,7 +29,9 @@ final class ImageProcessorTest extends TestCase
         $this->assertNotSame($originalPath, $path);
         $this->assertFileEquals($originalPath, $path);
 
-        Filesystem\delete_file($path);
+        unset($processor);
+
+        $this->assertFileDoesNotExist($path);
     }
 
     #[TestDox('it can be constructed using path')]
@@ -42,7 +44,12 @@ final class ImageProcessorTest extends TestCase
             ->getProperty('path')
             ->getValue($processor);
 
-        $this->assertSame($originalPath, $path);
+        $this->assertNotSame($originalPath, $path);
+        $this->assertFileEquals($originalPath, $path);
+
+        unset($processor);
+
+        $this->assertFileDoesNotExist($path);
     }
 
     #[TestDox('it can get image dimensions')]
