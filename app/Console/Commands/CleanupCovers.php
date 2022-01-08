@@ -35,19 +35,19 @@ class CleanupCovers extends Command
             fn ($filename) => $this->removeVariantsWithoutOriginal($filename),
         );
 
-        return Iter\contains([...$noModel, ...$variants], false) ? 1 : 0;
+        return Iter\contains([...$noModel, ...$variants], ExitCode::Error) ? 1 : 0;
     }
 
-    protected function removeCoverIfItHasNoModel(string $path): bool
+    protected function removeCoverIfItHasNoModel(string $path): ExitCode
     {
         $filename = Str\after_last($path, '/');
 
         if (Cover::find($filename)) {
-            return true;
+            return ExitCode::Ok;
         }
 
         if (! $this->confirm("Delete {$filename}? (unused)", true)) {
-            return true;
+            return ExitCode::Ok;
         }
 
         $this->info("Removing (unused): {$filename}");
@@ -55,14 +55,14 @@ class CleanupCovers extends Command
         return $this->deleteOriginalAndResponsiveVariants($filename);
     }
 
-    protected function removeVariantsWithoutOriginal(string $filename): bool
+    protected function removeVariantsWithoutOriginal(string $filename): ExitCode
     {
         if (Cover::disk()->exists("covers/original/{$filename}")) {
-            return true;
+            return ExitCode::Ok;
         }
 
         if (! $this->confirm("Delete {$filename}? (no original)", true)) {
-            return true;
+            return ExitCode::Ok;
         }
 
         $this->info("Removing (no original): {$filename}");
@@ -70,13 +70,13 @@ class CleanupCovers extends Command
         return $this->deleteOriginalAndResponsiveVariants($filename);
     }
 
-    protected function deleteOriginalAndResponsiveVariants(string $filename): bool
+    protected function deleteOriginalAndResponsiveVariants(string $filename): ExitCode
     {
         $photosToDelete = Vec\map(
             ['original', ...Cover::sizes()],
             fn ($size) => "covers/{$size}/{$filename}",
         );
 
-        return Cover::disk()->delete($photosToDelete);
+        return Cover::disk()->delete($photosToDelete) ? ExitCode::Ok : ExitCode::Error;
     }
 }

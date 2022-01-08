@@ -18,42 +18,42 @@ class ReprocessCovers extends Command
     public function handle(): int
     {
         if ($this->option('tale') !== null) {
-            return (int) ! $this->handleSingleTale();
+            return $this->handleSingleTale()->value;
         }
 
         if ($this->confirm('Do you want to reprocess all covers?', true)) {
-            return (int) ! $this->handleAllTales();
+            return $this->handleAllTales()->value;
         }
 
         return 1;
     }
 
-    protected function handleSingleTale(): bool
+    protected function handleSingleTale(): ExitCode
     {
         $tale = Tale::firstWhere('slug', $this->option('tale'));
 
         if (! $tale) {
             $this->error('Tale does not exist.');
 
-            return false;
+            return ExitCode::Error;
         }
 
         if (! $tale->cover) {
             $this->error('Tale does not have a cover.');
 
-            return false;
+            return ExitCode::Error;
         }
 
         return $this->reprocessCover($tale->cover);
     }
 
-    protected function handleAllTales(): bool
+    protected function handleAllTales(): ExitCode
     {
         $tales = Tale::whereNotNull('cover_filename')->get();
 
         $total = $tales->count();
 
-        return ! $tales->map(function ($tale, $index) use ($total) {
+        return $tales->map(function ($tale, $index) use ($total) {
             $cover = Type\instance_of(Cover::class)->coerce($tale->cover);
 
             $this->info(Str\format(
@@ -62,10 +62,10 @@ class ReprocessCovers extends Command
             ));
 
             return $this->reprocessCover($cover);
-        })->contains(false);
+        })->contains(ExitCode::Error) ? ExitCode::Error : ExitCode::Ok;
     }
 
-    protected function reprocessCover(Cover $cover): bool
+    protected function reprocessCover(Cover $cover): ExitCode
     {
         if (count($missing = $cover->missingResponsiveVariants()) !== 0) {
             $missing = Str\join($missing, ', ');
@@ -76,11 +76,11 @@ class ReprocessCovers extends Command
         try {
             $cover->reprocess();
 
-            return true;
+            return ExitCode::Ok;
         } catch (OriginalDoesNotExist $e) {
             $this->error("The original cover doesn't exist ({$e->path}).");
 
-            return false;
+            return ExitCode::Error;
         }
     }
 }

@@ -18,42 +18,42 @@ class ReprocessPhotos extends Command
     public function handle(): int
     {
         if ($this->option('artist') !== null) {
-            return (int) ! $this->handleSingleArtist();
+            return $this->handleSingleArtist()->value;
         }
 
         if ($this->confirm('Do you want to reprocess all photos?', true)) {
-            return (int) ! $this->handleAllArtists();
+            return $this->handleAllArtists()->value;
         }
 
         return 1;
     }
 
-    protected function handleSingleArtist(): bool
+    protected function handleSingleArtist(): ExitCode
     {
         $artist = Artist::firstWhere('slug', $this->option('artist'));
 
         if (! $artist) {
             $this->error('Artist does not exist.');
 
-            return false;
+            return ExitCode::Error;
         }
 
         if (! $artist->photo) {
             $this->error('Artist does not have a photo.');
 
-            return false;
+            return ExitCode::Error;
         }
 
         return $this->reprocessPhoto($artist->photo);
     }
 
-    protected function handleAllArtists(): bool
+    protected function handleAllArtists(): ExitCode
     {
         $artists = Artist::whereNotNull('photo_filename')->get();
 
         $total = $artists->count();
 
-        return ! $artists->map(function ($artist, $index) use ($total) {
+        return $artists->map(function ($artist, $index) use ($total) {
             $photo = Type\instance_of(Photo::class)->coerce($artist->photo);
 
             $this->info(Str\format(
@@ -62,10 +62,10 @@ class ReprocessPhotos extends Command
             ));
 
             return $this->reprocessPhoto($photo);
-        })->contains(false);
+        })->contains(ExitCode::Error) ? ExitCode::Error : ExitCode::Ok;
     }
 
-    protected function reprocessPhoto(Photo $photo): bool
+    protected function reprocessPhoto(Photo $photo): ExitCode
     {
         if (count($missing = $photo->missingResponsiveVariants()) !== 0) {
             $missing = Str\join($missing, ', ');
@@ -76,11 +76,11 @@ class ReprocessPhotos extends Command
         try {
             $photo->reprocess();
 
-            return true;
+            return ExitCode::Ok;
         } catch (OriginalDoesNotExist $e) {
             $this->error("The original photo doesn't exist ({$e->path}).");
 
-            return false;
+            return ExitCode::Error;
         }
     }
 }
