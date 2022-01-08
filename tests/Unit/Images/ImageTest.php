@@ -171,4 +171,19 @@ final class ImageTest extends TestCase
                 ->missingResponsiveVariants(),
         );
     }
+
+    #[TestDox('it can read file stream')]
+    public function testReadStream(): void
+    {
+        Storage::fake('testing');
+
+        TestCover::disk()->put('covers/original/test.jpg', 'contents');
+
+        $stream = (new TestCover(['filename' => 'test.jpg']))->readStream();
+
+        $this->assertIsResource($stream);
+        $this->assertSame('contents', fread($stream, 16));
+
+        fclose($stream);
+    }
 }
