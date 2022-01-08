@@ -23,10 +23,10 @@ final class ImageProcessor
      * @param resource|non-empty-string $baseImage
      */
     public function __construct($baseImage) {
-        Type\union(
-            Type\resource('stream'),
-            Type\non_empty_string(),
-        )->assert($baseImage);
+        // Type\union(
+        //     Type\resource('stream'),
+        //     Type\non_empty_string(),
+        // )->assert($baseImage);
 
         if (! is_string($baseImage)) {
             $baseImage = $this->copyToTemporaryDirectory($baseImage);
