@@ -7,7 +7,6 @@ use App\Images\Values\ArtistImageCrop;
 use App\Images\Values\FitMethod;
 use App\Services\Image;
 use Exception;
-use InvalidArgumentException;
 use Psl\Encoding\Base64;
 use Psl\File;
 use Psl\Filesystem;
@@ -24,10 +23,10 @@ final class ImageProcessor
      * @param resource|non-empty-string $baseImage
      */
     public function __construct($baseImage) {
-//        Type\union(
-//            Type\resource('test'),
-//            Type\non_empty_string(),
-//        )->assert($baseImage);
+        Type\union(
+            Type\resource('stream'),
+            Type\non_empty_string(),
+        )->assert($baseImage);
 
         if (! is_string($baseImage)) {
             $baseImage = $this->copyToTemporaryDirectory($baseImage);
