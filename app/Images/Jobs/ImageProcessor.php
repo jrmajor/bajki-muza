@@ -77,17 +77,15 @@ final class ImageProcessor
         $image = Image::load($this->path);
 
         if ($fit === FitMethod::Square) {
-            $originalImageWidth = $originalImageHeight = 32;
+            $originalWidth = $originalHeight = 32;
 
             $image->fit(Manipulations::FIT_CROP, 32, 32);
         } elseif ($fit === FitMethod::Height) {
-            $originalImageWidth = (int) Math\round($image->getWidth() / $image->getHeight() * 32);
+            $originalWidth = (int) Math\round($image->getWidth() / $image->getHeight() * 32);
 
-            $originalImageHeight = 32;
+            $originalHeight = 32;
 
             $image->height(32);
-        } else {
-            throw new InvalidArgumentException();
         }
 
         $file = Filesystem\create_temporary_file();
@@ -104,7 +102,7 @@ final class ImageProcessor
 
         $svg = view(
             'components.placeholderSvg',
-            compact('originalImageWidth', 'originalImageHeight', 'tinyImageBase64'),
+            compact('originalWidth', 'originalHeight', 'tinyImageBase64'),
         );
 
         return 'data:image/svg+xml;base64,' . Base64\encode($svg);
@@ -114,10 +112,8 @@ final class ImageProcessor
      * @param int<0, max> $targetSize
      * @return non-empty-string
      */
-    public function responsiveImage(
-        int $targetSize,
-        FitMethod $fit,
-    ): string {
+    public function responsiveImage(int $targetSize, FitMethod $fit): string
+    {
         $image = Image::load($this->path)->optimize();
 
         match ($fit) {
