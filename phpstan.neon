@@ -26,6 +26,10 @@ parameters:
             message: '#^Parameter \#1 \$filename of function fopen expects string, resource\|string given\.$#'
             count: 1
             path: app/Images/Jobs/ImageProcessor.php
+        -
+            message: '#^Match expression does not handle remaining value: array{bool, bool}$#'
+            count: 1
+            path: tests/Unit/Services/DiscogsTest.php
     stubFiles:
         - phpstan.stub
 

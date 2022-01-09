@@ -3,67 +3,19 @@
 namespace Tests\Unit\Services;
 
 use App\Services\Discogs;
+use App\Values\Discogs\DiscogsPhoto;
+use App\Values\Discogs\DiscogsPhotos;
 use Carbon\CarbonInterval;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\TestDox;
+use Psl\Str;
 use Tests\TestCase;
 
 final class DiscogsTest extends TestCase
 {
-    private array $photoResponse;
-
-    private array $photos;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->photoResponse = [
-            'name' => 'Piotr Fronczewski',
-            'id' => 602473,
-            'resource_url' => 'https://api.discogs.com/artists/602473',
-            'uri' => 'https://www.discogs.com/artist/602473-Piotr-Fronczewski',
-            'images' => [
-                [
-                    'type' => 'primary',
-                    'uri' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
-                    'resource_url' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
-                    'uri150' => 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
-                    'width' => 561,
-                    'height' => 800,
-                ],
-                [
-                    'type' => 'secondary',
-                    'uri' => 'https://img.discogs.com/6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1187353511.jpeg.jpg',
-                    'resource_url' => 'https://img.discogs.com/6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1187353511.jpeg.jpg',
-                    'uri150' => 'https://img.discogs.com/BpnX0ilhXYwsudiWfG_heikTqW0=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1187353511.jpeg.jpg',
-                    'width' => 500,
-                    'height' => 332,
-                ],
-            ],
-        ];
-
-        $this->photos = [
-            [
-                'type' => 'primary',
-                'uri' => 'https://img.discogs.com/AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
-                'uri150' => 'https://img.discogs.com/dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1566780713-1287.jpeg.jpg',
-                'width' => 561,
-                'height' => 800,
-            ],
-            [
-                'type' => 'secondary',
-                'uri' => 'https://img.discogs.com/6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-602473-1187353511.jpeg.jpg',
-                'uri150' => 'https://img.discogs.com/BpnX0ilhXYwsudiWfG_heikTqW0=/150x150/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-602473-1187353511.jpeg.jpg',
-                'width' => 500,
-                'height' => 332,
-            ],
-        ];
-    }
-
     #[TestDox('alias is properly registered')]
     public function testAlias(): void
     {
@@ -93,9 +45,9 @@ final class DiscogsTest extends TestCase
     {
         config(['services.discogs.token' => '4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR']);
 
-        Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
+        Http::fake(['api.discogs.com/*' => Http::response($this->getSampleApiResponse())]);
 
-        $this->assertSame($this->photos, app('discogs')->photos(602473)->toArray());
+        $this->comparePhotos(app('discogs')->photos(602473));
 
         Http::assertSent(function ($request) {
             return $request->url() === 'https://api.discogs.com/artists/602473'
@@ -110,9 +62,9 @@ final class DiscogsTest extends TestCase
 
         Cache::shouldReceive('remember')->once()
             ->with('discogs-602473-photos', CarbonInterval::class, Closure::class)
-            ->andReturn($this->photoResponse);
+            ->andReturn($this->getSampleApiResponse());
 
-        $this->assertSame($this->photos, app('discogs')->photos(602473)->toArray());
+        $this->comparePhotos(app('discogs')->photos(602473));
 
         Http::assertSentCount(0);
     }
@@ -133,27 +85,24 @@ final class DiscogsTest extends TestCase
             ],
         ];
 
-        Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
+        Http::fake(['api.discogs.com/*' => Http::response($this->getSampleApiResponse())]);
 
-        $discogs = app('discogs');
-
-        $this->assertSame($this->photos, app('discogs')->photos(602473)->toArray());
+        $this->comparePhotos(app('discogs')->photos(602473));
 
         Facade::clearResolvedInstance(\Illuminate\Http\Client\Factory::class);
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
-        $this->assertSame($this->photos, app('discogs')->photos(602473)->toArray());
+        $this->comparePhotos(app('discogs')->photos(602473));
 
-        $discogs->refreshCache(602473);
+        app('discogs')->refreshCache(602473);
 
-        $this->assertSame([[
-            'type' => 'primary',
-            'uri' => 'newTest',
-            'uri150' => 'newTest150',
-            'width' => 561,
-            'height' => 800,
-        ]], $discogs->photos(602473)->toArray());
+        $photos = app('discogs')->photos(602473);
+
+        $this->assertCount(1, $photos);
+        $this->assertNotNull($photos->primary());
+        $this->assertCount(0, $photos->secondary());
+        $this->comparePhoto(new DiscogsPhoto(true, 'newTest', 'newTest150', 561, 800), $photos->primary());
     }
 
     #[TestDox('it can flush cached data')]
@@ -172,26 +121,92 @@ final class DiscogsTest extends TestCase
             ],
         ];
 
-        Http::fake(['api.discogs.com/*' => Http::response($this->photoResponse)]);
+        Http::fake(['api.discogs.com/*' => Http::response($this->getSampleApiResponse())]);
 
         $discogs = app('discogs');
 
-        $this->assertSame($this->photos, app('discogs')->photos(602473)->toArray());
+        $this->comparePhotos(app('discogs')->photos(602473));
 
         Facade::clearResolvedInstance(\Illuminate\Http\Client\Factory::class);
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
-        $this->assertSame($this->photos, app('discogs')->photos(602473)->toArray());
+        $this->comparePhotos(app('discogs')->photos(602473));
 
         $this->assertTrue($discogs->forget(602473));
 
-        $this->assertSame([[
-            'type' => 'primary',
-            'uri' => 'newTest',
-            'uri150' => 'newTest150',
-            'width' => 561,
-            'height' => 800,
-        ]], $discogs->photos(602473)->toArray());
+        $photos = app('discogs')->photos(602473);
+
+        $this->assertCount(1, $photos);
+        $this->assertNotNull($photos->primary());
+        $this->assertCount(0, $photos->secondary());
+        $this->comparePhoto(new DiscogsPhoto(true, 'newTest', 'newTest150', 561, 800), $photos->primary());
+    }
+
+    private function comparePhotos(DiscogsPhotos $photos): void
+    {
+        $this->assertCount(2, $photos);
+
+        $this->assertNotNull($photos->primary());
+        $this->assertCount(1, $photos->secondary());
+
+        $this->comparePhoto(
+            new DiscogsPhoto(true, $this->getSampleUrl(true), $this->getSampleUrl(true, true), 561, 800),
+            $photos->primary(),
+        );
+
+        $this->comparePhoto(
+            new DiscogsPhoto(false, $this->getSampleUrl(false), $this->getSampleUrl(false, true), 500, 332),
+            $photos->secondary()[0],
+        );
+    }
+
+    private function comparePhoto(DiscogsPhoto $expected, DiscogsPhoto $actual): void
+    {
+        $this->assertSame($expected->primary, $actual->primary);
+        $this->assertSame($expected->uri, $actual->uri);
+        $this->assertSame($expected->uri150, $actual->uri150);
+        $this->assertSame($expected->width, $actual->width);
+        $this->assertSame($expected->height, $actual->height);
+    }
+
+    private function getSampleApiResponse(): array
+    {
+        return [
+            'name' => 'Piotr Fronczewski',
+            'id' => 602473,
+            'resource_url' => 'https://api.discogs.com/artists/602473',
+            'uri' => 'https://www.discogs.com/artist/602473-Piotr-Fronczewski',
+            'images' => [
+                [
+                    'type' => 'primary',
+                    'uri' => $this->getSampleUrl(true),
+                    'resource_url' => $this->getSampleUrl(true),
+                    'uri150' => $this->getSampleUrl(true, true),
+                    'width' => 561,
+                    'height' => 800,
+                ],
+                [
+                    'type' => 'secondary',
+                    'uri' => $this->getSampleUrl(false),
+                    'resource_url' => $this->getSampleUrl(false),
+                    'uri150' => $this->getSampleUrl(false, true),
+                    'width' => 500,
+                    'height' => 332,
+                ],
+            ],
+        ];
+    }
+
+    private function getSampleUrl(bool $primary, bool $thumbnail = false): string
+    {
+        $data = match ([$primary, $thumbnail]) {
+            [true, false] => ['AUSKkwtZG3xVBRviuMp6vecR9Mg=/561x800', '90', '1566780713-1287'],
+            [true, true] => ['dxKC1bXIzla9_XOD5YBUQC7xMgI=/150x150', '40', '1566780713-1287'],
+            [false, false] => ['6UpFgK42Ii8QBuX-hc6Dh3gmSm0=/500x332', '90', '1187353511'],
+            [false, true] => ['BpnX0ilhXYwsudiWfG_heikTqW0=/150x150', '40', '1187353511'],
+        };
+
+        return Str\format('https://img.discogs.com/%s/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(%s)/discogs-images/A-602473-%s.jpeg.jpg', ...$data);
     }
 }

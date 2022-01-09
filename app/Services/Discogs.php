@@ -3,12 +3,15 @@
 namespace App\Services;
 
 use App\Values\Discogs\Artist;
-use App\Values\Discogs\Photo;
+use App\Values\Discogs\DiscogsPhoto;
+use App\Values\Discogs\DiscogsPhotos;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Psl\Dict;
+use Psl\Vec;
 
 class Discogs
 {
@@ -45,14 +48,21 @@ class Discogs
         return "https://www.discogs.com/release/{$id}";
     }
 
-    public function photos(int $id): Collection
+    public function photos(int $id): DiscogsPhotos
     {
-        $response = Cache::remember(
-            "discogs-{$id}-photos", CarbonInterval::week(),
-            fn () => $this->request()->get("https://api.discogs.com/artists/{$id}")->json(),
-        );
+        $photos = rescue(function () use ($id): array {
+            $response = Cache::remember(
+                "discogs-{$id}-photos", CarbonInterval::week(),
+                fn () => $this->request()->get("https://api.discogs.com/artists/{$id}")->json(),
+            );
 
-        return collect($response['images'] ?? [])->mapInto(Photo::class);
+            $photos = Vec\map($response['images'] ?? [], fn (array $p) => new DiscogsPhoto(
+                $p['type'] === 'primary',
+                ...Dict\select_keys($p, ['uri', 'uri150', 'width', 'height']),
+            ));
+        }, []);
+
+        return new DiscogsPhotos($photos);
     }
 
     public function refreshCache(int $id): void

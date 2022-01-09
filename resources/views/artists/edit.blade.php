@@ -308,7 +308,7 @@
       </div>
 
       <div class="flex flex-wrap justify-around w-full">
-        @foreach ($artist->discogsPhotos() as $photo)
+        @foreach ($artist->discogsPhotos()->all() as $photo)
           @php $ref = 'discogs_' . $loop->iteration @endphp
           <button
             class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"

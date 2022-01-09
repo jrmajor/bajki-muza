@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Images\Photo;
 use App\Values\CreditType;
+use App\Values\Discogs\DiscogsPhotos;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -102,9 +103,9 @@ final class Artist extends Model
         return app('wikipedia')->extract($this->wikipedia);
     }
 
-    public function discogsPhotos(): Collection
+    public function discogsPhotos(): DiscogsPhotos
     {
-        return $this->discogs ? app('discogs')->photos($this->discogs) : collect();
+        return $this->discogs ? app('discogs')->photos($this->discogs) : new DiscogsPhotos([]);
     }
 
     public function filmPolskiPhotos(): array
@@ -115,8 +116,8 @@ final class Artist extends Model
     public function discogsPhoto(string $type = 'normal'): ?string
     {
         return match ($type) {
-            'normal' => $this->discogsPhotos()->first()?->uri,
-            '150' => $this->discogsPhotos()->first()?->uri150,
+            'normal' => $this->discogsPhotos()->primary()?->uri,
+            '150' => $this->discogsPhotos()->primary()?->uri150,
             default => throw new InvalidArgumentException(),
         };
     }

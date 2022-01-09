@@ -10,7 +10,8 @@ use App\Services\Discogs;
 use App\Services\FilmPolski;
 use App\Services\Wikipedia;
 use App\Values\CreditType;
-use App\Values\Discogs\Photo as DiscogsPhoto;
+use App\Values\Discogs\DiscogsPhoto;
+use App\Values\Discogs\DiscogsPhotos;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -161,23 +162,18 @@ final class ArtistTest extends TestCase
     #[TestDox('it can get photos from discogs')]
     public function testDiscogsPhotos(): void
     {
-        $images = collect([new DiscogsPhoto(
-            type: 'primary',
-            uri: 'test',
-            resource_url: 'test',
-            uri150: 'test150',
-            width: 561,
-            height: 800,
-        )]);
+        $photos = new DiscogsPhotos([
+            new DiscogsPhoto(true, 'test', 'test150', 561, 800),
+        ]);
 
         $artist = Artist::factory()->createOne(['discogs' => 602473]);
 
         $this->mock(Discogs::class)
             ->shouldReceive('photos')
             ->with(602473)
-            ->andReturn($images);
+            ->andReturn($photos);
 
-        $this->assertSame($images, $artist->discogsPhotos());
+        $this->assertSame($photos, $artist->discogsPhotos());
     }
 
     #[TestDox('it does not query discogs when no id is set')]
@@ -223,21 +219,16 @@ final class ArtistTest extends TestCase
     #[TestDox('it can get photo from discogs')]
     public function testDiscogsPhoto(): void
     {
-        $images = collect([new DiscogsPhoto(
-            type: 'primary',
-            uri: 'test',
-            resource_url: 'test',
-            uri150: 'test150',
-            width: 561,
-            height: 800,
-        )]);
+        $photos = new DiscogsPhotos([
+            new DiscogsPhoto(true, 'test', 'test150', 561, 800),
+        ]);
 
         $artist = Artist::factory()->createOne(['discogs' => 602473]);
 
         $this->mock(Discogs::class)
             ->shouldReceive('photos')
             ->with(602473)
-            ->andReturn($images);
+            ->andReturn($photos);
 
         $this->assertSame('test', $artist->discogsPhoto());
         $this->assertSame('test150', $artist->discogsPhoto('150'));
