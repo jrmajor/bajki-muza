@@ -4,16 +4,17 @@ namespace App\Services;
 
 use App\Values\FilmPolski\Artist;
 use Carbon\CarbonInterval;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
+use Psl\Dict;
+use Psl\Str;
+use Psl\Type;
 use Spatie\Regex\Regex;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
 {
-    public function search(string $search): Collection
+    public function search(string $search): array
     {
         $source = Http::get(
             'http://www.filmpolski.pl/fp/index.php',
@@ -24,24 +25,24 @@ class FilmPolski
             $crawler = (new Crawler($source))->filter('.wynikiszukania');
 
             if ($crawler->count() === 0) {
-                return collect();
+                return [];
             }
 
             $crawler = $crawler->first()->children();
 
             $max = $crawler->count() <= 10 ? $crawler->count() : 10;
 
-            $people = collect();
+            $people = [];
 
             for ($i = 0; $i < $max; $i++) {
-                $people->push([
-                    'id' => Str::afterLast($crawler->eq($i)->children()->filter('a')->last()->attr('href'), '/'),
-                    'name' => $crawler->eq($i)->children()->filter('a')->last()->text(),
-                ]);
+                $url = $crawler->eq($i)->children()->filter('a')->last()->attr('href');
+                $name = $crawler->eq($i)->children()->filter('a')->last()->text();
+
+                $people[] = new Artist(Type\int()->coerce(Str\after_last($url, '/')), $name);
             }
 
-            return $people->unique('id')->mapInto(Artist::class);
-        }, collect());
+            return Dict\unique_by($people, fn (Artist $a): int => $a->id);
+        }, []);
     }
 
     public function url(int $id): string
@@ -121,7 +122,7 @@ class FilmPolski
                 ->filter('.galeria_mala')
                 ->children()->last();
 
-            return (int) Str::after($crawler->attr('href'), '/');
+            return (int) Str\after($crawler->attr('href'), '/');
         });
     }
 
