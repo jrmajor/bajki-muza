@@ -7,10 +7,8 @@ use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Psl\Dict;
 use Psl\Vec;
 
 class Discogs
