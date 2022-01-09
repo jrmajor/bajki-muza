@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Values\Wikipedia\Artist;
 use Carbon\CarbonInterval;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
+use Psl\Hash;
+use Psl\Html;
+use Psl\Iter;
+use Psl\Str;
 
 class Wikipedia
 {
@@ -27,7 +29,7 @@ class Wikipedia
             ->transpose()
             ->map->combineKeys(['name', 'id'])
             ->each(function ($artist) {
-                $artist['id'] = urldecode(Str::afterLast($artist['id'], '/'));
+                $artist['id'] = urldecode(Str\after_last($artist['id'], '/'));
             })
             ->toArray();
 
@@ -41,7 +43,7 @@ class Wikipedia
 
     public function extract(string $title): ?string
     {
-        $titleHash = md5($title);
+        $titleHash = Hash\hash($title, Hash\Algorithm::MD5);
 
         return Cache::remember(
             "wikipedia-{$titleHash}-extract",
@@ -56,9 +58,10 @@ class Wikipedia
                     'format' => 'json',
                 ]);
 
-                $extract = Arr::first($response['query']['pages'])['extract'] ?? null;
+                /** @phpstan-ignore-next-line */
+                $extract = Iter\first($response['query']['pages'])['extract'] ?? null;
 
-                return $extract === null ? null : trim(strip_tags($extract));
+                return $extract === null ? null : Str\trim(Html\strip_tags($extract));
             },
         );
     }
@@ -72,7 +75,7 @@ class Wikipedia
 
     public function forget(string $title): bool
     {
-        $titleHash = md5($title);
+        $titleHash = Hash\hash($title, Hash\Algorithm::MD5);
 
         return Cache::forget("wikipedia-{$titleHash}-extract");
     }
