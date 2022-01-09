@@ -26,16 +26,17 @@ class Discogs
         ]);
     }
 
-    public function search(string $search): Collection
+    public function search(string $search): array
     {
-        $response = $this->request()
-            ->get('https://api.discogs.com/database/search', [
-                'query' => $search,
-                'type' => 'artist',
-                'per_page' => 10,
-            ])->json();
+        $response = $this->request()->get(
+            'https://api.discogs.com/database/search',
+            ['query' => $search, 'type' => 'artist', 'per_page' => 10],
+        )->json();
 
-        return collect($response['results'] ?? [])->map(Artist::fromArray(...));
+        return Vec\map(
+            $response['results'] ?? [],
+            fn (array $a) => new Artist($a['id'], $a['title']),
+        );
     }
 
     public function url(int $id): string

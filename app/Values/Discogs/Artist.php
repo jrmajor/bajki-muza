@@ -2,19 +2,17 @@
 
 namespace App\Values\Discogs;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Artist extends DataTransferObject
+final class Artist implements Arrayable
 {
-    public readonly int $id;
+    public function __construct(
+        public readonly int $id,
+        public readonly string $name,
+    ) { }
 
-    public readonly string $name;
-
-    public static function fromArray(array $artist): self
+    public function toArray(): array
     {
-        return new self(
-            id: $artist['id'],
-            name: $artist['title'],
-        );
+        return ['id' => $this->id, 'name' => $this->name];
     }
 }
