@@ -12,11 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AjaxController extends Controller
 {
-    public function __construct(
-        protected Discogs $discogs,
-        protected FilmPolski $filmPolski,
-        protected Wikipedia $wikipedia,
-    ) {
+    public function __construct()
+    {
         $this->middleware(function (Request $request, Closure $next) {
             return blank($request->input('search'))
                 ? response()->json([])
@@ -36,24 +33,24 @@ class AjaxController extends Controller
         return response()->json($artists);
     }
 
-    public function discogs(Request $request): Response
+    public function discogs(Discogs $discogs, Request $request): Response
     {
         return response()->json(
-            $this->discogs->search($request->input('search')),
+            $discogs->search($request->input('search')),
         );
     }
 
-    public function filmPolski(Request $request): Response
+    public function filmPolski(FilmPolski $filmPolski, Request $request): Response
     {
         return response()->json(
-            $this->filmPolski->search($request->input('search')),
+            $filmPolski->search($request->input('search')),
         );
     }
 
-    public function wikipedia(Request $request): Response
+    public function wikipedia(Wikipedia $wikipedia, Request $request): Response
     {
         return response()->json(
-            $this->wikipedia->search($request->input('search')),
+            $wikipedia->search($request->input('search')),
         );
     }
 }
