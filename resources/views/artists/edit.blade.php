@@ -309,7 +309,7 @@
 
       <div class="flex flex-wrap justify-around w-full">
         @foreach ($artist->discogsPhotos() as $photo)
-          @php $ref = 'discogs_'.$loop->iteration @endphp
+          @php $ref = 'discogs_' . $loop->iteration @endphp
           <button
             class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
             type="button" x-on:click="photo.setPhotoUri('{{ $photo->uri }}', 'discogs')"
@@ -343,7 +343,7 @@
       <div class="flex flex-wrap justify-around w-full">
         @foreach ($artist->filmPolskiPhotos() as $title => $movie)
           @foreach ($movie['photos'] as $photo)
-            @php $ref = 'filmpolski_'.$loop->parent->iteration.'_'.$loop->iteration @endphp
+            @php $ref = 'filmpolski_' . $loop->parent->iteration . '_' . $loop->iteration @endphp
             <button
               class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
               type="button" x-on:click="photo.setPhotoUri('https://filmpolski.pl{{ $photo }}', 'filmpolski')"
