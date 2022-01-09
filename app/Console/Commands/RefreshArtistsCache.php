@@ -27,6 +27,6 @@ final class RefreshArtistsCache extends Command
 
         $time = Math\round(microtime(true) - $time, 2);
 
-        $this->comment("Refreshed cache for $count artists in {$time} seconds");
+        $this->comment("Refreshed cache for {$count} artists in {$time} seconds");
     }
 }
