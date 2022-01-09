@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Unit\Jobs;
+namespace Tests\Feature\Console;
 
-use App\Jobs\RefreshArtistsCache;
 use App\Models\Artist;
 use App\Services\Discogs;
 use App\Services\FilmPolski;
@@ -24,6 +23,6 @@ final class RefreshArtistsCacheTest extends TestCase
         $this->mock(FilmPolski::class)->shouldReceive('refreshCache')->times(24);
         $this->mock(Wikipedia::class)->shouldReceive('refreshCache')->times(24);
 
-        RefreshArtistsCache::dispatchSync();
+        $this->artisan('artist-cache:refresh')->assertExitCode(0);
     }
 }

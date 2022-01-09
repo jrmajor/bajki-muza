@@ -172,14 +172,6 @@ final class Artist extends Model
 
     public function refreshCache(): void
     {
-        if (! app()->has('discogs')) {
-            dump(app());
-
-            rescue(fn () => app('discogs'));
-
-            return;
-        }
-
         if ($this->discogs) {
             app('discogs')->refreshCache($this->discogs);
         }
