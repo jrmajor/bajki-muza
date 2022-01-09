@@ -117,11 +117,14 @@ class FilmPolski
 
     protected function getGalleryId(string $source): ?int
     {
-        return rescue(function () use ($source): int {
-            $url = (new Crawler($source))
-                ->filter('.galeria_mala')
-                ->children()->last()
-                ->attr('href');
+        return rescue(function () use ($source): ?int {
+            $crawler = (new Crawler($source))->filter('.galeria_mala');
+
+            if (! $crawler->count()) {
+                return null;
+            }
+
+            $url = $crawler->children()->last()->attr('href');
 
             return Type\int()->coerce(Str\after($url, '/'));
         });
