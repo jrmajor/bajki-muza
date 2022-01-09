@@ -30,7 +30,6 @@
         "spatie/laravel-collection-macros": "^7.9",
         "spatie/laravel-schedule-monitor": "^2.4",
         "spatie/laravel-sluggable": "^3.2",
-        "spatie/regex": "^3.1",
         "spatie/temporary-directory": "^2.0",
         "symfony/css-selector": "^6.0",
         "symfony/dom-crawler": "^6.0",
