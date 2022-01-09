@@ -14,7 +14,7 @@
           @if ($actor->photo)
             <x-responsive-image :image="$actor->photo" :size="14"/>
           @elseif ($actor->discogsPhoto() && Auth::guest())
-            <img src="{{ $actor->discogsPhoto('150') }}"
+            <img src="{{ $actor->discogsPhoto('thumb') }}"
               class="object-cover w-14 h-14 filter grayscale">
           @endif
         </div>

@@ -165,7 +165,7 @@ final class DiscogsTest extends TestCase
     {
         $this->assertSame($expected->primary, $actual->primary);
         $this->assertSame($expected->uri, $actual->uri);
-        $this->assertSame($expected->uri150, $actual->uri150);
+        $this->assertSame($expected->thumbUri, $actual->thumbUri);
         $this->assertSame($expected->width, $actual->width);
         $this->assertSame($expected->height, $actual->height);
     }

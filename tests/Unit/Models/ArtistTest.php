@@ -231,7 +231,7 @@ final class ArtistTest extends TestCase
             ->andReturn($photos);
 
         $this->assertSame('test', $artist->discogsPhoto());
-        $this->assertSame('test150', $artist->discogsPhoto('150'));
+        $this->assertSame('test150', $artist->discogsPhoto('thumb'));
     }
 
     #[TestDox('it can get its appearances as actor')]

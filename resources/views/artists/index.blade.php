@@ -19,7 +19,7 @@
             <x-responsive-image :image="$artist->photo" :size="14"
               class="w-12 h-12 sm:w-14 sm:h-14"/>
           @elseif ($artist->discogsPhoto() && Auth::guest())
-            <img src="{{ $artist->discogsPhoto('150') }}"
+            <img src="{{ $artist->discogsPhoto('thumb') }}"
               class="object-cover w-12 h-12 sm:w-14 sm:h-14 grayscale">
           @endif
         </div>

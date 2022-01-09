@@ -56,9 +56,8 @@ class Discogs
                 fn () => $this->request()->get("https://api.discogs.com/artists/{$id}")->json(),
             );
 
-            $photos = Vec\map($response['images'] ?? [], fn (array $p) => new DiscogsPhoto(
-                $p['type'] === 'primary',
-                ...Dict\select_keys($p, ['uri', 'uri150', 'width', 'height']),
+            return Vec\map($response['images'] ?? [], fn (array $p) => new DiscogsPhoto(
+                $p['type'] === 'primary', $p['uri'], $p['uri150'], $p['width'], $p['height'],
             ));
         }, []);
 

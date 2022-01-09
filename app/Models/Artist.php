@@ -117,7 +117,7 @@ final class Artist extends Model
     {
         return match ($type) {
             'normal' => $this->discogsPhotos()->primary()?->uri,
-            '150' => $this->discogsPhotos()->primary()?->uri150,
+            'thumb' => $this->discogsPhotos()->primary()?->thumbUri,
             default => throw new InvalidArgumentException(),
         };
     }
