@@ -7,9 +7,9 @@ use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Psl\Dict;
+use Psl\Regex;
 use Psl\Str;
 use Psl\Type;
-use Spatie\Regex\Regex;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
@@ -79,7 +79,7 @@ class FilmPolski
 
                 $gallerySource = $this->getGallerySource($galleryId);
 
-                return array_merge($photos, $this->getPhotosFromGallery($gallerySource));
+                return [...$photos, ...$this->getPhotosFromGallery($gallerySource)];
             },
         );
     }
@@ -118,11 +118,12 @@ class FilmPolski
     protected function getGalleryId(string $source): ?int
     {
         return rescue(function () use ($source): int {
-            $crawler = (new Crawler($source))
+            $url = (new Crawler($source))
                 ->filter('.galeria_mala')
-                ->children()->last();
+                ->children()->last()
+                ->attr('href');
 
-            return (int) Str\after($crawler->attr('href'), '/');
+            return Type\int()->coerce(Str\after($url, '/'));
         });
     }
 
@@ -158,13 +159,8 @@ class FilmPolski
                     continue;
                 }
 
-                $photo = $nodeCrawler
-                    ->children()->children()
-                    ->attr('src');
-
-                $photo = Regex::replace('/\\/([0-9]+)i\\//', '/$1z/', $photo)->result();
-
-                assert(is_string($photo));
+                $photo = $nodeCrawler->children()->children()->attr('src');
+                $photo = Regex\replace($photo, '/\\/([0-9]+)i\\//', '/$1z/');
 
                 $photos[$title ?? '?']['photos'][] = $photo;
             }
