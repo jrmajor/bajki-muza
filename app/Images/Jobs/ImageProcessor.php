@@ -23,10 +23,10 @@ final class ImageProcessor
      * @param resource|non-empty-string $baseImage
      */
     public function __construct($baseImage) {
-        // Type\union(
+        // $baseImage = Type\union(
         //     Type\resource('stream'),
         //     Type\non_empty_string(),
-        // )->assert($baseImage);
+        // )->coerce($baseImage);
 
         if (Type\string()->matches($baseImage)) {
             $baseImage = fopen($baseImage, 'r');
@@ -41,7 +41,12 @@ final class ImageProcessor
      */
     private function copyToTemporaryDirectory($baseImage): string
     {
-        $target = File\temporary();
+        // $baseImage = Type\resource('stream')->coerce($baseImage);
+
+        $target = File\open_write_only(
+            $path = Filesystem\create_temporary_file(),
+            File\WriteMode::APPEND,
+        );
 
         while (! feof($baseImage)) {
             $chunk = fgets($baseImage, 1024);
@@ -55,8 +60,7 @@ final class ImageProcessor
 
         $target->close();
 
-        /** @var non-empty-string */
-        return $target->getPath();
+        return $path;
     }
 
     /**
