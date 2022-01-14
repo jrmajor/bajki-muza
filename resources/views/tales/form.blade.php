@@ -2,7 +2,7 @@
 
 @php
 
-  $data = [
+  $data = new Illuminate\Support\Js([
       'discogs' => old('discogs', $tale->discogs),
 
       'credits' => $tale->orderedCredits()->map(fn ($artist) => [
@@ -16,7 +16,7 @@
           'artist' => $actor->name,
           'characters' => $actor->credit->characters,
       ]),
-  ];
+  ]);
 
 @endphp
 
@@ -25,7 +25,7 @@
   action="{{ $action === 'create' ? route('tales.store') : route('tales.update', $tale) }}"
   enctype="multipart/form-data"
   class="flex flex-col gap-5"
-  x-data="taleFormData(@encodedjson($data))" x-init="init($dispatch)">
+  x-data="taleFormData({{ $data }})" x-init="init($dispatch)">
   @method($action === 'create' ? 'post' : 'put')
   @csrf
 

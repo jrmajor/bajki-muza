@@ -14,7 +14,7 @@
 
   @php
 
-    $data = [
+    $data = new Illuminate\Support\Js([
       'discogs' => old('discogs', $artist->discogs) ?? '',
       'filmpolski' => old('filmpolski', $artist->filmpolski) ?? '',
       'wikipedia' => old('wikipedia', $artist->wikipedia) ?? '',
@@ -25,7 +25,7 @@
         'crop' => old('photo_crop', $artist->photo?->crop()),
         'grayscale' => (bool) old('photo_grayscale', $artist->photo?->grayscale ?? true),
       ],
-    ];
+    ]);
 
   @endphp
 
@@ -33,7 +33,7 @@
     method="post" action="{{ route('artists.update', $artist) }}"
     enctype="multipart/form-data"
     class="flex flex-col gap-5"
-    x-data="artistFormData(@encodedjson($data))">
+    x-data="artistFormData({{ $data }})">
     @method('put')
     @csrf
 
