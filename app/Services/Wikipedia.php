@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Values\Wikipedia\Artist;
 use Carbon\CarbonInterval;
-use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Psl\Hash;
