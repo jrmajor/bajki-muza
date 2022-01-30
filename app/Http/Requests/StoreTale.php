@@ -8,6 +8,8 @@ use App\Values\CreditType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\Enum;
+use Psl\Dict;
+use Psl\Vec;
 
 class StoreTale extends FormRequest
 {
@@ -36,11 +38,20 @@ class StoreTale extends FormRequest
         ];
     }
 
-    public function creditsData(): Collection
+    /**
+     * @return array<int, list<CreditData>>
+     */
+    public function creditsData(): array
     {
-        return collect($this->credits)
-            ->groupBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
-            ->map->mapInto(CreditData::class);
+        $creditsByArtist = Dict\group_by($this['credits'] ?? [], function (array $credit) {
+            return Artist::findBySlugOrNew($credit['artist'])->id;
+        });
+
+        return Dict\map($creditsByArtist, function (array $credits) {
+            return Vec\map($credits, fn (array $credit) => new CreditData(
+                $credit['type'], $credit['as'], $credit['nr'],
+            ));
+        });
     }
 
     public function actorsData(): Collection

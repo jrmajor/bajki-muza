@@ -2,13 +2,18 @@
 
 namespace App\Values;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Illuminate\Contracts\Support\Arrayable;
 
-class CreditData extends DataTransferObject
+final class CreditData implements Arrayable
 {
-    public readonly string $type;
+    public function __construct(
+        public readonly string $type,
+        public readonly ?string $as,
+        public readonly int $nr,
+    ) { }
 
-    public readonly ?string $as;
-
-    public readonly int $nr;
+    public function toArray(): array
+    {
+        return ['type' => $this->type, 'as' => $this->as, 'nr' => $this->nr];
+    }
 }
