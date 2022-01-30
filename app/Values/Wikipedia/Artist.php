@@ -2,11 +2,17 @@
 
 namespace App\Values\Wikipedia;
 
-use Spatie\DataTransferObject\DataTransferObject;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Artist extends DataTransferObject
+final class Artist implements Arrayable
 {
-    public readonly string $id;
+    public function __construct(
+        public readonly string $id,
+        public readonly string $name,
+    ) { }
 
-    public readonly string $name;
+    public function toArray(): array
+    {
+        return ['id' => $this->id, 'name' => $this->name];
+    }
 }

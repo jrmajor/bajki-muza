@@ -4,36 +4,38 @@ namespace App\Services;
 
 use App\Values\Wikipedia\Artist;
 use Carbon\CarbonInterval;
-use Illuminate\Support\Collection;
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Psl\Hash;
 use Psl\Html;
 use Psl\Iter;
 use Psl\Str;
+use Psl\Type;
+use Psl\Vec;
 
 class Wikipedia
 {
     protected string $endpoint = 'https://pl.wikipedia.org/w/api.php';
 
-    public function search(string $search): Collection
+    public function search(string $search): array
     {
-        $artists = Http::get($this->endpoint, [
+        $response = Http::get($this->endpoint, [
             'action' => 'opensearch',
             'search' => $search,
             'limit' => 10,
             'redirects' => 'resolve',
-        ])
-            ->collect()
-            ->only(1, 3)
-            ->transpose()
-            ->map->combineKeys(['name', 'id'])
-            ->each(function ($artist) {
-                $artist['id'] = urldecode(Str\after_last($artist['id'], '/'));
-            })
-            ->toArray();
+        ])->json();
 
-        return collect($artists)->mapInto(Artist::class);
+        $names = Type\vec(Type\string())->coerce($response[1]);
+        $urls = Type\vec(Type\string())->coerce($response[3]);
+
+        $range = Vec\range(0, Iter\count($names) - 1);
+
+        return Vec\map($range, fn (int $n) => new Artist(
+            urldecode(Str\after_last($urls[$n], '/')),
+            $names[$n],
+        ));
     }
 
     public function url(string $title): string
