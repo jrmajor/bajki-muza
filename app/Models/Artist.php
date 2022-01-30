@@ -166,8 +166,8 @@ final class Artist extends Model
     public function appearances(): int
     {
         return DB::table('credits')->select('tale_id')->where('artist_id', $this->id)->union(
-                DB::table('tales_actors')->select('tale_id')->where('artist_id', $this->id),
-            )->count();
+            DB::table('tales_actors')->select('tale_id')->where('artist_id', $this->id),
+        )->count();
     }
 
     public function refreshCache(): void
