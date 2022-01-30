@@ -4,7 +4,7 @@ namespace App\Values\FilmPolski;
 
 use Illuminate\Contracts\Support\Arrayable;
 
-class Artist implements Arrayable
+final class Artist implements Arrayable
 {
     public function __construct(
         public readonly int $id,
