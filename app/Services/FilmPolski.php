@@ -14,6 +14,9 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
 {
+    /**
+     * @return list<Artist>
+     */
     public function search(string $search): array
     {
         $source = Http::get(

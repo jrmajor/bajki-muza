@@ -18,6 +18,9 @@ class Wikipedia
 {
     protected string $endpoint = 'https://pl.wikipedia.org/w/api.php';
 
+    /**
+     * @return list<Artist>
+     */
     public function search(string $search): array
     {
         $response = Http::get($this->endpoint, [

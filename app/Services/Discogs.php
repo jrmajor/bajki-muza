@@ -24,6 +24,9 @@ class Discogs
         ]);
     }
 
+    /**
+     * @return list<Artist>
+     */
     public function search(string $search): array
     {
         $response = $this->request()->get(
