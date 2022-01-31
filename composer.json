@@ -24,7 +24,7 @@
         "nesbot/carbon": "^2.56",
         "nunomaduro/curryable": "master",
         "ohdearapp/ohdear-php-sdk": "^3.3",
-        "sammyjo20/lasso": "^1.2",
+        "sammyjo20/lasso": "^2.0",
         "spatie/data-transfer-object": "^3.7",
         "spatie/image": "^1.10",
         "spatie/laravel-collection-macros": "^7.10",
