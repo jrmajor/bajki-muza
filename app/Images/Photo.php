@@ -106,10 +106,9 @@ final class Photo extends Image
 
     public function originalIsEquivalent($key): bool
     {
-        if ($key !== 'crop') {
-            return parent::originalIsEquivalent($key);
-        }
-
-        return (string) $this->getOriginal('crop') === (string) $this->getAttribute('crop');
+        return match ($key) {
+            'crop' => $this->getOriginal('crop')?->toArray() === $this->getAttribute('crop')->toArray(),
+            default => parent::originalIsEquivalent($key),
+        };
     }
 }

@@ -2,17 +2,22 @@
 
 namespace App\Images\Values;
 
-use Spatie\DataTransferObject\Attributes\Strict;
-use Spatie\DataTransferObject\DataTransferObject;
-
-#[Strict]
-final class ArtistImageCrop extends DataTransferObject
+final class ArtistImageCrop
 {
-    public int $x;
+    public function __construct(
+        public readonly int $x,
+        public readonly int $y,
+        public readonly int $width,
+        public readonly int $height,
+    ) { }
 
-    public int $y;
-
-    public int $width;
-
-    public int $height;
+    public function toArray(): array
+    {
+        return [
+            'x' => $this->x,
+            'y' => $this->y,
+            'width' => $this->width,
+            'height' => $this->height,
+        ];
+    }
 }

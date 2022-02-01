@@ -78,7 +78,7 @@ final class EditArtistPhotoTest extends TestCase
         $photo = $this->artist->refresh()->photo;
         $this->assertNotNull($photo);
         $this->assertSame('test source', $photo->source);
-        $this->assertSame((string) ArtistPhotoCrop::fake(), (string) $photo->crop);
+        $this->assertSame(ArtistPhotoCrop::fake()->toArray(), $photo->crop->toArray());
 
         $this->assertCount(1, Photo::disk()->files('photos/original'));
 
@@ -109,7 +109,7 @@ final class EditArtistPhotoTest extends TestCase
         $photo = $this->artist->refresh()->photo;
         $this->assertNotNull($photo);
         $this->assertSame('test source', $photo->source);
-        $this->assertSame((string) ArtistPhotoCrop::fake(), (string) $photo->crop);
+        $this->assertSame(ArtistPhotoCrop::fake()->toArray(), $photo->crop->toArray());
 
         $this->assertCount(1, $files = Photo::disk()->files('photos/original'));
 

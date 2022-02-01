@@ -36,9 +36,10 @@ class StoreArtist extends FormRequest
 
     public function photoData(): array
     {
+        $crop = $this['photo_crop'];
+
         return [
-            'crop' => $this->photo_crop
-                ? new ArtistPhotoCrop($this->photo_crop) : null,
+            'crop' => $crop ? ArtistPhotoCrop::fromArray($crop) : null,
             'grayscale' => $this->boolean('photo_grayscale'),
             'source' => $this->photo_source,
         ];

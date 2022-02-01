@@ -2,15 +2,22 @@
 
 namespace App\Images\Values;
 
-use Spatie\DataTransferObject\Attributes\Strict;
-use Spatie\DataTransferObject\DataTransferObject;
+use Illuminate\Contracts\Support\Arrayable;
 
-#[Strict]
-final class ArtistFaceCrop extends DataTransferObject
+final class ArtistFaceCrop implements Arrayable
 {
-    public int $x;
+    public function __construct(
+        public readonly int $x,
+        public readonly int $y,
+        public readonly int $size,
+    ) { }
 
-    public int $y;
-
-    public int $size;
+    public function toArray(): array
+    {
+        return [
+            'x' => $this->x,
+            'y' => $this->y,
+            'size' => $this->size,
+        ];
+    }
 }

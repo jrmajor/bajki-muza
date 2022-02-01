@@ -5,6 +5,8 @@ namespace Tests\Unit\Images;
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Photo;
+use App\Images\Values\ArtistFaceCrop;
+use App\Images\Values\ArtistImageCrop;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Database\Eloquent\Collection;
@@ -51,8 +53,8 @@ final class PhotoTest extends TestCase
 
         $this->assertInstanceOf(ArtistPhotoCrop::class, $photo->crop);
         $this->assertSame(
-            ArtistPhotoCrop::fake()->toJson(),
-            $photo->crop->toJson(),
+            ArtistPhotoCrop::fake()->toArray(),
+            $photo->crop->toArray(),
         );
     }
 
@@ -71,8 +73,8 @@ final class PhotoTest extends TestCase
         $this->assertInstanceOf(Photo::class, $image);
         $this->assertStringEndsWith('.png', $image->filename());
         $this->assertSame(
-            ArtistPhotoCrop::fake()->toJson(),
-            $image->crop()->toJson(),
+            ArtistPhotoCrop::fake()->toArray(),
+            $image->crop()->toArray(),
         );
 
         $this->assertCount(1, Photo::disk()->files('photos/original'));
@@ -122,13 +124,16 @@ final class PhotoTest extends TestCase
             ['crop' => $crop = ArtistPhotoCrop::fake()],
         );
 
-        $this->assertSame((string) $crop, (string) $photo->crop());
+        $this->assertSame($crop->toArray(), $photo->crop()->toArray());
 
-        $crop->face->size = 190;
+        $newCrop = new ArtistPhotoCrop(
+            new ArtistFaceCrop(x: 181, y: 246, size: 190), // size was 189
+            new ArtistImageCrop(x: 79, y: 247, width: 529, height: 352),
+        );
 
-        $photo->update(['crop' => $crop]);
+        $photo->update(['crop' => $newCrop]);
 
-        $this->assertSame((string) $crop, (string) $photo->refresh()->crop());
+        $this->assertSame($newCrop->toArray(), $photo->refresh()->crop()->toArray());
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
