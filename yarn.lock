@@ -987,13 +987,12 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@tailwindcss/forms@0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.1.4.tgz#b0e01980054bb86f35bb20706baabe85e45dd0df"
-  integrity sha512-yIOBwOwQiI4vW8F0y3GkSoAEzFkmEV2oVtZT4c8DD6HNWY74LQV1wyzHxK0PRb9np01nLX7vtomsPNUUfJ3WTw==
+"@tailwindcss/forms@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/forms/-/forms-0.2.1.tgz#3244b185854fae1a7cbe8d2456314d8b2d98cf43"
+  integrity sha512-czfvEdY+J2Ogfd6RUSr/ZSUmDxTujr34M++YLnp2cCPC3oJ4kFvFMaRXA6cEXKw7F1hJuapdjXRjsXIEXGgORg==
   dependencies:
     mini-svg-data-uri "^1.2.3"
-    tailwindcss "^2.0.0-alpha.16"
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
@@ -5635,7 +5634,7 @@ table@^6.0.9:
     string-width "^4.2.3"
     strip-ansi "^6.0.1"
 
-tailwindcss@^2.0.0-alpha.16, tailwindcss@^2.2:
+tailwindcss@^2.2:
   version "2.2.19"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-2.2.19.tgz#540e464832cd462bb9649c1484b0a38315c2653c"
   integrity sha512-6Ui7JSVtXadtTUo2NtkBBacobzWiQYVjYW0ZnKaP9S1ZCKQ0w7KVNz+YSDI/j7O7KCMHbOkz94ZMQhbT9pOqjw==

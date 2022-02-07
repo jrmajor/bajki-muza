@@ -207,17 +207,22 @@
       <div class="flex flex-row gap-5 items-center">
         <div class="flex flex-row flex-grow gap-3 items-center">
           <label for="photo_source" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Źródło</label>
-          <input type="text" value="{{ old('photo_source', $artist->photo?->source) }}"
+          <input
+            type="text" value="{{ old('photo_source', $artist->photo?->source) }}"
             name="photo_source" x-model="photo.source"
-            class="py-1 px-2 w-full text-sm form-input">
+            class="py-1 px-2 w-full text-sm form-input"
+          >
         </div>
 
         <div class="flex flex-row flex-none gap-1 items-center">
           <label for="photo-grayscale" class="flex-none text-sm font-medium text-gray-700 dark:text-gray-400">Cz-B.</label>
           <input type="hidden" id="photo-grayscale-hidden" name="photo_grayscale" value="0">
-          <input type="checkbox" id="photo-grayscale" name="photo_grayscale"
+          <input
+            type="checkbox" id="photo-grayscale" name="photo_grayscale"
             {{ old('photo_grayscale', $artist->photo?->grayscale ?? true) ? 'checked' : '' }}
-            x-model="photo.grayscale" value="1">
+            x-model="photo.grayscale" value="1"
+            class="rounded border-gray-300"
+          >
         </div>
       </div>
 
