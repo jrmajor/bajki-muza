@@ -2,11 +2,15 @@ const colors = require('tailwindcss/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
+  content: [
+    './resources/views/**/*.blade.php',
+    './app/View/Components/**/*.php',
+  ],
   theme: {
     colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
+      inherit: colors.inherit,
+      transparent: colors.transparent,
+      current: colors.current,
       black: colors.black,
       white: colors.white,
       brand: {
@@ -63,9 +67,5 @@ module.exports = {
   darkMode: 'media',
   plugins: [
     require('@tailwindcss/forms'),
-  ],
-  purge: [
-    './resources/views/**/*.blade.php',
-    './app/View/Components/**/*.php',
   ],
 }
