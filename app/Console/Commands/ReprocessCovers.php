@@ -68,6 +68,7 @@ class ReprocessCovers extends Command
     protected function reprocessCover(Cover $cover): ExitCode
     {
         if (count($missing = $cover->missingResponsiveVariants()) !== 0) {
+            $missing = Type\vec(Type\string())->coerce($missing);
             $missing = Str\join($missing, ', ');
 
             $this->warn("Some of responsive variants were missing ({$missing}).");

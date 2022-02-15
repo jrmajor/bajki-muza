@@ -68,6 +68,7 @@ class ReprocessPhotos extends Command
     protected function reprocessPhoto(Photo $photo): ExitCode
     {
         if (count($missing = $photo->missingResponsiveVariants()) !== 0) {
+            $missing = Type\vec(Type\string())->coerce($missing);
             $missing = Str\join($missing, ', ');
 
             $this->warn("Some of responsive variants were missing ({$missing}).");
