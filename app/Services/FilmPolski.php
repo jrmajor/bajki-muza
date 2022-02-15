@@ -12,7 +12,7 @@ use Psl\Str;
 use Psl\Type;
 use Symfony\Component\DomCrawler\Crawler;
 
-class FilmPolski
+final class FilmPolski
 {
     /**
      * @return list<Artist>
@@ -87,7 +87,7 @@ class FilmPolski
         );
     }
 
-    protected function getPersonSource(int $id): string
+    private function getPersonSource(int $id): string
     {
         return Http::get(
             'http://www.filmpolski.pl/fp/index.php',
@@ -95,7 +95,7 @@ class FilmPolski
         )->body();
     }
 
-    protected function getGallerySource(int $galleryId): string
+    private function getGallerySource(int $galleryId): string
     {
         return Http::get(
             'http://www.filmpolski.pl/fp/index.php',
@@ -103,7 +103,7 @@ class FilmPolski
         )->body();
     }
 
-    protected function getMainPhoto(string $source): ?string
+    private function getMainPhoto(string $source): ?string
     {
         return rescue(function () use ($source): ?string {
             $crawler = (new Crawler($source))
@@ -118,7 +118,7 @@ class FilmPolski
         });
     }
 
-    protected function getGalleryId(string $source): ?int
+    private function getGalleryId(string $source): ?int
     {
         return rescue(function () use ($source): ?int {
             $crawler = (new Crawler($source))->filter('.galeria_mala');
@@ -136,7 +136,7 @@ class FilmPolski
     /**
      * @return array<string, array{year: string, photos: list<string>}>
      */
-    protected function getPhotosFromGallery(string $gallerySource): array
+    private function getPhotosFromGallery(string $gallerySource): array
     {
         return rescue(function () use ($gallerySource): array {
             $crawler = (new Crawler($gallerySource))
