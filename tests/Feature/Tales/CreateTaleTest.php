@@ -51,10 +51,10 @@ final class CreateTaleTest extends TestCase
     {
         $director = Artist::factory()->createOne();
 
-        /** @var Collection<Artist> $lyricists */
+        /** @var Collection<int, Artist> $lyricists */
         $lyricists = Artist::factory(2)->create();
 
-        /** @var Collection<Artist> $composers */
+        /** @var Collection<int, Artist> $composers */
         $composers = Artist::factory(2)->create();
 
         $credits = [
@@ -78,7 +78,7 @@ final class CreateTaleTest extends TestCase
             ]),
         ];
 
-        /** @var Collection<Artist> $actors */
+        /** @var Collection<int, Artist> $actors */
         $actors = Artist::factory(2)->create();
 
         $actorsCredits = $actors->map(fn ($composer, $credit_nr) => [

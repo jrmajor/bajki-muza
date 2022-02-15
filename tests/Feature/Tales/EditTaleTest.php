@@ -92,11 +92,11 @@ final class EditTaleTest extends TestCase
 
         $lyricistAndComposer = Artist::factory()->createOne();
 
-        /** @var Collection<Artist> $lyricists */
+        /** @var Collection<int, Artist> $lyricists */
         $lyricists = Artist::factory(2)->create();
         $lyricists->push($lyricistAndComposer);
 
-        /** @var Collection<Artist> $composers */
+        /** @var Collection<int, Artist> $composers */
         $composers = Artist::factory(2)->create();
         $composers->push($lyricistAndComposer);
 
@@ -163,7 +163,7 @@ final class EditTaleTest extends TestCase
     #[TestDox('users with permissions can add tale actors')]
     public function testUserAddActors(): void
     {
-        /** @var Collection<Artist> $actors */
+        /** @var Collection<int, Artist> $actors */
         $actors = Artist::factory(2)->create();
 
         $actorsCredits = $actors->map(fn (Artist $composer, int $creditNr) => [
