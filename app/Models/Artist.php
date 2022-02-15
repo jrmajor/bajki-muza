@@ -51,11 +51,9 @@ final class Artist extends Model
         return 'slug';
     }
 
-    public static function findBySlug(string $slug, array $columns = ['*']): ?self
+    public static function findBySlug(string $slug): ?self
     {
-        $query = self::where('slug', $slug);
-
-        return $query->first($columns);
+        return self::query()->firstWhere('slug', $slug);
     }
 
     public static function findBySlugOrNew(string $name): self
