@@ -263,14 +263,14 @@ final class ArtistTest extends TestCase
 
         $this->assertInstanceOf(BelongsToMany::class, $artist->credits());
 
-        $tales = Tale::factory(6)->sequence(
+        $tales = Tale::factory()->createMany([
             ['year' => 1979],
             ['year' => 1969, 'title' => 'b'],
             ['year' => 1969, 'title' => 'a'],
             ['year' => 1978],
             ['year' => 1969, 'title' => 'c'],
             ['year' => 1969, 'title' => 'd'],
-        )->create();
+        ]);
 
         $lyricist = ['type' => CreditType::Text, 'nr' => 0];
         $composer = ['type' => CreditType::Music, 'nr' => 0];
@@ -299,12 +299,12 @@ final class ArtistTest extends TestCase
     {
         $artist = Artist::factory()->createOne();
 
-        $tales = Tale::factory(4)->sequence(
+        $tales = Tale::factory()->createMany([
             ['year' => 1978],
             ['year' => 1969, 'title' => 'b'],
             ['year' => 1978],
             ['year' => 1969, 'title' => 'a'],
-        )->create();
+        ]);
 
         $lyricist = ['type' => CreditType::Text, 'nr' => 0];
         $composer = ['type' => CreditType::Music, 'nr' => 0];
