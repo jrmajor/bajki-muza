@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Psl\Vec;
 
-final class Discogs
+class Discogs
 {
     public function __construct(
-        private string $token,
+        protected string $token,
     ) { }
 
-    private function request(): PendingRequest
+    protected function request(): PendingRequest
     {
         return Http::withHeaders([
             'Authorization' => "Discogs token={$this->token}",

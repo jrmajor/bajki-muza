@@ -13,9 +13,9 @@ use Psl\Str;
 use Psl\Type;
 use Psl\Vec;
 
-final class Wikipedia
+class Wikipedia
 {
-    private string $endpoint = 'https://pl.wikipedia.org/w/api.php';
+    protected string $endpoint = 'https://pl.wikipedia.org/w/api.php';
 
     /**
      * @return list<Artist>
