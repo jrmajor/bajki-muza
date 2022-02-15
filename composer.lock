@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9529208f9a60d862b9c83ef2e24e2b0a",
+    "content-hash": "dcbef720fd6e969fd4231fe6af02c3b1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -10470,6 +10470,64 @@
                 }
             ],
             "time": "2022-02-13T14:14:39+00:00"
+        },
+        {
+            "name": "spatie/invade",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/invade.git",
+                "reference": "fba27b11e7a328d7ef6dd092b8c66f402cf00b18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/invade/zipball/fba27b11e7a328d7ef6dd092b8c66f402cf00b18",
+                "reference": "fba27b11e7a328d7ef6dd092b8c66f402cf00b18",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^1.20",
+                "spatie/ray": "^1.28"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Invade\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP function to work with private properties and methods",
+            "homepage": "https://github.com/spatie/invade",
+            "keywords": [
+                "invade",
+                "spatie"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/invade/tree/1.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-11T20:32:06+00:00"
         },
         {
             "name": "spatie/laravel-ignition",

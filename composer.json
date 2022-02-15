@@ -44,6 +44,7 @@
         "nunomaduro/larastan": "^2.0",
         "phpstan/phpstan": "^1.4",
         "phpunit/phpunit": "10.0.x-dev",
+        "spatie/invade": "^1.0",
         "spatie/laravel-ignition": "^1.0"
     },
     "minimum-stability": "dev",

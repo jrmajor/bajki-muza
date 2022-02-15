@@ -6,7 +6,6 @@ use App\Services\Wikipedia;
 use Carbon\CarbonInterval;
 use Closure;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
@@ -108,7 +107,8 @@ final class WikipediaTest extends TestCase
 
         $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
 
-        Facade::clearResolvedInstance(\Illuminate\Http\Client\Factory::class);
+        /** @phpstan-ignore-next-line */
+        invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['pl.wikipedia.org/*' => Http::response($newResponse)]);
 
@@ -136,7 +136,8 @@ final class WikipediaTest extends TestCase
 
         $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
 
-        Facade::clearResolvedInstance(\Illuminate\Http\Client\Factory::class);
+        /** @phpstan-ignore-next-line */
+        invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['pl.wikipedia.org/*' => Http::response($newResponse)]);
 

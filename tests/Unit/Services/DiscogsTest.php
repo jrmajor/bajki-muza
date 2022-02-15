@@ -8,7 +8,6 @@ use App\Values\Discogs\DiscogsPhotos;
 use Carbon\CarbonInterval;
 use Closure;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\TestDox;
 use Psl\Str;
@@ -89,7 +88,8 @@ final class DiscogsTest extends TestCase
 
         $this->comparePhotos(app('discogs')->photos(602473));
 
-        Facade::clearResolvedInstance(\Illuminate\Http\Client\Factory::class);
+        /** @phpstan-ignore-next-line */
+        invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
@@ -127,7 +127,8 @@ final class DiscogsTest extends TestCase
 
         $this->comparePhotos(app('discogs')->photos(602473));
 
-        Facade::clearResolvedInstance(\Illuminate\Http\Client\Factory::class);
+        /** @phpstan-ignore-next-line */
+        invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
