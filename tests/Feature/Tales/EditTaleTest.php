@@ -11,8 +11,10 @@ use Tests\TestCase;
 
 final class EditTaleTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $oldAttributes;
 
+    /** @var array<string, mixed> */
     private array $newAttributes;
 
     private Tale $tale;

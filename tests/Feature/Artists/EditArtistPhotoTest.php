@@ -17,6 +17,7 @@ use Tests\TestCase;
 
 final class EditArtistPhotoTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $attributes;
 
     private Artist $artist;

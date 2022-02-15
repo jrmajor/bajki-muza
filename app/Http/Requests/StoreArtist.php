@@ -34,6 +34,9 @@ class StoreArtist extends FormRequest
         ];
     }
 
+    /**
+     * @return array{crop: ?ArtistPhotoCrop, grayscale: bool, source: ?string}
+     */
     public function photoData(): array
     {
         $crop = $this['photo_crop'];

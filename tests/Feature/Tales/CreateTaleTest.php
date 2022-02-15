@@ -11,6 +11,7 @@ use Tests\TestCase;
 
 final class CreateTaleTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $attributes;
 
     protected function setUp(): void

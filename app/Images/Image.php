@@ -40,6 +40,9 @@ abstract class Image extends Model
 
     abstract public function path(int $size): string;
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public static function store(LaravelFile|UploadedFile|string $file, array $attributes = []): static
     {
         if (Type\string()->matches($file)) {
@@ -59,6 +62,9 @@ abstract class Image extends Model
         );
     }
 
+    /**
+     * @param array<string, mixed> $attributes
+     */
     protected static function storeFromUrl(string $url, array $attributes): static
     {
         $content = Http::get($url)->throw()->body();
@@ -121,6 +127,9 @@ abstract class Image extends Model
         return $this->disk()->missing($this->path($size));
     }
 
+    /**
+     * @return list<positive-int>
+     */
     public function missingResponsiveVariants(): array
     {
         return Vec\filter(

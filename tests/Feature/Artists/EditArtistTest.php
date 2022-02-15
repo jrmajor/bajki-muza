@@ -9,8 +9,10 @@ use Tests\TestCase;
 
 final class EditArtistTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $oldAttributes;
 
+    /** @var array<string, mixed> */
     private array $newAttributes;
 
     private Artist $artist;
