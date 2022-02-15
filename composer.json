@@ -36,7 +36,6 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.12",
-        "spatie/laravel-ignition": "^1.0",
         "fakerphp/faker": "^1.19",
         "jrmajor/cs": "^0.3.3",
         "laravel/sail": "^1.13",
@@ -44,7 +43,8 @@
         "nunomaduro/collision": "^6.1",
         "nunomaduro/larastan": "^2.0",
         "phpstan/phpstan": "^1.4",
-        "phpunit/phpunit": "10.0.x-dev"
+        "phpunit/phpunit": "10.0.x-dev",
+        "spatie/laravel-ignition": "^1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
