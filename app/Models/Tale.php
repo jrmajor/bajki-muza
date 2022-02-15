@@ -17,6 +17,9 @@ use Psl\Type;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+/**
+ * @property-read Actor|Credit|null $credit
+ */
 final class Tale extends Model
 {
     use HasSlug;
@@ -72,25 +75,34 @@ final class Tale extends Model
             ->orderBy('credits.nr');
     }
 
+    /**
+     * @return EloquentCollection<int, Artist>
+     */
     public function creditsFor(CreditType $type): EloquentCollection
     {
         return $this->credits
-            ->filter(fn ($artist) => $artist->credit->ofType($type))
+            ->filter(fn (Artist $a) => $a->credit->ofType($type))
             ->values();
     }
 
+    /**
+     * @return Collection<string, EloquentCollection<int, Artist>>
+     */
     public function customCredits(): Collection
     {
         return $this->credits
-            ->filter(fn ($artist) => $artist->credit->isCustom())
-            ->sortBy(fn ($artist) => $artist->credit->type->order())
-            ->groupBy(fn ($artist) => $artist->credit->as ?? $artist->credit->type->label());
+            ->filter(fn (Artist $a) => $a->credit->isCustom())
+            ->sortBy(fn (Artist $a) => $a->credit->type->order())
+            ->groupBy(fn (Artist $a) => $a->credit->as ?? $a->credit->type->label());
     }
 
-    public function orderedCredits(): Collection
+    /**
+     * @return EloquentCollection<int, Artist>
+     */
+    public function orderedCredits(): EloquentCollection
     {
         return $this->credits
-            ->sortBy(fn ($artist) => $artist->credit->type->order())
+            ->sortBy(fn (Artist $a) => $a->credit->type->order())
             ->values();
     }
 
@@ -117,7 +129,8 @@ final class Tale extends Model
             ->map->map(fn ($artist) => $artist->credit);
 
         foreach ($allCreditsToSync as $artistId => $newCredits) {
-            $existingCredits = $allExistingCredits[$artistId] ?? collect();
+            /** @var Collection<int, Credit> */
+            $existingCredits = collect($allExistingCredits[$artistId] ?? []);
 
             // Add new credits if artist should have more of them.
             // They will be filled with more data and saved later on.

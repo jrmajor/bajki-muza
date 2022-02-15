@@ -100,6 +100,7 @@ final class TaleTest extends TestCase
 
         $tale->actors()->detach();
 
+        /** @var Collection<int, Artist> $artists */
         $artists = Artist::factory(3)->create();
 
         $tale->actors()->attach([
@@ -131,6 +132,7 @@ final class TaleTest extends TestCase
 
         $this->assertInstanceOf(BelongsToMany::class, $tale->credits());
 
+        /** @var Collection<int, Artist> $artists */
         $artists = Artist::factory(6)->create();
 
         $tale->credits()->attach([
@@ -157,6 +159,7 @@ final class TaleTest extends TestCase
     {
         $tale = Tale::factory()->withoutRelations()->createOne();
 
+        /** @var Collection<int, Artist> $artists */
         $artists = Artist::factory(7)->create();
 
         $tale->credits()->attach([
@@ -294,6 +297,7 @@ final class TaleTest extends TestCase
     #[TestDox('withActorsPopularity scope works')]
     public function testWithActorsPopularity(): void
     {
+        /** @var Collection<int, Artist> $artists */
         $artists = Artist::factory(3)->create();
 
         $artists[0]->asActor()->attach(

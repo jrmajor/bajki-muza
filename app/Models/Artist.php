@@ -19,7 +19,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 /**
- * @property Actor|Credit|null $credit
+ * @property-read Actor|Credit|null $credit
  */
 final class Artist extends Model
 {
@@ -138,18 +138,24 @@ final class Artist extends Model
             ->orderBy('year')->orderBy('title');
     }
 
+    /**
+     * @return EloquentCollection<int, Tale>
+     */
     public function creditsFor(CreditType $type): EloquentCollection
     {
         return $this->credits
-            ->filter(fn ($tale) => $tale->credit->ofType($type))
+            ->filter(fn (Tale $t) => $t->credit->ofType($type))
             ->values();
     }
 
+    /**
+     * @return Collection<string, EloquentCollection<int, Tale>>
+     */
     public function orderedCredits(): Collection
     {
         return $this->credits
-            ->sortBy(fn ($tale) => $tale->credit->type->order())
-            ->groupBy(fn ($tale) => $tale->credit->type->label());
+            ->sortBy(fn (Tale $t) => $t->credit->type->order())
+            ->groupBy(fn (Tale $t) => $t->credit->type->label());
     }
 
     public function scopeCountAppearances(Builder $query): void
