@@ -191,6 +191,7 @@ final class TaleTest extends TestCase
         /**
          * @var Artist $firstArtist
          * @var Artist $secondArtist
+         * @phpstan-ignore-next-line
          */
         [$firstArtist, $secondArtist] = Artist::factory(2)->create();
 
@@ -301,10 +302,12 @@ final class TaleTest extends TestCase
         $artists = Artist::factory(3)->create();
 
         $artists[0]->asActor()->attach(
+            /** @phpstan-ignore-next-line */
             $ids = Tale::factory(6)->create()->map->id,
         );
 
         $artists[1]->asActor()->attach(
+            /** @phpstan-ignore-next-line */
             Tale::factory(3)->create()->map->id,
         );
 

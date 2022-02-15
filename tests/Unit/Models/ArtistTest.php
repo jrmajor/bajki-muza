@@ -330,11 +330,13 @@ final class ArtistTest extends TestCase
         $artist = Artist::factory()->createOne();
 
         $artist->credits()->attach(
+            /** @phpstan-ignore-next-line */
             Tale::factory(4)->create()->map->id,
             ['type' => CreditType::Music, 'nr' => 0],
         );
 
         $artist->asActor()->attach(
+            /** @phpstan-ignore-next-line */
             Tale::factory(6)->create()->map->id,
         );
 
@@ -356,11 +358,13 @@ final class ArtistTest extends TestCase
         $artist = Artist::factory()->createOne();
 
         $artist->credits()->attach(
+            /** @phpstan-ignore-next-line */
             Tale::factory(4)->create()->map->id,
             ['type' => CreditType::Music, 'nr' => 0],
         );
 
         $artist->asActor()->attach(
+            /** @phpstan-ignore-next-line */
             Tale::factory(6)->create()->map->id,
         );
 
