@@ -8,7 +8,7 @@ use App\Models\Tale;
 use App\Services\Discogs;
 use App\Values\CreditData;
 use App\Values\CreditType;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -170,7 +170,7 @@ final class TaleTest extends TestCase
         ]);
 
         $credits = $tale->fresh()->creditsFor(CreditType::Music);
-        $this->assertInstanceOf(EloquentCollection::class, $credits);
+        $this->assertInstanceOf(Collection::class, $credits);
         $this->assertCount(3, $credits);
         $this->assertSameModel($artists[3], $credits[0]);
         $this->assertSameModel($artists[2], $credits[1]);

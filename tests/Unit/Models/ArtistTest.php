@@ -12,7 +12,7 @@ use App\Services\Wikipedia;
 use App\Values\CreditType;
 use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
@@ -317,7 +317,7 @@ final class ArtistTest extends TestCase
         ]);
 
         $credits = $artist->fresh()->creditsFor(CreditType::Text);
-        $this->assertInstanceOf(EloquentCollection::class, $credits);
+        $this->assertInstanceOf(Collection::class, $credits);
         $this->assertCount(3, $credits);
         $this->assertSameModel($tales[3], $credits[0]);
         $this->assertSameModel($tales[1], $credits[1]);
