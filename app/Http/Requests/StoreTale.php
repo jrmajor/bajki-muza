@@ -6,9 +6,9 @@ use App\Models\Artist;
 use App\Values\CreditData;
 use App\Values\CreditType;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\Enum;
 use Psl\Dict;
+use Psl\Type;
 use Psl\Vec;
 
 class StoreTale extends FormRequest
@@ -54,13 +54,25 @@ class StoreTale extends FormRequest
         });
     }
 
-    public function actorsData(): Collection
+    /**
+     * @return array<int, array{characters: ?string, credit_nr: int}>
+     */
+    public function actorsData(): array
     {
-        return collect($this->actors)
-            ->keyBy(fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id)
-            ->map(fn ($credit) => [
-                'characters' => $credit['characters'],
-                'credit_nr' => $credit['credit_nr'],
-            ]);
+        $actorShape = Type\shape([
+            'artist' => Type\string(),
+            'characters' => Type\nullable(Type\string()),
+            'credit_nr' => Type\int(),
+        ]);
+
+        $data = Dict\reindex(
+            Type\dict(Type\mixed(), $actorShape)->coerce($this['actors'] ?? []),
+            fn ($credit) => Artist::findBySlugOrNew($credit['artist'])->id,
+        );
+
+        return Dict\map($data, fn ($credit) => [
+            'characters' => $credit['characters'],
+            'credit_nr' => $credit['credit_nr'],
+        ]);
     }
 }
