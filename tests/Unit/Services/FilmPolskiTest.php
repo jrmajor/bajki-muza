@@ -3,6 +3,7 @@
 namespace Tests\Unit\Services;
 
 use App\Services\FilmPolski;
+use App\Values\FilmPolski\PhotoGroup;
 use Carbon\CarbonInterval;
 use Closure;
 use Generator;
@@ -32,6 +33,9 @@ final class FilmPolskiTest extends TestCase
         );
     }
 
+    /**
+     * @param list<PhotoGroup> $expectedOutput
+     */
     #[DataProvider('provideFilmPolskiCases')]
     #[TestDox('it can get photos from filmpolski')]
     public function testPhotos(
@@ -45,7 +49,15 @@ final class FilmPolskiTest extends TestCase
             ->push($personSource)
             ->push($gallerySource);
 
-        $this->assertSame($expectedOutput, app('filmPolski')->photos($personId));
+        $photos = app('filmPolski')->photos($personId);
+
+        $this->assertCount(count($expectedOutput), $photos);
+
+        foreach ($expectedOutput as $key => $movie) {
+            $this->assertSame($movie->title, $photos[$key]->title);
+            $this->assertSame($movie->year, $photos[$key]->year);
+            $this->assertSame($movie->photos, $photos[$key]->photos);
+        }
 
         Http::assertSentCount($galleryId === null ? 1 : 2);
     }

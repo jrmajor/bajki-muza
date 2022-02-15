@@ -7,8 +7,9 @@ parameters:
         - database/seeders
         - tests
     excludePaths:
-        - app/Providers/MacrosServiceProvider.php
         - app/Http/Requests/StoreTale.php
+        - app/Providers/MacrosServiceProvider.php
+        - app/Services/FilmPolski.php
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     ignoreErrors:

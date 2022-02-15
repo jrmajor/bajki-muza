@@ -346,8 +346,8 @@
       </div>
 
       <div class="flex flex-wrap justify-around w-full">
-        @foreach ($artist->filmPolskiPhotos() as $title => $movie)
-          @foreach ($movie['photos'] as $photo)
+        @foreach ($artist->filmPolskiPhotos() as $movie)
+          @foreach ($movie->photos as $photo)
             @php $ref = 'filmpolski_' . $loop->parent->iteration . '_' . $loop->iteration @endphp
             <button
               class="group relative m-1.5 shadow-lg rounded-lg overflow-hidden focus:outline-none"
@@ -357,13 +357,13 @@
                 class="h-40" src="https://filmpolski.pl{{ $photo }}" x-ref="{{ $ref }}"
                 x-on:load="dimensions.{{ $ref }} = $event.target.naturalWidth + '×' + $event.target.naturalHeight"
               >
-              @if ($title !== 'main' && $title !== '')
+              @if ($movie->title !== null)
                 <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-75 transition-all duration-300"></div>
               @endif
               <div class="absolute bottom-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div class="flex flex-col p-2 text-white">
-                  <small class="text-xs">{{ $movie['year'] }}</small>
-                  <span class="text-sm font-medium leading-tight">{{ $title !== 'main' ? Str::title($title) : '' }}</span>
+                  <small class="text-xs">{{ $movie->year }}</small>
+                  <span class="text-sm font-medium leading-tight">{{ $movie->title }}</span>
                 </div>
               </div>
               <div

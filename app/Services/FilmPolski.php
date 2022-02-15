@@ -3,13 +3,16 @@
 namespace App\Services;
 
 use App\Values\FilmPolski\Artist;
+use App\Values\FilmPolski\PhotoGroup;
 use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str as LStr;
 use Psl\Dict;
 use Psl\Regex;
 use Psl\Str;
 use Psl\Type;
+use Psl\Vec;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
@@ -53,6 +56,9 @@ class FilmPolski
         return "http://www.filmpolski.pl/fp/index.php?osoba={$id}";
     }
 
+    /**
+     * @return list<PhotoGroup>
+     */
     public function photos(int $id): array
     {
         return Cache::remember(
@@ -62,16 +68,10 @@ class FilmPolski
                 $photos = [];
 
                 $source = $this->getPersonSource($id);
-
                 $mainPhoto = $this->getMainPhoto($source);
 
                 if ($mainPhoto !== null) {
-                    $photos = [
-                        'main' => [
-                            'year' => null,
-                            'photos' => [$mainPhoto],
-                        ],
-                    ];
+                    $photos[] = new PhotoGroup(null, null, [$mainPhoto]);
                 }
 
                 $galleryId = $this->getGalleryId($source);
@@ -81,8 +81,9 @@ class FilmPolski
                 }
 
                 $gallerySource = $this->getGallerySource($galleryId);
+                $gallery = $this->getPhotosFromGallery($gallerySource);
 
-                return [...$photos, ...$this->getPhotosFromGallery($gallerySource)];
+                return [...$photos, ...$gallery];
             },
         );
     }
@@ -134,7 +135,7 @@ class FilmPolski
     }
 
     /**
-     * @return array<string, array{year: string, photos: list<string>}>
+     * @return list<PhotoGroup>
      */
     protected function getPhotosFromGallery(string $gallerySource): array
     {
@@ -171,7 +172,11 @@ class FilmPolski
                 $photos[$title ?? '?']['photos'][] = $photo;
             }
 
-            return $photos;
+            return Vec\map_with_key($photos, fn ($title, $data) => new PhotoGroup(
+                LStr::title($title),
+                Type\nullable(Type\int())->coerce($data['year']),
+                $data['photos'],
+            ));
         }, []);
     }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Images\Photo;
 use App\Values\CreditType;
 use App\Values\Discogs\DiscogsPhotos;
+use App\Values\FilmPolski\PhotoGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -106,6 +107,9 @@ final class Artist extends Model
         return $this->discogs ? app('discogs')->photos($this->discogs) : new DiscogsPhotos([]);
     }
 
+    /**
+     * @return list<PhotoGroup>
+     */
     public function filmPolskiPhotos(): array
     {
         return $this->filmpolski ? app('filmPolski')->photos($this->filmpolski) : [];
