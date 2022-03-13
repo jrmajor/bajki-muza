@@ -34,7 +34,7 @@ jobs:
       - name: Tools cache
         uses: actions/cache@v2
         with:
-          path: .config
+          path: .cache
           key: tools-cache
 
       - name: Install Composer dependencies
