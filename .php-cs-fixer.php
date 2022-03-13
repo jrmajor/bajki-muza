@@ -14,4 +14,4 @@ return Major\CS\config($finder, [
     // Removes new line between enum case and method.
     'no_extra_blank_lines' => false,
     'new_with_braces' => false,
-]);
+])->setCacheFile('.cache/.php-cs-fixer.cache');

@@ -36,6 +36,7 @@ parameters:
             path: tests/Unit/Services/DiscogsTest.php
     stubFiles:
         - phpstan.stub
+    tmpDir: .cache/phpstan
 
 includes:
     - vendor/nunomaduro/larastan/extension.neon
