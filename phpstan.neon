@@ -22,8 +22,11 @@ parameters:
         - '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage::(andReturn|times|with)\(\)\.$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Cannot call method assertExitCode\(\) on Illuminate\\Testing\\PendingCommand\|int\.$#'
-        - '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Factories\\Factory<App\\Models\\\w+>::afterCreating\(\) expects Closure\(Illuminate\\Database\\Eloquent\\Model\): mixed, Closure\(App\\Models\\\w+\): void given\.$#'
         - '#^Parameter \#3 \$value of method Illuminate\\Database\\Eloquent\\Builder<Illuminate\\Database\\Eloquent\\Model>::having\(\) expects string\|null, int given\.$#'
+        -
+            message: '#^Method App\\Images\\.* should return array<int, int<1, max>> but returns array<int, int>\.$#'
+            count: 2
+            path: app/Images
         -
             message: '#^Parameter \#1 \$baseImage of method App\\Images\\Jobs\\ImageProcessor::copyToTemporaryDirectory\(\) expects resource, resource\|string\|false given\.$#'
             count: 1
