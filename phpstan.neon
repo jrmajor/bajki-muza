@@ -10,6 +10,8 @@ parameters:
         - app/Http/Requests/StoreTale.php
         - app/Providers/MacrosServiceProvider.php
         - app/Services/FilmPolski.php
+    stubFiles:
+        - phpstan.stub
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
@@ -34,8 +36,6 @@ parameters:
             message: '#^Match expression does not handle remaining value: array{bool, bool}$#'
             count: 1
             path: tests/Unit/Services/DiscogsTest.php
-    stubFiles:
-        - phpstan.stub
     tmpDir: .cache/phpstan
 
 includes:
