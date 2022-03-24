@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Psl\Filesystem;
 
-class GenerateArtistPhotoVariants implements ShouldQueue, ShouldBeUnique
+class GenerateArtistPhotoVariants implements ShouldBeUnique, ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

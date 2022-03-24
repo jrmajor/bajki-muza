@@ -22,8 +22,8 @@ use Spatie\Sluggable\SlugOptions;
  */
 final class Tale extends Model
 {
-    use HasSlug;
     use HasFactory;
+    use HasSlug;
 
     protected $with = ['cover'];
 

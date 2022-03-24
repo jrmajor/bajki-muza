@@ -24,8 +24,8 @@ use Spatie\Sluggable\SlugOptions;
  */
 final class Artist extends Model
 {
-    use HasSlug;
     use HasFactory;
+    use HasSlug;
 
     protected $with = ['photo'];
 

@@ -30,7 +30,7 @@ enum CreditType: string
 
     public function isCustom(): bool
     {
-        return ! in_array($this, [self::Text, self::Author, self::Lyrics, self::Music]);
+        return ! in_array($this, [self::Text, self::Author, self::Lyrics, self::Music], true);
     }
 
     public function label(): string

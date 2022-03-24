@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Psl\Json;
 use Psl\Type;
 
-final class ArtistPhotoCrop implements Castable, Arrayable
+final class ArtistPhotoCrop implements Arrayable, Castable
 {
     public function __construct(
         public readonly ArtistFaceCrop $face,

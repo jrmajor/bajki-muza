@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Psl\Filesystem;
 
-class GenerateTaleCoverVariants implements ShouldQueue, ShouldBeUnique
+class GenerateTaleCoverVariants implements ShouldBeUnique, ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
