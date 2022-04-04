@@ -10,7 +10,7 @@ return [
     'debug' => (bool) env('APP_DEBUG', false),
 
     'url' => env('APP_URL', 'http://bajki-muza.test'),
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('ASSET_URL'),
 
     'timezone' => 'Europe/Warsaw',
 

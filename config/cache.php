@@ -67,6 +67,6 @@ return [
 
     ],
 
-    'prefix' => env('CACHE_PREFIX', 'bajki_muza_cache'),
+    'prefix' => env('CACHE_PREFIX', 'bajki_muza_cache_'),
 
 ];
