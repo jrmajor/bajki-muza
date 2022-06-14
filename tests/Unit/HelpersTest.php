@@ -16,7 +16,6 @@ final class HelpersTest extends TestCase
             App\append_to_file_name('/var/folders/0k/T/desiredFilename.jpg', 'tiny'),
         );
 
-
         $this->assertSame(
             'test.temp.jpeg',
             App\append_to_file_name('test.jpeg', 'temp', '.'),

@@ -129,7 +129,6 @@ final class ArtistTest extends TestCase
             'wikipedia' => null,
         ]);
 
-
         $this->assertNull($artist->discogs_url);
         $this->assertNull($artist->filmpolski_url);
         $this->assertNull($artist->wikipedia_url);
