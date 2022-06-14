@@ -12,6 +12,7 @@ use Tests\TestCase;
 
 final class WikipediaTest extends TestCase
 {
+    /** @var array<string, mixed> */
     private array $response;
 
     private string $extract;

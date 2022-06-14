@@ -12,6 +12,9 @@ final class ArtistFaceCrop implements Arrayable
         public readonly int $size,
     ) { }
 
+    /**
+     * @return array<string, int>
+     */
     public function toArray(): array
     {
         return [

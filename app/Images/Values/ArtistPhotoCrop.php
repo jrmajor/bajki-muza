@@ -15,6 +15,9 @@ final class ArtistPhotoCrop implements Arrayable, Castable
         public readonly ArtistImageCrop $image,
     ) { }
 
+    /**
+     * @param array{face: array<string, int>, image: array<string, int>} $crop
+     */
     public static function fromArray(array $crop): self
     {
         return new self(
@@ -23,6 +26,9 @@ final class ArtistPhotoCrop implements Arrayable, Castable
         );
     }
 
+    /**
+     * @return array{face: array<string, int>, image: array<string, int>}
+     */
     public function toArray(): array
     {
         return [
@@ -31,15 +37,24 @@ final class ArtistPhotoCrop implements Arrayable, Castable
         ];
     }
 
+    /**
+     * @param array<never> $arguments
+     */
     public static function castUsing(array $arguments): CastsAttributes
     {
         return new class implements CastsAttributes
         {
+            /**
+             * @param array<string, mixed> $attributes
+             */
             public function get($model, string $key, $value, array $attributes): ?ArtistPhotoCrop
             {
                 return $value ? ArtistPhotoCrop::fromArray(Json\decode($value)) : null;
             }
 
+            /**
+             * @param array<string, mixed> $attributes
+             */
             public function set($model, string $key, $value, array $attributes): string
             {
                 $value = Type\instance_of(ArtistPhotoCrop::class)->coerce($value);

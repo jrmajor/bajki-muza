@@ -25,6 +25,7 @@ final class Tale extends Model
     use HasFactory;
     use HasSlug;
 
+    /** @var list<string> */
     protected $with = ['cover'];
 
     public $fillable = [

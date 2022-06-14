@@ -11,6 +11,9 @@ final class ArtistImageCrop
         public readonly int $height,
     ) { }
 
+    /**
+     * @return array<string, int>
+     */
     public function toArray(): array
     {
         return [

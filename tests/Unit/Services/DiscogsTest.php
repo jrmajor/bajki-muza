@@ -171,6 +171,9 @@ final class DiscogsTest extends TestCase
         $this->assertSame($expected->height, $actual->height);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getSampleApiResponse(): array
     {
         return [

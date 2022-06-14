@@ -8,6 +8,9 @@ use Illuminate\Http\UploadedFile;
 
 class StoreArtist extends FormRequest
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [

@@ -98,7 +98,7 @@ final class FilmPolskiTest extends TestCase
     }
 
     /**
-     * @return Generator<string, array{int, string, ?int, ?string, array}>
+     * @return Generator<string, array{int, string, ?int, ?string, list<PhotoGroup>}>
      */
     public function provideFilmPolskiCases(): Generator
     {

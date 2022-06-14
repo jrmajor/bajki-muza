@@ -13,6 +13,9 @@ use Psl\Vec;
 
 class StoreTale extends FormRequest
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [

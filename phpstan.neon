@@ -22,7 +22,6 @@ parameters:
         - '#^Call to an undefined method Mockery\\ExpectationInterface\|Mockery\\HigherOrderMessage::(andReturn|times|with)\(\)\.$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Cannot call method assertExitCode\(\) on Illuminate\\Testing\\PendingCommand\|int\.$#'
-        - '#^Parameter \#3 \$value of method Illuminate\\Database\\Eloquent\\Builder<Illuminate\\Database\\Eloquent\\Model>::having\(\) expects string\|null, int given\.$#'
         -
             message: '#^Method App\\Images\\.* should return array<int, int<1, max>> but returns array<int, int>\.$#'
             count: 2

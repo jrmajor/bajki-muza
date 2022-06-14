@@ -27,6 +27,7 @@ final class Artist extends Model
     use HasFactory;
     use HasSlug;
 
+    /** @var list<string> */
     protected $with = ['photo'];
 
     public $fillable = [
