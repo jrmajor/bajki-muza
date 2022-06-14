@@ -23,14 +23,11 @@ final class ImageProcessor
      * @param resource|non-empty-string $baseImage
      */
     public function __construct($baseImage) {
-        // $baseImage = Type\union(
-        //     Type\resource('stream'),
-        //     Type\non_empty_string(),
-        // )->coerce($baseImage);
-
         if (Type\string()->matches($baseImage)) {
             $baseImage = fopen($baseImage, 'r');
         }
+
+        $baseImage = Type\resource('stream')->coerce($baseImage);
 
         $this->path = $this->copyToTemporaryDirectory($baseImage);
     }

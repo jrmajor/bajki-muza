@@ -65,12 +65,7 @@ final class FilmPolskiTest extends TestCase
     #[TestDox('it caches filmpolski photos')]
     public function testPhotosCache(): void
     {
-        $images = [
-            'main' => [
-                'year' => null,
-                'photos' => ['test'],
-            ],
-        ];
+        $images = [new PhotoGroup(null, null, ['test'])];
 
         Http::fake();
 

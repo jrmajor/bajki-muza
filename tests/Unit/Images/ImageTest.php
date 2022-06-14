@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Storage;
 use Mockery;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -93,11 +94,13 @@ final class ImageTest extends TestCase
         ]) extends TestCover {
             public static function disk(): FilesystemAdapter
             {
-                return Mockery::mock(FilesystemAdapter::class)
-                    ->shouldReceive('temporaryUrl')
-                    ->with('covers/original/testFilename.jpg', Carbon::class)
-                    ->andReturn('testUrl')
-                    ->mock();
+                return tap(
+                    Mockery::mock(FilesystemAdapter::class),
+                    fn (MockInterface $m) => $m
+                        ->shouldReceive('temporaryUrl')
+                        ->with('covers/original/testFilename.jpg', Carbon::class)
+                        ->andReturn('testUrl'),
+                );
             }
         };
 

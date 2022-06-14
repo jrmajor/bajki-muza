@@ -12,6 +12,7 @@ use App\Services\Wikipedia;
 use App\Values\CreditType;
 use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
+use App\Values\FilmPolski\PhotoGroup;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -189,12 +190,7 @@ final class ArtistTest extends TestCase
     #[TestDox('it can get photos from filmpolski')]
     public function testFilmPolskiPhotos(): void
     {
-        $images = [
-            'main' => [
-                'year' => null,
-                'photos' => ['test'],
-            ],
-        ];
+        $images = [new PhotoGroup(null, null, ['test'])];
 
         $artist = Artist::factory()->createOne(['filmpolski' => 112891]);
 
