@@ -1,6 +1,33 @@
 ## About
 
-This repo contains the source code of https://bajki-muza.pl, a knowledge base about audio tales recorded by Polskie Nagrania Muza.
+This repo contains the source code of https://bajki-muza.pl,
+a knowledge base about audio tales recorded by Polskie Nagrania Muza.
+
+<div align="center">
+  <picture>
+    <source
+      srcset="resources/screenshots/tale-light.png"
+      media="(prefers-color-scheme: light)"
+    >
+    <img
+      src="resources/screenshots/tale-dark.png"
+      alt="Screenshot of tale view"
+      width="48%"
+    >
+  </picture>
+
+  <picture>
+    <source
+      srcset="resources/screenshots/index-light.png"
+      media="(prefers-color-scheme: light)"
+    >
+    <img
+      src="resources/screenshots/index-dark.png"
+      alt="Screenshot of tales index"
+      width="48%"
+    >
+  </picture>
+</div>
 
 ## Installation
 
