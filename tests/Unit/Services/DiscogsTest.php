@@ -57,8 +57,6 @@ final class DiscogsTest extends TestCase
     #[TestDox('it caches discogs photos')]
     public function testPhotosCache(): void
     {
-        Http::fake();
-
         Cache::shouldReceive('remember')->once()
             ->with('discogs-602473-photos', CarbonInterval::class, Closure::class)
             ->andReturn($this->getSampleApiResponse());

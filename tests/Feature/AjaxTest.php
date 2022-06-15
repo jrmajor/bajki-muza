@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Support\Facades\Http;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -41,8 +40,6 @@ final class AjaxTest extends TestCase
     #[TestDox('user can access ajax/filmpolski endpoint')]
     public function testUserFilmpolski(): void
     {
-        Http::fake();
-
         $this->asUser()->get('ajax/filmpolski')->assertOk();
     }
 
@@ -55,8 +52,6 @@ final class AjaxTest extends TestCase
     #[TestDox('user can access ajax/wikipedia endpoint')]
     public function testUserWikipedia(): void
     {
-        Http::fake();
-
         $this->asUser()->get('ajax/wikipedia')->assertOk();
     }
 }

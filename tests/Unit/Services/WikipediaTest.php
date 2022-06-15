@@ -79,8 +79,6 @@ final class WikipediaTest extends TestCase
     #[TestDox('it caches wikipedia extract')]
     public function testExtractCache(): void
     {
-        Http::fake();
-
         Cache::shouldReceive('remember')->once()->with(
             'wikipedia-c562333d77f2c81b6f75acd8bd7c7871-extract',
             CarbonInterval::class, Closure::class,

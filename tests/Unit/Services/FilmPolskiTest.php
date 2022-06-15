@@ -67,8 +67,6 @@ final class FilmPolskiTest extends TestCase
     {
         $images = [new PhotoGroup(null, null, ['test'])];
 
-        Http::fake();
-
         Cache::shouldReceive('remember')->once()
             ->with('filmpolski-11232-photos', CarbonInterval::class, Closure::class)
             ->andReturn($images);
