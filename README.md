@@ -14,7 +14,7 @@ Clone this repository and install it like you normally install Laravel applicati
 
 ## Testing
 
-This application uses Pest for testing and PHPStan for static analysis.
+This application uses PHPUnit for testing and PHPStan for static analysis.
 
 ```sh
 vendor/bin/phpunit --testdox  # Tests
