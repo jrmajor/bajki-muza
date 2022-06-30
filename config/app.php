@@ -23,6 +23,11 @@ return [
 
     'admin_id' => (int) env('ADMIN_ID'),
 
+    'maintenance' => [
+        'driver' => 'file',
+        // 'store'  => 'redis',
+    ],
+
     'providers' => [
 
         // Laravel Framework Service Providers...

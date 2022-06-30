@@ -8,7 +8,10 @@ return [
 
     'default' => env('LOG_CHANNEL', 'stack'),
 
-    'deprecations' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
+    'deprecations' => [
+        'channel' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
+        'trace' => false,
+    ],
 
     'channels' => [
         'stack' => [
