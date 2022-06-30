@@ -89,7 +89,7 @@ final class ImageTest extends TestCase
     #[TestDox('it can get original url')]
     public function testOriginalUrl(): void
     {
-        $cover = new class([
+        $cover = new class ([
             'filename' => 'testFilename.jpg',
         ]) extends TestCover {
             public static function disk(): FilesystemAdapter
