@@ -10,17 +10,10 @@
     <div>
       <strong>{{ $text->pluck('credit')->pluck('as')->filter()->first() ?? 'Słowa' }}:</strong>
       @foreach ($text as $lyricist)
-        <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
-          {{ $lyricist->name }}
-          <x-appearances :count="$lyricist->appearances" size="small"/>
-        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
+        <x-name :artist="$lyricist" :loop="$loop"/>
       @endforeach
-      wg.
       @foreach ($authors as $author)
-        <a href="{{ route('artists.show', $author) }}" class="inline-flex items-center">
-          {{ $author->genetivus ?? $author->name }}
-          <x-appearances :count="$author->appearances" size="small"/>
-        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
+        <x-name :artist="$author" :loop="$loop" before="wg." genetivus/>
       @endforeach
     </div>
   @elseif ($text->isNotEmpty())
@@ -28,10 +21,7 @@
       <div>
         <strong>{{ $credit }}:</strong>
         @foreach ($lyricists as $lyricist)
-          <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
-            {{ $lyricist->name }}
-            <x-appearances :count="$lyricist->appearances" size="small"/>
-          </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
+          <x-name :artist="$lyricist" :loop="$loop"/>
         @endforeach
       </div>
     @endforeach
@@ -40,10 +30,7 @@
       <div>
         <strong>{{ $credit }}:</strong>
         @foreach ($authors as $author)
-          <a href="{{ route('artists.show', $author) }}" class="inline-flex items-center">
-            {{ $author->name }}
-            <x-appearances :count="$author->appearances" size="small"/>
-          </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
+          <x-name :artist="$author" :loop="$loop"/>
         @endforeach
       </div>
     @endforeach
@@ -53,10 +40,7 @@
     <div>
       <strong>Teksty piosenek:</strong>
       @foreach ($tale->creditsFor(CreditType::Lyrics) as $lyricist)
-        <a href="{{ route('artists.show', $lyricist) }}" class="inline-flex items-center">
-          {{ $lyricist->name }}
-          <x-appearances :count="$lyricist->appearances" size="small"/>
-        </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
+        <x-name :artist="$lyricist" :loop="$loop"/>
       @endforeach
     </div>
   @endif
@@ -70,10 +54,7 @@
       <div>
         <strong>{{ $credit }}:</strong>
         @foreach ($composers as $composer)
-          <a href="{{ route('artists.show', $composer) }}" class="inline-flex items-center">
-            {{ $composer->name }}
-            <x-appearances :count="$composer->appearances" size="small"/>
-          </a>@if ($loop->remaining > 1), @elseif ($loop->remaining > 0) i @endif
+          <x-name :artist="$composer" :loop="$loop"/>
         @endforeach
       </div>
     @endforeach
