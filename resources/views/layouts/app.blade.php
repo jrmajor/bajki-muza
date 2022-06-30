@@ -17,18 +17,19 @@
 
     <meta name="theme-color" content="#ebebeb" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+
     @production
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @endproduction
-    @unless (app()->runningUnitTests())
-      <link rel="stylesheet" href="{{ mix('css/style.css') }}">
-    @endif
 
     @routes
+
     @unless (app()->runningUnitTests())
-      <script src="{{ mix('js/app.js') }}" defer></script>
-    @endif
+      @vite(['resources/css/style.css', 'resources/js/app.js'])
+    @endunless
+
     @stack('scripts')
+
     @if (config('services.fathom.id'))
       <script src="https://cdn.usefathom.com/script.js" data-site="{{ config('services.fathom.id') }}" defer></script>
     @endif
