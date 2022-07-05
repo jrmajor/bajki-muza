@@ -37,3 +37,4 @@ includes:
     - vendor/phpstan/phpstan-mockery/extension.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - vendor/spatie/invade/phpstan-extension.neon
