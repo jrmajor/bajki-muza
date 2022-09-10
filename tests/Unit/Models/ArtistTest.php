@@ -380,9 +380,9 @@ final class ArtistTest extends TestCase
             'wikipedia' => 'Piotr_Fronczewski',
         ]);
 
-        $this->mock(Discogs::class)->shouldReceive('refreshCache')->with(602473)->andReturn(true);
-        $this->mock(FilmPolski::class)->shouldReceive('refreshCache')->with(112891)->andReturn(true);
-        $this->mock(Wikipedia::class)->shouldReceive('refreshCache')->with('Piotr_Fronczewski')->andReturn(true);
+        $this->mock(Discogs::class)->shouldReceive('refreshCache')->with(602473)->andReturn(true)->once();
+        $this->mock(FilmPolski::class)->shouldReceive('refreshCache')->with(112891)->andReturn(true)->once();
+        $this->mock(Wikipedia::class)->shouldReceive('refreshCache')->with('Piotr_Fronczewski')->andReturn(true)->once();
 
         $artist->refreshCache();
     }
@@ -396,9 +396,9 @@ final class ArtistTest extends TestCase
             'wikipedia' => 'Piotr_Fronczewski',
         ]);
 
-        $this->mock(Discogs::class)->shouldReceive('forget')->with(602473)->andReturn(true);
-        $this->mock(FilmPolski::class)->shouldReceive('forget')->with(112891)->andReturn(true);
-        $this->mock(Wikipedia::class)->shouldReceive('forget')->with('Piotr_Fronczewski')->andReturn(true);
+        $this->mock(Discogs::class)->shouldReceive('forget')->with(602473)->andReturn(true)->once();
+        $this->mock(FilmPolski::class)->shouldReceive('forget')->with(112891)->andReturn(true)->once();
+        $this->mock(Wikipedia::class)->shouldReceive('forget')->with('Piotr_Fronczewski')->andReturn(true)->once();
 
         $this->assertTrue($artist->flushCache());
     }

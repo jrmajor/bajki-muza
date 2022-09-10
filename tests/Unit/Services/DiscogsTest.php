@@ -57,9 +57,10 @@ final class DiscogsTest extends TestCase
     #[TestDox('it caches discogs photos')]
     public function testPhotosCache(): void
     {
-        Cache::shouldReceive('remember')->once()
+        Cache::shouldReceive('remember')
             ->with('discogs-602473-photos', CarbonInterval::class, Closure::class)
-            ->andReturn($this->getSampleApiResponse());
+            ->andReturn($this->getSampleApiResponse())
+            ->once();
 
         $this->comparePhotos(app('discogs')->photos(602473));
 

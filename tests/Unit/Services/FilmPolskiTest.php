@@ -67,9 +67,10 @@ final class FilmPolskiTest extends TestCase
     {
         $images = [new PhotoGroup(null, null, ['test'])];
 
-        Cache::shouldReceive('remember')->once()
+        Cache::shouldReceive('remember')
             ->with('filmpolski-11232-photos', CarbonInterval::class, Closure::class)
-            ->andReturn($images);
+            ->andReturn($images)
+            ->once();
 
         $this->assertSame($images, app('filmPolski')->photos(11232));
 
