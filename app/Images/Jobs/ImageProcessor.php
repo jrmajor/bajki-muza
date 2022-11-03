@@ -22,7 +22,8 @@ final class ImageProcessor
     /**
      * @param resource|non-empty-string $baseImage
      */
-    public function __construct($baseImage) {
+    public function __construct($baseImage)
+    {
         if (Type\string()->matches($baseImage)) {
             $baseImage = fopen($baseImage, 'r');
         }

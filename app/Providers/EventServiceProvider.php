@@ -14,6 +14,4 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
     ];
-
-    public function boot(): void { }
 }
