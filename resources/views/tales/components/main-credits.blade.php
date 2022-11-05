@@ -10,10 +10,10 @@
     <div>
       <strong>{{ $text->pluck('credit')->pluck('as')->filter()->first() ?? 'Słowa' }}:</strong>
       @foreach ($text as $lyricist)
-        <x-name :artist="$lyricist" :loop="$loop"/>
+        <x-name :artist="$lyricist" :$loop/>
       @endforeach
       @foreach ($authors as $author)
-        <x-name :artist="$author" :loop="$loop" before="wg." genetivus/>
+        <x-name :artist="$author" :$loop before="wg." genetivus/>
       @endforeach
     </div>
   @elseif ($text->isNotEmpty())
@@ -21,7 +21,7 @@
       <div>
         <strong>{{ $credit }}:</strong>
         @foreach ($lyricists as $lyricist)
-          <x-name :artist="$lyricist" :loop="$loop"/>
+          <x-name :artist="$lyricist" :$loop/>
         @endforeach
       </div>
     @endforeach
@@ -30,7 +30,7 @@
       <div>
         <strong>{{ $credit }}:</strong>
         @foreach ($authors as $author)
-          <x-name :artist="$author" :loop="$loop"/>
+          <x-name :artist="$author" :$loop/>
         @endforeach
       </div>
     @endforeach
@@ -40,7 +40,7 @@
     <div>
       <strong>Teksty piosenek:</strong>
       @foreach ($tale->creditsFor(CreditType::Lyrics) as $lyricist)
-        <x-name :artist="$lyricist" :loop="$loop"/>
+        <x-name :artist="$lyricist" :$loop/>
       @endforeach
     </div>
   @endif
@@ -54,7 +54,7 @@
       <div>
         <strong>{{ $credit }}:</strong>
         @foreach ($composers as $composer)
-          <x-name :artist="$composer" :loop="$loop"/>
+          <x-name :artist="$composer" :$loop/>
         @endforeach
       </div>
     @endforeach

@@ -5,7 +5,7 @@
     <div>
       <strong>{{ Str::ucfirst($label) }}:</strong>
       @foreach ($credits as $artist)
-        <x-name :artist="$artist" :loop="$loop"/>
+        <x-name :$artist :$loop/>
       @endforeach
     </div>
   @endforeach
