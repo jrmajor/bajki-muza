@@ -94,7 +94,7 @@ final class FilmPolskiTest extends TestCase
     /**
      * @return Generator<string, array{int, string, ?int, ?string, list<PhotoGroup>}>
      */
-    public function provideFilmPolskiCases(): Generator
+    public static function provideFilmPolskiCases(): Generator
     {
         // with photo and gallery
         yield 'Bogusz Bilewski' => [
