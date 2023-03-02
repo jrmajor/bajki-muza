@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePhotosTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->string('filename', 64)->primary();
@@ -42,7 +42,7 @@ class CreatePhotosTable extends Migration
             });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('photos');
     }

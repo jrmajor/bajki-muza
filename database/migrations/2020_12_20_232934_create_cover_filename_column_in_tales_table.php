@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCoverFilenameColumnInTalesTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('tales', function (Blueprint $table) {
             $table->renameColumn('cover', 'cover_filename')->nullable();

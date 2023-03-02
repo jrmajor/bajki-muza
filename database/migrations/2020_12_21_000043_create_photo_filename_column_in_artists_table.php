@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePhotoFilenameColumnInArtistsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('artists', function (Blueprint $table) {
             $table->renameColumn('photo', 'photo_filename')->nullable();

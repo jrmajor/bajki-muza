@@ -6,7 +6,7 @@ use App\Http\Requests\StoreArtist;
 use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Contracts\View\View;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\RedirectResponse;
 
 class ArtistController extends Controller
 {
@@ -20,7 +20,7 @@ class ArtistController extends Controller
         return view('artists.edit', ['artist' => $artist]);
     }
 
-    public function update(StoreArtist $request, Artist $artist): Response
+    public function update(StoreArtist $request, Artist $artist): RedirectResponse
     {
         $artist->fill($request->validated());
 
@@ -37,7 +37,7 @@ class ArtistController extends Controller
         return redirect()->route('artists.show', tap($artist)->push());
     }
 
-    public function destroy(Artist $artist): Response
+    public function destroy(Artist $artist): RedirectResponse
     {
         $artist->delete();
 

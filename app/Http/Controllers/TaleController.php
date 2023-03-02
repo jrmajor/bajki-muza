@@ -6,7 +6,7 @@ use App\Http\Requests\StoreTale;
 use App\Images\Cover;
 use App\Models\Tale;
 use Illuminate\Contracts\View\View;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\RedirectResponse;
 
 class TaleController extends Controller
 {
@@ -15,7 +15,7 @@ class TaleController extends Controller
         return view('tales.create');
     }
 
-    public function store(StoreTale $request): Response
+    public function store(StoreTale $request): RedirectResponse
     {
         $tale = Tale::create($request->validated());
 
@@ -45,7 +45,7 @@ class TaleController extends Controller
         return view('tales.edit', ['tale' => $tale]);
     }
 
-    public function update(StoreTale $request, Tale $tale): Response
+    public function update(StoreTale $request, Tale $tale): RedirectResponse
     {
         $tale->fill($request->validated());
 

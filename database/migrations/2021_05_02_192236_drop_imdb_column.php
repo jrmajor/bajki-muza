@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::table('artists', function (Blueprint $table) {
             $table->dropColumn('imdb');
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::table('artists', function (Blueprint $table) {
             $table->string('imdb', 10)->nullable()->after('discogs');

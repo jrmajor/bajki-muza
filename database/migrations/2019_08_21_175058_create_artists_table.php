@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateArtistsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->smallId();
@@ -32,7 +32,7 @@ class CreateArtistsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('artists');
     }

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTalesActorsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('tales_actors', function (Blueprint $table) {
             $table->smallId();
@@ -24,7 +24,7 @@ class CreateTalesActorsTable extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('tales_actors');
     }

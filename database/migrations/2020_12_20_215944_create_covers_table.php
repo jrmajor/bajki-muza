@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCoversTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('covers', function (Blueprint $table) {
             $table->string('filename', 64)->primary();
@@ -29,7 +29,7 @@ class CreateCoversTable extends Migration
             });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('covers');
     }
