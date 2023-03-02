@@ -35,6 +35,7 @@ final class ImageProcessor
 
     /**
      * @param resource $baseImage
+     *
      * @return non-empty-string
      */
     private function copyToTemporaryDirectory($baseImage): string
@@ -109,6 +110,7 @@ final class ImageProcessor
 
     /**
      * @param int<0, max> $targetSize
+     *
      * @return non-empty-string
      */
     public function responsiveImage(int $targetSize, FitMethod $fit): string
