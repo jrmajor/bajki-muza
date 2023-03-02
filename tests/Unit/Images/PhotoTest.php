@@ -70,7 +70,6 @@ final class PhotoTest extends TestCase
             ['crop' => ArtistPhotoCrop::fake()],
         );
 
-        $this->assertInstanceOf(Photo::class, $image);
         $this->assertStringEndsWith('.png', $image->filename());
         $this->assertSame(
             ArtistPhotoCrop::fake()->toArray(),

@@ -9,7 +9,6 @@ use App\Services\Discogs;
 use App\Values\CreditData;
 use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
@@ -96,8 +95,6 @@ final class TaleTest extends TestCase
     {
         $tale = Tale::factory()->createOne();
 
-        $this->assertInstanceOf(BelongsToMany::class, $tale->actors());
-
         $tale->actors()->detach();
 
         /** @var Collection<int, Artist> $artists */
@@ -129,8 +126,6 @@ final class TaleTest extends TestCase
     public function testCredits(): void
     {
         $tale = Tale::factory()->withoutRelations()->createOne();
-
-        $this->assertInstanceOf(BelongsToMany::class, $tale->credits());
 
         /** @var Collection<int, Artist> $artists */
         $artists = Artist::factory(6)->create();
@@ -173,7 +168,6 @@ final class TaleTest extends TestCase
         ]);
 
         $credits = $tale->fresh()->creditsFor(CreditType::Music);
-        $this->assertInstanceOf(Collection::class, $credits);
         $this->assertCount(3, $credits);
         $this->assertSameModel($artists[3], $credits[0]);
         $this->assertSameModel($artists[2], $credits[1]);

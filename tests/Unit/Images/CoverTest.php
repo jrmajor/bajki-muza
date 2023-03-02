@@ -30,7 +30,6 @@ final class CoverTest extends TestCase
 
         $image = Cover::store(UploadedFile::fake()->image('test.jpg'));
 
-        $this->assertInstanceOf(Cover::class, $image);
         $this->assertStringEndsWith('.jpg', $image->filename());
 
         $this->assertCount(1, Cover::disk()->files('covers/original'));

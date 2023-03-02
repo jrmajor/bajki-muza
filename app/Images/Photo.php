@@ -8,6 +8,7 @@ use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Bus;
+use Psl\Type;
 use Psl\Vec;
 
 final class Photo extends Image
@@ -96,7 +97,9 @@ final class Photo extends Image
             return null;
         }
 
-        return $this->width / $this->height;
+        $t = Type\float();
+
+        return $t->coerce($this->width) / $t->coerce($this->height);
     }
 
     public function artists(): HasMany

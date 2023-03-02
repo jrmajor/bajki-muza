@@ -26,7 +26,6 @@ final class ImageTest extends TestCase
 
         $image = TestCover::store($uploadedFile);
 
-        $this->assertInstanceOf(TestCover::class, $image);
         $this->assertStringEndsWith('.jpg', $image->filename());
 
         $this->assertCount(1, TestCover::disk()->files('covers/original'));
@@ -184,7 +183,6 @@ final class ImageTest extends TestCase
 
         $stream = (new TestCover(['filename' => 'test.jpg']))->readStream();
 
-        $this->assertIsResource($stream);
         $this->assertSame('contents', fread($stream, 16));
 
         fclose($stream);
