@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -16,7 +16,7 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request): Response
+    public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
         return redirect()->route('tales.index');
     }
 
-    public function destroy(Request $request): Response
+    public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
