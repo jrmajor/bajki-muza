@@ -12,7 +12,7 @@
         "azjezz/psl": "^2.6",
         "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.7",
-        "jrmajor/laravel-fluent": "^0.2.1",
+        "jrmajor/laravel-fluent": "^1.0",
         "larabug/larabug": "^3.0",
         "laravel/framework": "^10.14",
         "laravel/telescope": "^4.15",
