@@ -14,7 +14,7 @@ final class LoginTest extends TestCase
     {
         $this->asUser()
             ->post('login')
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('bajki');
 
         $this->assertAuthenticated();
@@ -26,7 +26,7 @@ final class LoginTest extends TestCase
         $this->from('login')
             ->post('login', ['password' => 'password'])
             ->assertSessionHasErrors('username')
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('login');
 
         $this->assertGuest();
@@ -38,7 +38,7 @@ final class LoginTest extends TestCase
         $this->from('login')
             ->post('login', ['username' => 'gracjan'])
             ->assertSessionHasErrors('password')
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('login');
 
         $this->assertGuest();
@@ -53,7 +53,7 @@ final class LoginTest extends TestCase
                 'password' => 'hasło',
             ])
             ->assertSessionHasErrors('username')
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('login');
 
         $this->assertGuest();
@@ -72,7 +72,7 @@ final class LoginTest extends TestCase
                 'password' => 'wrong',
             ])
             ->assertSessionHasErrors('username')
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('login');
 
         $this->assertGuest();
@@ -91,7 +91,7 @@ final class LoginTest extends TestCase
             'password' => 'secret',
         ])
             ->assertSessionHasNoErrors()
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('bajki');
 
         $this->assertAuthenticatedAs($user);

@@ -25,6 +25,6 @@ final class ViewArtistTest extends TestCase
     #[TestDox('it returns 404 when attempting to view nonexistent artist')]
     public function test404(): void
     {
-        $this->get('artysci/nonexistent-artist')->assertStatus(404);
+        $this->get('artysci/nonexistent-artist')->assertNotFound();
     }
 }

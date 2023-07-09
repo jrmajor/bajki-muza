@@ -20,7 +20,7 @@ final class LogoutTest extends TestCase
     {
         $this->asUser()
             ->post('logout')
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('bajki');
     }
 
@@ -28,7 +28,7 @@ final class LogoutTest extends TestCase
     public function testUnauthenticated(): void
     {
         $this->post('logout')
-            ->assertStatus(302)
+            ->assertFound()
             ->assertRedirect('bajki');
     }
 }
