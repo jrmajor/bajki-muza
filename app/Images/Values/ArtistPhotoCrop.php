@@ -42,8 +42,7 @@ final class ArtistPhotoCrop implements Arrayable, Castable
      */
     public static function castUsing(array $arguments): CastsAttributes
     {
-        return new class implements CastsAttributes
-        {
+        return new class implements CastsAttributes {
             /**
              * @param array<string, mixed> $attributes
              */

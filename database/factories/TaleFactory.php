@@ -76,7 +76,7 @@ class TaleFactory extends Factory
         return $this->state(['cover_filename' => null]);
     }
 
-    public function cover(string|Cover $cover = null): static
+    public function cover(string|Cover|null $cover = null): static
     {
         if (! $cover instanceof Cover) {
             $cover = Cover::create(['filename' => $cover ?? 'test.jpg']);
