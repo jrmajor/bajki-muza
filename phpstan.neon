@@ -25,10 +25,6 @@ parameters:
             message: '#^Method App\\Images\\.* should return list<int<1, max>> but returns list<int>\.$#'
             count: 2
             path: app/Images
-        -
-            message: '#^Match expression does not handle remaining value: array{bool, bool}$#'
-            count: 1
-            path: tests/Unit/Services/DiscogsTest.php
     tmpDir: .cache/phpstan
 
 includes:
