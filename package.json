@@ -16,8 +16,6 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4",
-    "eslint": "^7.32",
-    "eslint-config-spatie": "^2.0",
     "laravel-vite-plugin": "^0.7.8",
     "postcss": "^8.4",
     "vite": "^4.4"
