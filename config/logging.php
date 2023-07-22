@@ -1,44 +1,40 @@
 <?php
 
-use Monolog\Handler\NullHandler;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\SyslogUdpHandler;
-use Monolog\Processor\PsrLogMessageProcessor;
-
 return [
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => 'errors',
 
     'deprecations' => [
-        'channel' => env('LOG_DEPRECATIONS_CHANNEL', 'null'),
+        'channel' => 'deprecations',
         'trace' => false,
     ],
 
     'channels' => [
-        'stack' => [
+        'errors' => [
             'driver' => 'stack',
-            'channels' => ['single', 'larabug'],
+            'channels' => ['daily_errors', 'larabug'],
             'ignore_exceptions' => false,
         ],
 
-        'single' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
-            'replace_placeholders' => true,
+        'deprecations' => [
+            'driver' => 'stack',
+            'channels' => ['daily_deprecations', 'larabug'],
+            'ignore_exceptions' => false,
         ],
 
-        'daily' => [
+        'daily_errors' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
+            'path' => storage_path('logs/errors.log'),
+            'level' => 'debug',
             'days' => 14,
             'replace_placeholders' => true,
         ],
 
-        'errorlog' => [
-            'driver' => 'errorlog',
-            'level' => env('LOG_LEVEL', 'debug'),
+        'daily_deprecations' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/deprecations.log'),
+            'level' => 'debug',
+            'days' => 14,
             'replace_placeholders' => true,
         ],
 
