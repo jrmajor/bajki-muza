@@ -5,6 +5,7 @@ return [
     'default' => env('MAIL_MAILER', 'smtp'),
 
     'mailers' => [
+
         'smtp' => [
             'transport' => 'smtp',
             'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
@@ -52,6 +53,7 @@ return [
             'transport' => 'failover',
             'mailers' => ['smtp', 'log'],
         ],
+
     ],
 
     'from' => [

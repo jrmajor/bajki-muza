@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
-    'name' => env('APP_NAME', 'Bajki Polskich Nagrań „Muza”'),
+    'name' => 'Bajki Polskich Nagrań „Muza”',
 
     'env' => env('APP_ENV', 'production'),
     'debug' => (bool) env('APP_DEBUG', false),
@@ -14,7 +14,6 @@ return [
     'asset_url' => env('ASSET_URL'),
 
     'timezone' => 'Europe/Warsaw',
-
     'locale' => 'pl',
     'fallback_locale' => 'pl',
     'faker_locale' => 'pl_PL',
