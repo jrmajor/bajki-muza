@@ -1,8 +1,9 @@
-const colors = require('tailwindcss/colors')
-const defaultTheme = require('tailwindcss/defaultTheme')
+import defaultTheme from 'tailwindcss/defaultTheme';
+import colors from 'tailwindcss/colors';
+import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     './resources/views/**/*.blade.php',
     './app/View/Components/**/*.php',
@@ -66,7 +67,5 @@ module.exports = {
     },
   },
   darkMode: 'media',
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
+  plugins: [forms],
 }
