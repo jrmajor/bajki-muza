@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Tale;
 use Illuminate\Contracts\View\View;
@@ -17,10 +17,10 @@ class Tales extends Component
     /** @phpstan-var numeric-string|'' */
     public string $discogs = '';
 
-    /** @var array<string, array{except: mixed}> */
+    /** @var list<string> */
     protected $queryString = [
-        'search' => ['except' => ''],
-        'discogs' => ['except' => ''],
+        'search',
+        'discogs',
     ];
 
     public function mount(): void

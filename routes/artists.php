@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ArtistController;
-use App\Http\Livewire\Artists;
+use App\Livewire\Artists;
 use Illuminate\Support\Facades\Route;
 
 Route::get('artysci', Artists::class)

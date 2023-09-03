@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\TaleController;
-use App\Http\Livewire\Tales;
+use App\Livewire\Tales;
 use Illuminate\Support\Facades\Route;
 
 Route::get('bajki', Tales::class)

@@ -28,7 +28,7 @@
       @vite(['resources/css/style.css', 'resources/js/app.js'])
     @endunless
 
-    @stack('scripts')
+    @livewireScriptConfig
 
     @if (config('services.fathom.id'))
       <script src="https://cdn.usefathom.com/script.js" data-site="{{ config('services.fathom.id') }}" defer></script>

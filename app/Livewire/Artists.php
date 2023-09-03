@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Artist;
 use Illuminate\Contracts\View\View;
@@ -20,11 +20,11 @@ class Artists extends Component
     /** @phpstan-var numeric-string|'' */
     public string $max = '';
 
-    /** @var array<string, array{except: mixed}> */
+    /** @var list<string> */
     protected $queryString = [
-        'search' => ['except' => ''],
-        'min' => ['except' => ''],
-        'max' => ['except' => ''],
+        'search',
+        'min',
+        'max',
     ];
 
     public function mount(): void

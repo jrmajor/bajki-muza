@@ -10,8 +10,8 @@ window.transitionLazyLoadedImages = () => {
 
 window.transitionLazyLoadedImages()
 
-document.addEventListener('livewire:load', () => {
-  window.livewire.hook('message.processed', () => {
+document.addEventListener('livewire:init', () => {
+  Livewire.hook('message.processed', () => {
     window.transitionLazyLoadedImages()
   })
 })

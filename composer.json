@@ -18,7 +18,7 @@
         "laravel/telescope": "^4.16",
         "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.12",
-        "livewire/livewire": "^2.12",
+        "livewire/livewire": "^3.0",
         "nesbot/carbon": "^2.69",
         "nunomaduro/curryable": "dev-master#c3c17b3",
         "ohdearapp/ohdear-php-sdk": "^3.6",
