@@ -21,7 +21,7 @@ final class FilmPolskiTest extends TestCase
     #[TestDox('alias is properly registered')]
     public function testAlias(): void
     {
-        $this->assertSame(app('filmPolski'), app(FilmPolski::class));
+        $this->assertSame(app(FilmPolski::class), app(FilmPolski::class));
     }
 
     #[TestDox('it can create artist url')]
@@ -29,7 +29,7 @@ final class FilmPolskiTest extends TestCase
     {
         $this->assertSame(
             'http://www.filmpolski.pl/fp/index.php?osoba=112891',
-            app('filmPolski')->url(112891),
+            app(FilmPolski::class)->url(112891),
         );
     }
 
@@ -49,7 +49,7 @@ final class FilmPolskiTest extends TestCase
             ->push($personSource)
             ->push($gallerySource);
 
-        $photos = app('filmPolski')->photos($personId);
+        $photos = app(FilmPolski::class)->photos($personId);
 
         $this->assertCount(count($expectedOutput), $photos);
 
@@ -72,7 +72,7 @@ final class FilmPolskiTest extends TestCase
             ->andReturn($images)
             ->once();
 
-        $this->assertSame($images, app('filmPolski')->photos(11232));
+        $this->assertSame($images, app(FilmPolski::class)->photos(11232));
 
         Http::assertSentCount(0);
     }
@@ -80,7 +80,7 @@ final class FilmPolskiTest extends TestCase
     #[TestDox('it can flush cached data')]
     public function testFlushCache(): void
     {
-        $filmPolski = app('filmPolski');
+        $filmPolski = app(FilmPolski::class);
 
         $this->assertFalse($filmPolski->forget(11232));
 

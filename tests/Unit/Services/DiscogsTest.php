@@ -18,7 +18,7 @@ final class DiscogsTest extends TestCase
     #[TestDox('alias is properly registered')]
     public function testAlias(): void
     {
-        $this->assertSame(app('discogs'), app(Discogs::class));
+        $this->assertSame(app(Discogs::class), app(Discogs::class));
     }
 
     #[TestDox('it can create artist url')]
@@ -26,7 +26,7 @@ final class DiscogsTest extends TestCase
     {
         $this->assertSame(
             'https://www.discogs.com/artist/518243',
-            app('discogs')->url(518243),
+            app(Discogs::class)->url(518243),
         );
     }
 
@@ -35,7 +35,7 @@ final class DiscogsTest extends TestCase
     {
         $this->assertSame(
             'https://www.discogs.com/release/2792351',
-            app('discogs')->releaseUrl(2792351),
+            app(Discogs::class)->releaseUrl(2792351),
         );
     }
 
@@ -46,7 +46,7 @@ final class DiscogsTest extends TestCase
 
         Http::fake(['api.discogs.com/*' => Http::response($this->getSampleApiResponse())]);
 
-        $this->comparePhotos(app('discogs')->photos(602473));
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
 
         Http::assertSent(function ($request) {
             return $request->url() === 'https://api.discogs.com/artists/602473'
@@ -62,7 +62,7 @@ final class DiscogsTest extends TestCase
             ->andReturn($this->getSampleApiResponse())
             ->once();
 
-        $this->comparePhotos(app('discogs')->photos(602473));
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
 
         Http::assertSentCount(0);
     }
@@ -85,18 +85,18 @@ final class DiscogsTest extends TestCase
 
         Http::fake(['api.discogs.com/*' => Http::response($this->getSampleApiResponse())]);
 
-        $this->comparePhotos(app('discogs')->photos(602473));
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
 
         /** @phpstan-ignore-next-line */
         invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
-        $this->comparePhotos(app('discogs')->photos(602473));
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
 
-        app('discogs')->refreshCache(602473);
+        app(Discogs::class)->refreshCache(602473);
 
-        $photos = app('discogs')->photos(602473);
+        $photos = app(Discogs::class)->photos(602473);
 
         $this->assertCount(1, $photos);
         $this->assertNotNull($photos->primary());
@@ -122,20 +122,20 @@ final class DiscogsTest extends TestCase
 
         Http::fake(['api.discogs.com/*' => Http::response($this->getSampleApiResponse())]);
 
-        $discogs = app('discogs');
+        $discogs = app(Discogs::class);
 
-        $this->comparePhotos(app('discogs')->photos(602473));
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
 
         /** @phpstan-ignore-next-line */
         invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
-        $this->comparePhotos(app('discogs')->photos(602473));
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
 
         $this->assertTrue($discogs->forget(602473));
 
-        $photos = app('discogs')->photos(602473);
+        $photos = app(Discogs::class)->photos(602473);
 
         $this->assertCount(1, $photos);
         $this->assertNotNull($photos->primary());

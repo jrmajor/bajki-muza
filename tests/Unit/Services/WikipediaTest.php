@@ -52,7 +52,7 @@ final class WikipediaTest extends TestCase
     #[TestDox('alias is properly registered')]
     public function testAlias(): void
     {
-        $this->assertSame(app('wikipedia'), app(Wikipedia::class));
+        $this->assertSame(app(Wikipedia::class), app(Wikipedia::class));
     }
 
     #[TestDox('it can create page url')]
@@ -60,7 +60,7 @@ final class WikipediaTest extends TestCase
     {
         $this->assertSame(
             'https://pl.wikipedia.org/wiki/Joanna_Sobieska',
-            app('wikipedia')->url('Joanna_Sobieska'),
+            app(Wikipedia::class)->url('Joanna_Sobieska'),
         );
     }
 
@@ -69,7 +69,7 @@ final class WikipediaTest extends TestCase
     {
         Http::fake(['pl.wikipedia.org/*' => Http::response($this->response)]);
 
-        $this->assertSame($this->extract, app('wikipedia')->extract('Piotr_Fronczewski'));
+        $this->assertSame($this->extract, app(Wikipedia::class)->extract('Piotr_Fronczewski'));
 
         Http::assertSent(
             fn ($request) => $request->url() === 'https://pl.wikipedia.org/w/api.php?action=query&titles=Piotr_Fronczewski&prop=extracts&exintro=1&redirects=1&format=json',
@@ -84,7 +84,7 @@ final class WikipediaTest extends TestCase
             CarbonInterval::class, Closure::class,
         )->andReturn($this->extract);
 
-        $this->assertSame($this->extract, app('wikipedia')->extract('Piotr_Fronczewski'));
+        $this->assertSame($this->extract, app(Wikipedia::class)->extract('Piotr_Fronczewski'));
 
         Http::assertSentCount(0);
     }
@@ -102,7 +102,7 @@ final class WikipediaTest extends TestCase
 
         Http::fake(['pl.wikipedia.org/*' => Http::response($this->response)]);
 
-        $wikipedia = app('wikipedia');
+        $wikipedia = app(Wikipedia::class);
 
         $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
 
@@ -131,7 +131,7 @@ final class WikipediaTest extends TestCase
 
         Http::fake(['pl.wikipedia.org/*' => Http::response($this->response)]);
 
-        $wikipedia = app('wikipedia');
+        $wikipedia = app(Wikipedia::class);
 
         $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
 

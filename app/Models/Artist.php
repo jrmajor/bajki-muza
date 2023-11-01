@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Images\Photo;
+use App\Services\Discogs;
+use App\Services\FilmPolski;
+use App\Services\Wikipedia;
 use App\Values\CreditType;
 use App\Values\Discogs\DiscogsPhotos;
 use App\Values\FilmPolski\PhotoGroup;
@@ -71,17 +74,17 @@ final class Artist extends Model
 
     public function getDiscogsUrlAttribute(): ?string
     {
-        return $this->discogs ? app('discogs')->url($this->discogs) : null;
+        return $this->discogs ? app(Discogs::class)->url($this->discogs) : null;
     }
 
     public function getFilmpolskiUrlAttribute(): ?string
     {
-        return $this->filmpolski ? app('filmPolski')->url($this->filmpolski) : null;
+        return $this->filmpolski ? app(FilmPolski::class)->url($this->filmpolski) : null;
     }
 
     public function getWikipediaUrlAttribute(): ?string
     {
-        return $this->wikipedia ? app('wikipedia')->url($this->wikipedia) : null;
+        return $this->wikipedia ? app(Wikipedia::class)->url($this->wikipedia) : null;
     }
 
     public function photo(): BelongsTo
@@ -95,12 +98,12 @@ final class Artist extends Model
             return null;
         }
 
-        return app('wikipedia')->extract($this->wikipedia);
+        return app(Wikipedia::class)->extract($this->wikipedia);
     }
 
     public function discogsPhotos(): DiscogsPhotos
     {
-        return $this->discogs ? app('discogs')->photos($this->discogs) : new DiscogsPhotos([]);
+        return $this->discogs ? app(Discogs::class)->photos($this->discogs) : new DiscogsPhotos([]);
     }
 
     /**
@@ -108,7 +111,7 @@ final class Artist extends Model
      */
     public function filmPolskiPhotos(): array
     {
-        return $this->filmpolski ? app('filmPolski')->photos($this->filmpolski) : [];
+        return $this->filmpolski ? app(FilmPolski::class)->photos($this->filmpolski) : [];
     }
 
     public function discogsPhoto(string $type = 'normal'): ?string
@@ -178,22 +181,22 @@ final class Artist extends Model
     public function refreshCache(): void
     {
         if ($this->discogs) {
-            app('discogs')->refreshCache($this->discogs);
+            app(Discogs::class)->refreshCache($this->discogs);
         }
 
         if ($this->filmpolski) {
-            app('filmPolski')->refreshCache($this->filmpolski);
+            app(FilmPolski::class)->refreshCache($this->filmpolski);
         }
 
         if ($this->wikipedia) {
-            app('wikipedia')->refreshCache($this->wikipedia);
+            app(Wikipedia::class)->refreshCache($this->wikipedia);
         }
     }
 
     public function flushCache(): bool
     {
-        return ($this->discogs ? app('discogs')->forget($this->discogs) : true)
-            && ($this->filmpolski ? app('filmPolski')->forget($this->filmpolski) : true)
-            && ($this->wikipedia ? app('wikipedia')->forget($this->wikipedia) : true);
+        return ($this->discogs ? app(Discogs::class)->forget($this->discogs) : true)
+            && ($this->filmpolski ? app(FilmPolski::class)->forget($this->filmpolski) : true)
+            && ($this->wikipedia ? app(Wikipedia::class)->forget($this->wikipedia) : true);
     }
 }
