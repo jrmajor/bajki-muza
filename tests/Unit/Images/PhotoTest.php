@@ -164,7 +164,6 @@ final class PhotoTest extends TestCase
             'crop' => ArtistPhotoCrop::fake(),
         ]);
 
-        /** @var Collection<int, Artist> $artists */
         $artists = Artist::factory(2)->photo($photo)->create();
 
         $photo->refresh();

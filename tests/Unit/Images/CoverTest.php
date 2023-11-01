@@ -65,7 +65,6 @@ final class CoverTest extends TestCase
             'filename' => 'tXySLaaEbhfyzLXm6QggZY5VSFulyN2xLp4OgYSy.png',
         ]);
 
-        /** @var Collection<int, Tale> $tales */
         $tales = Tale::factory(2)->cover($cover)->create();
 
         $cover->refresh();
