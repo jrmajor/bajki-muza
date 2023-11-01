@@ -98,7 +98,7 @@ final class CreateTaleTest extends TestCase
             ->post('bajki', $attributes)
             ->assertRedirect('bajki/o-dwoch-takich-co-ukradli-ksiezyc');
 
-        $tale = Tale::first();
+        $tale = Tale::firstOrFail();
 
         foreach ($this->attributes as $key => $attribute) {
             $this->assertSame($attribute, $tale->{$key});
