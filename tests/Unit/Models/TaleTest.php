@@ -8,7 +8,6 @@ use App\Models\Tale;
 use App\Services\Discogs;
 use App\Values\CreditData;
 use App\Values\CreditType;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
