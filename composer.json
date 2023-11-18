@@ -17,7 +17,7 @@
         "laravel/framework": "^10.31",
         "laravel/telescope": "^4.17",
         "laravel/tinker": "^2.8",
-        "league/flysystem-aws-s3-v3": "^3.19",
+        "league/flysystem-aws-s3-v3": "^3.21",
         "livewire/livewire": "^3.1",
         "nesbot/carbon": "^2.71",
         "nunomaduro/curryable": "dev-master#c3c17b3",
