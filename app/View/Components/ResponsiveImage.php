@@ -22,7 +22,6 @@ class ResponsiveImage extends Component
             throw new InvalidArgumentException('No $imageSize provided while using string size.');
         }
 
-        /** @phpstan-ignore-next-line */
         $this->imageSize = $imageSize ?? $size * 4;
 
         $this->class = "w-{$size} h-{$size} object-center object-cover transition-opacity duration-300 opacity-0";
