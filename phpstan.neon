@@ -22,10 +22,6 @@ parameters:
         - '#^Call to an undefined method Illuminate\\Testing\\TestResponse::assertSeeLivewire\(\)\.$#'
         - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Cannot call method assertExitCode\(\) on Illuminate\\Testing\\PendingCommand\|int\.$#'
-        -
-            message: '#^Method App\\Images\\.* should return list<int<1, max>> but returns list<int>\.$#'
-            count: 2
-            path: app/Images
     tmpDir: .cache/phpstan
 
 includes:
