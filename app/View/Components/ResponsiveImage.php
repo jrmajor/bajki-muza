@@ -24,7 +24,7 @@ class ResponsiveImage extends Component
 
         $this->imageSize = $imageSize ?? $size * 4;
 
-        $this->class = "w-{$size} h-{$size} object-center object-cover transition-opacity duration-300 opacity-0";
+        $this->class = "size-{$size} object-center object-cover transition-opacity duration-300 opacity-0";
     }
 
     public function render(): string

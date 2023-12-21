@@ -78,16 +78,16 @@
     <input type="hidden" name="remove_cover" :value="cover.remove ? 1 : 0">
     <div class="flex gap-5">
       <label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
-        <div class="flex-none w-10 h-10 bg-placeholder-cover">
+        <div class="flex-none size-10 bg-placeholder-cover">
           @if ($tale->cover)
             <img src="{{ $tale->cover->url(128) }}"
-              class="object-cover w-10 h-10 bg-cover"
+              class="object-cover size-10 bg-cover"
               style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)"
               x-show="cover.file === '' && cover.remove == false">
           @endif
           <template x-if="cover.file !== ''">
             <img :src="cover.preview"
-              class="object-cover w-10 h-10">
+              class="object-cover size-10">
           </template>
         </div>
         <span class="py-2 px-3">
@@ -142,7 +142,7 @@
       </div>
       <div class="flex absolute top-0 right-0 items-center h-full">
         <button type="button" x-on:click="addCredit()"
-          class="flex justify-center items-center w-5 h-5 text-green-100 bg-green-500 rounded-full dark:bg-green-600 focus:bg-green-700">
+          class="flex justify-center items-center size-5 text-green-100 bg-green-500 rounded-full dark:bg-green-600 focus:bg-green-700">
           <span>+</span>
         </button>
       </div>
@@ -169,7 +169,7 @@
               class="w-8 px-1.5 py-1.5 text-center text-sm font-bold form-input">
           </div>
           <button type="button" x-on:click="removeArtist('credits', index)"
-            class="flex flex-none justify-center items-center w-5 h-5 text-red-100 bg-red-500 rounded-full dark:bg-red-600 focus:bg-red-700">
+            class="flex flex-none justify-center items-center size-5 text-red-100 bg-red-500 rounded-full dark:bg-red-600 focus:bg-red-700">
             <span>-</span>
           </button>
         </div>
@@ -188,7 +188,7 @@
       </div>
       <div class="flex absolute top-0 right-0 items-center h-full">
         <button type="button" x-on:click="addActor()"
-          class="flex justify-center items-center w-5 h-5 text-green-100 bg-green-500 rounded-full dark:bg-green-600 focus:bg-green-700">
+          class="flex justify-center items-center size-5 text-green-100 bg-green-500 rounded-full dark:bg-green-600 focus:bg-green-700">
           <span>+</span>
         </button>
       </div>
@@ -221,7 +221,7 @@
               class="w-full form-input">
           </div>
           <button type="button" x-on:click="removeArtist('actors', index)"
-            class="flex flex-none justify-center items-center w-5 h-5 text-red-100 bg-red-500 rounded-full dark:bg-red-600 focus:bg-red-700">
+            class="flex flex-none justify-center items-center size-5 text-red-100 bg-red-500 rounded-full dark:bg-red-600 focus:bg-red-700">
             <span>-</span>
           </button>
         </div>

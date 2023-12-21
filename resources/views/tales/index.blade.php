@@ -7,7 +7,7 @@
     @forelse ($tales as $tale)
       <a href="{{ route('tales.show', $tale) }}" wire:key="{{ $tale->id }}"
         class="flex overflow-hidden items-center w-full h-32 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900">
-        <div class="flex-none w-32 h-32 bg-placeholder-cover"
+        <div class="flex-none size-32 bg-placeholder-cover"
           @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)" @endif
           >
           @if ($tale->cover)

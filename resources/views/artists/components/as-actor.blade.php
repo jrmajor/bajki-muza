@@ -6,7 +6,7 @@
     @foreach ($artist->asActor as $tale)
       <a href="{{ route('tales.show', $tale) }}"
         class="flex overflow-hidden items-center w-full bg-gray-50 rounded-lg shadow-lg h-15 dark:bg-gray-900">
-        <div class="flex-none bg-placeholder-cover w-15 h-15"
+        <div class="flex-none bg-placeholder-cover size-15"
           @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)" @endif
           >
           @if ($tale->cover)

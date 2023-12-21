@@ -7,15 +7,15 @@
     @forelse ($artists as $artist)
       <a href="{{ route('artists.show', $artist) }}" wire:key="{{ $artist->id }}"
         class="flex overflow-hidden items-center w-full h-12 bg-gray-50 rounded-lg shadow-lg sm:h-14 dark:bg-gray-900">
-        <div class="flex-none w-12 h-12 bg-placeholder-artist sm:w-14 sm:h-14"
+        <div class="flex-none size-12 bg-placeholder-artist sm:size-14"
           @if ($artist->photo) style="background-image: url(&quot;{{ $artist->photo->facePlaceholder() }}&quot;)" @endif
           >
           @if ($artist->photo)
             <x-responsive-image :image="$artist->photo" :size="14"
-              class="w-12 h-12 sm:w-14 sm:h-14"/>
+              class="size-12 sm:size-14"/>
           @elseif ($artist->discogsPhoto() && Auth::guest())
             <img src="{{ $artist->discogsPhoto('thumb') }}"
-              class="object-cover w-12 h-12 sm:w-14 sm:h-14 grayscale">
+              class="object-cover size-12 sm:size-14 grayscale">
           @endif
         </div>
         <div class="flex-grow p-2 pl-3">

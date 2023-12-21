@@ -20,7 +20,7 @@
     </div>
 
     <div class="overflow-hidden flex-none self-center mt-5 mb-2 rounded-lg shadow-lg sm:my-0 sm:mr-6">
-      <div class="w-48 h-48 bg-placeholder-cover"
+      <div class="size-48 bg-placeholder-cover"
         @if ($tale->cover) style="background-image: url(&quot;{{ $tale->cover->placeholder() }}&quot;)" @endif
       >
         @if ($tale->cover)

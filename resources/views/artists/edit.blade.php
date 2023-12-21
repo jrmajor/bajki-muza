@@ -169,9 +169,9 @@
         <input type="hidden" name="photo_uri" :value="photo.activePicker === 'uri' ? photo.uri : ''">
         <div class="flex gap-5">
           <label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
-            <div class="flex-none w-10 h-10 bg-placeholder-artist">
+            <div class="flex-none size-10 bg-placeholder-artist">
               <template x-if="photo.uri !== null">
-                <img :src="photo.uri" class="object-cover w-10 h-10">
+                <img :src="photo.uri" class="object-cover size-10">
               </template>
             </div>
             <span class="py-2 px-3">
