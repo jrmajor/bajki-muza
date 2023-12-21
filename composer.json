@@ -27,7 +27,7 @@
         "spatie/laravel-schedule-monitor": "^3.4",
         "spatie/laravel-sluggable": "^3.5",
         "spatie/temporary-directory": "^2.2",
-        "symfony/css-selector": "^6.4",
+        "symfony/css-selector": "^7.0",
         "symfony/dom-crawler": "^7.0",
         "tightenco/ziggy": "^1.8"
     },
