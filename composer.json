@@ -22,7 +22,7 @@
         "nesbot/carbon": "^2.72",
         "nunomaduro/curryable": "dev-master#c3c17b3",
         "ohdearapp/ohdear-php-sdk": "^3.10",
-        "spatie/image": "^2.2",
+        "spatie/image": "^3.2",
         "spatie/laravel-collection-macros": "^7.13",
         "spatie/laravel-schedule-monitor": "^3.4",
         "spatie/laravel-sluggable": "^3.5",
