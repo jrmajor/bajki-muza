@@ -12,7 +12,7 @@ use Psl\File;
 use Psl\Filesystem;
 use Psl\Math;
 use Psl\Type;
-use Spatie\Image\Manipulations;
+use Spatie\Image\Enums\Fit;
 
 final class ImageProcessor
 {
@@ -85,7 +85,7 @@ final class ImageProcessor
         };
 
         match ($fit) {
-            FitMethod::Square => $image->fit(Manipulations::FIT_CROP, 32, 32),
+            FitMethod::Square => $image->fit(Fit::Crop, 32, 32),
             FitMethod::Height => $image->height(32),
         };
 
@@ -118,7 +118,7 @@ final class ImageProcessor
         $image = Image::load($this->path)->optimize();
 
         match ($fit) {
-            FitMethod::Square => $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize),
+            FitMethod::Square => $image->fit(Fit::Crop, $targetSize, $targetSize),
             FitMethod::Height => $image->height($targetSize),
         };
 
