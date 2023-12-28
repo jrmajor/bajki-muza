@@ -59,6 +59,8 @@ final class ImageProcessor
 
         $target->close();
 
+        clearstatcache();
+
         return $path;
     }
 
