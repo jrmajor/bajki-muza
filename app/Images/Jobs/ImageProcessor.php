@@ -69,7 +69,7 @@ final class ImageProcessor
      */
     public function dimensions(): array
     {
-        $image = Image::load($this->path);
+        $image = Image::useImageDriver('gd')->loadFile($this->path);
 
         return ['width' => $image->getWidth(), 'height' => $image->getHeight()];
     }
@@ -79,7 +79,7 @@ final class ImageProcessor
      */
     public function generateTinyJpg(FitMethod $fit): string
     {
-        $image = Image::load($this->path);
+        $image = Image::useImageDriver('gd')->loadFile($this->path);
 
         $originalWidth = (int) match ($fit) {
             FitMethod::Square => 32,
@@ -117,7 +117,7 @@ final class ImageProcessor
      */
     public function responsiveImage(int $targetSize, FitMethod $fit): string
     {
-        $image = Image::load($this->path)->optimize();
+        $image = Image::useImageDriver('gd')->loadFile($this->path)->optimize();
 
         match ($fit) {
             FitMethod::Square => $image->fit(Fit::Crop, $targetSize, $targetSize),
@@ -131,7 +131,7 @@ final class ImageProcessor
 
     public function cropImage(ArtistImageCrop $crop, bool $grayscale): self
     {
-        Image::load($this->path)
+        Image::useImageDriver('gd')->loadFile($this->path)
             ->manualCrop(...$crop->toArray())
             ->when($grayscale, fn (Image $i) => $i->greyscale())
             ->save($path = Filesystem\create_temporary_file());
@@ -141,7 +141,7 @@ final class ImageProcessor
 
     public function cropFace(ArtistFaceCrop $crop, bool $grayscale): self
     {
-        Image::load($this->path)
+        Image::useImageDriver('gd')->loadFile($this->path)
             ->manualCrop($crop->size, $crop->size, $crop->x, $crop->y)
             ->when($grayscale, fn (Image $i) => $i->greyscale())
             ->save($path = Filesystem\create_temporary_file());
