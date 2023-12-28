@@ -20,17 +20,35 @@ final class ImageProcessor
     private string $path;
 
     /**
-     * @param resource|non-empty-string $baseImage
+     * @param resource $imageStream
      */
-    public function __construct($baseImage)
+    public function __construct(
+        $imageStream,
+        private string $extension,
+    ) {
+        $imageStream = Type\resource('stream')->coerce($imageStream);
+
+        $this->path = $this->copyToTemporaryDirectory($imageStream);
+    }
+
+    /**
+     * @param non-empty-string $imagePath
+     */
+    public static function fromPath(string $imagePath): self
     {
-        if (Type\string()->matches($baseImage)) {
-            $baseImage = fopen($baseImage, 'r');
+        if (! $stream = fopen($imagePath, 'r')) {
+            throw new Exception("Failed to fopen the image at {$imagePath}.");
         }
 
-        $baseImage = Type\resource('stream')->coerce($baseImage);
+        if (! $extension = Filesystem\get_extension($imagePath)) {
+            throw new Exception("Failed to get file extension from path {$imagePath}.");
+        }
 
-        $this->path = $this->copyToTemporaryDirectory($baseImage);
+        $instance = new self($stream, $extension);
+
+        fclose($stream);
+
+        return $instance;
     }
 
     /**
@@ -91,7 +109,7 @@ final class ImageProcessor
             FitMethod::Height => $image->height(32),
         };
 
-        $file = Filesystem\create_temporary_file();
+        $file = $this->createTemporaryFile();
 
         try {
             $image->blur(5)->save($file);
@@ -124,7 +142,7 @@ final class ImageProcessor
             FitMethod::Height => $image->height($targetSize),
         };
 
-        $image->save($file = Filesystem\create_temporary_file());
+        $image->save($file = $this->createTemporaryFile());
 
         return $file;
     }
@@ -134,9 +152,9 @@ final class ImageProcessor
         Image::useImageDriver('gd')->loadFile($this->path)
             ->manualCrop(...$crop->toArray())
             ->when($grayscale, fn (Image $i) => $i->greyscale())
-            ->save($path = Filesystem\create_temporary_file());
+            ->save($path = $this->createTemporaryFile());
 
-        return new self($path);
+        return self::fromPath($path);
     }
 
     public function cropFace(ArtistFaceCrop $crop, bool $grayscale): self
@@ -144,9 +162,17 @@ final class ImageProcessor
         Image::useImageDriver('gd')->loadFile($this->path)
             ->manualCrop($crop->size, $crop->size, $crop->x, $crop->y)
             ->when($grayscale, fn (Image $i) => $i->greyscale())
-            ->save($path = Filesystem\create_temporary_file());
+            ->save($path = $this->createTemporaryFile());
 
-        return new self($path);
+        return self::fromPath($path);
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    private function createTemporaryFile(): string
+    {
+        return Filesystem\create_temporary_file() . '.' . $this->extension;
     }
 
     public function __destruct()
