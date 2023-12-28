@@ -32,7 +32,7 @@ class StoreArtist extends FormRequest
             'photo_crop.image.height' => ['integer'],
             'photo_grayscale' => ['boolean'],
             'photo_source' => ['string', 'max:128', 'nullable'],
-            'photo_uri' => ['string', 'ends_with:.jpg', 'nullable'],
+            'photo_uri' => ['string', 'ends_with:.jpg,.jpeg', 'nullable'],
             'remove_photo' => ['boolean', 'nullable'],
         ];
     }
