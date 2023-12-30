@@ -10,7 +10,7 @@ final class RefreshArtistsCache extends Command
 {
     protected $signature = 'artist-cache:refresh';
 
-    protected $description = 'Remove unused artist photos.';
+    protected $description = 'Refresh cached data from external services.';
 
     public function handle(): void
     {
