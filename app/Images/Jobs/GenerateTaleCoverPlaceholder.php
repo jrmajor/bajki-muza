@@ -30,7 +30,7 @@ class GenerateTaleCoverPlaceholder implements ShouldBeUnique, ShouldQueue
     public function handle(): void
     {
         $original = $this->image->readStream();
-        $imageProcessor = new ImageProcessor($original);
+        $imageProcessor = new ImageProcessor($original, $this->image->extension());
         fclose($original);
 
         $this->image->update([

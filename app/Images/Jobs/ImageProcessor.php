@@ -5,32 +5,55 @@ namespace App\Images\Jobs;
 use App\Images\Values\ArtistFaceCrop;
 use App\Images\Values\ArtistImageCrop;
 use App\Images\Values\FitMethod;
-use App\Services\Image;
 use Exception;
+use Intervention\Image as Intervention;
 use Psl\Encoding\Base64;
 use Psl\File;
 use Psl\Filesystem;
 use Psl\Math;
 use Psl\Type;
-use Spatie\Image\Manipulations;
 
 final class ImageProcessor
 {
     /** @var non-empty-string */
     private string $path;
 
-    /**
-     * @param resource|non-empty-string $baseImage
-     */
-    public function __construct($baseImage)
-    {
-        if (Type\string()->matches($baseImage)) {
-            $baseImage = fopen($baseImage, 'r');
-        }
+    private Intervention\ImageManager $manager;
 
+    /**
+     * @param resource $baseImage
+     */
+    public function __construct(
+        $baseImage,
+        private string $extension,
+    ) {
         $baseImage = Type\resource('stream')->coerce($baseImage);
 
         $this->path = $this->copyToTemporaryDirectory($baseImage);
+
+        $this->manager = new Intervention\ImageManager(
+            new Intervention\Drivers\Gd\Driver(),
+        );
+    }
+
+    /**
+     * @param non-empty-string $imagePath
+     */
+    public static function fromPath(string $imagePath): self
+    {
+        if (! $stream = fopen($imagePath, 'r')) {
+            throw new Exception("Failed to fopen the image at {$imagePath}.");
+        }
+
+        if (! $extension = Filesystem\get_extension($imagePath)) {
+            throw new Exception("Failed to get file extension from path {$imagePath}.");
+        }
+
+        $instance = new self($stream, $extension);
+
+        fclose($stream);
+
+        return $instance;
     }
 
     /**
@@ -40,10 +63,8 @@ final class ImageProcessor
      */
     private function copyToTemporaryDirectory($baseImage): string
     {
-        // $baseImage = Type\resource('stream')->coerce($baseImage);
-
         $target = File\open_write_only(
-            $path = Filesystem\create_temporary_file(),
+            $path = $this->createTemporaryFile(),
             File\WriteMode::APPEND,
         );
 
@@ -67,9 +88,9 @@ final class ImageProcessor
      */
     public function dimensions(): array
     {
-        $image = Image::load($this->path);
+        $image = $this->manager->read($this->path);
 
-        return ['width' => $image->getWidth(), 'height' => $image->getHeight()];
+        return ['width' => $image->width(), 'height' => $image->height()];
     }
 
     /**
@@ -77,22 +98,22 @@ final class ImageProcessor
      */
     public function generateTinyJpg(FitMethod $fit): string
     {
-        $image = Image::load($this->path);
+        $image = $this->manager->read($this->path);
 
         $originalWidth = (int) match ($fit) {
             FitMethod::Square => 32,
-            FitMethod::Height => Math\round($image->getWidth() / $image->getHeight() * 32),
+            FitMethod::Height => Math\round($image->width() / $image->height() * 32),
         };
 
         match ($fit) {
-            FitMethod::Square => $image->fit(Manipulations::FIT_CROP, 32, 32),
-            FitMethod::Height => $image->height(32),
+            FitMethod::Square => $image->cover(width: 32, height: 32),
+            FitMethod::Height => $image->scale(height: 32),
         };
 
-        $file = Filesystem\create_temporary_file();
+        $file = $this->createTemporaryFile();
 
         try {
-            $image->blur(5)->save($file);
+            $image->blur()->save($file);
 
             $tinyImageDataBase64 = Base64\encode(File\read($file));
         } finally {
@@ -115,36 +136,57 @@ final class ImageProcessor
      */
     public function responsiveImage(int $targetSize, FitMethod $fit): string
     {
-        $image = Image::load($this->path)->optimize();
+        $image = $this->manager->read($this->path);
 
         match ($fit) {
-            FitMethod::Square => $image->fit(Manipulations::FIT_CROP, $targetSize, $targetSize),
-            FitMethod::Height => $image->height($targetSize),
+            FitMethod::Square => $image->cover(width: $targetSize, height: $targetSize),
+            FitMethod::Height => $image->scale(height: $targetSize),
         };
 
-        $image->save($file = Filesystem\create_temporary_file());
+        $image->save($file = $this->createTemporaryFile());
 
         return $file;
     }
 
     public function cropImage(ArtistImageCrop $crop, bool $grayscale): self
     {
-        Image::load($this->path)
-            ->manualCrop(...$crop->toArray())
-            ->when($grayscale, fn (Image $i) => $i->greyscale())
-            ->save($path = Filesystem\create_temporary_file());
-
-        return new self($path);
+        return $this->manualCrop(
+            $crop->width, $crop->height,
+            $crop->x, $crop->y,
+            $grayscale,
+        );
     }
 
     public function cropFace(ArtistFaceCrop $crop, bool $grayscale): self
     {
-        Image::load($this->path)
-            ->manualCrop($crop->size, $crop->size, $crop->x, $crop->y)
-            ->when($grayscale, fn (Image $i) => $i->greyscale())
-            ->save($path = Filesystem\create_temporary_file());
+        return $this->manualCrop(
+            $crop->size, $crop->size,
+            $crop->x, $crop->y,
+            $grayscale,
+        );
+    }
 
-        return new self($path);
+    private function manualCrop(int $width, int $height, int $x, int $y, bool $grayscale): self
+    {
+        $image = $this->manager->read($this->path);
+
+        $image->crop($width, $height, $x, $y);
+
+        if ($grayscale) {
+            $image->greyscale();
+        }
+
+        $image->save($path = $this->createTemporaryFile());
+
+        return self::fromPath($path);
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    private function createTemporaryFile(): string
+    {
+        return Filesystem\create_temporary_file() . '.' . $this->extension;
     }
 
     public function __destruct()

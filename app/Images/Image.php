@@ -99,6 +99,11 @@ abstract class Image extends Model
         return $this->getAttribute('filename');
     }
 
+    public function extension(): string
+    {
+        return Filesystem\get_extension($this->filename());
+    }
+
     public function originalUrl(?Carbon $expiration = null): string
     {
         return $this->disk()->temporaryUrl(

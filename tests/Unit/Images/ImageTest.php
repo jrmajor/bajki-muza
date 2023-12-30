@@ -85,6 +85,15 @@ final class ImageTest extends TestCase
         );
     }
 
+    #[TestDox('it can get its extension')]
+    public function testExtension(): void
+    {
+        $this->assertSame(
+            'png',
+            (new TestCover(['filename' => 'testFilename.png']))->extension(),
+        );
+    }
+
     #[TestDox('it can get original url')]
     public function testOriginalUrl(): void
     {

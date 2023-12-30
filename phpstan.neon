@@ -20,7 +20,6 @@ parameters:
         - '#^Access to an undefined property App\\Models\\Tale::\$popularity\.$#'
         - '#^Call to an undefined method App\\Models\\Actor\|App\\Models\\Credit::(ofType|isCustom)\(\)\.$#'
         - '#^Call to an undefined method Illuminate\\Testing\\TestResponse::assertSeeLivewire\(\)\.$#'
-        - '#^Call to an undefined method Spatie\\Image\\Manipulations::(save|when)\(\)\.$#'
         - '#^Cannot call method assertExitCode\(\) on Illuminate\\Testing\\PendingCommand\|int\.$#'
     tmpDir: .cache/phpstan
 
