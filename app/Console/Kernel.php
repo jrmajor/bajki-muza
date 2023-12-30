@@ -11,7 +11,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // At 03:00 on Tuesday and Friday.
-        $schedule->command(RefreshArtistsCache::class)->cron('0 3 * * 2,5');
+        $schedule->command(RefreshArtistsCache::class)
+            ->days([Schedule::TUESDAY, Schedule::FRIDAY])
+            ->at('03:00')
+            ->graceTimeInMinutes(30);
     }
 
     protected function commands(): void
