@@ -1,5 +1,5 @@
-window.transitionLazyLoadedImages = () => {
-  document.body
+window.transitionLazyLoadedImages = (element) => {
+  element
     .querySelectorAll('img[loading=lazy], img[loading=eager]')
     .forEach((image) => {
       image.complete && image.classList.remove('opacity-0')
@@ -8,10 +8,10 @@ window.transitionLazyLoadedImages = () => {
     })
 }
 
-window.transitionLazyLoadedImages()
+window.transitionLazyLoadedImages(document.body)
 
 document.addEventListener('livewire:init', () => {
-  Livewire.hook('message.processed', () => {
-    window.transitionLazyLoadedImages()
+  Livewire.hook('morph.added', ({ el }) => {
+    window.transitionLazyLoadedImages(el)
   })
 })
