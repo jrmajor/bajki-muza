@@ -145,14 +145,12 @@ final class Tale extends Model
 
             // Remove some credits if artist should have less.
             while ($existingCredits->count() > $newCredits->count()) {
-                /** @phpstan-ignore-next-line */
                 $existingCredits->pop()->delete();
             }
 
             // Now that we have as many credits, as we should, we can update them.
             foreach ($newCredits as $credit) {
                 // Can't use Model::update() because Pivot::$exists = false
-                /** @phpstan-ignore-next-line */
                 $existingCredits->shift()
                     ->fill($credit->toArray())->save();
             }
