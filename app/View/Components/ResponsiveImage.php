@@ -29,13 +29,13 @@ class ResponsiveImage extends Component
 
     public function render(): string
     {
-        return <<<'blade'
+        return <<<'BLADE'
               <img {{ $attributes->merge(['loading' => 'lazy', 'class' => $class]) }}
                 src="{{ $image->url($imageSize * 2) }}"
                 srcset="
                   {{ $image->url($imageSize) }} 1x,
                   {{ $image->url($imageSize * 1.5) }} 1.5x,
                   {{ $image->url($imageSize * 2) }} 2x">
-            blade;
+            BLADE;
     }
 }
