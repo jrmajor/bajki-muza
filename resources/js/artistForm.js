@@ -1,4 +1,4 @@
-import route from 'ziggy-js'
+import { route } from 'ziggy-js'
 import artistPhotoPicker from './artistPhotoPicker'
 
 window.artistFormData = function (data) {
