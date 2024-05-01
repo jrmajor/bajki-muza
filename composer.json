@@ -16,7 +16,7 @@
         "jrmajor/laravel-fluent": "^1.1",
         "larabug/larabug": "^3.0",
         "laravel/framework": "^10.46",
-        "laravel/telescope": "^4.17",
+        "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.26",
         "livewire/livewire": "^3.4",
