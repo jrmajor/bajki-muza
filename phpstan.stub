@@ -1,5 +1,16 @@
 <?php
 
+namespace {
+    /**
+     * @param string $path
+     *
+     * @return non-empty-string
+     */
+    function base_path($path = '')
+    {
+    }
+}
+
 namespace Illuminate\Filesystem
 {
     class FilesystemAdapter
@@ -7,6 +18,7 @@ namespace Illuminate\Filesystem
         /**
          * @param string|null $directory
          * @param bool $recursive
+         *
          * @return list<string>
          */
         public function files($directory = null, $recursive = false);
