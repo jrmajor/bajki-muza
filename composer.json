@@ -13,7 +13,6 @@
         "guzzlehttp/guzzle": "^7.8",
         "intervention/image": "^3.6",
         "jrmajor/laravel-fluent": "^1.1",
-        "larabug/larabug": "^3.0",
         "laravel/framework": "^10.46",
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
