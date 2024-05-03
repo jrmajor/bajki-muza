@@ -16,8 +16,8 @@ try {
 
 $gitHash = trim($gitHash);
 
-if (strlen($gitHash) !== 6) {
-    $gitHash = 'unknown';
+if (strlen($gitHash) !== 7) {
+    $gitHash = null;
 }
 
 return [
