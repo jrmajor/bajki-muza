@@ -1,24 +1,16 @@
 <?php
 
-$app = new App\Application(
-    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__),
-);
+use App\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
 
-$app->instance(App\Application::class, $app);
-
-$app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class,
-);
-
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class,
-);
-
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class,
-);
-
-return $app;
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__ . '/../routes/routes.php',
+        commands: __DIR__ . '/../routes/console.php',
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->redirectUsersTo('/bajki');
+    })
+    ->withExceptions(function (Exceptions $exceptions) { })
+    ->create();
