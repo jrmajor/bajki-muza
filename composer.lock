@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bbe169059273c43d0a86ddab6d56de0",
+    "content-hash": "00e67ad5651af062bb17027125c3802c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3300,81 +3300,6 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.2"
             },
             "time": "2024-03-05T20:51:40+00:00"
-        },
-        {
-            "name": "nunomaduro/curryable",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nunomaduro/curryable.git",
-                "reference": "c3c17b3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/curryable/zipball/c3c17b3",
-                "reference": "c3c17b3",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "pestphp/pest": "^0.3",
-                "phpstan/phpstan": "^0.12"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "NunoMaduro\\Curryable\\Adapters\\Laravel\\CurryableServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/globals.php"
-                ],
-                "psr-4": {
-                    "NunoMaduro\\Curryable\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "An elegant and simple curry(f) implementation in PHP.",
-            "keywords": [
-                "curry",
-                "laravel",
-                "package",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/nunomaduro/curryable/issues",
-                "source": "https://github.com/nunomaduro/curryable/tree/master"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.com/paypalme/enunomaduro",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/nunomaduro",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/nunomaduro",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2021-11-21T18:23:09+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -11940,9 +11865,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "nunomaduro/curryable": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
