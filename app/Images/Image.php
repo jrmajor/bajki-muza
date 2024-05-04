@@ -4,7 +4,6 @@ namespace App\Images;
 
 use App\Images\Exceptions\OriginalDoesNotExist;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\File as LaravelFile;
@@ -51,9 +50,7 @@ abstract class Image extends Model
 
         $path = static::disk()->putFile(static::uploadPath(), $file, 'private');
 
-        if ($path === false) {
-            throw new Exception('Failed to safe a file.');
-        }
+        assert(is_string($path));
 
         /** @var static */
         return tap(
