@@ -2,6 +2,7 @@
 
 namespace App\Images;
 
+use App\Images\Exceptions\FailedToReadStream;
 use App\Images\Exceptions\OriginalDoesNotExist;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -155,7 +156,8 @@ abstract class Image extends Model
      */
     public function readStream()
     {
-        return static::disk()->readStream($this->originalPath());
+        return static::disk()->readStream($path = $this->originalPath())
+            ?? throw new FailedToReadStream($path);
     }
 
     public static function disk(): FilesystemAdapter
