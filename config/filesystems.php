@@ -2,9 +2,7 @@
 
 return [
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
-
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'media' => env('FILESYSTEM_MEDIA', 'media'),
 
     'disks' => [
 
@@ -22,14 +20,14 @@ return [
             'throw' => false,
         ],
 
-        's3' => [
+        'media' => [
             'driver' => 's3',
             'key' => env('S3_ACCESS_KEY_ID'),
             'secret' => env('S3_SECRET_ACCESS_KEY'),
             'region' => env('S3_DEFAULT_REGION'),
-            'bucket' => env('S3_BUCKET'),
+            'bucket' => env('S3_BUCKET_MEDIA'),
             'endpoint' => env('S3_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'use_path_style_endpoint' => false,
             'throw' => false,
         ],
 

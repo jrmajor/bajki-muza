@@ -16,6 +16,8 @@ return [
         'site_id' => env('OH_DEAR_SITE_ID'),
         'queue' => env('OH_DEAR_QUEUE'),
         'retry_job_for_minutes' => 10,
+        'silence_ping_oh_dear_job_in_horizon' => true,
+        'send_starting_ping' => env('OH_DEAR_SEND_STARTING_PING', false),
     ],
 
 ];

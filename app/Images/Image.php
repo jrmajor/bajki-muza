@@ -163,6 +163,6 @@ abstract class Image extends Model
 
     public static function disk(): FilesystemAdapter
     {
-        return Storage::disk(config('filesystems.cloud'));
+        return Storage::disk(config('filesystems.media'));
     }
 }
