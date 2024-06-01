@@ -62,7 +62,7 @@ class Wikipedia
                     'format' => 'json',
                 ]);
 
-                /** @phpstan-ignore-next-line */
+                /** @phpstan-ignore argument.templateType */
                 $extract = Iter\first($response['query']['pages'])['extract'] ?? null;
 
                 return $extract === null ? null : Str\trim(Html\strip_tags($extract));

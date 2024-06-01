@@ -154,7 +154,7 @@ final class Artist extends Model
      */
     public function orderedCredits(): Collection
     {
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore return.type */
         return $this->credits
             ->sortBy(fn (Tale $t) => $t->credit->type->order())
             ->groupBy(fn (Tale $t) => $t->credit->type->label());

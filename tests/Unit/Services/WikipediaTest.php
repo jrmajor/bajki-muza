@@ -106,7 +106,7 @@ final class WikipediaTest extends TestCase
 
         $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore property.notFound, argument.templateType */
         invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['pl.wikipedia.org/*' => Http::response($newResponse)]);
@@ -135,7 +135,7 @@ final class WikipediaTest extends TestCase
 
         $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore property.notFound, argument.templateType */
         invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['pl.wikipedia.org/*' => Http::response($newResponse)]);

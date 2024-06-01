@@ -87,7 +87,7 @@ final class DiscogsTest extends TestCase
 
         $this->comparePhotos(app(Discogs::class)->photos(602473));
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore property.notFound, argument.templateType */
         invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
@@ -126,7 +126,7 @@ final class DiscogsTest extends TestCase
 
         $this->comparePhotos(app(Discogs::class)->photos(602473));
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore property.notFound, argument.templateType */
         invade(Http::getFacadeRoot())->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);

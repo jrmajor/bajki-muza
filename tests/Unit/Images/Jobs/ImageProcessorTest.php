@@ -17,10 +17,10 @@ final class ImageProcessorTest extends TestCase
     public function testFromResource(): void
     {
         $originalPath = Tests\fixture('Images/cover.jpg');
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore argument.type */
         $processor = new ImageProcessor($r = fopen($originalPath, 'r'), 'jpg');
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore argument.type */
         fclose($r);
 
         $path = (new ReflectionClass(ImageProcessor::class))
