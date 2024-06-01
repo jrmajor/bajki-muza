@@ -12,9 +12,8 @@ parameters:
         - app/Services/FilmPolski.php
     stubFiles:
         - phpstan.stub
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
     ignoreErrors:
+        - identifier: missingType.generics
         - '#^Access to an undefined property App\\Models\\Actor\|App\\Models\\Credit::\$(as|characters|credit_nr|nr|type)\.$#'
         - '#^Access to an undefined property App\\Models\\Artist::\$appearances\.$#'
         - '#^Access to an undefined property App\\Models\\Tale::\$popularity\.$#'
