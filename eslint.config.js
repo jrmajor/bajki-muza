@@ -17,7 +17,9 @@ export default [
 			globals: {
 				...globals.browser,
 				...globals.node,
-				google: 'readonly',
+				PaginatedResource: 'readonly',
+				PaginationLinks: 'readonly',
+				PaginationMeta: 'readonly',
 			},
 		},
 		rules: {
