@@ -1,6 +1,6 @@
 <?php /** @var App\Models\Artist $artist */ ?>
 
-@extends('layouts.app')
+@extends('layouts.app-classic')
 
 @section('title', $artist->name)
 

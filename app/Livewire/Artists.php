@@ -60,7 +60,7 @@ class Artists extends Component
 
         return view('artists.index')
             ->with('artists', $artists)
-            ->extends('layouts.app');
+            ->extends('layouts.app-classic');
     }
 
     /**

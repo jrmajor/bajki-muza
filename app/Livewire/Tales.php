@@ -49,7 +49,7 @@ class Tales extends Component
 
         return view('tales.index')
             ->with('tales', $tales)
-            ->extends('layouts.app');
+            ->extends('layouts.app-classic');
     }
 
     /**

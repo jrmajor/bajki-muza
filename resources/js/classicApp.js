@@ -1,9 +1,11 @@
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm'
 
-import './lazyLoadTransitions'
+import '../css/style.css'
 
-import './artistForm'
-import './taleForm'
+import './classic/lazyLoadTransitions'
+
+import './classic/artistForm'
+import './classic/taleForm'
 
 window.Alpine = Alpine
 

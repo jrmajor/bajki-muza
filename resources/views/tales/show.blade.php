@@ -1,6 +1,6 @@
 <?php /** @var App\Models\Tale $tale */ ?>
 
-@extends('layouts.app')
+@extends('layouts.app-classic')
 
 @section('title', $tale->title)
 

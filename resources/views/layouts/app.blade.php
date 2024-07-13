@@ -5,37 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @hasSection('title')
-      <title>@yield('title')</title>
-    @else
-      <title>{{ config('app.name') }}</title>
-    @endif
-
-    @hasSection('meta')
-      @yield('meta')
-    @endif
-
     <meta name="theme-color" content="#ebebeb" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+
+    @yield('head')
+
+    @routes
 
     @production
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     @endproduction
-
-    @routes
-
-    @unless (app()->runningUnitTests())
-      @vite(['resources/css/style.css', 'resources/js/app.js'])
-    @endunless
-
-    @livewireScriptConfig
 
     @if (config('services.fathom.id'))
       <script src="https://cdn.usefathom.com/script.js" data-site="{{ config('services.fathom.id') }}" defer></script>
     @endif
   </head>
   <body class="font-sans text-gray-900 bg-gray-200 dark:bg-gray-950 dark:text-gray-200">
-    <div id="app" class="container flex flex-col justify-between mx-auto min-h-screen">
+    <div class="container flex flex-col justify-between mx-auto min-h-screen">
 
       <div>
         <nav class="flex gap-4 justify-center my-8">
@@ -55,7 +41,7 @@
 
         <div class="flex flex-col items-center">
           <main class="flex flex-col items-center px-5 w-full md:px-8 lg:w-3/4 xl:1/2">
-            @yield('content')
+            @yield('main')
           </main>
         </div>
       </div>
