@@ -3,13 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTale;
+use App\Http\Resources\Tales\IndexResource;
 use App\Images\Cover;
 use App\Models\Tale;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class TaleController extends Controller
 {
+    public function index(Request $request): Response
+    {
+        $tales = Tale::query()
+            ->withActorsPopularity()
+            ->unless(
+                blank($request->string('search')),
+                fn (Builder $q) => $q->where('title', 'like', '%' . $request->string('search') . '%'),
+            )
+            ->unless(
+                blank($request->input('discogs')),
+                fn (Builder $q) => $q->whereNull('discogs', not: $request->boolean('discogs')),
+            )
+            ->orderByDesc('popularity')
+            ->orderBy('year')
+            ->orderBy('title')
+            ->paginate(20);
+
+        return Inertia::render(
+            'Tales/Index',
+            IndexResource::collection($tales)->toResponse($request)->getData(true),
+        );
+    }
+
     public function create(): View
     {
         return view('tales.create');

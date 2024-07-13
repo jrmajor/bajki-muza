@@ -10,6 +10,7 @@ return [
 
     'only' => [
         'ajax.*',
+        'tales.*',
     ],
 
 ];
