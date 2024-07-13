@@ -99,11 +99,8 @@ export default [
 	},
 	{
 		ignores: [
-			'postcss.config.js',
 			'public',
 			'resources/js/classic',
-			'tailwind.config.js',
-			'vite.config.js',
 			'vendor',
 			'vite.config.[jt]s.timestamp-*',
 		],
