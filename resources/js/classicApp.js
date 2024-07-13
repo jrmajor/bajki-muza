@@ -1,10 +1,10 @@
-import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm'
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
 
-import './classic/lazyLoadTransitions'
+import './classic/lazyLoadTransitions';
 
-import './classic/artistForm'
-import './classic/taleForm'
+import './classic/artistForm';
+import './classic/taleForm';
 
-window.Alpine = Alpine
+window.Alpine = Alpine;
 
-Livewire.start()
+Livewire.start();
