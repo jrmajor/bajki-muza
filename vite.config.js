@@ -6,7 +6,11 @@ import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 export default defineConfig({
   plugins: [
     laravel({
-      input: ['resources/js/classicApp.js', 'resources/js/inertiaApp.js'],
+      input: [
+        'resources/css/style.css',
+        'resources/js/classicApp.js',
+        'resources/js/inertiaApp.js',
+      ],
       refresh: true,
     }),
     svelte({

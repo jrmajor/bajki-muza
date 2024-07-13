@@ -20,3 +20,7 @@
     @apply dark:bg-gray-800 dark:border-gray-900 dark:focus:border-gray-700;
   }
 }
+
+#app {
+  width: 100%;
+}

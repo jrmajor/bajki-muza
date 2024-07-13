@@ -1,5 +1,3 @@
-import '../css/style.css';
-
 import { createInertiaApp } from '@inertiajs/svelte';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { mount } from 'svelte';

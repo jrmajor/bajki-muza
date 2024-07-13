@@ -8,6 +8,10 @@
     <meta name="theme-color" content="#ebebeb" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 
+    @unless (app()->runningUnitTests())
+      @vite(['resources/css/style.css'])
+    @endunless
+
     @yield('head')
 
     @routes

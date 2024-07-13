@@ -1,7 +1,5 @@
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm'
 
-import '../css/style.css'
-
 import './classic/lazyLoadTransitions'
 
 import './classic/artistForm'
