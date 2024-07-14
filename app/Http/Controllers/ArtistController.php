@@ -3,13 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArtist;
+use App\Http\Resources\Artists\IndexResource;
 use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ArtistController extends Controller
 {
+    public function index(Request $request): Response
+    {
+        $artists = Artist::query()
+            ->countAppearances()
+            ->unless(
+                blank($request->string('search')),
+                fn (Builder $q) => $q->where('name', 'like', '%' . $request->string('search') . '%'),
+            )
+            ->orderByDesc('appearances')
+            ->orderBy('name')
+            ->paginate(30);
+
+        return Inertia::render(
+            'Artists/Index',
+            IndexResource::collection($artists)->toResponse($request)->getData(true),
+        );
+    }
+
     public function show(Artist $artist): View
     {
         return view('artists.show', ['artist' => $artist]);

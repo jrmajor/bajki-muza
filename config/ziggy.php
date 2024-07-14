@@ -11,6 +11,7 @@ return [
     'only' => [
         'ajax.*',
         'tales.*',
+        'artists.*',
     ],
 
 ];
