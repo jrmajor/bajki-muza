@@ -34,11 +34,6 @@ class ArtistController extends Controller
         );
     }
 
-    public function oldShow(Artist $artist): View
-    {
-        return view('artists.show', ['artist' => $artist]);
-    }
-
     public function show(Artist $artist): Response
     {
         return Inertia::render('Artists/Show', ['artist' => new ShowResource($artist)]);
