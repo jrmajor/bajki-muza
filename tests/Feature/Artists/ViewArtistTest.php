@@ -6,6 +6,7 @@ use App\Models\Artist;
 use App\Services\Discogs;
 use App\Services\Wikipedia;
 use App\Values\Discogs\DiscogsPhotos;
+use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -19,7 +20,9 @@ final class ViewArtistTest extends TestCase
         $this->partialMock(Wikipedia::class)->shouldReceive('extract')->andReturn('test');
         $this->partialMock(Discogs::class)->shouldReceive('photos')->andReturn(new DiscogsPhotos([]));
 
-        $this->get("artysci/{$artist->slug}")->assertOk();
+        $this->get("artysci/{$artist->slug}")->assertInertia(function (Assert $page) {
+            $page->component('Artists/Show');
+        });
     }
 
     #[TestDox('it returns 404 when attempting to view nonexistent artist')]

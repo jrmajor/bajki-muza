@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('artysci', [ArtistController::class, 'index'])
     ->name('artists.index');
 
+Route::get('old/artysci/{artist}', [ArtistController::class, 'oldShow']);
+
 Route::get('artysci/{artist}', [ArtistController::class, 'show'])
     ->name('artists.show');
 

@@ -21,7 +21,10 @@ declare module '@inertiajs/svelte' {
 			};
 		page?: Page;
 	}): Promise<{ head: string[]; body: string }> | void;
-	export const inertia: Action<HTMLAnchorElement, VisitOptions | undefined>;
+	export const inertia: Action<
+		HTMLAnchorElement | HTMLButtonElement,
+		(VisitOptions & { href?: string }) | undefined
+	>;
 	export const page: Readable<Page>;
 	export function remember<T>(initialState: T, key: string): Writable<T>;
 	export function useForm<TForm extends FormDataType>(data: TForm | (() => TForm)): InertiaForm<TForm>;
