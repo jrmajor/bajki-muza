@@ -9,7 +9,7 @@
 
 <footer class="px-3 my-8 text-sm text-center text-gray-500 dark:text-gray-600">
 	<div>
-		<!-- &copy; --> 2019<a href={route('login')} class="cursor-text">-</a>{currentYear}
+		<!-- &copy; --> 2019<a href={route('login')} use:inertia class="cursor-text">-</a>{currentYear}
 		<!-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> -->
 	</div>
 	{#if user}
