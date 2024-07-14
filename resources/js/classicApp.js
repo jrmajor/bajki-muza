@@ -1,4 +1,4 @@
-import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+import Alpine from 'alpinejs';
 
 import './classic/lazyLoadTransitions';
 
@@ -7,4 +7,4 @@ import './classic/taleForm';
 
 window.Alpine = Alpine;
 
-Livewire.start();
+Alpine.start();

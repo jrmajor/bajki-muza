@@ -9,9 +9,3 @@ window.transitionLazyLoadedImages = (element) => {
 }
 
 window.transitionLazyLoadedImages(document.body)
-
-document.addEventListener('livewire:init', () => {
-  Livewire.hook('morph.added', ({ el }) => {
-    window.transitionLazyLoadedImages(el)
-  })
-})

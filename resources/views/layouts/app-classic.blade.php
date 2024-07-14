@@ -14,8 +14,6 @@
   @unless (app()->runningUnitTests())
     @vite(['resources/js/classicApp.js'])
   @endunless
-
-  @livewireScriptConfig
 @endsection
 
 @section('main')
