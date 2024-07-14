@@ -17,6 +17,8 @@ export default [
 			globals: {
 				...globals.browser,
 				...globals.node,
+				SharedProps: 'readonly',
+				SharedUser: 'readonly',
 				PaginatedResource: 'readonly',
 				PaginationLinks: 'readonly',
 				PaginationMeta: 'readonly',

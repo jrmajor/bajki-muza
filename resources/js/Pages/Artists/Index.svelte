@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { route } from 'ziggy-js';
 	import { router } from '@inertiajs/svelte';
-	import type { User } from '@/types/users';
 	import type { IndexResource } from '@/types/artists';
 	import Pagination from '@/Components/Pagination/Pagination.svelte';
 	import Appearances from '@/Components/Appearances.svelte';
@@ -12,7 +11,7 @@
 		data: artists,
 		meta,
 		user,
-	}: PaginatedResource<IndexResource> & { user: User | null } = $props();
+	}: PaginatedResource<IndexResource> & SharedProps = $props();
 
 	let search = $state('');
 
