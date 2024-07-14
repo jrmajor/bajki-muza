@@ -4,7 +4,7 @@
   <title inertia>Bajki Polskich Nagrań „Muza”</title>
 
   @unless (app()->runningUnitTests())
-    @vite(['resources/js/inertiaApp.js', "resources/js/Pages/{$page['component']}.svelte"])
+    @vite(['resources/js/inertiaApp.ts', "resources/js/Pages/{$page['component']}.svelte"])
   @endunless
 
   @inertiaHead

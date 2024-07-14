@@ -10,7 +10,12 @@
         "paths": {
             "@/*": ["resources/js/*"],
             "ziggy-js": ["vendor/tightenco/ziggy"]
-        }
+        },
+        "types": ["vite/client"]
     },
-    "include": ["resources/js/**/*.ts", "resources/js/**/*.svelte"]
+    "include": [
+        "resources/js/inertiaApp.ts",
+        "resources/js/**/*.ts",
+        "resources/js/**/*.svelte",
+    ]
 }
