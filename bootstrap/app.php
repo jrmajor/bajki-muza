@@ -3,7 +3,10 @@
 use App\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Sentry\Laravel\Integration as Sentry;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -20,5 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         Sentry::handles($exceptions);
+
+        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            return Inertia::render('Errors/404')->toResponse($request)->setStatusCode(404);
+        });
     })
     ->create();
