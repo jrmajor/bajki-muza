@@ -2,10 +2,7 @@
 
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ArtistController;
-use App\Livewire\Artists;
 use Illuminate\Support\Facades\Route;
-
-Route::get('old/artysci', Artists::class);
 
 Route::get('artysci', [ArtistController::class, 'index'])
     ->name('artists.index');
