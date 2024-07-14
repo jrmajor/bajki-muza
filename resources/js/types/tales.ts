@@ -10,7 +10,7 @@ export type IndexResource = {
 export type ShowResource = {
 	slug: string;
 	title: string;
-	year: number;
+	year: number | null;
 	cover: CoverResource | null;
 	actors: ActorResource[];
 	mainCredits: Record<MainCreditType, CreditResource[]>;

@@ -7,7 +7,6 @@ export type IndexResource = {
 };
 
 export type PhotoResource = {
-	placeholder: string;
 	facePlaceholder: string;
 	url: Record<number, string>;
 };

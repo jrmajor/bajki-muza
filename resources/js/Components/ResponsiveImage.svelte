@@ -10,7 +10,6 @@
 		class: className = '',
 	}: {
 		image: {
-			placeholder: string;
 			url: Record<number, string>;
 		};
 		size: 'full' | number;

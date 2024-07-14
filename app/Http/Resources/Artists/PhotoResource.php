@@ -17,7 +17,6 @@ class PhotoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'placeholder' => $this->resource->placeholder(),
             'facePlaceholder' => $this->resource->facePlaceholder(),
             'url' => collect(Photo::sizes())
                 ->mapWithKeys(fn (int $size) => [$size => $this->resource->url($size)]),
