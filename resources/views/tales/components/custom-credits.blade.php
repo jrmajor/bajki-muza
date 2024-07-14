@@ -3,7 +3,7 @@
 <div class="flex flex-col">
   @foreach($tale->customCredits() as $label => $credits)
     <div>
-      <strong>{{ Str::ucfirst($label) }}:</strong>
+      <strong>{{ $label }}:</strong>
       @foreach ($credits as $artist)
         <x-name :$artist :$loop/>
       @endforeach

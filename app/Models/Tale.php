@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Psl\Type;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -96,7 +97,7 @@ final class Tale extends Model
         return $this->credits
             ->filter(fn (Artist $a) => $a->credit->isCustom())
             ->sortBy(fn (Artist $a) => $a->credit->type->order())
-            ->groupBy(fn (Artist $a) => $a->credit->as ?? $a->credit->type->label());
+            ->groupBy(fn (Artist $a) => Str::ucfirst($a->credit->as ?? $a->credit->type->label()));
     }
 
     /**
