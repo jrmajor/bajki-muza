@@ -33,6 +33,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('tales.index');
+        return redirect()->back(fallback: route('tales.index'));
     }
 }

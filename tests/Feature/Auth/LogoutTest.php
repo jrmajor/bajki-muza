@@ -24,6 +24,16 @@ final class LogoutTest extends TestCase
             ->assertRedirect('bajki');
     }
 
+    #[TestDox('it redirects back after logging out')]
+    public function testRedirectBack(): void
+    {
+        $this->asUser()
+            ->from('artysci')
+            ->post('logout')
+            ->assertFound()
+            ->assertRedirect('artysci');
+    }
+
     #[TestDox('it redirects to welcome page if no user is authenticated')]
     public function testUnauthenticated(): void
     {
