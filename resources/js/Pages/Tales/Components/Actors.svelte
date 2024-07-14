@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { route } from 'ziggy-js';
+	import { inertia } from '@inertiajs/svelte';
 	import type { ShowResource } from '@/types/tales';
 	import { formatList } from '@/helpers/intl';
 	import Appearances from '@/Components/Appearances.svelte';
@@ -16,6 +17,7 @@
 		{#each tale.actors as actor}
 			<a
 				href={route('artists.show', { artist: actor })}
+				use:inertia
 				class="flex overflow-hidden items-center w-full h-14 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900"
 			>
 				<div

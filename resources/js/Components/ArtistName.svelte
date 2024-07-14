@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { route } from 'ziggy-js';
+	import { inertia } from '@inertiajs/svelte';
 	import { type Loop } from '@/helpers/addLoop';
 	import Appearances from '@/Components/Appearances.svelte';
 
@@ -28,7 +29,11 @@
 		&#32;i
 	{/if}
 
-	<a href="{route('artists.show', { artist })}" class="inline-flex items-center">
+	<a
+		href="{route('artists.show', { artist })}"
+		use:inertia
+		class="inline-flex items-center"
+	>
 		{genetivus ? artist.genetivus ?? artist.name : artist.name}
 		<Appearances count={artist.appearances} small/>
 	</a>{loop.remaining >= 2 ? ',' : ''}
