@@ -59,16 +59,6 @@ class TaleController extends Controller
         return redirect()->route('tales.show', tap($tale)->push());
     }
 
-    public function oldShow(Tale $tale): View
-    {
-        $tale->load([
-            'credits' => fn ($query) => $query->countAppearances(),
-            'actors' => fn ($query) => $query->countAppearances(),
-        ]);
-
-        return view('tales.show', ['tale' => $tale]);
-    }
-
     public function show(Tale $tale): Response
     {
         $tale->load([
