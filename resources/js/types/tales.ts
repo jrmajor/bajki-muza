@@ -1,7 +1,6 @@
 import type { PhotoResource } from './artists';
 
 export type IndexResource = {
-	id: number;
 	slug: string;
 	title: string;
 	year: number | null;

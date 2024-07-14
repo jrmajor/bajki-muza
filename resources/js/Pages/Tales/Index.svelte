@@ -46,9 +46,9 @@
 					border-none focus:outline-none focus:ring focus:ring-brand-primary focus:ring-opacity-25
 				"
 			>
-			{#each tales as tale (tale.id)}
+			{#each tales as tale (tale.slug)}
 				<a
-					href={route('tales.show', tale)}
+					href={route('tales.show', { tale })}
 					use:inertia
 					class="flex overflow-hidden items-center w-full h-32 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900"
 				>

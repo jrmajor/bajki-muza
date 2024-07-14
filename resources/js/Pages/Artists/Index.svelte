@@ -51,9 +51,9 @@
 					border-none focus:outline-none focus:ring focus:ring-brand-primary focus:ring-opacity-25
 				"
 			>
-			{#each artists as artist (artist.id)}
+			{#each artists as artist (artist.slug)}
 				<a
-					href={route('artists.show', artist)}
+					href={route('artists.show', { artist })}
 					class="flex overflow-hidden items-center w-full h-12 bg-gray-50 rounded-lg shadow-lg sm:h-14 dark:bg-gray-900"
 				>
 					<div

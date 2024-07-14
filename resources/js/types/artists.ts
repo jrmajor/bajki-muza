@@ -1,5 +1,4 @@
 export type IndexResource = {
-	id: number;
 	slug: string;
 	name: string;
 	appearances: number;
