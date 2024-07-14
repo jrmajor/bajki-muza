@@ -1,5 +1,5 @@
 interface SharedProps {
-	errors: Array<unknown>;
+	errors: unknown[];
 	user: SharedUser;
 }
 
@@ -9,7 +9,7 @@ type SharedUser = {
 } | null;
 
 interface PaginatedResource<Resource> {
-	data: Array<Resource>;
+	data: Resource[];
 	links: PaginationLinks;
 	meta: PaginationMeta;
 }
