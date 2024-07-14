@@ -11,5 +11,5 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreVCSIgnored(true);
 
 return Major\CS\config($finder, [
-    'class_definition' => false,
+    'no_null_property_initialization' => false,
 ])->setCacheFile('.cache/.php-cs-fixer.cache');
