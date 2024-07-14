@@ -12,6 +12,8 @@ return [
         'ajax.*',
         'tales.*',
         'artists.*',
+        'login',
+        'logout',
     ],
 
 ];

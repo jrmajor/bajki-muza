@@ -10,6 +10,6 @@
   @inertiaHead
 @endsection
 
-@section('main')
+@section('outerContent')
   @inertia
 @endsection
