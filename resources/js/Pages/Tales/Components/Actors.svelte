@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { route } from 'ziggy-js';
 	import type { ShowResource } from '@/types/tales';
-	import addLoop from '@/helpers/addLoop';
+	import { formatList } from '@/helpers/intl';
 	import Appearances from '@/Components/Appearances.svelte';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
 
@@ -39,13 +39,7 @@
 						{actor.name}
 					</div>
 					{#if actor.characters}
-						<small>
-							jako
-							{#each addLoop(actor.characters) as [character, loop]}
-								{character}<!--
-							-->{loop.remaining > 1 ? ', ' : loop.remaining > 0 ? ' i ' : ''}
-							{/each}
-						</small>
+						<small>jako {formatList(actor.characters)}</small>
 					{/if}
 				</div>
 				<div class="flex-none pr-4">
