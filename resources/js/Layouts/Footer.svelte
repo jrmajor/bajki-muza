@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { route } from 'ziggy-js';
-	import { router } from '@inertiajs/svelte';
+	import { inertia } from '@inertiajs/svelte';
 
 	let { user }: { user: SharedUser } = $props();
 
 	const currentYear = new Date().getFullYear();
-
-	function logout(event: MouseEvent) {
-		event.preventDefault();
-		router.post(route('logout'));
-	}
 </script>
 
 <footer class="px-3 my-8 text-sm text-center text-gray-500 dark:text-gray-600">
@@ -22,7 +17,7 @@
 			<a href="{route('tales.create')}" class="mr-1.5 text-xs uppercase tracking-wide">
 				Dodaj bajkę
 			</a>
-			<a href="{route('logout')}" onclick={logout} class="ml-1.5 text-xs uppercase tracking-wide">
+			<a href="{route('logout')}" use:inertia={{ method: 'post' }} class="ml-1.5 text-xs uppercase tracking-wide">
 				Wyloguj
 			</a>
 		</div>
