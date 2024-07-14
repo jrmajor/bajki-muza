@@ -6,6 +6,7 @@
 		size,
 		imageSize = null,
 		alt,
+		loading = 'lazy',
 		class: className = '',
 	}: {
 		image: {
@@ -14,6 +15,7 @@
 		};
 		size: 'full' | number;
 		imageSize?: number | null;
+		loading?: 'lazy' | 'eager';
 		alt: string;
 		class?: string;
 	} = $props();
@@ -31,7 +33,7 @@
 <img
 	bind:this={element}
 	onload={() => isLoaded = true}
-	loading="lazy"
+	{loading}
 	class="size-{size} object-center object-cover transition-opacity duration-300 {className}"
 	class:opacity-0={!isLoaded}
 	src={image.url[calculatedImageSize * 2]}
