@@ -33,3 +33,4 @@
 		<Appearances count={artist.appearances} small/>
 	</a>{loop.remaining >= 2 ? ',' : ''}
 </span>
+<span class="hidden"></span>
