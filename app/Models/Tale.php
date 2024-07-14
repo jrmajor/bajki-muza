@@ -91,6 +91,18 @@ final class Tale extends Model
     /**
      * @return Collection<string, EloquentCollection<int, Artist>>
      */
+    public function mainCredits(): Collection
+    {
+        /** @phpstan-ignore return.type */
+        return $this->credits
+            ->filter(fn (Artist $a) => ! $a->credit->isCustom())
+            ->sortBy(fn (Artist $a) => $a->credit->type->order())
+            ->groupBy(fn (Artist $a) => $a->credit->type->value);
+    }
+
+    /**
+     * @return Collection<string, EloquentCollection<int, Artist>>
+     */
     public function customCredits(): Collection
     {
         /** @phpstan-ignore return.type */

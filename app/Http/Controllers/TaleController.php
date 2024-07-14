@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTale;
 use App\Http\Resources\Tales\IndexResource;
+use App\Http\Resources\Tales\ShowResource;
 use App\Images\Cover;
 use App\Models\Tale;
 use Illuminate\Contracts\View\View;
@@ -58,7 +59,7 @@ class TaleController extends Controller
         return redirect()->route('tales.show', tap($tale)->push());
     }
 
-    public function show(Tale $tale): View
+    public function oldShow(Tale $tale): View
     {
         $tale->load([
             'credits' => fn ($query) => $query->countAppearances(),
@@ -66,6 +67,16 @@ class TaleController extends Controller
         ]);
 
         return view('tales.show', ['tale' => $tale]);
+    }
+
+    public function show(Tale $tale): Response
+    {
+        $tale->load([
+            'credits' => fn ($query) => $query->countAppearances(),
+            'actors' => fn ($query) => $query->countAppearances(),
+        ]);
+
+        return Inertia::render('Tales/Show', ['tale' => new ShowResource($tale)]);
     }
 
     public function edit(Tale $tale): View
