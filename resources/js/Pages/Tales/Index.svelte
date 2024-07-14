@@ -28,7 +28,6 @@
 		let params = new URLSearchParams(window.location.search);
 		search = params.get('search') ?? '';
 	});
-
 </script>
 
 <div class="w-full">
