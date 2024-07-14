@@ -1,10 +1,7 @@
 <?php
 
 use App\Http\Controllers\TaleController;
-use App\Livewire\Tales;
 use Illuminate\Support\Facades\Route;
-
-Route::get('old/bajki', Tales::class);
 
 Route::get('bajki', [TaleController::class, 'index'])
     ->name('tales.index');
