@@ -2,7 +2,7 @@
 	import { route } from 'ziggy-js';
 	import type { EditResource } from '@/types/tales';
 	import Layout from '@/Layouts/Layout.svelte';
-	import Form from './Components/Form.svelte';
+	import Form from './Components/Form/Form.svelte';
 
 	let { tale, user }: { tale: EditResource } & SharedProps = $props();
 </script>
