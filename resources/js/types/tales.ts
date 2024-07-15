@@ -17,6 +17,18 @@ export type ShowResource = {
 	customCredits: Record<string, CreditResource[]>;
 };
 
+export type EditResource = {
+	slug: string;
+	title: string;
+	year: number | null;
+	nr: string | null;
+	discogs: number | null;
+	notes: string | null;
+	cover: CoverResource | null;
+	credits: CreditEditResource[];
+	actors: ActorEditResource[];
+};
+
 export type CoverResource = {
 	placeholder: string;
 	url: Record<number, string>;
@@ -37,6 +49,18 @@ export type CreditResource = {
 	name: string;
 	genetivus?: string | null;
 	appearances: number;
+};
+
+export type CreditEditResource = {
+	artist: string;
+	type: CreditType;
+	as: string | null;
+	nr: number | null;
+};
+
+export type ActorEditResource = {
+	artist: string;
+	characters: string | null;
 };
 
 export type MainCreditType = 'text' | 'author' | 'lyrics' | 'music';

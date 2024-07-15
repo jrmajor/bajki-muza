@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTale;
+use App\Http\Resources\Tales\EditResource;
 use App\Http\Resources\Tales\IndexResource;
 use App\Http\Resources\Tales\ShowResource;
 use App\Images\Cover;
@@ -69,9 +70,14 @@ class TaleController extends Controller
         return Inertia::render('Tales/Show', ['tale' => new ShowResource($tale)]);
     }
 
-    public function edit(Tale $tale): View
+    public function oldEdit(Tale $tale): View
     {
         return view('tales.edit', ['tale' => $tale]);
+    }
+
+    public function edit(Tale $tale): Response
+    {
+        return Inertia::render('Tales/Edit', ['tale' => new EditResource($tale)]);
     }
 
     public function update(StoreTale $request, Tale $tale): RedirectResponse

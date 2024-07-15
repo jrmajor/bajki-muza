@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { route } from 'ziggy-js';
+	import { inertia } from '@inertiajs/svelte';
 	import type { ShowResource } from '@/types/tales';
 
 	let { tale, user }: { tale: ShowResource; user: SharedUser } = $props();
@@ -14,7 +15,7 @@
 
 <h2 class="text-2xl font-medium">
 	{#if user}
-		<a href={route('tales.edit', { tale })}>{@render title()}</a>
+		<a href={route('tales.edit', { tale })} use:inertia>{@render title()}</a>
 	{:else}
 		{@render title()}
 	{/if}

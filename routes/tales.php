@@ -15,6 +15,9 @@ Route::post('bajki', [TaleController::class, 'store'])
 Route::get('bajki/{tale}', [TaleController::class, 'show'])
     ->name('tales.show');
 
+Route::get('old/bajki/{tale}/edit', [TaleController::class, 'oldEdit'])
+    ->middleware('auth');
+
 Route::get('bajki/{tale}/edit', [TaleController::class, 'edit'])
     ->middleware('auth')->name('tales.edit');
 

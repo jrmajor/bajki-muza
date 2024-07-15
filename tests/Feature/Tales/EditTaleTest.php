@@ -6,6 +6,7 @@ use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Collection;
+use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -57,7 +58,13 @@ final class EditTaleTest extends TestCase
     #[TestDox('users can view edit tale form')]
     public function testUserView(): void
     {
-        $this->asUser()->get('bajki/drzewko-aby-baby/edit')->assertOk();
+        $this
+            ->asUser()
+            ->get('bajki/drzewko-aby-baby/edit')
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Tales/Edit');
+            });
     }
 
     #[TestDox('guests cannot edit tale attributes')]
