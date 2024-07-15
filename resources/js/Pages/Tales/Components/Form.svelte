@@ -93,7 +93,10 @@
 		$form.actors = [...$form.actors.slice(0, index), ...$form.actors.slice(index + 1)];
 	}
 
+	const actorDragId = randomKey();
+
 	function onDragStart(event: DragEvent, index: number) {
+		event.dataTransfer!.setData('dragId', actorDragId);
 		event.dataTransfer!.setData('index', index.toString());
 		$form.actors[index].isDragged = true;
 	}
@@ -103,6 +106,8 @@
 	}
 
 	function onDragOver(event: DragEvent, destination: number) {
+		if (event.dataTransfer!.getData('dragId') !== actorDragId) return;
+
 		event.preventDefault();
 
 		const currentIndex = parseInt(event.dataTransfer!.getData('index'));
@@ -121,6 +126,8 @@
 	}
 
 	function onDrop(event: DragEvent, destination: number) {
+		if (event.dataTransfer!.getData('dragId') !== actorDragId) return;
+
 		const currentIndex = parseInt(event.dataTransfer!.getData('index'));
 
 		if (currentIndex === destination) return;
