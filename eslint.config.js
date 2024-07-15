@@ -36,7 +36,7 @@ export default [
 			'@stylistic/comma-spacing': 'error',
 			'@stylistic/comma-style': 'error',
 			'@stylistic/computed-property-spacing': 'error',
-			'@stylistic/dot-location': 'error',
+			'@stylistic/dot-location': ['error', 'property'],
 			'@stylistic/eol-last': 'error',
 			'@stylistic/func-call-spacing': 'error',
 			'@stylistic/function-call-argument-newline': ['error', 'consistent'],
