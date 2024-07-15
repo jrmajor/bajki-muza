@@ -20,9 +20,12 @@ final class ViewArtistTest extends TestCase
         $this->partialMock(Wikipedia::class)->shouldReceive('extract')->andReturn('test');
         $this->partialMock(Discogs::class)->shouldReceive('photos')->andReturn(new DiscogsPhotos([]));
 
-        $this->get("artysci/{$artist->slug}")->assertInertia(function (Assert $page) {
-            $page->component('Artists/Show');
-        });
+        $this
+            ->get("artysci/{$artist->slug}")
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Artists/Show');
+            });
     }
 
     #[TestDox('it returns 404 when attempting to view nonexistent artist')]

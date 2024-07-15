@@ -20,9 +20,12 @@ final class ViewTaleTest extends TestCase
         $this->mock(Wikipedia::class)->shouldReceive('extract')->andReturn('test');
         $this->mock(Discogs::class)->shouldReceive('photos')->andReturn(new DiscogsPhotos([]));
 
-        $this->get("bajki/{$tale->slug}")->assertInertia(function (Assert $page) {
-            $page->component('Tales/Show');
-        });
+        $this
+            ->get("bajki/{$tale->slug}")
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Tales/Show');
+            });
     }
 
     #[TestDox('it returns 404 when attempting to view nonexistent tale')]

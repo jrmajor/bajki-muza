@@ -27,11 +27,12 @@ final class InertiaSharedPropsTest extends TestCase
     {
         $this
             ->get('inertia-shared-props-test')
-            ->assertInertia(function (Assert $inertia) {
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
                 $this->assertSame([
                     'errors' => [],
                     'user' => null,
-                ], $inertia->toArray()['props']);
+                ], $page->toArray()['props']);
             });
     }
 
@@ -41,14 +42,15 @@ final class InertiaSharedPropsTest extends TestCase
         $this
             ->asUser($user = User::factory()->createOne())
             ->get('inertia-shared-props-test')
-            ->assertInertia(function (Assert $inertia) use ($user) {
+            ->assertOk()
+            ->assertInertia(function (Assert $page) use ($user) {
                 $this->assertSame([
                     'errors' => [],
                     'user' => [
                         'username' => $user->username,
                         'id' => $user->id,
                     ],
-                ], $inertia->toArray()['props']);
+                ], $page->toArray()['props']);
             });
     }
 }

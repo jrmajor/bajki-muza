@@ -11,8 +11,11 @@ final class ViewTalesIndexTest extends TestCase
     #[TestDox('it works')]
     public function testOk(): void
     {
-        $this->get('bajki')->assertOk()->assertInertia(function (Assert $page) {
-            $page->component('Tales/Index');
-        });
+        $this
+            ->get('bajki')
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Tales/Index');
+            });
     }
 }

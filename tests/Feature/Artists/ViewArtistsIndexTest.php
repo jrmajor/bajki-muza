@@ -11,8 +11,11 @@ final class ViewArtistsIndexTest extends TestCase
     #[TestDox('it works')]
     public function testOk(): void
     {
-        $this->get('artysci')->assertOk()->assertInertia(function (Assert $page) {
-            $page->component('Artists/Index');
-        });
+        $this
+            ->get('artysci')
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Artists/Index');
+            });
     }
 }
