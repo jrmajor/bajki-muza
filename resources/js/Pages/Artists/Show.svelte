@@ -3,6 +3,7 @@
 	import { inertia } from '@inertiajs/svelte';
 	import type { ShowResource } from '@/types/artists';
 	import Layout from '@/Layouts/Layout.svelte';
+	import Title from '@/Components/Title.svelte';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
 	import Discogs from '@/Components/Icons/Discogs.svelte';
 	import FilmPolski from '@/Components/Icons/FilmPolski.svelte';
@@ -22,23 +23,10 @@
 	{/if}
 </svelte:head>
 
-{#snippet name()}
-	{#each artist.name.split(' ') as word}
-		<span class="shadow-title">{word}</span>
-		<span class="hidden"></span>
-	{/each}
-{/snippet}
-
 <Layout {user}>
 	<div class="flex flex-col items-center mb-6 sm:flex-row">
 		<div class="text-center sm:hidden">
-			<h2 class="text-2xl font-medium">
-				{#if user}
-					<a href={route('artists.edit', { artist })}>{@render name()}</a>
-				{:else}
-					{@render name()}
-				{/if}
-			</h2>
+			<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
 		</div>
 
 		{#if artist.photo}
@@ -77,13 +65,7 @@
 				hidden sm:block
 				{artist.photo || artist.discogsPhoto || artist.wikipediaExtract ? 'self-start' : 'self-center'}
 			">
-				<h2 class="text-2xl font-medium">
-					{#if user}
-						<a href={route('artists.edit', { artist })}>{@render name()}</a>
-					{:else}
-						{@render name()}
-					{/if}
-				</h2>
+				<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
 			</div>
 
 			{#if artist.discogsUrl || artist.filmpolskiUrl || artist.wikipediaUrl}

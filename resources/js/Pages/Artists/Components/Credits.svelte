@@ -3,6 +3,7 @@
 	import { inertia } from '@inertiajs/svelte';
 	import type { ShowResource } from '@/types/artists';
 	import { ucfirst } from '@/helpers/intl';
+	import Title from '@/Components/Title.svelte';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
 
 	let { artist }: { artist: ShowResource } = $props();
@@ -10,9 +11,8 @@
 
 {#each Object.entries(artist.credits) as [type, tales]}
 	<div class="flex flex-col gap-3 items-center w-full">
-		<h3 class="text-xl font-medium shadow-subtitle">
-			{ucfirst(type)}
-		</h3>
+		<Title sub text={ucfirst(type)}/>
+
 		<div class="flex flex-col gap-2.5 w-full md:w-5/6 xl:w-2/3">
 			{#each tales as tale}
 				<a

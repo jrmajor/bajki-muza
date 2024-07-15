@@ -2,6 +2,7 @@
 	import { route } from 'ziggy-js';
 	import { useForm } from '@inertiajs/svelte';
 	import Layout from '@/Layouts/Layout.svelte';
+	import Title from '@/Components/Title.svelte';
 
 	let { user }: SharedProps = $props();
 
@@ -19,9 +20,7 @@
 
 <Layout {user}>
 	<div class="text-center">
-		<h2 class="text-2xl font-medium">
-			<span class="shadow-title">Login</span>
-		</h2>
+		<Title text="Login"/>
 	</div>
 
 	<form {onsubmit} class="flex flex-col gap-5 mt-5">

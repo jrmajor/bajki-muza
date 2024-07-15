@@ -3,6 +3,7 @@
 	import { inertia } from '@inertiajs/svelte';
 	import type { ShowResource } from '@/types/tales';
 	import { formatList } from '@/helpers/intl';
+	import Title from '@/Components/Title.svelte';
 	import Appearances from '@/Components/Appearances.svelte';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
 
@@ -10,9 +11,8 @@
 </script>
 
 <div class="flex flex-col gap-3 items-center w-full">
-	<h3 class="text-xl font-medium shadow-subtitle">
-		Obsada
-	</h3>
+	<Title sub text="Obsada"/>
+
 	<div class="flex flex-col gap-2.5 w-full md:w-5/6 xl:w-2/3">
 		{#each tale.actors as actor}
 			<a
