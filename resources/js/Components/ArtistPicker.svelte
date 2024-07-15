@@ -94,11 +94,6 @@
 			class="absolute z-50 py-1 mt-2 w-full text-gray-800 bg-white rounded-md border border-gray-300 shadow-md"
 			onmousedown={() => shouldCloseOnBlur = false}
 		>
-			{#if artists.length === 0}
-				<li class="py-1 px-3 w-full text-gray-600">
-					Brak wyników
-				</li>
-			{/if}
 			{#each artists as artist, index (artist)}
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_mouse_events_have_key_events -->
@@ -110,6 +105,10 @@
 				>
 					<span>{artist}</span>
 					<span class="text-gray-800">{value === artist ? '✓ ' : ''}</span>
+				</li>
+			{:else}
+				<li class="py-1 px-3 w-full text-gray-600">
+					Brak wyników
 				</li>
 			{/each}
 		</ul>
