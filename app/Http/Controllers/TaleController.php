@@ -8,7 +8,6 @@ use App\Http\Resources\Tales\IndexResource;
 use App\Http\Resources\Tales\ShowResource;
 use App\Images\Cover;
 use App\Models\Tale;
-use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -68,11 +67,6 @@ class TaleController extends Controller
         ]);
 
         return Inertia::render('Tales/Show', ['tale' => new ShowResource($tale)]);
-    }
-
-    public function oldEdit(Tale $tale): View
-    {
-        return view('tales.edit', ['tale' => $tale]);
     }
 
     public function edit(Tale $tale): Response
