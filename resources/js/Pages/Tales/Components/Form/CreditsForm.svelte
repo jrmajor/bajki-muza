@@ -2,8 +2,8 @@
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import type { CreditType } from '@/types/tales';
 	import randomKey from '@/helpers/randomKey';
-	import ArtistPicker from '@/Components/ArtistPicker.svelte';
 	import { creditLabels } from '@/helpers/creditLabels';
+	import ArtistPicker from '@/Components/Pickers/ArtistPicker.svelte';
 
 	let {
 		form,

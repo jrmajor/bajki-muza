@@ -1,17 +1,18 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
-
 	let {
 		value = $bindable(),
+		searchUsing: searchCallback,
 	}: {
 		value: string;
+		searchUsing: (query: string) => Promise<Entry[]>;
 	} = $props();
 
-	let hovered: number | null = $state(null);
+	type Entry = { label: string; value: string };
+
 	let isOpen = $state(false);
 	let shouldCloseOnBlur = $state(true);
-	let search = $state('');
-	let artists = $state([]);
+	let hoveredIndex: number | null = $state(null);
+	let results: Entry[] = $state([]);
 
 	function onkeydown(event: KeyboardEvent) {
 		const listener = {
@@ -26,37 +27,35 @@
 	}
 
 	function arrow(direction: 'up' | 'down') {
-		if (artists.length === 0) return;
+		if (results.length === 0) return;
 
-		if (hovered === null) {
-			hovered = direction === 'up' ? artists.length - 1 : 0;
+		if (hoveredIndex === null) {
+			hoveredIndex = direction === 'up' ? results.length - 1 : 0;
 			return;
 		}
 
-		hovered = direction === 'up' ? hovered - 1 : hovered + 1;
+		hoveredIndex = direction === 'up' ? hoveredIndex - 1 : hoveredIndex + 1;
 
-		if (hovered < 0) hovered = artists.length - 1;
-		if (hovered > artists.length - 1) hovered = 0;
+		if (hoveredIndex < 0) hoveredIndex = results.length - 1;
+		if (hoveredIndex > results.length - 1) hoveredIndex = 0;
 	}
 
 	function enter() {
-		if (hovered !== null) select(artists[hovered]);
+		if (hoveredIndex !== null) select(results[hoveredIndex]);
 	}
 
-	function findArtists() {
+	function oninput() {
 		if (value.length < 2) {
-			artists = [];
+			results = [];
 			return;
 		}
 
 		isOpen = true;
 
-		fetch(route('ajax.artists', { search: value }))
-			.then((response) => response.json())
-			.then((data) => {
-				artists = data;
-				if (hovered && hovered > artists.length - 1) hovered = null;
-			});
+		searchCallback(value).then((data) => {
+			results = data;
+			if (hoveredIndex && hoveredIndex > results.length - 1) hoveredIndex = null;
+		});
 	}
 
 	function closeDropdown() {
@@ -67,12 +66,12 @@
 
 		isOpen = false;
 
-		hovered = null;
+		hoveredIndex = null;
 		shouldCloseOnBlur = true;
 	}
 
-	function select(artist: string) {
-		value = artist;
+	function select(entry: Entry) {
+		value = entry.value;
 		closeDropdown();
 	}
 </script>
@@ -82,29 +81,29 @@
 		type="text"
 		class="w-full form-input"
 		autocomplete="off"
-		bind:value={value}
+		bind:value
 		{onkeydown}
-		oninput={findArtists}
+		{oninput}
 		onfocus={() => isOpen = shouldCloseOnBlur = true}
 		onblur={closeDropdown}
 	>
-	{#if isOpen && !(search.length > 1 && artists.length === 0)}
+	{#if isOpen && !(value.length > 1 && results.length === 0)}
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<ul
 			class="absolute z-50 py-1 mt-2 w-full text-gray-800 bg-white rounded-md border border-gray-300 shadow-md"
 			onmousedown={() => shouldCloseOnBlur = false}
 		>
-			{#each artists as artist, index (artist)}
+			{#each results as result, index (result.value)}
 				<!-- svelte-ignore a11y_click_events_have_key_events -->
 				<!-- svelte-ignore a11y_mouse_events_have_key_events -->
 				<li
-					onmouseover={() => hovered = index}
-					onclick={() => select(artist)}
+					onmouseover={() => hoveredIndex = index}
+					onclick={() => select(result)}
 					class="flex justify-between py-1 px-3 w-full text-left text-gray-800 select-none"
-					class:bg-gray-200={hovered === index}
+					class:bg-gray-200={hoveredIndex === index}
 				>
-					<span>{artist}</span>
-					<span class="text-gray-800">{value === artist ? '✓ ' : ''}</span>
+					<span>{result.label}</span>
+					<span class="text-gray-800">{value === result.value ? '✓ ' : ''}</span>
 				</li>
 			{:else}
 				<li class="py-1 px-3 w-full text-gray-600">
