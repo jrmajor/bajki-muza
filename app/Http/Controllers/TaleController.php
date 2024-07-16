@@ -40,9 +40,14 @@ class TaleController extends Controller
         );
     }
 
-    public function create(): View
+    public function oldCreate(): View
     {
         return view('tales.create');
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('Tales/Create');
     }
 
     public function store(StoreTale $request): RedirectResponse

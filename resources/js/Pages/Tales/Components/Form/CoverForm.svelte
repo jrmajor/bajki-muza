@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
-	import type { EditResource } from '@/types/tales';
+	import type { CoverResource } from '@/types/tales';
 	import Label from '@/Components/Form/Label.svelte';
 
 	let {
-		tale,
+		currentCover,
 		form,
 		action,
 	}: {
-		tale: EditResource;
+		currentCover: CoverResource | null;
 		form: InertiaForm<{
 			removeCover: boolean;
 			cover: File | null;
@@ -45,17 +45,17 @@
 	<div class="flex gap-5">
 		<label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
 			<div class="flex-none size-10 bg-placeholder-cover">
-				{#if tale.cover}
+				{#if currentCover}
 					<img
-						src={tale.cover.url[128]}
+						src={currentCover.url[128]}
 						class="object-cover size-10 bg-cover"
-						style={`background-image: url("${tale.cover.placeholder}")`}
+						style={`background-image: url("${currentCover.placeholder}")`}
 						class:hidden={coverFile || $form.removeCover}
-						alt="Okładka bajki {tale.title}"
+						alt="Aktualna okładka"
 					>
 				{/if}
 				{#if coverPreview}
-					<img src={coverPreview} class="object-cover size-10" alt="Okładka bajki {tale.title}">
+					<img src={coverPreview} class="object-cover size-10" alt="Przesłana okładka">
 				{/if}
 			</div>
 			<span class="py-2 px-3">

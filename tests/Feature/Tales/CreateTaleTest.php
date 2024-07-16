@@ -6,6 +6,7 @@ use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Collection;
+use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -36,7 +37,13 @@ final class CreateTaleTest extends TestCase
     #[TestDox('users can view create tale form')]
     public function testUserVuew(): void
     {
-        $this->asUser()->get('bajki/create')->assertOk();
+        $this
+            ->asUser()
+            ->get('bajki/create')
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Tales/Create');
+            });
     }
 
     #[TestDox('guests cannot create tale')]

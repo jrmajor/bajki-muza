@@ -124,7 +124,7 @@
 		</div>
 	</div>
 
-	<CoverForm {tale} {form} {action}/>
+	<CoverForm currentCover={tale.cover} {form} {action}/>
 
 	<CreditsForm {form}/>
 

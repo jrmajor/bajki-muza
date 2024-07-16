@@ -14,7 +14,7 @@
 	</div>
 	{#if user}
 		<div>
-			<a href={route('tales.create')} class="mr-1.5 text-xs uppercase tracking-wide">
+			<a href={route('tales.create')} use:inertia class="mr-1.5 text-xs uppercase tracking-wide">
 				Dodaj bajkę
 			</a>
 			<a href={route('logout')} use:inertia={{ method: 'post' }} class="ml-1.5 text-xs uppercase tracking-wide">
