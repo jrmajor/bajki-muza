@@ -40,11 +40,6 @@ class TaleController extends Controller
         );
     }
 
-    public function oldCreate(): View
-    {
-        return view('tales.create');
-    }
-
     public function create(): Response
     {
         return Inertia::render('Tales/Create');
