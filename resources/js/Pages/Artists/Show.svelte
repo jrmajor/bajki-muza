@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { route } from 'ziggy-js';
-	import { inertia } from '@inertiajs/svelte';
 	import type { ShowResource } from '@/types/artists';
 	import Layout from '@/Layouts/Layout.svelte';
 	import Title from '@/Components/Title.svelte';
@@ -10,6 +9,7 @@
 	import Wikipedia from '@/Components/Icons/Wikipedia.svelte';
 	import AsActor from './Components/AsActor.svelte';
 	import Credits from './Components/Credits.svelte';
+	import Button from '@/Components/Form/Button.svelte';
 
 	let { artist, user }: { artist: ShowResource } & SharedProps = $props();
 </script>
@@ -100,12 +100,8 @@
 	</div>
 
 	{#if user && artist.appearances === 0}
-		<button
-			use:inertia={{ href: route('artists.destroy', { artist }), method: 'delete' }}
-			class="
-				px-3 py-1.5 bg-red-700 text-red-100 text-sm tracking-wide font-medium uppercase shadow-lg rounded-full
-				hover:bg-red-600 active:bg-red-800 transition-colors duration-150 ease out
-			"
-		>Usuń</button>
+		<Button inertia={{ href: route('artists.destroy', { artist }), method: 'delete' }} danger>
+			Usuń
+		</Button>
 	{/if}
 </Layout>

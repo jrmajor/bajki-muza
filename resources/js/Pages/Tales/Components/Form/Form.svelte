@@ -8,6 +8,7 @@
 	import CoverForm from './CoverForm.svelte';
 	import CreditsForm from './CreditsForm.svelte';
 	import ActorsForm from './ActorsForm.svelte';
+	import Button from '@/Components/Form/Button.svelte';
 
 	let {
 		tale,
@@ -134,7 +135,5 @@
 		<textarea bind:value={$form.notes} id="notes" rows="5" class="w-full form-input"></textarea>
 	</div>
 
-	<button class="self-center py-2 px-4 text-sm font-medium bg-white rounded-full shadow-md dark:bg-gray-800">
-		Zapisz
-	</button>
+	<Button class="self-center">Zapisz</Button>
 </form>
