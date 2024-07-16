@@ -18,6 +18,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Logowanie - Bajki Polskich Nagrań „Muza”</title>
+</svelte:head>
+
 <Layout {user}>
 	<div class="text-center">
 		<Title text="Login"/>

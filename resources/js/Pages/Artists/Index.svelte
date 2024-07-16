@@ -36,6 +36,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Artyści - Bajki Polskich Nagrań „Muza”</title>
+</svelte:head>
+
 <Layout {user}>
 	<div class="w-full">
 		<div class="flex flex-col gap-3 items-center">
