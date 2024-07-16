@@ -4,6 +4,7 @@
 	import type { EditResource } from '@/types/tales';
 	import randomKey from '@/helpers/randomKey';
 	import Discogs from '@/Components/Icons/Discogs.svelte';
+	import Label from '@/Components/Form/Label.svelte';
 	import CoverForm from './CoverForm.svelte';
 	import CreditsForm from './CreditsForm.svelte';
 	import ActorsForm from './ActorsForm.svelte';
@@ -89,23 +90,23 @@
 
 	<div class="flex flex-col gap-2 sm:flex-row sm:gap-5">
 		<div class="flex flex-col w-full sm:w-1/2">
-			<label for="title" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Tytuł</label>
+			<Label for="title">Tytuł</Label>
 			<input type="text" id="title" bind:value={$form.title} class="w-full form-input">
 		</div>
 		<div class="flex gap-5 w-full sm:w-1/2">
 			<div class="flex flex-col items-stretch w-1/2">
-				<label for="year" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Rok</label>
+				<Label for="year">Rok</Label>
 				<input type="text" id="year" bind:value={$form.year} class="w-full form-input">
 			</div>
 			<div class="flex flex-col items-stretch w-1/2">
-				<label for="nr" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">№</label>
+				<Label for="nr">№</Label>
 				<input type="text" id="nr" bind:value={$form.nr} class="w-full form-input">
 			</div>
 		</div>
 	</div>
 
 	<div class="flex flex-col">
-		<label for="discogs" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Discogs</label>
+		<Label for="discogs">Discogs</Label>
 		<div class="flex gap-5 items-center">
 			<input
 				type="text"
@@ -123,11 +124,13 @@
 	</div>
 
 	<CoverForm {tale} {form} {action}/>
+
 	<CreditsForm {form}/>
+
 	<ActorsForm {form}/>
 
 	<div class="flex flex-col w-full">
-		<label for="notes" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Notatki</label>
+		<Label for="notes">Notatki</Label>
 		<textarea bind:value={$form.notes} id="notes" rows="5" class="w-full form-input"></textarea>
 	</div>
 

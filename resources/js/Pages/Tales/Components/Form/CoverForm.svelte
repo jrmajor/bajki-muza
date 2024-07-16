@@ -2,6 +2,7 @@
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
 	import type { EditResource } from '@/types/tales';
+	import Label from '@/Components/Form/Label.svelte';
 
 	let {
 		tale,
@@ -40,7 +41,7 @@
 </script>
 
 <div class="flex flex-col">
-	<label for="cover" class="pb-1 w-full font-medium text-gray-700 dark:text-gray-400">Okładka</label>
+	<Label for="cover">Okładka</Label>
 	<div class="flex gap-5">
 		<label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
 			<div class="flex-none size-10 bg-placeholder-cover">
