@@ -53,10 +53,10 @@
 	</div>
 
 	<div class="flex flex-col gap-8 items-center w-full">
-		{#if tale.actors}
+		{#if tale.actors.length}
 			<Actors {tale} {user}/>
 		{/if}
-		{#if tale.customCredits}
+		{#if Object.keys(tale.customCredits).length}
 			<CustomCredits {tale}/>
 		{/if}
 	</div>
