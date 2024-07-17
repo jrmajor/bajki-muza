@@ -12,9 +12,6 @@ Route::get('old/artysci/{artist}', [ArtistController::class, 'oldShow']);
 Route::get('artysci/{artist}', [ArtistController::class, 'show'])
     ->name('artists.show');
 
-Route::get('old/artysci/{artist}/edit', [ArtistController::class, 'oldEdit'])
-    ->middleware('auth')->name('artists.edit');
-
 Route::get('artysci/{artist}/edit', [ArtistController::class, 'edit'])
     ->middleware('auth')->name('artists.edit');
 

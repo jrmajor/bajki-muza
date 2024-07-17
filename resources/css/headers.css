@@ -1,22 +1,10 @@
 @layer utilities {
-  .shadow-title,
   .shadow-link {
     @apply relative after:block after:absolute after:z-[-1];
   }
 
-  .shadow-title {
-    @apply after:bg-brand-primary after:dark:bg-brand-primary-dark;
-  }
-
   .shadow-link {
     @apply after:bg-brand-lighter after:dark:bg-brand-lighter-dark;
-  }
-
-  .shadow-title::after {
-    top: calc(100% - 0.6rem);
-    left: -0.375rem;
-    width: calc(100% + 0.75rem);
-    height: 0.57rem;
   }
 
   .shadow-link::after {

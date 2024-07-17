@@ -8,7 +8,6 @@ use App\Http\Resources\Artists\IndexResource;
 use App\Http\Resources\Artists\ShowResource;
 use App\Images\Photo;
 use App\Models\Artist;
-use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,11 +37,6 @@ class ArtistController extends Controller
     public function show(Artist $artist): Response
     {
         return Inertia::render('Artists/Show', ['artist' => new ShowResource($artist)]);
-    }
-
-    public function oldEdit(Artist $artist): View
-    {
-        return view('artists.edit', ['artist' => $artist]);
     }
 
     public function edit(Artist $artist): Response
