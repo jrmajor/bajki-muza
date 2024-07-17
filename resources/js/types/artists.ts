@@ -22,6 +22,18 @@ export type ShowResource = {
 	credits: Record<string, CreditResource[]>;
 };
 
+export type EditResource = {
+	slug: string;
+	name: string;
+	genetivus: string | null;
+	discogs: number | null;
+	filmpolski: number | null;
+	wikipedia: string | null;
+	photo: EditPhotoResource | null;
+	discogsPhotos: DiscogsPhotoResource[];
+	filmPolskiPhotos: FilmPolskiPhotoGroupResource[];
+};
+
 export type PhotoResource = {
 	facePlaceholder: string;
 	url: Record<number, string>;
@@ -31,6 +43,31 @@ export type FullPhotoResource = {
 	placeholder: string;
 	aspectRatio: number | null;
 	url: Record<number, string>;
+};
+
+export type EditPhotoResource = {
+	url: string;
+	source: string | null;
+	crop: ArtistPhotoCrop;
+	grayscale: boolean;
+};
+
+export type ArtistPhotoCrop = {
+	face: ArtistFaceCrop;
+	image: ArtistImageCrop;
+};
+
+export type ArtistFaceCrop = {
+	x: number;
+	y: number;
+	size: number;
+};
+
+export type ArtistImageCrop = {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
 };
 
 export type ActorResource = {
@@ -46,4 +83,16 @@ export type CreditResource = {
 	title: string;
 	year: number | null;
 	cover: CoverResource | null;
+};
+
+export type DiscogsPhotoResource = {
+	uri: string;
+	width: number;
+	height: number;
+};
+
+export type FilmPolskiPhotoGroupResource = {
+	title: string | null;
+	year: number | null;
+	photos: string[];
 };

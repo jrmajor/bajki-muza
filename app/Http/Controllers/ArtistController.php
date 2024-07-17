@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArtist;
+use App\Http\Resources\Artists\EditResource;
 use App\Http\Resources\Artists\IndexResource;
 use App\Http\Resources\Artists\ShowResource;
 use App\Images\Photo;
@@ -39,9 +40,14 @@ class ArtistController extends Controller
         return Inertia::render('Artists/Show', ['artist' => new ShowResource($artist)]);
     }
 
-    public function edit(Artist $artist): View
+    public function oldEdit(Artist $artist): View
     {
         return view('artists.edit', ['artist' => $artist]);
+    }
+
+    public function edit(Artist $artist): Response
+    {
+        return Inertia::render('Artists/Edit', ['artist' => new EditResource($artist)]);
     }
 
     public function update(StoreArtist $request, Artist $artist): RedirectResponse

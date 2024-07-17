@@ -1,5 +1,5 @@
 import prettyBytes from 'pretty-bytes'
-import Cropper from './cropper'
+import Cropper from '../helpers/cropper'
 
 export default function (data, artistForm) {
   return {

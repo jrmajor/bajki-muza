@@ -3,7 +3,7 @@
 		value = $bindable(),
 		searchUsing: searchCallback,
 	}: {
-		value: string;
+		value: unknown; // todo: stricter type
 		searchUsing: (query: string) => Promise<Entry[]>;
 	} = $props();
 
@@ -45,14 +45,14 @@
 	}
 
 	function oninput() {
-		if (value.length < 2) {
+		if (String(value).length < 2) {
 			results = [];
 			return;
 		}
 
 		isOpen = true;
 
-		searchCallback(value).then((data) => {
+		searchCallback(String(value)).then((data) => {
 			results = data;
 			if (hoveredIndex && hoveredIndex > results.length - 1) hoveredIndex = null;
 		});
@@ -87,7 +87,7 @@
 		onfocus={() => isOpen = shouldCloseOnBlur = true}
 		onblur={closeDropdown}
 	>
-	{#if isOpen && !(value.length > 1 && results.length === 0)}
+	{#if isOpen && !(String(value).length > 1 && results.length === 0)}
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<ul
 			class="absolute z-50 py-1 mt-2 w-full text-gray-800 bg-white rounded-md border border-gray-300 shadow-md"

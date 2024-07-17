@@ -4,6 +4,7 @@ namespace Tests\Feature\Artists;
 
 use App\Models\Artist;
 use Illuminate\Support\Facades\Http;
+use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -57,7 +58,13 @@ final class EditArtistTest extends TestCase
     {
         Http::fake();
 
-        $this->asUser()->get("artysci/{$this->artist->slug}/edit")->assertOk();
+        $this
+            ->asUser()
+            ->get("artysci/{$this->artist->slug}/edit")
+            ->assertOk()
+            ->assertInertia(function (Assert $page) {
+                $page->component('Artists/Edit');
+            });
     }
 
     #[TestDox('guests cannot edit artist')]
