@@ -16,7 +16,7 @@
 		urlParams.append('key', `${lastName} ${firstName}`);
 		urlParams.append('search_type_in', 'osoba');
 		urlParams.append('filter[charakter][]', 'portret');
-		return `http://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?${urlParams.toString()}`;
+		return `https://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?${urlParams.toString()}`;
 	});
 </script>
 

@@ -28,7 +28,7 @@ final class FilmPolskiTest extends TestCase
     public function testArtistUrl(): void
     {
         $this->assertSame(
-            'http://www.filmpolski.pl/fp/index.php?osoba=112891',
+            'https://www.filmpolski.pl/fp/index.php?osoba=112891',
             app(FilmPolski::class)->url(112891),
         );
     }

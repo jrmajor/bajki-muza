@@ -101,9 +101,9 @@ final class ArtistTest extends TestCase
 
         $this->mock(FilmPolski::class)
             ->shouldReceive('url')
-            ->andReturn('http://www.filmpolski.pl/fp/index.php?osoba=112891');
+            ->andReturn('https://www.filmpolski.pl/fp/index.php?osoba=112891');
 
-        $this->assertSame('http://www.filmpolski.pl/fp/index.php?osoba=112891', $artist->filmpolski_url);
+        $this->assertSame('https://www.filmpolski.pl/fp/index.php?osoba=112891', $artist->filmpolski_url);
     }
 
     #[TestDox('it can generate wikipedia url')]

@@ -23,7 +23,7 @@ class FilmPolski
     public function search(string $search): array
     {
         $source = Http::get(
-            'http://www.filmpolski.pl/fp/index.php',
+            'https://www.filmpolski.pl/fp/index.php',
             ['szukaj' => $search],
         )->body();
 
@@ -53,7 +53,7 @@ class FilmPolski
 
     public function url(int $id): string
     {
-        return "http://www.filmpolski.pl/fp/index.php?osoba={$id}";
+        return "https://www.filmpolski.pl/fp/index.php?osoba={$id}";
     }
 
     /**
@@ -91,7 +91,7 @@ class FilmPolski
     protected function getPersonSource(int $id): string
     {
         return Http::get(
-            'http://www.filmpolski.pl/fp/index.php',
+            'https://www.filmpolski.pl/fp/index.php',
             ['osoba' => $id],
         )->body();
     }
@@ -99,7 +99,7 @@ class FilmPolski
     protected function getGallerySource(int $galleryId): string
     {
         return Http::get(
-            'http://www.filmpolski.pl/fp/index.php',
+            'https://www.filmpolski.pl/fp/index.php',
             ['galeria_osoby' => $galleryId],
         )->body();
     }
