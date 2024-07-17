@@ -120,7 +120,7 @@ final class ImageProcessor
             Filesystem\delete_file($file);
         }
 
-        $svg = view('components.placeholderSvg', [
+        $svg = view('placeholderSvg', [
             'originalWidth' => $originalWidth,
             'originalHeight' => 32,
             'tinyImageBase64' => 'data:image/jpeg;base64,' . $tinyImageDataBase64,

@@ -7,8 +7,6 @@ use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
 {
-    protected $rootView = 'layouts.app';
-
     /**
      * @return array<string, mixed>
      */
