@@ -8,8 +8,7 @@ export default defineConfig({
 		laravel({
 			input: [
 				'resources/css/style.css',
-				'resources/js/classicApp.js',
-				'resources/js/inertiaApp.ts',
+				'resources/js/app.ts',
 			],
 			refresh: true,
 		}),

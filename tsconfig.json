@@ -14,7 +14,6 @@
         "types": ["vite/client"]
     },
     "include": [
-        "resources/js/inertiaApp.ts",
         "resources/js/**/*.ts",
         "resources/js/**/*.svelte",
     ]

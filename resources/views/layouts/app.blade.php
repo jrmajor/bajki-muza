@@ -8,13 +8,17 @@
     <meta name="theme-color" content="#ebebeb" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 
+    <title inertia>Bajki Polskich Nagrań „Muza”</title>
+
     @unless (app()->runningUnitTests())
       @vite(['resources/css/style.css'])
+      @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.svelte"])
     @endunless
 
     @yield('head')
 
     @routes
+    @inertiaHead
 
     @production
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -25,6 +29,6 @@
     @endif
   </head>
   <body class="font-sans text-gray-900 bg-gray-200 dark:bg-gray-950 dark:text-gray-200">
-    @yield('outerContent')
+    @inertia
   </body>
 </html>

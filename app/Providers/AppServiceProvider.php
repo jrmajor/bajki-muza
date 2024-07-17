@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        Inertia::setRootView('layouts.app-inertia');
+        Inertia::setRootView('layouts.app');
 
         Relation::requireMorphMap();
 
