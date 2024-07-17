@@ -2,9 +2,11 @@
 	let {
 		value = $bindable(),
 		searchUsing: searchCallback,
+		id = null,
 	}: {
 		value: unknown; // todo: stricter type
 		searchUsing: (query: string) => Promise<Entry[]>;
+		id?: string | null;
 	} = $props();
 
 	type Entry = { label: string; value: string };
@@ -82,6 +84,7 @@
 		class="w-full form-input"
 		autocomplete="off"
 		bind:value
+		{id}
 		{onkeydown}
 		{oninput}
 		onfocus={() => isOpen = shouldCloseOnBlur = true}

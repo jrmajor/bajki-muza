@@ -17,4 +17,4 @@
 	}
 </script>
 
-<Picker bind:value {searchUsing}/>
+<Picker bind:value {searchUsing} id={service}/>
