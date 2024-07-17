@@ -36,11 +36,7 @@
 		</div>
 	{/if}
 
-	<div
-		class="absolute top-0 right-0 pl-8 pb-2
-		opacity-0 group-hover:opacity-100 transition-all duration-300"
-		style="background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);"
-	>
+	<div class="dimensions opacity-0 group-hover:opacity-100 transition-all duration-300">
 		<span class="px-2 text-white text-2xs">{dimensions}</span>
 	</div>
 
@@ -50,3 +46,14 @@
 		{isSelected ? 'inset-shadow-hard opacity-100' : ''}
 	"></div>
 </button>
+
+<style>
+	.dimensions {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding-left: 2rem;
+		padding-bottom: 0.5rem;
+		background-image: radial-gradient(ellipse farthest-side at top right, rgba(0, 0, 0, .4), transparent);
+	}
+</style>
