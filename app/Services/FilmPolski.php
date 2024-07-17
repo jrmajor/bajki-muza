@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Values\FilmPolski\Artist;
 use App\Values\FilmPolski\PhotoGroup;
 use Carbon\CarbonInterval;
+use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\Psr7\UriResolver;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str as LStr;
@@ -115,7 +117,7 @@ class FilmPolski
                 return null;
             }
 
-            return $crawler->attr('src');
+            return $this->resolveUrl($crawler->attr('src'));
         });
     }
 
@@ -168,6 +170,7 @@ class FilmPolski
 
                 $photo = $nodeCrawler->children()->children()->attr('src');
                 $photo = Regex\replace($photo, '/\\/([0-9]+)i\\//', '/$1z/');
+                $photo = $this->resolveUrl($photo);
 
                 $photos[$title ?? '?']['photos'][] = $photo;
             }
@@ -190,5 +193,13 @@ class FilmPolski
     public function forget(int $id): bool
     {
         return Cache::forget("filmpolski-{$id}-photos");
+    }
+
+    private function resolveUrl(string $url): string
+    {
+        return UriResolver::resolve(
+            new Uri('https://www.filmpolski.pl/fp/index.php'),
+            new Uri($url),
+        );
     }
 }

@@ -29,11 +29,11 @@
 	{#each filmPolskiPhotos as movie}
 		{#each movie.photos as photo}
 			<FormExternalPhoto
-				url={`https://filmpolski.pl${photo}`}
+				url={photo}
 				title={movie.title}
 				year={movie.year}
-				isSelected={currentPhotoUrl === `https://filmpolski.pl${photo}`}
-				onclick={() => onclick(`https://filmpolski.pl${photo}`, 'filmpolski')}
+				isSelected={currentPhotoUrl === photo}
+				onclick={() => onclick(photo, 'filmpolski')}
 			/>
 		{/each}
 	{/each}
