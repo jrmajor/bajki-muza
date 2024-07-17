@@ -24,11 +24,11 @@
     "eslint": "^9.7",
     "eslint-plugin-svelte": "^2.42",
     "globals": "^15.8",
-    "laravel-vite-plugin": "^0.8.1",
+    "laravel-vite-plugin": "^1.0",
     "postcss": "^8.4",
     "svelte-check": "^3.8",
     "typescript": "^5.5",
     "typescript-eslint": "8.0.0-alpha.41",
-    "vite": "^4.5"
+    "vite": "^5.3"
   }
 }
