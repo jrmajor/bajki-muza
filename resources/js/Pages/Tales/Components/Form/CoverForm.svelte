@@ -18,12 +18,17 @@
 	} = $props();
 
 	let filesInput: HTMLInputElement;
-	let coverFile: File | null = $state(null);
-	let coverPreview = $derived(coverFile ? URL.createObjectURL(coverFile) : null);
+	let file: File | null = $state(null);
+
+	let previewUrl = $derived.by(() => {
+		if ($form.removeCover) return null;
+		if (file) return URL.createObjectURL(file);
+		return currentCover?.url[128] ?? null;
+	});
 
 	$effect(() => {
-		$form.cover = coverFile;
-		if (coverFile) $form.removeCover = false;
+		$form.cover = file;
+		if (file) $form.removeCover = false;
 	});
 
 	$effect(() => {
@@ -36,7 +41,7 @@
 	}
 
 	function updateSelectedFile() {
-		coverFile = filesInput.files![0] ?? null;
+		file = filesInput.files![0] ?? null;
 	}
 </script>
 
@@ -45,26 +50,18 @@
 	<div class="flex gap-5">
 		<label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
 			<div class="flex-none size-10 bg-placeholder-cover">
-				{#if currentCover}
+				{#if previewUrl}
 					<img
-						src={currentCover.url[128]}
-						class="object-cover size-10 bg-cover"
-						style={`background-image: url("${currentCover.placeholder}")`}
-						class:hidden={coverFile || $form.removeCover}
-						alt="Aktualna okładka"
+						src={previewUrl}
+						class="object-cover size-10"
+						alt={file ? 'Przesłana okładka' : 'Aktualna okładka'}
 					>
-				{/if}
-				{#if coverPreview}
-					<img src={coverPreview} class="object-cover size-10" alt="Przesłana okładka">
 				{/if}
 			</div>
 			<span class="py-2 px-3">
-				<span>{coverFile ? coverFile.name : 'Wybierz plik'}</span>
-				<small class="pl-1 text-xs font-medium">{coverFile ? prettyBytes(coverFile.size) : ''}</small>
+				<span>{file ? file.name : 'Wybierz plik'}</span>
+				<small class="pl-1 text-xs font-medium">{file ? prettyBytes(file.size) : ''}</small>
 			</span>
-			{#if coverFile}
-				<button type="button" onclick={deselectFile} class="flex-none"></button>
-			{/if}
 			<input
 				type="file"
 				id="cover"
