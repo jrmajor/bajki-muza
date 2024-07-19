@@ -1,20 +1,46 @@
-<script lang="ts">
+<script lang="ts" generics="Value extends string | number">
 	let {
-		value = $bindable(),
-		searchUsing: searchCallback,
 		id = null,
+		value = $bindable(),
+		getResults,
+		minSearchLength = 2,
+		allowsAnyString = false,
 	}: {
-		value: unknown; // todo: stricter type
-		searchUsing: (query: string) => Promise<Entry[]>;
 		id?: string | null;
+		value: Value | null | (typeof allowsAnyString extends true ? string : never);
+		getResults: (query: string) => Promise<Entry[]>;
+		minSearchLength?: number;
+		allowsAnyString?: boolean;
 	} = $props();
 
-	type Entry = { label: string; value: string };
+	type Entry = { label: string; value: Value };
+
+	let searchValue = $state(String(value));
+	let results: Entry[] = $state([]);
 
 	let isOpen = $state(false);
 	let shouldCloseOnBlur = $state(true);
 	let hoveredIndex: number | null = $state(null);
-	let results: Entry[] = $state([]);
+
+	function oninput() {
+		if (searchValue.length < minSearchLength) {
+			results = [];
+			return;
+		}
+
+		isOpen = true;
+
+		getResults(searchValue).then((data) => {
+			results = data;
+			if (hoveredIndex && hoveredIndex > results.length - 1) hoveredIndex = null;
+		});
+	}
+
+	function select(entry: Entry) {
+		searchValue = String(entry.value);
+		value = entry.value;
+		closeDropdown();
+	}
 
 	function onkeydown(event: KeyboardEvent) {
 		const listener = {
@@ -46,20 +72,6 @@
 		if (hoveredIndex !== null) select(results[hoveredIndex]);
 	}
 
-	function oninput() {
-		if (String(value).length < 2) {
-			results = [];
-			return;
-		}
-
-		isOpen = true;
-
-		searchCallback(String(value)).then((data) => {
-			results = data;
-			if (hoveredIndex && hoveredIndex > results.length - 1) hoveredIndex = null;
-		});
-	}
-
 	function closeDropdown() {
 		if (!shouldCloseOnBlur) {
 			shouldCloseOnBlur = true;
@@ -67,14 +79,17 @@
 		}
 
 		isOpen = false;
+		if (searchValue === '') {
+			value = null;
+		} else if (allowsAnyString) {
+			// @ts-expect-error value shold be Value | string if allowsAnyString is true
+			value = searchValue;
+		} else {
+			searchValue = String(value);
+		}
 
 		hoveredIndex = null;
 		shouldCloseOnBlur = true;
-	}
-
-	function select(entry: Entry) {
-		value = entry.value;
-		closeDropdown();
 	}
 </script>
 
@@ -83,14 +98,14 @@
 		type="text"
 		class="w-full form-input"
 		autocomplete="off"
-		bind:value
+		bind:value={searchValue}
 		{id}
 		{onkeydown}
 		{oninput}
 		onfocus={() => isOpen = shouldCloseOnBlur = true}
 		onblur={closeDropdown}
 	>
-	{#if isOpen && !(String(value).length > 1 && results.length === 0)}
+	{#if isOpen && searchValue.length > minSearchLength}
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<ul
 			class="absolute z-50 py-1 mt-2 w-full text-gray-800 bg-white rounded-md border border-gray-300 shadow-md"

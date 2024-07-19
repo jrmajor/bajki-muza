@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" generics="Service extends ('discogs' | 'filmPolski' | 'wikipedia')">
 	import { route } from 'ziggy-js';
 	import ComboBox from './ComboBox.svelte';
 
@@ -6,15 +6,26 @@
 		service,
 		value = $bindable(),
 	}: {
-		service: 'discogs' | 'filmPolski' | 'wikipedia';
-		value: string | number | null;
+		service: Service;
+		value: Value | null;
 	} = $props();
 
-	async function searchUsing(value: string) {
-		let response = await fetch(route(`ajax.${service}`, { search: value }));
-		let json = await response.json() as Array<{ id: number | string; name: string }>;
-		return json.map((a) => ({ label: a.name, value: String(a.id) }));
+	type Value = Service extends 'wikipedia' ? string : number;
+
+	async function getResults(value: string) {
+		// do not use `ajax.${service}` to keep typescript happy
+		let response;
+		if (service === 'discogs') {
+			response = await fetch(route('ajax.discogs', { search: value }));
+		} else if (service === 'filmPolski') {
+			response = await fetch(route('ajax.filmPolski', { search: value }));
+		} else {
+			response = await fetch(route('ajax.wikipedia', { search: value }));
+		}
+
+		let json = await response.json() as Array<{ id: Value; name: string }>;
+		return json.map((a) => ({ label: a.name, value: a.id }));
 	}
 </script>
 
-<ComboBox bind:value {searchUsing} id={service}/>
+<ComboBox id={service} bind:value {getResults} minSearchLength={5}/>
