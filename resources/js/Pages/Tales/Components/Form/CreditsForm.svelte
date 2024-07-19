@@ -3,7 +3,7 @@
 	import type { CreditType } from '@/types/tales';
 	import randomKey from '@/helpers/randomKey';
 	import { creditLabels } from '@/helpers/creditLabels';
-	import ArtistPicker from '@/Components/Pickers/ArtistPicker.svelte';
+	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
 	let {
 		form,

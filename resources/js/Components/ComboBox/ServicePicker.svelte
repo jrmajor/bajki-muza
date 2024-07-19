@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { route } from 'ziggy-js';
-	import Picker from './Picker.svelte';
+	import ComboBox from './ComboBox.svelte';
 
 	let {
 		service,
@@ -17,4 +17,4 @@
 	}
 </script>
 
-<Picker bind:value {searchUsing} id={service}/>
+<ComboBox bind:value {searchUsing} id={service}/>

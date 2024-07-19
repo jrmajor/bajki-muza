@@ -4,7 +4,7 @@
 	import type { EditResource } from '@/types/artists';
 	import Label from '@/Components/Form/Label.svelte';
 	import Button from '@/Components/Form/Button.svelte';
-	import ServicePicker from '@/Components/Pickers/ServicePicker.svelte';
+	import ServicePicker from '@/Components/ComboBox/ServicePicker.svelte';
 	import PhotoForm from './PhotoForm.svelte';
 	import FormExternalLinks from './FormExternalLinks.svelte';
 	import FormExternalPhotos from './FormExternalPhotos.svelte';

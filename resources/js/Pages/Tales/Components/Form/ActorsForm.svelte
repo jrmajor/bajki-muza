@@ -2,7 +2,7 @@
 	import { tick } from 'svelte';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import randomKey from '@/helpers/randomKey';
-	import ArtistPicker from '@/Components/Pickers/ArtistPicker.svelte';
+	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
 	let { form }: {
 		form: InertiaForm<{
