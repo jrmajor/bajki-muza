@@ -149,7 +149,7 @@ abstract class Image extends Model
     public function missingVariants(): array
     {
         return Vec\filter(
-            [...static::sizes(), ...static::variants()],
+            static::variants(),
             fn ($size) => $this->variantMissing($size),
         );
     }
@@ -157,7 +157,7 @@ abstract class Image extends Model
     protected function deleteVariants(): bool
     {
         $variantsToDelete = Vec\map(
-            [...static::sizes(), ...static::variants()],
+            static::variants(),
             fn ($variant) => $this->path($variant),
         );
 

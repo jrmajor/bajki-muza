@@ -5,7 +5,6 @@ namespace Tests\Feature\Console;
 use App\Images\Cover;
 use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
-use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
@@ -52,7 +51,7 @@ final class ReprocessCoversTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateTaleCoverPlaceholder::class,
-            [GenerateImageVariants::class, GenerateTaleCoverVariants::class],
+            [GenerateImageVariants::class],
         );
     }
 

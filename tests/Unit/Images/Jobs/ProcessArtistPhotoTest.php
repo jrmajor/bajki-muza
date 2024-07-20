@@ -3,7 +3,6 @@
 namespace Tests\Unit\Images\Jobs;
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
-use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Storage;
@@ -51,29 +50,5 @@ final class ProcessArtistPhotoTest extends TestCase
         $this->assertSame($photo->crop()->toArray(), $this->crop->toArray());
         $this->assertStringStartsWith('data:image/svg+xml;base64,', $photo->placeholder('face'));
         $this->assertStringStartsWith('data:image/svg+xml;base64,', $photo->placeholder());
-    }
-
-    #[TestDox('GenerateArtistPhotoVariants job works')]
-    public function testVariants(): void
-    {
-        Storage::fake('testing');
-
-        $filename = Str::random(10) . '.jpg';
-
-        // Photo by Alberto Bigoni on Unsplash
-        Photo::disk()->put(
-            "photos/original/{$filename}",
-            Tests\read_fixture('Images/photo.jpg'),
-        );
-
-        GenerateArtistPhotoVariants::dispatchSync(
-            Photo::create([
-                'filename' => $filename,
-                'crop' => $this->crop,
-            ]),
-        );
-
-        Photo::disk()->assertExists("photos/160/{$filename}");
-        Photo::disk()->assertExists("photos/56/{$filename}");
     }
 }

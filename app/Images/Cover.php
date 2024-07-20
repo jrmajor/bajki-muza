@@ -4,7 +4,6 @@ namespace App\Images;
 
 use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
-use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Bus;
@@ -34,7 +33,6 @@ final class Cover extends Image
         Bus::chain([
             new GenerateTaleCoverPlaceholder($this),
             new GenerateImageVariants($this),
-            new GenerateTaleCoverVariants($this),
         ])->dispatch();
     }
 

@@ -3,7 +3,6 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
-use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistFaceCrop;
@@ -86,7 +85,7 @@ final class PhotoTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
-            [GenerateImageVariants::class, GenerateArtistPhotoVariants::class],
+            [GenerateImageVariants::class],
         );
     }
 
@@ -142,7 +141,7 @@ final class PhotoTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
-            [GenerateImageVariants::class, GenerateArtistPhotoVariants::class],
+            [GenerateImageVariants::class],
         );
     }
 

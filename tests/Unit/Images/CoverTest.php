@@ -5,7 +5,6 @@ namespace Tests\Unit\Images;
 use App\Images\Cover;
 use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
-use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
@@ -42,7 +41,7 @@ final class CoverTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateTaleCoverPlaceholder::class,
-            [GenerateImageVariants::class, GenerateTaleCoverVariants::class],
+            [GenerateImageVariants::class],
         );
     }
 

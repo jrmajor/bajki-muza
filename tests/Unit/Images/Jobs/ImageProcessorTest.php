@@ -6,7 +6,6 @@ use App\Images\Jobs\ImageProcessor;
 use App\Images\Values\FitMethod;
 use Exception;
 use PHPUnit\Framework\Attributes\TestDox;
-use Psl\Filesystem;
 use ReflectionClass;
 use Tests;
 use Tests\TestCase;
@@ -87,29 +86,5 @@ final class ImageProcessorTest extends TestCase
         $tinyJpg = $processor->generateTinyJpg(FitMethod::Height);
 
         $this->assertStringStartsWith('data:image/svg+xml;base64,', $tinyJpg);
-    }
-
-    #[TestDox('it can generate responsive images cropped to square')]
-    public function testSquareResponsive(): void
-    {
-        $processor = ImageProcessor::fromPath(Tests\fixture('Images/cover.jpg'));
-
-        $responsiveImage = $processor->responsiveImage(28, FitMethod::Square);
-
-        $this->assertFileExists($responsiveImage);
-
-        Filesystem\delete_file($responsiveImage);
-    }
-
-    #[TestDox('it can generate responsive images preserving aspect ratio')]
-    public function testResponsive(): void
-    {
-        $processor = ImageProcessor::fromPath(Tests\fixture('Images/photo.jpg'));
-
-        $responsiveImage = $processor->responsiveImage(112, FitMethod::Height);
-
-        $this->assertFileExists($responsiveImage);
-
-        Filesystem\delete_file($responsiveImage);
     }
 }

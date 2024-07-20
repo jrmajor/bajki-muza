@@ -177,7 +177,7 @@ final class ImageTest extends TestCase
         TestCover::disk()->put('covers/128/fileWithMissingVariants.jpg', 'contents');
 
         $this->assertSame(
-            [192, 256, 'default'],
+            ['default'],
             (new TestCover(['filename' => 'fileWithMissingVariants.jpg']))
                 ->missingVariants(),
         );

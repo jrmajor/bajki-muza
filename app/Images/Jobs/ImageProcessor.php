@@ -129,25 +129,6 @@ final class ImageProcessor
         return 'data:image/svg+xml;base64,' . Base64\encode($svg);
     }
 
-    /**
-     * @param int<0, max> $targetSize
-     *
-     * @return non-empty-string
-     */
-    public function responsiveImage(int $targetSize, FitMethod $fit): string
-    {
-        $image = $this->manager->read($this->path);
-
-        match ($fit) {
-            FitMethod::Square => $image->cover(width: $targetSize, height: $targetSize),
-            FitMethod::Height => $image->scale(height: $targetSize),
-        };
-
-        $image->save($file = $this->createTemporaryFile());
-
-        return $file;
-    }
-
     public function cropImage(ArtistImageCrop $crop, bool $grayscale): self
     {
         return $this->manualCrop(

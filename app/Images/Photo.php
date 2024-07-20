@@ -3,7 +3,6 @@
 namespace App\Images;
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
-use App\Images\Jobs\GenerateArtistPhotoVariants;
 use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
@@ -70,7 +69,6 @@ final class Photo extends Image
         Bus::chain([
             new GenerateArtistPhotoPlaceholders($this),
             new GenerateImageVariants($this),
-            new GenerateArtistPhotoVariants($this),
         ])->dispatch();
     }
 
