@@ -19,7 +19,6 @@ parameters:
         - '#^Access to an undefined property App\\Models\\Tale::\$popularity\.$#'
         - '#^Call to an undefined method App\\Models\\Actor\|App\\Models\\Credit::(ofType|isCustom)\(\)\.$#'
         - '#^Cannot call method assertExitCode\(\) on Illuminate\\Testing\\PendingCommand\|int\.$#'
-        - '#^Parameter .* of function .* expects non-empty-string, string given\.$#'
     tmpDir: .cache/phpstan
 
 includes:

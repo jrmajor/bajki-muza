@@ -9,11 +9,6 @@ class TestCover extends Image
 {
     protected $table = 'covers';
 
-    protected function process(): void
-    {
-        dispatch(new ProcessTestCover());
-    }
-
     public function processVariant(ImageInterface $image, string $variant): ImageInterface
     {
         $size = min($image->width(), $image->height());

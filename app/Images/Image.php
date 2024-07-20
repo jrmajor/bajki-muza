@@ -2,13 +2,14 @@
 
 namespace App\Images;
 
-use App\Images\Exceptions\FailedToReadStream;
 use App\Images\Exceptions\OriginalDoesNotExist;
+use App\Images\Jobs\GenerateImageVariants;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\File as LaravelFile;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Interfaces\ImageInterface;
@@ -27,8 +28,6 @@ abstract class Image extends Model
     public $incrementing = false;
 
     protected $guarded = [];
-
-    abstract protected function process(): void;
 
     abstract public function processVariant(ImageInterface $image, string $variant): ImageInterface;
 
@@ -62,7 +61,7 @@ abstract class Image extends Model
         /** @var static */
         return tap(
             static::create(['filename' => Str\after_last($path, '/'), ...$attributes]),
-            fn (self $image) => $image->process(),
+            fn (self $image) => $image->dispatchProcessingJob(),
         );
     }
 
@@ -84,6 +83,11 @@ abstract class Image extends Model
         return $photo;
     }
 
+    private function dispatchProcessingJob(): void
+    {
+        Bus::dispatch(new GenerateImageVariants($this));
+    }
+
     public function reprocess(): void
     {
         if ($this->originalMissing()) {
@@ -92,7 +96,7 @@ abstract class Image extends Model
 
         $this->deleteVariants();
 
-        $this->process();
+        $this->dispatchProcessingJob();
     }
 
     /**
@@ -101,11 +105,6 @@ abstract class Image extends Model
     public function filename(): string
     {
         return $this->getAttribute('filename');
-    }
-
-    public function extension(): string
-    {
-        return Filesystem\get_extension($this->filename());
     }
 
     public function originalUrl(?Carbon $expiration = null): string
@@ -125,7 +124,7 @@ abstract class Image extends Model
     {
         $prefix = $variant === 'default' ? '' : "{$variant}_";
 
-        return $this->getAttribute("{$prefix}placeholder");
+        return $this->getAttributeValue("{$prefix}placeholder");
     }
 
     public function originalMissing(): bool
@@ -159,17 +158,13 @@ abstract class Image extends Model
         return $this->disk()->delete($variantsToDelete);
     }
 
-    /**
-     * @return resource
-     */
-    public function readStream()
-    {
-        return static::disk()->readStream($path = $this->originalPath())
-            ?? throw new FailedToReadStream($path);
-    }
-
     public static function disk(): FilesystemAdapter
     {
         return Storage::disk(config('filesystems.media'));
+    }
+
+    public static function shouldSaveDimensions(): bool
+    {
+        return false;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Images;
 
-use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistFaceCrop;
@@ -65,10 +64,7 @@ final class PhotoTest extends TestCase
 
         $this->assertCount(1, Photo::disk()->files('photos/original'));
 
-        Queue::assertPushedWithChain(
-            GenerateArtistPhotoPlaceholders::class,
-            [GenerateImageVariants::class],
-        );
+        Queue::assertPushed(GenerateImageVariants::class);
     }
 
     #[TestDox('it returns correct original path')]
@@ -121,10 +117,7 @@ final class PhotoTest extends TestCase
 
         $this->assertSame($newCrop->toArray(), $photo->refresh()->crop()->toArray());
 
-        Queue::assertPushedWithChain(
-            GenerateArtistPhotoPlaceholders::class,
-            [GenerateImageVariants::class],
-        );
+        Queue::assertPushed(GenerateImageVariants::class);
     }
 
     #[TestDox('it can calculate aspect ratio')]

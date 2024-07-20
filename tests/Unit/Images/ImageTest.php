@@ -3,6 +3,7 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Exceptions\OriginalDoesNotExist;
+use App\Images\Jobs\GenerateImageVariants;
 use Carbon\Carbon;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
@@ -30,7 +31,7 @@ final class ImageTest extends TestCase
 
         $this->assertCount(1, TestCover::disk()->files('covers/original'));
 
-        Bus::assertDispatched(ProcessTestCover::class);
+        Bus::assertDispatched(GenerateImageVariants::class);
     }
 
     #[TestDox('it throws error when reprocessing image without original')]
@@ -59,7 +60,7 @@ final class ImageTest extends TestCase
 
         TestCover::disk()->assertMissing($vartiantPath);
 
-        Bus::assertDispatched(ProcessTestCover::class);
+        Bus::assertDispatched(GenerateImageVariants::class);
     }
 
     #[TestDox('it can reprocess variants')]
@@ -73,7 +74,7 @@ final class ImageTest extends TestCase
 
         (new TestCover(['filename' => 'test.jpg']))->reprocess();
 
-        Bus::assertDispatched(ProcessTestCover::class);
+        Bus::assertDispatched(GenerateImageVariants::class);
     }
 
     #[TestDox('it can get its filename')]
@@ -82,15 +83,6 @@ final class ImageTest extends TestCase
         $this->assertSame(
             'testFilename.jpg',
             (new TestCover(['filename' => 'testFilename.jpg']))->filename(),
-        );
-    }
-
-    #[TestDox('it can get its extension')]
-    public function testExtension(): void
-    {
-        $this->assertSame(
-            'png',
-            (new TestCover(['filename' => 'testFilename.png']))->extension(),
         );
     }
 
@@ -186,19 +178,5 @@ final class ImageTest extends TestCase
             (new TestCover(['filename' => 'fileWithMissingVariants.jpg']))
                 ->missingVariants(),
         );
-    }
-
-    #[TestDox('it can read file stream')]
-    public function testReadStream(): void
-    {
-        Storage::fake('testing');
-
-        TestCover::disk()->put('covers/original/test.jpg', 'contents');
-
-        $stream = (new TestCover(['filename' => 'test.jpg']))->readStream();
-
-        $this->assertSame('contents', fread($stream, 16));
-
-        fclose($stream);
     }
 }

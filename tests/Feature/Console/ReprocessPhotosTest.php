@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Console;
 
-use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Photo;
 use App\Models\Artist;
@@ -49,10 +48,7 @@ final class ReprocessPhotosTest extends TestCase
 
         $this->a('reprocess:photos --artist test-artist')->assertExitCode(0);
 
-        Queue::assertPushedWithChain(
-            GenerateArtistPhotoPlaceholders::class,
-            [GenerateImageVariants::class],
-        );
+        Queue::assertPushed(GenerateImageVariants::class);
     }
 
     #[TestDox('it asks for confirmation when processing all photos')]

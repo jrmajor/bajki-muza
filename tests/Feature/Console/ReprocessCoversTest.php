@@ -4,7 +4,6 @@ namespace Tests\Feature\Console;
 
 use App\Images\Cover;
 use App\Images\Jobs\GenerateImageVariants;
-use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Models\Tale;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
@@ -49,10 +48,7 @@ final class ReprocessCoversTest extends TestCase
 
         $this->a('reprocess:covers --tale test-tale')->assertExitCode(0);
 
-        Queue::assertPushedWithChain(
-            GenerateTaleCoverPlaceholder::class,
-            [GenerateImageVariants::class],
-        );
+        Queue::assertPushed(GenerateImageVariants::class);
     }
 
     #[TestDox('it asks for confirmation when processing all covers')]

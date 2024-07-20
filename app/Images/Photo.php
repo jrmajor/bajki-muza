@@ -2,12 +2,9 @@
 
 namespace App\Images;
 
-use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
-use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Bus;
 use Intervention\Image\Interfaces\ImageInterface;
 use Psl\Type;
 
@@ -32,14 +29,6 @@ final class Photo extends Image
                 $photo->reprocess();
             }
         });
-    }
-
-    protected function process(): void
-    {
-        Bus::chain([
-            new GenerateArtistPhotoPlaceholders($this),
-            new GenerateImageVariants($this),
-        ])->dispatch();
     }
 
     public function processVariant(ImageInterface $image, string $variant): ImageInterface
@@ -84,6 +73,11 @@ final class Photo extends Image
         $t = Type\float();
 
         return $t->coerce($this->width) / $t->coerce($this->height);
+    }
+
+    public static function shouldSaveDimensions(): bool
+    {
+        return true;
     }
 
     public function artists(): HasMany

@@ -4,7 +4,6 @@ namespace Tests\Unit\Images;
 
 use App\Images\Cover;
 use App\Images\Jobs\GenerateImageVariants;
-use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Models\Tale;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
@@ -33,10 +32,7 @@ final class CoverTest extends TestCase
 
         $this->assertCount(1, Cover::disk()->files('covers/original'));
 
-        Queue::assertPushedWithChain(
-            GenerateTaleCoverPlaceholder::class,
-            [GenerateImageVariants::class],
-        );
+        Queue::assertPushed(GenerateImageVariants::class);
     }
 
     #[TestDox('it returns correct original path')]
