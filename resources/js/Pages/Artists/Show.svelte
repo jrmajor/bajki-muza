@@ -40,7 +40,7 @@
 				>
 					<!-- todo: alt -->
 					<ResponsiveImage
-						image={artist.photo}
+						src={artist.photo.url}
 						size="full"
 						imageSize={160}
 						loading="eager"

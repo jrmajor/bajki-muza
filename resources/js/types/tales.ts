@@ -1,4 +1,4 @@
-import type { PhotoResource } from './artists';
+import type { FacePhotoResource } from './artists';
 
 export type IndexResource = {
 	slug: string;
@@ -31,7 +31,7 @@ export type EditResource = {
 
 export type CoverResource = {
 	placeholder: string;
-	url: Record<number, string>;
+	url: string;
 };
 
 export type ActorResource = {
@@ -39,7 +39,7 @@ export type ActorResource = {
 	slug: string;
 	name: string;
 	appearances: number;
-	photo: PhotoResource | null;
+	photo: FacePhotoResource | null;
 	discogsPhotoThumb: string | null;
 };
 

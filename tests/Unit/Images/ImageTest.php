@@ -121,8 +121,13 @@ final class ImageTest extends TestCase
         Storage::fake('testing');
 
         $this->assertStringEndsWith(
-            '/covers/128/testFilename.jpg',
-            (new TestCover(['filename' => 'testFilename.jpg']))->url(128),
+            '/covers/default/testFilename.jpg',
+            (new TestCover(['filename' => 'testFilename.jpg']))->url(),
+        );
+
+        $this->assertStringEndsWith(
+            '/covers/custom/testFilename.jpg',
+            (new TestCover(['filename' => 'testFilename.jpg']))->url('custom'),
         );
     }
 

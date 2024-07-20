@@ -22,11 +22,11 @@
 			>
 				<div
 					class="flex-none size-14 bg-placeholder-artist"
-					style={actor.photo ? `background-image: url("${actor.photo.facePlaceholder}")` : null}
+					style={actor.photo ? `background-image: url("${actor.photo.placeholder}")` : null}
 				>
 					{#if actor.photo}
 						<!-- todo: alt -->
-						<ResponsiveImage image={actor.photo} size={14} alt=""/>
+						<ResponsiveImage src={actor.photo.url} size={14} alt=""/>
 					{:else if actor.discogsPhotoThumb && !user}
 						<!-- todo: alt -->
 						<!-- svelte-ignore a11y_missing_attribute -->

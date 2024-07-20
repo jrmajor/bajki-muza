@@ -32,7 +32,7 @@
 			>
 				{#if tale.cover}
 					<ResponsiveImage
-						image={tale.cover}
+						src={tale.cover.url}
 						size="full"
 						imageSize={192}
 						loading="eager"

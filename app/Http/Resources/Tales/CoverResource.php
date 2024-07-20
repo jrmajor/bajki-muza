@@ -18,8 +18,7 @@ class CoverResource extends JsonResource
     {
         return [
             'placeholder' => $this->resource->placeholder(),
-            'url' => collect(Cover::sizes())
-                ->mapWithKeys(fn (int $size) => [$size => $this->resource->url($size)]),
+            'url' => $this->resource->url(),
         ];
     }
 }

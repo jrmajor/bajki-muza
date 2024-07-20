@@ -26,7 +26,7 @@
 					>
 						{#if tale.cover}
 							<ResponsiveImage
-								image={tale.cover}
+								src={tale.cover.url}
 								size={13}
 								imageSize={60}
 								alt="Okładka bajki {tale.title}"

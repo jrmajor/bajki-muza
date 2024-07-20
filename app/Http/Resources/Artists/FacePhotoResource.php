@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property Photo $resource
  */
-class PhotoResource extends JsonResource
+class FacePhotoResource extends JsonResource
 {
     /**
      * @return array<string, mixed>
@@ -17,9 +17,8 @@ class PhotoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'facePlaceholder' => $this->resource->placeholder('face'),
-            'url' => collect(Photo::sizes())
-                ->mapWithKeys(fn (int $size) => [$size => $this->resource->url($size)]),
+            'placeholder' => $this->resource->placeholder('face'),
+            'url' => $this->resource->url('face'),
         ];
     }
 }

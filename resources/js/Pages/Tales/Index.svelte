@@ -61,7 +61,7 @@
 						style={tale.cover ? `background-image: url("${tale.cover.placeholder}")` : null}
 					>
 						{#if tale.cover}
-							<ResponsiveImage image={tale.cover} size={32} alt="Okładka bajki {tale.title}"/>
+							<ResponsiveImage src={tale.cover.url} size={32} alt="Okładka bajki {tale.title}"/>
 						{/if}
 					</div>
 					<div class="flex flex-col flex-grow justify-between self-stretch p-4 sm:p-5 sm:pl-6">

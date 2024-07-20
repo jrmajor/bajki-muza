@@ -19,8 +19,7 @@ class FullPhotoResource extends JsonResource
         return [
             'placeholder' => $this->resource->placeholder(),
             'aspectRatio' => $this->resource->aspectRatio(),
-            'url' => collect(Photo::sizes())
-                ->mapWithKeys(fn (int $size) => [$size => $this->resource->url($size)]),
+            'url' => $this->resource->url(),
         ];
     }
 }

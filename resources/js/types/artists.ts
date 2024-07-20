@@ -4,7 +4,7 @@ export type IndexResource = {
 	slug: string;
 	name: string;
 	appearances: number;
-	photo: PhotoResource | null;
+	photo: FacePhotoResource | null;
 	discogsPhotoThumb: string | null;
 };
 
@@ -34,15 +34,15 @@ export type EditResource = {
 	filmPolskiPhotos: FilmPolskiPhotoGroupResource[];
 };
 
-export type PhotoResource = {
-	facePlaceholder: string;
-	url: Record<number, string>;
+export type FacePhotoResource = {
+	placeholder: string;
+	url: string;
 };
 
 export type FullPhotoResource = {
 	placeholder: string;
 	aspectRatio: number | null;
-	url: Record<number, string>;
+	url: string;
 };
 
 export type EditPhotoResource = {

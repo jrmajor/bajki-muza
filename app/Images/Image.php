@@ -121,7 +121,7 @@ abstract class Image extends Model
         );
     }
 
-    public function url(int|string $variant): string
+    public function url(int|string $variant = 'default'): string
     {
         return $this->disk()->url($this->path($variant));
     }

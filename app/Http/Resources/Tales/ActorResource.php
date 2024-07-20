@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Tales;
 
-use App\Http\Resources\Artists\PhotoResource;
+use App\Http\Resources\Artists\FacePhotoResource;
 use App\Models\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,7 +25,7 @@ class ActorResource extends JsonResource
             'slug' => $this->resource->slug,
             'name' => $this->resource->name,
             'appearances' => Type\int()->coerce($this->resource->appearances),
-            'photo' => new PhotoResource($this->whenNotNull($this->resource->photo)),
+            'photo' => new FacePhotoResource($this->whenNotNull($this->resource->photo)),
             'discogsPhotoThumb' => $this->resource->photo ? null : $this->resource->discogsPhoto('thumb'),
         ];
     }
