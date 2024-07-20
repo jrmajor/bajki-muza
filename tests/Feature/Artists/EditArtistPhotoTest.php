@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Artists;
 
-use App\Images\Jobs\GenerateImageVariants;
+use App\Images\Jobs\ProcessImage;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
@@ -82,7 +82,7 @@ final class EditArtistPhotoTest extends TestCase
 
         $this->assertCount(1, Photo::disk()->files('photos/original'));
 
-        Queue::assertPushed(GenerateImageVariants::class);
+        Queue::assertPushed(ProcessImage::class);
     }
 
     #[TestDox('photo can be updated using specified uri')]
@@ -115,7 +115,7 @@ final class EditArtistPhotoTest extends TestCase
             Photo::disk()->get($files[0]),
         );
 
-        Queue::assertPushed(GenerateImageVariants::class);
+        Queue::assertPushed(ProcessImage::class);
     }
 
     #[TestDox('crop can be updated without changing photo')]
@@ -146,6 +146,6 @@ final class EditArtistPhotoTest extends TestCase
 
         $this->assertSame(190, $this->artist->refresh()->photo->crop->face->size);
 
-        Queue::assertPushed(GenerateImageVariants::class);
+        Queue::assertPushed(ProcessImage::class);
     }
 }

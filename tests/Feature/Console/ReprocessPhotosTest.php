@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Console;
 
-use App\Images\Jobs\GenerateImageVariants;
+use App\Images\Jobs\ProcessImage;
 use App\Images\Photo;
 use App\Models\Artist;
 use Illuminate\Support\Facades\Queue;
@@ -48,7 +48,7 @@ final class ReprocessPhotosTest extends TestCase
 
         $this->a('reprocess:photos --artist test-artist')->assertExitCode(0);
 
-        Queue::assertPushed(GenerateImageVariants::class);
+        Queue::assertPushed(ProcessImage::class);
     }
 
     #[TestDox('it asks for confirmation when processing all photos')]

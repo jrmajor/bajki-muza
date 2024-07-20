@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Images\Jobs;
 
-use App\Images\Jobs\GenerateImageVariants;
+use App\Images\Jobs\ProcessImage;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use Illuminate\Support\Facades\Storage;
@@ -46,7 +46,7 @@ final class PhotoProcessingTest extends TestCase
         $this->assertNull($this->photo->placeholder());
         $this->assertNull($this->photo->placeholder('face'));
 
-        GenerateImageVariants::dispatchSync($this->photo);
+        ProcessImage::dispatchSync($this->photo);
 
         $this->photo->refresh();
         Photo::disk()->assertExists("photos/original/{$this->filename}");

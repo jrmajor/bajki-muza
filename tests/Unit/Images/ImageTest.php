@@ -3,7 +3,7 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Exceptions\OriginalDoesNotExist;
-use App\Images\Jobs\GenerateImageVariants;
+use App\Images\Jobs\ProcessImage;
 use Carbon\Carbon;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
@@ -31,7 +31,7 @@ final class ImageTest extends TestCase
 
         $this->assertCount(1, TestCover::disk()->files('covers/original'));
 
-        Bus::assertDispatched(GenerateImageVariants::class);
+        Bus::assertDispatched(ProcessImage::class);
     }
 
     #[TestDox('it throws error when reprocessing image without original')]
@@ -60,7 +60,7 @@ final class ImageTest extends TestCase
 
         TestCover::disk()->assertMissing($vartiantPath);
 
-        Bus::assertDispatched(GenerateImageVariants::class);
+        Bus::assertDispatched(ProcessImage::class);
     }
 
     #[TestDox('it can reprocess variants')]
@@ -74,7 +74,7 @@ final class ImageTest extends TestCase
 
         (new TestCover(['filename' => 'test.jpg']))->reprocess();
 
-        Bus::assertDispatched(GenerateImageVariants::class);
+        Bus::assertDispatched(ProcessImage::class);
     }
 
     #[TestDox('it can get its filename')]

@@ -3,7 +3,7 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Cover;
-use App\Images\Jobs\GenerateImageVariants;
+use App\Images\Jobs\ProcessImage;
 use App\Models\Tale;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Queue;
@@ -32,7 +32,7 @@ final class CoverTest extends TestCase
 
         $this->assertCount(1, Cover::disk()->files('covers/original'));
 
-        Queue::assertPushed(GenerateImageVariants::class);
+        Queue::assertPushed(ProcessImage::class);
     }
 
     #[TestDox('it returns correct original path')]

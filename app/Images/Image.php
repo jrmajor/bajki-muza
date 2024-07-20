@@ -3,7 +3,7 @@
 namespace App\Images;
 
 use App\Images\Exceptions\OriginalDoesNotExist;
-use App\Images\Jobs\GenerateImageVariants;
+use App\Images\Jobs\ProcessImage;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -85,7 +85,7 @@ abstract class Image extends Model
 
     private function dispatchProcessingJob(): void
     {
-        Bus::dispatch(new GenerateImageVariants($this));
+        Bus::dispatch(new ProcessImage($this));
     }
 
     public function reprocess(): void

@@ -14,7 +14,7 @@ use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ImageManagerInterface;
 use Psl\Encoding\Base64;
 
-class GenerateImageVariants implements ShouldBeUnique, ShouldQueue
+class ProcessImage implements ShouldBeUnique, ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

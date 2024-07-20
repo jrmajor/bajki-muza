@@ -3,7 +3,7 @@
 namespace Tests\Unit\Images\Jobs;
 
 use App\Images\Cover;
-use App\Images\Jobs\GenerateImageVariants;
+use App\Images\Jobs\ProcessImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -40,7 +40,7 @@ final class CoverProcessingTest extends TestCase
         Cover::disk()->assertMissing("covers/default/{$this->filename}");
         $this->assertNull($this->cover->placeholder());
 
-        GenerateImageVariants::dispatchSync($this->cover);
+        ProcessImage::dispatchSync($this->cover);
 
         $this->cover->refresh();
         Cover::disk()->assertExists("covers/original/{$this->filename}");
