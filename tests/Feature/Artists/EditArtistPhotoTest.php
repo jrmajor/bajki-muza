@@ -4,6 +4,7 @@ namespace Tests\Feature\Artists;
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
+use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
@@ -85,7 +86,7 @@ final class EditArtistPhotoTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
-            [GenerateArtistPhotoVariants::class],
+            [GenerateImageVariants::class, GenerateArtistPhotoVariants::class],
         );
     }
 
@@ -121,7 +122,7 @@ final class EditArtistPhotoTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
-            [GenerateArtistPhotoVariants::class],
+            [GenerateImageVariants::class, GenerateArtistPhotoVariants::class],
         );
     }
 
@@ -155,7 +156,7 @@ final class EditArtistPhotoTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
-            [GenerateArtistPhotoVariants::class],
+            [GenerateImageVariants::class, GenerateArtistPhotoVariants::class],
         );
     }
 }

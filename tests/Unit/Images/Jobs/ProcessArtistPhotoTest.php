@@ -49,7 +49,7 @@ final class ProcessArtistPhotoTest extends TestCase
         $this->assertSame(529, $photo->width);
         $this->assertSame(352, $photo->height);
         $this->assertSame($photo->crop()->toArray(), $this->crop->toArray());
-        $this->assertStringStartsWith('data:image/svg+xml;base64,', $photo->facePlaceholder());
+        $this->assertStringStartsWith('data:image/svg+xml;base64,', $photo->placeholder('face'));
         $this->assertStringStartsWith('data:image/svg+xml;base64,', $photo->placeholder());
     }
 

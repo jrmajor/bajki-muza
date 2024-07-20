@@ -13,7 +13,7 @@ class ReprocessPhotos extends Command
 {
     protected $signature = 'reprocess:photos {--A|artist= : Slug for the artist to process}';
 
-    protected $description = 'Remove responsive variants of artists photos and process them.';
+    protected $description = 'Remove variants of artists photos and process them.';
 
     public function handle(): int
     {
@@ -67,11 +67,10 @@ class ReprocessPhotos extends Command
 
     protected function reprocessPhoto(Photo $photo): ExitCode
     {
-        if (count($missing = $photo->missingResponsiveVariants()) !== 0) {
-            $missing = Type\vec(Type\string())->coerce($missing);
-            $missing = Str\join($missing, ', ');
+        if (count($missing = $photo->missingVariants()) !== 0) {
+            $missing = implode(', ', $missing);
 
-            $this->warn("Some of responsive variants were missing ({$missing}).");
+            $this->warn("Some variants were missing ({$missing}).");
         }
 
         try {

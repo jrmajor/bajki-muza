@@ -13,7 +13,7 @@ class ReprocessCovers extends Command
 {
     protected $signature = 'reprocess:covers {--T|tale= : Slug for the tale to process}';
 
-    protected $description = 'Remove responsive variants of tales covers and process them.';
+    protected $description = 'Remove variants of tales covers and process them.';
 
     public function handle(): int
     {
@@ -67,11 +67,10 @@ class ReprocessCovers extends Command
 
     protected function reprocessCover(Cover $cover): ExitCode
     {
-        if (count($missing = $cover->missingResponsiveVariants()) !== 0) {
-            $missing = Type\vec(Type\string())->coerce($missing);
-            $missing = Str\join($missing, ', ');
+        if (count($missing = $cover->missingVariants()) !== 0) {
+            $missing = implode(', ', $missing);
 
-            $this->warn("Some of responsive variants were missing ({$missing}).");
+            $this->warn("Some variants were missing ({$missing}).");
         }
 
         try {

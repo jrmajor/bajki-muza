@@ -43,26 +43,26 @@ final class ImageTest extends TestCase
         (new TestCover(['filename' => 'test.jpg']))->reprocess();
     }
 
-    #[TestDox('it deletes responsive variants when reprocessing responsive images')]
-    public function testReprocessDeleteResponsve(): void
+    #[TestDox('it deletes variants when reprocessing images')]
+    public function testReprocessDeletesVariants(): void
     {
         Storage::fake('testing');
 
         TestCover::disk()->put('covers/original/test.jpg', 'contents');
-        TestCover::disk()->put('covers/128/test.jpg', 'contents');
+        TestCover::disk()->put($vartiantPath = 'covers/default/test.jpg', 'contents');
 
-        TestCover::disk()->assertExists('covers/128/test.jpg');
+        TestCover::disk()->assertExists($vartiantPath);
 
         Bus::fake();
 
         (new TestCover(['filename' => 'test.jpg']))->reprocess();
 
-        TestCover::disk()->assertMissing('covers/128/fileWithMissingVariants.jpg');
+        TestCover::disk()->assertMissing($vartiantPath);
 
         Bus::assertDispatched(ProcessTestCover::class);
     }
 
-    #[TestDox('it can reprocess responsive images')]
+    #[TestDox('it can reprocess variants')]
     public function testReprocess(): void
     {
         Storage::fake('testing');
@@ -151,25 +151,25 @@ final class ImageTest extends TestCase
         $this->assertFalse($image->originalMissing());
     }
 
-    #[TestDox('it can check whether responsive variant is missing')]
+    #[TestDox('it can check whether a variant is missing')]
     public function testVariantMissing(): void
     {
         Storage::fake('testing');
 
         $this->assertTrue(
-            (new TestCover(['filename' => 'fileWithout128Variant.jpg']))
-                ->responsiveVariantMissing(128),
+            (new TestCover(['filename' => 'fileWithoutDefaultVariant.jpg']))
+                ->variantMissing('default'),
         );
 
-        TestCover::disk()->put('covers/128/fileWith128Variant.jpg', 'contents');
+        TestCover::disk()->put('covers/default/fileWithDefaultVariant.jpg', 'contents');
 
         $this->assertFalse(
-            (new TestCover(['filename' => 'fileWith128Variant.jpg']))
-                ->responsiveVariantMissing(128),
+            (new TestCover(['filename' => 'fileWithDefaultVariant.jpg']))
+                ->variantMissing('default'),
         );
     }
 
-    #[TestDox('it can check which responsive variants are missing')]
+    #[TestDox('it can check which variants are missing')]
     public function testVariantsMissing(): void
     {
         Storage::fake('testing');
@@ -177,9 +177,9 @@ final class ImageTest extends TestCase
         TestCover::disk()->put('covers/128/fileWithMissingVariants.jpg', 'contents');
 
         $this->assertSame(
-            [192, 256],
+            [192, 256, 'default'],
             (new TestCover(['filename' => 'fileWithMissingVariants.jpg']))
-                ->missingResponsiveVariants(),
+                ->missingVariants(),
         );
     }
 

@@ -4,10 +4,12 @@ namespace App\Images;
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
+use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Bus;
+use Intervention\Image\Interfaces\ImageInterface;
 use Psl\Type;
 use Psl\Vec;
 
@@ -44,6 +46,11 @@ final class Photo extends Image
         ];
     }
 
+    public static function variants(): array
+    {
+        return ['default', 'face'];
+    }
+
     public static function sizes(): array
     {
         return Vec\sort([...self::faceSizes(), ...self::imageSizes()]);
@@ -62,8 +69,22 @@ final class Photo extends Image
     {
         Bus::chain([
             new GenerateArtistPhotoPlaceholders($this),
+            new GenerateImageVariants($this),
             new GenerateArtistPhotoVariants($this),
         ])->dispatch();
+    }
+
+    public function processVariant(ImageInterface $image, string $variant): ImageInterface
+    {
+        if ($variant === 'face') {
+            $crop = $this->crop->face;
+            $image->crop($crop->size, $crop->size, $crop->x, $crop->y);
+        } else {
+            $crop = $this->crop->image;
+            $image->crop($crop->width, $crop->height, $crop->x, $crop->y);
+        }
+
+        return $this->grayscale ? $image->greyscale() : $image;
     }
 
     protected static function uploadPath(): string
@@ -76,14 +97,9 @@ final class Photo extends Image
         return "photos/original/{$this->filename()}";
     }
 
-    public function path(int $size): string
+    public function path(int|string $variant): string
     {
-        return "photos/{$size}/{$this->filename()}";
-    }
-
-    public function facePlaceholder(): ?string
-    {
-        return $this->face_placeholder;
+        return "photos/{$variant}/{$this->filename()}";
     }
 
     public function crop(): ArtistPhotoCrop

@@ -4,6 +4,7 @@ namespace Tests\Unit\Images;
 
 use App\Images\Jobs\GenerateArtistPhotoPlaceholders;
 use App\Images\Jobs\GenerateArtistPhotoVariants;
+use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Photo;
 use App\Images\Values\ArtistFaceCrop;
 use App\Images\Values\ArtistImageCrop;
@@ -33,6 +34,12 @@ final class PhotoTest extends TestCase
     public function testSizes(): void
     {
         $this->assertSame([56, 84, 112, 160, 240, 320], Photo::sizes());
+    }
+
+    #[TestDox('it can get list of variants')]
+    public function testVariants(): void
+    {
+        $this->assertSame(['default', 'face'], Photo::variants());
     }
 
     #[TestDox('it casts dimensions to integers')]
@@ -79,7 +86,7 @@ final class PhotoTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
-            [GenerateArtistPhotoVariants::class],
+            [GenerateImageVariants::class, GenerateArtistPhotoVariants::class],
         );
     }
 
@@ -106,7 +113,7 @@ final class PhotoTest extends TestCase
     {
         $this->assertSame(
             'test placeholder',
-            (new Photo(['face_placeholder' => 'test placeholder']))->facePlaceholder(),
+            (new Photo(['face_placeholder' => 'test placeholder']))->placeholder('face'),
         );
     }
 
@@ -135,7 +142,7 @@ final class PhotoTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateArtistPhotoPlaceholders::class,
-            [GenerateArtistPhotoVariants::class],
+            [GenerateImageVariants::class, GenerateArtistPhotoVariants::class],
         );
     }
 

@@ -2,11 +2,13 @@
 
 namespace App\Images;
 
+use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Bus;
+use Intervention\Image\Interfaces\ImageInterface;
 
 final class Cover extends Image
 {
@@ -31,8 +33,16 @@ final class Cover extends Image
     {
         Bus::chain([
             new GenerateTaleCoverPlaceholder($this),
+            new GenerateImageVariants($this),
             new GenerateTaleCoverVariants($this),
         ])->dispatch();
+    }
+
+    public function processVariant(ImageInterface $image, string $variant): ImageInterface
+    {
+        $size = min($image->width(), $image->height());
+
+        return $image->cover($size, $size);
     }
 
     protected static function uploadPath(): string
@@ -45,9 +55,9 @@ final class Cover extends Image
         return "covers/original/{$this->filename()}";
     }
 
-    public function path(int $size): string
+    public function path(int|string $variant): string
     {
-        return "covers/{$size}/{$this->filename()}";
+        return "covers/{$variant}/{$this->filename()}";
     }
 
     public function tales(): HasMany

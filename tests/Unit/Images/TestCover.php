@@ -3,6 +3,7 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Image;
+use Intervention\Image\Interfaces\ImageInterface;
 
 class TestCover extends Image
 {
@@ -18,6 +19,13 @@ class TestCover extends Image
         dispatch(new ProcessTestCover());
     }
 
+    public function processVariant(ImageInterface $image, string $variant): ImageInterface
+    {
+        $size = min($image->width(), $image->height());
+
+        return $image->cover($size, $size);
+    }
+
     protected static function uploadPath(): string
     {
         return 'covers/original';
@@ -28,8 +36,8 @@ class TestCover extends Image
         return "covers/original/{$this->filename()}";
     }
 
-    public function path(int $size): string
+    public function path(int|string $variant): string
     {
-        return "covers/{$size}/{$this->filename()}";
+        return "covers/{$variant}/{$this->filename()}";
     }
 }

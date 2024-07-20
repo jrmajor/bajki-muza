@@ -3,6 +3,7 @@
 namespace Tests\Unit\Images;
 
 use App\Images\Cover;
+use App\Images\Jobs\GenerateImageVariants;
 use App\Images\Jobs\GenerateTaleCoverPlaceholder;
 use App\Images\Jobs\GenerateTaleCoverVariants;
 use App\Models\Tale;
@@ -20,6 +21,12 @@ final class CoverTest extends TestCase
         $this->assertSame([60, 90, 120, 128, 192, 288, 256, 384], Cover::sizes());
     }
 
+    #[TestDox('it can get list of variants')]
+    public function testVariants(): void
+    {
+        $this->assertSame(['default'], Cover::variants());
+    }
+
     #[TestDox('it stores new cover in correct path and dispatches necessary jobs to process it')]
     public function testStore(): void
     {
@@ -35,7 +42,7 @@ final class CoverTest extends TestCase
 
         Queue::assertPushedWithChain(
             GenerateTaleCoverPlaceholder::class,
-            [GenerateTaleCoverVariants::class],
+            [GenerateImageVariants::class, GenerateTaleCoverVariants::class],
         );
     }
 
