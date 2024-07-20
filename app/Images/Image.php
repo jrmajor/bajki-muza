@@ -28,11 +28,6 @@ abstract class Image extends Model
 
     protected $guarded = [];
 
-    /**
-     * @return list<positive-int>
-     */
-    abstract public static function sizes(): array;
-
     abstract protected function process(): void;
 
     abstract public function processVariant(ImageInterface $image, string $variant): ImageInterface;

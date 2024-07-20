@@ -17,24 +17,6 @@ use Tests\TestCase;
 
 final class PhotoTest extends TestCase
 {
-    #[TestDox('it can get list of full image sizes')]
-    public function testImageSizes(): void
-    {
-        $this->assertSame([160, 240, 320], Photo::imageSizes());
-    }
-
-    #[TestDox('it can get list of cropped to face image sizes')]
-    public function testFaceSizes(): void
-    {
-        $this->assertSame([56, 84, 112], Photo::faceSizes());
-    }
-
-    #[TestDox('it can get list of sizes')]
-    public function testSizes(): void
-    {
-        $this->assertSame([56, 84, 112, 160, 240, 320], Photo::sizes());
-    }
-
     #[TestDox('it can get list of variants')]
     public function testVariants(): void
     {

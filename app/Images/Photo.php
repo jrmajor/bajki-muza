@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Bus;
 use Intervention\Image\Interfaces\ImageInterface;
 use Psl\Type;
-use Psl\Vec;
 
 final class Photo extends Image
 {
@@ -21,38 +20,9 @@ final class Photo extends Image
         'grayscale' => 'bool',
     ];
 
-    /**
-     * @return list<positive-int>
-     */
-    public static function imageSizes(): array
-    {
-        return [
-            160, // 10rem
-            240, // 10rem * 1.5
-            320, // 10rem * 2
-        ];
-    }
-
-    /**
-     * @return list<positive-int>
-     */
-    public static function faceSizes(): array
-    {
-        return [
-            56, // 3.5rem
-            84, // 3.5rem * 1.5
-            112, // 3.5rem * 2
-        ];
-    }
-
     public static function variants(): array
     {
         return ['default', 'face'];
-    }
-
-    public static function sizes(): array
-    {
-        return Vec\sort([...self::faceSizes(), ...self::imageSizes()]);
     }
 
     protected static function booted(): void

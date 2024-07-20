@@ -24,7 +24,7 @@ class CleanupCovers extends Command
         );
 
         $variants = Vec\flat_map(
-            [...Cover::sizes(), ...Cover::variants()],
+            Cover::variants(),
             fn ($size) => Cover::disk()->files("covers/{$size}"),
         );
         $variants = Vec\map($variants, function (string $path) {
@@ -73,7 +73,7 @@ class CleanupCovers extends Command
     protected function deleteOriginalAndVariants(string $filename): ExitCode
     {
         $photosToDelete = Vec\map(
-            ['original', ...Cover::sizes()],
+            ['original', ...Cover::variants()],
             fn ($size) => "covers/{$size}/{$filename}",
         );
 

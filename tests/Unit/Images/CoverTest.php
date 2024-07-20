@@ -14,12 +14,6 @@ use Tests\TestCase;
 
 final class CoverTest extends TestCase
 {
-    #[TestDox('it can get list of sizes')]
-    public function testSizes(): void
-    {
-        $this->assertSame([60, 90, 120, 128, 192, 288, 256, 384], Cover::sizes());
-    }
-
     #[TestDox('it can get list of variants')]
     public function testVariants(): void
     {

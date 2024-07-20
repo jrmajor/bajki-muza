@@ -9,11 +9,6 @@ class TestCover extends Image
 {
     protected $table = 'covers';
 
-    public static function sizes(): array
-    {
-        return [128, 192, 256];
-    }
-
     protected function process(): void
     {
         dispatch(new ProcessTestCover());
