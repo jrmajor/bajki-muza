@@ -48,12 +48,12 @@ final class CoverTest extends TestCase
         );
     }
 
-    #[TestDox('it returns correct path for given size')]
-    public function testSizePath(): void
+    #[TestDox('it returns correct path for default variant')]
+    public function testDefaultVariantPath(): void
     {
         $this->assertSame(
-            'covers/384/test.jpg',
-            (new Cover(['filename' => 'test.jpg']))->path(384),
+            'covers/default/test.jpg',
+            (new Cover(['filename' => 'test.jpg']))->path('default'),
         );
     }
 

@@ -80,21 +80,21 @@ final class PhotoTest extends TestCase
         );
     }
 
-    #[TestDox('it returns correct path for given size')]
-    public function testSizePath(): void
+    #[TestDox('it returns correct path for default variant')]
+    public function testDefaultVariantPath(): void
     {
         $this->assertSame(
-            'photos/384/test.jpg',
-            (new Photo(['filename' => 'test.jpg']))->path(384),
+            'photos/default/test.jpg',
+            (new Photo(['filename' => 'test.jpg']))->path('default'),
         );
     }
 
-    #[TestDox('it can get face placeholder')]
-    public function testFacePlaceholder(): void
+    #[TestDox('it returns correct path for face variant')]
+    public function testFaceVariantPath(): void
     {
         $this->assertSame(
-            'test placeholder',
-            (new Photo(['face_placeholder' => 'test placeholder']))->placeholder('face'),
+            'photos/face/test.jpg',
+            (new Photo(['filename' => 'test.jpg']))->path('face'),
         );
     }
 

@@ -115,8 +115,8 @@ final class ImageTest extends TestCase
         $this->assertSame('testUrl', $cover->originalUrl());
     }
 
-    #[TestDox('it can get url for given size')]
-    public function testSizeUrl(): void
+    #[TestDox('it can get url for given variant')]
+    public function testVariantUrl(): void
     {
         Storage::fake('testing');
 
@@ -126,8 +126,8 @@ final class ImageTest extends TestCase
         );
 
         $this->assertStringEndsWith(
-            '/covers/custom/testFilename.jpg',
-            (new TestCover(['filename' => 'testFilename.jpg']))->url('custom'),
+            '/covers/face/testFilename.jpg',
+            (new TestCover(['filename' => 'testFilename.jpg']))->url('face'),
         );
     }
 
