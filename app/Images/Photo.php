@@ -65,7 +65,7 @@ final class Photo extends Image
         return "photos/original/{$this->filename()}";
     }
 
-    public function path(int|string $variant): string
+    public function path(string $variant): string
     {
         return "photos/{$variant}/{$this->filename()}";
     }

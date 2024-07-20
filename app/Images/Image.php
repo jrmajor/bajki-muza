@@ -36,7 +36,7 @@ abstract class Image extends Model
 
     abstract public function originalPath(): string;
 
-    abstract public function path(int|string $variant): string;
+    abstract public function path(string $variant): string;
 
     /**
      * @return list<string>
@@ -116,7 +116,7 @@ abstract class Image extends Model
         );
     }
 
-    public function url(int|string $variant = 'default'): string
+    public function url(string $variant = 'default'): string
     {
         return $this->disk()->url($this->path($variant));
     }
@@ -133,13 +133,13 @@ abstract class Image extends Model
         return $this->disk()->missing($this->originalPath());
     }
 
-    public function variantMissing(int|string $variant): bool
+    public function variantMissing(string $variant): bool
     {
         return $this->disk()->missing($this->path($variant));
     }
 
     /**
-     * @return list<positive-int|string>
+     * @return list<string>
      */
     public function missingVariants(): array
     {
