@@ -36,7 +36,7 @@
 <Layout {user}>
 	<div class="text-center pb-4">
 		<Title text="Nowa bajka"/>
-  </div>
+	</div>
 
-  <Form {tale} action="create"/>
+	<Form {tale} action="create"/>
 </Layout>
