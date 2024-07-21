@@ -81,7 +81,7 @@ final class PhotoTest extends TestCase
     {
         $this->assertSame(
             'photos/default/test.jpg',
-            (new Photo(['filename' => 'test.jpg']))->path('default'),
+            (new Photo(['filename' => 'test.jpg']))->variantPath('default'),
         );
     }
 
@@ -90,7 +90,7 @@ final class PhotoTest extends TestCase
     {
         $this->assertSame(
             'photos/face/test.jpg',
-            (new Photo(['filename' => 'test.jpg']))->path('face'),
+            (new Photo(['filename' => 'test.jpg']))->variantPath('face'),
         );
     }
 

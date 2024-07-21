@@ -19,13 +19,13 @@ class CleanupCovers extends Command
     public function handle(): int
     {
         $noModel = Vec\map(
-            Cover::disk()->files('covers/original'),
+            Cover::disk()->files(Cover::originalDirectory()),
             fn ($path) => $this->removeCoverIfItHasNoModel($path),
         );
 
         $variants = Vec\flat_map(
             Cover::variants(),
-            fn ($size) => Cover::disk()->files("covers/{$size}"),
+            fn ($variant) => Cover::disk()->files(Cover::variantDirectory($variant)),
         );
         $variants = Vec\map($variants, function (string $path) {
             return Type\string()->coerce(Str\after_last($path, '/'));
@@ -74,7 +74,7 @@ class CleanupCovers extends Command
     {
         $photosToDelete = Vec\map(
             ['original', ...Cover::variants()],
-            fn ($size) => "covers/{$size}/{$filename}",
+            fn ($variant) => "covers/{$variant}/{$filename}",
         );
 
         return Cover::disk()->delete($photosToDelete) ? ExitCode::Ok : ExitCode::Error;

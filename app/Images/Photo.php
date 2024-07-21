@@ -44,19 +44,9 @@ final class Photo extends Image
         return $this->grayscale ? $image->greyscale() : $image;
     }
 
-    protected static function uploadPath(): string
+    protected static function pathPrefix(): string
     {
-        return 'photos/original';
-    }
-
-    public function originalPath(): string
-    {
-        return "photos/original/{$this->filename()}";
-    }
-
-    public function path(string $variant): string
-    {
-        return "photos/{$variant}/{$this->filename()}";
+        return 'photos';
     }
 
     public function crop(): ArtistPhotoCrop

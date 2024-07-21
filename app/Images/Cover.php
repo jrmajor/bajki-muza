@@ -15,19 +15,9 @@ final class Cover extends Image
         return $image->cover($size, $size);
     }
 
-    protected static function uploadPath(): string
+    protected static function pathPrefix(): string
     {
-        return 'covers/original';
-    }
-
-    public function originalPath(): string
-    {
-        return "covers/original/{$this->filename()}";
-    }
-
-    public function path(string $variant): string
-    {
-        return "covers/{$variant}/{$this->filename()}";
+        return 'covers';
     }
 
     public function tales(): HasMany

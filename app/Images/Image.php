@@ -29,13 +29,9 @@ abstract class Image extends Model
 
     protected $guarded = [];
 
+    abstract protected static function pathPrefix(): string;
+
     abstract public function processVariant(ImageInterface $image, string $variant): ImageInterface;
-
-    abstract protected static function uploadPath(): string;
-
-    abstract public function originalPath(): string;
-
-    abstract public function path(string $variant): string;
 
     /**
      * @return list<string>
@@ -54,7 +50,7 @@ abstract class Image extends Model
             return self::storeFromUrl($file, $attributes);
         }
 
-        $path = static::disk()->putFile(static::uploadPath(), $file, 'private');
+        $path = static::disk()->putFile(static::originalDirectory(), $file, 'private');
 
         assert(is_string($path));
 
@@ -99,6 +95,26 @@ abstract class Image extends Model
         $this->dispatchProcessingJob();
     }
 
+    public static function originalDirectory(): string
+    {
+        return static::pathPrefix() . '/original';
+    }
+
+    public function originalPath(): string
+    {
+        return $this::originalDirectory() . '/' . $this->filename();
+    }
+
+    public static function variantDirectory(string $variant): string
+    {
+        return static::pathPrefix() . "/{$variant}";
+    }
+
+    public function variantPath(string $variant): string
+    {
+        return $this::variantDirectory($variant) . '/' . $this->filename();
+    }
+
     /**
      * @return non-empty-string
      */
@@ -117,7 +133,7 @@ abstract class Image extends Model
 
     public function url(string $variant = 'default'): string
     {
-        return $this->disk()->url($this->path($variant));
+        return $this->disk()->url(static::variantPath($variant));
     }
 
     public function placeholder(string $variant = 'default'): ?string
@@ -134,7 +150,7 @@ abstract class Image extends Model
 
     public function variantMissing(string $variant): bool
     {
-        return $this->disk()->missing($this->path($variant));
+        return $this->disk()->missing(static::variantPath($variant));
     }
 
     /**
@@ -152,7 +168,7 @@ abstract class Image extends Model
     {
         $variantsToDelete = Vec\map(
             static::variants(),
-            fn ($variant) => $this->path($variant),
+            fn ($variant) => static::variantPath($variant),
         );
 
         return $this->disk()->delete($variantsToDelete);

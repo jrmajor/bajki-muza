@@ -50,7 +50,7 @@ class ProcessImage implements ShouldBeUnique, ShouldQueue
             $this->image->height = $image->height();
         }
 
-        $destinationPath = $this->image->path($variant);
+        $destinationPath = $this->image->variantPath($variant);
         $this->image::disk()->put(
             path: $destinationPath,
             contents: (string) $image->encodeByPath($destinationPath),

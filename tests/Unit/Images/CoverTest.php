@@ -49,7 +49,7 @@ final class CoverTest extends TestCase
     {
         $this->assertSame(
             'covers/default/test.jpg',
-            (new Cover(['filename' => 'test.jpg']))->path('default'),
+            (new Cover(['filename' => 'test.jpg']))->variantPath('default'),
         );
     }
 
