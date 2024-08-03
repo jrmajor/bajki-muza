@@ -2,21 +2,20 @@
 	let { name }: { name: string } = $props();
 
 	let googleUrl = $derived.by(() => {
-		let urlParams = new URLSearchParams();
-		urlParams.append('q', name);
-		urlParams.append('tbm', 'isch');
-		return `https://www.google.com/search?${urlParams.toString()}`;
+		let params = new URLSearchParams({ q: name, tbm: 'isch' });
+		return `https://www.google.com/search?${params}`;
 	});
 
 	let fototekaUrl = $derived.by(() => {
-		let urlParams = new URLSearchParams();
 		let nameParts = name.split(' ');
 		let lastName = nameParts.pop();
 		let firstName = nameParts.join(' ');
-		urlParams.append('key', `${lastName} ${firstName}`);
-		urlParams.append('search_type_in', 'osoba');
-		urlParams.append('filter[charakter][]', 'portret');
-		return `https://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?${urlParams.toString()}`;
+		let params = new URLSearchParams({
+			key: `${lastName} ${firstName}`,
+			search_type_in: 'osoba',
+			'filter[charakter][]': 'portret',
+		});
+		return `https://fototeka.fn.org.pl/pl/strona/wyszukiwarka.html?${params}`;
 	});
 </script>
 

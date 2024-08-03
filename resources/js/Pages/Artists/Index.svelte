@@ -27,7 +27,7 @@
 		let params = new URLSearchParams(window.location.search);
 		search ? params.set('search', search) : params.delete('search');
 		params.delete('page');
-		router.get(route('artists.index') + '?' + params.toString());
+		router.get(`${route('artists.index')}?${params}`);
 	}
 
 	onMount(() => {
