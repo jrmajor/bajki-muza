@@ -15,7 +15,7 @@ final class GenerateSitemapTest extends TestCase
         $artists = Artist::factory(2)->create();
         $tales = Tale::factory(2)->create();
 
-        $response = $this->get('sitemap.xml')
+        $this->get('sitemap.xml')
             ->assertOk()
             ->assertHeader('Content-Type', 'text/xml; charset=UTF-8')
             ->assertSee([
