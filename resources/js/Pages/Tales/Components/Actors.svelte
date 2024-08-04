@@ -22,7 +22,7 @@
 			>
 				<div
 					class="flex-none size-14 bg-placeholder-artist"
-					style={actor.photo ? `background-image: url("${actor.photo.placeholder}")` : null}
+					style:background-image={actor.photo ? `url("${actor.photo.placeholder}")` : null}
 				>
 					{#if actor.photo}
 						<!-- todo: alt -->

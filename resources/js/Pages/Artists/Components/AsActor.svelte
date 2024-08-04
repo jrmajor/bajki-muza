@@ -21,7 +21,7 @@
 			>
 				<div
 					class="flex-none bg-placeholder-cover size-15"
-					style={tale.cover ? `background-image: url("${tale.cover.placeholder}")` : null}
+					style:background-image={tale.cover ? `url("${tale.cover.placeholder}")` : null}
 				>
 					{#if tale.cover}
 						<ResponsiveImage src={tale.cover.url} size={15} alt="Okładka bajki {tale.title}"/>

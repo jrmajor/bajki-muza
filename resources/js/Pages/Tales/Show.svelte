@@ -28,7 +28,7 @@
 		<div class="overflow-hidden flex-none self-center mt-5 mb-2 rounded-lg shadow-lg sm:my-0 sm:mr-6">
 			<div
 				class="size-48 bg-placeholder-cover"
-				style={tale.cover ? `background-image: url("${tale.cover.placeholder}")` : null}
+				style:background-image={tale.cover ? `url("${tale.cover.placeholder}")` : null}
 			>
 				{#if tale.cover}
 					<ResponsiveImage

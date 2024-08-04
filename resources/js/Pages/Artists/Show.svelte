@@ -36,7 +36,7 @@
 			>
 				<div
 					class="absolute -inset-px bg-gray-400 bg-center bg-cover dark:bg-gray-800"
-					style={artist.photo ? `background-image: url("${artist.photo.placeholder}")` : null}
+					style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
 				>
 					<!-- todo: alt -->
 					<ResponsiveImage

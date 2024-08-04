@@ -63,7 +63,7 @@
 				>
 					<div
 						class="flex-none size-12 bg-placeholder-artist sm:size-14"
-						style={artist.photo ? `background-image: url("${artist.photo.placeholder}")` : null}
+						style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
 					>
 						{#if artist.photo}
 							<!-- todo: alt -->
