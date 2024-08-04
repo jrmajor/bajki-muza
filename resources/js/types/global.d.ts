@@ -1,16 +1,16 @@
 declare module '@inertiajs/svelte' {
-	import { Component } from 'svelte';
-	import { Action } from 'svelte/action';
-	import { Readable, Writable } from 'svelte/store';
-	import { FormDataConvertible, Method, Page, Progress, Router, VisitOptions } from '@inertiajs/core';
+	import type { Component } from 'svelte';
+	import type { Action } from 'svelte/action';
+	import type { Readable, Writable } from 'svelte/store';
+	import type { FormDataConvertible, Method, Page, Progress, Router, VisitOptions } from '@inertiajs/core';
 
 	export const router: Router;
 	export const Link: Component;
 	export function createInertiaApp(options: {
 		id?: string;
-		resolve: (name: string) => Promise<Component>;
-		setup: (props: { el: Element; App: Component; props: Record<string, unknown> }) => void;
-		title?: (title: string) => string;
+		resolve(name: string): Promise<Component>;
+		setup(props: { el: Element; App: Component; props: Record<string, unknown> }): void;
+		title?(title: string): string;
 		progress?:
 			| false
 			| {
@@ -52,8 +52,8 @@ declare module '@inertiajs/svelte' {
 		defaults(): this;
 		defaults(field: keyof TForm, value: FormDataConvertible): this;
 		defaults(fields: Partial<TForm>): this;
-		reset(...fields: (keyof TForm)[]): this;
-		clearErrors(...fields: (keyof TForm)[]): this;
+		reset(...fields: Array<keyof TForm>): this;
+		clearErrors(...fields: Array<keyof TForm>): this;
 		setError(field: keyof TForm, value: string): this;
 		setError(errors: Record<keyof TForm, string>): this;
 		submit(method: Method, url: string, options?: Partial<VisitOptions>): void;

@@ -63,7 +63,7 @@ export default {
 				15: '3.75rem',
 			},
 			transitionProperty: {
-				'colors-shadow': defaultTheme.transitionProperty.colors + ', ' + defaultTheme.transitionProperty.shadow,
+				'colors-shadow': `${defaultTheme.transitionProperty.colors}, ${defaultTheme.transitionProperty.shadow}`,
 			},
 		},
 	},

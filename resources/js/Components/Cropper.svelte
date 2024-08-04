@@ -31,8 +31,8 @@
 		let dynamicOptions = aspectRatio ? { aspectRatio } : {};
 
 		cropper = new Cropper(event.target as HTMLImageElement, {
-			minSize: minSize,
-			startSize: startSize,
+			minSize,
+			startSize,
 			onInitialize: (c: Cropper) => {
 				if (startCrop) {
 					c.resizeToScaled(startCrop.width, startCrop.height);

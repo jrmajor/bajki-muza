@@ -15,7 +15,7 @@
 
 	let naturalWidth = $state() as number;
 	let naturalHeight = $state() as number;
-	let dimensions = $derived(naturalWidth + '×' + naturalHeight);
+	let dimensions = $derived(`${naturalWidth}×${naturalHeight}`);
 </script>
 
 <button
@@ -49,7 +49,7 @@
 	></div>
 </button>
 
-<style>
+<style lang="postcss">
 	.dimensions {
 		position: absolute;
 		top: 0;

@@ -73,7 +73,7 @@
 
 		if (currentIndex === destination) return;
 
-		let actors = $form.actors;
+		let { actors } = $form;
 
 		const priorDestinationElement = actors[destination];
 

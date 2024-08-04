@@ -1,4 +1,4 @@
-export default function<T>(array: T[]): Array<[T, Loop]> {
+export default function addLoop<T>(array: T[]): Array<[T, Loop]> {
 	const total = array.length;
 
 	return array.map((element, index) => [
