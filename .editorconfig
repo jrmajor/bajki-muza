@@ -23,6 +23,3 @@ indent_size = 2
 [*.{svelte,js,ts}]
 indent_size = 2
 indent_style = tab
-
-[resources/js/classic/*.js]
-indent_style = space
