@@ -38,7 +38,6 @@
 
 	function select(entry: Entry) {
 		searchValue = String(entry.value);
-		// eslint-disable-next-line prefer-destructuring
 		value = entry.value;
 		closeDropdown();
 	}
