@@ -16,7 +16,7 @@
 
 	let search = $state('');
 
-	let timeout: number;
+	let timeout: ReturnType<typeof setTimeout>;
 
 	function debounceSearch() {
 		if (timeout) clearTimeout(timeout);

@@ -11,10 +11,14 @@
             "@/*": ["resources/js/*"],
             "ziggy-js": ["vendor/tightenco/ziggy"]
         },
-        "types": ["vite/client"]
+        "types": ["node", "vite/client"],
+        "allowJs": true,
+        "checkJs": true,
     },
     "include": [
         "resources/js/**/*.ts",
         "resources/js/**/*.svelte",
+        "*.config.ts",
+        "*.config.js",
     ]
 }
