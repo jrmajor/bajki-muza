@@ -29,7 +29,7 @@
 </script>
 
 {#if inertiaProp}
-	<button {type} use:inertia={inertiaProp} class={classes}>
+	<button use:inertia={inertiaProp} {type} class={classes}>
 		{@render children()}
 	</button>
 {:else}

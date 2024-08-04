@@ -63,10 +63,10 @@
 				<small class="pl-1 text-xs font-medium">{file ? prettyBytes(file.size) : ''}</small>
 			</span>
 			<input
+				bind:this={filesInput}
 				type="file"
 				id="cover"
 				class="hidden"
-				bind:this={filesInput}
 				onchange={updateSelectedFile}
 			>
 		</label>

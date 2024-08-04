@@ -25,7 +25,7 @@
 	<a
 		use:inertia
 		href={url}
-		rel={rel}
+		{rel}
 		aria-label={ariaLabel}
 		aria-current={isCurrent ? 'page' : null}
 		class="

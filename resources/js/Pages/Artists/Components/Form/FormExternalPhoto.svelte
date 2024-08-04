@@ -40,11 +40,13 @@
 		<span class="px-2 text-white text-2xs">{dimensions}</span>
 	</div>
 
-	<div class="
-		absolute inset-0 rounded-lg group-focus:inset-shadow-light
-		transition-all duration-300
-		{isSelected ? 'inset-shadow-hard opacity-100' : ''}
-	"></div>
+	<div
+		class="
+			absolute inset-0 rounded-lg group-focus:inset-shadow-light
+			transition-all duration-300
+			{isSelected ? 'inset-shadow-hard opacity-100' : ''}
+		"
+	></div>
 </button>
 
 <style>

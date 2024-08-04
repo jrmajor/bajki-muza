@@ -14,8 +14,8 @@
 	<title>{tale.title} - Bajki Polskich Nagrań „Muza”</title>
 
 	{#if tale.cover}
-		<meta property="og:image" content="{tale.cover.url[384]}">
-		<meta name="twitter:image" content="{tale.cover.url[384]}">
+		<meta property="og:image" content={tale.cover.url[384]}>
+		<meta name="twitter:image" content={tale.cover.url[384]}>
 	{/if}
 </svelte:head>
 

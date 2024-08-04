@@ -14,8 +14,8 @@
 
 <Layout {user}>
 	<div class="text-center pb-4">
-		<Title text={tale.title} href={route('tales.show', { tale })} />
+		<Title text={tale.title} href={route('tales.show', { tale })}/>
 	</div>
 
-	<Form {tale} action="edit" />
+	<Form {tale} action="edit"/>
 </Layout>

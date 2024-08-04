@@ -27,15 +27,15 @@
 		{/if}
 
 		{#if !isNaN(parseInt(element.label))}
-				{#if element.active}
-					<PaginationLink isEnabled={false} isCurrent class="px-4">
-						{element.label}
-					</PaginationLink>
-				{:else}
-					<PaginationLink url={element.url} aria-label="Idź do strony {element.label}" class="px-4">
-						{element.label}
-					</PaginationLink>
-				{/if}
+			{#if element.active}
+				<PaginationLink isEnabled={false} isCurrent class="px-4">
+					{element.label}
+				</PaginationLink>
+			{:else}
+				<PaginationLink url={element.url} aria-label="Idź do strony {element.label}" class="px-4">
+					{element.label}
+				</PaginationLink>
+			{/if}
 		{/if}
 
 		{#if element.label === 'pagination.next'}

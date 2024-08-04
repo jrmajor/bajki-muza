@@ -16,14 +16,14 @@
 
 {#snippet title()}
 	{#each text.split(' ') as word}
-		<span class="title {sub ? 'sub' : ''}">{word}</span>
+		<span class="title" class:sub>{word}</span>
 		<span class="hidden"></span>
 	{/each}
 {/snippet}
 
 {#snippet link()}
 	{#if href && hrefIf}
-		<a href={href} use:inertia>{@render title()}</a>
+		<a use:inertia {href}>{@render title()}</a>
 	{:else}
 		{@render title()}
 	{/if}

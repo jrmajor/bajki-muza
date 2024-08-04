@@ -136,10 +136,10 @@
 					</small>
 				</span>
 				<input
+					bind:this={filesInput}
 					type="file"
 					id="photo"
 					class="hidden"
-					bind:this={filesInput}
 					onchange={updateSelectedFile}
 				>
 			</label>
@@ -155,7 +155,7 @@
 						transition-colors duration-150
 					"
 				>Nie usuwaj</button>
-				{:else}
+			{:else}
 				<button
 					type="button"
 					onclick={setPickerToRemove}
@@ -175,7 +175,7 @@
 	<div class="flex flex-row gap-5 items-center">
 		<div class="flex flex-row flex-grow gap-2 items-center">
 			<Label for="photo-source" inline small>Źródło</Label>
-			<input type="text" id ="photo-source" bind:value={$form.photo.source} class="py-1 px-2 w-full text-sm form-input">
+			<input type="text" id="photo-source" bind:value={$form.photo.source} class="py-1 px-2 w-full text-sm form-input">
 		</div>
 
 		<div class="flex flex-row flex-none items-center">
@@ -193,16 +193,14 @@
 					aspectRatio={1}
 					minSize={[50, 50, 'px']}
 					startSize={[100, 100, '%']}
-					startCrop={
-						activePicker.type === 'current'
-							? {
-								x: currentPhoto!.crop.face.x,
-								y: currentPhoto!.crop.face.y,
-								width: currentPhoto!.crop.face.size,
-								height: currentPhoto!.crop.face.size,
-							}
-							: null
-					}
+					startCrop={activePicker.type === 'current'
+						? {
+							x: currentPhoto!.crop.face.x,
+							y: currentPhoto!.crop.face.y,
+							width: currentPhoto!.crop.face.size,
+							height: currentPhoto!.crop.face.size,
+						}
+						: null}
 				/>
 			</div>
 			<table>

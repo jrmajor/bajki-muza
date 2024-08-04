@@ -31,7 +31,7 @@
 
 		{#if artist.photo}
 			<div
-				style="width: {(artist.photo.aspectRatio ?? 1) * 10}rem"
+				style:width="{(artist.photo.aspectRatio ?? 1) * 10}rem"
 				class="overflow-hidden relative flex-none self-center mt-5 mb-2 h-40 rounded-lg shadow-lg sm:my-0 sm:mr-6 -p-px"
 			>
 				<div
@@ -61,18 +61,22 @@
 			class:sm:py-2={artist.photo || artist.discogsPhoto}
 			class:self-stretch={artist.wikipediaExtract}
 		>
-			<div class="
-				hidden sm:block
-				{artist.photo || artist.discogsPhoto || artist.wikipediaExtract ? 'self-start' : 'self-center'}
-			">
+			<div
+				class="
+					hidden sm:block
+					{artist.photo || artist.discogsPhoto || artist.wikipediaExtract ? 'self-start' : 'self-center'}
+				"
+			>
 				<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
 			</div>
 
 			{#if artist.discogsUrl || artist.filmpolskiUrl || artist.wikipediaUrl}
-				<div class="
-					flex flex-col gap-2
-					{artist.photo || artist.discogsPhoto || artist.wikipediaExtract ? 'self-stretch' : 'self-center'}
-				">
+				<div
+					class="
+						flex flex-col gap-2
+						{artist.photo || artist.discogsPhoto || artist.wikipediaExtract ? 'self-stretch' : 'self-center'}
+					"
+				>
 					{#if artist.wikipediaExtract}
 						<div>{artist.wikipediaExtract}</div>
 					{/if}

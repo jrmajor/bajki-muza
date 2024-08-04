@@ -25,6 +25,8 @@ export default [
 			},
 		},
 		rules: {
+			// seems broken, causes parse errors
+			'@typescript-eslint/no-unused-expressions': 'off',
 			'@stylistic/array-bracket-newline': ['error', 'consistent'],
 			'@stylistic/array-bracket-spacing': 'error',
 			'@stylistic/array-element-newline': ['error', 'consistent'],
@@ -89,8 +91,35 @@ export default [
 			'@stylistic/type-generic-spacing': 'error',
 			'@stylistic/type-named-tuple-spacing': 'error',
 			'@stylistic/yield-star-spacing': 'error',
-			// seems broken, causes parse errors
-			'@typescript-eslint/no-unused-expressions': 'off',
+			'svelte/derived-has-same-inputs-outputs': 'error',
+			'svelte/first-attribute-linebreak': 'error',
+			'svelte/html-closing-bracket-spacing': ['error', { startTag: 'never', endTag: 'never', selfClosingTag: 'never' }],
+			'svelte/html-quotes': 'error',
+			// todo: https://github.com/sveltejs/eslint-plugin-svelte/issues/837
+			// 'svelte/html-self-closing': ['error', { void: 'never', normal: 'never' }],
+			'svelte/max-attributes-per-line': ['error', { singleline: 8 }],
+			'svelte/mustache-spacing': 'error',
+			'svelte/no-spaces-around-equal-signs-in-attribute': 'error',
+			'svelte/prefer-class-directive': 'error',
+			'svelte/prefer-style-directive': 'error',
+			'svelte/shorthand-attribute': 'error',
+			'svelte/shorthand-directive': 'error',
+			'svelte/sort-attributes': ['error', { order: [
+				'this',
+				'bind:this',
+				'/^use:/u',
+				{ match: ['!/^(?:this|bind:this|use:)$/u'], sort: 'ignore' },
+				'/^transition:/u',
+				'/^in:/u',
+				'/^out:/u',
+				'/^animate:/u',
+				'class',
+				'/^class:/u',
+				'style',
+				'/^style:/u',
+				'/^--/u', // --style-props
+			] }],
+			'svelte/spaced-html-comment': 'error',
 		},
 	},
 	{
@@ -102,6 +131,11 @@ export default [
 					experimentalGenerics: true,
 				},
 			},
+		},
+		rules: {
+			'@stylstic/indent': 'off',
+			'@stylistic/indent-binary-ops': 'off',
+			'svelte/indent': ['error', { indent: 'tab', alignAttributesVertically: true }],
 		},
 	},
 	{

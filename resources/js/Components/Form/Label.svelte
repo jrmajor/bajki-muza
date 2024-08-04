@@ -16,11 +16,8 @@
 
 <label
 	for={forId}
-	class="
-		{inline ? 'pr-1' : 'pb-1 w-full'}
-		{small ? 'text-sm' : ''}
-		font-medium text-gray-700 dark:text-gray-400
-	"
+	class="{inline ? 'pr-1' : 'pb-1 w-full'} font-medium text-gray-700 dark:text-gray-400"
+	class:text-sm={small}
 >
 	{@render children()}
 </label>

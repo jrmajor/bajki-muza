@@ -52,8 +52,8 @@
 			>
 			{#each tales as tale (tale.slug)}
 				<a
-					href={route('tales.show', { tale })}
 					use:inertia
+					href={route('tales.show', { tale })}
 					class="flex overflow-hidden items-center w-full h-32 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900"
 				>
 					<div

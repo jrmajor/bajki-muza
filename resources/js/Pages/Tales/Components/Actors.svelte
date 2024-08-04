@@ -16,8 +16,8 @@
 	<div class="flex flex-col gap-2.5 w-full md:w-5/6 xl:w-2/3">
 		{#each tale.actors as actor}
 			<a
-				href={route('artists.show', { artist: actor })}
 				use:inertia
+				href={route('artists.show', { artist: actor })}
 				class="flex overflow-hidden items-center w-full h-14 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900"
 			>
 				<div

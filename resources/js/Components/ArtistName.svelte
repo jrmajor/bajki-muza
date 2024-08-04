@@ -30,8 +30,8 @@
 	{/if}
 
 	<a
-		href="{route('artists.show', { artist })}"
 		use:inertia
+		href={route('artists.show', { artist })}
 		class="inline-flex items-center"
 	>
 		{genetivus ? artist.genetivus ?? artist.name : artist.name}

@@ -21,7 +21,7 @@
 			file: null as File | null,
 			url: null as string | null,
 			crop: artist.photo?.crop
-			?? { face: { x: 0, y: 0, size: 0 }, image: { x: 0, y: 0, width: 0, height: 0 } },
+				?? { face: { x: 0, y: 0, size: 0 }, image: { x: 0, y: 0, width: 0, height: 0 } },
 			remove: false,
 			source: artist.photo?.source ?? null,
 			grayscale: artist.photo?.grayscale ?? true,
