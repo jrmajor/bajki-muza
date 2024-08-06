@@ -25,7 +25,12 @@
     @endproduction
 
     @if (config('services.fathom.id'))
-      <script src="https://cdn.usefathom.com/script.js" data-site="{{ config('services.fathom.id') }}" defer></script>
+      <script
+        src="https://cdn.usefathom.com/script.js"
+        data-site="{{ config('services.fathom.id') }}"
+        data-spa="history"
+        defer
+      ></script>
     @endif
   </head>
   <body class="font-sans text-gray-900 bg-gray-200 dark:bg-gray-950 dark:text-gray-200">
