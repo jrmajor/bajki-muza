@@ -12,7 +12,7 @@
 
     @unless (app()->runningUnitTests())
       @vite('resources/css/style.css')
-      @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.svelte"])
+      @vite(['resources/js/browser.ts', "resources/js/Pages/{$page['component']}.svelte"])
     @endunless
 
     @routes
