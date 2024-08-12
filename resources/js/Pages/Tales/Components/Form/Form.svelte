@@ -10,10 +10,7 @@
 	import ActorsForm from './ActorsForm.svelte';
 	import Button from '@/Components/Form/Button.svelte';
 
-	let {
-		tale,
-		action,
-	}: {
+	let { tale, action }: {
 		tale: EditResource;
 		action: 'create' | 'edit';
 	} = $props();

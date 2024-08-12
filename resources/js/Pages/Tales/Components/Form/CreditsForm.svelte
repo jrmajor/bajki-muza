@@ -5,9 +5,7 @@
 	import { creditLabels } from '@/helpers/creditLabels';
 	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
-	let {
-		form,
-	}: {
+	let { form }: {
 		form: InertiaForm<{
 			credits: Array<{
 				artist: string;

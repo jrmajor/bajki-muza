@@ -4,11 +4,7 @@
 	import type { CoverResource } from '@/types/tales';
 	import Label from '@/Components/Form/Label.svelte';
 
-	let {
-		currentCover,
-		form,
-		action,
-	}: {
+	let { currentCover, form, action }: {
 		currentCover: CoverResource | null;
 		form: InertiaForm<{
 			removeCover: boolean;

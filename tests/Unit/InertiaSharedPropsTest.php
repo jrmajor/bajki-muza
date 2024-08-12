@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -18,7 +17,7 @@ final class InertiaSharedPropsTest extends TestCase
 
         Route::middleware('web')->get(
             'inertia-shared-props-test',
-            fn (Request $request) => Inertia::render('InertiaSharedPropsTest', []),
+            fn () => Inertia::render('InertiaSharedPropsTest', []),
         );
     }
 

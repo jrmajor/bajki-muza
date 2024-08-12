@@ -6,10 +6,7 @@
 	import Label from '@/Components/Form/Label.svelte';
 	import Cropper, { type CropValue } from '@/Components/Cropper.svelte';
 
-	let {
-		currentPhoto,
-		form,
-	}: {
+	let { currentPhoto, form }: {
 		currentPhoto: EditPhotoResource | null;
 		form: InertiaForm<{
 			photo: {

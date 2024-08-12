@@ -1,8 +1,5 @@
 <script lang="ts">
-	let {
-		count,
-		small = false,
-	}: {
+	let { count, small = false }: {
 		count: number;
 		small?: boolean;
 	} = $props();

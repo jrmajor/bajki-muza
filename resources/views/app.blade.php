@@ -11,11 +11,9 @@
     <title inertia>Bajki Polskich Nagrań „Muza”</title>
 
     @unless (app()->runningUnitTests())
-      @vite(['resources/css/style.css'])
+      @vite('resources/css/style.css')
       @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.svelte"])
     @endunless
-
-    @yield('head')
 
     @routes
     @inertiaHead
