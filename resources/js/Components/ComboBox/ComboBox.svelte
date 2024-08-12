@@ -47,6 +47,7 @@
 			ArrowUp: () => arrow('up'),
 			ArrowDown: () => arrow('down'),
 			Enter: enter,
+			Escape: closeDropdown,
 		}[event.key];
 
 		if (!listener) return;
