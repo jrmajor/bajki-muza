@@ -11,7 +11,7 @@
 
 	let { artist }: { artist: EditResource } = $props();
 
-	let form = useForm({
+	const form = useForm({
 		name: artist.name,
 		genetivus: artist.genetivus,
 		discogs: artist.discogs,

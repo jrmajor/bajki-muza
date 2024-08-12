@@ -6,7 +6,7 @@
 
 	let { user }: SharedProps = $props();
 
-	let form = useForm({
+	const form = useForm({
 		username: '',
 		password: '',
 		remember: false,

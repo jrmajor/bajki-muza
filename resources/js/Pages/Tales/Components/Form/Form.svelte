@@ -18,7 +18,7 @@
 		action: 'create' | 'edit';
 	} = $props();
 
-	let form = useForm({
+	const form = useForm({
 		title: tale.title,
 		year: tale.year,
 		nr: tale.nr,
