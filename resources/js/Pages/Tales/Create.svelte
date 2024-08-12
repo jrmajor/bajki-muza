@@ -1,10 +1,7 @@
 <script lang="ts">
 	import type { CreditType, EditResource } from '@/types/tales';
-	import Layout from '@/Layouts/Layout.svelte';
 	import Title from '@/Components/Title.svelte';
 	import Form from './Components/Form/Form.svelte';
-
-	let { user }: SharedProps = $props();
 
 	const commonCreditTypes: CreditType[] = [
 		'text',
@@ -33,10 +30,8 @@
 	<title>Nowa bajka - Bajki Polskich Nagrań „Muza”</title>
 </svelte:head>
 
-<Layout {user}>
-	<div class="text-center pb-4">
-		<Title text="Nowa bajka"/>
-	</div>
+<div class="text-center pb-4">
+	<Title text="Nowa bajka"/>
+</div>
 
-	<Form {tale} action="create"/>
-</Layout>
+<Form {tale} action="create"/>

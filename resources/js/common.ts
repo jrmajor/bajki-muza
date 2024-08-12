@@ -1,9 +1,11 @@
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { type Component } from 'svelte';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import Layout from '@/Layouts/Layout.svelte';
 
-export function resolve(name: string) {
-	return resolvePageComponent(
+export async function resolve(name: string) {
+	const page = await resolvePageComponent(
 		`./Pages/${name}.svelte`,
-		import.meta.glob<Component>('./Pages/**/*.svelte'),
+		import.meta.glob<{ default: Component }>('./Pages/**/*.svelte'),
 	);
+	return { default: page.default, layout: Layout };
 }

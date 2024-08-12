@@ -4,7 +4,7 @@
 	import MainMenuButton from './MainMenuButton.svelte';
 	import Footer from './Footer.svelte';
 
-	let { user, children }: { user: SharedUser; children: Snippet } = $props();
+	let { user, children }: { children: Snippet } & SharedProps = $props();
 </script>
 
 <div class="container flex flex-col justify-between mx-auto min-h-screen">
