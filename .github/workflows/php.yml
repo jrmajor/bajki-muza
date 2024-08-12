@@ -41,7 +41,7 @@ jobs:
           touch database/testing.sqlite
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: php artisan test --parallel
 
   types:
     name: Types

@@ -41,7 +41,7 @@ Clone this repository and install it like you normally install Laravel applicati
 This application uses PHPUnit for testing and PHPStan for static analysis.
 
 ```sh
-vendor/bin/phpunit --testdox  # Tests
-vendor/bin/phpstan analyze    # Static analysis
-vendor/bin/php-cs-fixer fix   # Formatting
+php artisan test --parallel  # Tests
+vendor/bin/phpstan analyze   # Static analysis
+vendor/bin/php-cs-fixer fix  # Formatting
 ```
