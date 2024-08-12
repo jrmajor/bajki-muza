@@ -16,6 +16,7 @@
 	type Entry = { label: string; value: Value };
 
 	let searchValue = $state(String(value));
+	let previousSearchValue = '';
 	let results: Entry[] = $state([]);
 
 	let isOpen = $state(false);
@@ -23,17 +24,21 @@
 	let hoveredIndex: number | null = $state(null);
 
 	function oninput() {
+		isOpen = true;
+
 		if (searchValue.length < minSearchLength) {
 			results = [];
 			return;
 		}
 
-		isOpen = true;
+		if (searchValue === previousSearchValue) return;
 
 		getResults(searchValue).then((data) => {
 			results = data;
 			if (hoveredIndex && hoveredIndex > results.length - 1) hoveredIndex = null;
 		});
+
+		previousSearchValue = searchValue;
 	}
 
 	function select(entry: Entry) {
