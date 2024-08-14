@@ -13,8 +13,8 @@
 		onclick: () => void;
 	} = $props();
 
-	let naturalWidth = $state() as number;
-	let naturalHeight = $state() as number;
+	let naturalWidth: number = $state()!;
+	let naturalHeight: number = $state()!;
 	let dimensions = $derived(`${naturalWidth}×${naturalHeight}`);
 </script>
 

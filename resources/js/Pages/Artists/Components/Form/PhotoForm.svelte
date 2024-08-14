@@ -39,7 +39,7 @@
 		$form.photo.grayscale = activePicker.type === 'current' ? (currentPhoto?.grayscale ?? true) : true;
 	});
 
-	let faceCrop = $state() as CropValue;
+	let faceCrop: CropValue = $state()!;
 
 	$effect(() => {
 		if (!faceCrop) return;
