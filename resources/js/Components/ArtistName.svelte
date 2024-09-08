@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
 	import { inertia } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 	import { type Loop } from '@/helpers/addLoop';
 	import Appearances from '@/Components/Appearances.svelte';
 

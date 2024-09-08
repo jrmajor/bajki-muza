@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { route } from 'ziggy-js';
 	import { inertia, router } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 	import type { IndexResource } from '@/types/tales';
 	import Pagination from '@/Components/Pagination/Pagination.svelte';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';

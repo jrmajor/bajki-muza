@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import type { CreditType } from '@/types/tales';
-	import randomKey from '@/helpers/randomKey';
 	import { creditLabels } from '@/helpers/creditLabels';
+	import randomKey from '@/helpers/randomKey';
 	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
 	let { form }: {

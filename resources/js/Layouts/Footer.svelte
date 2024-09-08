@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
 	import { inertia } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 
 	let { user }: { user: SharedUser } = $props();
 

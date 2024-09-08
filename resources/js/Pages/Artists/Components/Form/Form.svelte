@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
 	import { useForm } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 	import type { EditResource } from '@/types/artists';
-	import Label from '@/Components/Form/Label.svelte';
-	import Button from '@/Components/Form/Button.svelte';
 	import ServicePicker from '@/Components/ComboBox/ServicePicker.svelte';
-	import PhotoForm from './PhotoForm.svelte';
+	import Button from '@/Components/Form/Button.svelte';
+	import Label from '@/Components/Form/Label.svelte';
 	import FormExternalLinks from './FormExternalLinks.svelte';
 	import FormExternalPhotos from './FormExternalPhotos.svelte';
+	import PhotoForm from './PhotoForm.svelte';
 
 	let { artist }: { artist: EditResource } = $props();
 

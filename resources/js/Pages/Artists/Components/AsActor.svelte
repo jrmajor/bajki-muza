@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
 	import { inertia } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 	import type { ShowResource } from '@/types/artists';
 	import { formatList } from '@/helpers/intl';
-	import Title from '@/Components/Title.svelte';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
+	import Title from '@/Components/Title.svelte';
 
 	let { artist }: { artist: ShowResource } = $props();
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { inertia } from '@inertiajs/svelte';
 	import { type Snippet } from 'svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
+	import { inertia } from '@inertiajs/svelte';
 
 	let {
 		type = null,

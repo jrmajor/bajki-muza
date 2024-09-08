@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
 	import { useForm } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 	import type { EditResource } from '@/types/tales';
 	import randomKey from '@/helpers/randomKey';
-	import Discogs from '@/Components/Icons/Discogs.svelte';
+	import Button from '@/Components/Form/Button.svelte';
 	import Label from '@/Components/Form/Label.svelte';
+	import Discogs from '@/Components/Icons/Discogs.svelte';
+	import ActorsForm from './ActorsForm.svelte';
 	import CoverForm from './CoverForm.svelte';
 	import CreditsForm from './CreditsForm.svelte';
-	import ActorsForm from './ActorsForm.svelte';
-	import Button from '@/Components/Form/Button.svelte';
 
 	let { tale, action }: {
 		tale: EditResource;

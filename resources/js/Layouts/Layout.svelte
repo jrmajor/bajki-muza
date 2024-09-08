@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { route } from 'ziggy-js';
-	import MainMenuButton from './MainMenuButton.svelte';
 	import Footer from './Footer.svelte';
+	import MainMenuButton from './MainMenuButton.svelte';
 
 	let { user, children }: { children: Snippet } & SharedProps = $props();
 </script>

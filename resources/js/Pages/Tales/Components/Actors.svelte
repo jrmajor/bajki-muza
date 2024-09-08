@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
 	import { inertia } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 	import type { ShowResource } from '@/types/tales';
 	import { formatList } from '@/helpers/intl';
-	import Title from '@/Components/Title.svelte';
 	import Appearances from '@/Components/Appearances.svelte';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
+	import Title from '@/Components/Title.svelte';
 
 	let { tale, user }: { tale: ShowResource; user: SharedUser } = $props();
 </script>

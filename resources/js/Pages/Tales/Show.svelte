@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { ShowResource } from '@/types/tales';
 	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
-	import Title from './Components/Title.svelte';
-	import MainCredits from './Components/MainCredits.svelte';
 	import Actors from './Components/Actors.svelte';
 	import CustomCredits from './Components/CustomCredits.svelte';
+	import MainCredits from './Components/MainCredits.svelte';
+	import Title from './Components/Title.svelte';
 
 	let { tale, user }: { tale: ShowResource } & SharedProps = $props();
 </script>

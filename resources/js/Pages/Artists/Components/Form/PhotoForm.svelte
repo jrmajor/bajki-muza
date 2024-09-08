@@ -3,8 +3,8 @@
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
 	import type { EditPhotoResource, ArtistPhotoCrop } from '@/types/artists';
-	import Label from '@/Components/Form/Label.svelte';
 	import Cropper, { type CropValue } from '@/Components/Cropper.svelte';
+	import Label from '@/Components/Form/Label.svelte';
 
 	let { currentPhoto, form }: {
 		currentPhoto: EditPhotoResource | null;

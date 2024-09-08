@@ -1,6 +1,6 @@
 <script lang="ts">
-	import MobilePagination from './MobilePagination.svelte';
 	import DesktopPagination from './DesktopPagination.svelte';
+	import MobilePagination from './MobilePagination.svelte';
 
 	let { meta }: { meta: PaginationMeta } = $props();
 </script>

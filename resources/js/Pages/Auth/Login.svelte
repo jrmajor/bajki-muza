@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { route } from 'ziggy-js';
 	import { useForm } from '@inertiajs/svelte';
+	import { route } from 'ziggy-js';
 	import Title from '@/Components/Title.svelte';
 
 	const form = useForm({
