@@ -18,19 +18,18 @@
     "tailwindcss": "^3.4"
   },
   "devDependencies": {
-    "@jrmajor/eslint-config": "^0.0.1",
-    "@stylistic/eslint-plugin": "^2.6",
-    "@types/eslint": "^9.6",
+    "@jrmajor/eslint-config": "^0.0.6",
+    "@stylistic/eslint-plugin": "^2.7",
     "@types/node": "^22.1.0",
     "autoprefixer": "^10.4",
-    "eslint": "^9.8",
+    "eslint": "^9.10",
     "eslint-plugin-svelte": "^2.43",
     "globals": "^15.9",
     "laravel-vite-plugin": "^1.0",
     "postcss": "^8.4",
     "svelte-check": "^3.8",
     "typescript": "^5.5",
-    "typescript-eslint": "^8.0",
+    "typescript-eslint": "^8.4",
     "vite": "^5.3"
   }
 }

@@ -17,6 +17,9 @@ export default [
 				PaginationMeta: 'readonly',
 			},
 		},
+		rules: {
+			'svelte/block-lang': ['error', { script: 'ts', style: 'postcss' }],
+		},
 	},
 	{
 		ignores: [
