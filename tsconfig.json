@@ -9,16 +9,17 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["resources/js/*"],
-            "ziggy-js": ["vendor/tightenco/ziggy"]
+            "ziggy-js": ["vendor/tightenco/ziggy"],
         },
         "types": ["node", "vite/client"],
         "allowJs": true,
         "checkJs": true,
+        "skipLibCheck": true, // error in croppr
     },
     "include": [
         "resources/js/**/*.ts",
         "resources/js/**/*.svelte",
         "*.config.ts",
         "*.config.js",
-    ]
+    ],
 }

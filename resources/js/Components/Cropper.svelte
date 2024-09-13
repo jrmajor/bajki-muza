@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	import Croppr from 'croppr';
 
 	export type CropValue = Croppr.CropValue;

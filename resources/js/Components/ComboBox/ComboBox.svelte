@@ -1,4 +1,4 @@
-<script lang="ts" generics="Value extends string | number">
+<script lang="ts">
 	let {
 		id = null,
 		value = $bindable(),
@@ -7,13 +7,13 @@
 		allowsAnyString = false,
 	}: {
 		id?: string | null;
-		value: Value | null | (typeof allowsAnyString extends true ? string : never);
+		value: any;
 		getResults: (query: string) => Promise<Entry[]>;
 		minSearchLength?: number;
 		allowsAnyString?: boolean;
 	} = $props();
 
-	type Entry = { label: string; value: Value };
+	type Entry = { label: string; value: any };
 
 	let searchValue = $state(String(value));
 	let previousSearchValue = '';
@@ -88,7 +88,6 @@
 		if (searchValue === '') {
 			value = null;
 		} else if (allowsAnyString) {
-			// @ts-expect-error value shold be Value | string if allowsAnyString is true
 			value = searchValue;
 		} else {
 			searchValue = String(value);
