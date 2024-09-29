@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { tick, onMount } from 'svelte';
 	import resizedImageUrl from '@/helpers/resizedImageUrl';
 
 	let {
@@ -21,19 +21,36 @@
 	const calculatedImageSize = $derived(imageSize ?? (typeof size === 'number' ? size * 4 : 0));
 
 	let element: HTMLImageElement;
-	let isLoaded = $state(false);
+	let mountedAt: number;
+
+	let isHidden = $state(true);
+	let transitionClass = $state(false);
 
 	onMount(() => {
-		if (element.complete) isLoaded = true;
+		mountedAt = performance.now();
+		if (element.complete) unhideImage();
 	});
+
+	async function unhideImage() {
+		const msSinceMounted = performance.now() - mountedAt;
+		if (msSinceMounted > 50) {
+			transitionClass = true;
+			await tick();
+		}
+
+		isHidden = false;
+	}
 </script>
 
 <img
 	bind:this={element}
-	onload={() => isLoaded = true}
+	onload={unhideImage}
 	{loading}
-	class="size-{size} object-center object-cover transition-opacity duration-300 {className}"
-	class:opacity-0={!isLoaded}
+	class="
+		size-{size} object-center object-cover {className}
+		{ transitionClass ? 'transition-opacity duration-300' : '' }
+	"
+	class:opacity-0={isHidden}
 	src={resizedImageUrl(src, calculatedImageSize * 2)}
 	srcset="
 		{resizedImageUrl(src, calculatedImageSize)} 1x,
