@@ -1,4 +1,8 @@
-<script lang="ts">
+<script module lang="ts">
+	type Service = 'discogs' | 'filmPolski' | 'wikipedia';
+</script>
+
+<script lang="ts" generics="TService extends Service">
 	import { route } from 'ziggy-js';
 	import ComboBox from './ComboBox.svelte';
 
@@ -6,23 +10,22 @@
 		service,
 		value = $bindable(),
 	}: {
-		service: 'discogs' | 'filmPolski' | 'wikipedia';
-		value: any;
+		service: TService;
+		value: IdTypeMap[TService] | null;
 	} = $props();
 
-	async function getResults(value: string) {
-		let response;
-		if (service === 'discogs') {
-			response = await fetch(route('ajax.discogs', { search: value }));
-		} else if (service === 'filmPolski') {
-			response = await fetch(route('ajax.filmPolski', { search: value }));
-		} else {
-			response = await fetch(route('ajax.wikipedia', { search: value }));
-		}
+	type IdTypeMap = {
+		discogs: number;
+		filmPolski: number;
+		wikipedia: string;
+	};
 
-		let json = await response.json() as Array<{ id: any; name: string }>;
+	async function getResults(value: string) {
+		let endpoint: `ajax.${Service}` = `ajax.${service}`;
+		let response = await fetch(route(endpoint, { search: value }));
+		let json = await response.json() as Array<{ id: IdTypeMap[TService]; name: string }>;
 		return json.map((a) => ({ label: a.name, value: a.id }));
 	}
 </script>
 
-<ComboBox id={service} bind:value {getResults} minSearchLength={5}/>
+<ComboBox id={service} bind:value {getResults} minSearchLength={5} allowsAnyString={false}/>

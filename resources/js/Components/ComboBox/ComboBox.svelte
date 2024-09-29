@@ -1,19 +1,19 @@
-<script lang="ts">
+<script lang="ts" generics="TValue extends string | number, TAllowsAnyString extends boolean">
 	let {
 		id = null,
 		value = $bindable(),
 		getResults,
 		minSearchLength = 2,
-		allowsAnyString = false,
+		allowsAnyString,
 	}: {
 		id?: string | null;
-		value: any;
+		value: TValue | null | (TAllowsAnyString extends true ? string : never);
 		getResults: (query: string) => Promise<Entry[]>;
 		minSearchLength?: number;
-		allowsAnyString?: boolean;
+		allowsAnyString?: TAllowsAnyString;
 	} = $props();
 
-	type Entry = { label: string; value: any };
+	type Entry = { label: string; value: TValue };
 
 	let searchValue = $state(String(value));
 	let previousSearchValue = '';
@@ -87,7 +87,8 @@
 		isOpen = false;
 		if (searchValue === '') {
 			value = null;
-		} else if (allowsAnyString) {
+		} else if (allowsAnyString ?? false) {
+			// @ts-expect-error value shold be Value | string if allowsAnyString is true
 			value = searchValue;
 		} else {
 			searchValue = String(value);
