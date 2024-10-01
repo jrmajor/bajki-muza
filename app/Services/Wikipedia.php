@@ -47,7 +47,7 @@ class Wikipedia
 
     public function extract(string $title): ?string
     {
-        $titleHash = Hash\hash($title, Hash\Algorithm::MD5);
+        $titleHash = Hash\hash($title, Hash\Algorithm::Md5);
 
         return Cache::remember(
             "wikipedia-{$titleHash}-extract",
@@ -79,7 +79,7 @@ class Wikipedia
 
     public function forget(string $title): bool
     {
-        $titleHash = Hash\hash($title, Hash\Algorithm::MD5);
+        $titleHash = Hash\hash($title, Hash\Algorithm::Md5);
 
         return Cache::forget("wikipedia-{$titleHash}-extract");
     }
