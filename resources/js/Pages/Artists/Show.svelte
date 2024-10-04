@@ -5,7 +5,7 @@
 	import Discogs from '@/Components/Icons/Discogs.svelte';
 	import FilmPolski from '@/Components/Icons/FilmPolski.svelte';
 	import Wikipedia from '@/Components/Icons/Wikipedia.svelte';
-	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
+	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Title from '@/Components/Title.svelte';
 	import AsActor from './Components/AsActor.svelte';
 	import Credits from './Components/Credits.svelte';

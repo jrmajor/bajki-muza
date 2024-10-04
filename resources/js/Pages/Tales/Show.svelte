@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ShowResource } from '@/types/tales';
-	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
+	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Actors from './Components/Actors.svelte';
 	import CustomCredits from './Components/CustomCredits.svelte';
 	import MainCredits from './Components/MainCredits.svelte';

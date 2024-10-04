@@ -4,8 +4,8 @@
 	import { route } from 'ziggy-js';
 	import type { IndexResource } from '@/types/artists';
 	import Appearances from '@/Components/Appearances.svelte';
+	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Pagination from '@/Components/Pagination/Pagination.svelte';
-	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
 
 	let {
 		data: artists,

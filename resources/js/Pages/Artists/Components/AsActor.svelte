@@ -3,7 +3,7 @@
 	import { route } from 'ziggy-js';
 	import type { ShowResource } from '@/types/artists';
 	import { formatList } from '@/helpers/intl';
-	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
+	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Title from '@/Components/Title.svelte';
 
 	let { artist }: { artist: ShowResource } = $props();

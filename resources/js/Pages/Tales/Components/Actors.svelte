@@ -4,7 +4,7 @@
 	import type { ShowResource } from '@/types/tales';
 	import { formatList } from '@/helpers/intl';
 	import Appearances from '@/Components/Appearances.svelte';
-	import ResponsiveImage from '@/Components/ResponsiveImage.svelte';
+	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Title from '@/Components/Title.svelte';
 
 	let { tale, user }: { tale: ShowResource; user: SharedUser } = $props();
