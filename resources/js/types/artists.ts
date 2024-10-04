@@ -41,7 +41,8 @@ export type FacePhotoResource = {
 
 export type FullPhotoResource = {
 	placeholder: string;
-	aspectRatio: number | null;
+	width: number | null;
+	height: number | null;
 	url: string;
 };
 

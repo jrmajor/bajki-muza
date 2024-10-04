@@ -6,7 +6,6 @@ use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Intervention\Image\Interfaces\ImageInterface;
-use Psl\Type;
 
 final class Photo extends Image
 {
@@ -52,17 +51,6 @@ final class Photo extends Image
     public function crop(): ArtistPhotoCrop
     {
         return $this->crop;
-    }
-
-    public function aspectRatio(): ?float
-    {
-        if (! $this->width || ! $this->height) {
-            return null;
-        }
-
-        $t = Type\float();
-
-        return $t->coerce($this->width) / $t->coerce($this->height);
     }
 
     public static function shouldSaveDimensions(): bool

@@ -29,7 +29,7 @@
 
 	{#if artist.photo}
 		<div
-			style:width="{(artist.photo.aspectRatio ?? 1) * 10}rem"
+			style:aspect-ratio="{artist.photo.width} / {artist.photo.height}"
 			class="overflow-hidden relative flex-none self-center mt-5 mb-2 h-40 rounded-lg shadow-lg sm:my-0 sm:mr-6 -p-px"
 		>
 			<div

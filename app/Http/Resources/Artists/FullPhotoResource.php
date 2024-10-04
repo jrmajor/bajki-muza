@@ -18,7 +18,8 @@ class FullPhotoResource extends JsonResource
     {
         return [
             'placeholder' => $this->resource->placeholder(),
-            'aspectRatio' => $this->resource->aspectRatio(),
+            'width' => $this->resource->width,
+            'height' => $this->resource->height,
             'url' => $this->resource->url(),
         ];
     }

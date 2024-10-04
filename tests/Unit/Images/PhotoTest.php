@@ -120,22 +120,6 @@ final class PhotoTest extends TestCase
         Queue::assertPushed(ProcessImage::class);
     }
 
-    #[TestDox('it can calculate aspect ratio')]
-    public function testAspectRatio(): void
-    {
-        $this->assertSame(
-            1.6, (new Photo(['width' => 16, 'height' => 10]))->aspectRatio(),
-        );
-    }
-
-    #[TestDox('aspect ratio is null when dimensions are not set')]
-    public function testNullAspectRatio(): void
-    {
-        $this->assertNull(
-            (new Photo(['width' => null, 'height' => null]))->aspectRatio(),
-        );
-    }
-
     #[TestDox('it can get its artists')]
     public function testArtists(): void
     {
