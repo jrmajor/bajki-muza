@@ -25,13 +25,11 @@
 					style:background-image={actor.photo ? `url("${actor.photo.placeholder}")` : null}
 				>
 					{#if actor.photo}
-						<!-- todo: alt -->
-						<ResponsiveImage src={actor.photo.url} size={14} alt=""/>
+						<ResponsiveImage src={actor.photo.url} size={14} alt={actor.name}/>
 					{:else if actor.discogsPhotoThumb && !user}
-						<!-- todo: alt -->
-						<!-- svelte-ignore a11y_missing_attribute -->
 						<img
 							src={actor.discogsPhotoThumb}
+							alt={actor.name}
 							class="object-cover size-14 filter grayscale"
 						>
 					{/if}

@@ -43,13 +43,12 @@
 						style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
 						style:view-transition-name="image-modal"
 					>
-						<!-- todo: alt -->
 						<ResponsiveImage
 							src={artist.photo.url}
 							size="full"
 							imageSize={160}
 							loading="eager"
-							alt=""
+							alt={artist.name}
 							class="rounded-lg"
 						/>
 					</div>
@@ -58,9 +57,11 @@
 		</div>
 	{:else if artist.discogsPhoto && !user}
 		<div class="mb-2 mt-5 h-40 flex-none self-center overflow-hidden rounded-lg shadow-lg sm:my-0 sm:mr-6">
-			<!-- todo: alt -->
-			<!-- svelte-ignore a11y_missing_attribute -->
-			<img src={artist.discogsPhoto} class="h-40 filter grayscale">
+			<img
+				src={artist.discogsPhoto}
+				alt={artist.name}
+				class="h-40 filter grayscale"
+			>
 		</div>
 	{/if}
 
@@ -118,7 +119,6 @@
 {/if}
 
 {#if artist.photo}
-	<!-- todo: alt -->
 	<PhotoModal
 		bind:this={modal}
 		bind:isOpen={modalIsOpen}
@@ -126,6 +126,6 @@
 		url={artist.photo.url}
 		width={artist.photo.width ?? 100}
 		height={artist.photo.height ?? 100}
-		alt=""
+		alt={artist.name}
 	/>
 {/if}
