@@ -13,6 +13,10 @@
 
 	let { artist, user }: { artist: ShowResource } & SharedProps = $props();
 
+	let hasAnyLinks = $derived(artist.discogsUrl || artist.filmpolskiUrl || artist.wikipediaUrl);
+	let hasPhoto = $derived(artist.photo || artist.discogsPhoto);
+	let hasExtract = $derived(!!artist.wikipediaExtract);
+
 	let modalIsOpen = $state(false);
 	let modal: ReturnType<typeof PhotoModal> = $state()!;
 </script>
@@ -63,26 +67,16 @@
 
 	<div
 		class="flex flex-col flex-grow justify-between space-y-3"
-		class:sm:py-2={artist.photo || artist.discogsPhoto}
-		class:self-stretch={artist.wikipediaExtract}
+		class:sm:py-2={hasPhoto}
+		class:self-stretch={hasExtract}
 	>
-		<div
-			class="
-				hidden sm:block
-				{artist.photo || artist.discogsPhoto || artist.wikipediaExtract ? 'self-start' : 'self-center'}
-			"
-		>
+		<div class="hidden sm:block {hasPhoto || hasExtract ? 'self-start' : 'self-center'}">
 			<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
 		</div>
 
-		{#if artist.discogsUrl || artist.filmpolskiUrl || artist.wikipediaUrl}
-			<div
-				class="
-					flex flex-col gap-2
-					{artist.photo || artist.discogsPhoto || artist.wikipediaExtract ? 'self-stretch' : 'self-center'}
-				"
-			>
-				{#if artist.wikipediaExtract}
+		{#if hasAnyLinks}
+			<div class="flex flex-col gap-2 {hasPhoto || hasExtract ? 'self-stretch' : 'self-center'}">
+				{#if hasExtract}
 					<div>{artist.wikipediaExtract}</div>
 				{/if}
 				<div class="flex gap-5 items-center self-center sm:self-start">
