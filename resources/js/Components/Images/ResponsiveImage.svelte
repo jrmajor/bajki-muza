@@ -13,8 +13,8 @@
 		src: string;
 		size?: 'full' | number;
 		imageSize?: number | null;
-		eager?: boolean;
 		alt: string;
+		eager?: boolean;
 		class?: string;
 	} = $props();
 

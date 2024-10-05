@@ -102,7 +102,7 @@
 					style:background-image="url('{artist.photo.placeholder}')"
 					style:view-transition-name="image-modal"
 				>
-					<ResponsiveImage src={artist.photo.url} imageSize={160} eager alt={artist.name}/>
+					<ResponsiveImage src={artist.photo.url} imageSize={160} alt={artist.name} eager/>
 				</button>
 			{/if}
 		</div>
