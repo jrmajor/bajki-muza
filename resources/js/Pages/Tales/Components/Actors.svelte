@@ -22,7 +22,7 @@
 			>
 				<div
 					class="flex-none size-14 bg-placeholder-artist"
-					style:background-image={actor.photo ? `url("${actor.photo.placeholder}")` : null}
+					style:background-image={actor.photo ? `url('${actor.photo.placeholder}')` : null}
 				>
 					{#if actor.photo}
 						<ResponsiveImage src={actor.photo.url} size={14} alt={actor.name}/>

@@ -76,7 +76,7 @@
 		>
 			<div
 				class="h-svh max-h-full w-svw max-w-full bg-cover bg-center"
-				style:background-image={`url("${placeholder}")`}
+				style:background-image="url('{placeholder}')"
 			>
 				<FullSizeImage src={url} {alt}/>
 			</div>

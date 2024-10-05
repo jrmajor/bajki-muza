@@ -61,7 +61,7 @@
 			>
 				<div
 					class="flex-none size-12 bg-placeholder-artist sm:size-14"
-					style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
+					style:background-image={artist.photo ? `url('${artist.photo.placeholder}')` : null}
 				>
 					{#if artist.photo}
 						<ResponsiveImage src={artist.photo.url} size={14} alt={artist.name} class="size-12 sm:size-14"/>
