@@ -4,16 +4,16 @@
 
 	let {
 		src,
-		size,
+		size = 'full',
 		imageSize = null,
 		alt,
-		loading = 'lazy',
+		eager = false,
 		class: className = '',
 	}: {
 		src: string;
-		size: 'full' | number;
+		size?: 'full' | number;
 		imageSize?: number | null;
-		loading?: 'lazy' | 'eager';
+		eager?: boolean;
 		alt: string;
 		class?: string;
 	} = $props();
@@ -45,7 +45,7 @@
 <img
 	bind:this={element}
 	onload={unhideImage}
-	{loading}
+	loading={eager ? 'eager' : 'lazy'}
 	class="
 		size-{size} object-center object-cover {className}
 		{ transitionClass ? 'transition-opacity duration-300' : '' }

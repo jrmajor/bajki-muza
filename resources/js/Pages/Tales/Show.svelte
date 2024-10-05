@@ -29,13 +29,7 @@
 			style:background-image={tale.cover ? `url("${tale.cover.placeholder}")` : null}
 		>
 			{#if tale.cover}
-				<ResponsiveImage
-					src={tale.cover.url}
-					size="full"
-					imageSize={192}
-					loading="eager"
-					alt="Okładka bajki {tale.title}"
-				/>
+				<ResponsiveImage src={tale.cover.url} imageSize={192} eager alt="Okładka bajki {tale.title}"/>
 			{/if}
 		</div>
 	</div>
