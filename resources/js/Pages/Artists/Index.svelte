@@ -66,11 +66,7 @@
 					{#if artist.photo}
 						<ResponsiveImage src={artist.photo.url} size={14} alt={artist.name} class="size-12 sm:size-14"/>
 					{:else if artist.discogsPhotoThumb && !user}
-						<img
-							src={artist.discogsPhotoThumb}
-							alt={artist.name}
-							class="object-cover size-12 sm:size-14 grayscale"
-						>
+						<img src={artist.discogsPhotoThumb} alt={artist.name} class="object-cover size-12 sm:size-14 grayscale">
 					{/if}
 				</div>
 				<div class="flex-grow p-2 pl-3">

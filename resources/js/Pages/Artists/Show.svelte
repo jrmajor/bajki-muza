@@ -34,7 +34,7 @@
 	{#if artist.photo}
 		<div
 			style:aspect-ratio="{artist.photo.width} / {artist.photo.height}"
-			class="-p-px mb-2 mt-5 h-40 flex-none self-center rounded-lg shadow-lg sm:my-0 sm:mr-6"
+			class="mb-2 mt-5 h-40 flex-none self-center rounded-lg shadow-lg sm:my-0 sm:mr-6"
 		>
 			{#if !modalIsOpen}
 				<button onclick={() => modal.open()} class="relative size-full">
@@ -57,11 +57,7 @@
 		</div>
 	{:else if artist.discogsPhoto && !user}
 		<div class="mb-2 mt-5 h-40 flex-none self-center overflow-hidden rounded-lg shadow-lg sm:my-0 sm:mr-6">
-			<img
-				src={artist.discogsPhoto}
-				alt={artist.name}
-				class="h-40 filter grayscale"
-			>
+			<img src={artist.discogsPhoto} alt={artist.name} class="h-40 filter grayscale">
 		</div>
 	{/if}
 
