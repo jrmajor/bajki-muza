@@ -64,19 +64,27 @@
 			<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
 		</div>
 
-		{@render photo()}
+		{#if hasPhoto}
+			<div class="mb-2 mt-5 flex-none sm:my-0 sm:mr-6">
+				{@render photo()}
+			</div>
+		{/if}
 
 		<div
-			class="flex flex-col flex-grow justify-between space-y-3"
+			class="flex flex-grow flex-col justify-between space-y-3"
 			class:sm:py-2={hasPhoto}
 			class:self-stretch={hasExtract}
+			class:items-center={!hasPhoto && !hasExtract}
 		>
-			<div class="hidden sm:block {hasPhoto || hasExtract ? 'self-start' : 'self-center'}">
+			<div class="hidden sm:block">
 				<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
 			</div>
 
 			{#if hasAnyLinks}
-				<div class="flex flex-col gap-2 items-center sm:items-start {hasPhoto || hasExtract ? 'self-stretch' : 'self-center'}">
+				<div class="flex flex-col gap-2 items-center sm:items-start">
+					{#if hasExtract}
+						<div>{artist.wikipediaExtract}</div>
+					{/if}
 					{@render links()}
 				</div>
 			{/if}
@@ -86,33 +94,26 @@
 
 {#snippet photo()}
 	{#if artist.photo}
-		<div
-			style:aspect-ratio="{artist.photo.width} / {artist.photo.height}"
-			class="mb-2 mt-5 h-40 flex-none self-center rounded-lg shadow-lg sm:my-0 sm:mr-6"
-		>
+		<div class="h-40" style:aspect-ratio="{artist.photo.width} / {artist.photo.height}">
 			{#if !modalIsOpen}
-				<button onclick={() => modal.open()} class="relative size-full">
-					<div
-						class="absolute -inset-px rounded-lg bg-gray-400 bg-cover bg-center dark:bg-gray-800"
-						style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
-						style:view-transition-name="image-modal"
-					>
-						<ResponsiveImage src={artist.photo.url} imageSize={160} eager alt={artist.name}/>
-					</div>
+				<button
+					onclick={() => modal.open()}
+					class="size-full overflow-hidden rounded-lg bg-cover bg-center shadow-lg"
+					style:background-image="url('{artist.photo.placeholder}')"
+					style:view-transition-name="image-modal"
+				>
+					<ResponsiveImage src={artist.photo.url} imageSize={160} eager alt={artist.name}/>
 				</button>
 			{/if}
 		</div>
 	{:else if artist.discogsPhoto && !user}
-		<div class="mb-2 mt-5 h-40 flex-none self-center overflow-hidden rounded-lg shadow-lg sm:my-0 sm:mr-6">
+		<div class="h-40 overflow-hidden rounded-lg shadow-lg">
 			<img src={artist.discogsPhoto} alt={artist.name} class="h-40 filter grayscale">
 		</div>
 	{/if}
 {/snippet}
 
 {#snippet links()}
-	{#if hasExtract}
-		<div>{artist.wikipediaExtract}</div>
-	{/if}
 	<div class="flex gap-5 items-center">
 		{#if artist.discogsUrl}
 			<a href={artist.discogsUrl} target="_blank"><Discogs/></a>
