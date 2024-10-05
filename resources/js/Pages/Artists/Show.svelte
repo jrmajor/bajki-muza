@@ -30,34 +30,13 @@
 	{/if}
 </svelte:head>
 
-<div class="flex flex-col items-center mb-6 sm:flex-row">
-	<div class="text-center sm:hidden">
-		<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
-	</div>
+<div class="flex w-full flex-col items-center gap-6">
+	{@render header()}
 
-	{@render photo()}
-
-	<div
-		class="flex flex-col flex-grow justify-between space-y-3"
-		class:sm:py-2={hasPhoto}
-		class:self-stretch={hasExtract}
-	>
-		<div class="hidden sm:block {hasPhoto || hasExtract ? 'self-start' : 'self-center'}">
-			<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
-		</div>
-
-		{#if hasAnyLinks}
-			<div class="flex flex-col gap-2 items-center sm:items-start {hasPhoto || hasExtract ? 'self-stretch' : 'self-center'}">
-				{@render links()}
-			</div>
-		{/if}
-	</div>
-</div>
-
-<div class="flex flex-col gap-6 w-full">
 	{#if artist.asActor.length}
 		<AsActor {artist}/>
 	{/if}
+
 	<Credits {artist}/>
 </div>
 
@@ -78,6 +57,32 @@
 		alt={artist.name}
 	/>
 {/if}
+
+{#snippet header()}
+	<div class="flex flex-col items-center sm:flex-row">
+		<div class="sm:hidden">
+			<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
+		</div>
+
+		{@render photo()}
+
+		<div
+			class="flex flex-col flex-grow justify-between space-y-3"
+			class:sm:py-2={hasPhoto}
+			class:self-stretch={hasExtract}
+		>
+			<div class="hidden sm:block {hasPhoto || hasExtract ? 'self-start' : 'self-center'}">
+				<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
+			</div>
+
+			{#if hasAnyLinks}
+				<div class="flex flex-col gap-2 items-center sm:items-start {hasPhoto || hasExtract ? 'self-stretch' : 'self-center'}">
+					{@render links()}
+				</div>
+			{/if}
+		</div>
+	</div>
+{/snippet}
 
 {#snippet photo()}
 	{#if artist.photo}
