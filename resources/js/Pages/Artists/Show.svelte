@@ -35,35 +35,7 @@
 		<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
 	</div>
 
-	{#if artist.photo}
-		<div
-			style:aspect-ratio="{artist.photo.width} / {artist.photo.height}"
-			class="mb-2 mt-5 h-40 flex-none self-center rounded-lg shadow-lg sm:my-0 sm:mr-6"
-		>
-			{#if !modalIsOpen}
-				<button onclick={() => modal.open()} class="relative size-full">
-					<div
-						class="absolute -inset-px rounded-lg bg-gray-400 bg-cover bg-center dark:bg-gray-800"
-						style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
-						style:view-transition-name="image-modal"
-					>
-						<ResponsiveImage
-							src={artist.photo.url}
-							size="full"
-							imageSize={160}
-							loading="eager"
-							alt={artist.name}
-							class="rounded-lg"
-						/>
-					</div>
-				</button>
-			{/if}
-		</div>
-	{:else if artist.discogsPhoto && !user}
-		<div class="mb-2 mt-5 h-40 flex-none self-center overflow-hidden rounded-lg shadow-lg sm:my-0 sm:mr-6">
-			<img src={artist.discogsPhoto} alt={artist.name} class="h-40 filter grayscale">
-		</div>
-	{/if}
+	{@render photo()}
 
 	<div
 		class="flex flex-col flex-grow justify-between space-y-3"
@@ -75,21 +47,8 @@
 		</div>
 
 		{#if hasAnyLinks}
-			<div class="flex flex-col gap-2 {hasPhoto || hasExtract ? 'self-stretch' : 'self-center'}">
-				{#if hasExtract}
-					<div>{artist.wikipediaExtract}</div>
-				{/if}
-				<div class="flex gap-5 items-center self-center sm:self-start">
-					{#if artist.discogsUrl}
-						<a href={artist.discogsUrl} target="_blank"><Discogs/></a>
-					{/if}
-					{#if artist.filmpolskiUrl}
-						<a href={artist.filmpolskiUrl} target="_blank"><FilmPolski/></a>
-					{/if}
-					{#if artist.wikipediaUrl}
-						<a href={artist.wikipediaUrl} target="_blank"><Wikipedia/></a>
-					{/if}
-				</div>
+			<div class="flex flex-col gap-2 items-center sm:items-start {hasPhoto || hasExtract ? 'self-stretch' : 'self-center'}">
+				{@render links()}
 			</div>
 		{/if}
 	</div>
@@ -119,3 +78,52 @@
 		alt={artist.name}
 	/>
 {/if}
+
+{#snippet photo()}
+	{#if artist.photo}
+		<div
+			style:aspect-ratio="{artist.photo.width} / {artist.photo.height}"
+			class="mb-2 mt-5 h-40 flex-none self-center rounded-lg shadow-lg sm:my-0 sm:mr-6"
+		>
+			{#if !modalIsOpen}
+				<button onclick={() => modal.open()} class="relative size-full">
+					<div
+						class="absolute -inset-px rounded-lg bg-gray-400 bg-cover bg-center dark:bg-gray-800"
+						style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
+						style:view-transition-name="image-modal"
+					>
+						<ResponsiveImage
+							src={artist.photo.url}
+							size="full"
+							imageSize={160}
+							loading="eager"
+							alt={artist.name}
+							class="rounded-lg"
+						/>
+					</div>
+				</button>
+			{/if}
+		</div>
+	{:else if artist.discogsPhoto && !user}
+		<div class="mb-2 mt-5 h-40 flex-none self-center overflow-hidden rounded-lg shadow-lg sm:my-0 sm:mr-6">
+			<img src={artist.discogsPhoto} alt={artist.name} class="h-40 filter grayscale">
+		</div>
+	{/if}
+{/snippet}
+
+{#snippet links()}
+	{#if hasExtract}
+		<div>{artist.wikipediaExtract}</div>
+	{/if}
+	<div class="flex gap-5 items-center">
+		{#if artist.discogsUrl}
+			<a href={artist.discogsUrl} target="_blank"><Discogs/></a>
+		{/if}
+		{#if artist.filmpolskiUrl}
+			<a href={artist.filmpolskiUrl} target="_blank"><FilmPolski/></a>
+		{/if}
+		{#if artist.wikipediaUrl}
+			<a href={artist.wikipediaUrl} target="_blank"><Wikipedia/></a>
+		{/if}
+	</div>
+{/snippet}
