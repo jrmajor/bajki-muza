@@ -5,7 +5,7 @@
 	import Discogs from '@/Components/Icons/Discogs.svelte';
 	import FilmPolski from '@/Components/Icons/FilmPolski.svelte';
 	import Wikipedia from '@/Components/Icons/Wikipedia.svelte';
-	import PhotoModal from '@/Components/Images/PhotoModal.svelte';
+	import ImageModal from '@/Components/Images/ImageModal.svelte';
 	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Title from '@/Components/Title.svelte';
 	import AsActor from './Components/AsActor.svelte';
@@ -18,7 +18,7 @@
 	let hasExtract = $derived(!!artist.wikipediaExtract);
 
 	let modalIsOpen = $state(false);
-	let modal: ReturnType<typeof PhotoModal> = $state()!;
+	let modal: ReturnType<typeof ImageModal> = $state()!;
 </script>
 
 <svelte:head>
@@ -47,7 +47,7 @@
 {/if}
 
 {#if artist.photo}
-	<PhotoModal
+	<ImageModal
 		bind:this={modal}
 		bind:isOpen={modalIsOpen}
 		placeholder={artist.photo.placeholder}

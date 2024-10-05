@@ -105,7 +105,7 @@
 			--dialogMargin: 4rem;
 		}
 
-		&[open] {
+		&[open] .image-wrapper {
 			view-transition-name: image-modal;
 		}
 	}
