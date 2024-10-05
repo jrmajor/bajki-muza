@@ -5,12 +5,16 @@
 	import Discogs from '@/Components/Icons/Discogs.svelte';
 	import FilmPolski from '@/Components/Icons/FilmPolski.svelte';
 	import Wikipedia from '@/Components/Icons/Wikipedia.svelte';
+	import PhotoModal from '@/Components/Images/PhotoModal.svelte';
 	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Title from '@/Components/Title.svelte';
 	import AsActor from './Components/AsActor.svelte';
 	import Credits from './Components/Credits.svelte';
 
 	let { artist, user }: { artist: ShowResource } & SharedProps = $props();
+
+	let modalIsOpen = $state(false);
+	let modal: ReturnType<typeof PhotoModal> = $state()!;
 </script>
 
 <svelte:head>
@@ -30,24 +34,30 @@
 	{#if artist.photo}
 		<div
 			style:aspect-ratio="{artist.photo.width} / {artist.photo.height}"
-			class="overflow-hidden relative flex-none self-center mt-5 mb-2 h-40 rounded-lg shadow-lg sm:my-0 sm:mr-6 -p-px"
+			class="-p-px mb-2 mt-5 h-40 flex-none self-center rounded-lg shadow-lg sm:my-0 sm:mr-6"
 		>
-			<div
-				class="absolute -inset-px bg-gray-400 bg-center bg-cover dark:bg-gray-800"
-				style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
-			>
-				<!-- todo: alt -->
-				<ResponsiveImage
-					src={artist.photo.url}
-					size="full"
-					imageSize={160}
-					loading="eager"
-					alt=""
-				/>
-			</div>
+			{#if !modalIsOpen}
+				<button onclick={() => modal.open()} class="relative size-full">
+					<div
+						class="absolute -inset-px rounded-lg bg-gray-400 bg-cover bg-center dark:bg-gray-800"
+						style:background-image={artist.photo ? `url("${artist.photo.placeholder}")` : null}
+						style:view-transition-name="image-modal"
+					>
+						<!-- todo: alt -->
+						<ResponsiveImage
+							src={artist.photo.url}
+							size="full"
+							imageSize={160}
+							loading="eager"
+							alt=""
+							class="rounded-lg"
+						/>
+					</div>
+				</button>
+			{/if}
 		</div>
 	{:else if artist.discogsPhoto && !user}
-		<div class="overflow-hidden flex-none self-center mt-5 mb-2 h-40 rounded-lg shadow-lg sm:my-0 sm:mr-6">
+		<div class="mb-2 mt-5 h-40 flex-none self-center overflow-hidden rounded-lg shadow-lg sm:my-0 sm:mr-6">
 			<!-- todo: alt -->
 			<!-- svelte-ignore a11y_missing_attribute -->
 			<img src={artist.discogsPhoto} class="h-40 filter grayscale">
@@ -105,4 +115,17 @@
 	<Button inertia={{ href: route('artists.destroy', { artist }), method: 'delete' }} danger>
 		Usuń
 	</Button>
+{/if}
+
+{#if artist.photo}
+	<!-- todo: alt -->
+	<PhotoModal
+		bind:this={modal}
+		bind:isOpen={modalIsOpen}
+		placeholder={artist.photo.placeholder}
+		url={artist.photo.url}
+		width={artist.photo.width ?? 100}
+		height={artist.photo.height ?? 100}
+		alt=""
+	/>
 {/if}
