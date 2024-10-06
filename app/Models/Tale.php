@@ -93,7 +93,6 @@ final class Tale extends Model
      */
     public function mainCredits(): Collection
     {
-        /** @phpstan-ignore return.type */
         return $this->credits
             ->filter(fn (Artist $a) => ! $a->credit->isCustom())
             ->sortBy(fn (Artist $a) => $a->credit->type->order())
@@ -105,7 +104,6 @@ final class Tale extends Model
      */
     public function customCredits(): Collection
     {
-        /** @phpstan-ignore return.type */
         return $this->credits
             ->filter(fn (Artist $a) => $a->credit->isCustom())
             ->sortBy(fn (Artist $a) => $a->credit->type->order())
