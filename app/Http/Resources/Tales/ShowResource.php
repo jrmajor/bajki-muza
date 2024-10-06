@@ -23,7 +23,7 @@ class ShowResource extends JsonResource
             'slug' => $this->resource->slug,
             'title' => $this->resource->title,
             'year' => $this->resource->year,
-            'cover' => new CoverResource($this->whenNotNull($this->resource->cover)),
+            'cover' => new FullCoverResource($this->whenNotNull($this->resource->cover)),
             'actors' => ActorResource::collection($this->resource->actors),
             'mainCredits' => Dict\map(
                 $this->resource->mainCredits(),

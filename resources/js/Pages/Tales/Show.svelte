@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ShowResource } from '@/types/tales';
+	import ImageModal from '@/Components/Images/ImageModal.svelte';
 	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Actors from './Components/Actors.svelte';
 	import CustomCredits from './Components/CustomCredits.svelte';
@@ -7,6 +8,9 @@
 	import Title from './Components/Title.svelte';
 
 	let { tale, user }: { tale: ShowResource } & SharedProps = $props();
+
+	let modalIsOpen = $state(false);
+	let modal: ReturnType<typeof ImageModal> = $state()!;
 </script>
 
 <svelte:head>
@@ -23,18 +27,24 @@
 		<Title {tale} {user}/>
 	</div>
 
-	<div class="overflow-hidden flex-none self-center mt-5 mb-2 rounded-lg shadow-lg sm:my-0 sm:mr-6">
-		<div
-			class="size-48 bg-placeholder-cover"
-			style:background-image={tale.cover ? `url('${tale.cover.placeholder}')` : null}
-		>
-			{#if tale.cover}
-				<ResponsiveImage src={tale.cover.url} imageSize={192} alt="Okładka bajki {tale.title}" eager/>
+	<div class="mb-2 mt-5 size-48 flex-none sm:my-0 sm:mr-6">
+		{#if tale.cover}
+			{#if !modalIsOpen}
+				<button
+					onclick={() => modal.open()}
+					class="size-full overflow-hidden rounded-lg bg-cover bg-center shadow-lg"
+					style:background-image="url('{tale.cover.placeholder}')"
+					style:view-transition-name="image-modal"
+				>
+					<ResponsiveImage src={tale.cover.url} imageSize={193} alt="Okładka bajki {tale.title}" eager/>
+				</button>
 			{/if}
-		</div>
+		{:else}
+			<div class="bg-placeholder-cover size-full rounded-lg shadow-lg"></div>
+		{/if}
 	</div>
 
-	<div class="flex flex-col flex-grow gap-3 justify-between self-center sm:py-2 sm:self-stretch">
+	<div class="flex flex-grow flex-col justify-between gap-3 self-center sm:self-stretch sm:py-2">
 		<div class="hidden self-start sm:block">
 			<Title {tale} {user}/>
 		</div>
@@ -44,7 +54,7 @@
 	</div>
 </div>
 
-<div class="flex flex-col gap-8 items-center w-full">
+<div class="flex w-full flex-col items-center gap-8">
 	{#if tale.actors.length}
 		<Actors {tale} {user}/>
 	{/if}
@@ -52,3 +62,15 @@
 		<CustomCredits {tale}/>
 	{/if}
 </div>
+
+{#if tale.cover}
+	<ImageModal
+		bind:this={modal}
+		bind:isOpen={modalIsOpen}
+		placeholder={tale.cover.placeholder}
+		url={tale.cover.url}
+		width={tale.cover.size ?? 100}
+		height={tale.cover.size ?? 100}
+		alt="Okładka bajki {tale.title}"
+	/>
+{/if}

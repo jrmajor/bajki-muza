@@ -11,7 +11,7 @@ export type ShowResource = {
 	slug: string;
 	title: string;
 	year: number | null;
-	cover: CoverResource | null;
+	cover: FullCoverResource | null;
 	actors: ActorResource[];
 	mainCredits: Record<MainCreditType, CreditResource[]>;
 	customCredits: Record<string, CreditResource[]>;
@@ -31,6 +31,12 @@ export type EditResource = {
 
 export type CoverResource = {
 	placeholder: string;
+	url: string;
+};
+
+export type FullCoverResource = {
+	placeholder: string;
+	size: number | null;
 	url: string;
 };
 
