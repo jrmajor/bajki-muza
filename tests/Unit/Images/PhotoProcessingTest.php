@@ -43,6 +43,8 @@ final class PhotoProcessingTest extends TestCase
         Photo::disk()->assertExists("photos/original/{$this->filename}");
         Photo::disk()->assertMissing("photos/default/{$this->filename}");
         Photo::disk()->assertMissing("photos/face/{$this->filename}");
+        $this->assertNull($this->photo->width);
+        $this->assertNull($this->photo->height);
         $this->assertNull($this->photo->placeholder());
         $this->assertNull($this->photo->placeholder('face'));
 

@@ -16,6 +16,10 @@ class TestCover extends Image
         return $image->cover($size, $size);
     }
 
+    public function saveDimensions(int $width, int $height): void
+    {
+    }
+
     protected static function pathPrefix(): string
     {
         return 'covers';

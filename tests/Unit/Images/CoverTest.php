@@ -19,6 +19,12 @@ final class CoverTest extends TestCase
         $this->assertSame(['default'], Cover::variants());
     }
 
+    #[TestDox('it casts size to integers')]
+    public function testSizeCast(): void
+    {
+        $this->assertSame(2137, (new Cover(['size' => '2137']))->size);
+    }
+
     #[TestDox('it stores new cover in correct path and dispatches necessary jobs to process it')]
     public function testStore(): void
     {

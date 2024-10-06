@@ -43,6 +43,12 @@ final class Photo extends Image
         return $this->grayscale ? $image->greyscale() : $image;
     }
 
+    public function saveDimensions(int $width, int $height): void
+    {
+        $this->width = $width;
+        $this->height = $height;
+    }
+
     protected static function pathPrefix(): string
     {
         return 'photos';
@@ -51,11 +57,6 @@ final class Photo extends Image
     public function crop(): ArtistPhotoCrop
     {
         return $this->crop;
-    }
-
-    public static function shouldSaveDimensions(): bool
-    {
-        return true;
     }
 
     public function artists(): HasMany

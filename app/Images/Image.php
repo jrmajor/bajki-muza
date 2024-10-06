@@ -33,6 +33,8 @@ abstract class Image extends Model
 
     abstract public function processVariant(ImageInterface $image, string $variant): ImageInterface;
 
+    abstract public function saveDimensions(int $width, int $height): void;
+
     /**
      * @return list<string>
      */
@@ -177,10 +179,5 @@ abstract class Image extends Model
     public static function disk(): FilesystemAdapter
     {
         return Storage::disk(config('filesystems.media'));
-    }
-
-    public static function shouldSaveDimensions(): bool
-    {
-        return false;
     }
 }

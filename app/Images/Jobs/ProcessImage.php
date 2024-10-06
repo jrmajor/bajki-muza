@@ -43,11 +43,8 @@ class ProcessImage implements ShouldBeUnique, ShouldQueue
 
         $this->image->processVariant($image, $variant);
 
-        if ($variant === 'default' && $this->image::shouldSaveDimensions()) {
-            /** @phpstan-ignore property.notFound */
-            $this->image->width = $image->width();
-            /** @phpstan-ignore property.notFound */
-            $this->image->height = $image->height();
+        if ($variant === 'default') {
+            $this->image->saveDimensions($image->width(), $image->height());
         }
 
         $destinationPath = $this->image->variantPath($variant);

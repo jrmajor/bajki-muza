@@ -38,6 +38,7 @@ final class CoverProcessingTest extends TestCase
     {
         Cover::disk()->assertExists("covers/original/{$this->filename}");
         Cover::disk()->assertMissing("covers/default/{$this->filename}");
+        $this->assertNull($this->cover->size);
         $this->assertNull($this->cover->placeholder());
 
         ProcessImage::dispatchSync($this->cover);
@@ -45,6 +46,7 @@ final class CoverProcessingTest extends TestCase
         $this->cover->refresh();
         Cover::disk()->assertExists("covers/original/{$this->filename}");
         Cover::disk()->assertExists("covers/default/{$this->filename}");
+        $this->assertSame(427, $this->cover->size);
         $this->assertStringStartsWith('data:image/svg+xml;base64,', $this->cover->placeholder());
     }
 }
