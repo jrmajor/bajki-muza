@@ -51,7 +51,7 @@
 		{ transitionClass ? 'transition-opacity duration-300' : '' }
 	"
 	class:opacity-0={isHidden}
-	src={resizedImageUrl(src, calculatedImageSize * 2)}
+	{src}
 	srcset="
 		{resizedImageUrl(src, calculatedImageSize)} 1x,
 		{resizedImageUrl(src, calculatedImageSize * 1.5)} 1.5x,

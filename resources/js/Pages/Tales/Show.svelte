@@ -36,7 +36,7 @@
 					style:background-image="url('{tale.cover.placeholder}')"
 					style:view-transition-name="image-modal"
 				>
-					<ResponsiveImage src={tale.cover.url} imageSize={193} alt="Okładka bajki {tale.title}" eager/>
+					<ResponsiveImage src={tale.cover.url} imageSize={192} alt="Okładka bajki {tale.title}" eager/>
 				</button>
 			{/if}
 		{:else}
