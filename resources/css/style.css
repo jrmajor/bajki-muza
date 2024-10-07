@@ -1,7 +1,7 @@
-@import "croppr/src/css/croppr";
-@import "base";
-@import "headers";
-@import "placeholders";
+@import 'croppr/src/css/croppr.css';
+@import './base.css';
+@import './headers.css';
+@import './placeholders.css';
 
 @layer utilities {
   .inset-shadow-light {
