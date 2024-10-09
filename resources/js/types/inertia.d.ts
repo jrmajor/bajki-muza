@@ -35,15 +35,15 @@ declare module '@inertiajs/svelte' {
 	>;
 	export const page: Readable<Page>;
 	export function remember<T>(initialState: T, key: string): Writable<T>;
-	export function useForm<TForm extends FormDataType>(data: TForm | (() => TForm)): InertiaForm<TForm>;
+	export function useForm<TForm extends FormDataType>(data: TForm | (() => TForm)): Writable<InertiaForm<TForm>>;
 	export function useForm<TForm extends FormDataType>(
 		rememberKey: string,
 		data: TForm | (() => TForm),
-	): InertiaForm<TForm>;
+	): Writable<InertiaForm<TForm>>;
 	export function useForm<TForm extends FormDataType>(
 		rememberKeyOrData: string | TForm | (() => TForm),
 		maybeData?: TForm | (() => TForm),
-	): InertiaForm<TForm>;
+	): Writable<InertiaForm<TForm>>;
 
 	type FormDataType = object;
 
@@ -73,5 +73,5 @@ declare module '@inertiajs/svelte' {
 		cancel(): void;
 	}
 
-	export type InertiaForm<TForm extends FormDataType> = Writable<TForm & InertiaFormProps<TForm>>;
+	export type InertiaForm<TForm extends FormDataType> = TForm & InertiaFormProps<TForm>;
 }

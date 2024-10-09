@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { tick } from 'svelte';
+	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import randomKey from '@/helpers/randomKey';
 	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
 	let { form }: {
-		form: InertiaForm<{
+		form: Writable<InertiaForm<{
 			actors: Array<{
 				artist: string;
 				characters: string | null;
@@ -15,7 +16,7 @@
 				noTransitions: boolean;
 				hasDeletedElement: null | 'above' | 'below';
 			}>;
-		}>;
+		}>>;
 	} = $props();
 
 	function addActor() {

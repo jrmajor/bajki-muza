@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { tick } from 'svelte';
+	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
 	import type { EditPhotoResource, ArtistPhotoCrop } from '@/types/artists';
@@ -8,7 +9,7 @@
 
 	let { currentPhoto, form }: {
 		currentPhoto: EditPhotoResource | null;
-		form: InertiaForm<{
+		form: Writable<InertiaForm<{
 			photo: {
 				file: File | null;
 				url: string | null;
@@ -17,7 +18,7 @@
 				source: string | null;
 				grayscale: boolean;
 			};
-		}>;
+		}>>;
 	} = $props();
 
 	let activePicker: Picker = $state({ type: 'current' });

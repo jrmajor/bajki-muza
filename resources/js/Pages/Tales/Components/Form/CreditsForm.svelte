@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import type { CreditType } from '@/types/tales';
 	import { creditLabels } from '@/helpers/creditLabels';
@@ -6,7 +7,7 @@
 	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
 	let { form }: {
-		form: InertiaForm<{
+		form: Writable<InertiaForm<{
 			credits: Array<{
 				artist: string;
 				type: CreditType;
@@ -14,7 +15,7 @@
 				nr: number | null;
 				key: string;
 			}>;
-		}>;
+		}>>;
 	} = $props();
 
 	function addCredit() {

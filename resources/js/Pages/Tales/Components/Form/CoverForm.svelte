@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
 	import type { CoverResource } from '@/types/tales';
@@ -6,10 +7,10 @@
 
 	let { currentCover, form, action }: {
 		currentCover: CoverResource | null;
-		form: InertiaForm<{
+		form: Writable<InertiaForm<{
 			removeCover: boolean;
 			cover: File | null;
-		}>;
+		}>>;
 		action: 'create' | 'edit';
 	} = $props();
 
