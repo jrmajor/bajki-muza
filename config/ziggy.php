@@ -3,10 +3,8 @@
 return [
 
     'output' => [
-        'path' => 'resources/js/helpers/ziggy.js',
+        'path' => 'resources/js/types/ziggy.js',
     ],
-
-    'skip-route-function' => true,
 
     'only' => [
         'ajax.*',
