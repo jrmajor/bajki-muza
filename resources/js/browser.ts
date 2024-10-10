@@ -1,4 +1,4 @@
-import { mount } from 'svelte';
+import { mount, hydrate } from 'svelte';
 import { createInertiaApp } from '@inertiajs/svelte';
 import { resolve } from './common';
 
@@ -8,8 +8,13 @@ document.startViewTransition ??= (cb: () => void) => cb();
 createInertiaApp({
 	resolve,
 	setup({ el, App, props }) {
-		// @ts-expect-error
-		mount(App, { target: el, props });
+		if (document.querySelector('[data-server-rendered]')) {
+			// @ts-expect-error
+			hydrate(App, { target: el, props });
+		} else {
+			// @ts-expect-error
+			mount(App, { target: el, props });
+		}
 	},
 	progress: {
 		color: '#ffcc00',

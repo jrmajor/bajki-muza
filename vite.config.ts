@@ -7,6 +7,7 @@ export default defineConfig({
 	plugins: [
 		laravel({
 			input: ['resources/js/browser.ts', 'resources/css/style.css'],
+			ssr: 'resources/js/ssr.ts',
 			refresh: true,
 		}),
 		svelte({

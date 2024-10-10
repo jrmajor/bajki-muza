@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { tick, onMount } from 'svelte';
+	import { BROWSER } from 'esm-env';
 	import resizedImageUrl from '@/helpers/resizedImageUrl';
 
 	let {
@@ -23,7 +24,7 @@
 	let element: HTMLImageElement;
 	let mountedAt: number;
 
-	let isHidden = $state(true);
+	let isHidden = $state(BROWSER);
 	let transitionClass = $state(false);
 
 	onMount(() => {
