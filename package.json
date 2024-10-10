@@ -6,7 +6,8 @@
     "build": "vite build",
     "check": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "check:watch": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "show-bundle": "vite-bundle-visualizer"
   },
   "dependencies": {
     "@inertiajs/svelte": "^1.2",
@@ -31,6 +32,7 @@
     "svelte-check": "^4.0",
     "typescript": "^5.6",
     "typescript-eslint": "^8.8",
-    "vite": "^5.4"
+    "vite": "^5.4",
+    "vite-bundle-visualizer": "^1.2"
   }
 }
