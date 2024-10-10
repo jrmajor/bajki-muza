@@ -1,6 +1,7 @@
 interface SharedProps {
 	errors: unknown[];
 	user: SharedUser;
+	ziggy: unknown;
 }
 
 type SharedUser = {

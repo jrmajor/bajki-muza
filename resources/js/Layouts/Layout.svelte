@@ -4,7 +4,10 @@
 	import Footer from './Footer.svelte';
 	import MainMenuButton from './MainMenuButton.svelte';
 
-	let { user, children }: { children: Snippet } & SharedProps = $props();
+	let { user, ziggy, children }: { children: Snippet } & SharedProps = $props();
+
+	// @ts-expect-error
+	globalThis.Ziggy = ziggy;
 </script>
 
 <div class="container flex flex-col justify-between mx-auto min-h-screen">
