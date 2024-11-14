@@ -8,7 +8,7 @@ document.startViewTransition ??= (cb: () => void) => cb();
 createInertiaApp({
 	resolve,
 	setup({ el, App, props }) {
-		if (document.querySelector('[data-server-rendered]')) {
+		if ((el as HTMLElement).dataset.serverRendered) {
 			// @ts-expect-error
 			hydrate(App, { target: el, props });
 		} else {
