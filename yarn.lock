@@ -221,22 +221,22 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.1.tgz#9a96ce501bc62df46c4031fbd970e3cc6b10f07b"
   integrity sha512-c7hNEllBlenFTHBky65mhq8WD2kbN9Q6gk0bTk8lSBvc554jpXSkST1iePudpt7+A/AQvuHs9EMqjHDXMY1lrA==
 
-"@inertiajs/core@1.3.0-beta.2":
-  version "1.3.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-1.3.0-beta.2.tgz#6aad2bda7012bc8b0d357a24fbeb3f7461fe7cdf"
-  integrity sha512-q3C5kdwSaH6x1PYEWDSmvBLbzR7Xnwlczgt4+9MHnE7/FabZjbg0we5wvolNRI5FnMslp5vqEP6kI7pcDZSfag==
+"@inertiajs/core@2.0.0-beta.2":
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@inertiajs/core/-/core-2.0.0-beta.2.tgz#27b06ab008aba520277736bf2a8a76654f032ed9"
+  integrity sha512-2fi1YAncmkQAGko+miQanobF5anSO9lBK8i6Fgl0YKDjLQJg7+Sdr/yQIDwJtvFYgOgDbAhIcAawn9usc0/9bQ==
   dependencies:
     axios "^1.6.0"
     deepmerge "^4.0.0"
     nprogress "^0.2.0"
     qs "^6.9.0"
 
-"@inertiajs/svelte@1.3.0-beta.2":
-  version "1.3.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@inertiajs/svelte/-/svelte-1.3.0-beta.2.tgz#ffb870d0165865a50347896e62395312ddcebc52"
-  integrity sha512-xT9k0h1WD8yVHJmG7RwHyPkNaLaWtiFClm7oAD6ecnLl+Y4TS1TUzrSc/qBfurRnvNqhjSIIZyoZB7liqT64XQ==
+"@inertiajs/svelte@2.0.0-beta.2":
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@inertiajs/svelte/-/svelte-2.0.0-beta.2.tgz#3ff3a7ce6a05e4b63a2eff340fe57369e3e6ba63"
+  integrity sha512-e7WvqWRW9fduSbpek0k1Rypp24D9k6drL3d6h9Dsw8AlR9pGY46b47Mg/1XRNLeh9xxkJVDO7GPcsSbIo7HdCA==
   dependencies:
-    "@inertiajs/core" "1.3.0-beta.2"
+    "@inertiajs/core" "2.0.0-beta.2"
     html-escape "^2.0.0"
     lodash "^4.5.0"
 
@@ -428,7 +428,7 @@
   dependencies:
     debug "^4.3.5"
 
-"@sveltejs/vite-plugin-svelte@4.0.0":
+"@sveltejs/vite-plugin-svelte@^4.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@sveltejs/vite-plugin-svelte/-/vite-plugin-svelte-4.0.0.tgz#4e7c2fe6fd262f6bbd7dc82085a76654cbaeafe5"
   integrity sha512-kpVJwF+gNiMEsoHaw+FJL76IYiwBikkxYU83+BpqQLdVMff19KeRKLd2wisS8niNBMJ2omv5gG+iGDDwd8jzag==
@@ -2650,7 +2650,7 @@ svelte-eslint-parser@^0.43.0:
     postcss "^8.4.39"
     postcss-scss "^4.0.9"
 
-svelte@5.2.0:
+svelte@^5.2:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.2.0.tgz#ba5c909947dbf0f929e3b097000fe09b7920f5bb"
   integrity sha512-LOowFhMB0CoTzDsa90snaICFMftrxKlYsOhH4YP1AamjCSDBZvtDq0yB5QY8LJA1tFftcmpAhmLCK/gAOFNrtw==
