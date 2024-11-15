@@ -6,6 +6,7 @@ use App\Images\Cover;
 use App\Services\Discogs;
 use App\Values\CreditData;
 use App\Values\CreditType;
+use Database\Factories\TaleFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,7 +25,9 @@ use Spatie\Sluggable\SlugOptions;
  */
 final class Tale extends Model
 {
+    /** @use HasFactory<TaleFactory> */
     use HasFactory;
+
     use HasSlug;
 
     /** @var list<string> */
@@ -57,25 +60,40 @@ final class Tale extends Model
         return $this->discogs ? app(Discogs::class)->releaseUrl($this->discogs) : null;
     }
 
+    /**
+     * @return BelongsTo<Cover, $this>
+     */
     public function cover(): BelongsTo
     {
         return $this->belongsTo(Cover::class);
     }
 
+    /**
+     * @return BelongsToMany<Artist, $this>
+     */
     public function actors(): BelongsToMany
     {
-        return $this->belongsToMany(Artist::class, 'tales_actors')
+        $relation = $this->belongsToMany(Artist::class, 'tales_actors')
             ->using(Actor::class)->as('credit')
-            ->withPivot('characters', 'credit_nr')->withTimestamps()
-            ->orderBy('tales_actors.credit_nr');
+            ->withPivot('characters', 'credit_nr')->withTimestamps();
+
+        $relation->getQuery()->orderBy('tales_actors.credit_nr');
+
+        return $relation;
     }
 
+    /**
+     * @return BelongsToMany<Artist, $this>
+     */
     public function credits(): BelongsToMany
     {
-        return $this->belongsToMany(Artist::class, 'credits')
+        $relation = $this->belongsToMany(Artist::class, 'credits')
             ->using(Credit::class)->as('credit')
-            ->withPivot('id', 'type', 'as', 'nr')->withTimestamps()
-            ->orderBy('credits.nr');
+            ->withPivot('id', 'type', 'as', 'nr')->withTimestamps();
+
+        $relation->getQuery()->orderBy('credits.nr');
+
+        return $relation;
     }
 
     /**
@@ -168,6 +186,9 @@ final class Tale extends Model
         }
     }
 
+    /**
+     * @param Builder<$this> $query
+     */
     public function scopeWithActorsPopularity(Builder $query): void
     {
         $query->addSelect([

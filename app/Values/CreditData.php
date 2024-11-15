@@ -4,6 +4,9 @@ namespace App\Values;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, mixed>
+ */
 final class CreditData implements Arrayable
 {
     public function __construct(

@@ -34,6 +34,9 @@ final class Cover extends Image
         return 'covers';
     }
 
+    /**
+     * @return HasMany<Tale, $this>
+     */
     public function tales(): HasMany
     {
         return $this->hasMany(Tale::class, 'cover_filename', 'filename');

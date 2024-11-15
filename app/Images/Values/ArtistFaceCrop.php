@@ -4,6 +4,9 @@ namespace App\Images\Values;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, mixed>
+ */
 final class ArtistFaceCrop implements Arrayable
 {
     public function __construct(

@@ -8,6 +8,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Psl\Json;
 use Psl\Type;
 
+/**
+ * @implements Arrayable<string, mixed>
+ */
 final class ArtistPhotoCrop implements Arrayable, Castable
 {
     public function __construct(
@@ -39,9 +42,14 @@ final class ArtistPhotoCrop implements Arrayable, Castable
 
     /**
      * @param array<never> $arguments
+     *
+     * @return CastsAttributes<self, self>
      */
     public static function castUsing(array $arguments): CastsAttributes
     {
+        /**
+         * @implements CastsAttributes<self, self>
+         */
         return new class implements CastsAttributes {
             /**
              * @param array<string, mixed> $attributes

@@ -59,6 +59,9 @@ final class Photo extends Image
         return $this->crop;
     }
 
+    /**
+     * @return HasMany<Artist, $this>
+     */
     public function artists(): HasMany
     {
         return $this->hasMany(Artist::class, 'photo_filename', 'filename');

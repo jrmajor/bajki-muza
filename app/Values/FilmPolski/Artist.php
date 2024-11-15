@@ -4,6 +4,9 @@ namespace App\Values\FilmPolski;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, mixed>
+ */
 final class Artist implements Arrayable
 {
     public function __construct(

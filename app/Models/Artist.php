@@ -9,6 +9,7 @@ use App\Services\Wikipedia;
 use App\Values\CreditType;
 use App\Values\Discogs\DiscogsPhotos;
 use App\Values\FilmPolski\PhotoGroup;
+use Database\Factories\ArtistFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,7 +28,9 @@ use Spatie\Sluggable\SlugOptions;
  */
 final class Artist extends Model
 {
+    /** @use HasFactory<ArtistFactory> */
     use HasFactory;
+
     use HasSlug;
 
     /** @var list<string> */
@@ -87,6 +90,9 @@ final class Artist extends Model
         return $this->wikipedia ? app(Wikipedia::class)->url($this->wikipedia) : null;
     }
 
+    /**
+     * @return BelongsTo<Photo, $this>
+     */
     public function photo(): BelongsTo
     {
         return $this->belongsTo(Photo::class);
@@ -123,20 +129,32 @@ final class Artist extends Model
         };
     }
 
+    /**
+     * @return BelongsToMany<Tale, $this>
+     */
     public function asActor(): BelongsToMany
     {
-        return $this->belongsToMany(Tale::class, 'tales_actors')
+        $relation = $this->belongsToMany(Tale::class, 'tales_actors')
             ->using(Actor::class)->as('credit')
-            ->withPivot('characters', 'credit_nr')->withTimestamps()
-            ->orderBy('year')->orderBy('title');
+            ->withPivot('characters', 'credit_nr')->withTimestamps();
+
+        $relation->orderBy('year')->orderBy('title');
+
+        return $relation;
     }
 
+    /**
+     * @return BelongsToMany<Tale, $this>
+     */
     public function credits(): BelongsToMany
     {
-        return $this->belongsToMany(Tale::class, 'credits')
+        $relation = $this->belongsToMany(Tale::class, 'credits')
             ->using(Credit::class)->as('credit')
-            ->withPivot('id', 'type', 'as', 'nr')->withTimestamps()
-            ->orderBy('year')->orderBy('title');
+            ->withPivot('id', 'type', 'as', 'nr')->withTimestamps();
+
+        $relation->orderBy('year')->orderBy('title');
+
+        return $relation;
     }
 
     /**
@@ -159,6 +177,9 @@ final class Artist extends Model
             ->groupBy(fn (Tale $t) => $t->credit->type->label());
     }
 
+    /**
+     * @param Builder<$this> $query
+     */
     public function scopeCountAppearances(Builder $query): void
     {
         $query->addSelect([
