@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Http\InertiaHttpGateway;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Ssr\Gateway;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,5 +19,9 @@ class AppServiceProvider extends ServiceProvider
         Model::preventLazyLoading($shouldBeStrict);
         // Model::preventSilentlyDiscardingAttributes($shouldBeStrict);
         Model::preventAccessingMissingAttributes($shouldBeStrict);
+
+        if (! $this->app->environment('production')) {
+            $this->app->bind(Gateway::class, InertiaHttpGateway::class);
+        }
     }
 }

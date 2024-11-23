@@ -2,6 +2,7 @@ import * as path from 'path';
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
+import inertia from './resources/js/inertiaVitePlugin';
 
 export default defineConfig({
 	plugins: [
@@ -18,6 +19,7 @@ export default defineConfig({
 				}
 			},
 		}),
+		inertia('resources/js/viteSsr.ts'),
 	],
 	resolve: {
 		alias: {
