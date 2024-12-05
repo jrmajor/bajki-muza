@@ -6,5 +6,10 @@ import { resolve } from './common';
 createServer((page) => createInertiaApp({
 	page,
 	resolve,
-	setup: ({ App, props }) => render(App, { props }),
+	setup: ({ App, props }) => {
+		// @ts-expect-error
+		globalThis.Ziggy = props.initialPage.props.ziggy;
+
+		return render(App, { props });
+	},
 }));

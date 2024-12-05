@@ -8,7 +8,6 @@ use Inertia\Inertia;
 use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
-use Tighten\Ziggy\Ziggy;
 
 final class InertiaSharedPropsTest extends TestCase
 {
@@ -29,12 +28,9 @@ final class InertiaSharedPropsTest extends TestCase
             ->get('inertia-shared-props-test')
             ->assertOk()
             ->assertInertia(function (Assert $page) {
-                $ziggy = (new Ziggy())->toarray();
-
                 $this->assertSame([
                     'errors' => [],
                     'user' => null,
-                    'ziggy' => $ziggy,
                 ], $page->toArray()['props']);
             });
     }
@@ -47,15 +43,12 @@ final class InertiaSharedPropsTest extends TestCase
             ->get('inertia-shared-props-test')
             ->assertOk()
             ->assertInertia(function (Assert $page) use ($user) {
-                $ziggy = (new Ziggy())->toarray();
-
                 $this->assertSame([
                     'errors' => [],
                     'user' => [
                         'username' => $user->username,
                         'id' => $user->id,
                     ],
-                    'ziggy' => $ziggy,
                 ], $page->toArray()['props']);
             });
     }

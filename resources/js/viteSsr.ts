@@ -7,6 +7,11 @@ export default function viteSsr(page: Page): InertiaAppResponse {
 	return createInertiaApp({
 		page,
 		resolve,
-		setup: ({ App, props }) => render(App, { props }),
+		setup: ({ App, props }) => {
+			// @ts-expect-error
+			globalThis.Ziggy = props.initialPage.props.ziggy;
+
+			return render(App, { props });
+		},
 	});
 }

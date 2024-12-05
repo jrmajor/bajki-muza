@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Inertia\Ssr\BundleDetector;
 use Inertia\Ssr\Gateway;
 use Inertia\Ssr\Response;
+use Tighten\Ziggy\Ziggy;
 
 class InertiaHttpGateway implements Gateway
 {
@@ -27,6 +28,8 @@ class InertiaHttpGateway implements Gateway
         } else {
             return null;
         }
+
+        $page['props']['ziggy'] = (new Ziggy())->toArray();
 
         try {
             $response = Http::post($url, $page)->throw()->json();
