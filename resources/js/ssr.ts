@@ -10,6 +10,9 @@ createServer((page) => createInertiaApp({
 		// @ts-expect-error
 		globalThis.Ziggy = props.initialPage.props.ziggy;
 
+		// eslint-disable-next-line no-console
+		console.log(props);
+
 		return render(App, { props });
 	},
 }));
