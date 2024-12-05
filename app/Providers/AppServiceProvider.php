@@ -20,8 +20,6 @@ class AppServiceProvider extends ServiceProvider
         // Model::preventSilentlyDiscardingAttributes($shouldBeStrict);
         Model::preventAccessingMissingAttributes($shouldBeStrict);
 
-        if (! $this->app->environment('production')) {
-            $this->app->bind(Gateway::class, InertiaHttpGateway::class);
-        }
+        $this->app->bind(Gateway::class, InertiaHttpGateway::class);
     }
 }
