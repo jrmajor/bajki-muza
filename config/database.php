@@ -12,6 +12,9 @@ return [
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => true,
+            'busy_timeout' => null,
+            'journal_mode' => null,
+            'synchronous' => null,
         ],
 
         'testing' => [
@@ -20,6 +23,9 @@ return [
             'database' => env('DB_DATABASE', database_path('testing.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => true,
+            'busy_timeout' => null,
+            'journal_mode' => null,
+            'synchronous' => null,
         ],
 
     ],

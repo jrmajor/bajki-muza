@@ -1,4 +1,5 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "jrmajor/bajki-muza",
     "description": "",
     "license": "MIT",
@@ -38,6 +39,7 @@
         "fakerphp/faker": "^1.24",
         "jrmajor/cs": "^0.6.1",
         "larastan/larastan": "^3.0",
+        "laravel/pail": "^1.2",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.5",
         "php-standard-library/phpstan-extension": "^2.0",
