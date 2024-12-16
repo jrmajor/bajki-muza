@@ -101,7 +101,7 @@
 			discogsPhotos={artist.discogsPhotos}
 			filmPolskiPhotos={artist.filmPolskiPhotos}
 			currentPhotoUrl={$form.photo.url}
-			onclick={photoForm.setPhotoUri}
+			onclick={photoForm?.setPhotoUri}
 		/>
 	</div>
 </form>
