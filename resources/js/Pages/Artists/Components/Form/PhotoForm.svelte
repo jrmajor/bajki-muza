@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { tick } from 'svelte';
 	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
 	import type { EditPhotoResource, ArtistPhotoCrop } from '@/types/artists';
-	import Cropper, { type CropValue } from '@/Components/Cropper.svelte';
+	import Cropper, { type CropValue } from '@/Components/Cropper/Cropper.svelte';
 	import Label from '@/Components/Form/Label.svelte';
+	import { boxToFaceCrop, faceCropToBox } from './helpers';
 
 	let { currentPhoto, form }: {
 		currentPhoto: EditPhotoResource | null;
@@ -40,13 +40,16 @@
 		$form.photo.grayscale = activePicker.type === 'current' ? (currentPhoto?.grayscale ?? true) : true;
 	});
 
-	let faceCrop: CropValue = $state()!;
+	let faceCrop: CropValue = $state({
+		x: currentPhoto?.crop.face.x ?? 0,
+		y: currentPhoto?.crop.face.y ?? 0,
+		width: currentPhoto?.crop.face.size ?? 0,
+		height: currentPhoto?.crop.face.size ?? 0,
+	});
 
 	$effect(() => {
 		if (!faceCrop) return;
-		$form.photo.crop.face.x = faceCrop.x;
-		$form.photo.crop.face.y = faceCrop.y;
-		$form.photo.crop.face.size = faceCrop.width;
+		$form.photo.crop.face = boxToFaceCrop(faceCrop);
 	});
 
 	export function setPhotoUri(uri: string, source: 'discogs' | 'filmpolski') {
@@ -107,9 +110,13 @@
 
 	$effect(() => {
 		previewUrl;
-		showCropper = false;
-		// cropper does not support updating src
-		tick().then(() => showCropper = true);
+		if (activePicker.type === 'current') {
+			$form.photo.crop.image = currentPhoto!.crop.image;
+			faceCrop = faceCropToBox(currentPhoto!.crop.face);
+		} else {
+			$form.photo.crop.image = { x: 0, y: 0, width: 0, height: 0 };
+			faceCrop = { x: 0, y: 0, width: 0, height: 0 };
+		}
 	});
 </script>
 
@@ -183,22 +190,12 @@
 	</div>
 
 	{#if activePicker.type !== 'remove' && previewUrl && showCropper}
-		<div class="flex gap-5 justify-center items-center">
-			<div class="flex justify-end max-w-1/2">
+		<div class="grid gap-5 items-center" style:grid-template-columns="1fr 1fr">
+			<div>
 				<Cropper
 					src={previewUrl}
 					bind:crop={faceCrop}
 					aspectRatio={1}
-					minSize={[50, 50, 'px']}
-					startSize={[100, 100, '%']}
-					startCrop={activePicker.type === 'current'
-						? {
-							x: currentPhoto!.crop.face.x,
-							y: currentPhoto!.crop.face.y,
-							width: currentPhoto!.crop.face.size,
-							height: currentPhoto!.crop.face.size,
-						}
-						: null}
 				/>
 			</div>
 			<table>
@@ -211,10 +208,6 @@
 						<td class="px-1 text-sm font-medium text-right">y:</td>
 						<td class="px-1">{$form.photo.crop.face.y}</td>
 					</tr>
-				</tbody>
-			</table>
-			<table>
-				<tbody>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">width:</td>
 						<td class="px-1">{$form.photo.crop.face.size}</td>
@@ -227,14 +220,11 @@
 			</table>
 		</div>
 
-		<div class="flex gap-5 justify-center items-center">
-			<div class="flex justify-end max-w-1/2">
+		<div class="grid gap-5 items-center" style:grid-template-columns="1fr 1fr">
+			<div>
 				<Cropper
 					src={previewUrl}
 					bind:crop={$form.photo.crop.image}
-					minSize={[50, 50, 'px']}
-					startSize={[100, 100, '%']}
-					startCrop={activePicker.type === 'current' ? currentPhoto!.crop.image : null}
 				/>
 			</div>
 			<table>
@@ -247,10 +237,6 @@
 						<td class="px-1 text-sm font-medium text-right">y:</td>
 						<td class="px-1">{$form.photo.crop.image.y}</td>
 					</tr>
-				</tbody>
-			</table>
-			<table>
-				<tbody>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">width:</td>
 						<td class="px-1">{$form.photo.crop.image.width}</td>
