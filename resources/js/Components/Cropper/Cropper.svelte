@@ -35,6 +35,7 @@
 	];
 
 	function scaled(value: number) {
+		if (!el) return value;
 		return el.clientWidth / el.naturalWidth * value;
 	}
 
