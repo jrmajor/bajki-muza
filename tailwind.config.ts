@@ -55,8 +55,6 @@ export default {
 				sans: ['Inter var', ...defaultTheme.fontFamily.sans],
 			},
 			fontSize: { '2xs': '0.7rem' },
-			inset: { '-px': '-1px' },
-			maxWidth: { '1/2': '50%' },
 			spacing: {
 				4.5: '1.125rem',
 				13: '3.25rem',
