@@ -30,7 +30,7 @@
 
 	let errors = $derived(Object.values($form.errors));
 
-	let photoForm: ReturnType<typeof PhotoForm> = $state()!;
+	let photoForm: PhotoForm = $state()!;
 
 	function onsubmit(event: SubmitEvent) {
 		event.preventDefault();

@@ -18,7 +18,7 @@
 	let hasExtract = $derived(!!artist.wikipediaExtract);
 
 	let modalIsOpen = $state(false);
-	let modal: ReturnType<typeof ImageModal> = $state()!;
+	let modal: ImageModal = $state()!;
 </script>
 
 <svelte:head>

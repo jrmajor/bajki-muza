@@ -10,7 +10,7 @@
 	let { tale, user }: { tale: ShowResource } & SharedProps = $props();
 
 	let modalIsOpen = $state(false);
-	let modal: ReturnType<typeof ImageModal> = $state()!;
+	let modal: ImageModal = $state()!;
 </script>
 
 <svelte:head>
