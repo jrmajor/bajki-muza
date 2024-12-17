@@ -45,7 +45,7 @@
 			autofocus
 			class="
 				w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900
-				border-none focus:outline-none focus:ring focus:ring-brand-primary focus:ring-opacity-25
+				border-none focus:outline-none focus:ring focus:ring-brand-primary/25
 			"
 		>
 		{#each tales as tale (tale.slug)}
