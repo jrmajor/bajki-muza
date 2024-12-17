@@ -42,9 +42,9 @@
 
 	<div
 		class="
-			absolute inset-0 rounded-lg group-focus:inset-shadow-light
+			absolute inset-0 rounded-lg group-focus:inset-ring-4 group-focus:inset-ring-brand-lighter
 			transition-all duration-300
-			{isSelected ? 'inset-shadow-hard opacity-100' : ''}
+			{isSelected ? 'inset-ring-4 inset-ring-brand-primary' : ''}
 		"
 	></div>
 </button>

@@ -2,14 +2,6 @@
 @import './headers.css';
 @import './placeholders.css';
 
-@utility inset-shadow-light {
-  box-shadow: inset 0 0 0 var(--spacing-1) var(--colors-brand-lighter);
-}
-
-@utility inset-shadow-hard {
-  box-shadow: inset 0 0 0 var(--spacing-1) var(--colors-brand-primary);
-}
-
 @utility form-input {
   @apply rounded-md border-gray-300;
   @apply dark:bg-gray-800 dark:border-gray-900 dark:focus:border-gray-700;
