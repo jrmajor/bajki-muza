@@ -6,7 +6,7 @@
 	let { meta }: { meta: PaginationMeta } = $props();
 </script>
 
-<span class="inline-flex relative z-0 shadow-sm">
+<span class="inline-flex relative z-0 shadow-xs">
 	{#each meta.links as element}
 		{#if element.label === 'pagination.previous'}
 			{#if meta.current_page === 1}

@@ -124,7 +124,7 @@
 	<div class="flex flex-col">
 		<Label for="photo">Zdjęcie</Label>
 		<div class="flex gap-5">
-			<label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
+			<label class="flex overflow-hidden grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
 				<div class="flex-none size-10 bg-placeholder-artist">
 					{#if previewUrl}
 						<img
@@ -178,14 +178,14 @@
 	</div>
 
 	<div class="flex flex-row gap-5 items-center">
-		<div class="flex flex-row flex-grow gap-2 items-center">
+		<div class="flex flex-row grow gap-2 items-center">
 			<Label for="photo-source" inline small>Źródło</Label>
 			<input type="text" id="photo-source" bind:value={$form.photo.source} class="py-1 px-2 w-full text-sm form-input">
 		</div>
 
 		<div class="flex flex-row flex-none items-center">
 			<Label for="photo-grayscale" inline small>Cz-B.</Label>
-			<input type="checkbox" id="photo-grayscale" bind:checked={$form.photo.grayscale} class="rounded border-gray-300">
+			<input type="checkbox" id="photo-grayscale" bind:checked={$form.photo.grayscale} class="rounded-sm border-gray-300">
 		</div>
 	</div>
 

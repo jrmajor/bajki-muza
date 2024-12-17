@@ -45,7 +45,7 @@
 <div class="flex flex-col">
 	<Label for="cover">Okładka</Label>
 	<div class="flex gap-5">
-		<label class="flex overflow-hidden flex-grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
+		<label class="flex overflow-hidden grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
 			<div class="flex-none size-10 bg-placeholder-cover">
 				{#if previewUrl}
 					<img

@@ -50,7 +50,7 @@
 			autofocus
 			class="
 				w-full px-4 py-2 rounded-lg shadow-lg overflow-hidden bg-gray-50 dark:bg-gray-900
-				border-none focus:outline-none focus:ring focus:ring-brand-primary/25
+				border-none focus:outline-none focus:ring-3 focus:ring-brand-primary/25
 			"
 		>
 		{#each artists as artist (artist.slug)}
@@ -69,8 +69,8 @@
 						<img src={artist.discogsPhotoThumb} alt={artist.name} class="object-cover size-12 sm:size-14 grayscale">
 					{/if}
 				</div>
-				<div class="flex-grow p-2 pl-3">
-					<span class="flex-shrink-0 font-medium">{artist.name}</span>
+				<div class="grow p-2 pl-3">
+					<span class="shrink-0 font-medium">{artist.name}</span>
 				</div>
 				<div class="flex-none pr-4">
 					<Appearances count={artist.appearances}/>

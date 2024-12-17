@@ -71,7 +71,7 @@
 		{/if}
 
 		<div
-			class="flex flex-grow flex-col justify-between space-y-3"
+			class="flex grow flex-col justify-between space-y-3"
 			class:sm:py-2={hasPhoto}
 			class:self-stretch={hasExtract}
 			class:items-center={!hasPhoto && !hasExtract}

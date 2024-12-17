@@ -1,5 +1,6 @@
 import * as path from 'path';
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import tailwindcss from '@tailwindcss/vite';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
 import inertia from './resources/js/inertiaVitePlugin';
@@ -19,6 +20,7 @@ export default defineConfig({
 				}
 			},
 		}),
+		tailwindcss(),
 		inertia('resources/js/viteSsr.ts'),
 	],
 	resolve: {

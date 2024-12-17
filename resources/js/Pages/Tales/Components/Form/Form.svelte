@@ -114,7 +114,7 @@
 				class="w-full form-input"
 			>
 			{#if discogsUrl}
-				<div class="flex-grow-0">
+				<div class="grow-0">
 					<a href={discogsUrl} target="_blank"><Discogs/></a>
 				</div>
 			{/if}

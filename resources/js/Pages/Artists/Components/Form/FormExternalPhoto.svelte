@@ -27,7 +27,7 @@
 	<img src={url} bind:naturalWidth bind:naturalHeight class="h-40">
 
 	{#if title !== null}
-		<div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-75 transition-all duration-300"></div>
+		<div class="absolute inset-0 bg-linear-to-t from-black to-transparent opacity-0 group-hover:opacity-75 transition-all duration-300"></div>
 		<div class="absolute bottom-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
 			<div class="flex flex-col p-2 text-white">
 				<small class="text-xs">{year}</small>
@@ -49,7 +49,7 @@
 	></div>
 </button>
 
-<style lang="postcss">
+<style>
 	.dimensions {
 		position: absolute;
 		top: 0;

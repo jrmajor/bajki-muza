@@ -160,7 +160,7 @@
 	>
 </div>
 
-<style lang="postcss">
+<style>
 	.cropper {
 		position: relative;
 	}

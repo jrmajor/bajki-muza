@@ -35,14 +35,16 @@
 	<h2 class="text-2xl font-medium">{@render link()}</h2>
 {/if}
 
-<style lang="postcss">
+<style>
+	@import '../../css/style.css' reference;
+
 	.title {
 		position: relative;
-		@apply after:bg-brand-primary after:dark:bg-brand-primary-dark;
+		@apply after:bg-brand-primary dark:after:bg-brand-primary-dark;
 	}
 
 	.sub {
-		@apply after:bg-brand-lighter after:dark:bg-brand-lighter-dark;
+		@apply after:bg-brand-lighter dark:after:bg-brand-lighter-dark;
 	}
 
 	.title::after {

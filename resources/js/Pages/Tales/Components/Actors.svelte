@@ -34,7 +34,7 @@
 						>
 					{/if}
 				</div>
-				<div class="flex flex-col flex-grow justify-between p-2 pl-3">
+				<div class="flex flex-col grow justify-between p-2 pl-3">
 					<div class="text-sm font-medium leading-tight sm:text-base">
 						{actor.name}
 					</div>

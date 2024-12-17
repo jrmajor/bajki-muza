@@ -27,7 +27,7 @@
 						<ResponsiveImage src={tale.cover.url} size={15} alt="Okładka bajki {tale.title}"/>
 					{/if}
 				</div>
-				<div class="flex flex-col flex-grow justify-between p-2 pl-3">
+				<div class="flex flex-col grow justify-between p-2 pl-3">
 					<div class="text-sm font-medium leading-tight sm:text-base">
 						{tale.title}
 					</div>

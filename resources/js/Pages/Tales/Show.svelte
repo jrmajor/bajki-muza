@@ -44,7 +44,7 @@
 		{/if}
 	</div>
 
-	<div class="flex flex-grow flex-col justify-between gap-3 self-center sm:self-stretch sm:py-2">
+	<div class="flex grow flex-col justify-between gap-3 self-center sm:self-stretch sm:py-2">
 		<div class="hidden self-start sm:block">
 			<Title {tale} {user}/>
 		</div>

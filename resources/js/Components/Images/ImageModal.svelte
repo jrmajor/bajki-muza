@@ -64,7 +64,7 @@
 
 <dialog
 	bind:this={dialog}
-	class="max-h-full max-w-full overflow-visible bg-transparent p-0 outline-none backdrop:bg-black/90"
+	class="m-auto max-h-full max-w-full overflow-visible bg-transparent p-0 outline-none backdrop:bg-black/90"
 >
 	<div class="modal-container">
 		<div
@@ -83,13 +83,15 @@
 		</div>
 		<button
 			bind:this={closeButton}
-			class="close-button select-none rounded-full bg-gray-900 font-black text-brand-lighter outline-none hover:text-brand-primary"
+			class="close-button select-none rounded-full bg-gray-900 font-black text-brand-lighter outline-hidden hover:text-brand-primary"
 			onclick={close}
 		>X</button>
 	</div>
 </dialog>
 
-<style lang="postcss">
+<style>
+	@import '../../../css/style.css' reference;
+
 	dialog {
 		--closeButtonSize: 2rem;
 		--closeButtonGap: 1rem;
@@ -98,7 +100,7 @@
 		--closeButtonAddedHeight: var(--closeButtonTotalSize);
 		--dialogMargin: 2.5rem;
 
-		@media screen(sm) {
+		@media (width >= theme(--breakpoint-sm)) {
 			/* doubled, because we add left margin to keep the image centered */
 			--closeButtonAddedWidth: calc(var(--closeButtonTotalSize) * 2);
 			--closeButtonAddedHeight: 0rem;
@@ -116,7 +118,7 @@
 		align-items: end;
 		gap: var(--closeButtonGap);
 
-		@media screen(sm) {
+		@media (width >= theme(--breakpoint-sm)) {
 			flex-direction: row;
 			align-items: start;
 			margin-left: var(--closeButtonTotalSize);
