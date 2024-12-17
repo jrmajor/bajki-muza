@@ -30,7 +30,7 @@
       ></script>
     @endif
   </head>
-  <body class="font-sans text-gray-900 bg-gray-200 dark:bg-gray-950 dark:text-gray-200">
+  <body class="bg-gray-200 font-sans text-gray-900 scheme-light-dark dark:bg-gray-950 dark:text-gray-200">
     @inertia
   </body>
 </html>

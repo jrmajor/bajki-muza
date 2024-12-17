@@ -36,18 +36,13 @@
 {/if}
 
 <style>
-	@import '../../css/style.css' reference;
-
 	.title {
 		position: relative;
-		@apply after:bg-brand-primary dark:after:bg-brand-primary-dark;
-	}
-
-	.sub {
-		@apply after:bg-brand-lighter dark:after:bg-brand-lighter-dark;
 	}
 
 	.title::after {
+		background-color: light-dark(var(--color-brand-primary), var(--color-brand-primary-dark));
+		content: '';
 		display: block;
 		position: absolute;
 		z-index: -1;
@@ -58,6 +53,7 @@
 	}
 
 	.sub::after {
+		background-color: light-dark(var(--color-brand-lighter), var(--color-brand-lighter-dark));
 		top: calc(100% - 0.455rem);
 		left: -0.25rem;
 		width: calc(100% + 0.5rem);
