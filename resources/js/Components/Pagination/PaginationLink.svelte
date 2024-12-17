@@ -33,7 +33,7 @@
 			relative inline-flex items-center py-2 cursor-pointer
 			text-gray-800 bg-white dark:text-gray-200 dark:bg-gray-900 shadow-md
 			hover:text-gray-900 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-gray-800
-			focus:outline-none focus:ring-3
+			focus:outline-none focus:ring-3 focus:ring-brand-primary/25 focus:z-10
 			transition ease-in-out duration-150
 		"
 	>
