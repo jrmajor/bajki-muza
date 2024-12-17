@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && vite build --ssr",
-    "check": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --diagnostic-sources js,svelte --fail-on-warnings",
-    "check:watch": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --diagnostic-sources js,svelte --watch",
+    "check": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+    "check:watch": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "eslint . --max-warnings 0",
     "show-bundle": "vite-bundle-visualizer"
   },
