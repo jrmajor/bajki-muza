@@ -64,7 +64,7 @@
   --color-green-900: #14532d;
   --color-green-950: #052e16;
 
-  --font-sans: Inter var, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: InterVariable, ui-sans-serif, system-ui, sans-serif;
 
   --text-2xs: 0.7rem;
 }
