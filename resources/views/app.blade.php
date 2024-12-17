@@ -9,6 +9,9 @@
 
     <title inertia>Bajki Polskich Nagrań „Muza”</title>
 
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
     @unless (app()->runningUnitTests())
       @vite('resources/css/style.css')
       @vite(['resources/js/browser.ts', "resources/js/Pages/{$page['component']}.svelte"])
@@ -16,10 +19,6 @@
 
     @routes
     @inertiaHead
-
-    @production
-      <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    @endproduction
 
     @if (config('services.fathom.id'))
       <script
