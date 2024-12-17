@@ -112,7 +112,7 @@
 
 	.modal-container {
 		display: flex;
-		flex-direction: column;;
+		flex-direction: column;
 		align-items: end;
 		gap: var(--closeButtonGap);
 
