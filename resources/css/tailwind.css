@@ -67,10 +67,6 @@
   --font-sans: Inter var, ui-sans-serif, system-ui, sans-serif;
 
   --text-2xs: 0.7rem;
-
-  --transition-property-colors-shadow:
-    color, background-color, border-color,
-    text-decoration-color, fill, stroke, box-shadow;
 }
 
 /*

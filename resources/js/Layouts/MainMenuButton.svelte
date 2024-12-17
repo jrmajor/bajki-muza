@@ -9,9 +9,12 @@
 	use:inertia
 	{href}
 	class="
-		px-5 py-2.5 bg-white dark:bg-gray-700 shadow-lg rounded-full
-		text-gray-900 dark:text-white transition-colors-shadow duration-200 uppercase font-semibold tracking-wide
-		focus:outline-none hover:ring-3 focus:ring-3 active:ring-3 hover:ring-brand-primary/50 focus:ring-brand-primary/75 active:ring-brand-primary/100
+		rounded-full bg-white px-5 py-2.5 font-semibold tracking-wide
+		text-gray-900 uppercase shadow-lg transition-all duration-200
+		hover:ring-3 hover:ring-brand-primary/50
+		focus:ring-3 focus:ring-brand-primary/75 focus:outline-none
+		active:ring-3 active:ring-brand-primary/100
+		dark:bg-gray-700 dark:text-white
 	"
 >
 	{@render children()}
