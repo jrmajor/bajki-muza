@@ -129,7 +129,7 @@
 
 	<div class="flex flex-col w-full">
 		<Label for="notes">Notatki</Label>
-		<textarea bind:value={$form.notes} id="notes" rows="5" class="w-full form-input"></textarea>
+		<textarea bind:value={$form.notes} id="notes" rows="5" class="form-input field-sizing-content w-full"></textarea>
 	</div>
 
 	<Button class="self-center">Zapisz</Button>
