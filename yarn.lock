@@ -2566,10 +2566,15 @@ svelte@^5.16:
     magic-string "^0.30.11"
     zimmerframe "^1.1.2"
 
-tailwindcss@4.0.0-beta.7, tailwindcss@^4.0.0-beta.7:
+tailwindcss@4.0.0-beta.7:
   version "4.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.0.0-beta.7.tgz#2cb30cac6f2d489dd55e37d4c86801d1161a0f8e"
   integrity sha512-9JXrCC5UVt2bjV9lrjO+B7MPY+bgpWCf5sPbu+Ih5rGvGE6STwA94N6Ah1xMa0Avzp48fB/S1l0vByTp2HEzAw==
+
+tailwindcss@^4.0.0-beta.8:
+  version "4.0.0-beta.8"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.0.0-beta.8.tgz#aac4af896e4972988dc6415550075e592a971060"
+  integrity sha512-21HmdRq9tHDLJZavb2cRBGJxBvRODpwb0/t3tRbMOl65hJE6zG6K6lD6lLS3IOC35u4SOjKjdZiJJi9AuWCf+Q==
 
 tapable@^2.2.0:
   version "2.2.1"
