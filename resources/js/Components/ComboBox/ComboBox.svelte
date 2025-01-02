@@ -123,8 +123,10 @@
 				<li
 					onmouseover={() => hoveredIndex = index}
 					onclick={() => select(result)}
-					class="flex justify-between py-1 px-3 w-full text-left text-gray-800 select-none"
-					class:bg-gray-200={hoveredIndex === index}
+					class={[
+						'flex justify-between py-1 px-3 w-full text-left text-gray-800 select-none',
+						hoveredIndex === index && 'bg-gray-200',
+					]}
 				>
 					<span>{result.label}</span>
 					<span class="text-gray-800">{value === result.value ? '✓ ' : ''}</span>

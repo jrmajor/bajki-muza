@@ -143,12 +143,13 @@
 		{#each $form.actors as actor, index (actor.key)}
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
-				class="flex items-center gap-2 w-full"
-				class:opacity-0={actor.isDragged}
-				class:pt-12={actor.isDraggedOver === 'fromBelow' || actor.hasDeletedElement === 'above'}
-				class:pb-12={actor.isDraggedOver === 'fromAbove' || actor.hasDeletedElement === 'below'}
-				class:transition-all={!actor.noTransitions}
-				class:duration-300={!actor.noTransitions}
+				class={{
+					'flex items-center gap-2 w-full': true,
+					'opacity-0': actor.isDragged,
+					'pt-12': actor.isDraggedOver === 'fromBelow' || actor.hasDeletedElement === 'above',
+					'pb-12': actor.isDraggedOver === 'fromAbove' || actor.hasDeletedElement === 'below',
+					'transition-all duration-300': !actor.noTransitions,
+				}}
 				draggable="true"
 				ondragstart={(e) => onDragStart(e, index)}
 				ondragend={() => onDragEnd(index)}

@@ -32,8 +32,11 @@
 	bind:this={element}
 	onload={unhideImage}
 	loading="lazy"
-	class="size-full { transitionClass ? 'transition-opacity duration-300' : '' }"
-	class:opacity-0={isHidden}
+	class={{
+		'size-full': true,
+		'opacity-0': isHidden,
+		'transition-opacity duration-300': transitionClass,
+	}}
 	{src}
 	{alt}
 >
