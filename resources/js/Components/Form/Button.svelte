@@ -19,13 +19,14 @@
 		children: Snippet;
 	} = $props();
 
-	let classes = $derived(`
-		py-2 px-4 text-sm font-medium tracking-wide rounded-full shadow-md
-		${danger || 'bg-white dark:bg-gray-800'}
-		${danger && 'text-red-100 bg-red-700 hover:bg-red-600 active:bg-red-800'}
-		transition-colors duration-150 ease out
-		${className}
-	`);
+	let classes = $derived([
+		'rounded-full px-4 py-2 text-sm font-medium tracking-wide shadow-md',
+		danger
+			? 'bg-red-700 text-red-100 hover:bg-red-600 active:bg-red-800'
+			: 'bg-white dark:bg-gray-800',
+		'ease-out transition-colors duration-150',
+		className,
+	]);
 </script>
 
 {#if inertiaProp}

@@ -47,11 +47,12 @@
 	bind:this={element}
 	onload={unhideImage}
 	loading={eager ? 'eager' : 'lazy'}
-	class="
-		size-{size} object-center object-cover {className}
-		{ transitionClass ? 'transition-opacity duration-300' : '' }
-	"
-	class:opacity-0={isHidden}
+	class={{
+		`size-${size} object-center object-cover`: true,
+		'opacity-0': isHidden,
+		'transition-opacity duration-300': transitionClass,
+		className: true,
+	}}
 	{src}
 	srcset="
 		{resizedImageUrl(src, calculatedImageSize)} 1x,

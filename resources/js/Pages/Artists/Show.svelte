@@ -71,10 +71,12 @@
 		{/if}
 
 		<div
-			class="flex grow flex-col justify-between space-y-3"
-			class:sm:py-2={hasPhoto}
-			class:self-stretch={hasExtract}
-			class:items-center={!hasPhoto && !hasExtract}
+			class={{
+				'flex grow flex-col justify-between space-y-3': true,
+				'sm:py-2': hasPhoto,
+				'self-stretch': hasExtract,
+				'items-center': !hasPhoto && !hasExtract,
+			}}
 		>
 			<div class="hidden sm:block">
 				<Title text={artist.name} href={route('artists.edit', { artist })} hrefIf={!!user}/>
