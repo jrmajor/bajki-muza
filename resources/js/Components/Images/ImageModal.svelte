@@ -90,8 +90,6 @@
 </dialog>
 
 <style>
-	@import '../../../css/style.css' reference;
-
 	dialog {
 		--closeButtonSize: 2rem;
 		--closeButtonGap: 1rem;
@@ -100,7 +98,7 @@
 		--closeButtonAddedHeight: var(--closeButtonTotalSize);
 		--dialogMargin: 2.5rem;
 
-		@media (width >= theme(--breakpoint-sm)) {
+		@media (width >= 640px) {
 			/* doubled, because we add left margin to keep the image centered */
 			--closeButtonAddedWidth: calc(var(--closeButtonTotalSize) * 2);
 			--closeButtonAddedHeight: 0rem;
@@ -118,7 +116,7 @@
 		align-items: end;
 		gap: var(--closeButtonGap);
 
-		@media (width >= theme(--breakpoint-sm)) {
+		@media (width >= 640px) {
 			flex-direction: row;
 			align-items: start;
 			margin-left: var(--closeButtonTotalSize);

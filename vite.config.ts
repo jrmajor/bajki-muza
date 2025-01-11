@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import laravel from 'laravel-vite-plugin';
@@ -28,7 +27,8 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			'ziggy-js': path.resolve(__dirname, 'vendor/tightenco/ziggy'),
+			'ziggy-js': `${import.meta.dirname}/vendor/tightenco/ziggy`,
+			$style: `${import.meta.dirname}/resources/css/style.css`,
 		},
 	},
 });
