@@ -5,10 +5,12 @@
 @plugin '@tailwindcss/forms';
 
 @theme {
+  --font-sans: InterVariable, ui-sans-serif, system-ui, sans-serif;
+
+  --text-2xs: 0.7rem;
+
   --color-*: initial;
-  --color-inherit: inherit;
-  --color-transparent: transparent;
-  --color-current: currentColor;
+
   --color-black: #000;
   --color-white: #fff;
 
@@ -63,10 +65,6 @@
   --color-green-800: #166534;
   --color-green-900: #14532d;
   --color-green-950: #052e16;
-
-  --font-sans: InterVariable, ui-sans-serif, system-ui, sans-serif;
-
-  --text-2xs: 0.7rem;
 }
 
 /*
