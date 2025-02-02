@@ -132,7 +132,7 @@
 		class="original"
 	>
 	<div
-		class="border"
+		class="crop-border"
 		style:top={`${scaled(crop.y) - 1}px`}
 		style:left={`${scaled(crop.x) - 1}px`}
 		style:width={`${scaled(crop.width) + 2}px`}
@@ -176,7 +176,7 @@
 		cursor: move;
 	}
 
-	.border {
+	.crop-border {
 		position: absolute;
 		border: 1px dashed #000;
 	}
