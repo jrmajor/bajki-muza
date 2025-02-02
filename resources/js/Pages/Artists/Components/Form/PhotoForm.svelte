@@ -124,7 +124,7 @@
 	<div class="flex flex-col">
 		<Label for="photo">Zdjęcie</Label>
 		<div class="flex gap-5">
-			<label class="flex overflow-hidden grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
+			<label class="flex h-10 grow cursor-pointer items-center overflow-hidden rounded-md border border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-800">
 				<div class="flex-none size-10 bg-placeholder-artist">
 					{#if previewUrl}
 						<img
@@ -153,11 +153,11 @@
 					type="button"
 					onclick={resetPickerToCurrent}
 					class="
-						flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
-						hover:bg-red-500 hover:border-red-500 hover:text-white
-						active:bg-white active:text-black
-						dark:active:bg-gray-800 dark:active:text-gray-100 dark:border-gray-900
+						flex-none rounded-md border border-red-800 bg-red-600 px-3 py-2 text-sm font-medium text-red-50
 						transition-colors duration-150
+						hover:border-red-800 hover:bg-red-500 hover:text-white
+						dark:border-red-950 dark:bg-red-800
+						dark:hover:border-red-950 dark:hover:bg-red-700
 					"
 				>Nie usuwaj</button>
 			{:else}
@@ -165,12 +165,11 @@
 					type="button"
 					onclick={setPickerToRemove}
 					class="
-						flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
-						hover:bg-red-100 hover:text-red-700
-						active:bg-red-600 active:cover-red-600 active:text-red-100
-						dark:bg-gray-800 dark:text-gray-100 dark:border-gray-900
-						dark:hover:bg-red-800 dark:hover:text-red-100
+						flex-none rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium
 						transition-colors duration-150
+						hover:border-red-200 hover:bg-red-100 hover:text-red-700
+						dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100
+						dark:hover:border-red-950 dark:hover:bg-red-800 dark:hover:text-red-100
 					"
 				>Usuń</button>
 			{/if}

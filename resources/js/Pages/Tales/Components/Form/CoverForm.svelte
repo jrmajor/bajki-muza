@@ -45,7 +45,7 @@
 <div class="flex flex-col">
 	<Label for="cover">Okładka</Label>
 	<div class="flex gap-5">
-		<label class="flex overflow-hidden grow items-center h-10 bg-white rounded-md border cursor-pointer dark:border-gray-900 dark:bg-gray-800">
+		<label class="flex h-10 grow cursor-pointer items-center overflow-hidden rounded-md border border-gray-300 bg-white dark:border-gray-900 dark:bg-gray-800">
 			<div class="flex-none size-10 bg-placeholder-cover">
 				{#if previewUrl}
 					<img
@@ -85,7 +85,7 @@
 					type="button"
 					onclick={() => $form.removeCover = true}
 					class="
-						flex-none px-3 py-2 bg-white rounded-md border font-medium text-sm
+						flex-none rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium
 						hover:bg-red-100 hover:text-red-700
 						active:bg-red-600 active:cover-red-600 active:text-red-100
 						dark:bg-gray-800 dark:text-gray-100 dark:border-gray-900
