@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@jrmajor/eslint-config": "^0.0.6",
-    "@stylistic/eslint-plugin": "^2.12",
+    "@stylistic/eslint-plugin": "^2.13",
     "@sveltejs/vite-plugin-svelte": "^5.0",
     "@tailwindcss/vite": "^4.0",
     "@types/node": "^22.13",
