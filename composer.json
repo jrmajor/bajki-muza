@@ -15,7 +15,7 @@
         "guzzlehttp/psr7": "^2.6",
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image": "^3.11",
-        "jrmajor/laravel-fluent": "^1.1",
+        "jrmajor/laravel-fluent": "^1.2",
         "laravel/framework": "^11.41",
         "laravel/telescope": "^5.5",
         "laravel/tinker": "^2.10",
