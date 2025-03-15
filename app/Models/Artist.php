@@ -187,6 +187,8 @@ final class Artist extends Model
                 DB::table('credits')->select('tale_id')->whereColumn('artist_id', 'artists.id')->union(
                     DB::table('tales_actors')->select('tale_id')->whereColumn('artist_id', 'artists.id'),
                 ),
+                // todo: fix in laravel. it should accept null, but it doesn't
+                '',
             )->selectRaw('count(*) as appearances'),
         ])->withCasts(['appearances' => 'int']);
     }

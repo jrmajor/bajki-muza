@@ -200,6 +200,8 @@ final class Tale extends Model
                             ->selectRaw('count(*) as appearances'),
                         as: 'appearances',
                     )->whereColumn('tales_actors.tale_id', 'tales.id'),
+                // todo: fix in laravel. it should accept null, but it doesn't
+                '',
             )->selectRaw('sum(appearances) as popularity'),
         ])->withCasts(['popularity' => 'int']);
     }
