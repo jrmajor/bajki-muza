@@ -17,17 +17,6 @@ return [
             'synchronous' => null,
         ],
 
-        'testing' => [
-            'driver' => 'sqlite',
-            'url' => env('DB_URL'),
-            'database' => env('DB_DATABASE', database_path('testing.sqlite')),
-            'prefix' => '',
-            'foreign_key_constraints' => true,
-            'busy_timeout' => null,
-            'journal_mode' => null,
-            'synchronous' => null,
-        ],
-
     ],
 
     'migrations' => [
