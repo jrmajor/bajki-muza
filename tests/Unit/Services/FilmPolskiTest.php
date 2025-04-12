@@ -4,11 +4,10 @@ namespace Tests\Unit\Services;
 
 use App\Services\FilmPolski;
 use App\Values\FilmPolski\PhotoGroup;
-use Carbon\CarbonInterval;
-use Closure;
 use Generator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
@@ -67,8 +66,8 @@ final class FilmPolskiTest extends TestCase
     {
         $images = [new PhotoGroup(null, null, ['test'])];
 
-        Cache::shouldReceive('remember')
-            ->with('filmpolski-11232-photos', CarbonInterval::class, Closure::class)
+        Cache::shouldReceive('flexible')
+            ->with('filmpolski-11232-photos', Mockery::any(), Mockery::any())
             ->andReturn($images)
             ->once();
 

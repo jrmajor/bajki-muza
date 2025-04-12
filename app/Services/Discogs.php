@@ -53,8 +53,9 @@ class Discogs
     public function photos(int $id): DiscogsPhotos
     {
         $photos = rescue(function () use ($id): array {
-            $response = Cache::remember(
-                "discogs-{$id}-photos", CarbonInterval::week(),
+            $response = Cache::flexible(
+                "discogs-{$id}-photos",
+                [CarbonInterval::week(), CarbonInterval::year()],
                 fn () => $this->request()->get("https://api.discogs.com/artists/{$id}")->json(),
             );
 

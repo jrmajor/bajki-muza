@@ -49,9 +49,9 @@ class Wikipedia
     {
         $titleHash = Hash\hash($title, Hash\Algorithm::Md5);
 
-        return Cache::remember(
+        return Cache::flexible(
             "wikipedia-{$titleHash}-extract",
-            CarbonInterval::week(),
+            [CarbonInterval::week(), CarbonInterval::year()],
             function () use ($title): ?string {
                 $response = Http::get($this->endpoint, [
                     'action' => 'query',

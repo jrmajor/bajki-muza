@@ -63,9 +63,9 @@ class FilmPolski
      */
     public function photos(int $id): array
     {
-        return Cache::remember(
+        return Cache::flexible(
             "filmpolski-{$id}-photos",
-            CarbonInterval::week(),
+            [CarbonInterval::week(), CarbonInterval::year()],
             function () use ($id): array {
                 $photos = [];
 

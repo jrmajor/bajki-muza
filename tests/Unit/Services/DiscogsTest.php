@@ -5,10 +5,9 @@ namespace Tests\Unit\Services;
 use App\Services\Discogs;
 use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
-use Carbon\CarbonInterval;
-use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Mockery;
 use PHPUnit\Framework\Attributes\TestDox;
 use Psl\Str;
 use Tests\TestCase;
@@ -57,8 +56,8 @@ final class DiscogsTest extends TestCase
     #[TestDox('it caches discogs photos')]
     public function testPhotosCache(): void
     {
-        Cache::shouldReceive('remember')
-            ->with('discogs-602473-photos', CarbonInterval::class, Closure::class)
+        Cache::shouldReceive('flexible')
+            ->with('discogs-602473-photos', Mockery::any(), Mockery::any())
             ->andReturn($this->getSampleApiResponse())
             ->once();
 

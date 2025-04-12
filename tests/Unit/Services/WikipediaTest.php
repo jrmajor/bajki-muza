@@ -3,10 +3,9 @@
 namespace Tests\Unit\Services;
 
 use App\Services\Wikipedia;
-use Carbon\CarbonInterval;
-use Closure;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Mockery;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -79,9 +78,10 @@ final class WikipediaTest extends TestCase
     #[TestDox('it caches wikipedia extract')]
     public function testExtractCache(): void
     {
-        Cache::shouldReceive('remember')->once()->with(
+        Cache::shouldReceive('flexible')->once()->with(
             'wikipedia-c562333d77f2c81b6f75acd8bd7c7871-extract',
-            CarbonInterval::class, Closure::class,
+            Mockery::any(),
+            Mockery::any(),
         )->andReturn($this->extract);
 
         $this->assertSame($this->extract, app(Wikipedia::class)->extract('Piotr_Fronczewski'));
