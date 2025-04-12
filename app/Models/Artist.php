@@ -26,7 +26,7 @@ use Spatie\Sluggable\SlugOptions;
 /**
  * @property-read Actor|Credit|null $credit
  */
-final class Artist extends Model
+class Artist extends Model
 {
     /** @use HasFactory<ArtistFactory> */
     use HasFactory;
@@ -130,7 +130,7 @@ final class Artist extends Model
     }
 
     /**
-     * @return BelongsToMany<Tale, $this>
+     * @return BelongsToMany<Tale, $this, Actor, 'credit'>
      */
     public function asActor(): BelongsToMany
     {
@@ -144,7 +144,7 @@ final class Artist extends Model
     }
 
     /**
-     * @return BelongsToMany<Tale, $this>
+     * @return BelongsToMany<Tale, $this, Credit, 'credit'>
      */
     public function credits(): BelongsToMany
     {

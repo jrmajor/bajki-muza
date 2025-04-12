@@ -23,7 +23,7 @@ use Spatie\Sluggable\SlugOptions;
 /**
  * @property-read Actor|Credit|null $credit
  */
-final class Tale extends Model
+class Tale extends Model
 {
     /** @use HasFactory<TaleFactory> */
     use HasFactory;
@@ -69,7 +69,7 @@ final class Tale extends Model
     }
 
     /**
-     * @return BelongsToMany<Artist, $this>
+     * @return BelongsToMany<Artist, $this, Actor, 'credit'>
      */
     public function actors(): BelongsToMany
     {
@@ -83,7 +83,7 @@ final class Tale extends Model
     }
 
     /**
-     * @return BelongsToMany<Artist, $this>
+     * @return BelongsToMany<Artist, $this, Credit, 'credit'>
      */
     public function credits(): BelongsToMany
     {
