@@ -9,4 +9,3 @@
 /.env
 /.env.backup
 /vite.config.ts.timestamp-*
-/yarn-error.log
