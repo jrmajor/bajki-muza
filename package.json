@@ -15,20 +15,20 @@
     "@tailwindcss/forms": "^0.5.10",
     "esm-env": "^1.2",
     "pretty-bytes": "^7.0",
-    "svelte": "^5.26",
+    "svelte": "^5.33",
     "tailwindcss": "^4.1"
   },
   "devDependencies": {
-    "@jrmajor/eslint-config": "^0.1.0",
+    "@jrmajor/eslint-config": "^0.1.1",
     "@sveltejs/vite-plugin-svelte": "^5.0",
     "@tailwindcss/vite": "^4.1",
-    "@types/node": "^22.14",
-    "eslint": "^9.24",
-    "globals": "^16.0",
+    "@types/node": "^22.15",
+    "eslint": "^9.28",
+    "globals": "^16.2",
     "laravel-vite-plugin": "^1.2",
-    "svelte-check": "^4.1",
+    "svelte-check": "^4.2",
     "typescript": "^5.8",
-    "vite": "^6.2",
+    "vite": "^6.3",
     "vite-bundle-visualizer": "^1.2"
   },
   "volta": {
