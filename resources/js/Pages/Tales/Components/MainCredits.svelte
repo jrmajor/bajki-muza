@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ShowResource, CreditResource } from '@/types/tales';
+	import type { CreditResource, ShowResource } from '@/types/tales';
 	import addLoop from '@/helpers/addLoop';
 	import ArtistName from '@/Components/ArtistName.svelte';
 

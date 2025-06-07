@@ -2,7 +2,7 @@
 	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
-	import type { EditPhotoResource, ArtistPhotoCrop } from '@/types/artists';
+	import type { ArtistPhotoCrop, EditPhotoResource } from '@/types/artists';
 	import Cropper, { type CropValue } from '@/Components/Cropper/Cropper.svelte';
 	import Label from '@/Components/Form/Label.svelte';
 	import { boxToFaceCrop, faceCropToBox } from './helpers';

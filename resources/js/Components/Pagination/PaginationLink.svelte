@@ -7,7 +7,7 @@
 		isEnabled = true,
 		isCurrent = false,
 		rel = null,
-		'aria-label': ariaLabel = '',
+		'aria-label': ariaLabel,
 		class: className = '',
 		children,
 	}: {

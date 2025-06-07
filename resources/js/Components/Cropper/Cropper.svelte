@@ -6,7 +6,7 @@
 
 <script lang="ts">
 	import clamp from '@/helpers/clamp';
-	import { round, constrainToBoundary, constrainToRatio } from './box';
+	import { constrainToBoundary, constrainToRatio, round } from './box';
 
 	let {
 		src,

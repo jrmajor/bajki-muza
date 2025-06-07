@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tick, onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { BROWSER } from 'esm-env';
 	import resizedImageUrl from '@/helpers/resizedImageUrl';
 
