@@ -1,0 +1,5 @@
+[*.html]
+end_of_line = unset
+indent_style = unset
+insert_final_newline = unset
+trim_trailing_whitespace = false
