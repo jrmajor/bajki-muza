@@ -1,11 +1,11 @@
 @utility shadow-link {
-  @apply relative after:block after:absolute after:z-[-1];
-  @apply after:bg-brand-lighter after:dark:bg-brand-lighter-dark;
+	@apply relative after:block after:absolute after:z-[-1];
+	@apply after:bg-brand-lighter after:dark:bg-brand-lighter-dark;
 
-  &::after {
-    top: calc(100% - 0.35rem);
-    left: -0.25rem;
-    width: calc(100% + 0.5rem);
-    height: 0.3rem;
-  }
+	&::after {
+		top: calc(100% - 0.35rem);
+		left: -0.25rem;
+		width: calc(100% + 0.5rem);
+		height: 0.3rem;
+	}
 }

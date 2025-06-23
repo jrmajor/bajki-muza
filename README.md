@@ -4,26 +4,26 @@ This repo contains the source code of https://bajki-muza.pl,
 a knowledge base about audio tales recorded by Polskie Nagrania Muza.
 
 <div align="center">
-  <img
-    src="resources/screenshots/index-light.png#gh-light-mode-only"
-    alt="Screenshot of tales index"
-    width="48%"
-  >
-  <img
-    src="resources/screenshots/tale-light.png#gh-light-mode-only"
-    alt="Screenshot of tale view"
-    width="48%"
-  >
-  <img
-    src="resources/screenshots/index-dark.png#gh-dark-mode-only"
-    alt="Screenshot of tales index"
-    width="48%"
-  >
-  <img
-    src="resources/screenshots/tale-dark.png#gh-dark-mode-only"
-    alt="Screenshot of tale view"
-    width="48%"
-  >
+	<img
+		src="resources/screenshots/index-light.png#gh-light-mode-only"
+		alt="Screenshot of tales index"
+		width="48%"
+	>
+	<img
+		src="resources/screenshots/tale-light.png#gh-light-mode-only"
+		alt="Screenshot of tale view"
+		width="48%"
+	>
+	<img
+		src="resources/screenshots/index-dark.png#gh-dark-mode-only"
+		alt="Screenshot of tales index"
+		width="48%"
+	>
+	<img
+		src="resources/screenshots/tale-dark.png#gh-dark-mode-only"
+		alt="Screenshot of tale view"
+		width="48%"
+	>
 </div>
 
 ## Installation
