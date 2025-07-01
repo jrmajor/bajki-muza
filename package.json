@@ -23,7 +23,7 @@
 		"@jrmajor/eslint-config": "^0.1.1",
 		"@sveltejs/vite-plugin-svelte": "^5.1",
 		"@tailwindcss/vite": "^4.1",
-		"@types/node": "^22.15",
+		"@types/node": "^24.0",
 		"eslint": "^9.28",
 		"globals": "^16.2",
 		"laravel-vite-plugin": "^1.3",
