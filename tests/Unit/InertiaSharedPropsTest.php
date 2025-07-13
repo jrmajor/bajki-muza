@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Inertia\Testing\AssertableInertia as Assert;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -24,32 +23,28 @@ final class InertiaSharedPropsTest extends TestCase
     #[TestDox('it shares errors and guest from request')]
     public function testShareGuest(): void
     {
-        $this
-            ->get('inertia-shared-props-test')
-            ->assertOk()
-            ->assertInertia(function (Assert $page) {
-                $this->assertSame([
-                    'errors' => [],
-                    'user' => null,
-                ], $page->toArray()['props']);
-            });
+        $r = $this->get('inertia-shared-props-test')->assertOk();
+
+        $this->assertSame([
+            'errors' => [],
+            'user' => null,
+        ], $r->inertiaProps());
     }
 
     #[TestDox('it shares errors and user from request')]
     public function testShareUser(): void
     {
-        $this
+        $r = $this
             ->asUser($user = User::factory()->createOne())
             ->get('inertia-shared-props-test')
-            ->assertOk()
-            ->assertInertia(function (Assert $page) use ($user) {
-                $this->assertSame([
-                    'errors' => [],
-                    'user' => [
-                        'username' => $user->username,
-                        'id' => $user->id,
-                    ],
-                ], $page->toArray()['props']);
-            });
+            ->assertOk();
+
+        $this->assertSame([
+            'errors' => [],
+            'user' => [
+                'username' => $user->username,
+                'id' => $user->id,
+            ],
+        ], $r->inertiaProps());
     }
 }
