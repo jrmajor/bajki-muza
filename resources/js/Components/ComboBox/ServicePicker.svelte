@@ -23,7 +23,7 @@
 	async function getResults(value: string) {
 		let endpoint: `ajax.${Service}` = `ajax.${service}`;
 		let response = await fetch(route(endpoint, { search: value }));
-		let json = await response.json() as Array<{ id: IdTypeMap[TService]; name: string }>;
+		let json = await response.json() as Array<{ id: IdTypeMap[TService], name: string }>;
 		return json.map((a) => ({ label: a.name, value: a.id }));
 	}
 </script>

@@ -2,7 +2,7 @@
 	import { type Snippet } from 'svelte';
 	import { inertia } from '@inertiajs/svelte';
 
-	let { href, children }: { href: string; children: Snippet } = $props();
+	let { href, children }: { href: string, children: Snippet } = $props();
 </script>
 
 <a

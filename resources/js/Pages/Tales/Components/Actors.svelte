@@ -7,7 +7,7 @@
 	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Title from '@/Components/Title.svelte';
 
-	let { tale, user }: { tale: ShowResource; user: SharedUser } = $props();
+	let { tale, user }: { tale: ShowResource, user: SharedUser } = $props();
 </script>
 
 <div class="flex flex-col gap-3 items-center w-full">

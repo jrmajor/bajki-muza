@@ -3,7 +3,7 @@
 	import type { ShowResource } from '@/types/tales';
 	import Title from '@/Components/Title.svelte';
 
-	let { tale, user }: { tale: ShowResource; user: SharedUser } = $props();
+	let { tale, user }: { tale: ShowResource, user: SharedUser } = $props();
 </script>
 
 <Title text={tale.title} href={route('tales.edit', { tale })} hrefIf={!!user}/>
