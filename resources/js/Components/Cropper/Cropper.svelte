@@ -21,7 +21,7 @@
 	let el: HTMLImageElement;
 
 	type Direction = 'nw' | 'ne' | 'sw' | 'se' | 'n' | 's' | 'w' | 'e';
-	type Handle = { name: Direction; position: [number, number]; cursor: string };
+	type Handle = { name: Direction, position: [number, number], cursor: string };
 
 	const handles: Handle[] = [
 		{ name: 'n', position: [0.5, 0], cursor: 'ns' },
@@ -45,7 +45,7 @@
 
 	let currentlyDragging: Handle | 'anchor' | null = $state(null);
 	let oldCrop: CropValue;
-	let dragStart: { x: number; y: number };
+	let dragStart: { x: number, y: number };
 
 	function onmousedown(event: MouseEvent, handle: Handle | 'anchor') {
 		currentlyDragging = handle;

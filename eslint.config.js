@@ -18,7 +18,6 @@ export default defineConfig([
 			},
 		},
 		rules: {
-			'import-x/no-duplicates': 'off',
 			// todo: enable
 			'svelte/require-each-key': 'off',
 		},

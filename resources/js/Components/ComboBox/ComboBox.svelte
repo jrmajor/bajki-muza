@@ -13,7 +13,7 @@
 		allowsAnyString?: TAllowsAnyString;
 	} = $props();
 
-	type Entry = { label: string; value: TValue };
+	type Entry = { label: string, value: TValue };
 
 	let searchValue = $state(String(value));
 	let previousSearchValue = '';

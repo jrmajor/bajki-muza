@@ -25,9 +25,9 @@
 
 	type Picker =
 		| { type: 'current' }
-		| { type: 'upload'; file: File }
+		| { type: 'upload', file: File }
 		| { type: 'remove' }
-		| { type: 'uri'; uri: string; uriFrom: 'discogs' | 'filmpolski' };
+		| { type: 'uri', uri: string, uriFrom: 'discogs' | 'filmpolski' };
 
 	$effect(() => {
 		$form.photo.file = activePicker.type === 'upload' ? activePicker.file : null;
@@ -109,6 +109,7 @@
 	let showCropper = $state(true);
 
 	$effect(() => {
+		// eslint-disable-next-line no-unused-expressions
 		previewUrl;
 		if (activePicker.type === 'current') {
 			$form.photo.crop.image = currentPhoto!.crop.image;
