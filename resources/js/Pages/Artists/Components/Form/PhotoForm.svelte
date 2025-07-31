@@ -23,11 +23,11 @@
 
 	let activePicker: Picker = $state({ type: 'current' });
 
-	type Picker =
-		| { type: 'current' }
-		| { type: 'upload', file: File }
-		| { type: 'remove' }
-		| { type: 'uri', uri: string, uriFrom: 'discogs' | 'filmpolski' };
+	type Picker
+		= | { type: 'current' }
+			| { type: 'upload', file: File }
+			| { type: 'remove' }
+			| { type: 'uri', uri: string, uriFrom: 'discogs' | 'filmpolski' };
 
 	$effect(() => {
 		$form.photo.file = activePicker.type === 'upload' ? activePicker.file : null;

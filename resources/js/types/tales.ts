@@ -71,19 +71,19 @@ export type ActorEditResource = {
 
 export type MainCreditType = 'text' | 'author' | 'lyrics' | 'music';
 
-export type CustomCreditType =
-	| 'adaptation'
-	| 'translation'
-	| 'arrangement'
-	| 'directing'
-	| 'directors_assistant'
-	| 'production'
-	| 'producers_assistant'
-	| 'recording_director'
-	| 'sound_operator'
-	| 'sound_production'
-	| 'editor'
-	| 'production_manager'
-	| 'artwork';
+export type CustomCreditType
+	= | 'adaptation'
+		| 'translation'
+		| 'arrangement'
+		| 'directing'
+		| 'directors_assistant'
+		| 'production'
+		| 'producers_assistant'
+		| 'recording_director'
+		| 'sound_operator'
+		| 'sound_production'
+		| 'editor'
+		| 'production_manager'
+		| 'artwork';
 
 export type CreditType = MainCreditType | CustomCreditType;

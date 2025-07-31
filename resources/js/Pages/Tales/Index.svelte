@@ -18,6 +18,7 @@
 	}
 
 	function submitSearch() {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity
 		let params = new URLSearchParams(window.location.search);
 		search ? params.set('search', search) : params.delete('search');
 		params.delete('page');
