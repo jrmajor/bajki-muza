@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"type": "module",
-	"packageManager": "pnpm@10.13.1",
+	"packageManager": "pnpm@10.15.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && vite build --ssr",
@@ -11,35 +11,36 @@
 		"show-bundle": "vite-bundle-visualizer"
 	},
 	"dependencies": {
-		"@inertiajs/core": "^2.0",
-		"@inertiajs/svelte": "^2.0",
+		"@inertiajs/core": "^2.1",
+		"@inertiajs/svelte": "^2.1",
 		"@tailwindcss/forms": "^0.5.10",
 		"esm-env": "^1.2",
 		"pretty-bytes": "^7.0",
-		"svelte": "^5.35",
+		"svelte": "^5.38",
 		"tailwindcss": "^4.1"
 	},
 	"devDependencies": {
 		"@jrmajor/eslint-config": "^0.2.1",
-		"@sveltejs/vite-plugin-svelte": "^6.0",
+		"@sveltejs/vite-plugin-svelte": "^6.1",
 		"@tailwindcss/vite": "^4.1",
-		"@types/node": "^24.0",
-		"eslint": "^9.32",
+		"@types/node": "^24.3",
+		"eslint": "^9.34",
 		"globals": "^16.3",
 		"laravel-vite-plugin": "^2.0",
-		"svelte-check": "^4.2",
-		"typescript": "^5.8",
-		"vite": "^7.0",
+		"svelte-check": "^4.3",
+		"typescript": "^5.9",
+		"vite": "^7.1",
 		"vite-bundle-visualizer": "^1.2"
 	},
 	"devEngines": {
 		"packageManager": {
 			"name": "pnpm",
-			"version": "10.13.1"
+			"version": "10.15.0"
 		},
 		"runtime": {
 			"name": "node",
-			"version": "24.4.0"
+			"version": "^24.6",
+			"onFail": "download"
 		}
 	}
 }
