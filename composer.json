@@ -23,7 +23,7 @@
 		"ohdearapp/ohdear-php-sdk": "^3.10",
 		"sentry/sentry-laravel": "^4.15",
 		"spatie/laravel-collection-macros": "^8.0",
-		"spatie/laravel-schedule-monitor": "^3.10",
+		"spatie/laravel-schedule-monitor": "^4.0",
 		"spatie/laravel-sitemap": "^7.3",
 		"spatie/laravel-sluggable": "^3.7",
 		"spatie/temporary-directory": "^2.2",
