@@ -12,6 +12,12 @@
 		<link rel="preconnect" href="https://rsms.me/">
 		<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
+		<script>
+			window.config = {
+				posthogToken: @json(config('services.posthog.token')),
+			};
+		</script>
+
 		@unless (app()->runningUnitTests())
 			@vite('resources/css/style.css')
 			@vite(['resources/js/browser.ts', "resources/js/Pages/{$page['component']}.svelte"])

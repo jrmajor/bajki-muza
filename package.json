@@ -15,6 +15,7 @@
 		"@inertiajs/svelte": "^2.1",
 		"@tailwindcss/forms": "^0.5.10",
 		"esm-env": "^1.2",
+		"posthog-js": "^1.261.6",
 		"pretty-bytes": "^7.0",
 		"svelte": "^5.38",
 		"tailwindcss": "^4.1"

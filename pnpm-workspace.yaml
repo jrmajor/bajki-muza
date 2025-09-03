@@ -2,6 +2,8 @@ onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - esbuild
   - unrs-resolver
+ignoredBuiltDependencies:
+  - core-js
 
 engineStrict: true
 strictDepBuilds: true
