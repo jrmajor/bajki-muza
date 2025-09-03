@@ -6,6 +6,7 @@ use App\Values\Discogs\Artist;
 use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
 use Carbon\CarbonInterval;
+use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -14,7 +15,7 @@ use Psl\Vec;
 class Discogs
 {
     public function __construct(
-        protected string $token,
+        #[Config('services.discogs.token')] protected string $token,
     ) { }
 
     protected function request(): PendingRequest

@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Values\Wikipedia\Artist;
 use Carbon\CarbonInterval;
+use Illuminate\Container\Attributes\Config;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Psl\Hash;
@@ -15,14 +17,23 @@ use Psl\Vec;
 
 class Wikipedia
 {
-    protected string $endpoint = 'https://pl.wikipedia.org/w/api.php';
+    private const Endpoint = 'https://pl.wikipedia.org/w/api.php';
+
+    public function __construct(
+        #[Config('services.user_agent')] protected string $userAgent,
+    ) { }
+
+    protected function request(): PendingRequest
+    {
+        return Http::withUserAgent($this->userAgent);
+    }
 
     /**
      * @return list<Artist>
      */
     public function search(string $search): array
     {
-        $response = Http::get($this->endpoint, [
+        $response = $this->request()->get(self::Endpoint, [
             'action' => 'opensearch',
             'search' => $search,
             'limit' => 10,
@@ -53,7 +64,7 @@ class Wikipedia
             "wikipedia-{$titleHash}-extract",
             [CarbonInterval::week(), CarbonInterval::year()],
             function () use ($title): ?string {
-                $response = Http::get($this->endpoint, [
+                $response = $this->request()->get(self::Endpoint, [
                     'action' => 'query',
                     'titles' => $title,
                     'prop' => 'extracts',
