@@ -1,6 +1,12 @@
 import { hydrate, mount } from 'svelte';
 import { createInertiaApp } from '@inertiajs/svelte';
+import posthog from 'posthog-js';
 import { resolve } from './common';
+
+posthog.init(window.config.posthogToken, {
+	api_host: 'https://eu.i.posthog.com',
+	defaults: '2025-05-24',
+});
 
 // @ts-expect-error
 document.startViewTransition ??= (cb: () => void) => cb();

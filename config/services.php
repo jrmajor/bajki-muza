@@ -8,6 +8,10 @@ return [
         'token' => env('DISCOGS_TOKEN'),
     ],
 
+    'posthog' => [
+        'token' => env('POSTHOG_TOKEN'),
+    ],
+
     'fathom' => [
         'id' => env('FATHOM_SITE_ID'),
     ],
