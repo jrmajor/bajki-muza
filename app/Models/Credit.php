@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Values\CreditType;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * @property ?string $as
+ */
 class Credit extends Pivot
 {
     protected $table = 'credits';

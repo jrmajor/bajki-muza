@@ -36,6 +36,7 @@ final class TaleTest extends TestCase
         $tale = new Tale();
         $tale->title = 'Ali Baba i czterdziestu rozbójników';
 
+        /** @phpstan-ignore method.impossibleType */
         $this->assertNull($tale->slug);
 
         $tale->save();

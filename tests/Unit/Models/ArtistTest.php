@@ -40,6 +40,7 @@ final class ArtistTest extends TestCase
         $artist = new Artist();
         $artist->name = 'Zofia Rysiówna';
 
+        /** @phpstan-ignore method.impossibleType */
         $this->assertNull($artist->slug);
 
         $artist->save();
