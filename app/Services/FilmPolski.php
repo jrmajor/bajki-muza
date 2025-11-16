@@ -30,7 +30,7 @@ class FilmPolski
         )->body();
 
         return rescue(function () use ($source) {
-            $crawler = (new Crawler($source))->filter('.wynikiszukania');
+            $crawler = new Crawler($source)->filter('.wynikiszukania');
 
             if ($crawler->count() === 0) {
                 return [];
@@ -109,7 +109,7 @@ class FilmPolski
     protected function getMainPhoto(string $source): ?string
     {
         return rescue(function () use ($source): ?string {
-            $crawler = (new Crawler($source))
+            $crawler = new Crawler($source)
                 ->filter('.zdjecie')
                 ->filter('img');
 
@@ -124,7 +124,7 @@ class FilmPolski
     protected function getGalleryId(string $source): ?int
     {
         return rescue(function () use ($source): ?int {
-            $crawler = (new Crawler($source))->filter('.galeria_mala');
+            $crawler = new Crawler($source)->filter('.galeria_mala');
 
             if (! $crawler->count()) {
                 return null;
@@ -142,7 +142,7 @@ class FilmPolski
     protected function getPhotosFromGallery(string $gallerySource): array
     {
         return rescue(function () use ($gallerySource): array {
-            $crawler = (new Crawler($gallerySource))
+            $crawler = new Crawler($gallerySource)
                 ->filter('#galeria_osoby')
                 ->children();
 

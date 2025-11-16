@@ -21,13 +21,13 @@ final class ArtistTest extends TestCase
     #[TestDox('it casts discogs id to integer')]
     public function testCastDiscogs(): void
     {
-        $this->assertSame(1023394, (new Artist(['discogs' => '1023394']))->discogs);
+        $this->assertSame(1023394, new Artist(['discogs' => '1023394'])->discogs);
     }
 
     #[TestDox('it casts filmpolski id to integer')]
     public function testCastFilmPolski(): void
     {
-        $this->assertSame(116251, (new Artist(['filmpolski' => '116251']))->filmpolski);
+        $this->assertSame(116251, new Artist(['filmpolski' => '116251'])->filmpolski);
     }
 
     #[TestDox('it generates slug when created')]

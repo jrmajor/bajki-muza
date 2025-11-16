@@ -17,13 +17,13 @@ final class TaleTest extends TestCase
     #[TestDox('it casts year to integer')]
     public function testCastYear(): void
     {
-        $this->assertSame(1973, (new Tale(['year' => '1973']))->year);
+        $this->assertSame(1973, new Tale(['year' => '1973'])->year);
     }
 
     #[TestDox('it casts discogs id to integer')]
     public function testCastDiscogs(): void
     {
-        $this->assertSame(2792351, (new Tale(['discogs' => '2792351']))->discogs);
+        $this->assertSame(2792351, new Tale(['discogs' => '2792351'])->discogs);
     }
 
     #[TestDox('it generates slug when created')]

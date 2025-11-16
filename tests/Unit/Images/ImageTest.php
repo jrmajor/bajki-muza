@@ -41,7 +41,7 @@ final class ImageTest extends TestCase
 
         $this->expectException(OriginalDoesNotExist::class);
 
-        (new TestCover(['filename' => 'test.jpg']))->reprocess();
+        new TestCover(['filename' => 'test.jpg'])->reprocess();
     }
 
     #[TestDox('it deletes variants when reprocessing images')]
@@ -56,7 +56,7 @@ final class ImageTest extends TestCase
 
         Bus::fake();
 
-        (new TestCover(['filename' => 'test.jpg']))->reprocess();
+        new TestCover(['filename' => 'test.jpg'])->reprocess();
 
         TestCover::disk()->assertMissing($vartiantPath);
 
@@ -72,7 +72,7 @@ final class ImageTest extends TestCase
 
         Bus::fake();
 
-        (new TestCover(['filename' => 'test.jpg']))->reprocess();
+        new TestCover(['filename' => 'test.jpg'])->reprocess();
 
         Bus::assertDispatched(ProcessImage::class);
     }
@@ -82,7 +82,7 @@ final class ImageTest extends TestCase
     {
         $this->assertSame(
             'testFilename.jpg',
-            (new TestCover(['filename' => 'testFilename.jpg']))->filename(),
+            new TestCover(['filename' => 'testFilename.jpg'])->filename(),
         );
     }
 
@@ -114,12 +114,12 @@ final class ImageTest extends TestCase
 
         $this->assertStringEndsWith(
             '/covers/default/testFilename.jpg',
-            (new TestCover(['filename' => 'testFilename.jpg']))->url(),
+            new TestCover(['filename' => 'testFilename.jpg'])->url(),
         );
 
         $this->assertStringEndsWith(
             '/covers/face/testFilename.jpg',
-            (new TestCover(['filename' => 'testFilename.jpg']))->url('face'),
+            new TestCover(['filename' => 'testFilename.jpg'])->url('face'),
         );
     }
 
@@ -128,7 +128,7 @@ final class ImageTest extends TestCase
     {
         $this->assertSame(
             'test placeholder',
-            (new TestCover(['placeholder' => 'test placeholder']))->placeholder(),
+            new TestCover(['placeholder' => 'test placeholder'])->placeholder(),
         );
     }
 
@@ -138,7 +138,7 @@ final class ImageTest extends TestCase
         Storage::fake('testing');
 
         $this->assertTrue(
-            (new TestCover(['filename' => 'fileWithoutOriginal.jpg']))->originalMissing(),
+            new TestCover(['filename' => 'fileWithoutOriginal.jpg'])->originalMissing(),
         );
 
         $uploadedFile = UploadedFile::fake()->image('test.jpg');
@@ -154,14 +154,14 @@ final class ImageTest extends TestCase
         Storage::fake('testing');
 
         $this->assertTrue(
-            (new TestCover(['filename' => 'fileWithoutDefaultVariant.jpg']))
+            new TestCover(['filename' => 'fileWithoutDefaultVariant.jpg'])
                 ->variantMissing('default'),
         );
 
         TestCover::disk()->put('covers/default/fileWithDefaultVariant.jpg', 'contents');
 
         $this->assertFalse(
-            (new TestCover(['filename' => 'fileWithDefaultVariant.jpg']))
+            new TestCover(['filename' => 'fileWithDefaultVariant.jpg'])
                 ->variantMissing('default'),
         );
     }
@@ -175,7 +175,7 @@ final class ImageTest extends TestCase
 
         $this->assertSame(
             ['default'],
-            (new TestCover(['filename' => 'fileWithMissingVariants.jpg']))
+            new TestCover(['filename' => 'fileWithMissingVariants.jpg'])
                 ->missingVariants(),
         );
     }

@@ -25,8 +25,8 @@ final class PhotoTest extends TestCase
     #[TestDox('it casts dimensions to integers')]
     public function testDimensionsCast(): void
     {
-        $this->assertSame(2137, (new Photo(['width' => '2137']))->width);
-        $this->assertSame(2115, (new Photo(['height' => '2115']))->height);
+        $this->assertSame(2137, new Photo(['width' => '2137'])->width);
+        $this->assertSame(2115, new Photo(['height' => '2115'])->height);
     }
 
     #[TestDox('it casts crop to ArtistPhotoCrop')]
@@ -72,7 +72,7 @@ final class PhotoTest extends TestCase
     {
         $this->assertSame(
             'photos/original/test.jpg',
-            (new Photo(['filename' => 'test.jpg']))->originalPath(),
+            new Photo(['filename' => 'test.jpg'])->originalPath(),
         );
     }
 
@@ -81,7 +81,7 @@ final class PhotoTest extends TestCase
     {
         $this->assertSame(
             'photos/default/test.jpg',
-            (new Photo(['filename' => 'test.jpg']))->variantPath('default'),
+            new Photo(['filename' => 'test.jpg'])->variantPath('default'),
         );
     }
 
@@ -90,7 +90,7 @@ final class PhotoTest extends TestCase
     {
         $this->assertSame(
             'photos/face/test.jpg',
-            (new Photo(['filename' => 'test.jpg']))->variantPath('face'),
+            new Photo(['filename' => 'test.jpg'])->variantPath('face'),
         );
     }
 

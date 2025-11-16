@@ -22,7 +22,7 @@ final class CoverTest extends TestCase
     #[TestDox('it casts size to integers')]
     public function testSizeCast(): void
     {
-        $this->assertSame(2137, (new Cover(['size' => '2137']))->size);
+        $this->assertSame(2137, new Cover(['size' => '2137'])->size);
     }
 
     #[TestDox('it stores new cover in correct path and dispatches necessary jobs to process it')]
@@ -46,7 +46,7 @@ final class CoverTest extends TestCase
     {
         $this->assertSame(
             'covers/original/test.jpg',
-            (new Cover(['filename' => 'test.jpg']))->originalPath(),
+            new Cover(['filename' => 'test.jpg'])->originalPath(),
         );
     }
 
@@ -55,7 +55,7 @@ final class CoverTest extends TestCase
     {
         $this->assertSame(
             'covers/default/test.jpg',
-            (new Cover(['filename' => 'test.jpg']))->variantPath('default'),
+            new Cover(['filename' => 'test.jpg'])->variantPath('default'),
         );
     }
 

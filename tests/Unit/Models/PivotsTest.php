@@ -13,7 +13,7 @@ final class PivotsTest extends TestCase
     #[TestDox('actor pivot casts values')]
     public function testActor(): void
     {
-        $casts = (new Actor())->getCasts();
+        $casts = new Actor()->getCasts();
 
         $this->assertSame('int', $casts['credit_nr']);
     }
@@ -21,7 +21,7 @@ final class PivotsTest extends TestCase
     #[TestDox('credit pivot casts values')]
     public function testCredit(): void
     {
-        $casts = (new Credit())->getCasts();
+        $casts = new Credit()->getCasts();
 
         $this->assertSame(CreditType::class, $casts['type']);
         $this->assertSame('int', $casts['nr']);
