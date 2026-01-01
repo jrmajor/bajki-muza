@@ -17,7 +17,7 @@ final class GenerateSitemapTest extends TestCase
 
         $this->get('sitemap.xml')
             ->assertOk()
-            ->assertHeader('Content-Type', 'text/xml; charset=UTF-8')
+            ->assertHeader('Content-Type', 'text/xml; charset=utf-8')
             ->assertSee([
                 '<loc>' . url('artysci') . '</loc>',
                 '<loc>' . url("artysci/{$artists[0]->slug}") . '</loc>',

@@ -17,7 +17,7 @@ use Psl\Vec;
 
 class Wikipedia
 {
-    private const Endpoint = 'https://pl.wikipedia.org/w/api.php';
+    private const string Endpoint = 'https://pl.wikipedia.org/w/api.php';
 
     public function __construct(
         #[Config('services.user_agent')] protected string $userAgent,
