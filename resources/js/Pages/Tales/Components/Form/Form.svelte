@@ -15,6 +15,7 @@
 		action: 'create' | 'edit';
 	} = $props();
 
+	// svelte-ignore state_referenced_locally
 	const form = useForm({
 		title: tale.title,
 		year: tale.year,

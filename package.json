@@ -11,13 +11,13 @@
 		"show-bundle": "vite-bundle-visualizer"
 	},
 	"dependencies": {
-		"@inertiajs/core": "^2.2",
-		"@inertiajs/svelte": "^2.2",
-		"@tailwindcss/forms": "^0.5.10",
+		"@inertiajs/core": "^2.3",
+		"@inertiajs/svelte": "^2.3",
+		"@tailwindcss/forms": "^0.5.11",
 		"esm-env": "^1.2",
-		"posthog-js": "^1.293.0",
+		"posthog-js": "^1.327",
 		"pretty-bytes": "^7.1",
-		"svelte": "^5.43",
+		"svelte": "^5.46",
 		"tailwindcss": "^4.1"
 	},
 	"devDependencies": {
@@ -30,7 +30,7 @@
 		"laravel-vite-plugin": "^2.0",
 		"svelte-check": "^4.3",
 		"typescript": "^5.9",
-		"vite": "^7.2",
+		"vite": "^7.3",
 		"vite-bundle-visualizer": "^1.2"
 	},
 	"devEngines": {

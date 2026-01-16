@@ -11,6 +11,7 @@
 
 	let { artist }: { artist: EditResource } = $props();
 
+	// svelte-ignore state_referenced_locally
 	const form = useForm({
 		name: artist.name,
 		genetivus: artist.genetivus,

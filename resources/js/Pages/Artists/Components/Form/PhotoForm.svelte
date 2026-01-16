@@ -40,6 +40,7 @@
 		$form.photo.grayscale = activePicker.type === 'current' ? (currentPhoto?.grayscale ?? true) : true;
 	});
 
+	// svelte-ignore state_referenced_locally
 	let faceCrop: CropValue = $state({
 		x: currentPhoto?.crop.face.x ?? 0,
 		y: currentPhoto?.crop.face.y ?? 0,
