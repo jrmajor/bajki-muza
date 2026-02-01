@@ -15,9 +15,9 @@
 		"@inertiajs/svelte": "^2.3",
 		"@tailwindcss/forms": "^0.5.11",
 		"esm-env": "^1.2",
-		"posthog-js": "^1.327",
+		"posthog-js": "^1.336",
 		"pretty-bytes": "^7.1",
-		"svelte": "^5.46",
+		"svelte": "^5.49",
 		"tailwindcss": "^4.1"
 	},
 	"devDependencies": {
@@ -27,7 +27,7 @@
 		"@types/node": "^24.10",
 		"eslint": "^9.39",
 		"globals": "^16.5",
-		"laravel-vite-plugin": "^2.0",
+		"laravel-vite-plugin": "^2.1",
 		"svelte-check": "^4.3",
 		"typescript": "^5.9",
 		"vite": "^7.3",
