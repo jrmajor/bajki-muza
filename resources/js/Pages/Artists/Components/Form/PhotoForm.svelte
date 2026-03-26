@@ -110,7 +110,7 @@
 	let showCropper = $state(true);
 
 	$effect(() => {
-		// eslint-disable-next-line no-unused-expressions
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		previewUrl;
 		if (activePicker.type === 'current') {
 			$form.photo.crop.image = currentPhoto!.crop.image;

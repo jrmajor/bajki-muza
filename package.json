@@ -21,11 +21,11 @@
 		"tailwindcss": "^4.2"
 	},
 	"devDependencies": {
-		"@jrmajor/eslint-config": "^0.2.1",
+		"@jrmajor/eslint-config": "^0.3.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0",
 		"@tailwindcss/vite": "^4.2",
 		"@types/node": "^24.12",
-		"eslint": "^9.39",
+		"eslint": "^10.1",
 		"globals": "*",
 		"laravel-vite-plugin": "^3.0",
 		"svelte-check": "^4.4",

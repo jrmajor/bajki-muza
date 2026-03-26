@@ -40,6 +40,7 @@ function scale(box: Box, factor: number, origin: Coordinates): Box {
 	return resize(box, newWidth, newHeight, origin);
 }
 
+// eslint-disable-next-line @stylistic/exp-list-style
 function getAbsolutePoint(box: Box, [x, y]: Coordinates): Coordinates {
 	return [
 		box.x + (box.width * x),
