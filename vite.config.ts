@@ -1,4 +1,4 @@
-import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
@@ -11,14 +11,7 @@ export default defineConfig({
 			ssr: 'resources/js/ssr.ts',
 			refresh: true,
 		}),
-		svelte({
-			preprocess: [vitePreprocess()],
-			dynamicCompileOptions({ filename }) {
-				if (!filename.includes('node_modules')) {
-					return { runes: true };
-				}
-			},
-		}),
+		svelte(),
 		tailwindcss(),
 		inertia('resources/js/viteSsr.ts'),
 	],
