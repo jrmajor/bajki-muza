@@ -12,4 +12,7 @@ $finder = PhpCsFixer\Finder::create()
 
 return Major\CS\config($finder, [
     'no_null_property_initialization' => false,
+    'heredoc_closing_marker' => [
+        'reserved_closing_markers' => ['BLADE', 'FTL', 'JS', 'JSON', 'PHP', 'SQL', 'XML', 'YAML'],
+    ],
 ])->setCacheFile('.cache/.php-cs-fixer.cache');

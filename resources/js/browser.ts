@@ -1,7 +1,10 @@
 import { hydrate, mount } from 'svelte';
 import { createInertiaApp } from '@inertiajs/svelte';
 import posthog from 'posthog-js';
+import { Ziggy } from '@/ziggy/index.js';
 import { resolve } from './common';
+
+globalThis.Ziggy = Ziggy;
 
 if (window.config.posthogToken) {
 	posthog.init(window.config.posthogToken, {

@@ -1,9 +1,8 @@
 declare global {
-	interface Window {
-		config: {
-			posthogToken: string | null;
-		};
-	}
+	var Ziggy: any;
+	var config: {
+		posthogToken: string | null;
+	};
 }
 
 export { };

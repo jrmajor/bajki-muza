@@ -1,13 +1,10 @@
 <?php
 
 return [
-
     'output' => [
-        'path' => 'resources/js/types/ziggy.js',
+        'path' => 'resources/js/ziggy/index.js',
+        'types' => App\Support\ZiggyTypesOutput::class,
     ],
-
-    'skip-route-function' => true,
-
     'only' => [
         'ajax.*',
         'tales.*',
@@ -15,5 +12,4 @@ return [
         'login',
         'logout',
     ],
-
 ];

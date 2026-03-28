@@ -23,7 +23,6 @@
 			@vite(['resources/js/browser.ts', "resources/js/Pages/{$page['component']}.svelte"])
 		@endunless
 
-		@routes
 		@inertiaHead
 
 		@if (config('services.fathom.id'))

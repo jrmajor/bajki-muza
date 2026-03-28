@@ -2,6 +2,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
+import run from 'vite-plugin-run';
 import inertia from './resources/js/inertiaVitePlugin';
 
 export default defineConfig({
@@ -11,17 +12,20 @@ export default defineConfig({
 			ssr: 'resources/js/ssr.ts',
 			refresh: true,
 		}),
+		inertia('resources/js/viteSsr.ts'),
+		run({
+			name: 'ziggy',
+			pattern: 'routes/*.php',
+			run: ['php', 'artisan', 'ziggy:generate', '--types'],
+			build: false,
+		}),
 		svelte(),
 		tailwindcss(),
-		inertia('resources/js/viteSsr.ts'),
 	],
 	build: {
 		assetsInlineLimit: 4096,
 	},
 	resolve: {
-		alias: {
-			'ziggy-js': `${import.meta.dirname}/vendor/tightenco/ziggy`,
-			$style: `${import.meta.dirname}/resources/css/style.css`,
-		},
+		tsconfigPaths: true,
 	},
 });

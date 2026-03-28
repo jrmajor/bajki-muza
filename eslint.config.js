@@ -28,7 +28,7 @@ export default defineConfig([
 		'bootstrap/ssr',
 		'public/build',
 		'public/vendor',
-		'resources/js/types/ziggy.*',
+		'resources/js/ziggy',
 		// todo: @eslint/css errors
 		'resources/css/headers.css',
 		'resources/css/placeholders.css',
