@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import randomKey from '@/helpers/randomKey';
 	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
-	let { form }: {
-		form: Writable<InertiaForm<{
+	let { form = $bindable() }: {
+		form: InertiaForm<{
 			actors: Array<{
 				artist: string;
 				characters: string | null;
@@ -16,11 +15,11 @@
 				noTransitions: boolean;
 				hasDeletedElement: null | 'above' | 'below';
 			}>;
-		}>>;
+		}>;
 	} = $props();
 
 	function addActor() {
-		$form.actors = [...$form.actors, {
+		form.actors.push({
 			artist: '',
 			characters: '',
 			key: randomKey(),
@@ -28,11 +27,11 @@
 			isDraggedOver: null,
 			noTransitions: false,
 			hasDeletedElement: null,
-		}];
+		});
 	}
 
 	function removeActor(index: number) {
-		$form.actors = [...$form.actors.slice(0, index), ...$form.actors.slice(index + 1)];
+		form.actors.splice(index, 1);
 	}
 
 	const actorDragId = randomKey();
@@ -40,11 +39,11 @@
 	function onDragStart(event: DragEvent, index: number) {
 		event.dataTransfer!.setData('dragId', actorDragId);
 		event.dataTransfer!.setData('index', index.toString());
-		$form.actors[index].isDragged = true;
+		form.actors[index].isDragged = true;
 	}
 
 	function onDragEnd(index: number) {
-		$form.actors[index].isDragged = false;
+		form.actors[index].isDragged = false;
 	}
 
 	function onDragOver(event: DragEvent, destination: number) {
@@ -57,14 +56,14 @@
 		if (currentIndex === destination) return;
 
 		if (currentIndex < destination) {
-			$form.actors[destination].isDraggedOver = 'fromAbove';
+			form.actors[destination].isDraggedOver = 'fromAbove';
 		} else {
-			$form.actors[destination].isDraggedOver = 'fromBelow';
+			form.actors[destination].isDraggedOver = 'fromBelow';
 		}
 	}
 
 	function onDragLeave(index: number) {
-		$form.actors[index].isDraggedOver = null;
+		form.actors[index].isDraggedOver = null;
 	}
 
 	function onDrop(event: DragEvent, destination: number) {
@@ -74,30 +73,28 @@
 
 		if (currentIndex === destination) return;
 
-		let { actors } = $form;
-
-		const priorDestinationElement = actors[destination];
+		const priorDestinationElement = form.actors[destination];
 
 		priorDestinationElement.noTransitions = true;
 		priorDestinationElement.isDraggedOver = null;
 
-		const dragged = actors[currentIndex];
+		const dragged = form.actors[currentIndex];
 
 		// if the element is dragged from above, insert it below
 		// if the element is dragged from below, insert it above
 		if (currentIndex < destination) destination += 1;
 
-		actors.splice(destination, 0, dragged);
+		form.actors.splice(destination, 0, dragged);
 
 		// if element was inserted above original location,
 		// its index increased by one
 		const indexToDelete = destination < currentIndex ? currentIndex + 1 : currentIndex;
 
-		actors.splice(indexToDelete, 1);
+		form.actors.splice(indexToDelete, 1);
 
 		// this element will be used to imitate place after moved element
 		// by adding padding, which will then be transitioned back to normal
-		const elementNearDeleted = actors[currentIndex];
+		const elementNearDeleted = form.actors[currentIndex];
 
 		elementNearDeleted.noTransitions = true;
 
@@ -114,9 +111,7 @@
 			priorDestinationElement.noTransitions = false;
 		});
 
-		actors.forEach((a) => a.isDraggedOver = null);
-
-		$form.actors = actors;
+		form.actors.forEach((a) => a.isDraggedOver = null);
 	}
 </script>
 
@@ -140,7 +135,7 @@
 		</div>
 	</div>
 	<div class="w-full flex gap-1.5 flex-wrap">
-		{#each $form.actors as actor, index (actor.key)}
+		{#each form.actors as actor, index (actor.key)}
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
 				class={{

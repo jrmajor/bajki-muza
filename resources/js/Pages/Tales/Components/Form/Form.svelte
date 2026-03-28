@@ -15,8 +15,8 @@
 		action: 'create' | 'edit';
 	} = $props();
 
-	// svelte-ignore state_referenced_locally
-	const form = useForm({
+	// svelte-ignore non_reactive_update, state_referenced_locally
+	let form = useForm({
 		title: tale.title,
 		year: tale.year,
 		nr: tale.nr,
@@ -38,19 +38,19 @@
 		})),
 	});
 
-	let errors = $derived(Object.values($form.errors));
+	let errors = $derived(Object.values(form.errors));
 
-	let discogsUrl = $derived($form.discogs ? `https://www.discogs.com/release/${$form.discogs}` : null);
+	let discogsUrl = $derived(form.discogs ? `https://www.discogs.com/release/${form.discogs}` : null);
 
 	function updatedDiscogs() {
-		const id = String($form.discogs).match(/discogs\.com\/(?:.*\/)?release\/([0-9]+)/);
-		if (id !== null) $form.discogs = parseInt(id[1]);
+		const id = String(form.discogs).match(/discogs\.com\/(?:.*\/)?release\/([0-9]+)/);
+		if (id !== null) form.discogs = parseInt(id[1]);
 	}
 
 	function onsubmit(event: SubmitEvent) {
 		event.preventDefault();
 
-		$form.transform((data) => ({
+		form.transform((data) => ({
 			_method: action === 'create' ? 'post' : 'put',
 			title: data.title,
 			year: data.year,
@@ -90,16 +90,16 @@
 	<div class="flex flex-col gap-2 sm:flex-row sm:gap-5">
 		<div class="flex flex-col w-full sm:w-1/2">
 			<Label for="title">Tytuł</Label>
-			<input type="text" id="title" bind:value={$form.title} class="w-full form-input">
+			<input type="text" id="title" bind:value={form.title} class="w-full form-input">
 		</div>
 		<div class="flex gap-5 w-full sm:w-1/2">
 			<div class="flex flex-col items-stretch w-1/2">
 				<Label for="year">Rok</Label>
-				<input type="text" id="year" bind:value={$form.year} class="w-full form-input">
+				<input type="text" id="year" bind:value={form.year} class="w-full form-input">
 			</div>
 			<div class="flex flex-col items-stretch w-1/2">
 				<Label for="nr">№</Label>
-				<input type="text" id="nr" bind:value={$form.nr} class="w-full form-input">
+				<input type="text" id="nr" bind:value={form.nr} class="w-full form-input">
 			</div>
 		</div>
 	</div>
@@ -110,7 +110,7 @@
 			<input
 				type="text"
 				id="discogs"
-				bind:value={$form.discogs}
+				bind:value={form.discogs}
 				oninput={updatedDiscogs}
 				class="w-full form-input"
 			>
@@ -122,15 +122,15 @@
 		</div>
 	</div>
 
-	<CoverForm currentCover={tale.cover} {form} {action}/>
+	<CoverForm currentCover={tale.cover} bind:form {action}/>
 
-	<CreditsForm {form}/>
+	<CreditsForm bind:form/>
 
-	<ActorsForm {form}/>
+	<ActorsForm bind:form/>
 
 	<div class="flex flex-col w-full">
 		<Label for="notes">Notatki</Label>
-		<textarea bind:value={$form.notes} id="notes" rows="5" class="form-input field-sizing-content w-full"></textarea>
+		<textarea bind:value={form.notes} id="notes" rows="5" class="form-input field-sizing-content w-full"></textarea>
 	</div>
 
 	<Button class="self-center">Zapisz</Button>

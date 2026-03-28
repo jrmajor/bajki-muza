@@ -11,8 +11,7 @@
 		"show-bundle": "vite-bundle-visualizer"
 	},
 	"dependencies": {
-		"@inertiajs/core": "^2.3",
-		"@inertiajs/svelte": "^2.3",
+		"@inertiajs/svelte": "^3.0",
 		"@tailwindcss/forms": "^0.5.11",
 		"esm-env": "^1.2",
 		"posthog-js": "^1.363",
@@ -21,6 +20,7 @@
 		"tailwindcss": "^4.2"
 	},
 	"devDependencies": {
+		"@inertiajs/vite": "^3.0",
 		"@jrmajor/eslint-config": "^0.3.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0",
 		"@tailwindcss/vite": "^4.2",

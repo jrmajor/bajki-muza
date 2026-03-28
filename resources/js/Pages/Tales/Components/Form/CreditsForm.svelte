@@ -1,13 +1,12 @@
 <script lang="ts">
-	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import type { CreditType } from '@/types/tales';
 	import { creditLabels } from '@/helpers/creditLabels';
 	import randomKey from '@/helpers/randomKey';
 	import ArtistPicker from '@/Components/ComboBox/ArtistPicker.svelte';
 
-	let { form }: {
-		form: Writable<InertiaForm<{
+	let { form = $bindable() }: {
+		form: InertiaForm<{
 			credits: Array<{
 				artist: string;
 				type: CreditType;
@@ -15,15 +14,15 @@
 				nr: number | null;
 				key: string;
 			}>;
-		}>>;
+		}>;
 	} = $props();
 
 	function addCredit() {
-		$form.credits = [...$form.credits, { artist: '', type: 'text', as: '', nr: 0, key: randomKey() }];
+		form.credits.push({ artist: '', type: 'text', as: '', nr: 0, key: randomKey() });
 	}
 
 	function removeCredit(index: number) {
-		$form.credits = [...$form.credits.slice(0, index), ...$form.credits.slice(index + 1)];
+		form.credits.splice(index, 1);
 	}
 </script>
 
@@ -48,7 +47,7 @@
 		</div>
 	</div>
 	<div class="flex flex-wrap gap-1.5 w-full">
-		{#each $form.credits as credit, index (credit.key)}
+		{#each form.credits as credit, index (credit.key)}
 			<div class="flex items-center gap-2 w-full">
 				<div class="w-1/2 shrink-1">
 					<ArtistPicker bind:value={credit.artist}/>

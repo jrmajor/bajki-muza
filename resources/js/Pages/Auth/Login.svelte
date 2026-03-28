@@ -11,7 +11,7 @@
 
 	function onsubmit(event: SubmitEvent) {
 		event.preventDefault();
-		$form.post(route('login'));
+		form.post(route('login'));
 	}
 </script>
 
@@ -25,14 +25,14 @@
 
 <form {onsubmit} class="flex flex-col gap-5 mt-5">
 	<div class="flex flex-col gap-2 items-center sm:flex-row">
-		<input type="text" bind:value={$form.username} class="w-full form-input">
-		<input type="password" bind:value={$form.password} class="w-full form-input">
+		<input type="text" bind:value={form.username} class="w-full form-input">
+		<input type="password" bind:value={form.password} class="w-full form-input">
 	</div>
 
 	<div class="flex justify-between items-center">
 		<div>
-			<input type="checkbox" id="remember" bind:checked={$form.remember} class="hidden">
-			<label for="remember" class="text-2xl">{$form.remember ? '🦞' : '🦎'}</label>
+			<input type="checkbox" id="remember" bind:checked={form.remember} class="hidden">
+			<label for="remember" class="text-2xl">{form.remember ? '🦞' : '🦎'}</label>
 		</div>
 
 		<button type="submit" class="text-2xl">🐠</button>

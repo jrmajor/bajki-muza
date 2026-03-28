@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
 	import type { ArtistPhotoCrop, EditPhotoResource } from '@/types/artists';
@@ -7,9 +6,9 @@
 	import Label from '@/Components/Form/Label.svelte';
 	import { boxToFaceCrop, faceCropToBox } from './helpers';
 
-	let { currentPhoto, form }: {
+	let { currentPhoto, form = $bindable() }: {
 		currentPhoto: EditPhotoResource | null;
-		form: Writable<InertiaForm<{
+		form: InertiaForm<{
 			photo: {
 				file: File | null;
 				url: string | null;
@@ -18,7 +17,7 @@
 				source: string | null;
 				grayscale: boolean;
 			};
-		}>>;
+		}>;
 	} = $props();
 
 	let activePicker: Picker = $state({ type: 'current' });
@@ -30,14 +29,14 @@
 			| { type: 'uri', uri: string, uriFrom: 'discogs' | 'filmpolski' };
 
 	$effect(() => {
-		$form.photo.file = activePicker.type === 'upload' ? activePicker.file : null;
-		$form.photo.url = activePicker.type === 'uri' ? activePicker.uri : null;
-		$form.photo.remove = activePicker.type === 'remove';
+		form.photo.file = activePicker.type === 'upload' ? activePicker.file : null;
+		form.photo.url = activePicker.type === 'uri' ? activePicker.uri : null;
+		form.photo.remove = activePicker.type === 'remove';
 	});
 
 	$effect(() => {
-		if (activePicker.type === 'remove') $form.photo.source = null;
-		$form.photo.grayscale = activePicker.type === 'current' ? (currentPhoto?.grayscale ?? true) : true;
+		if (activePicker.type === 'remove') form.photo.source = null;
+		form.photo.grayscale = activePicker.type === 'current' ? (currentPhoto?.grayscale ?? true) : true;
 	});
 
 	// svelte-ignore state_referenced_locally
@@ -50,7 +49,7 @@
 
 	$effect(() => {
 		if (!faceCrop) return;
-		$form.photo.crop.face = boxToFaceCrop(faceCrop);
+		form.photo.crop.face = boxToFaceCrop(faceCrop);
 	});
 
 	export function setPhotoUri(uri: string, source: 'discogs' | 'filmpolski') {
@@ -59,8 +58,8 @@
 		}
 
 		activePicker = { type: 'uri', uri, uriFrom: source };
-		$form.photo.source = source;
-		$form.photo.grayscale = true;
+		form.photo.source = source;
+		form.photo.grayscale = true;
 	}
 
 	let filesInput: HTMLInputElement;
@@ -70,8 +69,8 @@
 
 		if (file) {
 			activePicker = { type: 'upload', file };
-			$form.photo.source = null;
-			$form.photo.grayscale = true;
+			form.photo.source = null;
+			form.photo.grayscale = true;
 		} else {
 			resetPickerToCurrent();
 		}
@@ -80,15 +79,15 @@
 	function resetPickerToCurrent() {
 		activePicker = { type: 'current' };
 
-		$form.photo.source = currentPhoto?.source ?? null;
-		$form.photo.grayscale = currentPhoto?.grayscale ?? true;
+		form.photo.source = currentPhoto?.source ?? null;
+		form.photo.grayscale = currentPhoto?.grayscale ?? true;
 	}
 
 	function setPickerToRemove() {
 		activePicker = { type: 'remove' };
 
-		$form.photo.source = null;
-		$form.photo.grayscale = true;
+		form.photo.source = null;
+		form.photo.grayscale = true;
 	}
 
 	let previewUrl = $derived.by(() => {
@@ -113,10 +112,10 @@
 		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		previewUrl;
 		if (activePicker.type === 'current') {
-			$form.photo.crop.image = currentPhoto!.crop.image;
+			form.photo.crop.image = currentPhoto!.crop.image;
 			faceCrop = faceCropToBox(currentPhoto!.crop.face);
 		} else {
-			$form.photo.crop.image = { x: 0, y: 0, width: 0, height: 0 };
+			form.photo.crop.image = { x: 0, y: 0, width: 0, height: 0 };
 			faceCrop = { x: 0, y: 0, width: 0, height: 0 };
 		}
 	});
@@ -181,12 +180,12 @@
 	<div class="flex flex-row gap-5 items-center">
 		<div class="flex flex-row grow gap-2 items-center">
 			<Label for="photo-source" inline small>Źródło</Label>
-			<input type="text" id="photo-source" bind:value={$form.photo.source} class="py-1 px-2 w-full text-sm form-input">
+			<input type="text" id="photo-source" bind:value={form.photo.source} class="py-1 px-2 w-full text-sm form-input">
 		</div>
 
 		<div class="flex flex-row flex-none items-center">
 			<Label for="photo-grayscale" inline small>Cz-B.</Label>
-			<input type="checkbox" id="photo-grayscale" bind:checked={$form.photo.grayscale} class="rounded-sm border-gray-300">
+			<input type="checkbox" id="photo-grayscale" bind:checked={form.photo.grayscale} class="rounded-sm border-gray-300">
 		</div>
 	</div>
 
@@ -203,19 +202,19 @@
 				<tbody>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">x:</td>
-						<td class="px-1">{$form.photo.crop.face.x}</td>
+						<td class="px-1">{form.photo.crop.face.x}</td>
 					</tr>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">y:</td>
-						<td class="px-1">{$form.photo.crop.face.y}</td>
+						<td class="px-1">{form.photo.crop.face.y}</td>
 					</tr>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">width:</td>
-						<td class="px-1">{$form.photo.crop.face.size}</td>
+						<td class="px-1">{form.photo.crop.face.size}</td>
 					</tr>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">height:</td>
-						<td class="px-1">{$form.photo.crop.face.size}</td>
+						<td class="px-1">{form.photo.crop.face.size}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -225,26 +224,26 @@
 			<div>
 				<Cropper
 					src={previewUrl}
-					bind:crop={$form.photo.crop.image}
+					bind:crop={form.photo.crop.image}
 				/>
 			</div>
 			<table>
 				<tbody>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">x:</td>
-						<td class="px-1">{$form.photo.crop.image.x}</td>
+						<td class="px-1">{form.photo.crop.image.x}</td>
 					</tr>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">y:</td>
-						<td class="px-1">{$form.photo.crop.image.y}</td>
+						<td class="px-1">{form.photo.crop.image.y}</td>
 					</tr>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">width:</td>
-						<td class="px-1">{$form.photo.crop.image.width}</td>
+						<td class="px-1">{form.photo.crop.image.width}</td>
 					</tr>
 					<tr>
 						<td class="px-1 text-sm font-medium text-right">height:</td>
-						<td class="px-1">{$form.photo.crop.image.height}</td>
+						<td class="px-1">{form.photo.crop.image.height}</td>
 					</tr>
 				</tbody>
 			</table>

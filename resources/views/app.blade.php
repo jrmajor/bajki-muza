@@ -7,7 +7,9 @@
 		<meta name="theme-color" content="#ebebeb" media="(prefers-color-scheme: light)">
 		<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 
-		<title inertia>Bajki Polskich Nagrań „Muza”</title>
+		<x-inertia::head>
+			<title>Bajki Polskich Nagrań „Muza”</title>
+		</x-inertia::head>
 
 		<link rel="preconnect" href="https://rsms.me/">
 		<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -20,10 +22,8 @@
 
 		@unless (app()->runningUnitTests())
 			@vite('resources/css/style.css')
-			@vite(['resources/js/browser.ts', "resources/js/Pages/{$page['component']}.svelte"])
+			@vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.svelte"])
 		@endunless
-
-		@inertiaHead
 
 		@if (config('services.fathom.id'))
 			<script
@@ -35,6 +35,6 @@
 		@endif
 	</head>
 	<body class="bg-gray-200 font-sans text-gray-900 scheme-light-dark dark:bg-gray-950 dark:text-gray-200">
-		@inertia
+		<x-inertia::app/>
 	</body>
 </html>

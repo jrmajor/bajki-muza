@@ -1,16 +1,15 @@
 <script lang="ts">
-	import type { Writable } from 'svelte/store';
 	import { type InertiaForm } from '@inertiajs/svelte';
 	import prettyBytes from 'pretty-bytes';
 	import type { CoverResource } from '@/types/tales';
 	import Label from '@/Components/Form/Label.svelte';
 
-	let { currentCover, form, action }: {
+	let { currentCover, form = $bindable(), action }: {
 		currentCover: CoverResource | null;
-		form: Writable<InertiaForm<{
+		form: InertiaForm<{
 			removeCover: boolean;
 			cover: File | null;
-		}>>;
+		}>;
 		action: 'create' | 'edit';
 	} = $props();
 
@@ -18,18 +17,18 @@
 	let file: File | null = $state(null);
 
 	let previewUrl = $derived.by(() => {
-		if ($form.removeCover) return null;
+		if (form.removeCover) return null;
 		if (file) return URL.createObjectURL(file);
 		return currentCover?.url[128] ?? null;
 	});
 
 	$effect(() => {
-		$form.cover = file;
-		if (file) $form.removeCover = false;
+		form.cover = file;
+		if (file) form.removeCover = false;
 	});
 
 	$effect(() => {
-		if ($form.removeCover) deselectFile();
+		if (form.removeCover) deselectFile();
 	});
 
 	function deselectFile() {
@@ -68,10 +67,10 @@
 			>
 		</label>
 		{#if action === 'edit'}
-			{#if $form.removeCover}
+			{#if form.removeCover}
 				<button
 					type="button"
-					onclick={() => $form.removeCover = false}
+					onclick={() => form.removeCover = false}
 					class="
 						flex-none px-3 py-2 bg-red-600 text-red-100 rounded-md border-red-600 font-medium text-sm
 						hover:bg-red-500 hover:border-red-500 hover:text-white
@@ -83,7 +82,7 @@
 			{:else}
 				<button
 					type="button"
-					onclick={() => $form.removeCover = true}
+					onclick={() => form.removeCover = true}
 					class="
 						flex-none rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium
 						hover:bg-red-100 hover:text-red-700
