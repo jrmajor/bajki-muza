@@ -91,7 +91,7 @@
 			// @ts-expect-error value shold be Value | string if allowsAnyString is true
 			value = searchValue;
 		} else {
-			searchValue = String(value);
+			searchValue = value === null ? '' : String(value);
 		}
 
 		hoveredIndex = null;
