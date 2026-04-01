@@ -26,8 +26,8 @@
 		"spatie/laravel-sitemap": "^7.4",
 		"spatie/laravel-sluggable": "^3.8",
 		"spatie/temporary-directory": "^2.2",
-		"symfony/css-selector": "^7.4",
-		"symfony/dom-crawler": "^7.4",
+		"symfony/css-selector": "^8.0",
+		"symfony/dom-crawler": "^8.0",
 		"tightenco/ziggy": "^2.6"
 	},
 	"require-dev": {
