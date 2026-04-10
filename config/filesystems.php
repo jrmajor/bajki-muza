@@ -11,6 +11,7 @@ return [
             'root' => storage_path('app/private'),
             'serve' => true,
             'throw' => true,
+            'report' => true,
         ],
 
         'public' => [
@@ -19,6 +20,7 @@ return [
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => true,
+            'report' => true,
         ],
 
         'media' => [
@@ -30,6 +32,7 @@ return [
             'endpoint' => env('S3_ENDPOINT'),
             'use_path_style_endpoint' => false,
             'throw' => true,
+            'report' => true,
         ],
 
         'backup' => [
@@ -41,6 +44,7 @@ return [
             'endpoint' => env('S3_ENDPOINT'),
             'use_path_style_endpoint' => false,
             'throw' => true,
+            'report' => true,
         ],
 
     ],

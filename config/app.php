@@ -18,12 +18,9 @@ return [
 
     'cipher' => 'AES-256-CBC',
     'key' => env('APP_KEY'),
-    'previous_keys' => [
-        ...array_filter(
-            /** @phpstan-ignore argument.type */
-            explode(',', env('APP_PREVIOUS_KEYS', '')),
-        ),
-    ],
+    'previous_keys' => array_filter(
+        explode(',', (string) env('APP_PREVIOUS_KEYS', '')),
+    ),
 
     'admin_id' => (int) env('ADMIN_ID'),
 

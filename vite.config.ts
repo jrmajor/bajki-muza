@@ -5,6 +5,8 @@ import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
 import run from 'vite-plugin-run';
 
+const dir = import.meta.dirname;
+
 export default defineConfig({
 	plugins: [
 		laravel({
@@ -26,5 +28,12 @@ export default defineConfig({
 	},
 	resolve: {
 		tsconfigPaths: true,
+	},
+	server: {
+		watch: {
+			ignored: [
+				`${dir}/storage/framework/views/**`,
+			],
+		},
 	},
 });

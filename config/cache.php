@@ -23,8 +23,13 @@ return [
             'lock_connection' => 'default',
         ],
 
+        'failover' => [
+            'driver' => 'failover',
+            'stores' => ['database', 'array'],
+        ],
+
     ],
 
-    'prefix' => env('CACHE_PREFIX', 'bajki_muza_cache_'),
+    'prefix' => env('CACHE_PREFIX', 'bajki-muza-cache-'),
 
 ];

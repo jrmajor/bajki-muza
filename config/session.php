@@ -11,7 +11,7 @@ return [
     'table' => 'sessions',
     'store' => env('SESSION_STORE'),
     'lottery' => [2, 100],
-    'cookie' => env('SESSION_COOKIE', 'bajki_muza_session'),
+    'cookie' => env('SESSION_COOKIE', 'bajki-muza-session'),
     'path' => '/',
     'domain' => null,
     'secure' => null,
