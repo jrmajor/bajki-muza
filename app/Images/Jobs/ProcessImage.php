@@ -9,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Intervention\Image\Decoders\BinaryImageDecoder;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ImageManagerInterface;
 use Psl\Encoding\Base64;
@@ -50,7 +49,7 @@ class ProcessImage implements ShouldBeUnique, ShouldQueue
         $destinationPath = $this->image->variantPath($variant);
         $this->image::disk()->put(
             path: $destinationPath,
-            contents: (string) $image->encodeByPath($destinationPath),
+            contents: (string) $image->encodeUsingPath($destinationPath),
             options: 'public',
         );
 
@@ -67,7 +66,11 @@ class ProcessImage implements ShouldBeUnique, ShouldQueue
      */
     public function generatePlaceholder(ImageInterface $image): string
     {
-        $dataUri = $image->scale(height: 32)->blur()->toJpeg()->toDataUri();
+        $dataUri = $image
+            ->scale(height: 32)
+            ->blur()
+            ->encodeUsingMediaType('image/jpeg')
+            ->toDataUri();
 
         $svg = view('placeholderSvg', [
             'width' => $image->width(),
@@ -83,6 +86,6 @@ class ProcessImage implements ShouldBeUnique, ShouldQueue
         $manager = app(ImageManagerInterface::class);
         $contents = $this->image::disk()->get($this->image->originalPath());
 
-        return $manager->read($contents, BinaryImageDecoder::class);
+        return $manager->decodeBinary($contents);
     }
 }

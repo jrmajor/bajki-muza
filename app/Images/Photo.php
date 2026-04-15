@@ -40,7 +40,7 @@ final class Photo extends Image
             $image->crop($crop->width, $crop->height, $crop->x, $crop->y);
         }
 
-        return $this->grayscale ? $image->greyscale() : $image;
+        return $this->grayscale ? $image->grayscale() : $image;
     }
 
     public function saveDimensions(int $width, int $height): void
