@@ -3,9 +3,8 @@ allowBuilds:
   core-js: false
   esbuild: true
   protobufjs: false
-  unrs-resolver: true
+  unrs-resolver: false
 
-engineStrict: true
 dedupePeers: true
 strictDepBuilds: true
 strictPeerDependencies: true
