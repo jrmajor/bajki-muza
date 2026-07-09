@@ -58,7 +58,19 @@ final class FilmPolskiTest extends TestCase
             $this->assertSame($movie->photos, $photos[$key]->photos);
         }
 
-        Http::assertSentCount($galleryId === null ? 1 : 2);
+        $requests = [
+            fn ($request) => $request->uri()->host() === 'www.filmpolski.pl'
+                && $request->uri()->path() === 'fp/index.php'
+                && $request->uri()->query()->all() === ['osoba' => (string) $personId],
+        ];
+
+        if ($galleryId !== null) {
+            $requests[] = fn ($request) => $request->uri()->host() === 'www.filmpolski.pl'
+                && $request->uri()->path() === 'fp/index.php'
+                && $request->uri()->query()->all() === ['galeria_osoby' => (string) $galleryId];
+        }
+
+        Http::assertSentInOrder($requests);
     }
 
     #[TestDox('it caches filmpolski photos')]

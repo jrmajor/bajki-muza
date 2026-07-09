@@ -96,12 +96,16 @@ final class EditArtistPhotoTest extends TestCase
 
         $this->asUser()->put("artysci/{$this->artist->slug}", [
             ...$this->attributes,
-            'photo_uri' => $uri = 'https://filmpolski.pl/z1/31z/2431_3.jpg',
+            'photo_uri' => 'https://filmpolski.pl/z1/31z/2431_3.jpg',
             'photo_crop' => ArtistPhotoCrop::fake()->toArray(),
             'photo_source' => 'test source',
         ])->assertRedirect("artysci/{$this->artist->slug}");
 
-        Http::assertSent(fn ($request) => $request->url() === $uri);
+        Http::assertSent(
+            fn ($request) => $request->uri()->host() === 'filmpolski.pl'
+                && $request->uri()->path() === 'z1/31z/2431_3.jpg'
+                && $request->uri()->query()->all() === [],
+        );
 
         $photo = $this->artist->refresh()->photo;
         $this->assertNotNull($photo);

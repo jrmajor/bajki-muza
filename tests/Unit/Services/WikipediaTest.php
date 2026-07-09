@@ -71,7 +71,16 @@ final class WikipediaTest extends TestCase
         $this->assertSame($this->extract, app(Wikipedia::class)->extract('Piotr_Fronczewski'));
 
         Http::assertSent(
-            fn ($request) => $request->url() === 'https://pl.wikipedia.org/w/api.php?action=query&titles=Piotr_Fronczewski&prop=extracts&exintro=1&redirects=1&format=json',
+            fn ($request) => $request->uri()->host() === 'pl.wikipedia.org'
+                && $request->uri()->path() === 'w/api.php'
+                && $request->uri()->query()->all() === [
+                    'action' => 'query',
+                    'titles' => 'Piotr_Fronczewski',
+                    'prop' => 'extracts',
+                    'exintro' => '1',
+                    'redirects' => '1',
+                    'format' => 'json',
+                ],
         );
     }
 

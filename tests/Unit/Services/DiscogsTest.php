@@ -48,7 +48,9 @@ final class DiscogsTest extends TestCase
         $this->comparePhotos(app(Discogs::class)->photos(602473));
 
         Http::assertSent(function ($request) {
-            return $request->url() === 'https://api.discogs.com/artists/602473'
+            return $request->uri()->host() === 'api.discogs.com'
+                && $request->uri()->path() === 'artists/602473'
+                && $request->uri()->query()->all() === []
                 && $request->hasHeader('Authorization', 'Discogs token=4AmTYWLl1H9PVkjZCsrXiQy0e75MMtXehoZdsvkR');
         });
     }

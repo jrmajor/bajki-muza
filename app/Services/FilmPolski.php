@@ -5,11 +5,10 @@ namespace App\Services;
 use App\Values\FilmPolski\Artist;
 use App\Values\FilmPolski\PhotoGroup;
 use Carbon\CarbonInterval;
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Psr7\UriResolver;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str as LStr;
+use Illuminate\Support\Uri;
 use Psl\Dict;
 use Psl\Regex;
 use Psl\Str;
@@ -55,7 +54,8 @@ class FilmPolski
 
     public function url(int $id): string
     {
-        return "https://www.filmpolski.pl/fp/index.php?osoba={$id}";
+        return (string) Uri::of('https://www.filmpolski.pl/fp/index.php')
+            ->withQuery(['osoba' => $id]);
     }
 
     /**
@@ -197,9 +197,10 @@ class FilmPolski
 
     private function resolveUrl(string $url): string
     {
-        return UriResolver::resolve(
-            new Uri('https://www.filmpolski.pl/fp/index.php'),
-            new Uri($url),
+        return (string) Uri::of(
+            Uri::of('https://www.filmpolski.pl/fp/index.php')
+                ->getUri()
+                ->resolve($url),
         );
     }
 }
