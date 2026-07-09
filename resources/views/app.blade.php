@@ -7,6 +7,21 @@
 		<meta name="theme-color" content="#ebebeb" media="(prefers-color-scheme: light)">
 		<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 
+		@php
+			$siteSchema = [
+				'@context' => 'https://schema.org',
+				'@type' => 'WebSite',
+				'name' => 'Bajki Polskich Nagrań „Muza”',
+				'url' => route('home'),
+			];
+		@endphp
+
+		<meta name="application-name" content="Bajki Polskich Nagrań „Muza”">
+		<meta property="og:site_name" content="Bajki Polskich Nagrań „Muza”">
+		<script type="application/ld+json">
+			@json($siteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+		</script>
+
 		<x-inertia::head>
 			<title>Bajki Polskich Nagrań „Muza”</title>
 		</x-inertia::head>
