@@ -43,7 +43,9 @@ class MacrosServiceProvider extends ServiceProvider
                     $model = new $model();
                 }
 
-                return $this->smallForeignId($column ?: $model->getForeignKey());
+                return $this->smallForeignId($column ?: $model->getForeignKey())
+                    ->table($model->getTable())
+                    ->referencesModelColumn($model->getKeyName());
             },
         );
     }
