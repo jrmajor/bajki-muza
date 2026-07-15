@@ -28,20 +28,20 @@ class TaleFactory extends Factory
     {
         return $this->afterCreating(function (Tale $tale) {
             $tale->credits()->attach(
-                Artist::factory()->createOne()->id,
+                Artist::factory()->createOne(),
                 ['type' => CreditType::Directing, 'nr' => 0],
             );
 
             for ($i = 1; $i <= 2; $i++) {
                 $tale->credits()->attach(
-                    Artist::factory()->createOne()->id,
+                    Artist::factory()->createOne(),
                     ['type' => CreditType::Text, 'nr' => $i],
                 );
             }
 
             for ($i = 1; $i <= 2; $i++) {
                 $tale->credits()->attach(
-                    Artist::factory()->createOne()->id,
+                    Artist::factory()->createOne(),
                     ['type' => CreditType::Music, 'nr' => $i],
                 );
             }
@@ -61,7 +61,7 @@ class TaleFactory extends Factory
                 'Herszt',
             ] as $credit_nr => $characters) {
                 $tale->actors()->attach(
-                    Artist::factory()->createOne()->id,
+                    Artist::factory()->createOne(),
                     [
                         'characters' => $characters,
                         'credit_nr' => $credit_nr,

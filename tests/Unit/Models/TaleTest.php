@@ -291,18 +291,18 @@ final class TaleTest extends TestCase
         $artists = Artist::factory(3)->create();
 
         $artists[0]->asActor()->attach(
-            $ids = Tale::factory(6)->create()->map->id,
+            $tales = Tale::factory(6)->create(),
         );
 
         $artists[1]->asActor()->attach(
-            Tale::factory(3)->create()->map->id,
+            Tale::factory(3)->create(),
         );
 
-        $artists[1]->asActor()->attach($ids[0]);
+        $artists[1]->asActor()->attach($tales[0]);
 
         $tale = Tale::factory()->withoutRelations()->createOne();
 
-        $tale->actors()->attach($artists->map->id);
+        $tale->actors()->attach($artists);
 
         $this->assertSame(13, Tale::withActorsPopularity()->find($tale->id)->popularity);
     }

@@ -239,7 +239,7 @@ final class ArtistTest extends TestCase
             Tale::factory()->createOne(['year' => 1969, 'title' => 'a']),
         ]);
 
-        $artist->asActor()->attach($tales->map->id);
+        $artist->asActor()->attach($tales);
 
         $asActor = $artist->fresh()->asActor;
         $this->assertCount(3, $asActor);
@@ -319,12 +319,12 @@ final class ArtistTest extends TestCase
         $artist = Artist::factory()->createOne();
 
         $artist->credits()->attach(
-            Tale::factory(4)->create()->map->id,
+            Tale::factory(4)->create(),
             ['type' => CreditType::Music, 'nr' => 0],
         );
 
         $artist->asActor()->attach(
-            Tale::factory(6)->create()->map->id,
+            Tale::factory(6)->create(),
         );
 
         $duplicate = Tale::factory()->createOne();
@@ -345,12 +345,12 @@ final class ArtistTest extends TestCase
         $artist = Artist::factory()->createOne();
 
         $artist->credits()->attach(
-            Tale::factory(4)->create()->map->id,
+            Tale::factory(4)->create(),
             ['type' => CreditType::Music, 'nr' => 0],
         );
 
         $artist->asActor()->attach(
-            Tale::factory(6)->create()->map->id,
+            Tale::factory(6)->create(),
         );
 
         $duplicate = Tale::factory()->createOne();
