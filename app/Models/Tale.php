@@ -73,13 +73,10 @@ class Tale extends Model
      */
     public function actors(): BelongsToMany
     {
-        $relation = $this->belongsToMany(Artist::class, 'tales_actors')
+        return $this->belongsToMany(Artist::class, 'tales_actors')
             ->using(Actor::class)->as('credit')
-            ->withPivot('characters', 'credit_nr')->withTimestamps();
-
-        $relation->getQuery()->orderBy('tales_actors.credit_nr');
-
-        return $relation;
+            ->withPivot('characters', 'credit_nr')->withTimestamps()
+            ->orderByPivot('credit_nr');
     }
 
     /**
@@ -87,13 +84,10 @@ class Tale extends Model
      */
     public function credits(): BelongsToMany
     {
-        $relation = $this->belongsToMany(Artist::class, 'credits')
+        return $this->belongsToMany(Artist::class, 'credits')
             ->using(Credit::class)->as('credit')
-            ->withPivot('id', 'type', 'as', 'nr')->withTimestamps();
-
-        $relation->getQuery()->orderBy('credits.nr');
-
-        return $relation;
+            ->withPivot('id', 'type', 'as', 'nr')->withTimestamps()
+            ->orderByPivot('nr');
     }
 
     /**
