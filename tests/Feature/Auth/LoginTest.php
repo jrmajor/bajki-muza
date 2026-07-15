@@ -26,6 +26,7 @@ final class LoginTest extends TestCase
         $this->from('login')
             ->post('login', ['password' => 'password'])
             ->assertSessionHasErrors('username')
+            ->assertSessionMissingInput('password')
             ->assertFound()
             ->assertRedirect('login');
 
@@ -38,6 +39,7 @@ final class LoginTest extends TestCase
         $this->from('login')
             ->post('login', ['username' => 'gracjan'])
             ->assertSessionHasErrors('password')
+            ->assertSessionMissingInput('password')
             ->assertFound()
             ->assertRedirect('login');
 
@@ -53,6 +55,7 @@ final class LoginTest extends TestCase
                 'password' => 'hasło',
             ])
             ->assertSessionHasErrors('username')
+            ->assertSessionMissingInput('password')
             ->assertFound()
             ->assertRedirect('login');
 
@@ -72,6 +75,7 @@ final class LoginTest extends TestCase
                 'password' => 'wrong',
             ])
             ->assertSessionHasErrors('username')
+            ->assertSessionMissingInput('password')
             ->assertFound()
             ->assertRedirect('login');
 
