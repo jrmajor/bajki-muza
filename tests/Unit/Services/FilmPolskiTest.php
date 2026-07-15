@@ -79,7 +79,7 @@ final class FilmPolskiTest extends TestCase
         $images = [new PhotoGroup(null, null, ['test'])];
 
         Cache::shouldReceive('flexible')
-            ->with('filmpolski-11232-photos', Mockery::any(), Mockery::any())
+            ->with('filmpolski-11232-photos', Mockery::any(), Mockery::any(), ['seconds' => 600])
             ->andReturn($images)
             ->once();
 

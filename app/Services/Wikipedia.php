@@ -78,6 +78,7 @@ class Wikipedia
 
                 return $extract === null ? null : Str\trim(Html\strip_tags($extract));
             },
+            ['seconds' => 600],
         );
     }
 

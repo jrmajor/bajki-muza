@@ -59,7 +59,7 @@ final class DiscogsTest extends TestCase
     public function testPhotosCache(): void
     {
         Cache::shouldReceive('flexible')
-            ->with('discogs-602473-photos', Mockery::any(), Mockery::any())
+            ->with('discogs-602473-photos', Mockery::any(), Mockery::any(), ['seconds' => 600])
             ->andReturn($this->getSampleApiResponse())
             ->once();
 

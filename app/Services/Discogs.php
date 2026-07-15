@@ -58,6 +58,7 @@ class Discogs
                 "discogs-{$id}-photos",
                 [CarbonInterval::week(), CarbonInterval::year()],
                 fn () => $this->request()->get("https://api.discogs.com/artists/{$id}")->json(),
+                ['seconds' => 600],
             );
 
             return Vec\map($response['images'] ?? [], fn (array $p) => new DiscogsPhoto(

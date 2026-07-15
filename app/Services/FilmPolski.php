@@ -87,6 +87,7 @@ class FilmPolski
 
                 return [...$photos, ...$gallery];
             },
+            ['seconds' => 600],
         );
     }
 

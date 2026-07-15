@@ -91,6 +91,7 @@ final class WikipediaTest extends TestCase
             'wikipedia-c562333d77f2c81b6f75acd8bd7c7871-extract',
             Mockery::any(),
             Mockery::any(),
+            ['seconds' => 600],
         )->andReturn($this->extract);
 
         $this->assertSame($this->extract, app(Wikipedia::class)->extract('Piotr_Fronczewski'));
