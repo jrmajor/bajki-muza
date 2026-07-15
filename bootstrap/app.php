@@ -27,6 +27,10 @@ return Application::configure(basePath: dirname(__DIR__))
         Sentry::handles($exceptions);
 
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
+            if ($request->expectsJson()) {
+                return;
+            }
+
             return Inertia::render('Errors/404')->toResponse($request)->setStatusCode(404);
         });
     })
