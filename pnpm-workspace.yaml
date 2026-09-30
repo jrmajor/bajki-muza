@@ -1,10 +1,10 @@
 allowBuilds:
-  '@tailwindcss/oxide': true
   core-js: false
   esbuild: true
   protobufjs: false
   unrs-resolver: false
 
+minimumReleaseAge: 0
+engineStrict: true
 dedupePeers: true
-strictDepBuilds: true
 strictPeerDependencies: true

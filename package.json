@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"type": "module",
-	"packageManager": "pnpm@11.10.0",
+	"packageManager": "pnpm@12.8.1",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "php artisan ziggy:generate && vite build && vite build --ssr",
@@ -35,11 +35,11 @@
 	"devEngines": {
 		"packageManager": {
 			"name": "pnpm",
-			"version": "11.10.0"
+			"version": "12.8.1"
 		},
 		"runtime": {
 			"name": "node",
-			"version": "^24.18",
+			"version": "^26.10",
 			"onFail": "download"
 		}
 	}
