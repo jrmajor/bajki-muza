@@ -26,8 +26,7 @@
 			<title>Bajki Polskich Nagrań „Muza”</title>
 		</x-inertia::head>
 
-		<link rel="preconnect" href="https://rsms.me/">
-		<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+		@fonts
 
 		<script>
 			window.config = {
