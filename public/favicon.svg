@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+	<style>
+		.disc { fill: #121212; }
+		.shine { fill: #404040; }
+		@media (prefers-color-scheme: dark) {
+			.disc { fill: #404040; }
+			.shine { fill: #808080; }
+		}
+	</style>
+	<circle class="disc" cx="32" cy="32" r="30"/>
+	<path class="shine" d="M32 32 44.7 4.8A30 30 0 0 1 59.2 19.3zM32 32 19.3 59.2A30 30 0 0 1 4.8 44.7z"/>
+	<circle cx="32" cy="32" r="12" fill="#ffcc00"/>
+	<circle cx="32" cy="32" r="2.5" fill="#121212"/>
+</svg>

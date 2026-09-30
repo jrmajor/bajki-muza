@@ -21,12 +21,12 @@ if (strlen($gitHash) !== 7) {
 }
 
 return [
-
     'dsn' => env('SENTRY_PHP_DSN'),
     'release' => $gitHash,
     'sample_rate' => 1.0,
-    'ignore_exceptions' => [],
-    'ignore_transactions' => [],
+    'traces_sample_rate' => env('SENTRY_TRACES_SAMPLE_RATE') === null ? null : (float) env('SENTRY_TRACES_SAMPLE_RATE'),
+    'enable_logs' => env('SENTRY_ENABLE_LOGS', false),
+    'log_flush_threshold' => null,
 
     'breadcrumbs' => [
         'logs' => true,
@@ -38,5 +38,4 @@ return [
         'http_client_requests' => true,
         'notifications' => true,
     ],
-
 ];
