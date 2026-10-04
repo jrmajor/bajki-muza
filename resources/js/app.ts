@@ -10,7 +10,7 @@ import { Ziggy } from './ziggy/index.js';
 if (BROWSER && window.config.posthogToken) {
 	posthog.init(window.config.posthogToken, {
 		api_host: 'https://eu.i.posthog.com',
-		defaults: '2025-05-24',
+		defaults: '2026-08-30',
 	});
 }
 

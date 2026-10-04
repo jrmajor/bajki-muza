@@ -5,32 +5,32 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "php artisan ziggy:generate && vite build && vite build --ssr",
-		"check": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
-		"check:watch": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --watch",
+		"check": "php artisan ziggy:generate --types-only && LARAVEL_BYPASS_ENV_CHECK=1 svelte-check --config ./vite.config.ts --tsconfig ./tsconfig.json --fail-on-warnings",
+		"check:watch": "php artisan ziggy:generate --types-only && svelte-check --config ./vite.config.ts --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint . --max-warnings 0 --cache --cache-location .cache/eslint --cache-strategy content"
 	},
 	"dependencies": {
-		"@inertiajs/svelte": "^3.0",
+		"@inertiajs/svelte": "^3.7",
 		"@tailwindcss/forms": "^0.5.11",
 		"esm-env": "^1.2",
-		"posthog-js": "^1.364",
-		"pretty-bytes": "^7.1",
-		"svelte": "^5.55",
-		"tailwindcss": "^4.2"
+		"posthog-js": "^1.435",
+		"pretty-bytes": "^7.2",
+		"svelte": "^5.57",
+		"tailwindcss": "^4.3"
 	},
 	"devDependencies": {
-		"@inertiajs/vite": "^3.0",
+		"@inertiajs/vite": "^3.7",
 		"@jrmajor/eslint-config": "^0.3.0",
-		"@sveltejs/vite-plugin-svelte": "^7.0",
-		"@tailwindcss/vite": "^4.2",
-		"@types/node": "^24.12",
-		"eslint": "^10.1",
+		"@sveltejs/vite-plugin-svelte": "^7.3",
+		"@tailwindcss/vite": "^4.3",
+		"@types/node": "^26.6",
+		"eslint": "^10.11",
 		"globals": "*",
-		"laravel-vite-plugin": "^3.1",
-		"svelte-check": "^4.4",
+		"laravel-vite-plugin": "^3.2",
+		"svelte-check": "^4.7",
 		"typescript": "^6.0",
-		"vite": "^8.0",
-		"vite-plugin-run": "^0.6.1"
+		"vite": "^8.3",
+		"vite-plugin-run": "^0.9.1"
 	},
 	"devEngines": {
 		"packageManager": {

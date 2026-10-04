@@ -6,8 +6,8 @@
 		"checkJs": true,
 		"skipLibCheck": true,
 		"paths": {
-			"@/*": ["resources/js/*"],
-			"ziggy-js": ["vendor/tightenco/ziggy"],
+			"@/*": ["./resources/js/*"],
+			"ziggy-js": ["./vendor/tightenco/ziggy"],
 		},
 		"types": ["node", "vite/client"],
 	},
