@@ -56,7 +56,9 @@
 			</div>
 			<span class="py-2 px-3">
 				<span>{file ? file.name : 'Wybierz plik'}</span>
-				<small class="pl-1 text-xs font-medium">{file ? prettyBytes(file.size) : ''}</small>
+				<small class="pl-1 text-xs font-medium">
+					{file ? prettyBytes(file.size, { locale: 'pl' }) : ''}
+				</small>
 			</span>
 			<input
 				bind:this={filesInput}

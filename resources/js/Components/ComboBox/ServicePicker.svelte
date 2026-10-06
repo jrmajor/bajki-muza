@@ -3,6 +3,7 @@
 </script>
 
 <script lang="ts" generics="TService extends Service">
+	import { useHttp } from '@inertiajs/svelte';
 	import { route } from 'ziggy-js';
 	import ComboBox from './ComboBox.svelte';
 
@@ -20,11 +21,13 @@
 		wikipedia: string;
 	};
 
+	let http = useHttp<{ search: string }, Array<{ id: IdTypeMap[TService], name: string }>>({ search: '' });
+
 	async function getResults(value: string) {
 		let endpoint: `ajax.${Service}` = `ajax.${service}`;
-		let response = await fetch(route(endpoint, { search: value }));
-		let json = await response.json() as Array<{ id: IdTypeMap[TService], name: string }>;
-		return json.map((a) => ({ label: a.name, value: a.id }));
+		http.search = value;
+		let results = await http.get(route(endpoint));
+		return results.map((a) => ({ label: a.name, value: a.id }));
 	}
 </script>
 

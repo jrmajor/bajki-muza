@@ -140,7 +140,7 @@
 	></div>
 	<div class="handles">
 		{#each handles as handle}
-			{@const { position: [x, y], cursor } = handle}
+			{const { position: [x, y], cursor } = handle;}
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div
 				onmousedown={(e) => onmousedown(e, handle)}

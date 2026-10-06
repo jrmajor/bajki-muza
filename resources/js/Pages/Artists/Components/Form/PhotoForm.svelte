@@ -138,7 +138,7 @@
 				<span class="py-2 px-3">
 					<span>{labelText}</span>
 					<small class="pl-1 text-xs font-medium">
-						{activePicker.type === 'upload' ? prettyBytes(activePicker.file.size) : ''}
+						{activePicker.type === 'upload' ? prettyBytes(activePicker.file.size, { locale: 'pl' }) : ''}
 					</small>
 				</span>
 				<input

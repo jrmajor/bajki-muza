@@ -1,5 +1,5 @@
 @utility shadow-link {
-	@apply relative after:block after:absolute after:z-[-1];
+	@apply relative after:block after:absolute after:-z-1;
 	@apply after:bg-brand-lighter after:dark:bg-brand-lighter-dark;
 
 	&::after {

@@ -15,7 +15,7 @@
 		</nav>
 
 		<div class="flex flex-col items-center">
-			<main class="flex flex-col items-center px-5 w-full md:px-8 lg:w-3/4 xl:1/2">
+			<main class="flex flex-col items-center px-5 w-full md:px-8 lg:w-3/4">
 				{@render children()}
 			</main>
 		</div>
