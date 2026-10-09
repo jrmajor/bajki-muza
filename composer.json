@@ -13,7 +13,6 @@
 		"intervention/image": "^4.1",
 		"jrmajor/laravel-fluent": "^1.4",
 		"laravel/framework": "^13.19",
-		"laravel/telescope": "^5.20",
 		"laravel/tinker": "^3.0",
 		"league/flysystem-aws-s3-v3": "^3.35",
 		"nesbot/carbon": "^3.13",
@@ -29,7 +28,6 @@
 		"tightenco/ziggy": "^2.6"
 	},
 	"require-dev": {
-		"barryvdh/laravel-ide-helper": "^3.7",
 		"brianium/paratest": "^7.23",
 		"fakerphp/faker": "^1.24",
 		"fruitcake/laravel-debugbar": "^4.4",
