@@ -24,7 +24,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.3",
 		"@tailwindcss/vite": "^4.3",
 		"@types/node": "^26.6",
-		"eslint": "^10.11",
+		"eslint": "^10.14",
 		"globals": "*",
 		"laravel-vite-plugin": "^3.2",
 		"svelte-check": "^4.7",
