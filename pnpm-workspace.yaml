@@ -1,7 +1,5 @@
 allowBuilds:
   core-js: false
-  esbuild: true
-  protobufjs: false
   unrs-resolver: false
 
 minimumReleaseAge: 0
