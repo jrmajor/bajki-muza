@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { inertia } from '@inertiajs/svelte';
+	import { inertia } from '@/helpers/inertia';
 
 	let {
 		sub = false,
@@ -23,7 +23,7 @@
 
 {#snippet link()}
 	{#if href && hrefIf}
-		<a use:inertia {href}>{@render title()}</a>
+		<a {@attach inertia()} {href}>{@render title()}</a>
 	{:else}
 		{@render title()}
 	{/if}

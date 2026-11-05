@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { inertia, router } from '@inertiajs/svelte';
+	import { router } from '@inertiajs/svelte';
 	import { route } from 'ziggy-js';
 	import type { IndexResource } from '@/types/tales';
+	import { inertia } from '@/helpers/inertia';
 	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Pagination from '@/Components/Pagination/Pagination.svelte';
 
@@ -51,7 +52,7 @@
 		>
 		{#each tales as tale (tale.slug)}
 			<a
-				use:inertia
+				{@attach inertia()}
 				href={route('tales.show', { tale })}
 				class="flex overflow-hidden items-center w-full h-32 bg-gray-50 rounded-lg shadow-lg dark:bg-gray-900"
 			>

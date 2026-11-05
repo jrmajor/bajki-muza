@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
-	import { inertia } from '@inertiajs/svelte';
+	import { inertia } from '@/helpers/inertia';
 
 	let {
 		url = null,
@@ -23,7 +23,7 @@
 
 {#if isEnabled}
 	<a
-		use:inertia
+		{@attach inertia()}
 		href={url}
 		{rel}
 		aria-label={ariaLabel}

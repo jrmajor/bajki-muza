@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { inertia } from '@inertiajs/svelte';
 	import { route } from 'ziggy-js';
 	import type { ShowResource } from '@/types/artists';
+	import { inertia } from '@/helpers/inertia';
 	import { formatList } from '@/helpers/intl';
 	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Title from '@/Components/Title.svelte';
@@ -15,7 +15,7 @@
 	<div class="flex flex-col gap-2.5 w-full md:w-5/6 xl:w-2/3">
 		{#each artist.asActor as tale}
 			<a
-				use:inertia
+				{@attach inertia()}
 				href={route('tales.show', { tale })}
 				class="flex overflow-hidden items-center w-full bg-gray-50 rounded-lg shadow-lg h-15 dark:bg-gray-900"
 			>
