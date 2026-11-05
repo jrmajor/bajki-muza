@@ -10,21 +10,21 @@
 		"lint": "eslint . --max-warnings 0 --cache --cache-location .cache/eslint --cache-strategy content"
 	},
 	"dependencies": {
-		"@inertiajs/svelte": "^3.7",
+		"@inertiajs/svelte": "^3.10",
 		"@tailwindcss/forms": "^0.5.11",
 		"esm-env": "^1.2",
-		"posthog-js": "^1.435",
+		"posthog-js": "^1.444",
 		"pretty-bytes": "^7.2",
 		"svelte": "^5.57",
 		"tailwindcss": "^4.3"
 	},
 	"devDependencies": {
-		"@inertiajs/vite": "^3.7",
+		"@inertiajs/vite": "^3.10",
 		"@jrmajor/eslint-config": "^0.3.0",
 		"@sveltejs/vite-plugin-svelte": "^7.3",
 		"@tailwindcss/vite": "^4.3",
 		"@types/node": "^26.6",
-		"eslint": "^10.11",
+		"eslint": "^10.14",
 		"globals": "*",
 		"laravel-vite-plugin": "^3.2",
 		"svelte-check": "^4.7",
