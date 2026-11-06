@@ -6,11 +6,11 @@ use Countable;
 use Psl\Iter;
 use Psl\Vec;
 
-final class DiscogsPhotos implements Countable
+final readonly class DiscogsPhotos implements Countable
 {
     public function __construct(
         /** @var list<DiscogsPhoto> */
-        private readonly array $items,
+        private array $items,
     ) { }
 
     public function primary(): ?DiscogsPhoto

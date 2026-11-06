@@ -7,12 +7,12 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, mixed>
  */
-final class CreditData implements Arrayable
+final readonly class CreditData implements Arrayable
 {
     public function __construct(
-        public readonly string $type,
-        public readonly ?string $as,
-        public readonly int $nr,
+        public string $type,
+        public ?string $as,
+        public int $nr,
     ) { }
 
     public function toArray(): array
