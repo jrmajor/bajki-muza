@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { inertia } from '@inertiajs/svelte';
 	import { route } from 'ziggy-js';
+	import { inertia } from '@/helpers/inertia';
 
 	let { user }: { user: SharedUser } = $props();
 
@@ -9,15 +9,15 @@
 
 <footer class="px-3 my-8 text-sm text-center text-gray-500 dark:text-gray-600">
 	<div>
-		<!-- &copy; --> 2019<a use:inertia href={route('login')} tabindex="-1" class="cursor-text">-</a>{currentYear}
+		<!-- &copy; --> 2019<a {@attach inertia()} href={route('login')} tabindex="-1" class="cursor-text">-</a>{currentYear}
 		<!-- <a href="mailto:jeremiah.major@bajki-muza.pl">Jeremiah Major</a> -->
 	</div>
 	{#if user}
 		<div>
-			<a use:inertia href={route('tales.create')} class="mr-1.5 text-xs uppercase tracking-wide">
+			<a {@attach inertia()} href={route('tales.create')} class="mr-1.5 text-xs uppercase tracking-wide">
 				Dodaj bajkę
 			</a>
-			<a use:inertia={{ method: 'post' }} href={route('logout')} class="ml-1.5 text-xs uppercase tracking-wide">
+			<a {@attach inertia({ method: 'post' })} href={route('logout')} class="ml-1.5 text-xs uppercase tracking-wide">
 				Wyloguj
 			</a>
 		</div>

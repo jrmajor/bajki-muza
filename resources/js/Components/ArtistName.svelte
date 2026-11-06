@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { inertia } from '@inertiajs/svelte';
 	import { route } from 'ziggy-js';
 	import { type Loop } from '@/helpers/addLoop';
+	import { inertia } from '@/helpers/inertia';
 	import Appearances from '@/Components/Appearances.svelte';
 
 	let {
@@ -30,7 +30,7 @@
 	{/if}
 
 	<a
-		use:inertia
+		{@attach inertia()}
 		href={route('artists.show', { artist })}
 		class="inline-flex items-center"
 	>

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
-	import { inertia } from '@inertiajs/svelte';
+	import { inertia } from '@/helpers/inertia';
 
 	let { href, children }: { href: string, children: Snippet } = $props();
 </script>
 
 <a
-	use:inertia
+	{@attach inertia()}
 	{href}
 	class="
 		rounded-full bg-white px-5 py-2.5 font-semibold tracking-wide

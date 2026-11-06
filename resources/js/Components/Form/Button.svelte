@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
-	import { inertia } from '@inertiajs/svelte';
+	import { inertia, type VisitOptions } from '@/helpers/inertia';
 
 	let {
 		type = null,
@@ -13,7 +13,7 @@
 	}: {
 		type?: null | 'submit' | 'button';
 		onclick?: MouseEventHandler<HTMLButtonElement> | null;
-		inertia?: Parameters<typeof inertia>[1] | null;
+		inertia?: VisitOptions | null;
 		danger?: boolean;
 		class?: string;
 		children: Snippet;
@@ -30,7 +30,7 @@
 </script>
 
 {#if inertiaProp}
-	<button use:inertia={inertiaProp} {type} class={classes}>
+	<button {@attach inertia(inertiaProp)} {type} class={classes}>
 		{@render children()}
 	</button>
 {:else}

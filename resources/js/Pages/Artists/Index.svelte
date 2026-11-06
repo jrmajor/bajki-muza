@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { inertia, router } from '@inertiajs/svelte';
+	import { router } from '@inertiajs/svelte';
 	import { route } from 'ziggy-js';
 	import type { IndexResource } from '@/types/artists';
+	import { inertia } from '@/helpers/inertia';
 	import Appearances from '@/Components/Appearances.svelte';
 	import ResponsiveImage from '@/Components/Images/ResponsiveImage.svelte';
 	import Pagination from '@/Components/Pagination/Pagination.svelte';
@@ -56,7 +57,7 @@
 		>
 		{#each artists as artist (artist.slug)}
 			<a
-				use:inertia
+				{@attach inertia()}
 				href={route('artists.show', { artist })}
 				class="flex overflow-hidden items-center w-full h-12 bg-gray-50 rounded-lg shadow-lg sm:h-14 dark:bg-gray-900"
 			>
