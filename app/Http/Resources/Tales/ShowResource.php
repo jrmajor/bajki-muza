@@ -27,11 +27,11 @@ class ShowResource extends JsonResource
             'actors' => ActorResource::collection($this->resource->actors),
             'mainCredits' => Dict\map(
                 $this->resource->mainCredits(),
-                CreditResource::collection(...),
+                fn ($group) => CreditResource::collection($group),
             ),
             'customCredits' => Dict\map(
                 $this->resource->customCredits(),
-                CreditResource::collection(...),
+                fn ($group) => CreditResource::collection($group),
             ),
         ];
     }
