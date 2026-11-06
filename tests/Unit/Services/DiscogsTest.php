@@ -5,6 +5,7 @@ namespace Tests\Unit\Services;
 use App\Services\Discogs;
 use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
+use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Mockery;
@@ -88,8 +89,7 @@ final class DiscogsTest extends TestCase
 
         $this->comparePhotos(app(Discogs::class)->photos(602473));
 
-        /** @phpstan-ignore property.notFound, argument.templateType */
-        invade(Http::getFacadeRoot())->stubCallbacks = collect();
+        invade(app(Factory::class))->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 
@@ -127,8 +127,7 @@ final class DiscogsTest extends TestCase
 
         $this->comparePhotos(app(Discogs::class)->photos(602473));
 
-        /** @phpstan-ignore property.notFound, argument.templateType */
-        invade(Http::getFacadeRoot())->stubCallbacks = collect();
+        invade(app(Factory::class))->stubCallbacks = collect();
 
         Http::fake(['api.discogs.com/*' => Http::response($newResponse)]);
 

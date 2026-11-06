@@ -27,3 +27,4 @@ includes:
 	- vendor/php-standard-library/phpstan-extension/extension.neon
 	- vendor/phpstan/phpstan-mockery/extension.neon
 	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/spatie/invade/phpstan-extension.neon
