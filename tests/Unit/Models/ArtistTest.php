@@ -66,6 +66,53 @@ final class ArtistTest extends TestCase
         $this->assertSame('andrzej-stockinger', $artist->slug);
     }
 
+    #[TestDox('it generates unique slugs')]
+    public function testSlugUnique(): void
+    {
+        $first = Artist::create(['name' => 'Jan Kowalski']);
+        $second = Artist::create(['name' => 'Jan Kowalski']);
+        $third = Artist::create(['name' => 'jan kowalski']);
+
+        $this->assertSame('jan-kowalski', $first->slug);
+        $this->assertSame('jan-kowalski-1', $second->slug);
+        $this->assertSame('jan-kowalski-2', $third->slug);
+
+        $artist = Artist::create(['name' => 'Anna Nowak']);
+        $artist->update(['name' => 'Jan Kowalski']);
+
+        $this->assertSame('jan-kowalski-3', $artist->slug);
+    }
+
+    #[TestDox('it keeps slug when other attributes are updated')]
+    public function testSlugOtherAttributes(): void
+    {
+        $artist = Artist::create(['name' => 'Jan Kowalski']);
+        $duplicate = Artist::create(['name' => 'Jan Kowalski']);
+
+        $artist->update(['genetivus' => 'Jana Kowalskiego']);
+        $duplicate->update(['genetivus' => 'Jana Kowalskiego']);
+
+        $this->assertSame('jan-kowalski', $artist->refresh()->slug);
+        $this->assertSame('jan-kowalski-1', $duplicate->refresh()->slug);
+
+        $artist->delete();
+        $duplicate->update(['genetivus' => 'Janka Kowalskiego']);
+
+        $this->assertSame('jan-kowalski', $duplicate->refresh()->slug);
+    }
+
+    #[TestDox('it limits slug length')]
+    public function testSlugLength(): void
+    {
+        $name = str_repeat('Włudarski ', 15);
+
+        $first = Artist::create(['name' => $name]);
+        $second = Artist::create(['name' => $name]);
+
+        $this->assertSame('wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski', $first->slug);
+        $this->assertSame('wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-wludarski-1', $second->slug);
+    }
+
     #[TestDox('it can get its photo')]
     public function testPhoto(): void
     {
@@ -395,18 +442,6 @@ final class ArtistTest extends TestCase
         $this->mock(Wikipedia::class)->shouldReceive('forget')->with('Piotr_Fronczewski')->andReturn(true)->once();
 
         $this->assertTrue($artist->flushCache());
-    }
-
-    #[TestDox('findBySlug method works')]
-    public function testFindBySlug(): void
-    {
-        $this->assertNull(Artist::findBySlug('Jan Matyjaszkiewicz'));
-
-        $artist = Artist::factory()->createOne(['name' => 'Jan Matyjaszkiewicz']);
-
-        $this->assertNull(Artist::findBySlug('Jan Matyjaszkiewicz'));
-
-        $this->assertSameModel($artist, Artist::findBySlug('jan-matyjaszkiewicz'));
     }
 
     #[TestDox('findBySlugOrNew method works')]

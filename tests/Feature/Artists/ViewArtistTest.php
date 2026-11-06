@@ -33,4 +33,14 @@ final class ViewArtistTest extends TestCase
     {
         $this->get('artysci/nonexistent-artist')->assertNotFound();
     }
+
+    #[TestDox('it uses slug as the route key')]
+    public function testRouteKey(): void
+    {
+        $artist = Artist::factory()->createOne(['name' => 'Jan Kowalski']);
+
+        $this->assertSame(url('artysci/jan-kowalski'), route('artists.show', $artist));
+
+        $this->get("artysci/{$artist->id}")->assertNotFound();
+    }
 }

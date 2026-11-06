@@ -10,6 +10,7 @@ use App\Values\CreditType;
 use App\Values\Discogs\DiscogsPhotos;
 use App\Values\FilmPolski\PhotoGroup;
 use Database\Factories\ArtistFactory;
+use Illuminate\Database\Eloquent\Attributes\RouteKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,18 +21,17 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
+use Spatie\Sluggable\Attributes\Sluggable;
 
 /**
  * @property-read Actor|Credit|null $credit
  */
+#[Sluggable(from: 'name', maxLength: 100)]
+#[RouteKey('slug')]
 class Artist extends Model
 {
     /** @use HasFactory<ArtistFactory> */
     use HasFactory;
-
-    use HasSlug;
 
     /** @var list<string> */
     protected $with = ['photo'];
@@ -46,22 +46,9 @@ class Artist extends Model
         'filmpolski' => 'int',
     ];
 
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('name')
-            ->saveSlugsTo('slug')
-            ->slugsShouldBeNoLongerThan(100);
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     public static function findBySlugOrNew(string $name): self
     {
-        $artist = self::findBySlug(Str::slug($name));
+        $artist = self::firstWhere('slug', Str::slug($name));
 
         return $artist ?? self::create(['name' => $name]);
     }

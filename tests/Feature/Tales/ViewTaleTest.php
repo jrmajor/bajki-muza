@@ -33,4 +33,14 @@ final class ViewTaleTest extends TestCase
     {
         $this->get('bajki/nonexistent-tale')->assertNotFound();
     }
+
+    #[TestDox('it uses slug as the route key')]
+    public function testRouteKey(): void
+    {
+        $tale = Tale::factory()->createOne(['title' => 'Kot w butach']);
+
+        $this->assertSame(url('bajki/kot-w-butach'), route('tales.show', $tale));
+
+        $this->get("bajki/{$tale->id}")->assertNotFound();
+    }
 }
