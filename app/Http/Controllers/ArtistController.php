@@ -18,11 +18,13 @@ class ArtistController extends Controller
 {
     public function index(Request $request): Response
     {
+        $search = $request->string('search', strict: true);
+
         $artists = Artist::query()
             ->countAppearances()
             ->unless(
-                blank($request->string('search')),
-                fn (Builder $q) => $q->where('name', 'like', '%' . $request->string('search') . '%'),
+                blank($search),
+                fn (Builder $q) => $q->where('name', 'like', '%' . $search . '%'),
             )
             ->orderByDesc('appearances')
             ->orderBy('name')

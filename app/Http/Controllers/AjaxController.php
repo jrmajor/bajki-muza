@@ -15,7 +15,7 @@ class AjaxController extends Controller
     public function __construct()
     {
         $this->middleware(function (Request $request, Closure $next) {
-            return blank($request->input('search'))
+            return blank($this->search($request))
                 ? response()->json([])
                 : $next($request);
         });
@@ -24,7 +24,7 @@ class AjaxController extends Controller
     public function artists(Request $request): JsonResponse
     {
         $artists = Artist::query()
-            ->where('name', 'like', '%' . $request->input('search') . '%')
+            ->where('name', 'like', '%' . $this->search($request) . '%')
             ->orderBy('name')
             ->take(10)
             ->get()
@@ -36,21 +36,26 @@ class AjaxController extends Controller
     public function discogs(Discogs $discogs, Request $request): JsonResponse
     {
         return response()->json(
-            $discogs->search($request->input('search')),
+            $discogs->search($this->search($request)),
         );
     }
 
     public function filmPolski(FilmPolski $filmPolski, Request $request): JsonResponse
     {
         return response()->json(
-            $filmPolski->search($request->input('search')),
+            $filmPolski->search($this->search($request)),
         );
     }
 
     public function wikipedia(Wikipedia $wikipedia, Request $request): JsonResponse
     {
         return response()->json(
-            $wikipedia->search($request->input('search')),
+            $wikipedia->search($this->search($request)),
         );
+    }
+
+    private function search(Request $request): string
+    {
+        return $request->string('search', strict: true)->value();
     }
 }

@@ -18,11 +18,13 @@ class TaleController extends Controller
 {
     public function index(Request $request): Response
     {
+        $search = $request->string('search', strict: true);
+
         $tales = Tale::query()
             ->withActorsPopularity()
             ->unless(
-                blank($request->string('search')),
-                fn (Builder $q) => $q->where('title', 'like', '%' . $request->string('search') . '%'),
+                blank($search),
+                fn (Builder $q) => $q->where('title', 'like', '%' . $search . '%'),
             )
             ->unless(
                 blank($request->input('discogs')),

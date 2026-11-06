@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
 final class AjaxTest extends TestCase
@@ -53,5 +54,18 @@ final class AjaxTest extends TestCase
     public function testUserWikipedia(): void
     {
         $this->asUser()->get('ajax/wikipedia')->assertOk();
+    }
+
+    #[TestDox('ajax endpoints ignore array search query')]
+    #[TestWith(['artists'])]
+    #[TestWith(['discogs'])]
+    #[TestWith(['filmpolski'])]
+    #[TestWith(['wikipedia'])]
+    public function testArraySearch(string $endpoint): void
+    {
+        $this->asUser()
+            ->get("ajax/{$endpoint}?search[]=x")
+            ->assertOk()
+            ->assertExactJson([]);
     }
 }
