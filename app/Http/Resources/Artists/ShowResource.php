@@ -32,7 +32,7 @@ class ShowResource extends JsonResource
             'asActor' => ActorResource::collection($this->resource->asActor),
             'credits' => Dict\map(
                 $this->resource->orderedCredits(),
-                fn ($group) => CreditResource::collection($group),
+                CreditResource::collection(...),
             ),
         ];
     }

@@ -20,7 +20,7 @@ class CleanupCovers extends Command
     {
         $noModel = Vec\map(
             Cover::disk()->files(Cover::originalDirectory()),
-            fn ($path) => $this->removeCoverIfItHasNoModel($path),
+            $this->removeCoverIfItHasNoModel(...),
         );
 
         $variants = Vec\flat_map(
@@ -32,7 +32,7 @@ class CleanupCovers extends Command
         });
         $variants = Vec\map(
             Dict\unique_scalar($variants),
-            fn ($filename) => $this->removeVariantsWithoutOriginal($filename),
+            $this->removeVariantsWithoutOriginal(...),
         );
 
         return Iter\contains([...$noModel, ...$variants], ExitCode::Error) ? 1 : 0;

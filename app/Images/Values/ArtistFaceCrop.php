@@ -7,12 +7,12 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, mixed>
  */
-final class ArtistFaceCrop implements Arrayable
+final readonly class ArtistFaceCrop implements Arrayable
 {
     public function __construct(
-        public readonly int $x,
-        public readonly int $y,
-        public readonly int $size,
+        public int $x,
+        public int $y,
+        public int $size,
     ) { }
 
     /**

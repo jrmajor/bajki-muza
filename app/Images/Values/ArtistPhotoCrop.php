@@ -11,11 +11,11 @@ use Psl\Type;
 /**
  * @implements Arrayable<string, mixed>
  */
-final class ArtistPhotoCrop implements Arrayable, Castable
+final readonly class ArtistPhotoCrop implements Arrayable, Castable
 {
     public function __construct(
-        public readonly ArtistFaceCrop $face,
-        public readonly ArtistImageCrop $image,
+        public ArtistFaceCrop $face,
+        public ArtistImageCrop $image,
     ) { }
 
     /**

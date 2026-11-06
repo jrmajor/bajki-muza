@@ -2,13 +2,13 @@
 
 namespace App\Images\Values;
 
-final class ArtistImageCrop
+final readonly class ArtistImageCrop
 {
     public function __construct(
-        public readonly int $x,
-        public readonly int $y,
-        public readonly int $width,
-        public readonly int $height,
+        public int $x,
+        public int $y,
+        public int $width,
+        public int $height,
     ) { }
 
     /**

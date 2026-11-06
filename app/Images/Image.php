@@ -162,7 +162,7 @@ abstract class Image extends Model
     {
         return Vec\filter(
             static::variants(),
-            fn ($size) => $this->variantMissing($size),
+            $this->variantMissing(...),
         );
     }
 
@@ -170,7 +170,7 @@ abstract class Image extends Model
     {
         $variantsToDelete = Vec\map(
             static::variants(),
-            fn ($variant) => static::variantPath($variant),
+            $this->variantPath(...),
         );
 
         return $this->disk()->delete($variantsToDelete);

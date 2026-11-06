@@ -2,12 +2,12 @@
 
 namespace App\Values\FilmPolski;
 
-final class PhotoGroup
+final readonly class PhotoGroup
 {
     public function __construct(
-        public readonly ?string $title,
-        public readonly ?int $year,
+        public ?string $title,
+        public ?int $year,
         /** @var list<string> */
-        public readonly array $photos,
+        public array $photos,
     ) { }
 }

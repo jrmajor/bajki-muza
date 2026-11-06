@@ -20,7 +20,7 @@ class CleanupPhotos extends Command
     {
         $noModel = Vec\map(
             Photo::disk()->files(Photo::originalDirectory()),
-            fn ($path) => $this->removePhotoIfItHasNoModel($path),
+            $this->removePhotoIfItHasNoModel(...),
         );
 
         $variants = Vec\flat_map(
@@ -32,7 +32,7 @@ class CleanupPhotos extends Command
         });
         $variants = Vec\map(
             Dict\unique_scalar($variants),
-            fn ($filename) => $this->removeVariantsWithoutOriginal($filename),
+            $this->removeVariantsWithoutOriginal(...),
         );
 
         return Iter\contains([...$noModel, ...$variants], ExitCode::Error) ? 1 : 0;
