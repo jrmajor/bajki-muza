@@ -7,6 +7,7 @@ use App\Services\Discogs;
 use App\Values\CreditData;
 use App\Values\CreditType;
 use Database\Factories\TaleFactory;
+use Illuminate\Database\Eloquent\Attributes\RouteKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,18 +18,17 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Psl\Type;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
+use Spatie\Sluggable\Attributes\Sluggable;
 
 /**
  * @property-read Actor|Credit|null $credit
  */
+#[Sluggable(from: 'title', maxLength: 100)]
+#[RouteKey('slug')]
 class Tale extends Model
 {
     /** @use HasFactory<TaleFactory> */
     use HasFactory;
-
-    use HasSlug;
 
     /** @var list<string> */
     protected $with = ['cover'];
@@ -41,19 +41,6 @@ class Tale extends Model
         'year' => 'int',
         'discogs' => 'int',
     ];
-
-    public function getSlugOptions(): SlugOptions
-    {
-        return SlugOptions::create()
-            ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug')
-            ->slugsShouldBeNoLongerThan(100);
-    }
-
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
 
     public function getDiscogsUrlAttribute(): ?string
     {

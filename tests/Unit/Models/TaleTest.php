@@ -62,6 +62,51 @@ final class TaleTest extends TestCase
         $this->assertSame('jak-janek-i-marianek-szczescia-szukali', $tale->slug);
     }
 
+    #[TestDox('it generates unique slugs')]
+    public function testSlugUnique(): void
+    {
+        $first = Tale::create(['title' => 'Kot w butach']);
+        $second = Tale::create(['title' => 'Kot w butach']);
+
+        $this->assertSame('kot-w-butach', $first->slug);
+        $this->assertSame('kot-w-butach-1', $second->slug);
+
+        $tale = Tale::create(['title' => 'Kopciuszek']);
+        $tale->update(['title' => 'Kot w butach']);
+
+        $this->assertSame('kot-w-butach-2', $tale->slug);
+    }
+
+    #[TestDox('it keeps slug when other attributes are updated')]
+    public function testSlugOtherAttributes(): void
+    {
+        $tale = Tale::create(['title' => 'Kot w butach']);
+        $duplicate = Tale::create(['title' => 'Kot w butach']);
+
+        $tale->update(['year' => 1973]);
+        $duplicate->update(['year' => 1974]);
+
+        $this->assertSame('kot-w-butach', $tale->refresh()->slug);
+        $this->assertSame('kot-w-butach-1', $duplicate->refresh()->slug);
+
+        $tale->delete();
+        $duplicate->update(['year' => 1975]);
+
+        $this->assertSame('kot-w-butach', $duplicate->refresh()->slug);
+    }
+
+    #[TestDox('it limits slug length')]
+    public function testSlugLength(): void
+    {
+        $title = str_repeat('Śpiąca królewna ', 8);
+
+        $first = Tale::create(['title' => $title]);
+        $second = Tale::create(['title' => $title]);
+
+        $this->assertSame('spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spia', $first->slug);
+        $this->assertSame('spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spiaca-krolewna-spia-1', $second->slug);
+    }
+
     #[TestDox('it can get its cover')]
     public function testCover(): void
     {
