@@ -61,7 +61,7 @@ class Artist extends Model
 
     public static function findBySlugOrNew(string $name): self
     {
-        $artist = self::findBySlug(Str::slug($name));
+        $artist = self::firstWhere('slug', Str::slug($name));
 
         return $artist ?? self::create(['name' => $name]);
     }
