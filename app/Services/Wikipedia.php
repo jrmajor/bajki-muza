@@ -76,7 +76,7 @@ class Wikipedia
                 /** @phpstan-ignore argument.templateType */
                 $extract = Iter\first($response['query']['pages'])['extract'] ?? null;
 
-                return $extract === null ? null : Str\trim(Html\strip_tags($extract));
+                return $extract === null ? null : $extract |> Html\strip_tags(...) |> Str\trim(...);
             },
             ['seconds' => 600],
         );
