@@ -32,4 +32,8 @@ return [
 
     'prefix' => env('CACHE_PREFIX', 'bajki-muza-cache-'),
 
+    'serializable_classes' => [
+        App\Values\FilmPolski\PhotoGroup::class,
+    ],
+
 ];

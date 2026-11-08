@@ -88,6 +88,27 @@ final class FilmPolskiTest extends TestCase
         Http::assertSentCount(0);
     }
 
+    #[TestDox('cached photos survive a round trip through a serializing store')]
+    public function testPhotosCacheRoundTrip(): void
+    {
+        config([
+            'cache.stores.serializing' => ['driver' => 'array', 'serialize' => true],
+            'cache.default' => 'serializing',
+        ]);
+
+        Http::fakeSequence()
+            ->push(read_fixture('FilmPolski/11232/osoba.html'))
+            ->push(read_fixture('FilmPolski/11232/galeria_osoby.html'));
+
+        $expected = require fixture('FilmPolski/11232/photos.php');
+
+        $this->assertEquals($expected, app(FilmPolski::class)->photos(11232));
+        $this->assertTrue(Cache::has('filmpolski-11232-photos'));
+        $this->assertEquals($expected, app(FilmPolski::class)->photos(11232));
+
+        Http::assertSentCount(2);
+    }
+
     #[TestDox('it can flush cached data')]
     public function testFlushCache(): void
     {
