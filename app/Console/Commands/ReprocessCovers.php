@@ -5,16 +5,16 @@ namespace App\Console\Commands;
 use App\Images\Cover;
 use App\Images\Exceptions\OriginalDoesNotExist;
 use App\Models\Tale;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Psl\Str;
 use Psl\Type;
 
+#[Signature('reprocess:covers {--T|tale= : Slug for the tale to process}')]
+#[Description('Remove variants of tales covers and process them.')]
 class ReprocessCovers extends Command
 {
-    protected $signature = 'reprocess:covers {--T|tale= : Slug for the tale to process}';
-
-    protected $description = 'Remove variants of tales covers and process them.';
-
     public function handle(): int
     {
         if ($this->option('tale') !== null) {

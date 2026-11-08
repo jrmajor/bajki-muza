@@ -5,16 +5,16 @@ namespace App\Console\Commands;
 use App\Images\Exceptions\OriginalDoesNotExist;
 use App\Images\Photo;
 use App\Models\Artist;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Psl\Str;
 use Psl\Type;
 
+#[Signature('reprocess:photos {--A|artist= : Slug for the artist to process}')]
+#[Description('Remove variants of artists photos and process them.')]
 class ReprocessPhotos extends Command
 {
-    protected $signature = 'reprocess:photos {--A|artist= : Slug for the artist to process}';
-
-    protected $description = 'Remove variants of artists photos and process them.';
-
     public function handle(): int
     {
         if ($this->option('artist') !== null) {

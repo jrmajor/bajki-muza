@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Images\Photo;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Psl\Dict;
 use Psl\Iter;
@@ -10,12 +12,10 @@ use Psl\Str;
 use Psl\Type;
 use Psl\Vec;
 
+#[Signature('cleanup:photos')]
+#[Description('Remove unused artist photos.')]
 class CleanupPhotos extends Command
 {
-    protected $signature = 'cleanup:photos';
-
-    protected $description = 'Remove unused artist photos.';
-
     public function handle(): int
     {
         $noModel = Vec\map(

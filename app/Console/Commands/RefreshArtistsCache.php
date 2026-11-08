@@ -3,15 +3,15 @@
 namespace App\Console\Commands;
 
 use App\Models\Artist;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Psl\Math;
 
+#[Signature('artist-cache:refresh')]
+#[Description('Refresh cached data from external services.')]
 final class RefreshArtistsCache extends Command
 {
-    protected $signature = 'artist-cache:refresh';
-
-    protected $description = 'Refresh cached data from external services.';
-
     public function handle(): void
     {
         $time = microtime(true);

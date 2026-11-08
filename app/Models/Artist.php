@@ -10,7 +10,9 @@ use App\Values\CreditType;
 use App\Values\Discogs\DiscogsPhotos;
 use App\Values\FilmPolski\PhotoGroup;
 use Database\Factories\ArtistFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\RouteKey;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +30,7 @@ use Spatie\Sluggable\Attributes\Sluggable;
  */
 #[Sluggable(from: 'name', maxLength: 100)]
 #[RouteKey('slug')]
+#[Fillable(['name', 'genetivus', 'discogs', 'filmpolski', 'wikipedia'])]
 class Artist extends Model
 {
     /** @use HasFactory<ArtistFactory> */
@@ -36,15 +39,13 @@ class Artist extends Model
     /** @var list<string> */
     protected $with = ['photo'];
 
-    public $fillable = [
-        'name', 'genetivus',
-        'discogs', 'filmpolski', 'wikipedia',
-    ];
-
-    protected $casts = [
-        'discogs' => 'int',
-        'filmpolski' => 'int',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'discogs' => 'int',
+            'filmpolski' => 'int',
+        ];
+    }
 
     public static function findBySlugOrNew(string $name): self
     {
@@ -167,7 +168,8 @@ class Artist extends Model
     /**
      * @param Builder<$this> $query
      */
-    public function scopeCountAppearances(Builder $query): void
+    #[Scope]
+    protected function countAppearances(Builder $query): void
     {
         $query->addSelect([
             'appearances' => DB::table(

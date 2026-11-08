@@ -6,15 +6,15 @@ use App\Images\Cover;
 use App\Models\Artist;
 use App\Models\Tale;
 use App\Values\CreditType;
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Tale>
  */
+#[UseModel(Tale::class)]
 class TaleFactory extends Factory
 {
-    protected $model = Tale::class;
-
     public function definition(): array
     {
         return [

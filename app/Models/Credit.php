@@ -3,21 +3,22 @@
 namespace App\Models;
 
 use App\Values\CreditType;
+use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * @property ?string $as
  */
+#[Table('credits', incrementing: true)]
 class Credit extends Pivot
 {
-    protected $table = 'credits';
-
-    public $incrementing = true;
-
-    protected $casts = [
-        'type' => CreditType::class,
-        'nr' => 'int',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'type' => CreditType::class,
+            'nr' => 'int',
+        ];
+    }
 
     public function ofType(CreditType $type): bool
     {
