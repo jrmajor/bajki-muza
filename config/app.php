@@ -9,7 +9,7 @@ return [
     'env' => env('APP_ENV', 'production'),
     'debug' => (bool) env('APP_DEBUG', false),
 
-    'url' => env('APP_URL', 'http://bajki-muza.test'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
 
     'timezone' => 'Europe/Warsaw',
     'locale' => 'pl',

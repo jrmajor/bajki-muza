@@ -1,4 +1,3 @@
-import type { Component } from 'svelte';
 import { createInertiaApp } from '@inertiajs/svelte';
 import type { ResolvedComponent } from '@inertiajs/svelte';
 import { BROWSER } from 'esm-env';
@@ -17,14 +16,11 @@ if (BROWSER && window.config.posthogToken) {
 globalThis.Ziggy = Ziggy;
 
 createInertiaApp({
-	async resolve(name: string) {
-		const page = await resolvePageComponent(
-			`./Pages/${name}.svelte`,
-			import.meta.glob<ResolvedComponent>('./Pages/*/*.svelte'),
-		);
-
-		return { ...page, layout: Layout as Component };
-	},
+	resolve: (name: string) => resolvePageComponent(
+		`./Pages/${name}.svelte`,
+		import.meta.glob<ResolvedComponent>('./Pages/*/*.svelte'),
+	),
+	layout: () => Layout,
 	progress: {
 		color: '#ffcc00',
 	},
