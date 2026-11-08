@@ -5,10 +5,14 @@ namespace Tests\Unit\Services;
 use App\Services\Discogs;
 use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
+use Closure;
 use Illuminate\Http\Client\Factory;
+use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Sleep;
 use Mockery;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Psl\Str;
 use Tests\TestCase;
@@ -211,5 +215,33 @@ final class DiscogsTest extends TestCase
         };
 
         return Str\format('https://img.discogs.com/%s/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(%s)/discogs-images/A-602473-%s.jpeg.jpg', ...$data);
+    }
+
+    /**
+     * @param Closure(): mixed $failure
+     */
+    #[DataProvider('provideTransientFailures')]
+    #[TestDox('it keeps cached data when refresh fails')]
+    public function testRefreshCacheFailure(Closure $failure): void
+    {
+        Sleep::fake();
+
+        Http::fake(['api.discogs.com/*' => Http::response($this->getSampleApiResponse())]);
+
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
+
+        invade(app(Factory::class))->stubCallbacks = collect();
+
+        Http::fake(['api.discogs.com/*' => $failure()]);
+
+        try {
+            app(Discogs::class)->refreshCache(602473);
+            $this->fail('Expected HttpClientException');
+        } catch (HttpClientException) {
+        }
+
+        Http::assertSentCount(3);
+
+        $this->comparePhotos(app(Discogs::class)->photos(602473));
     }
 }

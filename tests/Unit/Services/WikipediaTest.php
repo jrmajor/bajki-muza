@@ -3,10 +3,14 @@
 namespace Tests\Unit\Services;
 
 use App\Services\Wikipedia;
+use Closure;
 use Illuminate\Http\Client\Factory;
+use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Sleep;
 use Mockery;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use Tests\TestCase;
 
@@ -154,5 +158,55 @@ final class WikipediaTest extends TestCase
         $this->assertTrue($wikipedia->forget('Piotr_Fronczewski'));
 
         $this->assertSame('test', $wikipedia->extract('Piotr_Fronczewski'));
+    }
+
+    /**
+     * @param Closure(): mixed $failure
+     */
+    #[DataProvider('provideTransientFailures')]
+    #[TestDox('it keeps cached data when refresh fails')]
+    public function testRefreshCacheFailure(Closure $failure): void
+    {
+        Sleep::fake();
+
+        Http::fake(['pl.wikipedia.org/*' => Http::response($this->response)]);
+
+        $wikipedia = app(Wikipedia::class);
+
+        $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
+
+        invade(app(Factory::class))->stubCallbacks = collect();
+
+        Http::fake(['pl.wikipedia.org/*' => $failure()]);
+
+        try {
+            $wikipedia->refreshCache('Piotr_Fronczewski');
+            $this->fail('Expected HttpClientException');
+        } catch (HttpClientException) {
+        }
+
+        Http::assertSentCount(3);
+
+        $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
+    }
+
+    #[TestDox('it returns no extract without caching it when the service is down')]
+    public function testExtractFailure(): void
+    {
+        Sleep::fake();
+
+        Http::fake(['pl.wikipedia.org/*' => Http::sequence()
+            ->pushStatus(503)
+            ->pushStatus(503)
+            ->pushStatus(503)
+            ->push($this->response)]);
+
+        $wikipedia = app(Wikipedia::class);
+
+        $this->assertNull($wikipedia->extract('Piotr_Fronczewski'));
+
+        $this->assertSame($this->extract, $wikipedia->extract('Piotr_Fronczewski'));
+
+        Http::assertSentCount(4);
     }
 }

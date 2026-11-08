@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Services\Concerns\HandlesTransientFailures;
 use App\Values\Discogs\Artist;
 use App\Values\Discogs\DiscogsPhoto;
 use App\Values\Discogs\DiscogsPhotos;
 use Carbon\CarbonInterval;
+use Closure;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
@@ -14,15 +16,17 @@ use Psl\Vec;
 
 class Discogs
 {
+    use HandlesTransientFailures;
+
     public function __construct(
         #[Config('services.discogs.token')] protected string $token,
     ) { }
 
     protected function request(): PendingRequest
     {
-        return Http::withHeaders([
+        return $this->retryTransientFailures(Http::withHeaders([
             'Authorization' => "Discogs token={$this->token}",
-        ]);
+        ]));
     }
 
     /**
@@ -54,12 +58,7 @@ class Discogs
     public function photos(int $id): DiscogsPhotos
     {
         $photos = rescue(function () use ($id): array {
-            $response = Cache::flexible(
-                "discogs-{$id}-photos",
-                [CarbonInterval::week(), CarbonInterval::year()],
-                fn () => $this->request()->get("https://api.discogs.com/artists/{$id}")->json(),
-                ['seconds' => 600],
-            );
+            $response = $this->remember($id, fn () => $this->fetchArtist($id));
 
             return Vec\map($response['images'] ?? [], fn (array $p) => new DiscogsPhoto(
                 $p['type'] === 'primary', $p['uri'], $p['uri150'], $p['width'], $p['height'],
@@ -69,11 +68,40 @@ class Discogs
         return new DiscogsPhotos($photos);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
+    protected function fetchArtist(int $id): array
+    {
+        return $this->request()
+            ->get("https://api.discogs.com/artists/{$id}")
+            ->throwIf($this->isTransientFailure(...))
+            ->json() ?? [];
+    }
+
+    /**
+     * @param Closure(): array<string, mixed> $callback
+     *
+     * @return array<string, mixed>
+     */
+    protected function remember(int $id, Closure $callback): array
+    {
+        return Cache::flexible(
+            "discogs-{$id}-photos",
+            [CarbonInterval::week(), CarbonInterval::year()],
+            $callback,
+            ['seconds' => 600],
+        );
+    }
+
     public function refreshCache(int $id): void
     {
+        // fetch before forgetting, so a failed request doesn't wipe the cache
+        $artist = $this->fetchArtist($id);
+
         $this->forget($id);
 
-        $this->photos($id);
+        $this->remember($id, fn () => $artist);
     }
 
     public function forget(int $id): bool
