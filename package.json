@@ -5,8 +5,8 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "php artisan ziggy:generate && vite build && vite build --ssr",
-		"check": "php artisan ziggy:generate --types-only && LARAVEL_BYPASS_ENV_CHECK=1 svelte-check --config ./vite.config.ts --tsconfig ./tsconfig.json --fail-on-warnings",
-		"check:watch": "php artisan ziggy:generate --types-only && svelte-check --config ./vite.config.ts --tsconfig ./tsconfig.json --watch",
+		"check": "php artisan ziggy:generate --types-only && LARAVEL_BYPASS_ENV_CHECK=1 svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+		"check:watch": "php artisan ziggy:generate --types-only && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint . --max-warnings 0 --cache --cache-location .cache/eslint --cache-strategy content"
 	},
 	"dependencies": {
