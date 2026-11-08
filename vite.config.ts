@@ -1,5 +1,5 @@
 import inertia from '@inertiajs/vite';
-import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import tailwindcss from '@tailwindcss/vite';
 import laravel from 'laravel-vite-plugin';
 import { google } from 'laravel-vite-plugin/fonts';
@@ -31,7 +31,6 @@ export default defineConfig({
 			build: false,
 		}),
 		svelte({
-			preprocess: vitePreprocess(),
 			compilerOptions: {
 				runes: ({ filename }) => filename.split('/').includes('node_modules') ? undefined : true,
 			},
