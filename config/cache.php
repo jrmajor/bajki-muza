@@ -14,7 +14,7 @@ return [
         'file' => [
             'driver' => 'file',
             'path' => storage_path('framework/cache/data'),
-            'lock_path' => storage_path('framework/cache/data'),
+            'lock_path' => storage_path('framework/cache/locks'),
         ],
 
         'redis' => [
@@ -31,5 +31,9 @@ return [
     ],
 
     'prefix' => env('CACHE_PREFIX', 'bajki-muza-cache-'),
+
+    'serializable_classes' => [
+        App\Values\FilmPolski\PhotoGroup::class,
+    ],
 
 ];

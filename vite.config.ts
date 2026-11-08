@@ -48,6 +48,7 @@ export default defineConfig({
 		watch: {
 			ignored: [
 				`${dir}/storage/framework/views/**`,
+				`${dir}/vendor/**`,
 			],
 		},
 	},
