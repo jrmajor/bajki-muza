@@ -176,6 +176,9 @@ importers:
       esm-env:
         specifier: ^1.2
         version: 1.2.2
+      inter-ui:
+        specifier: ^4.1.1
+        version: 4.1.1
       posthog-js:
         specifier: ^1.435
         version: 1.435.3
@@ -1054,6 +1057,10 @@ packages:
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
+
+  inter-ui@4.1.1:
+    resolution: {integrity: sha512-451h0J29HyOmA+JXgSi/6M12tL7ZCZ8arYKZUXiOXTJpJbAKqJvFh3k5SiV3x7tKe0C0KyrKUUiQIvvZ2PQDcA==}
+    engines: {node: '>=16.0.0'}
 
   is-bun-module@2.0.0:
     resolution: {integrity: sha512-gNCGbnnnnFAUGKeZ9PdbyeGYJqewpmc2aKHUEMO5nQPWU9lOmv7jcmQIv+qHD8fXW6W7qfuCwX4rY9LNRjXrkQ==}
@@ -2426,6 +2433,8 @@ snapshots:
   ignore@7.0.14: {}
 
   imurmurhash@0.1.4: {}
+
+  inter-ui@4.1.1: {}
 
   is-bun-module@2.0.0:
     dependencies:
