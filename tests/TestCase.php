@@ -3,6 +3,8 @@
 namespace Tests;
 
 use App\Models\User;
+use Closure;
+use Generator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -42,6 +44,18 @@ abstract class TestCase extends BaseTestCase
             $actual->is($expected),
             'Value is not expected Eloquent model.',
         );
+    }
+
+    /**
+     * @return Generator<string, array{Closure(): mixed}>
+     */
+    public static function provideTransientFailures(): Generator
+    {
+        yield 'connection error' => [fn () => Http::failedConnection()];
+
+        yield 'server error' => [fn () => Http::response(status: 500)];
+
+        yield 'rate limit' => [fn () => Http::response(status: 429)];
     }
 
     /**

@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Services\Concerns\HandlesTransientFailures;
 use App\Values\FilmPolski\Artist;
 use App\Values\FilmPolski\PhotoGroup;
 use Carbon\CarbonInterval;
+use Closure;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str as LStr;
@@ -18,12 +21,19 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class FilmPolski
 {
+    use HandlesTransientFailures;
+
+    protected function request(): PendingRequest
+    {
+        return $this->retryTransientFailures(Http::createPendingRequest());
+    }
+
     /**
      * @return list<Artist>
      */
     public function search(string $search): array
     {
-        $source = Http::get(
+        $source = $this->request()->get(
             'https://www.filmpolski.pl/fp/index.php',
             ['szukaj' => $search],
         )->body();
@@ -63,48 +73,64 @@ class FilmPolski
      */
     public function photos(int $id): array
     {
+        return rescue(fn () => $this->remember($id, fn () => $this->fetchPhotos($id)), []);
+    }
+
+    /**
+     * @param Closure(): list<PhotoGroup> $callback
+     *
+     * @return list<PhotoGroup>
+     */
+    protected function remember(int $id, Closure $callback): array
+    {
         return Cache::flexible(
             "filmpolski-{$id}-photos",
             [CarbonInterval::week(), CarbonInterval::year()],
-            function () use ($id): array {
-                $photos = [];
-
-                $source = $this->getPersonSource($id);
-                $mainPhoto = $this->getMainPhoto($source);
-
-                if ($mainPhoto !== null) {
-                    $photos[] = new PhotoGroup(null, null, [$mainPhoto]);
-                }
-
-                $galleryId = $this->getGalleryId($source);
-
-                if ($galleryId === null) {
-                    return $photos;
-                }
-
-                $gallerySource = $this->getGallerySource($galleryId);
-                $gallery = $this->getPhotosFromGallery($gallerySource);
-
-                return [...$photos, ...$gallery];
-            },
+            $callback,
             ['seconds' => 600],
         );
     }
 
+    /**
+     * @return list<PhotoGroup>
+     */
+    protected function fetchPhotos(int $id): array
+    {
+        $photos = [];
+
+        $source = $this->getPersonSource($id);
+        $mainPhoto = $this->getMainPhoto($source);
+
+        if ($mainPhoto !== null) {
+            $photos[] = new PhotoGroup(null, null, [$mainPhoto]);
+        }
+
+        $galleryId = $this->getGalleryId($source);
+
+        if ($galleryId === null) {
+            return $photos;
+        }
+
+        $gallerySource = $this->getGallerySource($galleryId);
+        $gallery = $this->getPhotosFromGallery($gallerySource);
+
+        return [...$photos, ...$gallery];
+    }
+
     protected function getPersonSource(int $id): string
     {
-        return Http::get(
+        return $this->request()->get(
             'https://www.filmpolski.pl/fp/index.php',
             ['osoba' => $id],
-        )->body();
+        )->throwIf($this->isTransientFailure(...))->body();
     }
 
     protected function getGallerySource(int $galleryId): string
     {
-        return Http::get(
+        return $this->request()->get(
             'https://www.filmpolski.pl/fp/index.php',
             ['galeria_osoby' => $galleryId],
-        )->body();
+        )->throwIf($this->isTransientFailure(...))->body();
     }
 
     protected function getMainPhoto(string $source): ?string
@@ -186,9 +212,12 @@ class FilmPolski
 
     public function refreshCache(int $id): void
     {
+        // fetch before forgetting, so a failed request doesn't wipe the cache
+        $photos = $this->fetchPhotos($id);
+
         $this->forget($id);
 
-        $this->photos($id);
+        $this->remember($id, fn () => $photos);
     }
 
     public function forget(int $id): bool

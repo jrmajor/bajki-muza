@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Services\Concerns\HandlesTransientFailures;
 use App\Values\Wikipedia\Artist;
 use Carbon\CarbonInterval;
+use Closure;
 use Illuminate\Container\Attributes\Config;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Cache;
@@ -17,6 +19,8 @@ use Psl\Vec;
 
 class Wikipedia
 {
+    use HandlesTransientFailures;
+
     private const string Endpoint = 'https://pl.wikipedia.org/w/api.php';
 
     public function __construct(
@@ -25,7 +29,7 @@ class Wikipedia
 
     protected function request(): PendingRequest
     {
-        return Http::withUserAgent($this->userAgent);
+        return $this->retryTransientFailures(Http::withUserAgent($this->userAgent));
     }
 
     /**
@@ -58,35 +62,49 @@ class Wikipedia
 
     public function extract(string $title): ?string
     {
+        return rescue(fn () => $this->remember($title, fn () => $this->fetchExtract($title)));
+    }
+
+    protected function fetchExtract(string $title): ?string
+    {
+        $response = $this->request()->get(self::Endpoint, [
+            'action' => 'query',
+            'titles' => $title,
+            'prop' => 'extracts',
+            'exintro' => 1,
+            'redirects' => 1,
+            'format' => 'json',
+        ])->throwIf($this->isTransientFailure(...));
+
+        /** @phpstan-ignore argument.templateType */
+        $extract = Iter\first($response['query']['pages'])['extract'] ?? null;
+
+        return $extract === null ? null : $extract |> Html\strip_tags(...) |> Str\trim(...);
+    }
+
+    /**
+     * @param Closure(): ?string $callback
+     */
+    protected function remember(string $title, Closure $callback): ?string
+    {
         $titleHash = Hash\hash($title, Hash\Algorithm::Md5);
 
         return Cache::flexible(
             "wikipedia-{$titleHash}-extract",
             [CarbonInterval::week(), CarbonInterval::year()],
-            function () use ($title): ?string {
-                $response = $this->request()->get(self::Endpoint, [
-                    'action' => 'query',
-                    'titles' => $title,
-                    'prop' => 'extracts',
-                    'exintro' => 1,
-                    'redirects' => 1,
-                    'format' => 'json',
-                ]);
-
-                /** @phpstan-ignore argument.templateType */
-                $extract = Iter\first($response['query']['pages'])['extract'] ?? null;
-
-                return $extract === null ? null : $extract |> Html\strip_tags(...) |> Str\trim(...);
-            },
+            $callback,
             ['seconds' => 600],
         );
     }
 
     public function refreshCache(string $title): void
     {
+        // fetch before forgetting, so a failed request doesn't wipe the cache
+        $extract = $this->fetchExtract($title);
+
         $this->forget($title);
 
-        $this->extract($title);
+        $this->remember($title, fn () => $extract);
     }
 
     public function forget(string $title): bool

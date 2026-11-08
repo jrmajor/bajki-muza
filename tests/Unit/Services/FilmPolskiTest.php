@@ -4,9 +4,12 @@ namespace Tests\Unit\Services;
 
 use App\Services\FilmPolski;
 use App\Values\FilmPolski\PhotoGroup;
+use Closure;
 use Generator;
+use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Sleep;
 use Mockery;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -161,5 +164,50 @@ final class FilmPolskiTest extends TestCase
             14148285, read_fixture('FilmPolski/11148285/galeria_osoby.html'),
             require fixture('FilmPolski/11148285/photos.php'),
         ];
+    }
+
+    /**
+     * @param Closure(): mixed $failure
+     */
+    #[DataProvider('provideTransientFailures')]
+    #[TestDox('it keeps cached data when refresh fails')]
+    public function testRefreshCacheFailure(Closure $failure): void
+    {
+        Sleep::fake();
+
+        $images = [new PhotoGroup(null, null, ['test'])];
+
+        Cache::flexible('filmpolski-11232-photos', [60, 120], fn () => $images);
+
+        Http::fake(['www.filmpolski.pl/*' => $failure()]);
+
+        try {
+            app(FilmPolski::class)->refreshCache(11232);
+            $this->fail('Expected HttpClientException');
+        } catch (HttpClientException) {
+        }
+
+        Http::assertSentCount(3);
+
+        $this->assertEquals($images, app(FilmPolski::class)->photos(11232));
+    }
+
+    #[TestDox('it returns no photos without caching them when the service is down')]
+    public function testPhotosFailure(): void
+    {
+        Sleep::fake();
+
+        Http::fake(['www.filmpolski.pl/*' => Http::sequence()
+            ->pushStatus(503)
+            ->pushStatus(503)
+            ->pushStatus(503)
+            ->push(read_fixture('FilmPolski/11232/osoba.html'))
+            ->push(read_fixture('FilmPolski/11232/galeria_osoby.html'))]);
+
+        $this->assertSame([], app(FilmPolski::class)->photos(11232));
+
+        $this->assertNotSame([], app(FilmPolski::class)->photos(11232));
+
+        Http::assertSentCount(5);
     }
 }
