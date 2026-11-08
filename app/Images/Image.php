@@ -5,6 +5,8 @@ namespace App\Images;
 use App\Images\Exceptions\OriginalDoesNotExist;
 use App\Images\Jobs\ProcessImage;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\File as LaravelFile;
@@ -19,16 +21,10 @@ use Psl\Str;
 use Psl\Type;
 use Psl\Vec;
 
+#[Table(key: 'filename', keyType: 'string', incrementing: false)]
+#[Unguarded]
 abstract class Image extends Model
 {
-    protected $primaryKey = 'filename';
-
-    protected $keyType = 'string';
-
-    public $incrementing = false;
-
-    protected $guarded = [];
-
     abstract protected static function pathPrefix(): string;
 
     abstract public function processVariant(ImageInterface $image, string $variant): ImageInterface;

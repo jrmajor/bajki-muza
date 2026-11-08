@@ -5,15 +5,15 @@ namespace Database\Factories;
 use App\Images\Photo;
 use App\Images\Values\ArtistPhotoCrop;
 use App\Models\Artist;
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<Artist>
  */
+#[UseModel(Artist::class)]
 class ArtistFactory extends Factory
 {
-    protected $model = Artist::class;
-
     public function definition(): array
     {
         $name = $this->faker->name();

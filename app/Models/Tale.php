@@ -7,7 +7,9 @@ use App\Services\Discogs;
 use App\Values\CreditData;
 use App\Values\CreditType;
 use Database\Factories\TaleFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\RouteKey;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +27,7 @@ use Spatie\Sluggable\Attributes\Sluggable;
  */
 #[Sluggable(from: 'title', maxLength: 100)]
 #[RouteKey('slug')]
+#[Fillable(['title', 'year', 'nr', 'notes', 'discogs'])]
 class Tale extends Model
 {
     /** @use HasFactory<TaleFactory> */
@@ -33,14 +36,13 @@ class Tale extends Model
     /** @var list<string> */
     protected $with = ['cover'];
 
-    public $fillable = [
-        'title', 'year', 'nr', 'notes', 'discogs',
-    ];
-
-    protected $casts = [
-        'year' => 'int',
-        'discogs' => 'int',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'year' => 'int',
+            'discogs' => 'int',
+        ];
+    }
 
     public function getDiscogsUrlAttribute(): ?string
     {
@@ -170,7 +172,8 @@ class Tale extends Model
     /**
      * @param Builder<$this> $query
      */
-    public function scopeWithActorsPopularity(Builder $query): void
+    #[Scope]
+    protected function withActorsPopularity(Builder $query): void
     {
         $query->addSelect([
             'popularity' => DB::table(

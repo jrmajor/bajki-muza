@@ -9,12 +9,15 @@ use Intervention\Image\Interfaces\ImageInterface;
 
 final class Photo extends Image
 {
-    protected $casts = [
-        'width' => 'int',
-        'height' => 'int',
-        'crop' => ArtistPhotoCrop::class,
-        'grayscale' => 'bool',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'width' => 'int',
+            'height' => 'int',
+            'crop' => ArtistPhotoCrop::class,
+            'grayscale' => 'bool',
+        ];
+    }
 
     public static function variants(): array
     {

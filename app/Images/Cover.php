@@ -9,9 +9,12 @@ use Intervention\Image\Interfaces\ImageInterface;
 
 final class Cover extends Image
 {
-    protected $casts = [
-        'size' => 'int',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'size' => 'int',
+        ];
+    }
 
     public function processVariant(ImageInterface $image, string $variant): ImageInterface
     {

@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Images\Cover;
+use Illuminate\Console\Attributes\Description;
+use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Psl\Dict;
 use Psl\Iter;
@@ -10,12 +12,10 @@ use Psl\Str;
 use Psl\Type;
 use Psl\Vec;
 
+#[Signature('cleanup:covers')]
+#[Description('Remove unused tale covers.')]
 class CleanupCovers extends Command
 {
-    protected $signature = 'cleanup:covers';
-
-    protected $description = 'Remove unused tale covers.';
-
     public function handle(): int
     {
         $noModel = Vec\map(
