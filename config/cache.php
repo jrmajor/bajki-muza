@@ -32,4 +32,6 @@ return [
 
     'prefix' => env('CACHE_PREFIX', 'bajki-muza-cache-'),
 
+    'serializable_classes' => false,
+
 ];

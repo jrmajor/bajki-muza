@@ -63,32 +63,46 @@ class FilmPolski
      */
     public function photos(int $id): array
     {
-        return Cache::flexible(
-            "filmpolski-{$id}-photos",
+        $groups = Cache::flexible(
+            "filmpolski.{$id}.photos",
             [CarbonInterval::week(), CarbonInterval::year()],
-            function () use ($id): array {
-                $photos = [];
-
-                $source = $this->getPersonSource($id);
-                $mainPhoto = $this->getMainPhoto($source);
-
-                if ($mainPhoto !== null) {
-                    $photos[] = new PhotoGroup(null, null, [$mainPhoto]);
-                }
-
-                $galleryId = $this->getGalleryId($source);
-
-                if ($galleryId === null) {
-                    return $photos;
-                }
-
-                $gallerySource = $this->getGallerySource($galleryId);
-                $gallery = $this->getPhotosFromGallery($gallerySource);
-
-                return [...$photos, ...$gallery];
-            },
+            fn (): array => Vec\map($this->fetchPhotos($id), fn (PhotoGroup $g): array => [
+                'title' => $g->title,
+                'year' => $g->year,
+                'photos' => $g->photos,
+            ]),
             ['seconds' => 600],
         );
+
+        return Vec\map($groups, fn (array $g): PhotoGroup => new PhotoGroup(
+            $g['title'], $g['year'], $g['photos'],
+        ));
+    }
+
+    /**
+     * @return list<PhotoGroup>
+     */
+    protected function fetchPhotos(int $id): array
+    {
+        $photos = [];
+
+        $source = $this->getPersonSource($id);
+        $mainPhoto = $this->getMainPhoto($source);
+
+        if ($mainPhoto !== null) {
+            $photos[] = new PhotoGroup(null, null, [$mainPhoto]);
+        }
+
+        $galleryId = $this->getGalleryId($source);
+
+        if ($galleryId === null) {
+            return $photos;
+        }
+
+        $gallerySource = $this->getGallerySource($galleryId);
+        $gallery = $this->getPhotosFromGallery($gallerySource);
+
+        return [...$photos, ...$gallery];
     }
 
     protected function getPersonSource(int $id): string
@@ -193,7 +207,7 @@ class FilmPolski
 
     public function forget(int $id): bool
     {
-        return Cache::forget("filmpolski-{$id}-photos");
+        return Cache::forget("filmpolski.{$id}.photos");
     }
 
     private function resolveUrl(string $url): string
